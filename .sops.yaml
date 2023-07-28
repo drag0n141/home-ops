@@ -4,8 +4,8 @@ creation_rules:
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
     key_groups:
       - age:
-          - age1m45ljlf7h8xf2skcaqzknllqhl3n3z82mx02rnx98mx7muluugfs7veg4e
+          - age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
   - path_regex: kubernetes/.*\.sops\.(env|ini|json|toml)
     key_groups:
       - age:
-          - age1cycu5atyymkjyjkxzx9vtz8a6f00q63rh0hjzlmvqtsnshjmxyjq8g2u7t
+          - age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
