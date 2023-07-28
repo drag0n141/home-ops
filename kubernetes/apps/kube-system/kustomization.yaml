@@ -6,6 +6,7 @@ resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./kube-vip/ks.yaml
+  - ./kube-vip-cloud/ks.yaml
   - ./local-path-provisioner/ks.yaml
   - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
