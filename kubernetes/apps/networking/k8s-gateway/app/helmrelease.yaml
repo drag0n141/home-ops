@@ -34,4 +34,3 @@ spec:
       loadBalancerIP: ${K8S_GATEWAY_ADDR}
       port: 53
       externalTrafficPolicy: Cluster
-
