@@ -1,4 +1,3 @@
-#jinja2: trim_blocks: True
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -63,7 +62,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
           hajimari.io/icon: video-input-antenna
         hosts:
-          - host: &host "{% raw %}{{ .Release.Name }}{% endraw %}.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
