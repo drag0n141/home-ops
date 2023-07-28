@@ -5,3 +5,4 @@ namespace: kube-system
 resources:
   - ./daemon-set.yaml
   - ./rbac.yaml
+  - ./secret.sops.yaml
