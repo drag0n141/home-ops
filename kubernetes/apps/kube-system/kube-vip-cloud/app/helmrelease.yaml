@@ -31,27 +31,3 @@ spec:
         repository: ghcr.io/kube-vip/kube-vip-cloud-provider
         tag: v0.0.7
       kubeVipCloudConfig: kubevip
-
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: node-role.kubernetes.io/control-plane
-                  operator: Exists
-    tolerations:
-      - key: CriticalAddonsOnly
-        operator: Exists
-      - key: node-role.kubernetes.io/control-plane
-        operator: Exists
-        effect: NoSchedule
-      - key: node-role.kubernetes.io/master
-        operator: Exists
-        effect: NoSchedule
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/instance: coredns
