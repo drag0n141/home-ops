@@ -9,6 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-vip-cloud-provider
+      version: 0.2.2
       sourceRef:
         kind: HelmRepository
         name: kube-vip
