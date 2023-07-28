@@ -35,7 +35,7 @@ spec:
           value: "${TIMEZONE}"
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
         externalTrafficPolicy: Cluster
       loadBalancerIP: ${INGRESS_NGINX_ADDR}
       publishService:
