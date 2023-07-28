@@ -4,4 +4,3 @@ kind: Kustomization
 namespace: cert-manager
 resources:
   - ./helmrelease.yaml
-  - ./prometheusrule.yaml
