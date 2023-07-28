@@ -16,7 +16,6 @@ spec:
               key: api-token
         selector:
           dnsZones:
-            - "${SECRET_DOMAIN}"
             - "*.${SECRET_DOMAIN}"
             - "*.${INTERNAL_DOMAIN}"
 ---
@@ -38,6 +37,5 @@ spec:
               key: api-token
         selector:
           dnsZones:
-            - "${SECRET_DOMAIN}"            
             - "*.${SECRET_DOMAIN}"
             - "*.${INTERNAL_DOMAIN}"
