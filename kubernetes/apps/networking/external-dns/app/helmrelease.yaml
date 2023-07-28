@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 1.13.0
+      version: 1.13.5
       sourceRef:
         kind: HelmRepository
         name: external-dns
@@ -27,16 +27,16 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: *app
-    provider: cloudflare
+    provider: pihole
     env:
-      - name: CF_API_TOKEN
+      - name: PIHOLE_PASSWORD
         valueFrom:
           secretKeyRef:
             name: external-dns-secret
-            key: api-token
+            key: pihole-password
     extraArgs:
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
-      - --cloudflare-proxied
+      - --pihole-server=http://pihole-web.pihole.svc.cluster.local
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
     policy: sync
