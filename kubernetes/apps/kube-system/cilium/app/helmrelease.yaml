@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.14.0-rc.1
+      version: 1.14.0
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -71,7 +71,7 @@ spec:
           annotations:
             hajimari.io/icon: simple-icons:cilium
           hosts:
-            - &host "hubble.${SECRET_DOMAIN}"
+            - &host "hubble.${INTERNAL_DOMAIN}"
           tls:
             - hosts:
                 - *host
@@ -93,7 +93,7 @@ spec:
       mode: dsr
     localRedirectPolicy: true
     operator:
-      replicas: 1
+      replicas: 2
       rollOutPods: true
       prometheus:
         enabled: true
@@ -104,7 +104,7 @@ spec:
         annotations:
           grafana_folder: Cilium
     prometheus:
-      enabled: true
+      enabled: false
       serviceMonitor:
         enabled: true
     dashboards:
