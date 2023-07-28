@@ -14,8 +14,9 @@ resources:
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
+  - ./kube-vip.yaml
   - ./metrics-server.yaml
+  - ./pihole.yaml
   - ./prometheus-community.yaml
   - ./stakater.yaml
   - ./weave-gitops.yaml
-  - ./pihole.yaml

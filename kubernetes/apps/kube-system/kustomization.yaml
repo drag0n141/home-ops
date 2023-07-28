@@ -5,5 +5,7 @@ resources:
   - ./namespace.yaml
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
+  - ./kube-vip/ks.yaml
   - ./local-path-provisioner/ks.yaml
+  - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
