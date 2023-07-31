@@ -94,7 +94,7 @@ spec:
         annotations:
           grafana_folder: Cilium
     prometheus:
-      enabled: false
+      enabled: true
       serviceMonitor:
         enabled: true
     dashboards:
