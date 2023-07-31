@@ -47,13 +47,13 @@ spec:
             - name: bgp_routerinterface
               value: "ens18"
             - name: bgp_as
-              value: "${bgp-as}"
+              value: "${bgp_as}"
             - name: bgp_peeraddress
             - name: bgp_peerpass
             - name: bgp_peeras
-              value: "${bgp-as}"
+              value: "${bgp_as}"
             - name: bgp_peers
-              value: "${bgp-peers}"
+              value: "${bgp_peers}"
             - name: address
               value: "${KUBE_VIP_ADDR}"
           securityContext:
