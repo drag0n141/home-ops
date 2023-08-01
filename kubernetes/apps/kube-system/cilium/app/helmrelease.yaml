@@ -77,13 +77,6 @@ spec:
                 - *host
     ipam:
       mode: kubernetes
-    ipMasqAgent:
-      enabled: true
-      config:
-         nonMasqueradeCIDRs:
-            - "${KUBE_VIP_CIDR}"
-         masqLinkLocal: true
-    ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
     k8sServiceHost: "${KUBE_VIP_ADDR}"
     k8sServicePort: 6443
     kubeProxyReplacement: true
@@ -110,4 +103,4 @@ spec:
     rollOutCiliumPods: true
     securityContext:
       privileged: true
-    tunnel: disabled
+    tunnel: vxlan
