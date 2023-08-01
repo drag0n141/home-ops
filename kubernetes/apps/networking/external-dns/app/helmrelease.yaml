@@ -45,6 +45,14 @@ spec:
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}"]
+    rbac:
+      additionalPermissions:
+        - apiGroups: ["externaldns.k8s.io"]
+          resources: ["dnsendpoints"]
+          verbs: ["get", "watch", "list"]
+        - apiGroups: ["externaldns.k8s.io"]
+          resources: ["dnsendpoints/status"]
+          verbs: ["*"]
     serviceMonitor:
       enabled: true
     podAnnotations:
