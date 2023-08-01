@@ -37,6 +37,7 @@ spec:
     extraArgs:
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
       - --cloudflare-proxied
+      - --zone-id-filter=${SECRET_DOMAIN_ZONE_ID}
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
     policy: sync
