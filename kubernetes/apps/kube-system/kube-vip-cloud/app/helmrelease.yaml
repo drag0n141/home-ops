@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kube-vip-cloud
+  name: kube-vip-cloud-provider
   namespace: kube-system
 spec:
   interval: 30m
