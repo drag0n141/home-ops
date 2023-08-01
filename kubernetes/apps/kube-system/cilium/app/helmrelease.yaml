@@ -81,7 +81,7 @@ spec:
       enabled: true
       config:
          nonMasqueradeCIDRs:
-            - "${NODE_CIDR}"
+            - "${KUBE_VIP_CIDR}"
          masqLinkLocal: true
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
     k8sServiceHost: "${KUBE_VIP_ADDR}"
