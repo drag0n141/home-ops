@@ -79,7 +79,7 @@ spec:
       mode: kubernetes
     config:
       nonMasqueradeCIDRs:
-         - 192.168.0.0/16
+         - "${NODE_CIDR}"
       masqLinkLocal: true
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
     k8sServiceHost: "${KUBE_VIP_ADDR}"
