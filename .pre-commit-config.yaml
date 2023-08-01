@@ -2,14 +2,14 @@
 fail_fast: false
 files: ^kubernetes/
 repos:
-#  - repo: https://github.com/adrienverge/yamllint
-#    rev: v1.26.3
-#    hooks:
-#      - args:
-#          - --config-file
-#          - .github/lint/.yamllint.yaml
-#          - --strict
-#        id: yamllint
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.26.3
+    hooks:
+      - args:
+          - --config-file
+          - .github/lint/.yamllint.yaml
+          - --strict
+        id: yamllint
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
