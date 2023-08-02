@@ -38,6 +38,8 @@ spec:
       - --cloudflare-proxied
       - --zone-id-filter=${SECRET_DOMAIN_ZONE_ID}
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
     policy: sync
     sources: ["crd", "ingress"]
     txtPrefix: k8s.
