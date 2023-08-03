@@ -1,0 +1,41 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-no-auth
+  namespace: networking
+spec:
+  chain:
+    middlewares:
+      - name: traefik-middleware-rate-limit
+      - name: traefik-middleware-secure-headers
+      - name: traefik-middleware-compress
+      - name: traefik-middleware-error-pages
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-authelia
+  namespace: networking
+spec:
+  chain:
+    middlewares:
+      - name: traefik-middleware-rate-limit
+      - name: traefik-middleware-secure-headers
+      - name: traefik-middleware-compress
+      - name: traefik-middleware-error-pages
+      - name: traefik-middleware-authelia
+---
+ apiVersion: traefik.containo.us/v1alpha1
+ kind: Middleware
+ metadata:
+   name: traefik-middleware-chain-authentik
+   namespace: networking
+ spec:
+   chain:
+     middlewares:
+      - name: traefik-middleware-rate-limit
+      - name: traefik-middleware-secure-headers
+      - name: traefik-middleware-compress
+      - name: traefik-middleware-error-pages
+      - name: traefik-middleware-authentik
