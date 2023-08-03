@@ -1,0 +1,54 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-traefik-certificates
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-cert-manager-issuers
+  path: ./kubernetes/apps/networking/traefik/certificates
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-traefik
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-traefik-certificates
+  path: ./kubernetes/apps/networking/traefik/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-traefik-addons
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-traefik
+  path: ./kubernetes/apps/networking/traefik/addons
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

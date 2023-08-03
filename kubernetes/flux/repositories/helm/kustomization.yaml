@@ -18,5 +18,7 @@ resources:
   - ./metrics-server.yaml
   - ./pihole.yaml
   - ./prometheus-community.yaml
+  - ./rook-ceph.yaml
   - ./stakater.yaml
+  - ./traefik.yaml
   - ./weave-gitops.yaml
