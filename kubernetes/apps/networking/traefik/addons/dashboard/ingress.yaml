@@ -9,11 +9,15 @@ metadata:
     hajimari.io/icon: "devicon:traefikproxy"
     hajimari.io/appName: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
 spec:
   ingressClassName: traefik
+  tls:
+    - hosts:
+        - "traefik.${SECRET_DOMAIN_INTERNAL}"
+      secretName: "${SECRET_DOMAIN/./-}-production-tls"
   rules:
-    - host: &host "traefik.${SECRET_DOMAIN_INTERNAL}"
+    - host: "traefik.${SECRET_DOMAIN_INTERNAL}"
       http:
         paths:
           - path: /
@@ -23,6 +27,3 @@ spec:
                 name: traefik
                 port:
                   number: 9000
-  tls:
-    - hosts:
-        - *host
