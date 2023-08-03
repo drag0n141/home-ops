@@ -7,7 +7,7 @@ metadata:
   annotations:
     hajimari.io/enable: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    traefik.ingress.kubernetes.io/router.middlewares: "networking-external-authelia-auth@kubernetescrd"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
 spec:
   ingressClassName: traefik
   rules:
