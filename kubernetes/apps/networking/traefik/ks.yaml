@@ -41,8 +41,6 @@ metadata:
   name: cluster-apps-traefik-addons
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-traefik
   path: ./kubernetes/apps/networking/traefik/addons
   prune: true
   sourceRef:
