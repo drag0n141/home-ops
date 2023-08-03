@@ -100,6 +100,16 @@ spec:
     experimental:
       plugins:
         enabled: false
+    providers:
+      kubernetesCRD:
+        enabled: true
+        allowCrossNamespace: true
+        allowExternalNameServices: true
+      kubernetesIngress:
+        enabled: true
+        publishedService:
+          enabled: true
+    resources:
     resources:
       requests:
         cpu: 100m
