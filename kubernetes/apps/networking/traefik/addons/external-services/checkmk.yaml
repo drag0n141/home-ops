@@ -1,0 +1,48 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: checkmk
+  namespace: networking
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: "checkmk.${SECRET_DOMAIN_INTERNAL}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: checkmk
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - "checkmk.${SECRET_DOMAIN_INTERNAL}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkmk
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: checkmk
+subsets:
+  - addresses:
+      - ip: 192.168.250.23
+    ports:
+      - name: http
+        port: 80
+        protocol: TCP

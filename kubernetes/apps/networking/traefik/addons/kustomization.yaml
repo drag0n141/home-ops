@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./dashboard
   - ./error-pages
+  - ./external-services
   - ./middlewares
   - ./tls-options
   - ./tls-store
