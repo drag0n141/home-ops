@@ -18,8 +18,6 @@ spec:
     toolbox:
       enabled: true
 
-    operatorNamespace: storage
-
     monitoring:
       enabled: true
       createPrometheusRules: true
