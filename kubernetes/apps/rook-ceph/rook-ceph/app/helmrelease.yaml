@@ -6,7 +6,6 @@ metadata:
   namespace: rook-ceph
 spec:
   interval: 30m
-  releaseName: rook-ceph
   chart:
     spec:
       chart: rook-ceph
