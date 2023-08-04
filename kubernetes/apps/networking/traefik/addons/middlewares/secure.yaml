@@ -64,7 +64,6 @@ spec:
     accessControlAllowHeaders:
       - "Content-Type"
       - "Authorization"
-    accessControlAllowOriginList: "*"
     hostsProxyHeaders:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
