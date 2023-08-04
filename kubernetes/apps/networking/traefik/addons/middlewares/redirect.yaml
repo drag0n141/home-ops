@@ -1,0 +1,11 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-redirect-checkmk
+  namespace: networking
+spec:
+  redirectRegex:
+    regex: "^https://checkmk.${SECRET_DOMAIN_INTERNAL}/(.*)"
+    replacement: "https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/${1}"
+    permanent: true
