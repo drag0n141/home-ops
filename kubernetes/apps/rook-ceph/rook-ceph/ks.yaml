@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-rook-ceph
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-csi-addons-controller-manager
   path: ./kubernetes/apps/rook-ceph/rook-ceph/app
   prune: true
   sourceRef:
