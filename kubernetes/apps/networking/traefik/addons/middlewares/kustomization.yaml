@@ -8,5 +8,5 @@ resources:
   - ./compress.yaml
   - ./error-pages.yaml
   - ./ip.yaml
-  - ./prefix.yaml
+  - ./redirect.yaml
   - ./secure.yaml
