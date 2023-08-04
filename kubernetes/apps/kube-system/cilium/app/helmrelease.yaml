@@ -77,6 +77,7 @@ spec:
           tls:
             - hosts:
                 - "hubble.${SECRET_DOMAIN_INTERNAL}"
+              secretName: "${SECRET_DOMAIN/./-}-production-tls"
     ipam:
       mode: kubernetes
     k8sServiceHost: "${KUBE_VIP_ADDR}"

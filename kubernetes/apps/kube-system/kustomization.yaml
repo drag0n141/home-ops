@@ -8,4 +8,5 @@ resources:
   - ./kube-vip/ks.yaml
   - ./local-path-provisioner/ks.yaml
   - ./metrics-server/ks.yaml
+  - ./reflector/ks.yaml
   - ./reloader/ks.yaml

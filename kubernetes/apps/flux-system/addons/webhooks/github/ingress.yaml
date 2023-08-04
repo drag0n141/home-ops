@@ -13,6 +13,7 @@ spec:
   tls:
     - hosts:
         - "flux-webhook.${SECRET_DOMAIN}"
+      secretName: "${SECRET_DOMAIN/./-}-production-tls"
   rules:
     - host: "flux-webhook.${SECRET_DOMAIN}"
       http:
