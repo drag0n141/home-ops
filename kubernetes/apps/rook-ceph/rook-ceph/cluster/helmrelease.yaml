@@ -3,10 +3,9 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
-  namespace: rook-ceph
+  namespace: storage
 spec:
   interval: 30m
-  timeout: 15m
   chart:
     spec:
       chart: rook-ceph-cluster
@@ -15,47 +14,31 @@ spec:
         kind: HelmRepository
         name: rook-ceph
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
+    toolbox:
+      enabled: true
+
+    operatorNamespace: storage
+
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
-      dashboard:
-        ingressClassName: traefik
-        annotations:
-          hajimari.io/icon: "rook-ceph"
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-middleware-chain-no-auth@kubernetescrd
-        host:
-          name: "rook.${SECRET_DOMAIN_INTERNAL}"
-          path: /
-        tls:
-          - hosts:
-              - "rook.${SECRET_DOMAIN_INTERNAL}"
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    toolbox:
-      enabled: true
+
     configOverride: |
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
-      osd_class_update_on_start = false
     cephClusterSpec:
       network:
         provider: host
-        connections:
-          compression:
+
+      mgr:
+        modules:
+          - name: rook
             enabled: true
+          - name: pg_autoscaler
+            enabled: true
+
       resources:
         mgr:
           requests:
@@ -99,12 +82,14 @@ spec:
             memory: "100M"
           limits:
             memory: "1G"
+
       crashCollector:
         disable: false
+
       dashboard:
         enabled: true
         urlPrefix: /
-        ssl: false
+
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -120,6 +105,22 @@ spec:
           - name: "k3s-s03"
             devices:
               - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
+
+    ingress:
+      ingressClassName: "traefik"
+      dashboard:
+        annotations:
+          hajimari.io/icon: "rook-ceph"
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-middleware-chain-no-auth@kubernetescrd
+        host:
+          name: "rook.${SECRET_DOMAIN_INTERNAL}"
+          path: "/"
+        tls:
+          - hosts:
+              - "rook.${SECRET_DOMAIN_INTERNAL}"
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -132,17 +133,20 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
             imageFeatures: layering
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/provisioner-secret-namespace: storage
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-namespace: storage
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-namespace: storage
             csi.storage.k8s.io/fstype: ext4
+
+    cephBlockPoolsVolumeSnapshotClass:
+      enabled: true
+
     cephFileSystems:
       - name: ceph-filesystem
         spec:
@@ -153,32 +157,35 @@ spec:
             - failureDomain: host
               replicated:
                 size: 3
-              name: data0
           metadataServer:
             activeCount: 1
             activeStandby: true
             resources:
               requests:
-                cpu: 100m
-                memory: 64M
+                cpu: "35m"
+                memory: "64M"
               limits:
-                cpu: 1000m
-                memory: 850M
+                memory: "144M"
         storageClass:
           enabled: true
           isDefault: false
           name: ceph-filesystem
-          pool: data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
+          mountOptions: []
           parameters:
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/provisioner-secret-namespace: storage
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-namespace: storage
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-namespace: storage
             csi.storage.k8s.io/fstype: ext4
+
+    cephFileSystemVolumeSnapshotClass:
+      enabled: true
+
+
     cephObjectStores:
       - name: ceph-objectstore
         spec:
@@ -196,8 +203,8 @@ spec:
             port: 80
             resources:
               requests:
-                cpu: 1000m
-                memory: 1Gi
+                cpu: 100m
+                memory: 128M
               limits:
                 memory: 2Gi
             instances: 1
@@ -209,4 +216,4 @@ spec:
           name: ceph-bucket
           reclaimPolicy: Delete
           parameters:
-            region: eu-west-1
+            region: us-east-1
