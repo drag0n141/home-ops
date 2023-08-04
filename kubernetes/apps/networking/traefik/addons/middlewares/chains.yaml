@@ -39,3 +39,28 @@ spec:
       - name: networking-traefik-middleware-compress@kubernetescrd
       - name: networking-traefik-middleware-error-pages@kubernetescrd
       - name: networking-traefik-middleware-authentik@kubernetescrd
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-pterodactyl
+  namespace: networking
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-rate-limit@kubernetescrd
+      - name: networking-traefik-middleware-secure-headers-pterodactyl@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
+      - name: networking-traefik-middleware-error-pages@kubernetescrd
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-no-auth
+  namespace: networking
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-secure-headers@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
+      - name: networking-traefik-middleware-error-pages@kubernetescrd
