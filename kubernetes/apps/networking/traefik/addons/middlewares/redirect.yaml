@@ -6,6 +6,6 @@ metadata:
   namespace: networking
 spec:
   redirectRegex:
-    regex: "^https://checkmk.${SECRET_DOMAIN_INTERNAL}/(.*)"
-    replacement: "https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk"
+    regex: "^https?://checkmk.${SECRET_DOMAIN_INTERNAL}/$$"
+    replacement: "https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/"
     permanent: true
