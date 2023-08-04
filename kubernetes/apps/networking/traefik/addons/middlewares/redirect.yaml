@@ -7,5 +7,5 @@ metadata:
 spec:
   redirectRegex:
     regex: "^https://checkmk.${SECRET_DOMAIN_INTERNAL}/(.*)"
-    replacement: "https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/${1}"
+    replacement: "https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk"
     permanent: true
