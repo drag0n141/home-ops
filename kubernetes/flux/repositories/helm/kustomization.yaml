@@ -19,6 +19,7 @@ resources:
   - ./kube-vip.yaml
   - ./metrics-server.yaml
   - ./pihole.yaml
+  - ./piraeus.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
   - ./stakater.yaml
