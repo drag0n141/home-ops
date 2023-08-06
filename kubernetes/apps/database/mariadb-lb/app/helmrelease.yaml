@@ -39,7 +39,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: mariadb-cluster.${SECRET_DOMAIN_INTERNAL}
-        externalIPs: ["${MARIADB_LB_ADDR}"]
+        loadBalancerIP: ${MARIADB_LB_ADDR}
         externalTrafficPolicy: Local
         ports:
           http:
