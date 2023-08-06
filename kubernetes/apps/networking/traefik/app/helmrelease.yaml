@@ -45,9 +45,9 @@ spec:
       type: LoadBalancer
       annotations:
         external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
+        kube-vip.io/loadbalancerIPs: "${INGRESS_TRAEFIK_ADDR}"
       spec:
         externalTrafficPolicy: Cluster
-        loadBalancerIP: ${INGRESS_TRAEFIK_ADDR}
     env:
       - name: TZ
         value: "${TIMEZONE}"
