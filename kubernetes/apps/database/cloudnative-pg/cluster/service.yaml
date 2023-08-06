@@ -8,6 +8,8 @@ spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster
   loadBalancerIP: ${POSTGRES_LB_ADDR}
+  annotations:
+    coredns.io/hostname: postgres.${SECRET_DOMAIN_INTERNAL}
   ports:
     - name: postgres
       port: 5432
