@@ -32,6 +32,8 @@ spec:
     ingress:
       enabled: true
       className: traefik
+      annotations:
+        hajimari.io/icon: sawtooth-wave
       hosts:
         - host: &host gitops.${SECRET_DOMAIN_INTERNAL}
           paths:
