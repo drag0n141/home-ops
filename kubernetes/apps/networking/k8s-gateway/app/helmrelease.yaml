@@ -31,6 +31,7 @@ spec:
     ttl: 1
     service:
       type: LoadBalancer
-      loadBalancerIP: ${K8S_GATEWAY_ADDR}
       port: 53
+      annotations:
+        kube-vip.io/loadbalancerIPs: "${K8S_GATEWAY_ADDR}"
       externalTrafficPolicy: Cluster
