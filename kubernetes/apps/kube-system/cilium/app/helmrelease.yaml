@@ -73,10 +73,10 @@ spec:
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
             traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
           hosts:
-            - &host hubble.${SECRET_DOMAIN_INTERNAL}
+            - "hubble.${SECRET_DOMAIN_INTERNAL}"
           tls:
             - hosts:
-                - *host
+                - "hubble.${SECRET_DOMAIN_INTERNAL}"
               secretName: "${SECRET_DOMAIN/./-}-production-tls"
     ipam:
       mode: kubernetes
