@@ -7,9 +7,9 @@ metadata:
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster
-  loadBalancerIP: ${POSTGRES_LB_ADDR}
   annotations:
     coredns.io/hostname: postgres.${SECRET_DOMAIN_INTERNAL}
+    kube-vip.io/loadbalancerIPs: "${POSTGRES_LB_ADDR}"
   ports:
     - name: postgres
       port: 5432
