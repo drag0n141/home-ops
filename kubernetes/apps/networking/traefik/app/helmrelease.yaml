@@ -68,7 +68,7 @@ spec:
     globalArguments:
       - "--api=true"
       - "--api.dashboard=true"
-      - "--api.insecure=false"
+      - "--api.insecure=true"
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
       - "--providers.kubernetesingress.ingressclass=traefik"
