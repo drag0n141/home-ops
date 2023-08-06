@@ -37,11 +37,11 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-middleware-chain-no-auth@kubernetescrd
         host:
-          name: "rook.${SECRET_DOMAIN_INTERNAL}"
+          name: &host rook.${SECRET_DOMAIN_INTERNAL}
           path: /
         tls:
           - hosts:
-              - "rook.${SECRET_DOMAIN_INTERNAL}"
+              - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     toolbox:
       enabled: true
