@@ -1,0 +1,70 @@
+---
+session:
+  redis:
+    high_availability:
+      sentinel_name: redis-master
+      nodes:
+        - host: redis-node-0.redis-headless.database.svc.cluster.local
+          port: 26379
+        - host: redis-node-1.redis-headless.database.svc.cluster.local
+          port: 26379
+        - host: redis-node-2.redis-headless.database.svc.cluster.local
+          port: 26379
+
+access_control:
+  default_policy: deny
+  rules:
+    # Rules applied to everyone
+    - domain: "authelia.${SECRET_DOMAIN}"
+      policy: bypass
+    # Portainer API Bypass
+    - domain: "portainer.${SECRET_DOMAIN_INTERNAL}"
+      policy: bypass
+      resources:
+        - "^/api/.*$"
+    # Portainer Two Factor Login
+    - domain: "portainer.${SECRET_DOMAIN_INTERNAL}"
+      policy: two_factor
+      subject:
+        - "group:Authelia"
+    # 2FAuth Two Factor Login
+    - domain: "2fauth.${SECRET_DOMAIN_INTERNAL}"
+      policy: two_factor
+      subject:
+        - "group:Authelia"
+    # Bitwarden Admin Login
+    - domain: "bitwarden.${SECRET_DOMAIN}"
+      policy: two_factor
+      resources:
+        - "^/admin.*$"
+      subject:
+        - "group:Authelia"
+    # Bypass Rule for Mount Docker
+    - domain_regex: "^mount-"
+      policy: bypass
+      networks:
+      - '192.168.240.0/24'
+      - '192.168.250.0/24'
+      - '192.168.251.0/24'
+      - '192.168.254.0/24'
+    # Bypass Rule for api / trigges
+    - domain: "*.${SECRET_DOMAIN}"
+      policy: bypass
+      resources:
+        - "^/api/.*$"
+        - "^/identity/.*$"
+        - "^/triggers/.*$"
+        - "^/rss/*$"
+        - "^/xmltv/*$"
+        - "^/liverel.*$"
+        - "^/meshagents.*$"
+        - "^/meshsettings.*$"
+        - "^/agent.*$"
+        - "^/control.*$"
+        - "^/meshrelay.*$"
+        - "^/wl/.*$"
+    # Standard One Factor Login
+    - domain: "*.${SECRET_DOMAIN}"
+      policy: one_factor
+      subject:
+        - "group:Authelia"

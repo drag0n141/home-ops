@@ -2,12 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-vaultwarden
+  name: cluster-apps-authelia
   namespace: flux-system
 spec:
   dependsOn:
     - name: cluster-apps-mariadb-lb
-  path: ./kubernetes/apps/default/vaultwarden/app
+  path: ./kubernetes/apps/default/authelia/app
   prune: true
   sourceRef:
     kind: GitRepository
