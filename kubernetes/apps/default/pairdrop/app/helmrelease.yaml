@@ -41,8 +41,6 @@ spec:
       main:
         enabled: true
         ingressClassName: traefik
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
         hosts:
           - host: "pairdrop.${SECRET_DOMAIN}"
             paths:
