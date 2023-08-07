@@ -48,9 +48,14 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+          - host: "pairdrop.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                pathType: Prefix
         tls:
           - hosts:
               - "pairdrop.${SECRET_DOMAIN}"
+              - "pairdrop.${SECRET_DOMAIN_INTERNAL}"
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     resources:
       requests:
