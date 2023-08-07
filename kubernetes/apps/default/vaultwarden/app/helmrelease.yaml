@@ -45,7 +45,7 @@ spec:
       SMTP_FROM_NAME: Bitwarden
       SMTP_HOST: mail@${SECRET_DOMAIN}
       SMTP_PORT: 587
-      SMTP_SSL: true
+      SMTP_SECURITY: starttls
     envFrom:
       - secretRef:
           name: vaultwarden-secret
