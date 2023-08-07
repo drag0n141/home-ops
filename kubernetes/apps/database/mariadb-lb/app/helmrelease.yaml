@@ -40,7 +40,7 @@ spec:
         annotations:
           coredns.io/hostname: "mariadb-cluster.${SECRET_DOMAIN_INTERNAL}"
           kube-vip.io/loadbalancerIPs: "${MARIADB_LB_ADDR}"
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 8080
