@@ -71,7 +71,7 @@ spec:
           annotations:
             hajimari.io/icon: simple-icons:cilium
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-            traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+            traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
           hosts:
             - "hubble.${SECRET_DOMAIN_INTERNAL}"
           tls:
