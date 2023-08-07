@@ -43,7 +43,7 @@ spec:
       SHOW_PASSWORD_HINT: false
       SMTP_FROM: bitwarden@${SECRET_DOMAIN}
       SMTP_FROM_NAME: Bitwarden
-      SMTP_HOST: mail@${SECRET_DOMAIN}
+      SMTP_HOST: mail.${SECRET_DOMAIN}
       SMTP_PORT: 587
       SMTP_SECURITY: starttls
     envFrom:
