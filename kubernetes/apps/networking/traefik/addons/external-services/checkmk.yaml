@@ -41,7 +41,7 @@ metadata:
   name: checkmk
 subsets:
   - addresses:
-      - ip: 192.168.250.23
+      - ip: "checkmk-server.${SECRET_DOMAIN_EXT}"
     ports:
       - name: http
         port: 80
