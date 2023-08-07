@@ -103,7 +103,10 @@ spec:
       enabled: false
     experimental:
       plugins:
-        enabled: false
+        enabled: true
+        cloudflarewarp:
+          modulename: github.com/BetterCorp/cloudflarewarp
+          version: v1.3.0
     providers:
       kubernetesCRD:
         enabled: true
