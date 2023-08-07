@@ -8,5 +8,6 @@ resources:
   - ./compress.yaml
   - ./error-pages.yaml
   - ./ip.yaml
+  - ./plugin.yaml
   - ./redirect.yaml
   - ./secure.yaml
