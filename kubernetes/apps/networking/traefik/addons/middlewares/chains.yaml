@@ -10,7 +10,6 @@ spec:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
-      - name: networking-traefik-middleware-error-pages@kubernetescrd
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -23,7 +22,6 @@ spec:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
-      - name: networking-traefik-middleware-error-pages@kubernetescrd
       - name: networking-traefik-middleware-authelia@kubernetescrd
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -37,7 +35,6 @@ spec:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
-      - name: networking-traefik-middleware-error-pages@kubernetescrd
       - name: networking-traefik-middleware-authentik@kubernetescrd
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -51,7 +48,6 @@ spec:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers-pterodactyl@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
-      - name: networking-traefik-middleware-error-pages@kubernetescrd
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -63,4 +59,3 @@ spec:
     middlewares:
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
-      - name: networking-traefik-middleware-error-pages@kubernetescrd
