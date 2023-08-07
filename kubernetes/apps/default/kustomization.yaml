@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./pairdrop/ks.yaml
 #  - ./portainer/ks.yaml
+  - ./vaultwarden/ks.yaml
