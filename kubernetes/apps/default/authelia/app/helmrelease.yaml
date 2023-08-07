@@ -78,6 +78,7 @@ spec:
       main:
         enabled: true
         type: LoadBalancer
+        loadBalancerIP: "${AUTHELIA_LB_ADDR}"
         annotations:
           coredns.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
           kube-vip.io/loadbalancerIPs: "${AUTHELIA_LB_ADDR}"
