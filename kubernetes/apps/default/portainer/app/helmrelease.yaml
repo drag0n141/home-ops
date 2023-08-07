@@ -8,15 +8,14 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: portainer
-      version: 1.0.44
+      chart: app-template
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: portainer
+        name: bjw-s
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -29,21 +28,48 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   values:
-    persistence:
-      enabled: true
-      size: "256Mi"
-      storageClass: ceph-block
-    ingress:
-      enabled: true
-      ingressClassName: traefik
+    controller:
+      type: statefulset
       annotations:
-        hajimari.io/appName: "portainer"
-      hosts:
-        - host: "portainer.${SECRET_DOMAIN_INTERNAL}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - "portainer.${SECRET_DOMAIN_INTERNAL}"
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: portainer/portainer-ce
+      tag: alpine
+    env:
+      TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: portainer-secret
+    service:
+      main:
+        ports:
+          http:
+            port: 9000
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "portainer.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 512Mi
+        storageClass: ceph-block
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 256Mi
