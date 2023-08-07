@@ -79,6 +79,11 @@ spec:
           metrics:
             enabled: true
             port: 8080
+        type: LoadBalancer
+        annotations:
+          coredns.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
+          kube-vip.io/loadbalancerIPs: "${AUTHELIA_LB_ADDR}"
+        externalTrafficPolicy: Local
     serviceMonitor:
       main:
         enabled: true
