@@ -63,7 +63,7 @@ spec:
         name: adguardhome-sync-configmap
         subPath: adguardhome-sync.yaml
         mountPath: /config/adguardhome-sync.yaml
-        readOnly: false
+        readOnly: true
     resources:
       requests:
         cpu: 10m
