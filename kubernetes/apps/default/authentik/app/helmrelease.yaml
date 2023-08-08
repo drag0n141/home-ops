@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: authentik
+      version: 2023.6.3
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: redis
+      namespace: database
+  values:
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2023.6.1
+    env:
+      AUTHENTIK_REDIS__HOST: redis-headless.database.svc.cluster.local
+      AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
+    envFrom:
+      - secretRef:
+          name: authentik-secret
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+    geoip:
+      enabled: false
+    prometheus:
+      serviceMonitor:
+        create: true
+      rules:
+        create: true
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "auth.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
