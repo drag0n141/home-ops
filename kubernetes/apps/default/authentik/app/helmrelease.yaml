@@ -32,8 +32,6 @@ spec:
       repository: ghcr.io/goauthentik/server
       tag: 2023.6.1
     env:
-      AUTHENTIK_REDIS__HOST: redis-node-0.redis-headless.database.svc.cluster.local
-      AUTHENTIK_REDIS__PORT: 26379
       AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
     envFrom:
       - secretRef:
@@ -41,7 +39,7 @@ spec:
     postgresql:
       enabled: false
     redis:
-      enabled: false
+      enabled: true
     geoip:
       enabled: false
     prometheus:
