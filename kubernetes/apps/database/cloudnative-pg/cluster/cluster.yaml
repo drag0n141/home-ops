@@ -19,3 +19,22 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
+  bootstrap:
+    initdb:
+      import:
+        type: monolith
+        databases:
+          - "*"
+        roles:
+          - "*"
+        source:
+          externalCluster: postgresql01
+  externalClusters:
+    - name: postgresql01
+      connectionParameters:
+        host: PostgreSQL01.${SECRET_DOMAIN_EXT}
+        user: postgres
+        dbname: postgres
+      password:
+        name: postgresql01-superuser
+        key: password
