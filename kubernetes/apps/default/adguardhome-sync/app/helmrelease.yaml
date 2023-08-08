@@ -35,9 +35,6 @@ spec:
     env:
       TZ: ${TIMEZONE}
       CONFIGFILE: "/config/adguardhome-sync.yaml"
-    envFrom:
-      - secretRef:
-          name: adguardhome-sync-secret
     service:
       main:
         ports:
