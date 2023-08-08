@@ -4,7 +4,7 @@ cron: "*/10 * * * *"
 runOnStart: true
 
 origin:
-  url: "${ORIGIN_URL}"
+  url: "{env:ORIGIN_URL}"
   username: "${ORIGIN_USERNAME}"
   password: "${ORIGIN_PASSWORD}"
 
