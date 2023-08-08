@@ -41,7 +41,7 @@ spec:
       DB_CLIENT: pg
     envFrom:
       - secretRef:
-          name: vaultwarden-secret
+          name: joplin-secret
     service:
       main:
         ports:
