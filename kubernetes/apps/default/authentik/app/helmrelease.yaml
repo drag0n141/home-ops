@@ -33,6 +33,7 @@ spec:
       tag: 2023.6.1
     env:
       AUTHENTIK_REDIS__HOST: redis-headless.database.svc.cluster.local
+      AUTHENTIK_REDIS__PORT: 26379
       AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
     envFrom:
       - secretRef:
