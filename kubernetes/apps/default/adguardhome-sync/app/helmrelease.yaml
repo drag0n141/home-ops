@@ -38,6 +38,17 @@ spec:
       CRON: "*/10 * * * *"
       RUNONSTART: true
       API_PORT: &port 8080
+      FEATURES_GENERALSETTINGS: true
+      FEATURES_QUERYLOGCONFIG: true
+      FEATURES_STATSCONFIG: true
+      FEATURES_CLIENTSETTINGS: true
+      FEATURES_SERVICES: true
+      FEATURES_FILTERS: true
+      FEATURES_DHCP_SERVERCONFIG: false
+      FEATURES_DHCP_STATICLEASES: false
+      FEATURES_DNS_SERVERCONFIG: true
+      FEATURES_DNS_ACCESSLISTS: true
+      FEATURES_DNS_REWRITES: true
     envFrom:
       - secretRef:
           name: adguardhome-sync-secret
