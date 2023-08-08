@@ -43,6 +43,7 @@ access_control:
     - domain_regex: "^mount-"
       policy: bypass
       networks:
+        - '192.168.230.0/24'
         - '192.168.240.0/24'
         - '192.168.250.0/24'
         - '192.168.251.0/24'
