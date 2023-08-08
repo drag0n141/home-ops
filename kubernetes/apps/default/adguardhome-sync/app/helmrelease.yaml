@@ -30,33 +30,16 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/bakito/adguardhome-sync
+      repository: lscr.io/linuxserver/adguardhome-sync
       tag: v0.4.14
     env:
       TZ: ${TIMEZONE}
-      LOG_LEVEL: info
-      CRON: "*/10 * * * *"
-      RUNONSTART: true
-      API_PORT: &port 8080
-      FEATURES_GENERALSETTINGS: true
-      FEATURES_QUERYLOGCONFIG: true
-      FEATURES_STATSCONFIG: true
-      FEATURES_CLIENTSETTINGS: true
-      FEATURES_SERVICES: true
-      FEATURES_FILTERS: true
-      FEATURES_DHCP_SERVERCONFIG: false
-      FEATURES_DHCP_STATICLEASES: false
-      FEATURES_DNS_SERVERCONFIG: true
-      FEATURES_DNS_ACCESSLISTS: true
-      FEATURES_DNS_REWRITES: true
-    envFrom:
-      - secretRef:
-          name: adguardhome-sync-secret
+      CONFIGFILE: "/config/adguardhome-sync.yaml"
     service:
       main:
         ports:
           http:
-            port: *port
+            port: 8080
     ingress:
       main:
         enabled: true
@@ -73,6 +56,14 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: adguardhome-sync-configmap
+        subPath: adguardhome-sync.yaml
+        mountPath: /config/adguardhome-sync.yaml
+        readOnly: false
     resources:
       requests:
         cpu: 10m

@@ -5,3 +5,9 @@ namespace: default
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: adguardhome-sync-configmap
+    files:
+      - ./config/adguardhome-sync.yaml
+generatorOptions:
+  disableNameSuffixHash: true
