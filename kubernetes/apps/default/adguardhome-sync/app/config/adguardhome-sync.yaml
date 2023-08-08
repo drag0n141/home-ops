@@ -4,17 +4,17 @@ cron: "*/10 * * * *"
 runOnStart: true
 
 origin:
-  url: !env_var ORIGIN_URL
-  username: !env_var ORIGIN_USERNAME
-  password: !env_var ORIGIN_PASSWORD
+  url: "${ORIGIN_URL}"
+  username: "${ORIGIN_USERNAME}"
+  password: "${ORIGIN_PASSWORD}"
 
 replicas:
-  - url: !env_var REPLICA_URL
-    username: !env_var REPLICA_USERNAME
-    password: !env_var REPLICA_PASSWORD
-  - url: !env_var REPLICA1_URL
-    username: !env_var REPLICA1_USERNAME
-    password: !env_var REPLICA1_PASSWORD
+  - url: "${REPLICA_URL}"
+    username: "${REPLICA_USERNAME}"
+    password: "${REPLICA_PASSWORD}"
+  - url: "${REPLICA1_URL}"
+    username: "${REPLICA1_USERNAME}"
+    password: "${REPLICA1_PASSWORD}"
 
 api:
   port: 8080
