@@ -37,6 +37,8 @@ spec:
       tag: 1.3.12
     env:
       TZ: ${TIMEZONE}
+      PUID: 1000
+      PGID: 1000
       NODE_ENV: development
       APP_UR: https://ferdium.${SECRET_DOMAIN}
       DB_CONNECTION: mysql
@@ -58,7 +60,7 @@ spec:
       main:
         ports:
           http:
-            port: 9000
+            port: 3333
     ingress:
       main:
         enabled: true
