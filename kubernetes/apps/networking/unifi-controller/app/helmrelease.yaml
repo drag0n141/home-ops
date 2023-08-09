@@ -49,9 +49,8 @@ spec:
           kube-vip.io/loadbalancerIPs: "${UNIFI_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
-          http:
+          https:
             port: 8443
-            protocol: HTTPS
           stun:
             enabled: true
             port: 3478
