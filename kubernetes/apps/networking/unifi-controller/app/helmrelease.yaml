@@ -49,7 +49,7 @@ spec:
           kube-vip.io/loadbalancerIPs: "${UNIFI_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
-          https:
+          http:
             port: 8443
           stun:
             enabled: true
@@ -64,6 +64,7 @@ spec:
         enabled: true
         ingressClassName: traefik
         annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: "https"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
