@@ -5,7 +5,6 @@ metadata:
   name: cluster-apps-ferdium
   namespace: flux-system
 spec:
-spec:
   dependsOn:
     - name: cluster-apps-mariadb-lb
   path: ./kubernetes/apps/default/ferdium/app
