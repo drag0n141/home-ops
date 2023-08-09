@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-apc-influxdb-exporter
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/apc-influxdb-exporter/app
+  path: ./kubernetes/apps/monitoring/apc-influxdb-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository
