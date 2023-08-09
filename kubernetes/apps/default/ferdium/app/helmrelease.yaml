@@ -50,7 +50,7 @@ spec:
       IS_REGISTRATION_ENABLED: false
       IS_DASHBOARD_ENABLED: true
       CONNECT_WITH_FRANZ: false
-      DATA_DIR: /data
+      DATA_DIR: "/data"
     envFrom:
       - secretRef:
           name: ferdium-secret
