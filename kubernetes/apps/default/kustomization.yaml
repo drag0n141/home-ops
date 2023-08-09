@@ -6,6 +6,7 @@ resources:
   - ./adguardhome-sync/ks.yaml
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
+  - ./ferdium/ks.yaml
   - ./gotify/ks.yaml
   - ./joplin-server/ks.yaml
   - ./pairdrop/ks.yaml
