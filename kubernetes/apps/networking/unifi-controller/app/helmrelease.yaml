@@ -41,9 +41,6 @@ spec:
       TZ: ${TIMEZONE}
       PUID: 1000
       PGID: 1000
-    envFrom:
-      - secretRef:
-          name: unifi-controller-secret
     service:
       main:
         type: LoadBalancer
