@@ -7,3 +7,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./traefik/ks.yaml
+  - ./unifi-controller/ks.yaml
