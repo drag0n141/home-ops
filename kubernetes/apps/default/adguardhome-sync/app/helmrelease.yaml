@@ -59,11 +59,11 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: adguardhome-sync-configmap
-        subPath: adguardhome-sync.yaml
-        mountPath: /config/adguardhome-sync.yaml
-        readOnly: true
+        type: secret
+        name: adguardhome-secret
+        items:
+          - key: adguardhome-sync.yaml
+            path: /config/adguardhome-sync.yaml
     resources:
       requests:
         cpu: 10m
