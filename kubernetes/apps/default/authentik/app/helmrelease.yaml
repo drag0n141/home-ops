@@ -28,11 +28,12 @@ spec:
     - name: redis
       namespace: database
   values:
+    controller:
+        annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/goauthentik/server
       tag: 2023.6.1
-      annotations:
-        reloader.stakater.com/auto: "true"
     env:
       AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
     envFrom:
