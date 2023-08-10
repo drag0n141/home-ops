@@ -52,6 +52,10 @@ spec:
         ports:
           http:
             port: 8443
+          controller:
+            enabled: true
+            port: 8080
+            protocol: TCP
           stun:
             enabled: true
             port: 3478
