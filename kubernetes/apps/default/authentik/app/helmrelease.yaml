@@ -40,6 +40,8 @@ spec:
       enabled: false
     redis:
       enabled: true
+      persistence:
+        enabled: false
     geoip:
       enabled: false
     prometheus:
