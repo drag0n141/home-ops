@@ -56,7 +56,6 @@ spec:
     envFrom:
       - secretRef:
           name: ferdium-secret
-    dnsPolicy: None
     dnsConfig:
       options:
         - name: ndots
