@@ -42,9 +42,13 @@ spec:
       OPT_LDAP: N
       OPT_MYSQL: Y
       OPT_MYSQL_EXTENSION: N
-      OPT_QUICKCONNECT: Y
+      OPT_QUICKCONNECT: N
       OPT_SQLSERVER: N
       OPT_TOTP: Y
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
     service:
       main:
         ports:
