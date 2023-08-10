@@ -27,6 +27,8 @@ spec:
   dependsOn:
     - name: redis
       namespace: database
+      annotations:
+        reloader.stakater.com/auto: "true"
   values:
     image:
       repository: ghcr.io/goauthentik/server
