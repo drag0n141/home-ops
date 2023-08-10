@@ -29,7 +29,7 @@ spec:
       namespace: database
   values:
     controller:
-        annotations:
+      annotations:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/goauthentik/server
