@@ -7,6 +7,7 @@ resources:
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
   - ./ferdium/ks.yaml
+  - ./glauth/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./joplin-server/ks.yaml

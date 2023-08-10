@@ -55,10 +55,6 @@ spec:
         items:
           - key: server.toml
             path: server.toml
-          - key: groups.toml
-            path: groups.toml
-          - key: users.toml
-            path: users.toml
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
