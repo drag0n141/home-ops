@@ -32,7 +32,7 @@ spec:
     image:
       repository: ghcr.io/bakito/adguardhome-sync
       tag: v0.4.14
-      command: ["run"]
+    args: ["run"]
     env:
       TZ: ${TIMEZONE}
       LOG_LEVEL: info
