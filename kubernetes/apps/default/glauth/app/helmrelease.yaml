@@ -34,6 +34,10 @@ spec:
       repository: glauth/glauth
       tag: v2.2.0
     command: ["/app/glauth", "-c", "/config"]
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
     service:
       main:
         ports:
