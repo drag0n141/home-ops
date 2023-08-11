@@ -48,7 +48,7 @@ spec:
     service:
       main:
         ports:
-          voice:
+          http:
             enabled: true
             port: 9987
             protocol: UDP
