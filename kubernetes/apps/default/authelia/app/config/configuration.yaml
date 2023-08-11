@@ -48,6 +48,14 @@ access_control:
         - '192.168.250.0/24'
         - '192.168.251.0/24'
         - '192.168.254.0/24'
+    # Bypass Rule for Wizarr
+    - domain: "join.${SECRET_DOMAIN}"
+      resources:
+        - "^/join(/.*)?$"
+        - "^/j(/.*)?$"
+        - "^/setup(/.*)?$"
+        - "^/static(/.*)?$"
+      policy: bypass
     # Bypass Rule for api / trigges
     - domain: "*.${SECRET_DOMAIN}"
       policy: bypass
