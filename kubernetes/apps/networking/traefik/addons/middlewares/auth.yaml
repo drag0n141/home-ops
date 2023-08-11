@@ -21,7 +21,7 @@ metadata:
   namespace: networking
 spec:
   forwardAuth:
-    address: http://authentik-proxy.default.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik
+    address: http://authentik.default.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik
     trustForwardHeader: true
     authResponseHeaders:
       - X-authentik-username
