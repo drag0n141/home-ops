@@ -62,6 +62,36 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      ombi:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd,networking-traefik-middleware-redirect-overseerr@kubernetescrd"
+        hosts:
+          - host: &host2 "ombi.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host2
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      petio:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd,networking-traefik-middleware-redirect-overseerr@kubernetescrd"
+        hosts:
+          - host: &host3 "petio.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host3
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

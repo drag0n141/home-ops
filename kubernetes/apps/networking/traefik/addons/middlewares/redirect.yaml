@@ -9,3 +9,14 @@ spec:
     regex: "^https?://checkmk.${SECRET_DOMAIN_INTERNAL}/$$"
     replacement: "https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/"
     permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-redirect-overseerr
+  namespace: networking
+spec:
+  redirectRegex:
+    regex: "^https://(.*)${SECRET_DOMAIN}/(.*)"
+    replacement: "https://overseerr.${SECRET_DOMAIN}/${2}"
+    permanent: true
