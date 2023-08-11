@@ -10,6 +10,7 @@ resources:
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
+  - ./descheduler.yaml
   - ./emberstack.yaml
   - ./external-dns.yaml
   - ./grafana.yaml
