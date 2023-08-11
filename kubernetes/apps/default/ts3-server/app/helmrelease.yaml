@@ -49,15 +49,11 @@ spec:
       main:
         ports:
           http:
-            port: 9987
+            port: 10011
           voice:
             enabled: true
             port: 9987
             protocol: UDP
-          serverquery:
-            enabled: true
-            port: 10011
-            protocol: TCP
           filetransfer:
             enabled: true
             port: 30033
