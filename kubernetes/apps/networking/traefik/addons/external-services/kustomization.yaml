@@ -4,4 +4,3 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./checkmk.yaml
-  - ./overseerr-redirect.yaml
