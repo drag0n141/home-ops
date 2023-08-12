@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: jasonbean/guacamole
-      tag: latest-nomariadb
+      tag: 1.5.3-nomariadb
     env:
       TZ: ${TIMEZONE}
       OPT_CAS: N
