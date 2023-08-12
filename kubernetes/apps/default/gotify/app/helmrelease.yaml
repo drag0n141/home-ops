@@ -30,8 +30,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: gotify/server
-      tag: latest
+      repository: ghcr.io/gotify/server
+      tag: 2.3.0
     env:
       TZ: ${TIMEZONE}
     envFrom:
