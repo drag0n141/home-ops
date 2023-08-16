@@ -6,7 +6,7 @@ metadata:
   namespace: networking
 spec:
   plugin:
-    get-real-ip:
+    real-ip:
       Proxy:
         - proxyHeadername: Id-Cf-Tunnel-Source
           proxyHeadervalue: id-cf-realip-xff
