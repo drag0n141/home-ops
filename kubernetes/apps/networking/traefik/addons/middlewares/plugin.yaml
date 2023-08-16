@@ -1,0 +1,10 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-cloudflarewarp
+  namespace: networking
+spec:
+  plugin:
+    cloudflarewarp:
+      disableDefault: false
