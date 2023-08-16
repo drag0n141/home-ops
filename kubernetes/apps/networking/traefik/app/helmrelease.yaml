@@ -31,13 +31,15 @@ spec:
   values:
     deployment:
       kind: Deployment
-      replicas: 3
+      replicas: 1
     rollback:
       recreate: true
       force: true
       cleanupOnFail: true
     autoscaling:
-      enabled: false
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 3
     service:
       enabled: true
       type: LoadBalancer
@@ -45,7 +47,7 @@ spec:
         external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
         kube-vip.io/loadbalancerIPs: "${INGRESS_TRAEFIK_ADDR}"
       spec:
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
     env:
       - name: TZ
         value: "${TIMEZONE}"
