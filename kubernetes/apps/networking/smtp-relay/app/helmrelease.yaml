@@ -34,7 +34,7 @@ spec:
       tag: 0.7.0
     env:
       TZ: ${TIMEZONE}
-      DEBUG: "true"
+      DEBUG: "false"
       SMTP_PORT: "465"
     envFrom:
       - secretRef:
