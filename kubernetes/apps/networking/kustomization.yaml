@@ -8,3 +8,4 @@ resources:
   - ./k8s-gateway/ks.yaml
   - ./traefik/ks.yaml
   - ./unifi-controller/ks.yaml
+  - ./whoami/ks.yaml
