@@ -35,7 +35,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       DEBUG: "true"
-      SMTP_PORT: "587"
+      SMTP_PORT: "465"
     envFrom:
       - secretRef:
           name: smtp-relay-secret
