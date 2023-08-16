@@ -80,6 +80,8 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${INGRESS_TRAEFIK_ADDR}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
+      - "--experimental.plugins.cloudflarewarp.modulename=github.com/BetterCorp/cloudflarewarp"
+      - "--experimental.plugins.cloudflarewarp.version=v1.3.3"
     ports:
       traefik:
         expose: true
@@ -103,7 +105,7 @@ spec:
       enabled: false
     experimental:
       plugins:
-        enabled: false
+        enabled: true
     providers:
       kubernetesCRD:
         enabled: true
