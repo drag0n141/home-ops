@@ -80,8 +80,8 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${INGRESS_TRAEFIK_ADDR}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
-      - "--experimental.plugins.cloudflarewarp.modulename=github.com/BetterCorp/cloudflarewarp"
-      - "--experimental.plugins.cloudflarewarp.version=v1.3.3"
+      - "--experimental.plugins.cloudflarewarp.modulename=github.com/Paxxs/traefik-get-real-ip"
+      - "--experimental.plugins.cloudflarewarp.version=v1.0.2"
     ports:
       traefik:
         expose: true
