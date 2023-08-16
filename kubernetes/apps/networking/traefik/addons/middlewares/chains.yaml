@@ -9,6 +9,7 @@ spec:
     middlewares:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
+      - name: networking-traefik-middleware-cloudflarewarp@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -21,6 +22,7 @@ spec:
     middlewares:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
+      - name: networking-traefik-middleware-cloudflarewarp@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
       - name: networking-traefik-middleware-authelia@kubernetescrd
 ---
@@ -34,6 +36,7 @@ spec:
     middlewares:
       - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
+      - name: networking-traefik-middleware-cloudflarewarp@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
       - name: networking-traefik-middleware-authentik@kubernetescrd
 ---
@@ -58,4 +61,5 @@ spec:
   chain:
     middlewares:
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
+      - name: networking-traefik-middleware-cloudflarewarp@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
