@@ -33,7 +33,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: mrcas/mindk
+      repository: mrcas/mind
       tag: v1.3.3
     env:
       TZ: ${TIMEZONE}
