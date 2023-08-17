@@ -32,6 +32,7 @@ spec:
     image:
       repository: ghcr.io/atuinsh/atuin
       tag: 16.0.0
+    args: ["server start"]
     env:
       TZ: ${TIMEZONE}
       ATUIN_HOST: "0.0.0.0"
