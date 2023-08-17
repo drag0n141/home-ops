@@ -43,9 +43,8 @@ spec:
       SHOW_PASSWORD_HINT: false
       SMTP_FROM: bitwarden@${SECRET_DOMAIN}
       SMTP_FROM_NAME: Bitwarden
-      SMTP_HOST: mail.${SECRET_DOMAIN}
-      SMTP_PORT: 587
-      SMTP_SECURITY: starttls
+      SMTP_HOST: smtp-relay.networking.svc.cluster.local
+      SMTP_PORT: 2525
     envFrom:
       - secretRef:
           name: vaultwarden-secret
