@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Secret
 metadata:
-    name: bookstack-restic-secret
+    name: mind-restic-secret
     namespace: default
 stringData:
-    RESTIC_REPOSITORY: '${SECRET_VOLSYNC_RESTIC_REPOSITORY}/bookstack'
+    RESTIC_REPOSITORY: '${SECRET_VOLSYNC_RESTIC_REPOSITORY}/mind'
     RESTIC_PASSWORD: '${SECRET_VOLSYNC_RESTIC_PASSWORD}'
     AWS_ACCESS_KEY_ID: '${SECRET_VOLSYNC_AWS_ACCESS_KEY_ID}'
     AWS_SECRET_ACCESS_KEY: '${SECRET_VOLSYNC_AWS_SECRET_ACCESS_KEY}'
@@ -13,16 +13,16 @@ stringData:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: bookstack
+  name: mind
   namespace: default
 spec:
-  sourcePVC: data-bookstack-0
+  sourcePVC: data-mind-0
   trigger:
     schedule: "0 2 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
-    repository: bookstack-restic-secret
+    repository: mind-restic-secret
     cacheCapacity: 2Gi
     cacheStorageClassName: local-path
     volumeSnapshotClassName: csi-ceph-blockpool
