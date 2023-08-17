@@ -6,6 +6,7 @@ resources:
   - ./adguardhome-sync/ks.yaml
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
+  - ./bookstack-wiki/ks.yaml
   - ./bookstack/ks.yaml
   - ./ferdium/ks.yaml
   - ./glauth/ks.yaml
