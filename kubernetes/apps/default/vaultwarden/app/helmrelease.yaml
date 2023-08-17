@@ -44,6 +44,7 @@ spec:
       SMTP_FROM: bitwarden@${SECRET_DOMAIN}
       SMTP_FROM_NAME: Bitwarden
       SMTP_HOST: smtp-relay.networking.svc.cluster.local
+      SMTP_SECURITY: "off"
       SMTP_PORT: 2525
     envFrom:
       - secretRef:
