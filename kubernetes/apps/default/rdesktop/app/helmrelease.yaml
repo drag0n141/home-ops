@@ -1,0 +1,62 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rdesktop
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/linuxserver/rdesktop
+      tag: version-c66f3cda
+    env:
+      TZ: ${TIMEZONE}
+      PUID: 1000
+      PGID: 1000
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
+    service:
+      main:
+        ports:
+          http:
+            enabled: false
+          rdp:
+            enabled: true
+            port: 3389
+            protocol: TCP
+        type: LoadBalancer
+        annotations:
+          coredns.io/hostname: "rdesktop.${SECRET_DOMAIN_INTERNAL}"
+          kube-vip.io/loadbalancerIPs: "${RDP_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: ceph-block
