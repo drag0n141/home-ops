@@ -17,6 +17,7 @@ resources:
   - ./guacamole/ks.yaml
   - ./joplin-server/ks.yaml
   - ./kitchenowl/ks.yaml
+  - ./memos/ks.yaml
   - ./mind/ks.yaml
   - ./netbox/ks.yaml
   - ./pairdrop/ks.yaml
