@@ -17,5 +17,6 @@ resources:
   - ./netbox/ks.yaml
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
+  - ./snippet-box/ks.yaml
   - ./ts3-server/ks.yaml
   - ./vaultwarden/ks.yaml
