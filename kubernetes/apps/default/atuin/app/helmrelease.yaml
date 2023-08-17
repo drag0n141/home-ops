@@ -66,9 +66,15 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        mountPath: /config
     resources:
       requests:
         cpu: 10m
-        memory: 64Mi
+        memory: 128Mi
       limits:
         memory: 256Mi
