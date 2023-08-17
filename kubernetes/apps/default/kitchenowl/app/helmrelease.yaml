@@ -33,7 +33,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: tombursch/kitchenowl
+      repository: docker.io/tombursch/kitchenowl
       tag: v75
     env:
       TZ: ${TIMEZONE}
