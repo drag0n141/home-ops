@@ -32,6 +32,7 @@ spec:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
+    enableServiceLinks: false
     image:
       repository: ghcr.io/usememos/memos
       tag: 0.14.4
