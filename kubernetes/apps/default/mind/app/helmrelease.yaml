@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: netbox
+  name: mind
   namespace: default
 spec:
   interval: 30m
@@ -33,15 +33,10 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: lscr.io/linuxserver/netbox
-      tag: version-v3.4.10
+      repository: mrcas/mindk
+      tag: v1.3.3
     env:
       TZ: ${TIMEZONE}
-      PGID: 1000
-      PUID: 1000
-    envFrom:
-      - secretRef:
-          name: netbox-secret
     dnsConfig:
       options:
         - name: ndots
@@ -50,7 +45,7 @@ spec:
       main:
         ports:
           http:
-            port: 8000
+            port: 8080
     ingress:
       main:
         enabled: true
@@ -59,7 +54,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "netbox.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "mind.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 pathType: Prefix
@@ -69,7 +64,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     volumeClaimTemplates:
       - name: data
-        mountPath: /config
+        mountPath: /app/db
         accessMode: ReadWriteOnce
         size: 512Mi
         storageClass: ceph-block
