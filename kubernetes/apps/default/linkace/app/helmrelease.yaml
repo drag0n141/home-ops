@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/kovah/linkace
-      tag: v1.5.2-simple
+      tag: v1.12.2-simple
     env:
       TZ: ${TIMEZONE}
       APP_URL: https://link.${SECRET_DOMAIN}
