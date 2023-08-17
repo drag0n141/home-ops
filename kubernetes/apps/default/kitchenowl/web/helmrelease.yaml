@@ -37,7 +37,7 @@ spec:
       tag: v0.4.8
     env:
       TZ: ${TIMEZONE}
-      BACK_URL: "kitchenowl.default.svc.cluster.local"
+      BACK_URL: "kitchenowl.default.svc.cluster.local:5000"
     dnsConfig:
       options:
         - name: ndots
