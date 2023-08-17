@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./adguardhome-sync/ks.yaml
+  - ./atuin/ks.yaml
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
   - ./bookstack-wiki/ks.yaml
