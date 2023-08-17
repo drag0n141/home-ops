@@ -14,7 +14,6 @@ resources:
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./joplin-server/ks.yaml
-  - ./linkace/ks.yaml
   - ./netbox/ks.yaml
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
