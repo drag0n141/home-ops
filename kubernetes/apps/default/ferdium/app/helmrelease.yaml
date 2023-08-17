@@ -45,9 +45,9 @@ spec:
       DB_PORT: 3306
       DB_SSL: false
       MAIL_CONNECTION: smtp
-      SMTP_HOST: mail.${SECRET_DOMAIN}
-      SMTP_PORT: 587
-      MAIL_SSL: true
+      SMTP_HOST: smtp-relay.networking.svc.cluster.local
+      SMTP_PORT: 2525
+      MAIL_SSL: false
       IS_CREATION_ENABLED: false
       IS_REGISTRATION_ENABLED: false
       IS_DASHBOARD_ENABLED: true
