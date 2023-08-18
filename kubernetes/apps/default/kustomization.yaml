@@ -15,6 +15,7 @@ resources:
   - ./glauth/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
+  - ./hammond/ks.yaml
   - ./joplin-server/ks.yaml
   - ./kitchenowl/ks.yaml
   - ./memos/ks.yaml
