@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: default
+resources:
+  - ./helmrelease.yaml
+  - ./volsync.yaml
+secretGenerator:
+  - name: dashy-secret
+    files:
+      - conf.yml=./config/conf.sops.yml
+generatorOptions:
+  disableNameSuffixHash: true
