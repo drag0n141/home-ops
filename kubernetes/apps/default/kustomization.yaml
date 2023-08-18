@@ -19,6 +19,7 @@ resources:
   - ./kitchenowl/ks.yaml
   - ./memos/ks.yaml
   - ./mind/ks.yaml
+  - ./mobaxterm-genkey/ks.yaml
   - ./netbox/ks.yaml
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
