@@ -26,3 +26,4 @@ resources:
   - ./snippet-box/ks.yaml
   - ./ts3-server/ks.yaml
   - ./vaultwarden/ks.yaml
+  - ./vikunja/ks.yaml
