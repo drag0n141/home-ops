@@ -7,8 +7,9 @@ resources:
   - ./atuin/ks.yaml
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
-  - ./bookstack-wiki/ks.yaml
   - ./bookstack/ks.yaml
+  - ./bookstack-wiki/ks.yaml
+  - ./dashy/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./freshrss/ks.yaml
