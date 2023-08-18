@@ -38,7 +38,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: dashy
+  name: dashy-backgrounds
   namespace: default
 spec:
   sourcePVC: backgrounds-dashy-0
