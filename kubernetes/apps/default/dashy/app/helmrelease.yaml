@@ -30,7 +30,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: 'ghcr.io/lissy93/dashy
+      repository: ghcr.io/lissy93/dashy
       tag: 2.1.0
     env:
       TZ: ${TIMEZONE}
