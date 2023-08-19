@@ -83,6 +83,7 @@ spec:
         type: secret
         name: dashy-secret
         mountPath: /app/public/conf.yml
+        subPath: conf.yml
     volumeClaimTemplates:
       - name: icons
         mountPath: /app/public/item-icons

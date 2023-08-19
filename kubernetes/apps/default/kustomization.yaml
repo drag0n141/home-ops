@@ -13,12 +13,12 @@ resources:
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./freshrss/ks.yaml
-  - ./glauth/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./hammond/ks.yaml
   - ./joplin-server/ks.yaml
   - ./kitchenowl/ks.yaml
+  - ./ldap-lb/ks.yaml
   - ./memos/ks.yaml
   - ./mind/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
