@@ -77,6 +77,13 @@ spec:
           - hosts:
               - *host2
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     persistence:
       config:
         enabled: true
