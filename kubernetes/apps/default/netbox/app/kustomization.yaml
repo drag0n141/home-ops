@@ -6,3 +6,9 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: tandoor-configmap
+    files:
+      - ./config/nginx-config
+generatorOptions:
+  disableNameSuffixHash: true

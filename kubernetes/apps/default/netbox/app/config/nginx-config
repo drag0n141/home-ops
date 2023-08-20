@@ -1,0 +1,25 @@
+pid /tmp/nginx.pid;
+events {
+  worker_connections 1024;
+}
+http {
+  include mime.types;
+  server {
+    listen 80;
+    server_name _;
+    client_max_body_size 128M;
+    # serve static files
+    location /static/ {
+      alias /static/;
+    }
+    # serve media files
+    location /media/ {
+      alias /media//;
+    }
+    # pass requests for dynamic content to gunicorn
+    location / {
+    proxy_set_header Host $host;
+    proxy_pass http://localhost:8080;
+    }
+  }
+}

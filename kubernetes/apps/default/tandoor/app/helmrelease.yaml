@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tandoor
+  name: guacamole
   namespace: default
 spec:
   interval: 30m
@@ -33,25 +33,18 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/tandoorrecipes/recipes
-      tag: 1.5.5
+      repository: jasonbean/guacamole
+      tag: 1.5.3-nomariadb
     env:
-      TIMEZONE: ${TIMEZONE}
-      DEBUG: "0"
-      ALLOWED_HOSTS: "*"
-      DB_ENGINE: django.db.backends.postgresql_psycopg2
-      GUNICORN_MEDIA: "0"
-      REVERSE_PROXY_AUTH: "0"
-      FRACTION_PREF_DEFAULT: "0"
-      COMMENT_PREF_DEFAULT: "1"
-      SHOPPING_MIN_AUTOSYNC_INTERVAL: "5"
-      TANDOOR_PORT: "8080"
-      ENABLE_SIGNUP: "0"
-      EMAIL_HOST: smtp-relay.networking.svc.cluster.local
-      EMAIL_PORT: 2525
-    envFrom:
-      - secretRef:
-          name: tandoor-secret
+      TZ: ${TIMEZONE}
+      OPT_CAS: N
+      OPT_DUO: N
+      OPT_LDAP: N
+      OPT_MYSQL: Y
+      OPT_MYSQL_EXTENSION: N
+      OPT_QUICKCONNECT: N
+      OPT_SQLSERVER: N
+      OPT_TOTP: Y
     dnsConfig:
       options:
         - name: ndots
@@ -60,8 +53,6 @@ spec:
       main:
         ports:
           http:
-            port: 80
-          gunicorn:
             port: 8080
     ingress:
       main:
@@ -71,7 +62,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "recipes.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "guacamole.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -83,30 +74,11 @@ spec:
       - name: data
         mountPath: /config
         accessMode: ReadWriteOnce
-        size: 1Gi
+        size: 512Mi
         storageClass: ceph-block
     resources:
       requests:
-        cpu: 100m
-        memory: 256Mi
+        cpu: 10m
+        memory: 64Mi
       limits:
-        memory: 512Mi
-    additionalContainers:
-      nginx:
-        name: nginx
-        image: public.ecr.aws/nginx/nginx:1.25.2
-        ports:
-          - name: http
-            containerPort: 80
-            protocol: TCP
-        volumeMounts:
-          - name: nginx-config
-            readOnly: true
-            mountPath: /etc/nginx/nginx.conf
-            subPath: nginx-config
-          - name: data-tandoor-0
-            mountPath: /media
-            subPath: mediafiles
-          - name: data-tandoor-0
-            mountPath: /static
-            subPath: staticfiles
+        memory: 256Mi
