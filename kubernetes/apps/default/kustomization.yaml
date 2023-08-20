@@ -26,6 +26,7 @@ resources:
   - ./netbox/ks.yaml
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
+  - ./pterodactyl/ks.yaml
   - ./rdesktop/ks.yaml
   - ./roundcube/ks.yaml
   - ./snippet-box/ks.yaml
