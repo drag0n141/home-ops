@@ -95,11 +95,6 @@ spec:
         subPath: nginx-config
         mountPath: /etc/nginx/nginx.conf
         readOnly: true
-    volumeClaimTemplates:
-      - name: data
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: ceph-block
     resources:
       requests:
         cpu: 100m
