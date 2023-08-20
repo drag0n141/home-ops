@@ -40,7 +40,6 @@ spec:
       MAIL_HOST: smtp-relay.networking.svc.cluster.local
       MAIL_PORT: 2525
       MAIL_FROM_NAME: 2FAuth
-      TRUSTED_PROXIES: "*"
     envFrom:
       - secretRef:
           name: 2fauth-secret
