@@ -6,7 +6,6 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
   - ./volsync.yaml
-  - ./pvc.yaml
 configMapGenerator:
   - name: tandoor-configmap
     files:
