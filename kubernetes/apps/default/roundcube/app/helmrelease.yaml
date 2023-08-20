@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: app-2fauth
+  name: roundcube
   namespace: default
 spec:
   interval: 30m
@@ -24,25 +24,19 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controller:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: docker.io/2fauth/2fauth
-      tag: 4.1.0
+      repository: docker.io/roundcube/roundcubemail
+      tag: 1.6.2-apache
     env:
       TZ: ${TIMEZONE}
-      MAIL_HOST: smtp-relay.networking.svc.cluster.local
-      MAIL_PORT: 2525
-      MAIL_FROM_NAME: 2FAuth
     envFrom:
       - secretRef:
-          name: app-2fauth-secret
+          name: roundcube-secret
     dnsConfig:
       options:
         - name: ndots
@@ -51,16 +45,16 @@ spec:
       main:
         ports:
           http:
-            port: 8000
+            port: 80
     ingress:
       main:
         enabled: true
         ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "2fauth.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "webmail.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -68,14 +62,18 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: OnRootMismatch
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /2fauth
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+      internal:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host2 "webmail.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host2
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
