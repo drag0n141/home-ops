@@ -88,11 +88,12 @@ spec:
             mountPath: /opt/recipes/staticfiles
       nginx-config:
         enabled: true
-        type: configMap
-        name: tandoor-configmap
-        subPath: nginx-config
         mountPath: /etc/nginx/nginx.conf
-        readOnly: true
+        subPath: nginx-config
+        type: custom
+        volumeSpec:
+          configMap:
+            name: tandoor-configmap
     resources:
       requests:
         cpu: 100m
