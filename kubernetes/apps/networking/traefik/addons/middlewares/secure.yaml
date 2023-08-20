@@ -22,6 +22,7 @@ spec:
       - PUT
       - POST
     accessControlMaxAge: 100
+    accessControlAllowOriginList: "*"
     hostsProxyHeaders:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
