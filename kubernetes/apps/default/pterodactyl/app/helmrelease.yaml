@@ -1,0 +1,109 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pterodactyl
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/pterodactyl/panel
+      tag: v1.11.3
+    env:
+      TZ: ${TIMEZONE}
+      APP_TIMEZONE: ${TIMEZONE}
+      APP_URL: "https://pterodactyl.${SECRET_DOMAIN_INTERNAL}"
+      APP_ENV: production
+      APP_ENVIRONMENT_ONLY: "false"
+      TRUSTED_PROXIES: "*"
+      DB_HOST: mariadb-lb.database.svc.cluster.local
+      DB_PORT: 3306
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis-lb.database.svc.cluster.local
+      MAIL_DRIVER: smtp
+      MAIL_HOST: smtp-relay.networking.svc.cluster.local
+      MAIL_PORT: 2525
+      RECAPTCHA_ENABLED: "false"
+    envFrom:
+      - secretRef:
+          name: pterodactyl-secret
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "pterodactyl.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /app/var
+        accessMode: ReadWriteOnce
+        size: 128Mi
+        storageClass: ceph-block
+      - name: nginx
+        mountPath: /etc/nginx/http.d
+        accessMode: ReadWriteOnce
+        size: 128Mi
+        storageClass: ceph-block
+      - name: letsencrypt
+        mountPath: /etc/letsencrypt
+        accessMode: ReadWriteOnce
+        size: 128Mi
+        storageClass: ceph-block
+      - name: logs
+        mountPath: /app/storage/logs
+        accessMode: ReadWriteOnce
+        size: 128Mi
+        storageClass: ceph-block
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 256Mi
