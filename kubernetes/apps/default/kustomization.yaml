@@ -27,6 +27,7 @@ resources:
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
   - ./rdesktop/ks.yaml
+  - ./roundcube/ks.yaml
   - ./snippet-box/ks.yaml
   - ./ts3-server/ks.yaml
   - ./vaultwarden/ks.yaml
