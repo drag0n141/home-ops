@@ -79,9 +79,24 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: data-tandoor-0
+        subPath:
+          - path: mediafiles
+            mountPath: /opt/recipes/mediafiles
+          - path: staticfiles
+            mountPath: /opt/recipes/staticfiles
+      nginx-config:
+        enabled: true
+        type: configMap
+        name: tandoor-configmap
+        subPath: nginx-config
+        mountPath: /etc/nginx/nginx.conf
+        readOnly: true
     volumeClaimTemplates:
       - name: data
-        mountPath: /config
         accessMode: ReadWriteOnce
         size: 1Gi
         storageClass: ceph-block
