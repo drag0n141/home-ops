@@ -61,7 +61,8 @@ spec:
       - PUT
       - POST
     accessControlMaxAge: 100
-    accessControlAllowOriginList: "*"
+    accessControlAllowOriginList:
+      - "*"
     accessControlAllowHeaders:
       - "Content-Type"
       - "Authorization"
