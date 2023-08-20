@@ -93,6 +93,11 @@ spec:
         subPath: nginx-config
         mountPath: /etc/nginx/nginx.conf
         readOnly: true
+    volumeClaimTemplates:
+      - name: data
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: ceph-block
     resources:
       requests:
         cpu: 100m
@@ -112,9 +117,9 @@ spec:
             readOnly: true
             mountPath: /etc/nginx/nginx.conf
             subPath: nginx-config
-          - name: data-tandoor-0
+          - name: data
             mountPath: /media
             subPath: mediafiles
-          - name: data-tandoor-0
+          - name: data
             mountPath: /static
             subPath: staticfiles
