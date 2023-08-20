@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Secret
 metadata:
-    name: 2fauth-restic-secret
+    name: app-2fauth-restic-secret
     namespace: default
 stringData:
-    RESTIC_REPOSITORY: '${SECRET_VOLSYNC_RESTIC_REPOSITORY}/2fauth'
+    RESTIC_REPOSITORY: '${SECRET_VOLSYNC_RESTIC_REPOSITORY}/app-2fauth'
     RESTIC_PASSWORD: '${SECRET_VOLSYNC_RESTIC_PASSWORD}'
     AWS_ACCESS_KEY_ID: '${SECRET_VOLSYNC_AWS_ACCESS_KEY_ID}'
     AWS_SECRET_ACCESS_KEY: '${SECRET_VOLSYNC_AWS_SECRET_ACCESS_KEY}'
@@ -13,16 +13,16 @@ stringData:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: 2fauth
+  name: app-2fauth
   namespace: default
 spec:
-  sourcePVC: data-2fauth-0
+  sourcePVC: data-app-2fauth-0
   trigger:
     schedule: "0 2 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
-    repository: 2fauth-restic-secret
+    repository: app-2fauth-restic-secret
     cacheCapacity: 2Gi
     cacheStorageClassName: local-path
     volumeSnapshotClassName: csi-ceph-blockpool

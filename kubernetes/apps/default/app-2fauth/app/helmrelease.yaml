@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: 2fauth
+  name: app-2fauth
   namespace: default
 spec:
   interval: 30m
@@ -42,7 +42,7 @@ spec:
       MAIL_FROM_NAME: 2FAuth
     envFrom:
       - secretRef:
-          name: 2fauth-secret
+          name: app-2fauth-secret
     dnsConfig:
       options:
         - name: ndots
