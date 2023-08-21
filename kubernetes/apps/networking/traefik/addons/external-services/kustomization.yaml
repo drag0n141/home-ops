@@ -5,4 +5,5 @@ namespace: networking
 resources:
   - ./checkmk.yaml
   - ./pterodactyl-wing01.yaml
+  - ./mail.yaml
   - ./ssp.yaml
