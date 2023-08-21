@@ -33,6 +33,8 @@ spec:
     image:
       repository: docker.io/serjs/go-socks5-proxy
       tag: latest
+    podAnnotations:
+      setGateway: "true"
     env:
       PROXY_PORT: "1080"
     dnsConfig:
