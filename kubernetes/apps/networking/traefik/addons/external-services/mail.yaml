@@ -17,7 +17,7 @@ spec:
               service:
                 name: mail
                 port:
-                  number: 443
+                  number: 80
             path: /
             pathType: Prefix
     - host: "autodiscover.${SECRET_DOMAIN}"
@@ -27,7 +27,7 @@ spec:
               service:
                 name: mail
                 port:
-                  number: 443
+                  number: 80
             path: /
             pathType: Prefix
     - host: "autoconfig.${SECRET_DOMAIN}"
@@ -37,7 +37,7 @@ spec:
               service:
                 name: mail
                 port:
-                  number: 443
+                  number: 80
             path: /
             pathType: Prefix
     - host: "mta-sts.${SECRET_DOMAIN}"
@@ -47,7 +47,7 @@ spec:
               service:
                 name: mail
                 port:
-                  number: 443
+                  number: 80
             path: /
             pathType: Prefix
   tls:
@@ -65,7 +65,7 @@ spec:
   ports:
     - name: https
       protocol: TCP
-      port: 443
+      port: 80
       targetPort: 443
 ---
 apiVersion: v1
