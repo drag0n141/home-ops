@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
+  - ./pvc.yaml
   - ./secret.sops.yaml
   - ./volsync.yaml
-  - ./pvc.yaml
 configMapGenerator:
   - name: tandoor-configmap
     files:
