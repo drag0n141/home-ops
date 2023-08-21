@@ -37,6 +37,12 @@ spec:
       tag: 0.9.3-nginx
     env:
       TZ: ${TIMEZONE}
+      MSMTPRC: |
+        defaults
+        account        default
+        from           baikal@${SECRET_DOMAIN}
+        host           smtp-relay.networking.svc.cluster.local
+        port           2525
     dnsConfig:
       options:
         - name: ndots
