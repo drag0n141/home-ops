@@ -109,11 +109,6 @@ spec:
         volumeSpec:
           configMap:
             name: tandoor-configmap
-    volumeClaimTemplates:
-      - name: data
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: ceph-block
     resources:
       requests:
         cpu: 100m
