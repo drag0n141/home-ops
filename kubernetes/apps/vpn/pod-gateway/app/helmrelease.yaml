@@ -86,6 +86,6 @@ spec:
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
         tag: v3.9.0@sha256:4e169da5af107a9c6c784d3e03c89da07fad45f18358ab5b7177662df12d955a
-      gatewayDefault: true
+      gatewayDefault: false
       gatewayAnnotation: setGateway
       gatewayLabel: setGateway
