@@ -54,7 +54,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "cal.${SECRET_DOMAIN}"
+          - host: &host "baikal.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
