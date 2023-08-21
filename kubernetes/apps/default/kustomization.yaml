@@ -8,6 +8,7 @@ resources:
   - ./atuin/ks.yaml
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
+  - ./baikal/ks.yaml
   - ./bookstack/ks.yaml
   - ./bookstack-wiki/ks.yaml
   - ./dashy/ks.yaml
