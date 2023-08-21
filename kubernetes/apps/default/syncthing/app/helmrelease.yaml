@@ -33,7 +33,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: lscr.io/linuxserver/syncthing
+      repository: docker.io/yncthing/syncthing
       tag: 1.23.7
     env:
       TZ: ${TIMEZONE}
@@ -81,15 +81,17 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      data:
-        enabled: true
-        existingClaim: data-syncthing-0
-        subPath:
-          - path: config
-            mountPath: /config
-          - path: sync
-            mountPath: /sync
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /var/syncthing
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: ceph-block
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     resources:
       requests:
         cpu: 100m
