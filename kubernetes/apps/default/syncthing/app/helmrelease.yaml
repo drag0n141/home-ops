@@ -33,7 +33,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: docker.io/yncthing/syncthing
+      repository: docker.io/syncthing/syncthing
       tag: 1.23.7
     env:
       TZ: ${TIMEZONE}
