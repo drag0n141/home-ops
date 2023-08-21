@@ -487,7 +487,7 @@ sections:
           icon: ENC[AES256_GCM,data:++wCCgUm230JxZo2+Q==,iv:VcfXopr9kZuJ2Ku2aUU8EXb9li4ZODo9yo+vbVLzaAI=,tag:H50ErL97I6ja0HGQetyp9Q==,type:str]
         - title: ENC[AES256_GCM,data:9TVo8bP+mE6KtkGPGQ==,iv:zQyvziL80W6wTOIa6vTMJ2VuIi5iNECBYKvLohB2GDM=,tag:QI3qeqmxC2UJqzupgDDxvQ==,type:str]
           description: ENC[AES256_GCM,data:y7TCbwQ0qgEleyZjAFBeIIa2ZG4=,iv:s60WxREwpXbiHzsWCsUDp4JkNzOEfyXZAgt2O4LvtNU=,tag:0kcGHYHxs5IjpP6VMtlMSQ==,type:str]
-          url: ENC[AES256_GCM,data:2khAjGjb5RH7FPV0oW6TN3oKmbW3sw0bRTJP4opjyDuW6Q==,iv:Q60FIOxMOLnM5554mrl0FCAGgJ0dGkxz5mrW7buM6dM=,tag:iWTgQpFmWqrYH1O+b9eolA==,type:str]
+          url: ENC[AES256_GCM,data:fh3VlWbw4VwTD9A1BQMw5a0rNGrevXZiNUBhlWoMS7jKyxgFeQ==,iv:Kqam73SvTMMLlX0K4aisrFo4Jpk/YKie6KtWv2RnZKI=,tag:7Y+6WmFEil3sGz65nO7Qow==,type:str]
           target: ENC[AES256_GCM,data:YnInBoODcQ==,iv:2iaIzKmPaY7IVfZVjQq5Zh79zTZ9J1qBTz9KTz3hBFU=,tag:3y2uSOWpch2wljJ09oE8qQ==,type:str]
           icon: ENC[AES256_GCM,data:V+Hmhy3ENajnbya+UKocew==,iv:utcYktSHsrLrcGIvYsCUQhZHcjcy9bvSxwLR246tkQ4=,tag:oZ04TodLthCtbWDWRVRCrA==,type:str]
     - name: ENC[AES256_GCM,data:hz5YlHxBQDPVkOoQkZYLMQ==,iv:cSN3ZcDnrg+yKxh0H8dP/dgVvAGIEhvVs5nkbjmBiu4=,tag:4NZFOBrB+EvhGNtzCIoaNg==,type:str]
@@ -1104,8 +1104,8 @@ sops:
             S3Naa1FaSzNEdzN6OXg3NVJ5aDMvdGMK+GCWClRDb8sUcLSoL7Y0bv285TWcufyG
             rKU05XCEcQEclWjAcKL2OBTXXCwDzISittmHmYRVBCF2C0NNVyxd9w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-08-21T11:28:35Z"
-    mac: ENC[AES256_GCM,data:pFQtgJ8w6YQ4OerTnJS0zHB6auHaHZWN3J+b/87C2GiKk7PA144yLZ109AfbpL/ndP0bsvF0AFRv1xsDveZHBiF7sFHgZtgtP7WwaA1UjIgQtTplLA1/ZN/ew1LrVS7BoqyAA8CCQ/2kkhKMLZNgZT56FNx9XAlzT9s38YO00v0=,iv:lq8CV+K4nSKz3gJ1d914kuRft8rugrVRSEPIbEo2FcA=,tag:6K/A9WQ3KTv38DGAPkxe/A==,type:str]
+    lastmodified: "2023-08-21T11:38:06Z"
+    mac: ENC[AES256_GCM,data:6BOtIqxf2FjryOE1tmjVGr4UPm24EoN5PQ3LTRGtSLciDxq3F3z8KoFyMt9dP85Ehber0tUKj4QSn7zQxmt35ttoOufs3sfz42oqsT0kWzLQrfD9zNjRNiy9wrtQpKAFhYFEy8+hgXNdT+LVYsEewYGiRKvQuL/TR1D1EVcHVNU=,iv:ml22obYL5yEXiF/LWKBYhJ8cKoR6Af5onNrYjaYLzMw=,tag:hPRMXH++BJe+bAE+hq1Uqw==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
