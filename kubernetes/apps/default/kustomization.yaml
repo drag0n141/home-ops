@@ -30,6 +30,7 @@ resources:
   - ./rdesktop/ks.yaml
   - ./roundcube/ks.yaml
   - ./snippet-box/ks.yaml
+  - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./ts3-server/ks.yaml
   - ./vaultwarden/ks.yaml
