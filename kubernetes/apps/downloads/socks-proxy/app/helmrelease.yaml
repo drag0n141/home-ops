@@ -31,10 +31,12 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: docker.io/serjs/go-socks5-proxy
-      tag: latest
+      repository: ghcr.io/drag0n141/docker-socks5
+      tag: 2023-08-22
     env:
-      PROXY_PORT: "1080"
+      TZ: ${TIMEZONE}
+      PUID: "1000"
+      PGID: "1000"
     dnsConfig:
       options:
         - name: ndots
