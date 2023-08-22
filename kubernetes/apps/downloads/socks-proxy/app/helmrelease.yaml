@@ -32,7 +32,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/drag0n141/docker-socks5
-      tag: latest
+      tag: latest@sha256:17c97eb3512c1feeb3164876707871594859371b0ec6408150e38af14151075a
     env:
       TZ: ${TIMEZONE}
       PUID: "1000"
