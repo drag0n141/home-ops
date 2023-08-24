@@ -63,7 +63,7 @@ spec:
       - PUT
       - POST
     accessControlMaxAge: 100
-    accessControlAllowOriginList:
+    accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
     accessControlAllowHeaders:
       - "Content-Type"
@@ -106,7 +106,7 @@ spec:
       - PUT
       - POST
     accessControlMaxAge: 100
-    accessControlAllowOriginList:
+    accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
     accessControlAllowHeaders:
       - "X-API-Key"
