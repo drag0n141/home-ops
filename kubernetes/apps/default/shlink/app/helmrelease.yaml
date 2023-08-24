@@ -1,0 +1,98 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: shlink
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: redis
+      namespace: database
+  values:
+    controller:
+      replicas: 2
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/shlinkio/shlink
+      tag: 3.6.3-non-root
+    env:
+      TIMEZONE: ${TIMEZONE}
+      DEFAULT_DOMAIN: &host link.${SECRET_DOMAIN}
+      DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+      ENABLE_PERIODIC_VISIT_LOCATE: "true"
+      IS_HTTPS_ENABLED: "true"
+      REDIS_PUB_SUB_ENABLED: "true"
+      REDIS_SENTINEL_SERVICE: redis-master
+      REDIS_SERVERS: redis-node-0.redis-headless.database.svc.cluster.local:26379,redis-node-1.redis-headless.database.svc.cluster.local:26379,redis-node-2.redis-headless.database.svc.cluster.local:26379
+      TASK_WORKER_NUM: 4
+      WEB_WORKER_NUM: 1
+    envFrom:
+      - secretRef:
+          name: shlink-secret
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /rest/health
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
