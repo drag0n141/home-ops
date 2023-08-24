@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: mailrise-configmap
     files:
-      - ./config/mailrise.yaml
+      - ./config/mailrise.conf
 generatorOptions:
   disableNameSuffixHash: true
