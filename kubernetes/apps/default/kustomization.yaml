@@ -21,6 +21,7 @@ resources:
   - ./joplin-server/ks.yaml
   - ./kitchenowl/ks.yaml
   - ./ldap-lb/ks.yaml
+  - ./mailrise/ks.yaml
   - ./memos/ks.yaml
   - ./mind/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
