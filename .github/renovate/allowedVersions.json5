@@ -10,6 +10,11 @@
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["postgresql"],
       "allowedVersions": "<16"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["authelia"],
+      "enabled": "false"
     }
   ]
 }
