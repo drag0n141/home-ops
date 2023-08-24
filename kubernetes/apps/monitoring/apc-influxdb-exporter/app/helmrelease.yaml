@@ -30,8 +30,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: atribe/apcupsd-influxdb-exporter
-      tag: latest
+      repository: docker.io/atribe/apcupsd-influxdb-exporter
+      tag: latest@sha256:f4e64cea979a5e999cc9ede5049a45d12c4990e484febdb04b2998a64382b1dc
     env:
       TZ: ${TIMEZONE}
       VERBOSE: false
