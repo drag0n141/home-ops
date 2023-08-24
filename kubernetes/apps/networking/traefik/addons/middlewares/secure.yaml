@@ -22,6 +22,8 @@ spec:
       - PUT
       - POST
     accessControlMaxAge: 100
+    accessControlAllowOriginListRegex:
+      - "https://(.*?)${SECRET_DOMAIN}"
     hostsProxyHeaders:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
