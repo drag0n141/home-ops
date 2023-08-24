@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: lscr.io/linuxserver/freshrss
-      tag: version-1.21.0
+      tag: 1.21.0-ls191
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
