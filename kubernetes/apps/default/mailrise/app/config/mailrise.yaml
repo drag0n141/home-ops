@@ -1,0 +1,7 @@
+---
+configs:
+  usv@mailrise.home.arpa:
+    mailrise:
+      title_template: "USV"
+    urls:
+      - !env_var GOTIFY_USV

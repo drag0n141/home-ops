@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mailrise
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      replicas: 2
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/yoryan/mailrise
+      tag: 1.4.0
+    env:
+      TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: mailrise-secret
+    service:
+      main:
+        ports:
+          http:
+            port: 8025
+        type: LoadBalancer
+        annotations:
+          coredns.io/hostname: "mailrise.${SECRET_DOMAIN_INTERNAL}"
+          kube-vip.io/loadbalancerIPs: "${MAILRISE_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "mailrise.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: mailrise-configmap
+        subPath: mailrise.conf
+        mountPath: /etc/mailrise.conf
+        readOnly: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
+      limits:
+        memory: 200Mi
