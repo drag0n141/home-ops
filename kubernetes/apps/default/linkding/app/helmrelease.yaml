@@ -34,7 +34,11 @@ spec:
       tag: 1.20.1
     env:
       TZ: ${TIMEZONE}
+      LD_DISABLE_BACKGROUND_TASKS: false
+      LD_DISABLE_URL_VALIDATION: false
       LD_DB_ENGINE: postgres
+      LD_FAVICON_PROVIDER: "https://t1.gstatic.com/faviconV2?url={url}&client=SOCIAL&type=FAVICON"
+      LD_CSRF_TRUSTED_ORIGINS: "https://bookmarks.${SECRET_DOMAIN}"
     envFrom:
       - secretRef:
           name: linkding-secret
@@ -63,9 +67,15 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /etc/linkding/data
+        accessMode: ReadWriteOnce
+        size: 512Mi
+        storageClass: ceph-block
     resources:
       requests:
-        cpu: 12m
-        memory: 64M
+        cpu: 25m
+        memory: 128M
       limits:
         memory: 256M
