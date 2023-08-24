@@ -12,11 +12,10 @@ spec:
       version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: bjw-s-charts
+        name: bjw-s
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -35,6 +34,7 @@ spec:
       repository: ghcr.io/shlinkio/shlink-web-client
       tag: 3.10.2
     env:
+      TIMEZONE: ${TIMEZONE}
       SHLINK_SERVER_URL: https://link.${SECRET_DOMAIN}
     envFrom:
       - secretRef:
