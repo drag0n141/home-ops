@@ -111,7 +111,16 @@ spec:
           failureThreshold: 3
       readiness: *probes
       startup:
-        enabled: false
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /api/health
+            port: *port
+          failureThreshold: 30
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
     ingress:
       main:
         enabled: true
