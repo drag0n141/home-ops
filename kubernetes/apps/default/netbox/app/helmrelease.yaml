@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: lscr.io/linuxserver/netbox
-      tag: version-v3.4.10
+      tag: v3.5.8-ls142
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
