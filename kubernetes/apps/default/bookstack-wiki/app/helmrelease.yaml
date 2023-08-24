@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: lscr.io/linuxserver/bookstack
-      tag: version-v23.06.2
+      tag: v23.06.2-ls99
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
