@@ -55,6 +55,18 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
+  name: traefik-middleware-chain-shlink
+  namespace: networking
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-rate-limit@kubernetescrd
+      - name: networking-traefik-middleware-secure-headers-shlink@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
   name: traefik-middleware-chain-dashy
   namespace: networking
 spec:
