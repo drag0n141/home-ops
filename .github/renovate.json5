@@ -18,7 +18,6 @@
   ],
   "platform": "github",
   "onboarding": false,
-  "ignoreUnstable": true,
   "requireConfig": "optional",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prIgnoreNotification"],
