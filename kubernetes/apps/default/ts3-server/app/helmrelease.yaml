@@ -33,7 +33,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: teamspeak
+      repository: docker.io/teamspeak
       tag: 3.13.7
     env:
       TZ: ${TIMEZONE}
