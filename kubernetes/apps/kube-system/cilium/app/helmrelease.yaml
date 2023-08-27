@@ -107,3 +107,4 @@ spec:
     securityContext:
       privileged: true
     tunnel: vxlan
+    tunnelPort: 6669
