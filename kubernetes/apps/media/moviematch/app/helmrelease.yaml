@@ -30,7 +30,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: lukechannings/moviematch
+      repository: docker.io/lukechannings/moviematch
       tag: 1.10.0
     env:
       TZ: ${TIMEZONE}
