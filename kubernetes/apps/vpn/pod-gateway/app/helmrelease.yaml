@@ -22,11 +22,6 @@ spec:
       tag: dev@sha256:946fa5a00709b1ec84d21596f1bb6ca2c8d385fd8f1f5865fed3cb5eca4ff2c3
 
     DNS: 172.16.1.1
-    
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
 
     addons:
       vpn:
@@ -85,6 +80,7 @@ spec:
       VXLAN_ID: 43
       VXLAN_IP_NETWORK: 172.16.1
 
+    DNSPolicy: ClusterFirst
     routed_namespaces:
       - downloads
 
