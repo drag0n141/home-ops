@@ -40,6 +40,9 @@ spec:
       PROWLARR__LOG_LEVEL: info
       PROWLARR__ANALYTICS_ENABLED: "False"
       PROWLARR__THEME: dark
+    envFrom:
+      - secretRef:
+          name: prowlarr-secret
     dnsConfig:
       options:
         - name: ndots
