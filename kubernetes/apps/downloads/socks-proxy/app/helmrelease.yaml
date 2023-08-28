@@ -39,7 +39,10 @@ spec:
       TZ: ${TIMEZONE}
       PUID: "1000"
       PGID: "1000"
-    dnsPolicy: ClusterFirst
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "1"
     service:
       main:
         ports:
