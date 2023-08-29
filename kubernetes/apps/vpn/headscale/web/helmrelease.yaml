@@ -72,7 +72,8 @@ spec:
       data-headscale:
         enabled: true
         existingClaim: data-headscale-0
-        mountPath: /opt/recipes/mediafiles
+        mountPath: /etc/headscale
+        readOnly: true
     volumeClaimTemplates:
       - name: data
         mountPath: /data
