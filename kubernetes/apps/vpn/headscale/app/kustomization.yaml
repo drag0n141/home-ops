@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: vpn
 resources:
   - ./helmrelease.yaml
-  - ./secret.sops.yaml
   - ./volsync.yaml
 configMapGenerator:
   - name: headscale-configmap
@@ -12,5 +11,3 @@ configMapGenerator:
       - ./config/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled

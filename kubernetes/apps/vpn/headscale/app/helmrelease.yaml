@@ -38,9 +38,6 @@ spec:
     args: ["headscale", "serve"]
     env:
       TZ: ${TIMEZONE}
-    envFrom:
-      - secretRef:
-          name: headscale-secret
     service:
       main:
         ports:
