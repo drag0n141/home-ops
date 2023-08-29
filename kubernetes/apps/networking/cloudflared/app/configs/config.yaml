@@ -13,3 +13,12 @@ ingress:
     originRequest:
       originServerName: "ingress.${SECRET_DOMAIN}"
   - service: http_status:404
+  - hostname: "${SECRET_DOMAIN_SHORT}"
+    service: https://traefik.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: "ingress.${SECRET_DOMAIN}"
+  - hostname: "*.${SECRET_DOMAIN_SHORT}"
+    service: https://traefik.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: "ingress.${SECRET_DOMAIN}"
+  - service: http_status:404
