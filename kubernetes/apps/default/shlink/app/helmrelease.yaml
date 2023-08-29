@@ -38,7 +38,7 @@ spec:
       tag: 3.6.3-non-root
     env:
       TIMEZONE: ${TIMEZONE}
-      DEFAULT_DOMAIN: &host link.${SECRET_DOMAIN}
+      DEFAULT_DOMAIN: &host link.${SECRET_DOMAIN_SHORT}
       DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
       ENABLE_PERIODIC_VISIT_LOCATE: "true"
       IS_HTTPS_ENABLED: "true"
@@ -89,7 +89,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+            secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
     resources:
       requests:
         cpu: 10m
