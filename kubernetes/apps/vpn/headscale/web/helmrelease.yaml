@@ -24,33 +24,22 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controller:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/ifargle/headscale-webui
-      tag: v0.6.2
+      repository: ghcr.io/gurucomputing/headscale-ui
+      tag: latest@sha256:aebd8481153aefc288322c13830b2faa06e90765ca09a377f2ba891ea8205eb2
     env:
       TZ: ${TIMEZONE}
-      COLOR: blue-gray
-      HS_SERVER: https://headscale.${SECRET_DOMAIN}
-      DOMAIN_NAME: https://headscale.${SECRET_DOMAIN}
-      SCRIPT_NAME: /web
-      LOG_LEVEL: info
-    envFrom:
-      - secretRef:
-          name: headscale-webui-secret
     service:
       main:
         ports:
           http:
             enabled: true
-            port: 5000
+            port: 80
             protocol: TCP
     ingress:
       main:
@@ -68,18 +57,6 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      data-headscale:
-        enabled: true
-        existingClaim: data-headscale-0
-        mountPath: /etc/headscale
-        readOnly: true
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
     resources:
       requests:
         cpu: 10m

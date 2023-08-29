@@ -4,5 +4,3 @@ kind: Kustomization
 namespace: vpn
 resources:
   - ./helmrelease.yaml
-  - ./secret.sops.yaml
-  - ./volsync.yaml
