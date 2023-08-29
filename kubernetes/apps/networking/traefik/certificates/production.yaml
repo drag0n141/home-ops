@@ -47,8 +47,9 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "*.${SECRET_DOMAIN_MAIL}"
+  commonName: "${SECRET_DOMAIN_MAIL}"
   dnsNames:
+    - "${SECRET_DOMAIN_MAIL}"
     - "*.${SECRET_DOMAIN_MAIL}"
   secretTemplate:
     annotations:
