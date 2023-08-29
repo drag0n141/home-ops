@@ -35,7 +35,7 @@ spec:
       tag: 3.10.2
     env:
       TIMEZONE: ${TIMEZONE}
-      SHLINK_SERVER_URL: https://link.${SECRET_DOMAIN_SHORT}
+      SHLINK_SERVER_URL: https://${SECRET_DOMAIN_SHORT}
     envFrom:
       - secretRef:
           name: shlink-web-secret
