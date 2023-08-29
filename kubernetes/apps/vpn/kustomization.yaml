@@ -5,4 +5,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./headscale/ks.yaml
   - ./pod-gateway/ks.yaml

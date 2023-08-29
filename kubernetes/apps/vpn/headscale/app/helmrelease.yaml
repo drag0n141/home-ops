@@ -38,6 +38,9 @@ spec:
     args: ["headscale", "serve"]
     env:
       TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: headscale-secret
     service:
       main:
         ports:
@@ -77,8 +80,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: secret
-        name: headscale-secret
+        type: configMap
+        name: headscale-configmap
         subPath: config.yaml
         mountPath: /etc/headscale/config.yaml
         readOnly: true
