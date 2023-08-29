@@ -42,7 +42,6 @@ dns_config:
     - {{SECRET_HEADSCALE_IP3}}
   restricted_nameservers:
     ${SECRET_DOMAIN_EXT}:
-      - {{SECRET_HEADSCALE_IP}}
     ${SECRET_DOMAIN_EXT01}:
       - {{SECRET_HEADSCALE_IP}}
     ${SECRET_DOMAIN_EXT02}:
