@@ -105,6 +105,7 @@ spec:
       - OPTIONS
       - PUT
       - POST
+      - DELETE
     accessControlMaxAge: 100
     accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
