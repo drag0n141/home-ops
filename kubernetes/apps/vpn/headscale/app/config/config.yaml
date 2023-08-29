@@ -56,9 +56,9 @@ dns_config:
     ${SECRET_DOMAIN_INT}:
       - ${SECRET_HEADSCALE_IP4}
     ${SECRET_DOMAIN_GUEST}:
-      - - ${SECRET_HEADSCALE_IP8}
+      - ${SECRET_HEADSCALE_IP8}
     ${SECRET_DOMAIN_LAB}:
-      - - ${SECRET_HEADSCALE_IP9}
+      - ${SECRET_HEADSCALE_IP9}
     ${SECRET_DOMAIN_INTERNAL}:
       - ${K8S_GATEWAY_ADDR}
   domains: []
