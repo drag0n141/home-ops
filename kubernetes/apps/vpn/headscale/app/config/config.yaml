@@ -1,17 +1,14 @@
 ---
 server_url: https://headscale.${SECRET_DOMAIN}:443
-
 listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 127.0.0.1:9090
 grpc_listen_addr: 0.0.0.0:50443
 grpc_allow_insecure: false
-
 private_key_path: /etc/headscale/private.key
 noise:
   private_key_path: /etc/headscale/noise_private.key
 ip_prefixes:
   - ${SECRET_HEADSCALE_IPV4}
-
 derp:
   server:
     enabled: true
@@ -19,32 +16,23 @@ derp:
     region_code: "drag0n141"
     region_name: "Headscale Embedded DERP"
     stun_listen_addr: "0.0.0.0:3478"
-
   urls:
     - https://controlplane.tailscale.com/derpmap/default
-
   paths: []
-
   auto_update_enabled: true
   update_frequency: 24h
-
 disable_check_updates: true
-
 ephemeral_node_inactivity_timeout: 30m
-
 node_update_check_interval: 10s
-
 db_type: postgres
 db_host: postgres-rw.database.svc.cluster.local
 db_port: 5432
 db_name: ${SECRET_HEADSCALE_DB}
 db_user: ${SECRET_HEADSCALE_USER}
 db_pass: ${SECRET_HEADSCALE_PW}
-
 log:
   format: text
   level: info
-
 dns_config:
   override_local_dns: true
   magic_dns: true
@@ -73,6 +61,5 @@ dns_config:
       - - ${SECRET_HEADSCALE_IP9}
     ${SECRET_DOMAIN_INTERNAL}:
       - ${K8S_GATEWAY_ADDR}
-
   domains: []
   base_domain: scale.${SECRET_DOMAIN}"
