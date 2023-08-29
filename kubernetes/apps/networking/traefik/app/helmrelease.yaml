@@ -91,11 +91,6 @@ spec:
         tls:
           enabled: true
           options: default
-          domains:
-            - main: "*.${SECRET_DOMAIN}"
-              sans:
-                - "*.${SECRET_DOMAIN}"
-                - "*.${SECRET_DOMAIN_SHORT}"
         http3:
           enabled: true
       metrics:
