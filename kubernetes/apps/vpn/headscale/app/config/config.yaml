@@ -11,7 +11,7 @@ ip_prefixes:
   - ${SECRET_HEADSCALE_IPV4}
 derp:
   server:
-    enabled: true
+    enabled: false
     region_id: 999
     region_code: "drag0n141"
     region_name: "Headscale Embedded DERP"
@@ -51,8 +51,6 @@ dns_config:
       - ${SECRET_HEADSCALE_IP3}
     ${SECRET_DOMAIN_AD}:
       - ${SECRET_HEADSCALE_IP5}
-      - ${SECRET_HEADSCALE_IP6}
-      - ${SECRET_HEADSCALE_IP7}
     ${SECRET_DOMAIN_INT}:
       - ${SECRET_HEADSCALE_IP4}
     ${SECRET_DOMAIN_GUEST}:
