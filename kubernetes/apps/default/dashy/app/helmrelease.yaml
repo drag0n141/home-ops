@@ -82,8 +82,9 @@ spec:
         enabled: true
         type: secret
         name: dashy-secret
-        mountPath: /app/public/conf.yml
         subPath: conf.yml
+        mountPath: /app/public/conf.yml
+        readOnly: true
     volumeClaimTemplates:
       - name: icons
         mountPath: /app/public/item-icons
