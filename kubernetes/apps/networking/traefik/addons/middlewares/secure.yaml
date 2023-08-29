@@ -108,6 +108,7 @@ spec:
     accessControlMaxAge: 100
     accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
+      - "https://(.*?)${SECRET_DOMAIN_SHORT}"
     accessControlAllowHeaders:
       - "Content-Type"
       - "X-API-Key"
