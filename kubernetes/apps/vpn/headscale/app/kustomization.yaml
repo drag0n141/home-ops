@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: headscale-configmap
     files:
-      - config.yaml=./config/config.yaml
+      - ./config/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
