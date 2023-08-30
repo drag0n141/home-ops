@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/juanfont/headscale
-      tag: 0.23.0@sha256:a02592e70c12b77b7f3b99c142818f7636a44c97bfa38f678b8c9c3ae5f82895
+      tag: latest@sha256:aadf29a875bb2ffdf6579869e5759935f7a64b9fd19fcea9d5385c5d7220dc7b
     args: ["headscale", "serve"]
     env:
       TZ: ${TIMEZONE}
