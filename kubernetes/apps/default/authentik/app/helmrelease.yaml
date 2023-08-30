@@ -54,7 +54,6 @@ spec:
       enabled: true
       ingressClassName: traefik
       annotations:
-        external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
       hosts:
@@ -62,7 +61,12 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+        - host: &host2 "auth.${SECRET_DOMAIN_INTERNAL}"
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
         - hosts:
             - *host
+            - *host2
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
