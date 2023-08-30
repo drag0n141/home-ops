@@ -24,12 +24,8 @@ derp:
 disable_check_updates: true
 ephemeral_node_inactivity_timeout: 30m
 node_update_check_interval: 10s
-db_type: postgres
-db_host: postgres-rw.database.svc.cluster.local
-db_port: 5432
-db_name: ${SECRET_HEADSCALE_DB}
-db_user: ${SECRET_HEADSCALE_USER}
-db_pass: ${SECRET_HEADSCALE_PW}
+db_type: sqlite3
+db_typedb_path: /etc/headscale/db.sqlite3
 log:
   format: text
   level: info
