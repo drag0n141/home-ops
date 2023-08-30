@@ -1,14 +1,14 @@
 ---
-server_url: https://headscale.${SECRET_DOMAIN}:443
+server_url: "https://headscale.${SECRET_DOMAIN}:443"
 listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 127.0.0.1:9090
 grpc_listen_addr: 0.0.0.0:50443
 grpc_allow_insecure: false
-private_key_path: /etc/headscale/private.key
+private_key_path: "/etc/headscale/private.key"
 noise:
-  private_key_path: /etc/headscale/noise_private.key
+  private_key_path: "/etc/headscale/noise_private.key"
 ip_prefixes:
-  - ${SECRET_HEADSCALE_IPV4}
+  - "${SECRET_HEADSCALE_IPV4}"
 derp:
   server:
     enabled: true
@@ -17,7 +17,7 @@ derp:
     region_name: "drag0n141-DERP"
     stun_listen_addr: 0.0.0.0:3478
   urls:
-    - https://controlplane.tailscale.com/derpmap/default
+    - "https://controlplane.tailscale.com/derpmap/default"
   paths: []
   auto_update_enabled: true
   update_frequency: 24h
@@ -25,7 +25,7 @@ disable_check_updates: true
 ephemeral_node_inactivity_timeout: 30m
 node_update_check_interval: 10s
 db_type: sqlite3
-db_typedb_path: /etc/headscale/db.sqlite3
+db_typedb_path: "/etc/headscale/db.sqlite3"
 log:
   format: text
   level: info
@@ -33,29 +33,29 @@ dns_config:
   override_local_dns: true
   magic_dns: true
   nameservers:
-    - ${SECRET_HEADSCALE_IP}
-    - ${SECRET_HEADSCALE_IP2}
-    - ${SECRET_HEADSCALE_IP3}
+    - "${SECRET_HEADSCALE_IP}"
+    - "${SECRET_HEADSCALE_IP2}"
+    - "${SECRET_HEADSCALE_IP3}"
   restricted_nameservers:
-    ${SECRET_DOMAIN_EXT}:
-      - ${SECRET_HEADSCALE_IP}
-    ${SECRET_DOMAIN_EXT01}:
-      - ${SECRET_HEADSCALE_IP}
-    ${SECRET_DOMAIN_EXT02}:
-      - ${SECRET_HEADSCALE_IP2}
-    ${SECRET_DOMAIN_EXT03}:
-      - ${SECRET_HEADSCALE_IP3}
-    ${SECRET_DOMAIN_AD}:
-      - ${SECRET_HEADSCALE_IP5}
-      - ${SECRET_HEADSCALE_IP6}
-      - ${SECRET_HEADSCALE_IP7}
-    ${SECRET_DOMAIN_INT}:
-      - ${SECRET_HEADSCALE_IP4}
-    ${SECRET_DOMAIN_GUEST}:
-      - ${SECRET_HEADSCALE_IP8}
-    ${SECRET_DOMAIN_LAB}:
-      - ${SECRET_HEADSCALE_IP9}
-    ${SECRET_DOMAIN_INTERNAL}:
-      - ${K8S_GATEWAY_ADDR}
+    "${SECRET_DOMAIN_EXT}:
+      - "${SECRET_HEADSCALE_IP}"
+    "${SECRET_DOMAIN_EXT01}:
+      - "${SECRET_HEADSCALE_IP}"
+    "${SECRET_DOMAIN_EXT02}:
+      - "${SECRET_HEADSCALE_IP2}"
+    "${SECRET_DOMAIN_EXT03}:
+      - "${SECRET_HEADSCALE_IP3}"
+    "${SECRET_DOMAIN_AD}:
+      - "${SECRET_HEADSCALE_IP5}"
+      - "${SECRET_HEADSCALE_IP6}"
+      - "${SECRET_HEADSCALE_IP7}"
+    "${SECRET_DOMAIN_INT}:
+      - "${SECRET_HEADSCALE_IP4}"
+    "${SECRET_DOMAIN_GUEST}:
+      - "${SECRET_HEADSCALE_IP8}"
+    "${SECRET_DOMAIN_LAB}:
+      - "${SECRET_HEADSCALE_IP9}"
+    "${SECRET_DOMAIN_INTERNAL}:
+      - "${K8S_GATEWAY_ADDR}"
   domains: []
-  base_domain: scale.${SECRET_DOMAIN}
+  base_domain: "scale.${SECRET_DOMAIN}"
