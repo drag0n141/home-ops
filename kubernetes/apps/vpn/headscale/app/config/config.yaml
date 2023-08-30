@@ -56,4 +56,4 @@ dns_config:
     ${SECRET_DOMAIN_INTERNAL}:
       - ${K8S_GATEWAY_ADDR}
   domains: []
-  base_domain: scale.${SECRET_DOMAIN}"
+  base_domain: scale.${SECRET_DOMAIN}
