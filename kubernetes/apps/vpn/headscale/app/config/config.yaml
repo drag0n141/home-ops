@@ -11,7 +11,7 @@ ip_prefixes:
   - ${SECRET_HEADSCALE_IPV4}
 derp:
   server:
-    enabled: false
+    enabled: true
     region_id: 999
     region_code: "drag0n141"
     region_name: "Headscale Embedded DERP"
