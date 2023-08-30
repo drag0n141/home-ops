@@ -1,5 +1,5 @@
 ---
-server_url: https://headscale.${SECRET_DOMAIN}
+server_url: https://headscale.${SECRET_DOMAIN}:443
 listen_addr: 0.0.0.0:8080
 metrics_listen_addr: 127.0.0.1:9090
 grpc_listen_addr: 0.0.0.0:50443
