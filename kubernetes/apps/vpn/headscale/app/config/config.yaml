@@ -32,7 +32,7 @@ db_user: ${SECRET_HEADSCALE_USER}
 db_pass: ${SECRET_HEADSCALE_PW}
 log:
   format: text
-  level: info
+  level: debug
 dns_config:
   override_local_dns: true
   magic_dns: true
