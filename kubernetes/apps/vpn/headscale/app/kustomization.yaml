@@ -9,5 +9,3 @@ configMapGenerator:
   - name: headscale-configmap
     files:
       - ./config/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
