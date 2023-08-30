@@ -152,13 +152,6 @@ spec:
         subPath: configuration.yaml
         mountPath: /config/configuration.yaml
         readOnly: false
-      oidc-issuer-private-key:
-        enabled: true
-        type: secret
-        name: authelia-secret
-        subPath: OIDC_ISSUER_PRIVATE_KEY
-        mountPath: /app/secrets/OIDC_ISSUER_PRIVATE_KEY
-        readOnly: true
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
