@@ -11,3 +11,9 @@ configMapGenerator:
       - ./config/configuration.yaml
 generatorOptions:
   disableNameSuffixHash: true
+secretGenerator:
+  - name: authelia-private
+    files:
+      - private.pem=./private.sops.conf
+generatorOptions:
+  disableNameSuffixHash: true
