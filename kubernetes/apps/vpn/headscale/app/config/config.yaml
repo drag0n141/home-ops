@@ -16,8 +16,8 @@ derp:
     region_code: "drag0n141"
     region_name: "drag0n141-DERP"
     stun_listen_addr: 0.0.0.0:3478
-  urls:
-    - https://controlplane.tailscale.com/derpmap/default
+#  urls:
+#    - https://controlplane.tailscale.com/derpmap/default
   paths: []
   auto_update_enabled: true
   update_frequency: 24h
