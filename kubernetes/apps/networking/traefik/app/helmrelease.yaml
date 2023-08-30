@@ -90,6 +90,7 @@ spec:
       websecure:
         tls:
           enabled: true
+          options: default
         http3:
           enabled: true
       metrics:
