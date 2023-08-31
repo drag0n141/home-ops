@@ -35,7 +35,7 @@ spec:
       setGateway: "true"
     env:
       TZ: ${TIMEZONE}
-      TS_KUBE_SECRET: tailscale-state
+      TS_KUBE_SECRET: tailscale-secret
       SA_NAME: tailscale
       TS_USERSPACE: true
       TS_ACCEPT_DNS: false
