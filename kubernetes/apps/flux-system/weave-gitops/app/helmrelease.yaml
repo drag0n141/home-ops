@@ -65,8 +65,8 @@ spec:
       secret.reloader.stakater.com/reload: cluster-user-auth
     resources:
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 128Mi
       limits:
-        cpu: 200m
-        memory: 192Mi
+        cpu: 20m
+        memory: 256Mi
