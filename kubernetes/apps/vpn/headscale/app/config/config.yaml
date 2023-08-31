@@ -64,4 +64,4 @@ oidc:
   issuer: "https://authelia.${SECRET_DOMAIN}"
   client_id: "headscale"
   client_secret: "${HEADSCALE_OAUTH_CLIENT_SECRET}"
-  scope: ["openid", "profile", "email"]
+  scope: ["openid", "profile", "email", "custom"]
