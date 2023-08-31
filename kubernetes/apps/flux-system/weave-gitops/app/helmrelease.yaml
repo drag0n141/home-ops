@@ -59,7 +59,7 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResourceNames: []
+      impersonationResourceNames: ["admin", "${SECRET_EMAIL}"]
       impersonationResources: ["users", "groups"]
       additionalRules:
         - apiGroups: ["infra.contrib.fluxcd.io"]
