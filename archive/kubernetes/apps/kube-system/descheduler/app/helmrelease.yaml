@@ -40,7 +40,6 @@ spec:
           params:
             includeSoftConstraints: true
         PodLifeTime:
-          enabled: true
           params:
             podLifeTime:
               states:
