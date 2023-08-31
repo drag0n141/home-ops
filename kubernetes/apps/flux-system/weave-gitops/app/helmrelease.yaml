@@ -57,6 +57,8 @@ spec:
     rbac:
       create: true
       impersonationResourceNames: ["admin"]
+      impersonationResources: ["users", "groups"]
+      viewSecretsResourceNames: ["cluster-user-auth", "oidc-auth"]
       additionalRules:
         - apiGroups: ["infra.contrib.fluxcd.io"]
           resources: ["terraforms"]
