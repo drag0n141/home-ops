@@ -33,6 +33,8 @@ spec:
       tag: v1.48.1
     podAnnotations:
       setGateway: "true"
+    serviceAccount:
+      name: tailscale
     env:
       TZ: ${TIMEZONE}
       TS_KUBE_SECRET: tailscale-secret
@@ -61,11 +63,3 @@ spec:
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: OnRootMismatch
-    serviceAccount:
-      name: tailscale
-    resources:
-      requests:
-        cpu: 10m
-        memory: 128Mi
-      limits:
-        memory: 256Mi
