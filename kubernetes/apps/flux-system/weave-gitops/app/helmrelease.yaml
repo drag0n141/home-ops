@@ -25,6 +25,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    envVars:
+      - name: WEAVE_GITOPS_FEATURE_OIDC_BUTTON_LABEL
+        value: "Login with Authelia"
     adminUser:
       create: true
       createSecret: false
@@ -56,8 +59,8 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResourceNames: ["admin", "${SECRET_EMAIL}"]
-      impersonationResources: ["users"]
+      impersonationResourceNames: []
+      impersonationResources: ["users", "groups"]
       additionalRules:
         - apiGroups: ["infra.contrib.fluxcd.io"]
           resources: ["terraforms"]
