@@ -4,4 +4,5 @@ kind: Kustomization
 namespace: downloads
 resources:
   - ./helmrelease.yaml
+  - ./rbac.yaml
   - ./secret.sops.yaml
