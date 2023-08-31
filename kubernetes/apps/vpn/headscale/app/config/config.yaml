@@ -59,3 +59,9 @@ dns_config:
       - ${K8S_GATEWAY_ADDR}
   domains: []
   base_domain: scale.${SECRET_DOMAIN}
+oidc:
+  only_start_if_oidc_is_available: true
+  issuer: "https://authelia.${SECRET_DOMAIN}"
+  client_id: "headscale"
+  client_secret: "${HEADSCALE_OAUTH_CLIENT_SECRET}"
+  scope: ["openid", "profile", "email"]
