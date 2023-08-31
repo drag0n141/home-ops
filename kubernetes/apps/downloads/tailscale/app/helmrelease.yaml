@@ -39,7 +39,7 @@ spec:
       SA_NAME: tailscale
       TS_USERSPACE: true
       TS_ACCEPT_DNS: false
-      TS_EXTRA_ARGS: "--snat-subnet-routes=false --advertise-exit-node"
+      TS_EXTRA_ARGS: "--advertise-exit-node"
     envFrom:
       - secretRef:
           name: tailscale-secret
