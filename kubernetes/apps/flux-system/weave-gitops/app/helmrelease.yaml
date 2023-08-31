@@ -29,11 +29,18 @@ spec:
       create: true
       createSecret: false
       username: admin
+    oidcSecret:
+      create: true
+      clientID: weave-gitops
+      clientSecret: ${WEAVEGITOPS_OAUTH_CLIENT_SECRET}
+      issuerURL: https://authelia.${CLUSTER_DOMAIN}
+      redirectURL: https://gitops.${CLUSTER_DOMAIN_INTERNAL}/oauth2/callback
     ingress:
       enabled: true
       className: traefik
       annotations:
-        hajimari.io/icon: sawtooth-wave
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
       hosts:
         - host: "gitops.${SECRET_DOMAIN_INTERNAL}"
           paths:
