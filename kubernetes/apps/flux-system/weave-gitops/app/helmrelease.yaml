@@ -42,13 +42,13 @@ spec:
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
       hosts:
-        - host: "gitops.${SECRET_DOMAIN_INTERNAL}"
+        - host: &host "gitops.${SECRET_DOMAIN_INTERNAL}"
           paths:
             - path: /
               pathType: Prefix
       tls:
         - hosts:
-            - "gitops.${SECRET_DOMAIN_INTERNAL}"
+            - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
     networkPolicy:
       create: false
