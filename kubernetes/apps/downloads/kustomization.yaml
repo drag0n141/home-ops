@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./prowlarr/ks.yaml
   - ./socks-proxy/ks.yaml
+  - ./tailscale/ks.yaml
