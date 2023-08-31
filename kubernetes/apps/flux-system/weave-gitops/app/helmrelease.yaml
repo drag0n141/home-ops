@@ -29,12 +29,12 @@ spec:
       create: true
       createSecret: false
       username: admin
-#    oidcSecret:
-#      create: true
-#      clientID: weave-gitops
-#      clientSecret: ${WEAVEGITOPS_OAUTH_CLIENT_SECRET}
-#      issuerURL: https://authelia.${SECRET_DOMAIN}
-#      redirectURL: https://gitops.${SECRET_DOMAIN_INTERNAL}/oauth2/callback
+    oidcSecret:
+      create: true
+      clientID: weave-gitops
+      clientSecret: ${WEAVEGITOPS_OAUTH_CLIENT_SECRET}
+      issuerURL: https://authelia.${SECRET_DOMAIN}
+      redirectURL: https://gitops.${SECRET_DOMAIN_INTERNAL}/oauth2/callback
     ingress:
       enabled: true
       className: traefik
