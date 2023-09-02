@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-kube-vip-cloud-controller
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/kube-system/kube-vip/cloud-controller
+  path: ./kubernetes/cluster-0/apps/kube-system/kube-vip/cloud-controller
   prune: false # never should be deleted
   sourceRef:
     kind: GitRepository

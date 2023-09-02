@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-socks-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/downloads/socks-proxy/app
+  path: ./kubernetes/cluster-0/apps/downloads/socks-proxy/app
   prune: true
   sourceRef:
     kind: GitRepository

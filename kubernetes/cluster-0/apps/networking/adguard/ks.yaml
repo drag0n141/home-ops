@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-  path: ./kubernetes/apps/networking/adguard/app
+  path: ./kubernetes/cluster-0/apps/networking/adguard/app
   prune: true
   sourceRef:
     kind: GitRepository

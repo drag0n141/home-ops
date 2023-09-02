@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-whoami
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/networking/whoami/app
+  path: ./kubernetes/cluster-0/apps/networking/whoami/app
   prune: true
   sourceRef:
     kind: GitRepository

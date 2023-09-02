@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-tailscale
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/downloads/tailscale/app
+  path: ./kubernetes/cluster-0/apps/downloads/tailscale/app
   prune: true
   sourceRef:
     kind: GitRepository

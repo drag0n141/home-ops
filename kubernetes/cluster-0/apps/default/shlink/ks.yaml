@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-mariadb-lb
-  path: ./kubernetes/apps/default/shlink/app
+  path: ./kubernetes/cluster-0/apps/default/shlink/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-shlink
-  path: ./kubernetes/apps/default/shlink/web
+  path: ./kubernetes/cluster-0/apps/default/shlink/web
   prune: true
   sourceRef:
     kind: GitRepository

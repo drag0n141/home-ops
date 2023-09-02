@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-mariadb-lb
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/database/mariadb-lb/app
+  path: ./kubernetes/cluster-0/apps/database/mariadb-lb/app
   prune: true
   sourceRef:
     kind: GitRepository

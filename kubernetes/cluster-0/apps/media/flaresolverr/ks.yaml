@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-flaresolverr
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/media/flaresolverr/app
+  path: ./kubernetes/cluster-0/apps/media/flaresolverr/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-syncthing
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/syncthing/app
+  path: ./kubernetes/cluster-0/apps/default/syncthing/app
   prune: true
   sourceRef:
     kind: GitRepository

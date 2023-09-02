@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cert-manager-issuers
-  path: ./kubernetes/apps/networking/traefik/certificates
+  path: ./kubernetes/cluster-0/apps/networking/traefik/certificates
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-traefik-certificates
-  path: ./kubernetes/apps/networking/traefik/app
+  path: ./kubernetes/cluster-0/apps/networking/traefik/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -41,7 +41,7 @@ metadata:
   name: cluster-apps-traefik-addons
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/networking/traefik/addons
+  path: ./kubernetes/cluster-0/apps/networking/traefik/addons
   prune: true
   sourceRef:
     kind: GitRepository

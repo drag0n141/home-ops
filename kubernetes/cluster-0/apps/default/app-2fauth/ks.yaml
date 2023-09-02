@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-app-2fauth
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/app-2fauth/app
+  path: ./kubernetes/cluster-0/apps/default/app-2fauth/app
   prune: true
   sourceRef:
     kind: GitRepository

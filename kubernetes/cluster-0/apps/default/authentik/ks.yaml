@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster
-  path: ./kubernetes/apps/default/authentik/app
+  path: ./kubernetes/cluster-0/apps/default/authentik/app
   prune: true
   sourceRef:
     kind: GitRepository

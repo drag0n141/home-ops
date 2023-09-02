@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-mailrise
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/mailrise/app
+  path: ./kubernetes/cluster-0/apps/default/mailrise/app
   prune: true
   sourceRef:
     kind: GitRepository

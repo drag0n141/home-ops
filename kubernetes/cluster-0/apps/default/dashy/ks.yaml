@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-dashy
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/dashy/app
+  path: ./kubernetes/cluster-0/apps/default/dashy/app
   prune: true
   sourceRef:
     kind: GitRepository

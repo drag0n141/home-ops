@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-mobaxterm-genkey
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/mobaxterm-genkey/app
+  path: ./kubernetes/cluster-0/apps/default/mobaxterm-genkey/app
   prune: true
   sourceRef:
     kind: GitRepository

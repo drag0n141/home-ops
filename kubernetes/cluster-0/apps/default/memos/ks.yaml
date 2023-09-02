@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-memos
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/memos/app
+  path: ./kubernetes/cluster-0/apps/default/memos/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-mind
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/mind/app
+  path: ./kubernetes/cluster-0/apps/default/mind/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-mariadb-lb
-  path: ./kubernetes/apps/default/roundcube/app
+  path: ./kubernetes/cluster-0/apps/default/roundcube/app
   prune: true
   sourceRef:
     kind: GitRepository

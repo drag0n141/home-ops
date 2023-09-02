@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-mariadb-lb
-  path: ./kubernetes/apps/default/freshrss/app
+  path: ./kubernetes/cluster-0/apps/default/freshrss/app
   prune: true
   sourceRef:
     kind: GitRepository

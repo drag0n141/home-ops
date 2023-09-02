@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-baikal
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/baikal/app
+  path: ./kubernetes/cluster-0/apps/default/baikal/app
   prune: true
   sourceRef:
     kind: GitRepository

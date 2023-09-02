@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-adguardhome-sync
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/adguardhome-sync/app
+  path: ./kubernetes/cluster-0/apps/default/adguardhome-sync/app
   prune: true
   sourceRef:
     kind: GitRepository

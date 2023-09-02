@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-snippet-box
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/snippet-box/app
+  path: ./kubernetes/cluster-0/apps/default/snippet-box/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-rdesktop
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/rdesktop/app
+  path: ./kubernetes/cluster-0/apps/default/rdesktop/app
   prune: true
   sourceRef:
     kind: GitRepository
