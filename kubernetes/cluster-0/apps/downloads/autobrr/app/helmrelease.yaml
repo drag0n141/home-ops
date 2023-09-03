@@ -41,10 +41,6 @@ spec:
     envFrom:
       - secretRef:
           name: autobrr-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
     service:
       main:
         ports:
