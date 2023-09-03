@@ -15,6 +15,7 @@
       "automerge": true,
       "automergeType": "branch",
       "ignoreTests": true,
+      "excludePackagePatterns": ["prowlarr"],
       "matchUpdateTypes": ["minor", "patch", "digest"]
     }
   ]
