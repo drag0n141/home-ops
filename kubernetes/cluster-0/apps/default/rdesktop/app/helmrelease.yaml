@@ -30,7 +30,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: lscr.io/linuxserver/rdesktop
+      repository: ghcr.io/linuxserver/rdesktop
       tag: latest@sha256:4644849f8e9029d6813451dc7d982cfcd68e84a2ff9266c9068db3a2bc8a702a
     env:
       TZ: ${TIMEZONE}
