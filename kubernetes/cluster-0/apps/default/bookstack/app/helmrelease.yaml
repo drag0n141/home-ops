@@ -33,8 +33,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: lscr.io/linuxserver/bookstack
-      tag: v23.06.2-ls99
+      repository: ghcr.io/linuxserver/bookstack
+      tag: v23.08.2@sha256:05208b1b732f62f6cfb0796bfbdea3297d6a2305e07c5b900dade8421aeafcc8
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
