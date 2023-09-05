@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/linuxserver/bookstack
-      tag: v23.08.2@sha256:05208b1b732f62f6cfb0796bfbdea3297d6a2305e07c5b900dade8421aeafcc8
+      tag: 23.08.20230830@sha256:0818056ef7c8a0d1a69410b0f5332891502ad482d93ffe006adae9e5e3b12692
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
