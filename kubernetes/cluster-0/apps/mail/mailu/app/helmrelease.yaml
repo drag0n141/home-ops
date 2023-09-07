@@ -123,7 +123,9 @@ spec:
       externalService:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: ${MAILU_LB_ADDR}
+        annotations:
+          coredns.io/hostname: "mail.${SECRET_DOMAIN_INTERNAL}"
+          kube-vip.io/loadbalancerIPs: "${MAILU_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           pop3: false
