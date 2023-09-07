@@ -21,6 +21,7 @@ resources:
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
   - ./kube-vip.yaml
+  - ./mailu.yaml
   - ./metrics-server.yaml
   - ./pihole.yaml
   - ./piraeus.yaml
