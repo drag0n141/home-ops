@@ -4,17 +4,12 @@
     {
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["dashy"],
-      "allowedVersions": "2.1.0"
+      "enabled": "false"
     },
     {
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["postgresql"],
       "allowedVersions": "<16"
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["authelia"],
-      "enabled": "false"
     }
   ]
 }
