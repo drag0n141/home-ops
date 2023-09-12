@@ -30,7 +30,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: louislam/uptime-kuma
+      repository: docker.io/louislam/uptime-kuma
       tag: 1.23.1
     env:
       TZ: ${TIMEZONE}
