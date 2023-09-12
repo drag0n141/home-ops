@@ -59,7 +59,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: alertmanager-configmap
+        name: alert-manager-configmap
         mountPath: /etc/alertmanager
         readOnly: true
       secrets:
