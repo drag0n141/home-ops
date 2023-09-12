@@ -1,0 +1,82 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: alert-manager
+  namespace: monitoring
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: quay.io/prometheus/alertmanager
+      tag: main@sha256:d67a3e30dcd46fe7afe5670c080badbd853bd3bb89e9f367bf02fcfea294038f
+    env:
+      TZ: ${TIMEZONE}
+    service:
+      main:
+        ports:
+          http:
+            port: 9093
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "alertmanager.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: alertmanager-configmap
+        mountPath: /etc/alertmanager
+        readOnly: true
+      secrets:
+        enabled: true
+        type: secret
+        name: alert-manager-secret
+        mountPath: /etc/secrets
+        readOnly: true
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /alertmanager
+        accessMode: ReadWriteOnce
+        size: 50Mi
+        storageClass: ceph-block
+    resources:
+      requests:
+        cpu: 11m
+        memory: 50M
+      limits:
+        memory: 100M
