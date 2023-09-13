@@ -11,4 +11,5 @@ resources:
   - ./node-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./thanos/ks.yaml
+  - ./unpoller/ks.yaml
   - ./uptime-kuma/ks.yaml
