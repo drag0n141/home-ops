@@ -31,7 +31,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       UP_UNIFI_DEFAULT_ROLE: home-ops
-      UP_UNIFI_DEFAULT_URL: https://unifi-controller.${SECRET_DOMAIN_INTERNAL}
+      UP_UNIFI_DEFAULT_URL: https://unifi-controller.networking.svc.cluster.local:8443
       UP_UNIFI_DEFAULT_VERIFY_SSL: false
       UP_UNIFI_DEFAULT_USER: unifipoller
       UP_INFLUXDB_DISABLE: true
