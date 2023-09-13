@@ -9,5 +9,6 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./kube-state-metrics/ks.yaml
   - ./node-exporter/ks.yaml
+  - ./snmp-exporter/ks.yaml
   - ./thanos/ks.yaml
   - ./uptime-kuma/ks.yaml
