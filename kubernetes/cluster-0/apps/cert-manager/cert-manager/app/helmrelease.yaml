@@ -9,14 +9,13 @@ spec:
   chart:
     spec:
       chart: cert-manager
-      version: v1.12.4
+      version: v1.13.0
       sourceRef:
         kind: HelmRepository
         name: jetstack
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -28,10 +27,10 @@ spec:
   values:
     installCRDs: true
     extraArgs:
-      - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
+      - --dns01-recursive-nameservers=https://1.1.1.1/dns-query,https://9.9.9.9/dns-query
       - --dns01-recursive-nameservers-only
-    podDnsPolicy: None
-    podDnsConfig:
-      nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+        prometheusInstance: monitoring
