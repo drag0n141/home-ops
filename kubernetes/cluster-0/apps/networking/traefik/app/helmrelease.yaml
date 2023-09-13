@@ -97,6 +97,12 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
+    metrics:
+      prometheus:
+        service:
+          enabled: true
+        serviceMonitor:
+          enabled: true
     pilot:
       enabled: false
     experimental:
