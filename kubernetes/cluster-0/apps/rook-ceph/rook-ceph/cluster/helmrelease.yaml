@@ -56,6 +56,16 @@ spec:
         connections:
           compression:
             enabled: true
+      placement:
+        mon:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: node.${SECRET_DOMAIN}/storage
+                      operator: In
+                      values:
+                        - "true"
       resources:
         mgr:
           requests:
