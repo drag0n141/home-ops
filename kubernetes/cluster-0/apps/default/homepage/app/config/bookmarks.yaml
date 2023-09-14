@@ -1,22 +1,105 @@
 ---
-- Communitcate:
-    - Discord:
-        - icon: discord.png
-          href: 'https://discord.com/app'
-    - Gmail:
-        - icon: gmail.png
-          href: 'http://gmail.com'
-    - Google Calendar:
-        - icon: google-calendar.png
-          href: 'https://calendar.google.com'
-- Media:
+- Standard:
+    - Twitch:
+        - icon: twitch.png
+          href: 'https://twitch.tv'
     - YouTube:
         - icon: youtube.png
-          href: 'https://youtube.com/feed/subscriptions'
-    - Spotify:
-        - icon: spotify.png
-          href: 'http://open.spotify.com'
-- Reading:
+          href: 'https://youtube.com'
     - Reddit:
         - icon: reddit.png
           href: 'https://reddit.com'
+    - Gmail:
+        - icon: gmail.png
+          href: 'http://gmail.com'
+- Server Tools:
+    - Autoscan:
+        - icon: autoscan.png
+          href: https://autoscan.${SECRET_DOMAIN_EXT02}/triggers/manual
+    - Autoscan-Plex:
+        - icon: autoscan.png
+          href: https://autoscan-plex.${SECRET_DOMAIN_EXT01}/triggers/manual
+    - Autoscan-Home:
+        - icon: autoscan.png
+          href: https://autoscan-home.${SECRET_DOMAIN_INT}/triggers/manual
+    - Autoscan-Jellyfin:
+        - icon: autoscan.png
+          href: https://autoscan-jellyfin.${SECRET_DOMAIN_EXT02}/triggers/manual
+    - CloudCMD:
+        - icon: cloudcmd.png
+          href: https://cloudcmd-feeder.${SECRET_DOMAIN_EXT02}
+    - OliveTin-Feeder:
+        - icon: olivetin.png
+          href: https://olivetin-feeder.${SECRET_DOMAIN_EXT02}
+    - OliveTin-Plex:
+        - icon: olivetin.png
+          href: https://olivetin-plex.${SECRET_DOMAIN_EXT01}
+    - OliveTin-Jellyfin:
+        - icon: olivetin.png
+          href: https://olivetin-jellyfin.${SECRET_DOMAIN_EXT02}
+    - OliveTin-Cloud:
+        - icon: olivetin.png
+          href: https://olivetin-cloud.${SECRET_DOMAIN_EXT03}
+    - OliveTin-Home:
+        - icon: olivetin.png
+          href: https://olivetin-home.${SECRET_DOMAIN_INT}
+    - OliveTin-Print:
+        - icon: olivetin.png
+          href: https://olivetin-print.${SECRET_DOMAIN_INT}
+
+- Server Monitoring:
+    - Glances-Feeder:
+        - icon: glances.png
+          href: https://glances-feeder.${SECRET_DOMAIN_EXT02}
+    - Glances-Plex:
+        - icon: glances.png
+          href: https://glances-plex.${SECRET_DOMAIN_EXT01}
+    - Glances-Jellyfin:
+        - icon: glances.png
+          href: https://glances-jellyfin.${SECRET_DOMAIN_EXT02}
+    - Glances-Cloud:
+        - icon: glances.png
+          href: https://glances-cloud.${SECRET_DOMAIN_EXT03}
+    - Glances-Home:
+        - icon: glances.png
+          href: https://glances-home.${SECRET_DOMAIN_INT}
+    - Doozle-Feeder:
+        - icon: dozzle.png
+          href: https://dozzle-feeder.${SECRET_DOMAIN_EXT02}
+    - Doozle-Plex:
+        - icon: dozzle.png
+          href: https://dozzle-plex.${SECRET_DOMAIN_EXT01}
+    - Doozle-Jellyfin:
+        - icon: dozzle.png
+          href: https://dozzle-jellyfin.${SECRET_DOMAIN_EXT02}
+    - Doozle-Cloud:
+        - icon: dozzle.png
+          href: https://dozzle-cloud.${SECRET_DOMAIN_EXT03}
+    - Doozle-Home:
+        - icon: dozzle.png
+          href: https://dozzle-home.${SECRET_DOMAIN_INT}
+
+- Other Devices:
+    - Modem Telekom:
+        - abbr: MT
+          href: http://192.168.107.1
+    - Modem Vodafone:
+        - abbr: MU
+          href: http://192.168.100.1
+    - Brother Drucker:
+        - abbr: BD
+          href: http://192.168.1.31
+    - KVM Switch:
+        - abbr: KVM
+          href: https://192.168.1.30
+
+- Tools:
+    - Public IP:
+        - abbr: PI
+          href: https://www.whatismyip.com
+    - Speedtest:
+        - abbr: ST
+          href: https://speedtest.net
+    - Mullvad Check:
+        - icon: /icons/mullvad.png
+          href: https://mullvad.net/check
