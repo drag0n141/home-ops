@@ -17,6 +17,7 @@ resources:
   - ./freshrss/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
+  - ./homepage/ks.yaml
   - ./joplin-server/ks.yaml
   - ./kitchenowl/ks.yaml
   - ./ldap-lb/ks.yaml
