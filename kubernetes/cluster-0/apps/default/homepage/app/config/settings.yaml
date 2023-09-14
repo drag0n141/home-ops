@@ -7,24 +7,58 @@ layout:
     style: row
     columns: 4
     icon: mdi-application
-  Media:
+  Standard:
     style: row
     columns: 2
-    icon: mdi-play-circle
-  Infrastructure:
+    icon: mdi-application
+  System Management:
+    style: row
+    columns: 2
+    icon: mdi-application
+  Netzwerk:
+    style: row
+    columns: 2
+    icon: mdi-server
+  Server:
     style: row
     columns: 1
     icon: mdi-server
-  Home:
-    style: column
-    icon: mdi-home-analytics
-  Monitoring:
-    style: column
-    icon: mdi-chart-line
-  Downloads:
+  Media:
     style: row
-    columns: 3
-    icon: mdi-download-circle
+    columns: 1
+    icon: mdi-play-circle
+  Externe Services:
+    style: row
+    columns: 1
+    icon: mdi-play-circle
+  Foren:
+    style: row
+    columns: 1
+    icon: mdi-play-circle
+  Warez:
+    style: row
+    columns: 2
+    icon: mdi-play-circle
+  Shopping:
+    style: row
+    columns: 2
+    icon: mdi-play-circle
+  Server Tools:
+    style: row
+    columns: 2
+    icon: mdi-play-circle
+  Shopping:
+    style: row
+    columns: 2
+    icon: mdi-play-circle
+  Other Devices:
+    style: row
+    columns: 1
+    icon: mdi-play-circle
+  STools:
+    style: row
+    columns: 1
+    icon: mdi-play-circle
 providers:
   openweathermap: {{HOMEPAGE_VAR_OWM_API}}
   weatherapi: {{HOMEPAGE_VAR_WA_API}}
