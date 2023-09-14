@@ -8,7 +8,7 @@ layout:
     columns: 4
     icon: mdi-application
   Standard:
-    style: row
+    style: column
     columns: 2
     icon: mdi-application
   System Management:
