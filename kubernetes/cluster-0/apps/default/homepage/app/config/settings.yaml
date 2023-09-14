@@ -24,3 +24,6 @@ layout:
     style: row
     columns: 3
     icon: mdi-download-circle
+providers:
+  openweathermap: {{HOMEPAGE_VAR_OWM_API}}
+  weatherapi: {{HOMEPAGE_VAR_WA_API}}
