@@ -101,5 +101,5 @@
         - abbr: ST
           href: https://speedtest.net
     - Mullvad Check:
-        - icon: /icons/mullvad.png
+        - icon: mullvad.png
           href: https://mullvad.net/check
