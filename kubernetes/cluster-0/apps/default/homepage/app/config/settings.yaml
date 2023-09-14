@@ -8,16 +8,16 @@ layout:
     columns: 4
     icon: mdi-application
   Standard:
-    style: column
-    columns: 2
+    style: row
+    columns: 1
     icon: mdi-application
   System Management:
     style: row
-    columns: 2
+    columns: 1
     icon: mdi-application
   Netzwerk:
     style: row
-    columns: 2
+    columns: 1
     icon: mdi-server
   Server:
     style: row
@@ -37,15 +37,15 @@ layout:
     icon: mdi-play-circle
   Warez:
     style: row
-    columns: 2
+    columns: 1
     icon: mdi-play-circle
   Shopping:
     style: row
-    columns: 2
+    columns: 1
     icon: mdi-play-circle
   Server Tools:
     style: row
-    columns: 2
+    columns: 1
     icon: mdi-play-circle
   Other Devices:
     style: row
