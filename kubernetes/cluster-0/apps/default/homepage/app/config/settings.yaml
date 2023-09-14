@@ -6,9 +6,13 @@ headerStyle: clean
 target: _blank
 language: de
 layout:
-  Media:
+  Services:
     style: row
     columns: 4
+    icon: mdi-application
+  Media:
+    style: row
+    columns: 2
     icon: mdi-play-circle
   Infrastructure:
     style: row
