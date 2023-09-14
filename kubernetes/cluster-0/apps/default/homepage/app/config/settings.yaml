@@ -2,7 +2,7 @@
 headerStyle: clean
 target: _blank
 language: de
-cardBlur: sm
+cardBlur: ""
 layout:
   Services:
     style: row
