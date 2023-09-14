@@ -20,7 +20,7 @@
 
     - Uptime Kuma:
         href: https://uptime.${SECRET_DOMAIN}
-        icon: uptimekuma.png
+        icon: uptime-kuma.png
         description: Uptime Kuma
         widget:
           type: uptimekuma
