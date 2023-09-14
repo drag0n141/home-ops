@@ -28,3 +28,4 @@ layout:
 providers:
   openweathermap: {{HOMEPAGE_VAR_OWM_API}}
   weatherapi: {{HOMEPAGE_VAR_WA_API}}
+background: https://r4.wallpaperflare.com/wallpaper/272/801/260/iron-man-desktop-wallpaper-e9a068cdc17a0d9bc6a7481ff0a166fd.jpg
