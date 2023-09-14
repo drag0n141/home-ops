@@ -47,15 +47,11 @@ layout:
     style: row
     columns: 2
     icon: mdi-play-circle
-  Shopping:
-    style: row
-    columns: 2
-    icon: mdi-play-circle
   Other Devices:
     style: row
     columns: 1
     icon: mdi-play-circle
-  STools:
+  Tools:
     style: row
     columns: 1
     icon: mdi-play-circle
