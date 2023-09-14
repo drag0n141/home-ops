@@ -2,6 +2,7 @@
 headerStyle: clean
 target: _blank
 language: de
+fiveColumns: true
 layout:
   Services:
     style: row
@@ -9,11 +10,11 @@ layout:
     icon: mdi-application
   Standard:
     style: row
-    columns: 1
+    columns: 2
     icon: mdi-application
   System Management:
     style: row
-    columns: 1
+    columns: 2
     icon: mdi-application
   Netzwerk:
     style: row
@@ -41,11 +42,11 @@ layout:
     icon: mdi-play-circle
   Shopping:
     style: row
-    columns: 1
+    columns: 2
     icon: mdi-play-circle
   Server Tools:
     style: row
-    columns: 1
+    columns: 2
     icon: mdi-play-circle
   Other Devices:
     style: row
