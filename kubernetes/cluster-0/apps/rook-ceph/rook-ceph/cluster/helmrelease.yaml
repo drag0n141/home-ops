@@ -68,6 +68,8 @@ spec:
                         - "true"
         mgr:
           nodeAffinity: *nodeAffinity
+        mds:
+          nodeAffinity: *nodeAffinity
       resources:
         mgr:
           requests:
