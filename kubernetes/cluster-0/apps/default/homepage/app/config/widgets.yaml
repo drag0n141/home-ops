@@ -9,11 +9,12 @@
       label: cluster
       memory: true
       show: true
-      showLabel: true
+      showLabel: false
+      label: "K3s"
     nodes:
       cpu: true
       memory: true
-      show: true
+      show: false
       showLabel: true
 - openmeteo:
     label: Home
