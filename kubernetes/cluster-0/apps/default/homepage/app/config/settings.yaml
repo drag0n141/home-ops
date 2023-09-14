@@ -12,15 +12,15 @@ layout:
   Standard:
     style: row
     columns: 2
-    icon: mdi-application
+    icon: mdi-cursor-default
   System Management:
     style: row
     columns: 2
-    icon: mdi-application
+    icon: mdi-linux
   Netzwerk:
     style: row
     columns: 1
-    icon: mdi-server
+    icon: mdi-network
   Server:
     style: row
     columns: 1
@@ -32,31 +32,35 @@ layout:
   Externe Services:
     style: row
     columns: 1
-    icon: mdi-play-circle
+    icon: mdi-cloud
   Foren:
     style: row
     columns: 1
-    icon: mdi-play-circle
+    icon: mdi-forum
   Warez:
     style: row
     columns: 1
-    icon: mdi-play-circle
+    icon: mdi-download-circle
   Shopping:
     style: row
     columns: 2
-    icon: mdi-play-circle
+    icon: mdi-store
   Server Tools:
     style: row
     columns: 2
-    icon: mdi-play-circle
+    icon: mdi-tooltip
+  Server Monitoring:
+    style: row
+    columns: 2
+    icon: mdi-chart-bar
   Other Devices:
     style: row
     columns: 1
-    icon: mdi-play-circle
+    icon: mdi-devices
   Tools:
     style: row
     columns: 1
-    icon: mdi-play-circle
+    icon: mdi-tools
 providers:
   openweathermap: {{HOMEPAGE_VAR_OWM_API}}
   weatherapi: {{HOMEPAGE_VAR_WA_API}}
