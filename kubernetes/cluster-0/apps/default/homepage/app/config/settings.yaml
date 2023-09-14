@@ -1,17 +1,18 @@
 ---
 title: Dashboard
-favicon: https://github.com/walkxcode/dashboard-icons/blob/main/png/heimdall.png
 theme: dark
 color: slate
 headerStyle: clean
+target: _blank
+language: de
 layout:
   Media:
     style: row
-    columns: 2
+    columns: 4
     icon: mdi-play-circle
   Infrastructure:
     style: row
-    columns: 3
+    columns: 1
     icon: mdi-server
   Home:
     style: column
