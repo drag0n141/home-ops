@@ -14,16 +14,16 @@
           href: 'http://gmail.com'
 - Server Tools:
     - Autoscan:
-        - icon: autoscan.png
+        - icon: mdi-card-search
           href: https://autoscan.${SECRET_DOMAIN_EXT02}/triggers/manual
     - Autoscan-Plex:
-        - icon: autoscan.png
+        - icon: mdi-card-search
           href: https://autoscan-plex.${SECRET_DOMAIN_EXT01}/triggers/manual
     - Autoscan-Home:
-        - icon: autoscan.png
+        - icon: mdi-card-search
           href: https://autoscan-home.${SECRET_DOMAIN_INT}/triggers/manual
     - Autoscan-Jellyfin:
-        - icon: autoscan.png
+        - icon: mdi-card-search
           href: https://autoscan-jellyfin.${SECRET_DOMAIN_EXT02}/triggers/manual
     - CloudCMD:
         - icon: cloudcmd.png
