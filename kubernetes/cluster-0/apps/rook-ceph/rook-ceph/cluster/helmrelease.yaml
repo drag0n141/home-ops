@@ -57,7 +57,7 @@ spec:
           compression:
             enabled: true
       placement:
-        mon:
+        mon: &nodeAffinity
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
@@ -66,6 +66,8 @@ spec:
                       operator: In
                       values:
                         - "true"
+        mgr:
+          nodeAffinity: *nodeAffinity
       resources:
         mgr:
           requests:
