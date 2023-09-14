@@ -6,7 +6,7 @@
         description: Plex Media Server
         widget:
           type: plex
-          url: https://plex.${SECRET_DOMAIN_EXT}
+          url: https://plex.${SECRET_DOMAIN_EXT01}
           key: {{HOMEPAGE_VAR_DOCKER_PLEX_TOKEN}}
 
     - SABnzbd:
