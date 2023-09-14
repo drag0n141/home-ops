@@ -24,7 +24,7 @@
         description: Uptime Kuma
         widget:
           type: uptimekuma
-          url: https://uptime.${SECRET_DOMAIN}
+          url: http://uptime-kuma.monitoring.svc.cluster.local:3001
           slug: default
 
     - Portainer:
@@ -33,6 +33,6 @@
         description: Portainer
         widget:
           type: portainer
-          url: https://portainer.${SECRET_DOMAIN_INTERNAL}
+          url: http://portainer.default.svc.cluster.local:9000
           env: 3
           key: {{HOMEPAGE_VAR_PORTAINER_TOKEN}}
