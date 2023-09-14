@@ -24,6 +24,6 @@
 - datetime:
     text_size: l
     format:
-      dateStyle: long
+      dateStyle: full
       timeStyle: short
-      hourCycle: h23
+      hour12: false
