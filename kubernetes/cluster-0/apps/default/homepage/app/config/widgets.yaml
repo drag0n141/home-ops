@@ -10,7 +10,6 @@
       memory: true
       show: true
       showLabel: false
-      label: "K3s"
     nodes:
       cpu: true
       memory: true
