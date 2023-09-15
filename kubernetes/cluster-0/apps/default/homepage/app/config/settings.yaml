@@ -8,11 +8,11 @@ layout:
   Services:
     style: row
     columns: 4
-    icon: mdi-application
+    header: false
   Standard:
     style: row
     columns: 2
-    icon: mdi-cursor-default
+    icon: mdi-application
   System Management:
     style: row
     columns: 2
