@@ -22,6 +22,7 @@ resources:
   - ./kitchenowl/ks.yaml
   - ./ldap-lb/ks.yaml
   - ./linkding/ks.yaml
+  - ./lldap/ks.yaml
   - ./mailrise/ks.yaml
   - ./memos/ks.yaml
   - ./mind/ks.yaml
