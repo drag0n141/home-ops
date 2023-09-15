@@ -38,7 +38,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: "ldap.${SECRET_DOMAIN_INTERNAL}"
+          coredns.io/hostname: "ldaplb.${SECRET_DOMAIN_INTERNAL}"
           kube-vip.io/loadbalancerIPs: "${LDAP_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
