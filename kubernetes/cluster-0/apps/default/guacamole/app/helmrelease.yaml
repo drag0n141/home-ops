@@ -76,9 +76,3 @@ spec:
         accessMode: ReadWriteOnce
         size: 512Mi
         storageClass: ceph-block
-    resources:
-      requests:
-        cpu: 10m
-        memory: 64Mi
-      limits:
-        memory: 256Mi
