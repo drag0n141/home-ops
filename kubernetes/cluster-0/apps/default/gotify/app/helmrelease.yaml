@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/gotify/server
-      tag: 2.3.0
+      tag: 2.4.0
     env:
       TZ: ${TIMEZONE}
     envFrom:
