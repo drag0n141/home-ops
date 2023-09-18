@@ -2,7 +2,6 @@
 headerStyle: clean
 target: _blank
 language: de
-fiveColumns: true
 hideVersion: true
 layout:
   Services:
