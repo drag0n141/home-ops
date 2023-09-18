@@ -2,6 +2,7 @@
 headerStyle: clean
 target: _blank
 language: de
+fiveColumns: false
 hideVersion: true
 layout:
   Services:
@@ -9,8 +10,8 @@ layout:
     columns: 4
     header: false
   Standard:
-    style: column
-    columns: 2
+    style: row
+    columns: 4
     icon: mdi-application
   System Management:
     style: column
