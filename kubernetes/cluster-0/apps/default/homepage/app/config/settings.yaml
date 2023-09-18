@@ -46,19 +46,19 @@ layout:
     columns: 2
     icon: mdi-store
   Server Tools:
-    style: row
+    style: column
     columns: 2
     icon: mdi-tooltip
   Server Monitoring:
-    style: row
+    style: column
     columns: 2
     icon: mdi-chart-bar
   Other Devices:
-    style: row
+    style: column
     columns: 1
     icon: mdi-devices
   Tools:
-    style: row
+    style: column
     columns: 1
     icon: mdi-tools
 providers:
