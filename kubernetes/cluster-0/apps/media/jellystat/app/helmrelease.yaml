@@ -29,7 +29,7 @@ spec:
       type: statefulset
     image:
       repository: docker.io/cyfershepard/jellystat
-      tag: latest@sha256:d4c6f5dc8e109d3851f38d446add8c33a8de7ee9d8724d3511bf5dc54eab1419
+      tag: unstable@sha256:c8b197ef1b5fa2261dd8e556418112fa83bdbe49ed1a4954fbf8c9b747a93a72
     env:
       TZ: ${TIMEZONE}
     envFrom:
