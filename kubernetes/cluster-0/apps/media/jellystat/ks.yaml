@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-jellystat
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-cloudnative-pg-cluster
   path: ./kubernetes/cluster-0/apps/media/jellystat/app
   prune: true
   sourceRef:
