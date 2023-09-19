@@ -6,7 +6,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./flaresolverr/ks.yaml
-  - ./jellystat/ks.yaml
   - ./moviematch/ks.yaml
   - ./overseerr/ks.yaml
   - ./wizarr/ks.yaml
