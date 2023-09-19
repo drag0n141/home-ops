@@ -27,6 +27,8 @@ spec:
   values:
     controller:
       type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/cyfershepard/jellystat
       tag: unstable@sha256:c8b197ef1b5fa2261dd8e556418112fa83bdbe49ed1a4954fbf8c9b747a93a72
