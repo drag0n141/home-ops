@@ -28,6 +28,7 @@ resources:
   - ./mind/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
   - ./netbox/ks.yaml
+  - ./obsidian-livesync/ks.yaml
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
   - ./pterodactyl/ks.yaml

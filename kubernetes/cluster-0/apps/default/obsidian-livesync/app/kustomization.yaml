@@ -6,3 +6,11 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: obsidian-livesync-configmap
+    files:
+      - ./config/config.ini
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

@@ -77,7 +77,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: obsidian-couchdb-configmap
+        name: obsidian-livesync-configmap
         mountPath: "-"
       config-storage:
         enabled: true
