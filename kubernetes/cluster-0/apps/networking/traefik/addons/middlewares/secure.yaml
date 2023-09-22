@@ -176,6 +176,8 @@ spec:
     contentTypeNosniff: true
     browserXssFilter: true
     frameDeny: true
+    accessControlAllowCredentials: true
+    addvaryheader: true
     referrerPolicy: "same-origin"
     contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
