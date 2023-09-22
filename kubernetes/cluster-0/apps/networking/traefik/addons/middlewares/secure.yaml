@@ -177,7 +177,7 @@ spec:
     browserXssFilter: true
     frameDeny: true
     accessControlAllowCredentials: true
-    addvaryheader: true
+    addVaryHeader: true
     referrerPolicy: "same-origin"
     contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
