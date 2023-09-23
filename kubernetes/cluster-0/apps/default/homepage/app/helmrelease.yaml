@@ -32,7 +32,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/benphelps/homepage
-      tag: main@sha256:5f6d7dd2b225df8d28eb9f4f38679e346d3ca7092bb24f74fe85bb9b03572fd5
+      tag: main@sha256:29cae4cab7cc48a0d2c1dc154c8412a4668cd84717ccefad22d784608262830d
     env:
       TZ: ${TIMEZONE}
     envFrom:
