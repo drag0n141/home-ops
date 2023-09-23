@@ -35,7 +35,7 @@ spec:
     enableServiceLinks: false
     image:
       repository: ghcr.io/usememos/memos
-      tag: 0.15.1
+      tag: 0.15.2
     env:
       TZ: ${TIMEZONE}
     dnsConfig:
