@@ -2,6 +2,7 @@
 - Standard:
     - Twitch:
         - icon: twitch.png
+          description: Twitch
           href: 'https://twitch.tv'
     - YouTube:
         - icon: youtube.png
