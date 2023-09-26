@@ -2,105 +2,136 @@
 - Standard:
     - Twitch:
         - icon: twitch.png
-          description: Twitch
+          description: ""
           href: 'https://twitch.tv'
     - YouTube:
         - icon: youtube.png
+          description: ""
           href: 'https://youtube.com'
     - Reddit:
         - icon: reddit.png
+          description: ""
           href: 'https://reddit.com'
     - Gmail:
         - icon: gmail.png
+          description: ""
           href: 'http://gmail.com'
 - Server Tools:
     - Autoscan:
         - icon: mdi-card-search
+          description: ""
           href: https://autoscan.${SECRET_DOMAIN_EXT02}/triggers/manual
     - Autoscan-Plex:
         - icon: mdi-card-search
+          description: ""
           href: https://autoscan-plex.${SECRET_DOMAIN_EXT01}/triggers/manual
     - Autoscan-Home:
         - icon: mdi-card-search
+          description: ""
           href: https://autoscan-home.${SECRET_DOMAIN_INT}/triggers/manual
     - Autoscan-Jellyfin:
         - icon: mdi-card-search
+          description: ""
           href: https://autoscan-jellyfin.${SECRET_DOMAIN_EXT02}/triggers/manual
     - CloudCMD:
         - icon: cloudcmd.png
+          description: ""
           href: https://cloudcmd-feeder.${SECRET_DOMAIN_EXT02}
     - OliveTin-Feeder:
         - icon: olivetin.png
+          description: ""
           href: https://olivetin-feeder.${SECRET_DOMAIN_EXT02}
     - OliveTin-Plex:
         - icon: olivetin.png
+          description: ""
           href: https://olivetin-plex.${SECRET_DOMAIN_EXT01}
     - OliveTin-Jellyfin:
         - icon: olivetin.png
+          description: ""
           href: https://olivetin-jellyfin.${SECRET_DOMAIN_EXT02}
     - OliveTin-Cloud:
         - icon: olivetin.png
+          description: ""
           href: https://olivetin-cloud.${SECRET_DOMAIN_EXT03}
     - OliveTin-Home:
         - icon: olivetin.png
+          description: ""
           href: https://olivetin-home.${SECRET_DOMAIN_INT}
     - OliveTin-Print:
         - icon: olivetin.png
+          description: ""
           href: https://olivetin-print.${SECRET_DOMAIN_INT}
 
 - Server Monitoring:
     - Glances-Feeder:
         - icon: glances.png
+          description: ""
           href: https://glances-feeder.${SECRET_DOMAIN_EXT02}
     - Glances-Plex:
         - icon: glances.png
+          description: ""
           href: https://glances-plex.${SECRET_DOMAIN_EXT01}
     - Glances-Jellyfin:
         - icon: glances.png
+          description: ""
           href: https://glances-jellyfin.${SECRET_DOMAIN_EXT02}
     - Glances-Cloud:
         - icon: glances.png
+          description: ""
           href: https://glances-cloud.${SECRET_DOMAIN_EXT03}
     - Glances-Home:
         - icon: glances.png
+          description: ""
           href: https://glances-home.${SECRET_DOMAIN_INT}
     - Doozle-Feeder:
         - icon: dozzle.png
+          description: ""
           href: https://dozzle-feeder.${SECRET_DOMAIN_EXT02}
     - Doozle-Plex:
         - icon: dozzle.png
+          description: ""
           href: https://dozzle-plex.${SECRET_DOMAIN_EXT01}
     - Doozle-Jellyfin:
         - icon: dozzle.png
+          description: ""
           href: https://dozzle-jellyfin.${SECRET_DOMAIN_EXT02}
     - Doozle-Cloud:
         - icon: dozzle.png
+          description: ""
           href: https://dozzle-cloud.${SECRET_DOMAIN_EXT03}
     - Doozle-Home:
         - icon: dozzle.png
+          description: ""
           href: https://dozzle-home.${SECRET_DOMAIN_INT}
 
 - Other Devices:
     - Modem Telekom:
         - abbr: MT
+          description: ""
           href: http://192.168.107.1
     - Modem Vodafone:
         - abbr: MU
+          description: ""
           href: http://192.168.100.1
     - Brother Drucker:
         - abbr: BD
+          description: ""
           href: http://192.168.1.31
     - KVM Switch:
         - abbr: KVM
+          description: ""
           href: https://192.168.1.30
 
 - Tools:
     - Public IP:
         - abbr: PI
+          description: ""
           href: https://www.whatismyip.com
     - Speedtest:
         - abbr: ST
+          description: ""
           href: https://speedtest.net
     - Mullvad Check:
         - icon: mullvad.png
+          description: ""
           href: https://mullvad.net/check
