@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/2fauth/2fauth
-      tag: 4.2.2
+      tag: 4.2.3
     env:
       TZ: ${TIMEZONE}
       MAIL_HOST: smtp-relay.networking.svc.cluster.local
