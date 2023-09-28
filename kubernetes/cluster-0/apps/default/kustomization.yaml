@@ -33,7 +33,6 @@ resources:
   - ./portainer/ks.yaml
   - ./pterodactyl/ks.yaml
   - ./rdesktop/ks.yaml
-  - ./roundcube/ks.yaml
   - ./shlink/ks.yaml
   - ./snippet-box/ks.yaml
   - ./syncthing/ks.yaml
