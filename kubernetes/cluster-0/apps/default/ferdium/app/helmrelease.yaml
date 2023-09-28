@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/ferdium/ferdium-server
-      tag: 1.3.12
+      tag: 1.3.16
     env:
       TZ: ${TIMEZONE}
       PUID: 1000
