@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: proton-bridge
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: docker.io/shenxn/protonmail-bridge
+      tag: 3.4.2-1@sha256:e4dae8c353b791d8c379a741afa0196f97f253be5f213c463882b46843db604d
+    env:
+      TZ: ${TIMEZONE}
+    service:
+      main:
+        ports:
+          http:
+            enabled: false
+          imap:
+            enabled: true
+            port: 143
+            protocol: TCP
+          smtp:
+            enabled: true
+            port: 25
+            protocol: TCP
+        type: LoadBalancer
+        annotations:
+          coredns.io/hostname: "proton.${SECRET_DOMAIN_INTERNAL}"
+          kube-vip.io/loadbalancerIPs: "${PROTON_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /root
+        accessMode: ReadWriteOnce
+        size: 128Mi
+        storageClass: ceph-block
