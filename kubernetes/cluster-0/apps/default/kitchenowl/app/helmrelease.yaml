@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/tombursch/kitchenowl
-      tag: v77
+      tag: v78
     env:
       TZ: ${TIMEZONE}
     envFrom:
