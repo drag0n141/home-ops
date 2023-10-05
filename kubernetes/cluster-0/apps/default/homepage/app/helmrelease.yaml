@@ -31,7 +31,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/benphelps/homepage
+      repository: ghcr.io/gethomepage/homepage
       tag: main@sha256:67204fc4fe1fd7cfa8d4efc0dea2b7709959c4052eb97475f96bcc7539ecc59d
     env:
       TZ: ${TIMEZONE}
