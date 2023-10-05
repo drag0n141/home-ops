@@ -34,6 +34,7 @@ spec:
       tag: 0.14.4
     env:
       TZ: ${TIMEZONE}
+      SYSTEM_DEFAULTLOCALE: de_DE
     service:
       main:
         ports:
