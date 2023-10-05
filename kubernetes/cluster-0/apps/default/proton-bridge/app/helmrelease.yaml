@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/shenxn/protonmail-bridge
-      tag: 3.4.2-1@sha256:e4dae8c353b791d8c379a741afa0196f97f253be5f213c463882b46843db604d
+      tag: 3.5.1-1@sha256:235fdade79794f3f3fd3f0d4bf8e91e89c2a7ef56afce98693f31ab650816c2e
     env:
       TZ: ${TIMEZONE}
     service:
