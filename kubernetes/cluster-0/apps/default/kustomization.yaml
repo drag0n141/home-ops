@@ -35,6 +35,7 @@ resources:
   - ./rdesktop/ks.yaml
   - ./shlink/ks.yaml
   - ./snippet-box/ks.yaml
+  - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./ts3-server/ks.yaml
