@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/linuxserver/netbox
-      tag: 3.6.3@sha256:2b1d834c12b27441a61dde6019e914d152878c9f4934743f1d4c97f8b79c243c
+      tag: 3.6.3@sha256:cd300794cef3b99c3d5ca1167c3a9252aadae5d14334f3b71e0ec4167a67f669
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
