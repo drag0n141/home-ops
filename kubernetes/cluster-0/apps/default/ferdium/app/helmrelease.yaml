@@ -49,7 +49,7 @@ spec:
       SMTP_PORT: 2525
       MAIL_SSL: false
       IS_CREATION_ENABLED: false
-      IS_REGISTRATION_ENABLED: false
+      IS_REGISTRATION_ENABLED: true
       IS_DASHBOARD_ENABLED: true
       CONNECT_WITH_FRANZ: false
       DATA_DIR: "/data"
