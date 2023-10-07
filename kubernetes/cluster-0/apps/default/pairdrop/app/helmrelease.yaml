@@ -29,7 +29,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/linuxserver/pairdrop
-      tag: 1.8.2@sha256:20f5310a9a3a8de2d3e34cbdff09ad9478241a33c5291bca27cb8016fb7bf3d2
+      tag: 1.8.2@sha256:198d7c659359d0f41aeff30984d61bc3a397dc3dd2d9be1ce23c09cae9123bf0
     env:
       TZ: ${TIMEZONE}
     service:
