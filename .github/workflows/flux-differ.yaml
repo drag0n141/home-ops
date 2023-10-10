@@ -3,7 +3,7 @@ name: "Flux Diff"
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
     paths: ["kubernetes/**.yaml"]
 
 jobs:
