@@ -3,9 +3,6 @@ name: YAML Lint
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ '*' ]
-  pull_request:
 
 jobs:
   yaml-lint:
