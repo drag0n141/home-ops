@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/pterodactyl/panel
-      tag: v1.11.3
+      tag: v1.11.4
     env:
       TZ: ${TIMEZONE}
       APP_TIMEZONE: ${TIMEZONE}
