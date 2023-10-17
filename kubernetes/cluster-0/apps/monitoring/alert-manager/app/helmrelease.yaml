@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: quay.io/prometheus/alertmanager
-      tag: main@sha256:b8715cf08be0d1c024ac5907b324d0337f4c52ab6fe7cf15511301643b0e3829
+      tag: main@sha256:3b5a86337374336a59bcf763be085ec765150dbcf2fc552cb0237478e3a5feaf
     env:
       TZ: ${TIMEZONE}
     service:
