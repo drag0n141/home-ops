@@ -33,7 +33,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/goauthentik/server
-      tag: 2023.8.3
+      tag: 2023.10.0
     env:
       AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
     envFrom:
