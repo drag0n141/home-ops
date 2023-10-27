@@ -30,7 +30,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/autobrr/autobrr
-      tag: develop@sha256:349c38aedd9a08a3f2c970db2f0d1962d8f520b5299461fea3cda2489ece42ba
+      tag: develop@sha256:5eb5c533344c6ca8591308ee7df6d1147cbb57071234dd3cdfe585b1e110d33b
     podAnnotations:
       setGateway: "true"
     env:
