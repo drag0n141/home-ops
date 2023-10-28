@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/frooodle/s-pdf
-      tag: 0.14.5
+      tag: 0.15.1
     env:
       TZ: ${TIMEZONE}
       SYSTEM_DEFAULTLOCALE: de_DE
