@@ -52,5 +52,3 @@ spec:
           deletionPolicy: Delete
       serviceMonitor:
         create: true
-      webhook:
-        enabled: true
