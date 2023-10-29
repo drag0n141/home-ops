@@ -32,7 +32,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/drag0n141/docker-socks5
-      tag: latest@sha256:bd7cb75c611f87b55603f84bcd861f0f994a01948caa3a28f04e3d4dcfae9bad
+      tag: latest@sha256:0451ab2cfa4c188343ea23087553acd5f8f192ac40a88ddae866131f24e91103
     podAnnotations:
       setGateway: "true"
     env:
