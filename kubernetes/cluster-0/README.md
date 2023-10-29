@@ -1,6 +1,6 @@
 ## cluster-0
 
-cluster-0 is my pord cluster.
+cluster-0 is my prod cluster.
 
 ## How to bootstrap
 
