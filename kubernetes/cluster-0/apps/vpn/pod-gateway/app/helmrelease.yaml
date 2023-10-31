@@ -30,7 +30,7 @@ spec:
         gluetun:
           image:
             repository: ghcr.io/qdm12/gluetun
-            tag: v3.35.0
+            tag: v3.36.0
         env:
           - name: VPN_SERVICE_PROVIDER
             value: custom
