@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/linuxserver/rdesktop
-      tag: latest@sha256:c068694466bccc0fa556a64ea089d4c802ca95a17d0acd5f4dac6287b4c882f1
+      tag: latest@sha256:e39eb4d18f97a35df9d9eec8f10df35dcdad0c4f2a67a3ccbd3758bb0fe90b0e
     env:
       TZ: ${TIMEZONE}
       PUID: 1000
