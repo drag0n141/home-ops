@@ -36,7 +36,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/linuxserver/unifi-controller
-      tag: 7.5.187@sha256:c26213e4c7136b83ef8383494c8a482ea2dcc483089aadfbe67ba0054bcf3a03
+      tag: 7.5.187@sha256:768a695cb30072b737228fe7260c31d2c9b244a62273e3ea455403b6e66dca2c
     env:
       TZ: ${TIMEZONE}
       PUID: 1000
