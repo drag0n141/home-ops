@@ -5,7 +5,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./flaresolverr/ks.yaml
   - ./moviematch/ks.yaml
   - ./overseerr/ks.yaml
   - ./wizarr/ks.yaml
