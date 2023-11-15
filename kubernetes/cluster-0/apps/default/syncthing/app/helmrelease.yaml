@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/syncthing/syncthing
-      tag: 1.26.0
+      tag: 1.26.1
     env:
       TZ: ${TIMEZONE}
       PUID: 1000
