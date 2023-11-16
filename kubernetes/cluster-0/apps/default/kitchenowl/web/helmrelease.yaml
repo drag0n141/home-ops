@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/tombursch/kitchenowl-web
-      tag: v0.4.14
+      tag: v0.4.15
     env:
       TZ: ${TIMEZONE}
       BACK_URL: "kitchenowl.default.svc.cluster.local:5000"
