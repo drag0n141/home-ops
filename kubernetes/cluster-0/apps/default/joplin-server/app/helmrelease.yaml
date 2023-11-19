@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: joplin/server
-      tag: 2.13.4-beta
+      tag: 2.13.5-beta
     env:
       TZ: ${TIMEZONE}
       APP_BASE_URL: https://joplin.${SECRET_DOMAIN}
