@@ -32,8 +32,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/autobrr/autobrr
-              tag: develop@sha256:b841ab9f060df39c5dc4f7a9eadabe8b5ddd35267de8ea94c39981c53f52a46e
+              repository: ghcr.io/buroa/autobrr
+              tag: develop@sha256:407c6d98cea5b0f4ea41fe5a3898d8291dfd1f148979c0d55f7f7167faf4e923
             env:
               AUTOBRR__CHECKFORUPDATES: "false"
               AUTOBRR__HOST: 0.0.0.0
