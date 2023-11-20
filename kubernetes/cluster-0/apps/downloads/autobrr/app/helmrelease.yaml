@@ -41,7 +41,7 @@ spec:
               AUTOBRR__LOGLEVEL: DEBUG
             envFrom:
               - secretRef:
-                name: autobrr-secret
+                  name: autobrr-secret
             probes:
               liveness: &probes
                 enabled: true
