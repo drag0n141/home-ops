@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: ghcr.io/autobrr/autobrr
-              tag: develop@sha256:781885f43885d42b6174ef6dfe92822f0808bb4e29e91a4544b16dc9373d9551
+              tag: develop@sha256:c936fc6119be31da19741bc03503e3323a477f980f2585fab6a86eedf9389b4b
             env:
               AUTOBRR__CHECKFORUPDATES: "false"
               AUTOBRR__HOST: 0.0.0.0
