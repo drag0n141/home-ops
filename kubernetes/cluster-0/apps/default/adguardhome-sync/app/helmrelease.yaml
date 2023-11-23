@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/bakito/adguardhome-sync
-      tag: v0.5.1
+      tag: v0.5.2
     args: ["run"]
     env:
       TZ: ${TIMEZONE}
