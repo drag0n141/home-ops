@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/linuxserver/freshrss
-      tag: 1.22.1@sha256:728d60ac13146e27320ce2a09c8876e6b71db62b104c330a909b0da404037dee
+      tag: 1.22.1@sha256:950c44c7d3749281fcfc9a178bc81465adaf25a2851ff9423c527c44853ddb90
     env:
       TZ: ${TIMEZONE}
       PGID: 1000
