@@ -32,7 +32,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: public.ecr.aws/docker/library/haproxy
-      tag: 2.8.4-alpine@sha256:43d4c8b650332de90c5c49e27addbb85ebbaff900324a10af6b7705778a99e80
+      tag: 2.8.4-alpine@sha256:e19b78a57591fa92db46511e5657c992eba73919b0705223e198e658e0947afd
     service:
       main:
         enabled: true
