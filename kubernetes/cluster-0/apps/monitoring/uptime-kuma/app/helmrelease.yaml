@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/louislam/uptime-kuma
-      tag: 1.23.7
+      tag: 1.23.8
     env:
       TZ: ${TIMEZONE}
     dnsConfig:
