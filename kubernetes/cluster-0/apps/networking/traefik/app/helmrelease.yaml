@@ -80,8 +80,6 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${INGRESS_TRAEFIK_ADDR}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
-      - "--experimental.plugins.real-ip.modulename=github.com/Paxxs/traefik-get-real-ip"
-      - "--experimental.plugins.real-ip.version=v1.0.2"
     ports:
       traefik:
         expose: true
@@ -106,9 +104,6 @@ spec:
           enabled: true
     pilot:
       enabled: false
-    experimental:
-      plugins:
-        enabled: true
     providers:
       kubernetesCRD:
         enabled: true
