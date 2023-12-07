@@ -17,7 +17,6 @@ resources:
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./homepage/ks.yaml
-  - ./joplin-server/ks.yaml
   - ./kitchenowl/ks.yaml
   - ./ldap-lb/ks.yaml
   - ./linkding/ks.yaml
@@ -30,7 +29,6 @@ resources:
   - ./obsidian-livesync/ks.yaml
   - ./pairdrop/ks.yaml
   - ./portainer/ks.yaml
-  - ./proton-bridge/ks.yaml
   - ./pterodactyl/ks.yaml
   - ./rdesktop/ks.yaml
   - ./shlink/ks.yaml
