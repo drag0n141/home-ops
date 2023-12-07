@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: redis-lb
-  namespace: database
+  name: &app redis-lb
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,14 +24,25 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: public.ecr.aws/docker/library/haproxy
-      tag: 2.9.0-alpine@sha256:014427e31d28cfa6f07c3c87d53ceefaf9602c8c2f10cb18309b4635dfa4a47e
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: public.ecr.aws/docker/library/haproxy
+              tag: 2.9.0-alpine@sha256:014427e31d28cfa6f07c3c87d53ceefaf9602c8c2f10cb18309b4635dfa4a47e
+            env:
+              TZ: ${TIMEZONE}
+        pod:
+          securityContext:
+            runAsUser: 99
+            runAsGroup: 99
+            fsGroup: 99
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         type: LoadBalancer
@@ -43,16 +53,12 @@ spec:
         ports:
           http:
             port: 8080
-            targetPort: 8080
           redis-write:
             port: 6379
-            targetPort: 6379
           redis-read:
             port: 6380
-            targetPort: 6380
           redis-sentinel:
             port: 26379
-            targetPort: 26379
     serviceMonitor:
       main:
         enabled: true
@@ -62,16 +68,12 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    podSecurityContext:
-      runAsUser: 99
-      runAsGroup: 99
-      fsGroup: 99
-      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
         type: configMap
         name: redis-lb-configmap
-        mountPath: /usr/local/etc/haproxy/haproxy.cfg
-        subPath: haproxy.cfg
-        readOnly: true
+        globalMounts:
+          - path: /usr/local/etc/haproxy/haproxy.cfg
+            subPath: haproxy.cfg
+            readOnly: true
