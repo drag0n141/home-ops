@@ -5,7 +5,7 @@ metadata:
   name: postgres
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.3
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1-6
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
@@ -15,6 +15,13 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
+      max_slot_wal_keep_size: 5GB
       shared_buffers: 512MB
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "500m"
+    limits:
+      memory: "4Gi"
   monitoring:
     enablePodMonitor: true
