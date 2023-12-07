@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: cloudflared
+  name: &app cloudflared
 spec:
   interval: 30m
   chart:
@@ -13,18 +13,19 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 30m
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
-        replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -33,12 +34,6 @@ spec:
             image:
               repository: docker.io/cloudflare/cloudflared
               tag: 2023.10.0
-            args:
-              - tunnel
-              - --config
-              - /etc/cloudflared/config/config.yaml
-              - run
-              - "$(TUNNEL_ID)"
             env:
               NO_AUTOUPDATE: "true"
               TUNNEL_CRED_FILE: /etc/cloudflared/creds/credentials.json
@@ -49,26 +44,50 @@ spec:
                   secretKeyRef:
                     name: cloudflared-secret
                     key: TUNNEL_ID
+            args:
+              - tunnel
+              - --config
+              - /etc/cloudflared/config/config.yaml
+              - run
+              - "$(TUNNEL_ID)"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ready
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
-                memory: 10Mi
+                memory: 128M
               limits:
-                memory: 256Mi
+                memory: 256M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: *port
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 30s
     persistence:
       config:
         enabled: true

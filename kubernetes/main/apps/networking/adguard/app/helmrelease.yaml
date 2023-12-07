@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguard
-  namespace: networking
+  name: &app adguard
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,20 +24,28 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: traefik
-      namespace: networking
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/adguard/adguardhome
-      tag: v0.107.41
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/adguard/adguardhome
+              tag: v0.107.41
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512M
+              limits:
+                memory: 1024M
     service:
       main:
         type: LoadBalancer
@@ -49,17 +56,15 @@ spec:
           http:
             port: 3000
           dns-tcp:
-            enabled: true
             port: 53
             protocol: TCP
           dns-udp:
-            enabled: true
             port: 53
             protocol: UDP
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -67,7 +72,9 @@ spec:
           - host: &host "adguard.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -75,15 +82,11 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: data-adguard-0
-        subPath:
-          - path: config
-            mountPath: /opt/adguardhome/conf
-          - path: work
-            mountPath: /opt/adguardhome/work
-    resources:
-      requests:
-        cpu: 100m
-        memory: 512Mi
-      limits:
-        memory: 1024M
+        existingClaim: adguard
+        advancedMounts:
+          main:
+            main:
+              - subPath: "conf"
+                path: "/opt/adguardhome/conf"
+              - subPath: "work"
+                path: "/opt/adguardhome/work"

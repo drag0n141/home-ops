@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./helmrelease.yaml
-  - ./pvc.yaml
-  - ./volsync.yaml
+  - ../../../../templates/volsync

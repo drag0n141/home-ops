@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: unifi-controller
-  namespace: networking
+  name: &app unifi-controller
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,22 +24,30 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: traefik
-      namespace: networking
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/linuxserver/unifi-controller
-      tag: 7.5.187@sha256:4d0acd08916712c906979a63b736a0ccdce4b6c748ccb90e65a320cb23bb5362
-    env:
-      TZ: ${TIMEZONE}
-      PUID: 1000
-      PGID: 1000
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/linuxserver/unifi-controller
+              tag: 7.5.187@sha256:4d0acd08916712c906979a63b736a0ccdce4b6c748ccb90e65a320cb23bb5362
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50M
+              limits:
+                memory: 1024M
     service:
       main:
         type: LoadBalancer
@@ -53,21 +60,18 @@ spec:
           http:
             port: 8443
           controller:
-            enabled: true
             port: 8080
             protocol: TCP
           stun:
-            enabled: true
             port: 3478
             protocol: UDP
           discovery:
-            enabled: true
             port: 10001
             protocol: UDP
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -75,20 +79,16 @@ spec:
           - host: &host "unifi-controller.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 2Gi
-        storageClass: ceph-block
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 1024M
+    persistence:
+      config:
+        enabled: true
+        existingClaim: unifi-controller
+        globalMounts:
+          - path: /config

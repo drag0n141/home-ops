@@ -2,11 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-traefik-certificates
+  name: &app traefik-certificates
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
-    - name: cluster-apps-cert-manager-issuers
+    - name: cert-manager-issuers
   path: ./kubernetes/main/apps/networking/traefik/certificates
   prune: true
   sourceRef:
@@ -20,11 +21,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-traefik
+  name: &app traefik
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
-    - name: cluster-apps-traefik-certificates
+    - name: traefik-certificates
   path: ./kubernetes/main/apps/networking/traefik/app
   prune: true
   sourceRef:
@@ -38,9 +40,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-traefik-addons
+  name: &app traefik-addons
   namespace: flux-system
 spec:
+  targetNamespace: networking
   path: ./kubernetes/main/apps/networking/traefik/addons
   prune: true
   sourceRef:
