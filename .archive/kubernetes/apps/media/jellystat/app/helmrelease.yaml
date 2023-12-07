@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/cyfershepard/jellystat
-      tag: unstable@sha256:c8b197ef1b5fa2261dd8e556418112fa83bdbe49ed1a4954fbf8c9b747a93a72
+      tag: unstable@sha256:bf50c339fb2dd42ae06a937553e8c3e2e650b2be5c566bf2db000f833ebad665
     env:
       TZ: ${TIMEZONE}
     envFrom:
