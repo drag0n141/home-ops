@@ -8,14 +8,14 @@ This requires `postBuild` configured on the Flux Kustomization
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app plex
+  name: &app overseerr
   namespace: flux-system
 spec:
   # ...
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CAPACITY: 1Gi
 ```
 
 and then call the template in your applications `kustomization.yaml`
@@ -34,4 +34,4 @@ resources:
 
 ## Optional `postBuild` vars:
 
-- `VOLSYNC_CAPACITY`: The PVC size, default 1Gi
+- `VOLSYNC_CAPACITY`: The PVC size, default is 1Gi
