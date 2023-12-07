@@ -1,0 +1,22 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${APP}-dst"
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: "${APP}-restic-secret"
+    copyMethod: Snapshot
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-local-path}"
+    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
+    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+    capacity: "${VOLSYNC_CAPACITY:-1Gi}"
+    # moverSecurityContext:
+    #   runAsUser: 568
+    #   runAsGroup: 568
+    #   fsGroup: 568
