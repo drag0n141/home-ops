@@ -24,7 +24,7 @@ metadata:
 spec:
   targetNamespace: database
   dependsOn:
-    - name: cluster-apps-redis
+    - name: redis
   path: ./kubernetes/main/apps/database/redis/lb
   prune: true
   sourceRef:
