@@ -31,4 +31,7 @@ resources:
 ## Required `postBuild` vars:
 
 - `APP`: The application name
-- `VOLSYNC_CAPACITY`: The PVC size
+
+## Optional `postBuild` vars:
+
+- `VOLSYNC_CAPACITY`: The PVC size, default 1Gi
