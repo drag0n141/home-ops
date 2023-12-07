@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: uptime-kuma
+  name: &app uptime-kuma
   namespace: flux-system
 spec:
   targetNamespace: monitoring
