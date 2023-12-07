@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-coredns
-  namespace: flux-system
+  name: coredns
 spec:
+  targetNamespace: kube-system
   path: ./kubernetes/main/apps/kube-system/coredns/app
-  prune: false # never should be deleted
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
