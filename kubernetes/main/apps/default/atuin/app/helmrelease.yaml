@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: atuin
-  namespace: default
+  name: &app atuin
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,27 +23,41 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: database
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/atuinsh/atuin
-      tag: 17.0.1
-    args: ["server", "start"]
-    env:
-      TZ: ${TIMEZONE}
-      ATUIN_HOST: "0.0.0.0"
-      ATUIN_PORT: 8888
-      ATUIN_OPEN_REGISTRATION: true
-    envFrom:
-      - secretRef:
-          name: atuin-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/atuinsh/atuin
+              tag: 17.0.1
+            args: ["server", "start"]
+            env:
+              TZ: ${TIMEZONE}
+              ATUIN_HOST: "0.0.0.0"
+              ATUIN_PORT: 8888
+              ATUIN_OPEN_REGISTRATION: true
+            envFrom:
+              - secretRef:
+                  name: atuin-secret
+            resources:
+              requests:
+                memory: 128Mi
+                cpu: 10m
+              limits:
+                memory: 512Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
@@ -53,7 +66,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -61,7 +74,9 @@ spec:
           - host: &host "atuin.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -70,11 +85,3 @@ spec:
       config:
         enabled: true
         type: emptyDir
-        medium: Memory
-        mountPath: /config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 128Mi
-      limits:
-        memory: 256Mi

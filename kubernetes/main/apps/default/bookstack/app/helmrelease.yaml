@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: bookstack
-  namespace: default
+  name: &app bookstack
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,25 +26,25 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: mariadb-lb
+      namespace: database
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/linuxserver/bookstack
-      tag: 23.10.20231030@sha256:15f63a10e7bcd99b4f772f85aba74a9eced650aae75888794d38944c898766ca
-    env:
-      TZ: ${TIMEZONE}
-      PGID: 1000
-      PUID: 1000
-    envFrom:
-      - secretRef:
-          name: bookstack-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/linuxserver/bookstack
+              tag: 23.10.20231030@sha256:15f63a10e7bcd99b4f772f85aba74a9eced650aae75888794d38944c898766caf
+            env:
+              TZ: ${TIMEZONE}
+              PGID: 1000
+              PUID: 1000
+            envFrom:
+              - secretRef:
+                  name: bookstack-secret
     service:
       main:
         ports:
@@ -54,7 +53,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -62,14 +61,16 @@ spec:
           - host: &host "bookstack.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      config:
+        enabled: true
+        existingClaim: bookstack
+        globalMounts:
+          - path: /config

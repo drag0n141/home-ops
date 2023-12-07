@@ -3,13 +3,12 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: &app authelia
-  namespace: default
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,74 +24,105 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
+    - name: mariadb-lb
+      namespace: database
     - name: redis
       namespace: database
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/authelia/authelia
-      tag: master@sha256:a3647c3dd136402745c7639e446944004145630c822f27e22f999c414c234d2f
-    args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
-    env:
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=Gruppen,ou=Home
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=Benutzer,ou=Home
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_DISPLAY_NAME_ATTRIBUTE: displayName
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUPS_FILTER: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUP_NAME_ATTRIBUTE: cn
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_IMPLEMENTATION: activedirectory
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_MAIL_ATTRIBUTE: mail
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_START_TLS: "false"
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERNAME_ATTRIBUTE: sAMAccountName
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&({username_attribute}={input})(objectClass=person))
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TLS_SKIP_VERIFY: "true"
-      AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
-      AUTHELIA_DEFAULT_REDIRECTION_URL: https://authelia.${SECRET_DOMAIN}
-      AUTHELIA_SESSION_REMEMBER_ME_DURATION: 1M
-      AUTHELIA_DUO_API_DISABLE: "true"
-      AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: "true"
-      AUTHELIA_NOTIFIER_SMTP_HOST: smtp-relay.networking.svc.cluster.local
-      AUTHELIA_NOTIFIER_SMTP_PORT: 2525
-      AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <authelia@${SECRET_DOMAIN}>
-      AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
-      AUTHELIA_SESSION_DOMAIN: ${SECRET_DOMAIN}
-      AUTHELIA_SESSION_NAME: authelia-home-ops
-      AUTHELIA_SESSION_REDIS_DATABASE_INDEX: 14
-      AUTHELIA_SESSION_REDIS_HOST: redis.database.svc.cluster.local
-      AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
-      AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
-      AUTHELIA_THEME: dark
-      AUTHELIA_TOTP_ISSUER: authelia.com
-      AUTHELIA_WEBAUTHN_DISABLE: "false"
-      AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: authelia-files
-            key: issuer-private-key
-    envFrom:
-      - secretRef:
-          name: authelia-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
-    enableServiceLinks: false
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/authelia/authelia
+              tag: master@sha256:a3647c3dd136402745c7639e446944004145630c822f27e22f999c414c234d2f
+            args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
+            env:
+              TZ: ${TIMEZONE}
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=Gruppen,ou=Home
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=Benutzer,ou=Home
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_DISPLAY_NAME_ATTRIBUTE: displayName
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUPS_FILTER: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUP_NAME_ATTRIBUTE: cn
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_IMPLEMENTATION: activedirectory
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_MAIL_ATTRIBUTE: mail
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_START_TLS: "false"
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERNAME_ATTRIBUTE: sAMAccountName
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&({username_attribute}={input})(objectClass=person))
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TLS_SKIP_VERIFY: "true"
+              AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
+              AUTHELIA_DEFAULT_REDIRECTION_URL: https://authelia.${SECRET_DOMAIN}
+              AUTHELIA_SESSION_REMEMBER_ME_DURATION: 1M
+              AUTHELIA_DUO_API_DISABLE: "true"
+              AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: "true"
+              AUTHELIA_NOTIFIER_SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              AUTHELIA_NOTIFIER_SMTP_PORT: 2525
+              AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <authelia@${SECRET_DOMAIN}>
+              AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
+              AUTHELIA_SESSION_DOMAIN: ${SECRET_DOMAIN}
+              AUTHELIA_SESSION_NAME: authelia-home-ops
+              AUTHELIA_SESSION_REDIS_DATABASE_INDEX: 14
+              AUTHELIA_SESSION_REDIS_HOST: redis.database.svc.cluster.local
+              AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
+              AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
+              AUTHELIA_THEME: dark
+              AUTHELIA_TOTP_ISSUER: authelia.com
+              AUTHELIA_WEBAUTHN_DISABLE: "false"
+              AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: authelia-files
+                    key: issuer-private-key
+            envFrom:
+              - secretRef:
+                  name: authelia-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 9091
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
     service:
       main:
-        ports:
-          http:
-            port: &port 9091
-          metrics:
-            enabled: true
-            port: 8080
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
           kube-vip.io/loadbalancerIPs: "${AUTHELIA_LB_ADDR}"
         externalTrafficPolicy: Cluster
+        ports:
+          http:
+            port: *port
+          metrics:
+            port: 8080
     serviceMonitor:
       main:
         enabled: true
@@ -102,70 +132,30 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /api/health
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /api/health
-            port: *port
-          failureThreshold: 30
-          periodSeconds: 5
-          successThreshold: 1
-          timeoutSeconds: 1
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
           - host: &host "authelia.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
         type: configMap
         name: authelia-configmap
-        subPath: configuration.yaml
-        mountPath: /config/configuration.yaml
-        readOnly: false
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 200Mi
+        globalMounts:
+          - path: /config/configuration.yaml
+            subPath: configuration.yaml
+            readOnly: true

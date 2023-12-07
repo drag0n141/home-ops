@@ -2,11 +2,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-authelia
+  name: &app authelia
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-mariadb-lb
+  targetNamespace: default
   path: ./kubernetes/main/apps/default/authelia/app
   prune: true
   sourceRef:
