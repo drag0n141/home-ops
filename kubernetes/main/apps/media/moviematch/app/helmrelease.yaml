@@ -63,4 +63,7 @@ spec:
                 service:
                   name: main
                   port: http
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"            
