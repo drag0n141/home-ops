@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/flaresolverr/flaresolverr
-      tag: v3.3.8@sha256:e2ca10e03662a8bcbafb0f16fc3d24936d398aad70e669cfb75ecf4bfcadf551
+      tag: v3.3.10@sha256:1f7b2f31d423382c14c7f8fb69795f05bcfa6f508cfac32763d3fede5d07c7da
     env:
       TZ: ${TIMEZONE}
       PUID: "1000"
