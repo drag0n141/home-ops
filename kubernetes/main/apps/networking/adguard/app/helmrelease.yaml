@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/adguard/adguardhome
-              tag: v0.107.41
+              tag: v0.107.42
             env:
               TZ: ${TIMEZONE}
             resources:
