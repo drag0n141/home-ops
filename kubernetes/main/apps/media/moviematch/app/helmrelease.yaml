@@ -66,4 +66,4 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"            
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
