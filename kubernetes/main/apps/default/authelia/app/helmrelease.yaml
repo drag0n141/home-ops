@@ -24,8 +24,6 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: mariadb-lb
-      namespace: database
     - name: redis
       namespace: database
   values:
