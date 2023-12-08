@@ -64,6 +64,9 @@ spec:
                 service:
                   name: main
                   port: http
+        tls:
+          - hosts:
+              - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         enabled: true
@@ -72,7 +75,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         hosts:
-          - host: &host "whoami.${SECRET_DOMAIN_INTERNAL}"
+          - host: &internal "whoami.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -80,6 +83,5 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
               - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
