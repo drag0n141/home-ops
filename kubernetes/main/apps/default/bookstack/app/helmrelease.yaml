@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/bookstack
-              tag: 23.10.20231030@sha256:15f63a10e7bcd99b4f772f85aba74a9eced650aae75888794d38944c898766caf
+              tag: 23.10.20231030@sha256:15f63a10e7bcd99b4f772f85aba74a9eced650aae75888794d38944c898766ca
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
