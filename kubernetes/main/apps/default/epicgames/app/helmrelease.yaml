@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/claabs/epicgames-freegames-node
-      tag: latest@sha256:df6322a27e3a349c0f4249973990511627371edc12d139e9ea761febbc711449
+      tag: latest@sha256:9a6b1a840825d1adcb1f55c937c3efe5814045c32402e84d06538fda08983847
     env:
       TZ: ${TIMEZONE}
     dnsConfig:
