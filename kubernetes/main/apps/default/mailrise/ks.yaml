@@ -2,9 +2,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-mailrise
+  name: &app mailrise
   namespace: flux-system
 spec:
+  targetNamespace: default
   path: ./kubernetes/main/apps/default/mailrise/app
   prune: true
   sourceRef:

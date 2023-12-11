@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: mind
-  namespace: default
+  name: &app mind
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,20 +26,20 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: mrcas/mind
-      tag: v1.3.3
-    env:
-      TZ: ${TIMEZONE}
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/mrcas/mind
+              tag: v1.3.3
+            env:
+              TZ: ${TIMEZONE}
     service:
       main:
         ports:
@@ -49,7 +48,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -57,14 +56,16 @@ spec:
           - host: &host "mind.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /app/db
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      data:
+        enabled: true
+        existingClaim: mind
+        globalMounts:
+          - path: /app/db
