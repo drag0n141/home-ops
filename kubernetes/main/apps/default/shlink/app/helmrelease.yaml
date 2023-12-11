@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: shlink
-  namespace: default
+  name: &app shlink
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -28,56 +27,68 @@ spec:
     - name: redis
       namespace: database
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/shlinkio/shlink
-      tag: 3.7.0-non-root
-    env:
-      TIMEZONE: ${TIMEZONE}
-      DEFAULT_DOMAIN: &host ${SECRET_DOMAIN_SHORT}
-      DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      ENABLE_PERIODIC_VISIT_LOCATE: "true"
-      IS_HTTPS_ENABLED: "true"
-      REDIS_PUB_SUB_ENABLED: "true"
-      REDIS_SENTINEL_SERVICE: redis-master
-      REDIS_SERVERS: redis-node-0.redis-headless.database.svc.cluster.local:26379,redis-node-1.redis-headless.database.svc.cluster.local:26379,redis-node-2.redis-headless.database.svc.cluster.local:26379
-      TASK_WORKER_NUM: 4
-      WEB_WORKER_NUM: 1
-    envFrom:
-      - secretRef:
-          name: shlink-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/shlinkio/shlink
+              tag: 3.7.0-non-root@sha256:c1f61eb5df45b658a7bde2312413f8466b59ad450aa87693d55f92f3634305b3
+            env:
+              TIMEZONE: ${TIMEZONE}
+              DEFAULT_DOMAIN: &host ${SECRET_DOMAIN_SHORT}
+              DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+              ENABLE_PERIODIC_VISIT_LOCATE: "true"
+              IS_HTTPS_ENABLED: "true"
+              PORT: &port 80
+              REDIS_PUB_SUB_ENABLED: "true"
+              REDIS_SENTINEL_SERVICE: redis-master
+              REDIS_SERVERS: "redis-node-0.redis-headless.database.svc.cluster.local:26379,\
+                redis-node-1.redis-headless.database.svc.cluster.local:26379,\
+                redis-node-2.redis-headless.database.svc.cluster.local:26379"
+              TASK_WORKER_NUM: 4
+              WEB_WORKER_NUM: 1
+            envFrom:
+              - secretRef:
+                  name: shlink-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /rest/health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128M
+              limits:
+                memory: 512M
+        pod:
+          securityContext:
+            runAsUser: 1001
+            runAsGroup: 1001
     service:
       main:
         ports:
           http:
-            port: &port 8080
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /rest/health
             port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-shlink@kubernetescrd"
@@ -85,14 +96,10 @@ spec:
           - host: *host
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
