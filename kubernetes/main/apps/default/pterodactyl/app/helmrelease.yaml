@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: pterodactyl
-  namespace: default
+  name: &app pterodactyl
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,38 +26,44 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/pterodactyl/panel
-      tag: v1.11.5
-    env:
-      TZ: ${TIMEZONE}
-      APP_TIMEZONE: ${TIMEZONE}
-      APP_URL: "https://pterodactyl.${SECRET_DOMAIN_INTERNAL}"
-      APP_ENV: production
-      APP_ENVIRONMENT_ONLY: "false"
-      TRUSTED_PROXIES: "*"
-      DB_HOST: mariadb-lb.database.svc.cluster.local
-      DB_PORT: 3306
-      CACHE_DRIVER: redis
-      SESSION_DRIVER: redis
-      QUEUE_DRIVER: redis
-      REDIS_HOST: redis-lb.database.svc.cluster.local
-      MAIL_DRIVER: smtp
-      MAIL_HOST: smtp-relay.networking.svc.cluster.local
-      MAIL_PORT: 2525
-      RECAPTCHA_ENABLED: "false"
-    envFrom:
-      - secretRef:
-          name: pterodactyl-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/pterodactyl/panel
+              tag: v1.11.5
+            env:
+              TZ: ${TIMEZONE}
+              APP_TIMEZONE: ${TIMEZONE}
+              APP_URL: "https://pterodactyl.${SECRET_DOMAIN_INTERNAL}"
+              APP_ENV: production
+              APP_ENVIRONMENT_ONLY: "false"
+              TRUSTED_PROXIES: "*"
+              DB_HOST: mariadb-lb.database.svc.cluster.local
+              DB_PORT: 3306
+              CACHE_DRIVER: redis
+              SESSION_DRIVER: redis
+              QUEUE_DRIVER: redis
+              REDIS_HOST: redis-lb.database.svc.cluster.local
+              MAIL_DRIVER: smtp
+              MAIL_HOST: smtp-relay.networking.svc.cluster.local
+              MAIL_PORT: 2525
+              RECAPTCHA_ENABLED: "false"
+            envFrom:
+              - secretRef:
+                  name: pterodactyl-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128M
+              limits:
+                memory: 256M
     service:
       main:
         ports:
@@ -67,7 +72,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -75,35 +80,25 @@ spec:
           - host: &host "pterodactyl.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /app/var
-        accessMode: ReadWriteOnce
-        size: 128Mi
-        storageClass: ceph-block
-      - name: nginx
-        mountPath: /etc/nginx/http.d
-        accessMode: ReadWriteOnce
-        size: 128Mi
-        storageClass: ceph-block
-      - name: letsencrypt
-        mountPath: /etc/letsencrypt
-        accessMode: ReadWriteOnce
-        size: 128Mi
-        storageClass: ceph-block
-      - name: logs
-        mountPath: /app/storage/logs
-        accessMode: ReadWriteOnce
-        size: 128Mi
-        storageClass: ceph-block
-    resources:
-      requests:
-        cpu: 50m
-        memory: 128Mi
-      limits:
-        memory: 256Mi
+    persistence:
+      data:
+        enabled: true
+        existingClaim: pterodactyl
+        advancedMounts:
+          main:
+            main:
+              - subPath: "data"
+                path: "/app/var"
+              - subPath: "nginx"
+                path: "/etc/nginx/http.d"
+              - subPath: "letsencrypt"
+                path: "/etc/letsencrypt"
+              - subPath: "logs"
+                path: "/app/storage/logs"

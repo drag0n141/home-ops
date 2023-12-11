@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: pairdrop
-  namespace: default
+  name: &app pairdrop
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,13 +24,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-    image:
-      repository: ghcr.io/linuxserver/pairdrop
-      tag: 1.9.4@sha256:305a0462e345bacb97754cd1c5f30ecab04868971f4240d4151bcd4760c9f080
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/linuxserver/pairdrop
+              tag: 1.9.4@sha256:305a0462e345bacb97754cd1c5f30ecab04868971f4240d4151bcd4760c9f080
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50M
+              limits:
+                memory: 256M
     service:
       main:
         ports:
@@ -40,37 +49,35 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: "pairdrop.${SECRET_DOMAIN}"
+          - host: &host "pairdrop.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
-              - "pairdrop.${SECRET_DOMAIN}"
+              - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: "pairdrop.${SECRET_DOMAIN_INTERNAL}"
+          - host: &internal "pairdrop.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
-              - "pairdrop.${SECRET_DOMAIN_INTERNAL}"
+              - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 256Mi
