@@ -26,6 +26,8 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
     - name: mariadb-lb
       namespace: database
   values:

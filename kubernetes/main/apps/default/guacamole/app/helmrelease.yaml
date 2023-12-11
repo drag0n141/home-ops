@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: guacamole
-  namespace: default
+  name: &app guacamole
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,28 +26,28 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: jasonbean/guacamole
-      tag: 1.5.3-nomariadb
-    env:
-      TZ: ${TIMEZONE}
-      OPT_CAS: N
-      OPT_DUO: N
-      OPT_LDAP: N
-      OPT_MYSQL: Y
-      OPT_MYSQL_EXTENSION: N
-      OPT_QUICKCONNECT: N
-      OPT_SQLSERVER: N
-      OPT_TOTP: Y
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: jasonbean/guacamole
+              tag: 1.5.3-nomariadb
+            env:
+              TZ: ${TIMEZONE}
+              OPT_CAS: N
+              OPT_DUO: N
+              OPT_LDAP: N
+              OPT_MYSQL: Y
+              OPT_MYSQL_EXTENSION: N
+              OPT_QUICKCONNECT: N
+              OPT_SQLSERVER: N
+              OPT_TOTP: Y
     service:
       main:
         ports:
@@ -57,7 +56,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -65,14 +64,16 @@ spec:
           - host: &host "guacamole.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      config:
+        enabled: true
+        existingClaim: guacamole
+        globalMounts:
+          - path: /config
