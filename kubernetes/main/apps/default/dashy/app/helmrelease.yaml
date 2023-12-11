@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: dashy
-  namespace: default
+  name: &app dashy
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,23 +23,26 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/lissy93/dashy
-      tag: 2.1.0
-    env:
-      TZ: ${TIMEZONE}
-      GID: 1000
-      UID: 1000
-      NODE_ENV: production
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/lissy93/dashy
+              tag: 2.1.0
+            env:
+              TZ: ${TIMEZONE}
+              GID: 1000
+              UID: 1000
+              NODE_ENV: production
     service:
       main:
         ports:
@@ -49,7 +51,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-dashy@kubernetescrd"
@@ -57,42 +59,46 @@ spec:
           - host: &host "dashy.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-dashy@kubernetescrd"
         hosts:
-          - host: &host2 "dashy.${SECRET_DOMAIN_INTERNAL}"
+          - host: &internal "dashy.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
-              - *host2
+              - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
         enabled: true
         type: secret
         name: dashy-secret
-        subPath: conf.yml
-        mountPath: /app/public/conf.yml
-        readOnly: true
-    volumeClaimTemplates:
-      - name: icons
-        mountPath: /app/public/item-icons
-        accessMode: ReadWriteOnce
-        size: 256Mi
-        storageClass: ceph-block
-      - name: backgrounds
-        mountPath: /app/public/backgrounds
-        accessMode: ReadWriteOnce
-        size: 256Mi
-        storageClass: ceph-block
+        globalMounts:
+          - path: /app/public/conf.yml
+            subPath: conf.yml
+            readOnly: true
+      data:
+        enabled: true
+        existingClaim: dashy
+        advancedMounts:
+          main:
+            main:
+              - subPath: "icons"
+                path: "/app/public/item-icons"
+              - subPath: "backgrounds"
+                path: "/app/public/backgrounds"
