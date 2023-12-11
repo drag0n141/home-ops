@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: epicgames
-  namespace: default
+  name: &app epicgames
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,20 +26,27 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/claabs/epicgames-freegames-node
-      tag: latest@sha256:8f6798a0238a5d6addf879be3bedd09ffeed033c4dc24616a1486a914e55d28d
-    env:
-      TZ: ${TIMEZONE}
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/claabs/epicgames-freegames-node
+              tag: latest@sha256:8f6798a0238a5d6addf879be3bedd09ffeed033c4dc24616a1486a914e55d28d
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
     service:
       main:
         ports:
@@ -49,7 +55,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -57,21 +63,16 @@ spec:
           - host: &host "epic.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /usr/app/config
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      config:
+        enabled: true
+        existingClaim: epicgames
+        globalMounts:
+          - path: /usr/app/config

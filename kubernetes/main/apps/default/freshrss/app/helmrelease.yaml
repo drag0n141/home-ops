@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: freshrss
-  namespace: default
+  name: &app freshrss
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,22 +26,22 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/linuxserver/freshrss
-      tag: 1.22.1@sha256:f4299dc05d11e8209c73b002c3a8644c55637a1b01f656f96c596b9b0ee1e72f
-    env:
-      TZ: ${TIMEZONE}
-      PGID: 1000
-      PUID: 1000
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/linuxserver/freshrss
+              tag: 1.22.1@sha256:f4299dc05d11e8209c73b002c3a8644c55637a1b01f656f96c596b9b0ee1e72f
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
     service:
       main:
         ports:
@@ -51,7 +50,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -59,14 +58,16 @@ spec:
           - host: &host "rss.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      config:
+        enabled: true
+        existingClaim: freshrss
+        globalMounts:
+          - path: /config

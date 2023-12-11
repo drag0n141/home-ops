@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
-  - ./volsync.yaml
+  - ../../../../templates/volsync

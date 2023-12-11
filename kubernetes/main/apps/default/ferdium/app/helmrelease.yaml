@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ferdium
-  namespace: default
+  name: &app ferdium
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,35 +26,46 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/ferdium/ferdium-server
-      tag: 2.0.3
-    env:
-      TZ: ${TIMEZONE}
-      PUID: 1000
-      PGID: 1000
-      NODE_ENV: development
-      APP_UR: https://ferdium.${SECRET_DOMAIN}
-      DB_CONNECTION: mysql
-      DB_PORT: 3306
-      DB_SSL: false
-      MAIL_CONNECTION: smtp
-      SMTP_HOST: smtp-relay.networking.svc.cluster.local
-      SMTP_PORT: 2525
-      MAIL_SSL: false
-      IS_CREATION_ENABLED: false
-      IS_REGISTRATION_ENABLED: false
-      IS_DASHBOARD_ENABLED: true
-      CONNECT_WITH_FRANZ: false
-      DATA_DIR: "/data"
-    envFrom:
-      - secretRef:
-          name: ferdium-secret
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/ferdium/ferdium-server
+              tag: 2.0.3
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
+              NODE_ENV: development
+              APP_UR: https://ferdium.${SECRET_DOMAIN}
+              DB_CONNECTION: mysql
+              DB_PORT: 3306
+              DB_SSL: false
+              MAIL_CONNECTION: smtp
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: 2525
+              MAIL_SSL: false
+              IS_CREATION_ENABLED: false
+              IS_REGISTRATION_ENABLED: false
+              IS_DASHBOARD_ENABLED: true
+              CONNECT_WITH_FRANZ: false
+              DATA_DIR: "/data"
+            envFrom:
+              - secretRef:
+                  name: ferdium-secret
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
     service:
       main:
         ports:
@@ -64,7 +74,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -72,26 +82,21 @@ spec:
           - host: &host "ferdium.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
-      - name: recipes
-        mountPath: /app/recipes
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      data:
+        enabled: true
+        existingClaim: ferdium
+        advancedMounts:
+          main:
+            main:
+              - subPath: "data"
+                path: "/data"
+              - subPath: "recipes"
+                path: "/app/recipes"
