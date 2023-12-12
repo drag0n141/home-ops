@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: snippet-box
-  namespace: default
+  name: &app snippet-box
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,16 +26,26 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/pawelmalak/snippet-box
-      tag: latest@sha256:4aac6fe8818dbb78a60e09d1556949e28f85cff8d50bdc6356b898806ea5f4f7
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/pawelmalak/snippet-box
+              tag: latest@sha256:4aac6fe8818dbb78a60e09d1556949e28f85cff8d50bdc6356b898806ea5f4f7
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+              limits:
+                memory: 256Mi
     service:
       main:
         ports:
@@ -45,37 +54,41 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         hosts:
-          - host: "snippet.${SECRET_DOMAIN}"
+          - host: &host "snippet.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
-              - "snippet.${SECRET_DOMAIN}"
+              - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         hosts:
-          - host: "snippet.${SECRET_DOMAIN_INTERNAL}"
+          - host: &internal "snippet.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
-              - "snippet.${SECRET_DOMAIN_INTERNAL}"
+              - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /app/data
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+    persistence:
+      data:
+        enabled: true
+        existingClaim: snippet-box
+        globalMounts:
+          - path: /app/data

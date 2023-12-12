@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: shlink-web
-  namespace: default
+  name: &app shlink-web
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,20 +24,29 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      replicas: 1
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/shlinkio/shlink-web-client
-      tag: 3.10.2
-    env:
-      TIMEZONE: ${TIMEZONE}
-      SHLINK_SERVER_URL: https://${SECRET_DOMAIN_SHORT}
-    envFrom:
-      - secretRef:
-          name: shlink-web-secret
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/shlinkio/shlink-web-client
+              tag: 3.10.2
+            env:
+              TIMEZONE: ${TIMEZONE}
+              SHLINK_SERVER_URL: https://${SECRET_DOMAIN_SHORT}
+            envFrom:
+              - secretRef:
+                  name: shlink-web-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100M
+              limits:
+                memory: 250M
     service:
       main:
         ports:
@@ -47,22 +55,18 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         hosts:
-          - host: &host shlink.${SECRET_DOMAIN_INTERNAL}
+          - host: &host "shlink.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 250Mi
