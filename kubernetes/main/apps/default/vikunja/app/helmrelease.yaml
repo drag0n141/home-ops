@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: vikunja
-  namespace: default
+  name: &app vikunja
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,34 +26,34 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/vikunja/api
-      tag: 0.21.0
-    env:
-      TZ: ${TIMEZONE}
-      VIKUNJA_SERVICE_TIMEZONE: ${TIMEZONE}
-      VIKUNJA_SERVICE_FRONTENDURL: vikunja.${SECRET_DOMAIN}
-      VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: 1
-      VIKUNJA_SERVICE_ENABLEREGISTRATION: 0
-      VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: 1
-      VIKUNJA_MAILER_ENABLED: 1
-      VIKUNJA_MAILER_HOST: smtp-relay.networking.svc.cluster.local
-      VIKUNJA_MAILER_PORT: 2525
-      VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: "true"
-      VIKUNJA_DEFAULTSETTINGS_OVERDUE_TASKS_REMINDERS_ENABLED: "false"
-      VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
-    envFrom:
-      - secretRef:
-          name: vikunja-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/vikunja/api
+              tag: 0.21.0
+            env:
+              TZ: ${TIMEZONE}
+              VIKUNJA_SERVICE_TIMEZONE: ${TIMEZONE}
+              VIKUNJA_SERVICE_FRONTENDURL: vikunja.${SECRET_DOMAIN}
+              VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: 1
+              VIKUNJA_SERVICE_ENABLEREGISTRATION: 0
+              VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: 1
+              VIKUNJA_MAILER_ENABLED: 1
+              VIKUNJA_MAILER_HOST: smtp-relay.networking.svc.cluster.local
+              VIKUNJA_MAILER_PORT: 2525
+              VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: "true"
+              VIKUNJA_DEFAULTSETTINGS_OVERDUE_TASKS_REMINDERS_ENABLED: "false"
+              VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
+            envFrom:
+              - secretRef:
+                  name: vikunja-secret
     service:
       main:
         ports:
@@ -63,7 +62,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -71,18 +70,24 @@ spec:
           - host: &host "vikunja.${SECRET_DOMAIN}"
             paths:
               - path: /api/
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /dav/
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /.well-known/
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /app/vikunja/files
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: ceph-block
+    persistence:
+      data:
+        enabled: true
+        existingClaim: vikunja
+        globalMounts:
+          - path: /app/vikunja/files

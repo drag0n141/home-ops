@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: tandoor
-  namespace: default
 spec:
   interval: 30m
   chart:
@@ -27,6 +26,8 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
     controller:
       type: statefulset
@@ -52,10 +53,6 @@ spec:
     envFrom:
       - secretRef:
           name: tandoor-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
     service:
       main:
         ports:
@@ -95,7 +92,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: data-tandoor-0
+        existingClaim: tandoor
         subPath:
           - path: mediafiles
             mountPath: /opt/recipes/mediafiles

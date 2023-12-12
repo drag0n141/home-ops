@@ -2,14 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ts3-server
-  namespace: default
+  name: &app ts3-server
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,59 +26,56 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/teamspeak
-      tag: 3.13.7
-    env:
-      TZ: ${TIMEZONE}
-      TS3SERVER_DB_PLUGIN: ts3db_mariadb
-      TS3SERVER_DB_SQLCREATEPATH: create_mariadb
-      TS3SERVER_DB_WAITUNTILREADY: 30
-      TS3SERVER_LICENSE: accept
-    envFrom:
-      - secretRef:
-          name: ts3-server-secret
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/teamspeak
+              tag: 3.13.7
+            env:
+              TZ: ${TIMEZONE}
+              TS3SERVER_DB_PLUGIN: ts3db_mariadb
+              TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+              TS3SERVER_DB_WAITUNTILREADY: 30
+              TS3SERVER_LICENSE: accept
+            envFrom:
+              - secretRef:
+                  name: ts3-server-secret
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
     service:
       main:
-        ports:
-          http:
-            enabled: false
-          voice:
-            enabled: true
-            port: 9987
-            protocol: UDP
-          serverquery:
-            enabled: true
-            port: 10011
-            protocol: TCP
-          filetransfer:
-            enabled: true
-            port: 30033
-            protocol: TCP
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
           kube-vip.io/loadbalancerIPs: "${TS3_LB_ADDR}"
         externalTrafficPolicy: Cluster
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /var/ts3server
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: ceph-block
+        ports:
+          http:
+            enabled: false
+          voice:
+            port: 9987
+            protocol: UDP
+          serverquery:
+            port: 10011
+            protocol: TCP
+          filetransfer:
+            port: 30033
+            protocol: TCP
+    persistence:
+      data:
+        enabled: true
+        existingClaim: ts3-server
+        globalMounts:
+          - path: /var/ts3server
