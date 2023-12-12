@@ -80,13 +80,13 @@ spec:
         mgr:
           nodeAffinity: *nodeAffinity
         nodes:
-          - name: "k3s-s01"
+          - name: "k3s-m01"
             devices:
               - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
-          - name: "k3s-s02"
+          - name: "k3s-m02"
             devices:
               - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
-          - name: "k3s-s03"
+          - name: "k3s-m03"
             devices:
               - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
       resources:
