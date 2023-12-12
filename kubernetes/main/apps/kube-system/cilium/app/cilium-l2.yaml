@@ -1,0 +1,20 @@
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: policy
+spec:
+  loadBalancerIPs: true
+  interfaces:
+    - ^enp.*
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: pool
+spec:
+  cidrs:
+    - cidr: ${KUBE_VIP_RANGE}
