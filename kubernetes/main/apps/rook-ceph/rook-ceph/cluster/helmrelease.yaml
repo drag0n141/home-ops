@@ -50,11 +50,24 @@ spec:
       bdev_async_discard = true
       osd_class_update_on_start = false
     cephClusterSpec:
+      cephVersion:
+        image: quay.io/ceph/ceph:v18.2.0
       network:
         provider: host
         connections:
           compression:
             enabled: true
+      crashCollector:
+        disable: false
+      dashboard:
+        enabled: true
+        urlPrefix: /
+        ssl: false
+      storage:
+        useAllNodes: false
+        useAllDevices: false
+        config:
+          osdsPerDevice: "1"
       placement:
         mon: &nodeAffinity
           nodeAffinity:
@@ -67,60 +80,6 @@ spec:
                         - "true"
         mgr:
           nodeAffinity: *nodeAffinity
-      resources:
-        mgr:
-          requests:
-            cpu: "125m"
-            memory: "549Mi"
-          limits:
-            memory: "1219Mi"
-        mon:
-          requests:
-            cpu: "49m"
-            memory: "477Mi"
-          limits:
-            memory: "1059Mi"
-        osd:
-          requests:
-            cpu: "442m"
-            memory: "2678Mi"
-          limits:
-            memory: "5944Mi"
-        mgr-sidecar:
-          requests:
-            cpu: "49m"
-            memory: "94Mi"
-          limits:
-            memory: "208Mi"
-        crashcollector:
-          requests:
-            cpu: "15m"
-            memory: "64Mi"
-          limits:
-            memory: "64Mi"
-        logcollector:
-          requests:
-            cpu: "100m"
-            memory: "100Mi"
-          limits:
-            memory: "1Gi"
-        cleanup:
-          requests:
-            cpu: "250m"
-            memory: "100Mi"
-          limits:
-            memory: "1Gi"
-      crashCollector:
-        disable: false
-      dashboard:
-        enabled: true
-        urlPrefix: /
-        ssl: false
-      storage:
-        useAllNodes: false
-        useAllDevices: false
-        config:
-          osdsPerDevice: "1"
         nodes:
           - name: "k3s-s01"
             devices:
@@ -131,6 +90,28 @@ spec:
           - name: "k3s-s03"
             devices:
               - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
+      resources:
+        mgr:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+        mon:
+          requests:
+            cpu: 1000m
+            memory: 1Gi
+          limits:
+            cpu: 4000m
+            memory: 4Gi
+        osd:
+          requests:
+            cpu: 1000m
+            memory: 4Gi
+          limits:
+            cpu: 4000m
+            memory: 8Gi
     cephBlockPools:
       - name: ceph-blockpool
         spec:
