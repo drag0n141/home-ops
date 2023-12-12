@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tandoor
+  name: &app tandoor
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -29,30 +29,42 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/tandoorrecipes/recipes
-      tag: 1.5.10
-    env:
-      TIMEZONE: ${TIMEZONE}
-      DEBUG: "0"
-      ALLOWED_HOSTS: "*"
-      DB_ENGINE: django.db.backends.postgresql_psycopg2
-      GUNICORN_MEDIA: "0"
-      REVERSE_PROXY_AUTH: "0"
-      FRACTION_PREF_DEFAULT: "0"
-      COMMENT_PREF_DEFAULT: "1"
-      SHOPPING_MIN_AUTOSYNC_INTERVAL: "5"
-      TANDOOR_PORT: "8080"
-      ENABLE_SIGNUP: "0"
-      EMAIL_HOST: smtp-relay.networking.svc.cluster.local
-      EMAIL_PORT: 2525
-    envFrom:
-      - secretRef:
-          name: tandoor-secret
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tandoorrecipes/recipes
+              tag: 1.5.10
+            env:
+              TIMEZONE: ${TIMEZONE}
+              DEBUG: "0"
+              ALLOWED_HOSTS: "*"
+              DB_ENGINE: django.db.backends.postgresql_psycopg2
+              GUNICORN_MEDIA: "0"
+              REVERSE_PROXY_AUTH: "0"
+              FRACTION_PREF_DEFAULT: "0"
+              COMMENT_PREF_DEFAULT: "1"
+              SHOPPING_MIN_AUTOSYNC_INTERVAL: "5"
+              TANDOOR_PORT: "8080"
+              ENABLE_SIGNUP: "0"
+              EMAIL_HOST: smtp-relay.networking.svc.cluster.local
+              EMAIL_PORT: 2525
+            envFrom:
+              - secretRef:
+                  name: tandoor-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256M
+              limits:
+                memory: 512M
+          nginx:
+            image:
+              repository: public.ecr.aws/nginx/nginx
+              tag: 1.25.3
     service:
       main:
         ports:
@@ -61,7 +73,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -69,65 +81,52 @@ spec:
           - host: &host "recipes.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "recipes.${SECRET_DOMAIN_INTERNAL}"
+          - host: &internal "recipes.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
-              - *host
+              - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
         enabled: true
         existingClaim: tandoor
-        subPath:
-          - path: mediafiles
-            mountPath: /opt/recipes/mediafiles
-          - path: staticfiles
-            mountPath: /opt/recipes/staticfiles
+        advancedMounts:
+          main:
+            main:
+              - path: /opt/recipes/mediafiles
+                subPath: mediafiles
+              - path: /opt/recipes/staticfiles
+                subPath: staticfiles
+            nginx:
+              - path: /media
+                subPath: mediafiles
+              - path: /static
+                subPath: staticfiles
       nginx-config:
-        enabled: true
-        mountPath: /etc/nginx/nginx.conf
-        subPath: nginx-config
         type: custom
-        volumeSpec:
-          configMap:
-            name: tandoor-configmap
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        memory: 512Mi
-    additionalContainers:
-      nginx:
-        name: nginx
-        image: public.ecr.aws/nginx/nginx:1.25.3
-        ports:
-          - name: http
-            containerPort: 80
-            protocol: TCP
-        volumeMounts:
-          - name: nginx-config
-            readOnly: true
-            mountPath: /etc/nginx/nginx.conf
-            subPath: nginx-config
-          - name: data
-            mountPath: /media
-            subPath: mediafiles
-          - name: data
-            mountPath: /static
-            subPath: staticfiles
+        name: tandoor-configmap
+        advancedMounts:
+          main:
+            nginx:
+              - path: /etc/nginx/nginx.conf
+                subPath: nginx-config
+                readOnly: true
