@@ -3,7 +3,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "${SECRET_DOMAIN/./-}-production"
-  namespace: networking
 spec:
   secretName: "${SECRET_DOMAIN/./-}-production-tls"
   issuerRef:
@@ -22,7 +21,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "${SECRET_DOMAIN_SHORT/./-}-production"
-  namespace: networking
 spec:
   secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
   issuerRef:
@@ -41,7 +39,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "${SECRET_DOMAIN_MAIL/./-}-production"
-  namespace: networking
 spec:
   secretName: "${SECRET_DOMAIN_MAIL/./-}-production-tls"
   issuerRef:
