@@ -55,8 +55,7 @@ spec:
       network:
         provider: host
         connections:
-          compression:
-            enabled: true
+          requireMsgr2: true
       crashCollector:
         disable: false
       dashboard:
