@@ -13,6 +13,19 @@ spec:
         kind: HelmRepository
         name: rook-ceph
         namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: snapshot-controller
+      namespace: kube-system
   values:
     csi:
       csiAddons:
