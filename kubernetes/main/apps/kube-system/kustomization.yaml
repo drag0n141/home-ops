@@ -12,4 +12,3 @@ resources:
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./spegel/ks.yaml
-  - ./system-upgrade-controller/ks.yaml
