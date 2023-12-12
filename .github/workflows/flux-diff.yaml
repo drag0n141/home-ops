@@ -31,6 +31,7 @@ jobs:
         uses: allenporter/flux-local/action/diff@flux-build
         id: diff
         with:
+          live-branch: master
           sources: home-kubernetes
           path: "${{ matrix.path }}"
           resource: "${{ matrix.resource }}"
