@@ -53,7 +53,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "unifi.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${UNIFI_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${UNIFI_LB_ADDR}"
           traefik.ingress.kubernetes.io/service.serversscheme: https
         externalTrafficPolicy: Cluster
         ports:

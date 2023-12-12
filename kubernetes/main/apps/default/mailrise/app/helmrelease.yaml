@@ -51,7 +51,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "mailrise.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${MAILRISE_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${MAILRISE_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

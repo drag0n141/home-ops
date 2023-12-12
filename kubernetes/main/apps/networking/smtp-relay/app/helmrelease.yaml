@@ -59,7 +59,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "smtp.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${SMTP_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${SMTP_LB_ADDR}"
         ports:
           http:
             port: 9749

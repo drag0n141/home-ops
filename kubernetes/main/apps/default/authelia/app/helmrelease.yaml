@@ -114,7 +114,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${AUTHELIA_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${AUTHELIA_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

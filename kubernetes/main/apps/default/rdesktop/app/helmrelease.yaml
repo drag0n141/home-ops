@@ -42,7 +42,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "rdesktop.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${RDP_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${RDP_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

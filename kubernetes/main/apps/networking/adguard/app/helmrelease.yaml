@@ -50,7 +50,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          kube-vip.io/loadbalancerIPs: "${ADGUARD_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${ADGUARD_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

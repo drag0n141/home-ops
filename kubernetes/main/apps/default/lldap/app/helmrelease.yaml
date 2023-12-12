@@ -58,7 +58,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "ldap.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${LLDAP_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${LLDAP_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

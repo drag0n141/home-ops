@@ -51,7 +51,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "socks.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${SOCKS_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${SOCKS_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

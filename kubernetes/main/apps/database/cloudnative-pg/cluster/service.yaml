@@ -6,7 +6,7 @@ metadata:
   namespace: database
   annotations:
     coredns.io/hostname: "postgres.${SECRET_DOMAIN_INTERNAL}"
-    kube-vip.io/loadbalancerIPs: "${POSTGRES_LB_ADDR}"
+    io.cilium/lb-ipam-ips: "${POSTGRES_LB_ADDR}"
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster

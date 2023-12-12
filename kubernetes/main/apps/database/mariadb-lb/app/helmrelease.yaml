@@ -48,7 +48,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "mariadb-cluster.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${MARIADB_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${MARIADB_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

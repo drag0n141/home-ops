@@ -59,7 +59,7 @@ spec:
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
-          kube-vip.io/loadbalancerIPs: "${TS3_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${TS3_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           http:

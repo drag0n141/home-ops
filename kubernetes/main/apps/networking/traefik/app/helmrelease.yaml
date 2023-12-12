@@ -44,7 +44,7 @@ spec:
       type: LoadBalancer
       annotations:
         external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
-        kube-vip.io/loadbalancerIPs: "${INGRESS_TRAEFIK_ADDR}"
+        io.cilium/lb-ipam-ips: "${INGRESS_TRAEFIK_ADDR}"
       spec:
         externalTrafficPolicy: Cluster
     env:
