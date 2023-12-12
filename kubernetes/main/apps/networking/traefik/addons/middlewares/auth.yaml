@@ -3,7 +3,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-authelia
-  namespace: networking
 spec:
   forwardAuth:
     address: http://authelia.default.svc.cluster.local:9091/api/verify?rd=https%3A%2F%2Fauthelia.${SECRET_DOMAIN}%2F
@@ -18,7 +17,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-authentik
-  namespace: networking
 spec:
   forwardAuth:
     address: http://authentik.default.svc.cluster.local/outpost.goauthentik.io/auth/traefik

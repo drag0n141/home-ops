@@ -3,7 +3,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-rate-limit
-  namespace: networking
 spec:
   rateLimit:
     average: 100
@@ -13,7 +12,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-secure-headers
-  namespace: networking
 spec:
   headers:
     accessControlAllowMethods:
@@ -54,7 +52,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-secure-headers-pterodactyl
-  namespace: networking
 spec:
   headers:
     accessControlAllowMethods:
@@ -97,7 +94,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-secure-headers-shlink
-  namespace: networking
 spec:
   headers:
     accessControlAllowMethods:
@@ -141,7 +137,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-secure-headers-obsidian
-  namespace: networking
 spec:
   headers:
     accessControlAllowMethods:

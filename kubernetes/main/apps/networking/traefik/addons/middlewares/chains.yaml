@@ -3,7 +3,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-no-auth
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -16,7 +15,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-authelia
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -30,7 +28,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-authentik
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -44,7 +41,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-pterodactyl
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -56,7 +52,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-shlink
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -68,7 +63,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-obsidian
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -80,7 +74,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-dashy
-  namespace: networking
 spec:
   chain:
     middlewares:
@@ -92,7 +85,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-middleware-chain-homepage
-  namespace: networking
 spec:
   chain:
     middlewares:
