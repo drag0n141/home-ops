@@ -25,6 +25,7 @@
   "ignorePaths": [
     "**/*.sops.*",
     "**/.archive/**"
+  ],
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
