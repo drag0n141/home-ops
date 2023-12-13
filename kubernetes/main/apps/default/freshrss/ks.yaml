@@ -5,6 +5,7 @@ metadata:
   name: &app freshrss
   namespace: flux-system
 spec:
+  targetNamespace: default
   dependsOn:
     - name: mariadb-lb
   path: ./kubernetes/main/apps/default/freshrss/app
