@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/tombursch/kitchenowl
-              tag: v91
+              tag: v92
             env:
               TZ: ${TIMEZONE}
             envFrom:
