@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: jasonbean/guacamole
-              tag: 1.5.3-nomariadb
+              tag: 1.5.4-nomariadb
             env:
               TZ: ${TIMEZONE}
               OPT_CAS: N
