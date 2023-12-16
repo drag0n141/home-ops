@@ -47,7 +47,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/netbox
-              tag: 3.6.6@sha256:d92ba22e14a4e5538ca86f79a868a73fb0a5efc38a709ae4ce0bdb706bafffe6
+              tag: 3.6.7@sha256:dfdc510e95325b5982d5e444f0b5f5fa9912414b75754ba941ace132124148b9
             env:
               TZ: ${TIMEZONE}
             envFrom:
