@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/rdesktop
-              tag: latest@sha256:2369d438ee2f992a1672019d1a3eda3b14994af404b634b1db8cf38aad03d2ed
+              tag: latest@sha256:0637d6e3e1a0705784e24a50e51c75559eaa4595c4897e061ace187d9f563c7a
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
