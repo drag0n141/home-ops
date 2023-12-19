@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: docker.io/vikunja/frontend
-              tag: 0.21.0
+              tag: 0.22.0
             env:
               TZ: ${TIMEZONE}
               VIKUNJA_API_URL: http://vikunja.${SECRET_DOMAIN}/api/v1
