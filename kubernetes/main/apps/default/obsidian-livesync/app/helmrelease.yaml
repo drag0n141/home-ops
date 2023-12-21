@@ -46,8 +46,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/linuxserver/netbox
-              tag: 3.6.7@sha256:57f4415217af28c459f55f81fade7d15a0f85ed92b60b5835c7175c8f19265c0
+              repository: public.ecr.aws/docker/library/couchdb
+              tag: 3.3.3
             env:
               TZ: ${TIMEZONE}
             envFrom:
