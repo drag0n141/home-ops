@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/2fauth/2fauth
-              tag: 4.2.4
+              tag: 5.0.0
             env:
               TZ: ${TIMEZONE}
               MAIL_HOST: smtp-relay.networking.svc.cluster.local
