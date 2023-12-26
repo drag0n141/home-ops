@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: master@sha256:a3647c3dd136402745c7639e446944004145630c822f27e22f999c414c234d2f
+              tag: master@sha256:c9a635e243dcc4921ad814f32a6be582e10d3830e4a01791cd72ba5c9f0db34d
             args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
             env:
               TZ: ${TIMEZONE}
