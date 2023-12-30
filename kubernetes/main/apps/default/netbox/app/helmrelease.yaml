@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/netbox
-              tag: 3.6.9@sha256:944a0f213dcf23451d5535f0f99e1f3df819e91e98674d596acdfb5a941910b7
+              tag: 3.7.0@sha256:72035219708cc8ad7dba0607710c7eb4bd692b61b0d67c72c98c9f715db63645
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
