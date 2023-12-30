@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/frooodle/s-pdf
-              tag: 0.17.2
+              tag: 0.18.0
             env:
               TZ: ${TIMEZONE}
               SYSTEM_DEFAULTLOCALE: de_DE
