@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/ferdium/ferdium-server
-              tag: 2.0.3
+              tag: 2.0.5
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
