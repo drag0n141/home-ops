@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/claabs/epicgames-freegames-node
-              tag: latest@sha256:f50fc87ffadee3c3b7c5aaf43390e9c46de294b43f2da88f0fc19588f08eef40
+              tag: latest@sha256:7e3f071356221d08f95661f43b60b2ca61fc6e69699a7efecafd13b85eebfed0
             env:
               TZ: ${TIMEZONE}
             probes:
