@@ -5,8 +5,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./cilium/ks.yaml
-  - ./coredns/ks.yaml
-  - ./csi-driver-nfs/ks.yaml
-  - ./metrics-server/ks.yaml
+  - ./local-path-provisioner/ks.yaml
   - ./snapshot-controller/ks.yaml
