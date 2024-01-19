@@ -6,10 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: rook-ceph
-  dependsOn:
-    - name: csi-addons-controller-manager
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -25,10 +23,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: rook-ceph
-  dependsOn:
-    - name: rook-ceph
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/cluster
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
