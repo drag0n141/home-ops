@@ -5,8 +5,8 @@ metadata:
   name: &app csi-driver-nfs
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/csi-driver-nfs/app
+  targetNamespace: storage
+  path: ./kubernetes/main/apps/storage/csi-driver-nfs/app
   prune: true
   sourceRef:
     kind: GitRepository

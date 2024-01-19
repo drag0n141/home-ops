@@ -6,9 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: storage
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/storage/local-path-provisioner/app
   prune: true
   sourceRef:

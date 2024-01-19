@@ -7,6 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
-  - ./csi-driver-nfs/ks.yaml
   - ./metrics-server/ks.yaml
-  - ./snapshot-controller/ks.yaml
