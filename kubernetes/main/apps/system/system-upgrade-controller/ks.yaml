@@ -5,8 +5,8 @@ metadata:
   name: &app system-upgrade-controller
   namespace: flux-system
 spec:
-  targetNamespace: system-upgrade
-  path: ./kubernetes/main/apps/system-upgrade/system-upgrade-controller/app
+  targetNamespace: system
+  path: ./kubernetes/main/apps/system/system-upgrade-controller/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -22,10 +22,10 @@ metadata:
   name: &app system-upgrade-controller-plans
   namespace: flux-system
 spec:
-  targetNamespace: system-upgrade
+  targetNamespace: system
   dependsOn:
     - name: system-upgrade-controller
-  path: ./kubernetes/main/apps/system-upgrade/system-upgrade-controller/plans
+  path: ./kubernetes/main/apps/system/system-upgrade-controller/plans
   prune: true
   sourceRef:
     kind: GitRepository
