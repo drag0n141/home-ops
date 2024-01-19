@@ -5,8 +5,8 @@ metadata:
   name: &app reloader
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/reloader/app
+  targetNamespace: system
+  path: ./kubernetes/main/apps/system/reloader/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -17,12 +17,14 @@ resources:
   - ./grafana.yaml
   - ./hajimari.yaml
   - ./ingress-nginx.yaml
+  - ./intel.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
   - ./kube-vip.yaml
   - ./mailu.yaml
   - ./metrics-server.yaml
+  - ./node-feature-discovery.yaml
   - ./pihole.yaml
   - ./piraeus.yaml
   - ./portainer.yaml

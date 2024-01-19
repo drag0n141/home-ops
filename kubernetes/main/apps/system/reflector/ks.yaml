@@ -5,8 +5,8 @@ metadata:
   name: &app reflector
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/reflector/app
+  targetNamespace: system
+  path: ./kubernetes/main/apps/system/reflector/app
   prune: true
   sourceRef:
     kind: GitRepository

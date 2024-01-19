@@ -5,8 +5,8 @@ metadata:
   name: &app spegel
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/spegel/app
+  targetNamespace: system
+  path: ./kubernetes/main/apps/system/spegel/app
   prune: true
   sourceRef:
     kind: GitRepository
