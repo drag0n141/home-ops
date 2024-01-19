@@ -5,8 +5,8 @@ metadata:
   name: &app volsync
   namespace: flux-system
 spec:
-  targetNamespace: backup
-  path: ./kubernetes/main/apps/backup/volsync/app
+  targetNamespace: storage
+  path: ./kubernetes/main/apps/storage/volsync/app
   prune: true
   sourceRef:
     kind: GitRepository
