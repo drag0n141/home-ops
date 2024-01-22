@@ -36,6 +36,8 @@ spec:
       announce:
         loadbalancerIP: true
         podCIDR: false
+    bgpControlPlane:
+      enabled: true
     cluster:
       name: main
       id: 1
