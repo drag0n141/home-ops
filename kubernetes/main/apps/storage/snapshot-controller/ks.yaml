@@ -5,8 +5,8 @@ metadata:
   name: &app snapshot-controller
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/snapshot-controller/app
+  targetNamespace: storage
+  path: ./kubernetes/main/apps/storage/snapshot-controller/app
   prune: true
   sourceRef:
     kind: GitRepository
