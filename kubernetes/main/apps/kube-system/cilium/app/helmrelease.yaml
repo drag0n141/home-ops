@@ -26,12 +26,18 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
     bpf:
       masquerade: true
     bgp:
       enabled: false
+      announce:
+        loadbalancerIP: true
+        podCIDR: false
     cluster:
-      name: home-cluster
+      name: main
       id: 1
     containerRuntime:
       integration: containerd
@@ -85,7 +91,7 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
-      enabled: true
+      enabled: false
       leaseDuration: 120s
       leaseRenewDeadline: 60s
       leaseRetryPeriod: 1s
@@ -115,4 +121,4 @@ spec:
     rollOutCiliumPods: true
     securityContext:
       privileged: true
-    tunnel: disabled
+    routingMode: native
