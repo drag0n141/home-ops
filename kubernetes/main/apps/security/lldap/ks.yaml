@@ -5,10 +5,10 @@ metadata:
   name: &app lldap
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: security
   dependsOn:
     - name: cloudnative-pg-cluster
-  path: ./kubernetes/main/apps/default/lldap/app
+  path: ./kubernetes/main/apps/security/lldap/app
   prune: true
   sourceRef:
     kind: GitRepository

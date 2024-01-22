@@ -5,7 +5,7 @@ metadata:
   name: traefik-middleware-authelia
 spec:
   forwardAuth:
-    address: http://authelia.default.svc.cluster.local:9091/api/verify?rd=https%3A%2F%2Fauthelia.${SECRET_DOMAIN}%2F
+    address: http://authelia.security.svc.cluster.local:9091/api/verify?rd=https%3A%2F%2Fauthelia.${SECRET_DOMAIN}%2F
     trustForwardHeader: true
     authResponseHeaders:
       - Remote-User
@@ -19,7 +19,7 @@ metadata:
   name: traefik-middleware-authentik
 spec:
   forwardAuth:
-    address: http://authentik.default.svc.cluster.local/outpost.goauthentik.io/auth/traefik
+    address: http://authentik.security.svc.cluster.local/outpost.goauthentik.io/auth/traefik
     trustForwardHeader: true
     authResponseHeaders:
       - X-authentik-username
