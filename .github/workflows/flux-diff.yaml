@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: "Flux Diff"
 
 on:
@@ -11,28 +12,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  changed-files:
-    name: Changed Files
+  changed-clusters:
+    name: Changed Clusters
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+      matrix: ${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@c4fa18d55c5d49e6a2793e351ea4938322c61072 # v1
+        uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout Default Branch
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           fetch-depth: 0
 
-      - name: Get Changed Files
-        id: changed-files
-        uses: tj-actions/changed-files@ae82ed4ae04587b665efad2f206578aa6f0e8539 # v42
+      - name: Get Changed Clusters
+        id: changed-clusters
+        uses: tj-actions/changed-files@v42
         with:
           files: kubernetes/**
           dir_names: true
@@ -40,55 +41,50 @@ jobs:
           json: true
           escape_json: false
 
-      - name: List All Changed Files
-        run: echo "${{ steps.changed-files.outputs.all_changed_and_modified_files }}"
+      - name: List All Changed Clusters
+        run: echo "${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}"
 
   flux-diff:
     name: Flux Diff
     runs-on: ubuntu-latest
-    needs: ["changed-files"]
+    needs: ["changed-clusters"]
     permissions:
       pull-requests: write
     strategy:
       matrix:
-        paths: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+        paths: ${{ fromJSON(needs.changed-clusters.outputs.matrix) }}
         resources: ["helmrelease", "kustomization"]
       max-parallel: 4
       fail-fast: false
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@c4fa18d55c5d49e6a2793e351ea4938322c61072 # v1
+        uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
-      - name: Setup System Tools
-        shell: bash
-        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.app-token.outputs.token }}"
+          path: pull
 
       - name: Checkout Default Branch
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
-      - name: Checkout Pull Request Branch
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
-          path: pull
-
       - name: Diff Resources
         uses: docker://ghcr.io/allenporter/flux-local:main
         with:
           args: >-
-            --log-level DEBUG
             diff ${{ matrix.resources }}
             --unified 6
-            --path-orig /github/workspace/default/${{ matrix.paths }}
             --path /github/workspace/pull/${{ matrix.paths }}
+            --path-orig /github/workspace/default/${{ matrix.paths }}
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
@@ -105,7 +101,7 @@ jobs:
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add comment
-        uses: mshick/add-pr-comment@7c0890544fb33b0bdd2e59467fbacb62e028a096 # v2.8.1
+        uses: mshick/add-pr-comment@v2
         with:
           repo-token: "${{ steps.app-token.outputs.token }}"
           message-id: "${{ github.event.pull_request.number }}/${{ matrix.paths }}/${{ matrix.resources }}"
