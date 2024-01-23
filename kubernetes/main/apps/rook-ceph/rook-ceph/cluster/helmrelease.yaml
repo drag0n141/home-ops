@@ -76,10 +76,10 @@ spec:
               - name: "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB440803"
           - name: "k3s-m02"
             devices:
-              - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
+              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB442304"
           - name: "k3s-m03"
             devices:
-              - name: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
+              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB441209"
       placement:
         mgr: &placement
           nodeAffinity:
