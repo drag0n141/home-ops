@@ -1,0 +1,14 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k3s-m01:
+          ansible_user: root
+          ansible_host: 192.168.254.81
+        k3s-m02:
+          ansible_user: root
+          ansible_host: 192.168.254.82
+        k3s-m03:
+          ansible_user: root
+          ansible_host: 192.168.254.83
