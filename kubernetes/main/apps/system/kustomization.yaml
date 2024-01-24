@@ -5,7 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./intel-device-plugins/ks.yaml
+  - ./intel-device-plugin/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./reflector/ks.yaml
   - ./reloader/ks.yaml
