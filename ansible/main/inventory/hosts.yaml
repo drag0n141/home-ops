@@ -1,14 +1,20 @@
 ---
 kubernetes:
+  vars:
+    ansible_user: root
+    ansible_ssh_port: 22
   children:
     master:
       hosts:
         k3s-m01:
-          ansible_user: root
           ansible_host: 192.168.254.81
+          ceph_drives:
+            - /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB440803
         k3s-m02:
-          ansible_user: root
           ansible_host: 192.168.254.82
+          ceph_drives:
+            - /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB442304
         k3s-m03:
-          ansible_user: root
           ansible_host: 192.168.254.83
+          ceph_drives:
+            - /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB441209

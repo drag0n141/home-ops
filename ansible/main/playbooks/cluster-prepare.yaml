@@ -1,6 +1,6 @@
 ---
 - name: Prepare System
-  hosts: all
+  hosts: kubernetes
   become: true
   gather_facts: true
   any_errors_fatal: true
@@ -39,6 +39,13 @@
     - name: System Configuration
       notify: Reboot
       block:
+        - name: System Configuration | NFS
+          ansible.builtin.copy:
+            src: files/nfsmount.conf
+            dest: /etc/nfsmount.conf
+            owner: root
+            group: root
+            mode: "0644"
         - name: System Configuration | Disable apparmor
           ansible.builtin.systemd:
             name: apparmor
