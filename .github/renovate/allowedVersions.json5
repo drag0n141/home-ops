@@ -8,13 +8,8 @@
     },
     {
       "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["authelia"],
-      "enabled": "false"
-    },
-    {
-      "matchDatasources": ["docker"],
       "matchPackagePatterns": ["postgresql"],
-      "allowedVersions": "<16"
+      "allowedVersions": "<=16"
     }
   ]
 }
