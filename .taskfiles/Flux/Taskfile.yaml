@@ -1,0 +1,97 @@
+---
+version: "3"
+
+vars:
+  # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+  PROMETHEUS_OPERATOR_VERSION: "v0.71.1"
+
+tasks:
+
+  verify:
+    desc: Verify flux meets the prerequisites
+    cmd: flux check --pre
+
+  install:
+    desc: Install Flux into a Kubernetes cluster
+    summary: |
+      Args:
+        cluster: Cluster to run command against (required)
+    prompt: Bootstrap Flux into the '{{.cluster}}' cluster... continue?
+    cmds:
+      # Install essential Prometheus Operator CRDs
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+      # Install Flux
+      - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux
+      - cat {{.ROOT_DIR}}/age.key | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.secret.sops.env
+      - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars
+      - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/flux/config
+      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.secret.sops.env
+    requires:
+      vars: ["cluster"]
+    preconditions:
+      - { msg: "Flux appears already installed", sh: "kubectl --context {{.cluster}} get namespace flux-system &>/dev/null && exit 1 || exit 0" }
+      - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
+      - { msg: "Cluster settings not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-settings.env" }
+      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.secret.sops.env" } }
+      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.secret.sops.env" }
+
+
+  reconcile:
+    desc: Force update Flux to pull in changes from your Git repository
+    cmd: flux reconcile -n flux-system kustomization cluster --with-source
+
+  hr-restart:
+    desc: Restart all failed Helm Releases
+    cmds:
+      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux suspend hr $0 -n $1'
+      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux resume hr $0 -n $1'
+
+  nodes:
+    desc: List all the nodes in your cluster
+    cmd: kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
+
+  pods:
+    desc: List all the pods in your cluster
+    cmd: kubectl get pods {{.CLI_ARGS | default "-A"}}
+
+  kustomizations:
+    desc: List all the kustomizations in your cluster
+    cmd: kubectl get kustomizations {{.CLI_ARGS | default "-A"}}
+
+  helmreleases:
+    desc: List all the helmreleases in your cluster
+    cmd: kubectl get helmreleases {{.CLI_ARGS | default "-A"}}
+
+  helmrepositories:
+    desc: List all the helmrepositories in your cluster
+    cmd: kubectl get helmrepositories {{.CLI_ARGS | default "-A"}}
+
+  gitrepositories:
+    desc: List all the gitrepositories in your cluster
+    cmd: kubectl get gitrepositories {{.CLI_ARGS | default "-A"}}
+
+  certificates:
+    desc: List all the certificates in your cluster
+    cmds:
+      - kubectl get certificates {{.CLI_ARGS | default "-A"}}
+      - kubectl get certificaterequests {{.CLI_ARGS | default "-A"}}
+
+  ingresses:
+    desc: List all the ingresses in your cluster
+    cmd: kubectl get ingress {{.CLI_ARGS | default "-A"}}
+
+  resources:
+    desc: Gather common resources in your cluster, useful when asking for support
+    cmds:
+      - task: nodes
+      - task: kustomizations
+      - task: helmreleases
+      - task: helmrepositories
+      - task: gitrepositories
+      - task: certificates
+      - task: ingresses
+      - task: pods
