@@ -1,11 +1,20 @@
 ---
+keys:
+  - &user_drag0n141 age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
+
 creation_rules:
   - path_regex: kubernetes/.*\.sops\.ya?ml
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
     key_groups:
       - age:
-          - age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
+          - *user_drag0n141
+
   - path_regex: kubernetes/.*\.sops\.(env|ini|json|toml|conf)
     key_groups:
       - age:
-          - age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
+          - *user_drag0n141
+
+  - path_regex: .*\.sops\.ya?ml$
+    key_groups:
+      - age:
+          - *user_drag0n141
