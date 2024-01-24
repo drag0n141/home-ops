@@ -66,7 +66,17 @@
       when: k3s_primary_control_node
       ansible.builtin.include_tasks: tasks/cruft.yaml
 
-    - name: Stale Containers
-      ansible.builtin.include_tasks: tasks/stale_containers.yaml
-      vars:
-        stale_containers_state: enabled
+    - name: Copy custom containerd configuration
+      notify: Restart Kubernetes
+      ansible.builtin.copy:
+        src: files/config.toml.tmpl
+        dest: /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+        owner: root
+        group: root
+        mode: "0644"
+
+  handlers:
+    - name: Restart Kubernetes
+      ansible.builtin.systemd:
+        name: k3s
+        state: restarted
