@@ -1,25 +1,16 @@
 ---
-#
-# Below vars are for the xanmanning.k3s role
-# ...see https://github.com/PyratLabs/ansible-role-k3s
-#
-
 # renovate: datasource=github-releases depName=k3s-io/k3s
 k3s_release_version: "v1.29.0+k3s1"
 k3s_install_hard_links: true
 k3s_become: true
 k3s_etcd_datastore: true
-k3s_use_unsupported_config: true
-k3s_registration_address: "{{ kube_vip_addr }}"
+k3s_registration_address: 192.168.254.250
 k3s_server_manifests_urls:
-  # Kube-vip RBAC
+# Kube-vip RBAC
   - url: https://raw.githubusercontent.com/kube-vip/kube-vip/main/docs/manifests/rbac.yaml
     filename: kube-vip-rbac.yaml
 # /var/lib/rancher/k3s/server/manifests
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
-  - custom-cilium-l2.yaml.j2
   - custom-coredns-helmchart.yaml.j2
-# /var/lib/rancher/k3s/agent/pod-manifests
-k3s_server_pod_manifests_templates:
-  - kube-vip-static-pod.yaml.j2
+  - kube-vip-ds.yaml.j2
