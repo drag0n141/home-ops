@@ -9,6 +9,12 @@
       ansible.builtin.pause:
         seconds: 5
   tasks:
+    - name: Locale
+      block:
+        - name: Locale | Set timezone
+          community.general.timezone:
+            name: "Europe/Berlin"
+
     - name: Packages
       block:
         - name: Packages | Install
@@ -25,7 +31,7 @@
         - name: User Configuration | SSH keys
           ansible.posix.authorized_key:
             user: "{{ ansible_user }}"
-            key: "https://github.com/{{ github_username }}.keys"
+            key: "https://github.com/drag0n141.keys"
         - name: User Configuration | Silence login
           ansible.builtin.file:
             dest: "{{ '/home/' + ansible_user if ansible_user != 'root' else '/root' }}/.hushlogin"
@@ -35,6 +41,26 @@
             mode: "0644"
             modification_time: preserve
             access_time: preserve
+
+    - name: Network Configuration
+      notify: Reboot
+      block:
+        - name: Network Configuration | Remove immutable flag from /etc/resolv.conf
+          ansible.builtin.file:
+            attributes: -i
+            path: /etc/resolv.conf
+        - name: Network Configuration | Remove /etc/resolv.conf
+          ansible.builtin.file:
+            attributes: -i
+            path: /etc/resolv.conf
+            state: absent
+        - name: Network Configuration | Add custom /etc/resolv.conf
+          ansible.builtin.copy:
+            attributes: +i
+            mode: '0644'
+            dest: /etc/resolv.conf
+            content: |
+              nameserver 192.168.254.1
 
     - name: System Configuration
       notify: Reboot
