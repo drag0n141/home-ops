@@ -2,6 +2,9 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  SOPS_CONFIG_FILE: "{{.ROOT_DIR}}/.sops.yaml"
+
 tasks:
 
   fix-mac:
@@ -17,3 +20,33 @@ tasks:
               EDITOR="vim -es +'norm Go' +':wq'" sops --ignore-mac "${file}"
           fi
       done
+
+  age-keygen:
+    desc: Initialize Age Key for Sops
+    cmd: age-keygen --output {{.SOPS_AGE_FILE}}
+    status:
+      - test -f "{{.SOPS_AGE_FILE}}"
+
+  encrypt:
+    desc: Encrypt all Kubernetes SOPS secrets that are not already encrypted
+    cmds:
+      - for: { var: file }
+        task: .encrypt-file
+        vars:
+          file: "{{.ITEM}}"
+    vars:
+      file:
+        sh: find "{{.KUBERNETES_DIR}}" -type f -name "*.sops.*" -exec grep -L "ENC\[AES256_GCM" {} \;
+
+  .encrypt-file:
+    internal: true
+    cmd: sops --encrypt --in-place {{.file}}
+    requires:
+      vars: ["file"]
+    preconditions:
+      - { msg: "Missing Sops config file", sh: "test -f {{.SOPS_CONFIG_FILE}}" }
+      - { msg: "Missing Sops Age key file", sh: "test -f {{.SOPS_AGE_FILE}}" }
+
+  .reset:
+    internal: true
+    cmd: rm -rf {{.SOPS_CONFIG_FILE}}
