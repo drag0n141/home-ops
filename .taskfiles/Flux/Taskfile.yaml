@@ -36,9 +36,8 @@ tasks:
       - { msg: "Flux appears already installed", sh: "kubectl --context {{.cluster}} get namespace flux-system &>/dev/null && exit 1 || exit 0" }
       - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
       - { msg: "Cluster settings not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-settings.yaml" }
-      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml" } }
+      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml" }
       - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml" }
-
 
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
