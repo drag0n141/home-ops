@@ -35,8 +35,6 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
-    crds:
-      enabled: true
     monitoring:
       enabled: true
     pspEnable: false
