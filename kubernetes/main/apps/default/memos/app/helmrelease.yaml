@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/usememos/memos
-              tag: 0.18.2
+              tag: 0.19.0
             env:
               TZ: ${TIMEZONE}
     service:
