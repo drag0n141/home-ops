@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/freshrss
-              tag: 1.23.1@sha256:fc790bdf899ea0bf4cf77b8bc3261daed139a18eb417689e01cad837610379d4
+              tag: 1.23.1@sha256:2326bb879e1443fdf5addabbcc85dd8a986eb7007a94f3b6ce6279317709b40f
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
