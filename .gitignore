@@ -3,10 +3,14 @@
 Thumbs.db
 # k8s
 kubeconfig
-.decrypted~*.yaml
+.decrypted~*
 .config.env
 *.agekey
 *.pub
 *.key
 # Ansible
-.venv*
+.venv/
+.task/
+.private/
+# Terraform
+.terraform
