@@ -20,7 +20,7 @@ spec:
         - peerAddress: ${BGP_ROUTER}
           peerASN: 65207
 ---
-apiVersion: "cilium.io/v2alpha1"
+apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: main-pool
