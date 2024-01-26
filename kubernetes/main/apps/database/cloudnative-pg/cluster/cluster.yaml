@@ -9,9 +9,10 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
-    storageClass: ceph-block
+    storageClass: local-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
+  enableSuperuserAccess: true
   postgresql:
     parameters:
       max_connections: "600"
@@ -19,9 +20,12 @@ spec:
       shared_buffers: 512MB
   resources:
     requests:
-      memory: "2Gi"
-      cpu: "500m"
+      memory: 2Gi
+      cpu: 500m
     limits:
-      memory: "4Gi"
+      memory: 4Gi
   monitoring:
     enablePodMonitor: true
+    podMonitorMetricRelabelings:
+      - { sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace }
+      - { regex: cluster, action: labeldrop }
