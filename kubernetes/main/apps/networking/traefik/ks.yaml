@@ -44,6 +44,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  dependsOn:
+    - name: traefik
   path: ./kubernetes/main/apps/networking/traefik/addons
   prune: true
   sourceRef:
