@@ -22,19 +22,16 @@
             update_cache: yes
             upgrade: dist
             autoclean: yes
-
         - name: Packages | Remove
           ansible.builtin.apt:
             name: systemd-timesyncd
             state: absent
             purge: true
-
         - name: Packages | Add non-free repository
           ansible.builtin.apt_repository:
             repo: deb http://deb.debian.org/debian/ stable main contrib non-free
             filename: non-free
             update_cache: true
-
         - name: Packages | Install
           ansible.builtin.apt:
             name: i965-va-driver-shaders,apt-transport-https,ca-certificates,chrony,conntrack,curl,dirmngr,gdisk,
