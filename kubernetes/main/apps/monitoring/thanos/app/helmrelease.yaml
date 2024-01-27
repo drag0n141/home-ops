@@ -25,6 +25,8 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
+    - name: local-path-provisioner
+      namespace: storage
     - name: rook-ceph-cluster
       namespace: rook-ceph
   valuesFrom:
@@ -79,6 +81,8 @@ spec:
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
+      stores:
+        - thanos-svc-nas.${SECRET_DOMAIN_INTERNAL}:10901
     bucketweb:
       enabled: true
       replicaCount: 2
@@ -87,19 +91,19 @@ spec:
       extraFlags:
         - --compact.concurrency=4
         - --delete-delay=30m
-      retentionResolutionRaw: 30d
-      retentionResolution5m: 60d
-      retentionResolution1h: 90d
+      retentionResolutionRaw: 14d
+      retentionResolution5m: 30d
+      retentionResolution1h: 60d
       persistence:
         enabled: true
-        storageClass: ceph-block
+        storageClass: local-hostpath
         size: 10Gi
     storegateway:
       enabled: true
       replicaCount: 2
       persistence:
         enabled: true
-        storageClass: ceph-block
+        storageClass: local-hostpath
         size: 1Gi
     ruler:
       enabled: true
@@ -121,14 +125,14 @@ spec:
                   severity: critical
       persistence:
         enabled: true
-        storageClass: ceph-block
+        storageClass: local-hostpath
         size: 512Mi
       resources:
         requests:
           cpu: 23m
-          memory: 94M
+          memory: 128M
         limits:
-          memory: 113M
+          memory: 256M
     metrics:
       enabled: true
       serviceMonitor:
