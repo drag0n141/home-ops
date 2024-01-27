@@ -69,9 +69,9 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.250.81
-        - 192.168.240.82
-        - 192.168.230.83
+        - 192.168.254.81
+        - 192.168.254.82
+        - 192.168.254.83
       serviceMonitor:
         metricRelabelings:
           - action: keep
@@ -131,7 +131,7 @@ spec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         retention: 2d
-        retentionSize: 6GB
+        retentionSize: 15GB
         scrapeInterval: 1m
         thanos:
           image: quay.io/thanos/thanos:v0.34.0@sha256:2356a5f131fd80965d7a0617b70b14e4facae1aee5ec43f117f8bfbe20d987fc
@@ -144,7 +144,7 @@ spec:
               storageClassName: ceph-block
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 20Gi
 
       thanosService:
         enabled: true
