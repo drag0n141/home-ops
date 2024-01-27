@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
+  - ../../../../templates/volsync
 configMapGenerator:
   - name: alert-manager-configmap
     files:
