@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "description": "Flux Group",
+      "description": ["Flux Group"],
       "groupName": "Flux",
       "matchPackagePatterns": ["flux"],
       "matchDatasources": ["docker", "github-tags"],
@@ -13,7 +13,7 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Local Path Provisioner Group",
+      "description": ["Local Path Provisioner Group"],
       "groupName": "Local Path Provisioner",
       "matchPackagePatterns": ["local-path-provisioner"],
       "matchDatasources": ["docker", "github-tags"],
@@ -23,7 +23,7 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Rook-Ceph Group",
+      "description": ["Rook-Ceph Group"],
       "groupName": "Rook-Ceph",
       "matchPackagePatterns": ["rook.ceph"],
       "matchDatasources": ["helm"],
@@ -33,7 +33,7 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Vikunja Group",
+      "description": ["Vikunja Group"],
       "groupName": "Vikunja",
       "matchPackagePatterns": ["vikunja"],
       "matchDatasources": ["docker"],
@@ -43,7 +43,7 @@
       "separateMinorPatch": true
     },
     {
-      "description": "System Upgrade Controller Group",
+      "description": ["System Upgrade Controller Group"],
       "groupName": "System Upgrade Controller",
       "matchPackagePatterns": ["system-upgrade-controller"],
       "matchDatasources": ["docker", "github-releases"],
