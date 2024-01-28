@@ -42,7 +42,7 @@ spec:
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
-              NODE_ENV: production
+              NODE_ENV: development
               APP_UR: https://ferdium.${SECRET_DOMAIN}
               DB_CONNECTION: mysql
               DB_PORT: 3306
