@@ -89,7 +89,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
+        type: configMap
         name: homepage-configmap
         globalMounts:
           - path: /app/config/bookmarks.yaml
