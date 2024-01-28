@@ -77,7 +77,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "dashy.${SECRET_DOMAIN}"
+          - host: &host "bitwarden.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
