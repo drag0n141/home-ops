@@ -40,6 +40,7 @@ spec:
               tag: 0.19.0
             env:
               TZ: ${TIMEZONE}
+              MEMOS_PORT: 5230
     service:
       main:
         ports:
