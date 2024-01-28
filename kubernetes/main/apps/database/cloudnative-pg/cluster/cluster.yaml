@@ -39,8 +39,6 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://minio.${SECRET_DOMAIN_INT}
-      # Note: serverName version needs to be inclemented
-      # when recovering from an existing cnpg cluster
       serverName: postgres
       s3Credentials:
         accessKeyId:
