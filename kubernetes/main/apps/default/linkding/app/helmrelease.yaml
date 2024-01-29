@@ -35,6 +35,14 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: netbox-secret
         containers:
           main:
             image:
@@ -47,9 +55,7 @@ spec:
               LD_DB_ENGINE: postgres
               LD_FAVICON_PROVIDER: "https://t1.gstatic.com/faviconV2?url={url}&client=SOCIAL&type=FAVICON"
               LD_CSRF_TRUSTED_ORIGINS: "https://bookmarks.${SECRET_DOMAIN}"
-            envFrom:
-              - secretRef:
-                  name: linkding-secret
+            envFrom: *envFrom
             resources:
               requests:
                 cpu: 25m
