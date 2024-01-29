@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: downloads
+  dependsOn:
+    - name: cloudnative-pg-cluster
   path: ./kubernetes/main/apps/downloads/prowlarr/app
   prune: true
   sourceRef:
