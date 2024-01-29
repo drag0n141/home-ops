@@ -8,7 +8,7 @@ spec:
     name: mariadb-galera
   schedule:
     cron: "0 4 * * *"
-  maxRetentionDays: 30
+  maxRetention: 720h # 30 days
   args:
     - --single-transaction
     - --all-databases
