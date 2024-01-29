@@ -50,9 +50,7 @@ spec:
               TZ: ${TIMEZONE}
               PGID: 1000
               PUID: 1000
-            envFrom:
-              - secretRef:
-                  name: *envFrom
+            envFrom: *envFrom
     service:
       main:
         ports:
