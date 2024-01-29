@@ -36,11 +36,14 @@ spec:
         envFrom: &envFrom
           - secretRef:
               name: authentik-secret
+          - secretRef:
+              name: authentik-redis-secret
     image:
       repository: ghcr.io/goauthentik/server
       tag: 2023.10.6
     env:
       AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
+      AUTHENTIK_REDIS__HOST: authentik-redis.security.svc.cluster.local
     envFrom: *envFrom
     postgresql:
       enabled: false
