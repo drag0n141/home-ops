@@ -28,8 +28,6 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: storage
-    - name: cloudnative-pg-cluster
-      namespace: database
   values:
     controllers:
       main:
