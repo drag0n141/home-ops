@@ -9,8 +9,6 @@ spec:
     key: root-password
   username: mariadb
   database: mariadb
-  image: mariadb:11.2.2
-  port: 3306
   env:
     - name: TZ
       value: ${TIMEZONE}
