@@ -50,7 +50,7 @@ spec:
               CACHE_DRIVER: redis
               SESSION_DRIVER: redis
               QUEUE_DRIVER: redis
-              REDIS_HOST: redis-lb.database.svc.cluster.local
+              REDIS_HOST: pterodactyl-redis.default.svc.cluster.local
               MAIL_DRIVER: smtp
               MAIL_HOST: smtp-relay.networking.svc.cluster.local
               MAIL_PORT: 2525
@@ -58,6 +58,8 @@ spec:
             envFrom:
               - secretRef:
                   name: pterodactyl-secret
+              - secretRef:
+                  name: pterodactyl-redis-secret
             resources:
               requests:
                 cpu: 50m
