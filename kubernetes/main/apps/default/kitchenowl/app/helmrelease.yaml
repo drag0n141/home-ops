@@ -33,6 +33,14 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: kitchenowl-secret
         containers:
           main:
             image:
@@ -40,9 +48,7 @@ spec:
               tag: v93
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: kitchenowl-secret
+            envFrom: *envFrom
     service:
       main:
         ports:
