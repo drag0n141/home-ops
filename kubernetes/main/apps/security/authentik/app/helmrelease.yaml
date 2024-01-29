@@ -39,6 +39,17 @@ spec:
     image:
       repository: ghcr.io/goauthentik/server
       tag: 2023.10.6
+    authentik:
+      log_level: info
+      email:
+        port: 2525
+        use_tls: false
+      error_reporting:
+        enabled: false
+        send_pii: false
+      redis:
+        host: "authentik-redis.security.svc.cluster.local"
+        password: ""
     env:
       AUTHENTIK_POSTGRESQL__HOST: postgres-rw.database.svc.cluster.local
       AUTHENTIK_REDIS__HOST: authentik-redis.security.svc.cluster.local
