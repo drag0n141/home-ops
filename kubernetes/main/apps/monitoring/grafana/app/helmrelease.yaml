@@ -24,6 +24,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    extraInitContainers:
+      - name: 01-init-db
+        image: ghcr.io/onedr0p/postgres-init:16
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
     replicas: 2
     env:
       GF_AUTH_GENERIC_OAUTH_API_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo
@@ -38,7 +44,7 @@ spec:
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN_INTERNAL}
     envFromSecrets:
-      - name: grafana-secret
+      - name: *secret
     grafana.ini:
       analytics:
         check_for_updates: false
