@@ -23,14 +23,19 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: cloudnative-pg-cluster
-      namespace: database
   values:
     controllers:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: atuin-secret
         containers:
           main:
             image:
@@ -42,9 +47,7 @@ spec:
               ATUIN_HOST: "0.0.0.0"
               ATUIN_PORT: 8888
               ATUIN_OPEN_REGISTRATION: true
-            envFrom:
-              - secretRef:
-                  name: atuin-secret
+            envFrom: *envFrom
             resources:
               requests:
                 memory: 128Mi
