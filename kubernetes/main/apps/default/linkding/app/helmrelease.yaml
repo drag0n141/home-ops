@@ -40,7 +40,7 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: netbox-secret
+                  name: linkding-secret
         containers:
           main:
             image:
