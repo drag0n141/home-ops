@@ -43,6 +43,8 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: netbox-secret
+              - secretRef:
+                  name: netbox-redis-secret
         containers:
           main:
             image:
@@ -52,6 +54,7 @@ spec:
               TZ: ${TIMEZONE}
               PGID: 1000
               PUID: 1000
+              REDIS_HOST: "netbox-redis.default.svc.cluster.local"
             envFrom: *envFrom
     service:
       main:
