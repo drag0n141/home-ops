@@ -45,10 +45,6 @@ spec:
           storage: 300Mi
       accessModes:
         - ReadWriteOnce
-  podSecurityContext:
-    runAsUser: 0
-  securityContext:
-    allowPrivilegeEscalation: false
   service:
     type: LoadBalancer
     annotations:
