@@ -2,18 +2,36 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app netbox-redis
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  path: ./kubernetes/main/apps/default/netbox/redis
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app netbox
   namespace: flux-system
 spec:
   targetNamespace: default
   dependsOn:
     - name: cloudnative-pg-cluster
+    - name: netbox-redis
   path: ./kubernetes/main/apps/default/netbox/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 5m
