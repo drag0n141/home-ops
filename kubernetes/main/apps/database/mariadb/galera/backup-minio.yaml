@@ -1,0 +1,31 @@
+---
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: Backup
+metadata:
+  name: mariadb-minio
+spec:
+  mariaDbRef:
+    name: mariadb-galera
+  schedule:
+    cron: "0 4 * * *"
+  maxRetentionDays: 30
+  args:
+    - --single-transaction
+    - --all-databases
+  storage:
+    s3:
+      bucket: mariadb
+      endpoint: https://minio.${SECRET_DOMAIN_INT}
+      accessKeyIdSecretKeyRef:
+        name: mariadb-secret
+        key: aws-access-key-id
+      secretAccessKeySecretKeyRef:
+        name: mariadb-secret
+        key: aws-secret-access-key
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi

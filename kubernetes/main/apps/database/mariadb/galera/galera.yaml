@@ -1,0 +1,104 @@
+---
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera
+spec:
+  rootPasswordSecretKeyRef:
+    name: mariadb-secret
+    key: root-password
+  username: mariadb
+  database: mariadb
+  image: mariadb:11.2.2
+  port: 3306
+  env:
+    - name: TZ
+      value: ${TIMEZONE}
+  updateStrategy:
+    type: RollingUpdate
+  replicas: 3
+  galera:
+    enabled: true
+    primary:
+      podIndex: 0
+      automaticFailover: true
+    sst: mariabackup
+    replicaThreads: 1
+    agent:
+      image: ghcr.io/mariadb-operator/agent:v0.0.3
+      port: 5555
+      kubernetesAuth:
+        enabled: true
+      gracefulShutdownTimeout: 5s
+    recovery:
+      enabled: true
+      clusterHealthyTimeout: 3m
+      clusterBootstrapTimeout: 10m
+      podRecoveryTimeout: 5m
+      podSyncTimeout: 5m
+    initContainer:
+      image: ghcr.io/mariadb-operator/init:v0.0.6
+    volumeClaimTemplate:
+      storageClassName: local-hostpath
+      resources:
+        requests:
+          storage: 300Mi
+      accessModes:
+        - ReadWriteOnce
+  podSecurityContext:
+    runAsUser: 0
+  securityContext:
+    allowPrivilegeEscalation: false
+  service:
+    type: LoadBalancer
+    annotations:
+      coredns.io/hostname: "mariadb-lb.${SECRET_DOMAIN_INTERNAL}"
+      metallb.universe.tf/loadBalancerIPs: "${MARIADBLB_LB_ADDR}"
+  primaryService:
+    type: LoadBalancer
+    annotations:
+      coredns.io/hostname: "mariadb-rw.${SECRET_DOMAIN_INTERNAL}"
+      metallb.universe.tf/loadBalancerIPs: "${MARIADBRW_LB_ADDR}"
+  secondaryService:
+    type: LoadBalancer
+    annotations:
+      coredns.io/hostname: "mariadb-ro.${SECRET_DOMAIN_INTERNAL}"
+      metallb.universe.tf/loadBalancerIPs: "${MARIADBRO_LB_ADDR}"
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - mariadb-galera
+          topologyKey: "kubernetes.io/hostname"
+  tolerations:
+    - key: "mariadb.mmontes.io/ha"
+      operator: "Exists"
+      effect: "NoSchedule"
+  podDisruptionBudget:
+    maxUnavailable: 66%
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    max_allowed_packet=256M
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 1Gi
+  metrics:
+    enabled: true
+  volumeClaimTemplate:
+    storageClassName: local-hostpath
+    resources:
+      requests:
+        storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
