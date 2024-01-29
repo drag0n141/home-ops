@@ -28,6 +28,8 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: storage
+    - name: redis
+      namespace: database
   values:
     controllers:
       main:
