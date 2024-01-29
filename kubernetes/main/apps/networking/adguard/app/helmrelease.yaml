@@ -54,7 +54,7 @@ spec:
         externalTrafficPolicy: Cluster
         ports:
           http:
-            port: 3000
+            port: 80
           dns-tcp:
             port: 53
             protocol: TCP
