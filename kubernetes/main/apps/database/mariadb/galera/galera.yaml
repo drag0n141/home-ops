@@ -53,17 +53,17 @@ spec:
     type: LoadBalancer
     annotations:
       coredns.io/hostname: "mariadb-lb.${SECRET_DOMAIN_INTERNAL}"
-      metallb.universe.tf/loadBalancerIPs: "${MARIADBLB_LB_ADDR}"
+      io.cilium/lb-ipam-ips: "${MARIADBLB_LB_ADDR}"
   primaryService:
     type: LoadBalancer
     annotations:
       coredns.io/hostname: "mariadb-rw.${SECRET_DOMAIN_INTERNAL}"
-      metallb.universe.tf/loadBalancerIPs: "${MARIADBRW_LB_ADDR}"
+      io.cilium/lb-ipam-ips: "${MARIADBRW_LB_ADDR}"
   secondaryService:
     type: LoadBalancer
     annotations:
       coredns.io/hostname: "mariadb-ro.${SECRET_DOMAIN_INTERNAL}"
-      metallb.universe.tf/loadBalancerIPs: "${MARIADBRO_LB_ADDR}"
+      io.cilium/lb-ipam-ips: "${MARIADBRO_LB_ADDR}"
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
