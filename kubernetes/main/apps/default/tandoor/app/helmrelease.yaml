@@ -128,7 +128,7 @@ spec:
               - path: /static
                 subPath: staticfiles
       nginx-config:
-        type: custom
+        type: configMap
         name: tandoor-configmap
         advancedMounts:
           main:
