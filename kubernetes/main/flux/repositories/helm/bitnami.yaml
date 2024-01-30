@@ -5,6 +5,5 @@ metadata:
   name: bitnami
   namespace: flux-system
 spec:
-  type: oci
-  interval: 5m
-  url: oci://registry-1.docker.io/bitnamicharts
+  interval: 1h
+  url: https://charts.bitnami.com/bitnami
