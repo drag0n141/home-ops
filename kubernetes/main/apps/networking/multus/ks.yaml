@@ -1,0 +1,36 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app multus
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  path: ./kubernetes/main/apps/networking/multus/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app multus-config
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  dependsOn:
+    - name: multus
+  path: ./kubernetes/main/apps/networking/multus/config
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
