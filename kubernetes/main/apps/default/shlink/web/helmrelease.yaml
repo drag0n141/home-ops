@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/shlinkio/shlink-web-client
-              tag: 4.0.0
+              tag: 3.10.2
             env:
               TIMEZONE: ${TIMEZONE}
               SHLINK_SERVER_URL: https://${SECRET_DOMAIN_SHORT}
@@ -51,7 +51,7 @@ spec:
       main:
         ports:
           http:
-            port: 8080
+            port: 80
     ingress:
       main:
         enabled: true
