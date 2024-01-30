@@ -5,6 +5,5 @@ metadata:
   name: prometheus-community
   namespace: flux-system
 spec:
-  type: oci
-  interval: 5m
-  url: oci://ghcr.io/prometheus-community/charts
+  interval: 1h
+  url: https://prometheus-community.github.io/helm-charts
