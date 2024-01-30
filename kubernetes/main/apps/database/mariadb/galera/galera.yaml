@@ -92,7 +92,7 @@ spec:
     limits:
       memory: 1Gi
   metrics:
-    enabled: true
+    enabled: false
   volumeClaimTemplate:
     storageClassName: ceph-block
     resources:
