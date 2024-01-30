@@ -59,7 +59,7 @@ spec:
         local-hostpath:
           shareBasePath: &storagePath /var/lib/rancher/k3s/local-hostpath
           controllerBasePath: *storagePath
-          dirPermissionsMode: "0770"
+          dirPermissionsMode: "0777"
           dirPermissionsUser: 0
           dirPermissionsGroup: 0
     node:
