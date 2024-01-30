@@ -39,7 +39,7 @@ spec:
     initContainer:
       image: ghcr.io/mariadb-operator/init:v0.0.6
     volumeClaimTemplate:
-      storageClassName: ceph-block
+      storageClassName: local-hostpath
       resources:
         requests:
           storage: 300Mi
@@ -94,7 +94,7 @@ spec:
   metrics:
     enabled: false
   volumeClaimTemplate:
-    storageClassName: ceph-block
+    storageClassName: local-hostpath
     resources:
       requests:
         storage: 10Gi
