@@ -97,7 +97,7 @@ spec:
         enabled: true
         existingClaim: scrypted
         globalMounts:
-          - path: /config
+          - path: /server/volume
       cache:
         type: emptyDir
         globalMounts:
