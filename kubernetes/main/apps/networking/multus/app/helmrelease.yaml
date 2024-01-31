@@ -33,7 +33,7 @@ spec:
         repository: ghcr.io/angelnu/cni-plugins
         tag: 1.4.0
       paths:
-        config: /var/lib/rancher/k3s/agent/etc/cni/net.d
+        config: /etc/cni/net.d
         bin: /var/lib/rancher/k3s/data/current/bin
     resources:
       requests:
