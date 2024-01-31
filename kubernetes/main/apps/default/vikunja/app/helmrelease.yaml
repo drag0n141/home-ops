@@ -55,7 +55,7 @@ spec:
               VIKUNJA_CACHE_TYPE: redis
               VIKUNJA_REDIS_ENABLED: "true"
               VIKUNJA_REDIS_HOST: vikunja-redis.default.svc.cluster.local:6379
-            envFrom: *
+            envFrom:
               - secretRef:
                   name: vikunja-secret
               - secretRef:
