@@ -46,7 +46,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: vikunja-redis-secret
-                    key: REDIS_PASSWORD
+                    key: VIKUNJA_REDIS_PASSWORD
     service:
       main:
         ports:

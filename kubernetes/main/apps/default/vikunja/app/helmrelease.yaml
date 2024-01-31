@@ -51,9 +51,15 @@ spec:
               VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: "true"
               VIKUNJA_DEFAULTSETTINGS_OVERDUE_TASKS_REMINDERS_ENABLED: "false"
               VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
-            envFrom:
+              VIKUNJA_CACHE_ENABLED: "true"
+              VIKUNJA_CACHE_TYPE: redis
+              VIKUNJA_REDIS_ENABLED: "true"
+              VIKUNJA_REDIS_HOST: vikunja-redis.default.svc.cluster.local:6379
+            envFrom: *
               - secretRef:
                   name: vikunja-secret
+              - secretRef:
+                  name: vikunja-redis-secret
     service:
       main:
         ports:
