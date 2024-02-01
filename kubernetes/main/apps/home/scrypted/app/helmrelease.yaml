@@ -82,7 +82,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "scrypted.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "scrypted.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -91,6 +91,23 @@ spec:
         tls:
           - hosts:
               - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      internal:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &internal "scrypted.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
