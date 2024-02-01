@@ -1,5 +1,14 @@
 ---
 session:
+  same_site: lax
+  inactivity: 5m
+  expiration: 1h
+  remember_me: 1M
+  cookies:
+    - name: authelia-home-ops
+      domain: ${SECRET_DOMAIN}
+      authelia_url: https://authelia.${SECRET_DOMAIN}
+      default_redirection_url: https://authelia.${SECRET_DOMAIN}
   redis:
     host: redis.database.svc.cluster.local
     database_index: 14
