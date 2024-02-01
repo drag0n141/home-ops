@@ -33,6 +33,14 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: ferdium-secret
         containers:
           main:
             image:
@@ -44,8 +52,7 @@ spec:
               PGID: 1000
               NODE_ENV: development
               APP_UR: https://ferdium.${SECRET_DOMAIN}
-              DB_CONNECTION: mysql
-              DB_PORT: 3306
+              DB_CONNECTION: pg
               DB_SSL: false
               MAIL_CONNECTION: smtp
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
@@ -57,9 +64,7 @@ spec:
               CONNECT_WITH_FRANZ: false
               DATA_DIR: "/data"
               JWT_USE_PEM: true
-            envFrom:
-              - secretRef:
-                  name: ferdium-secret
+            envFrom: *envFrom
             probes:
               liveness:
                 enabled: false
