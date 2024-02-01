@@ -41,7 +41,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               APP_URL: https://2fauth.${SECRET_DOMAIN_INTERNAL}
-              TRUSTED_PROXIES: 10.42.0.0/16
+              TRUSTED_PROXIES: "*"
               MAIL_HOST: smtp-relay.networking.svc.cluster.local
               MAIL_PORT: 2525
               MAIL_FROM_NAME: 2FAuth
