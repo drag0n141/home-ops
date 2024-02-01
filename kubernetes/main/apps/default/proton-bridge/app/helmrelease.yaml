@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app proton-bridge
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/shenxn/protonmail-bridge
+              tag: 3.7.1-1@sha256:709f2180587d13845d1d2cec1cbb99d2ea7d6e1cbd4f5d47d827fd38c132ee7e
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+          coredns.io/hostname: "proton.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${PROTON_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          http:
+            enabled: false
+          imap:
+            port: 143
+            protocol: TCP
+          smtp:
+            port: 25
+            protocol: TCP
+    persistence:
+      config:
+        enabled: true
+        existingClaim: proton-bridge
+        globalMounts:
+          - path: /root
