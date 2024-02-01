@@ -41,6 +41,8 @@ spec:
     cluster:
       name: main
       id: 1
+    cni:
+      exclusive: false
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
