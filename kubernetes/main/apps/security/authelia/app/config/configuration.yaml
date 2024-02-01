@@ -102,7 +102,7 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://grafana.${SECRET_DOMAIN_INTERNAL}/login/generic_oauth"]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
       - id: portainer
         description: Portainer
         secret: "${PORTAINER_OAUTH_CLIENT_SECRET}"
@@ -111,13 +111,13 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://portainer.${SECRET_DOMAIN_INTERNAL}/"]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
       - id: weave-gitops
         description: Weave GitOps
         secret: "${WEAVEGITOPS_OAUTH_CLIENT_SECRET}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
-        scopes: ["openid", "profile", "groups", "email", "offline_access"]
+        scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://gitops.${SECRET_DOMAIN_INTERNAL}/oauth2/callback"]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
