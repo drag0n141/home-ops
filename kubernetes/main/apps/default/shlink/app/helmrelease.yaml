@@ -33,6 +33,14 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: shlink-secret
         containers:
           main:
             image:
@@ -52,9 +60,7 @@ spec:
                 redis-node-2.redis-headless.database.svc.cluster.local:26379"
               TASK_WORKER_NUM: 4
               WEB_WORKER_NUM: 1
-            envFrom:
-              - secretRef:
-                  name: shlink-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -80,6 +86,7 @@ spec:
           securityContext:
             runAsUser: 1001
             runAsGroup: 1001
+            runAsNonRoot: true
     service:
       main:
         ports:
