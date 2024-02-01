@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+  dependsOn:
+    - name: cloudnative-pg-cluster
   path: ./kubernetes/main/apps/default/app-2fauth/app
   prune: true
   sourceRef:
