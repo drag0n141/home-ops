@@ -24,7 +24,7 @@ metadata:
 spec:
   targetNamespace: default
   dependsOn:
-    - name: mariadb-lb
+    - name: cloudnative-pg-cluster
   path: ./kubernetes/main/apps/default/vikunja/app
   prune: true
   sourceRef:
