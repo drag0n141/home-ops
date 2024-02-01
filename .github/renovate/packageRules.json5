@@ -26,6 +26,12 @@
       "matchPackagePatterns": ["miniflux"]
     },
     {
+      description: ["Custom versioning for Scrypted"],
+      matchDatasources: ["docker"],
+      versioning: "regex:^(?<compatibility>(?<nodeVersion>\\d{2})-(?<ubuntuVersion>.*?)-(?<scryptedFlavor>.*?))-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+      matchPackageNames: ["ghcr.io/koush/scrypted"],
+    },
+    {
       "description": ["Custom versioning for minio"],
       "matchDatasources": ["docker"],
       "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
