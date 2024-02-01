@@ -33,6 +33,16 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: vikunja-secret
+              - secretRef:
+                  name: vikunja-redis-secret
         containers:
           main:
             image:
@@ -55,11 +65,7 @@ spec:
               VIKUNJA_CACHE_TYPE: redis
               VIKUNJA_REDIS_ENABLED: "true"
               VIKUNJA_REDIS_HOST: vikunja-redis.default.svc.cluster.local:6379
-            envFrom:
-              - secretRef:
-                  name: vikunja-secret
-              - secretRef:
-                  name: vikunja-redis-secret
+            envFrom: *envFrom
     service:
       main:
         ports:
