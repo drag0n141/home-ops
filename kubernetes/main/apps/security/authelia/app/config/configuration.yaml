@@ -1,6 +1,8 @@
 ---
 session:
   redis:
+    host: redis.database.svc.cluster.local
+    database_index: 14
     high_availability:
       sentinel_name: redis-master
       nodes:
