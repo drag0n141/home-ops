@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linuxserver/pairdrop
-              tag: 1.10.6@sha256:91bf515789a3c62470efcdf23770c3ce8ae4c41adf13514f18b285d41dfa8ca2
+              tag: 1.10.6@sha256:7ff1c38b91a2637539b9858d8c91a66ca0c630d1765bfc27622eb710a7ca0191
             env:
               TZ: ${TIMEZONE}
             resources:
