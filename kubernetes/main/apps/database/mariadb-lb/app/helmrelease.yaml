@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: public.ecr.aws/docker/library/haproxy
-              tag: 2.9.3-alpine@sha256:49f58edb739d46884a73a1dd58107bb45b1c1ac2d6a099805cab4ff72462e087
+              tag: 2.9.4-alpine@sha256:519ed83824ab7ab69896b36647bd2a2f2c9a6ac35d110ff7d3a8f874986fddeb
             env:
               TZ: ${TIMEZONE}
         pod:
