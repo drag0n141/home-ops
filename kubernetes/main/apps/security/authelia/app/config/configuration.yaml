@@ -46,23 +46,6 @@ access_control:
         - "^/admin.*$"
       subject:
         - "group:Authelia"
-    # Bypass Rule for Mount Docker
-    - domain_regex: "^mount-"
-      policy: bypass
-      networks:
-        - '192.168.230.0/24'
-        - '192.168.240.0/24'
-        - '192.168.250.0/24'
-        - '192.168.251.0/24'
-        - '192.168.254.0/24'
-    # Bypass Rule for Wizarr
-    - domain: "join.${SECRET_DOMAIN}"
-      policy: bypass
-      resources:
-        - "^/join(/.*)?$"
-        - "^/j(/.*)?$"
-        - "^/setup(/.*)?$"
-        - "^/static(/.*)?$"
     # Bypass Rule for api / trigges
     - domain: "*.${SECRET_DOMAIN}"
       policy: bypass
