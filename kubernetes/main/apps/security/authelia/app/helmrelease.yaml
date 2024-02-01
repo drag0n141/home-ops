@@ -33,6 +33,14 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: authelia-secret
         containers:
           main:
             image:
@@ -75,9 +83,7 @@ spec:
                   secretKeyRef:
                     name: authelia-files
                     key: issuer-private-key
-            envFrom:
-              - secretRef:
-                  name: authelia-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
