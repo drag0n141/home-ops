@@ -18,7 +18,6 @@ notifier:
     sender: Authelia <authelia@${SECRET_DOMAIN}>
     disable_require_tls: true
 
-
 access_control:
   default_policy: deny
   rules:
@@ -118,13 +117,4 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email", "offline_access"]
         redirect_uris: ["https://gitops.${SECRET_DOMAIN_INTERNAL}/oauth2/callback"]
-        userinfo_signing_algorithm: none
-      - id: headscale
-        description: Headscale
-        secret: "${HEADSCALE_OAUTH_CLIENT_SECRET}"
-        public: false
-        authorization_policy: two_factor
-        pre_configured_consent_duration: 1y
-        scopes: ["openid", "profile", "email"]
-        redirect_uris: ["https://headscale.${SECRET_DOMAIN}/oidc/callback"]
         userinfo_signing_algorithm: none
