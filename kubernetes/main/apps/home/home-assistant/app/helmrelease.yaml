@@ -35,8 +35,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.1.6@sha256:9470c032a3ed3d368b7132662b3f4078ff2cead081790c31cb9efcad980575b8
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2024.1.6
             env:
               TZ: ${TIMEZONE}
             envFrom:
@@ -49,10 +49,11 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
@@ -61,18 +62,6 @@ spec:
                 "namespace": "networking",
                 "ips": ["192.168.150.5/24"]
               }]
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 1Gi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
