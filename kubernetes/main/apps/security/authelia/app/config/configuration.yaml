@@ -11,6 +11,14 @@ session:
         - host: redis-node-2.redis-headless.database.svc.cluster.local
           port: 26379
 
+notifier:
+  disable_startup_check: true
+  smtp:
+    address: smtp-relay.networking.svc.cluster.local:2525
+    sender: Authelia <authelia@${SECRET_DOMAIN}>
+    disable_require_tls: true
+
+
 access_control:
   default_policy: deny
   rules:

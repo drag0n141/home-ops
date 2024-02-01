@@ -64,10 +64,6 @@ spec:
               AUTHELIA_DEFAULT_REDIRECTION_URL: https://authelia.${SECRET_DOMAIN}
               AUTHELIA_SESSION_REMEMBER_ME_DURATION: 1M
               AUTHELIA_DUO_API_DISABLE: "true"
-              AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: "true"
-              AUTHELIA_NOTIFIER_SMTP_HOST: smtp-relay.networking.svc.cluster.local
-              AUTHELIA_NOTIFIER_SMTP_PORT: 2525
-              AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <authelia@${SECRET_DOMAIN}>
               AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
               AUTHELIA_SESSION_DOMAIN: ${SECRET_DOMAIN}
               AUTHELIA_SESSION_NAME: authelia-home-ops
