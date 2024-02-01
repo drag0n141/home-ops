@@ -34,7 +34,7 @@ spec:
         tag: 1.4.0
       paths:
         config: /etc/cni/net.d
-        bin: /var/lib/rancher/k3s/data/current/bin
+        bin: /opt/cni/bin
     resources:
       requests:
         cpu: 5m
