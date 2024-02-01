@@ -45,8 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: master@sha256:adcbe7550bf8e8e7122d499dab89ebd131e6d884ba3e930d3eca3cd372a23ce8
-            args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
+              tag: v4.38.0-beta3@sha256:deeed8758352ce751686c9b80c615a500da1b0b24dee6d6bb9e57b6253c64ba3
             env:
               TZ: ${TIMEZONE}
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=Gruppen,ou=Home
@@ -66,6 +65,8 @@ spec:
               AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
               AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
               AUTHELIA_THEME: dark
+              X_AUTHELIA_CONFIG: /config/configuration.yaml
+              X_AUTHELIA_CONFIG_FILTERS: expand-env
               AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY:
                 valueFrom:
                   secretKeyRef:
