@@ -35,6 +35,7 @@ spec:
       paths:
         config: /etc/cni/net.d
         bin: /var/lib/rancher/k3s/data/current/bin
+      loglevel: verbose
     resources:
       requests:
         cpu: 5m
