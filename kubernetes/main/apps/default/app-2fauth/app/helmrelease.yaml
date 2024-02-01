@@ -33,6 +33,14 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: app-2fauth-secret
         containers:
           main:
             image:
@@ -46,9 +54,7 @@ spec:
               MAIL_HOST: smtp-relay.networking.svc.cluster.local
               MAIL_PORT: 2525
               MAIL_FROM_NAME: 2FAuth
-            envFrom:
-              - secretRef:
-                  name: app-2fauth-secret
+            envFrom: *envFrom
         pod:
           securityContext:
             runAsUser: 1000
