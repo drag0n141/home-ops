@@ -56,7 +56,7 @@ spec:
               - "-c"
             args:
               - export PGPASSWORD=$(INIT_POSTGRES_PASS);
-                psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/init.sql || true;
+                psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/initdb.sql || true;
         containers:
           main:
             image:
