@@ -29,14 +29,14 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          init-db:
+          01-init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
             envFrom: &envFrom
               - secretRef:
                   name: guacamole-secret
-          init-schema:
+          02-init-schema:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.4
@@ -46,7 +46,7 @@ spec:
               - "-c"
             args:
               - /opt/guacamole/bin/initdb.sh --postgres > /migrations/initdb.sql
-          init-migrations:
+          03-init-migrations:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
@@ -55,8 +55,8 @@ spec:
               - "/bin/sh"
               - "-c"
             args:
-              - export PGPASSWORD=$(POSTGRES_PASSWORD);
-                psql -h $(POSTGRES_HOSTNAME) -d $(POSTGRES_DATABASE) -U $(POSTGRES_USER) -a -w -f /migrations/init.sql || true;
+              - export PGPASSWORD=$(INIT_POSTGRES_PASS);
+                psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/init.sql || true;
         containers:
           main:
             image:
