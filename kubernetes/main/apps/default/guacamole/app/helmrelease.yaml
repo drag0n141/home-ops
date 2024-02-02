@@ -42,8 +42,6 @@ spec:
               tag: 1.5.4
             envFrom: *envFrom
             command:
-              - "/bin/sh"
-              - "-c"
               - "/opt/guacamole/bin/initdb.sh --postgres > /migrations/initdb.sql"
           03-init-migrations:
             image:
