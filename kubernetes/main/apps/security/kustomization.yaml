@@ -7,4 +7,3 @@ resources:
   # Flux-Kustomizations
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
-  - ./lldap/ks.yaml
