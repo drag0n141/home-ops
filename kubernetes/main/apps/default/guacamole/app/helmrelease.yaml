@@ -44,7 +44,8 @@ spec:
             command:
               - "/bin/sh"
               - "-c"
-              - "/opt/guacamole/bin/initdb.sh --postgres > /migrations/initdb.sql"
+            args:
+              - "/opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql"
           03-init-migrations:
             image:
               repository: ghcr.io/onedr0p/postgres-init
@@ -53,8 +54,9 @@ spec:
             command:
               - "/bin/bash"
               - "-c"
-              - "export PGPASSWORD=$(INIT_POSTGRES_PASS)"
-              - "psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/init.sql || true"
+            args:
+              - export PGPASSWORD=$(INIT_POSTGRES_PASS);
+                psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/init.sql || true;
         containers:
           main:
             image:
