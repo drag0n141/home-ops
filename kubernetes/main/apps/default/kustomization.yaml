@@ -15,7 +15,7 @@ resources:
   - ./ferdium/ks.yaml
   - ./freshrss/ks.yaml
   - ./gotify/ks.yaml
-  - ./guacamole/ks.yaml
+  # - ./guacamole/ks.yaml
   - ./homepage/ks.yaml
   - ./kitchenowl/ks.yaml
   - ./ldap-lb/ks.yaml

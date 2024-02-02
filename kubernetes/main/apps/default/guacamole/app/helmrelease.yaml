@@ -23,31 +23,35 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   values:
     controllers:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: guacamole-secret
         containers:
           main:
             image:
-              repository: jasonbean/guacamole
-              tag: 1.5.4-nomariadb
+              repository: docker.io/guacamole/guacamole
+              tag: 1.5.4
             env:
               TZ: ${TIMEZONE}
-              OPT_CAS: N
-              OPT_DUO: N
-              OPT_LDAP: N
-              OPT_MYSQL: Y
-              OPT_MYSQL_EXTENSION: N
-              OPT_QUICKCONNECT: N
-              OPT_SQLSERVER: N
-              OPT_TOTP: Y
+              GUACD_HOSTNAME: guacd.default.svc.cluster.local
+              GUACD_PORT: "4822"
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 250m
+                memory: 128Mi
+              limits:
+                memory: 750Mi
     service:
       main:
         ports:
