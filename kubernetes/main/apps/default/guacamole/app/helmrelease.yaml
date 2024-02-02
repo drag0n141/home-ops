@@ -64,6 +64,7 @@ spec:
               tag: 1.5.4
             env:
               TZ: ${TIMEZONE}
+              WEBAPP_CONTEXT: ROOT
               GUACD_HOSTNAME: guacd.default.svc.cluster.local
               GUACD_PORT: "4822"
             envFrom: *envFrom
