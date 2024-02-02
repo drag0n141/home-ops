@@ -59,6 +59,11 @@ access_control:
       policy: two_factor
       subject:
         - "group:Authelia"
+    # Guacamole Two Factor Login
+    - domain: "guacamole.${SECRET_DOMAIN}"
+      policy: two_factor
+      subject:
+        - "group:Authelia"
     # Bitwarden Admin Login
     - domain: "bitwarden.${SECRET_DOMAIN}"
       policy: two_factor
