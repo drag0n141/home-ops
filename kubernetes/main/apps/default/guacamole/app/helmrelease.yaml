@@ -45,7 +45,7 @@ spec:
               - "/bin/sh"
               - "-c"
             args:
-              - "/opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql"
+              - /opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql
           03-init-migrations:
             image:
               repository: ghcr.io/onedr0p/postgres-init
