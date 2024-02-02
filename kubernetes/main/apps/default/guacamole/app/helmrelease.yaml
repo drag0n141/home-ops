@@ -36,6 +36,27 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: guacamole-secret
+          init-schema:
+            image:
+              repository: docker.io/guacamole/guacamole
+              tag: 1.5.4
+            envFrom: *envFrom
+            command:
+              - "/bin/sh"
+              - "-c"
+            args:
+              - /opt/guacamole/bin/initdb.sh --postgres > /migrations/initdb.sql
+          init-migrations:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: *envFrom
+            command:
+              - "/bin/sh"
+              - "-c"
+            args:
+              - export PGPASSWORD=$(POSTGRES_PASSWORD);
+                psql -h $(POSTGRES_HOSTNAME) -d $(POSTGRES_DATABASE) -U $(POSTGRES_USER) -a -w -f /migrations/init.sql || true;
         containers:
           main:
             image:
@@ -76,8 +97,11 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      config:
-        enabled: true
-        existingClaim: guacamole
-        globalMounts:
-          - path: /config
+      migrations:
+        type: emptyDir
+        advancedMounts:
+          main:
+            init-schema:
+              - path: /migrations
+            init-migrations:
+              - path: /migrations
