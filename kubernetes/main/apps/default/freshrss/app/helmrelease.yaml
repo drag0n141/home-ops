@@ -33,15 +33,22 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: freshrss-secret
         containers:
           main:
             image:
-              repository: ghcr.io/linuxserver/freshrss
-              tag: 1.23.1@sha256:2326bb879e1443fdf5addabbcc85dd8a986eb7007a94f3b6ce6279317709b40f
+              repository: docker.io/freshrss/freshrss
+              tag: 1.23.1@sha256:c554223f485843553f7b7c9faff1f5c6c6113ce15b0288dd07210e97d8bbbbcc
             env:
               TZ: ${TIMEZONE}
-              PUID: 1000
-              PGID: 1000
+              CRON_MIN: "17,47"
     service:
       main:
         ports:
@@ -70,4 +77,4 @@ spec:
         enabled: true
         existingClaim: freshrss
         globalMounts:
-          - path: /config
+          - path: /var/www/FreshRSS/data
