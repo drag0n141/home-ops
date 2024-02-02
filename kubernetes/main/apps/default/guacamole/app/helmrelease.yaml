@@ -101,7 +101,7 @@ spec:
         type: emptyDir
         advancedMounts:
           main:
-            init-schema:
+            02-init-schema:
               - path: /migrations
-            init-migrations:
+            03-init-migrations:
               - path: /migrations
