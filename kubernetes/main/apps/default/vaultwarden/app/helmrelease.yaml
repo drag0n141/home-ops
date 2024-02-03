@@ -33,6 +33,14 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: vaultwarden-secret
         containers:
           main:
             image:
@@ -49,9 +57,7 @@ spec:
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_SECURITY: "off"
               SMTP_PORT: 2525
-            envFrom:
-              - secretRef:
-                  name: vaultwarden-secret
+            envFrom: *envFrom
             resources:
               requests:
                 cpu: 10m

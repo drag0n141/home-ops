@@ -7,5 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./cloudnative-pg/ks.yaml
   - ./mariadb/ks.yaml
-  - ./mariadb-lb/ks.yaml
   - ./redis/ks.yaml
