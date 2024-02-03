@@ -33,6 +33,14 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: ts3-server-secret
         containers:
           main:
             image:
@@ -40,13 +48,11 @@ spec:
               tag: 3.13.7
             env:
               TZ: ${TIMEZONE}
-              TS3SERVER_DB_PLUGIN: ts3db_mariadb
-              TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+              TS3SERVER_DB_PLUGIN: ts3db_postgresql
+              TS3SERVER_DB_SQLCREATEPATH: create_postgresql
               TS3SERVER_DB_WAITUNTILREADY: 30
               TS3SERVER_LICENSE: accept
-            envFrom:
-              - secretRef:
-                  name: ts3-server-secret
+            envFrom: *envFrom
             probes:
               liveness:
                 enabled: false
