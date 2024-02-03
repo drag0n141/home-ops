@@ -1,0 +1,47 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-redirect
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd,networking-traefik-middleware-redirect-nextcloud@kubernetescrd"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: &host "${SECRET_DOMAIN}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: main-redirect
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - *host
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-redirect
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: main-redirect
+subsets:
+  - addresses:
+      - ip: 127.0.0.1
+    ports:
+      - name: http
+        port: 80
+        protocol: TCP
