@@ -24,7 +24,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: intel-device-plugin-gpu
-      namespace: tools
+      namespace: system
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
