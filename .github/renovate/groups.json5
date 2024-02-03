@@ -43,6 +43,16 @@
       "separateMinorPatch": true
     },
     {
+      "description": ["Guacamole Group"],
+      "groupName": "Guacamole",
+      "matchPackagePatterns": ["guacamole"],
+      "matchDatasources": ["docker"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": ["System Upgrade Controller Group"],
       "groupName": "System Upgrade Controller",
       "matchPackagePatterns": ["system-upgrade-controller"],
