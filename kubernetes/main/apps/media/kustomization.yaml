@@ -7,3 +7,4 @@ resources:
   # Flux-Kustomizations
   - ./moviematch/ks.yaml
   - ./overseerr/ks.yaml
+  - ./tautulli/ks.yaml
