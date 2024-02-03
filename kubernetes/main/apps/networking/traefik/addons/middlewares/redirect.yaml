@@ -18,3 +18,13 @@ spec:
     regex: "^https://(.*)${SECRET_DOMAIN}/(.*)"
     replacement: "https://overseerr.${SECRET_DOMAIN}/${2}"
     permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-redirect-nextcloud
+spec:
+  redirectRegex:
+    regex: "^https://(.*)${SECRET_DOMAIN}/(.*)"
+    replacement: "https://nextcloud.${SECRET_DOMAIN}/${2}"
+    permanent: true
