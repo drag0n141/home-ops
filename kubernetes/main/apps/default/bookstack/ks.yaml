@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+  dependsOn:
+    - name: mariadb-galera
   path: ./kubernetes/main/apps/default/bookstack/app
   prune: true
   sourceRef:
