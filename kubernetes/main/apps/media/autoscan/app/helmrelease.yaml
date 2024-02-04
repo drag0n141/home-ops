@@ -43,9 +43,6 @@ spec:
               PGID: 1000
               PUID: 1000
               AUTOSCAN_VERBOSITY: 0
-            envFrom: &envFrom
-              - secretRef:
-                  name: autoscan-secret
             resources:
               requests:
                 cpu: 10m
