@@ -40,7 +40,7 @@ metadata:
   name: main-redirect
 subsets:
   - addresses:
-      - ip: 127.0.0.1
+      - ip: 192.168.254.249
     ports:
       - name: http
         port: 80
