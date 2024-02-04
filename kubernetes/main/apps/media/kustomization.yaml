@@ -5,7 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  # - ./autoscan/ks.yaml
+  - ./autoscan/ks.yaml
   - ./moviematch/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
