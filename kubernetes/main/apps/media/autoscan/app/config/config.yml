@@ -4,8 +4,8 @@ scan-delay: 15s
 scan-stats: 1m
 
 authentication:
-  username: "{AUTOSCAN_USERNAME}"
-  password: "{AUTOSCAN_PASSWORD}"
+  username: "$${AUTOSCAN_USERNAME}"
+  password: "$${AUTOSCAN_PASSWORD}"
 
 anchors:
   - /mnt/user/media/.anchors/local.anchor
@@ -34,4 +34,4 @@ triggers:
 targets:
   plex:
     - url: http://plex.media.svc.cluster.local:32400
-      token: "{AUTOSCAN_TOKEN}"
+      token: "$${AUTOSCAN_TOKEN}"
