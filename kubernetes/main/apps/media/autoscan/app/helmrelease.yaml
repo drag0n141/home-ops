@@ -72,7 +72,7 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      data:
+      config:
         enabled: true
         existingClaim: autoscan
         globalMounts:

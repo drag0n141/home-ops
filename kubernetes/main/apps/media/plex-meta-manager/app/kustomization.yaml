@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrelease.yaml
+  - ../../../../templates/volsync
+configMapGenerator:
+  - name: pmm-configmap
+    files:
+      - config.yml=./config/config.yml
+      - 1-moviecharts.yml=./config/1-moviecharts.yml
+      - 2-tvcharts.yml=./config/2-tvcharts.yml
+      - 3-bestof.yml=./config/3-bestof.yml
+      - 4-decade.yml=./config/4-decade.yml
+      - 5-holliday.yml=./config/5-holliday.yml
+      - 6-studios.yml=./config/6-studios.yml
+      - 7-networks.yml=./config/7-networks.yml
+      - 8-tv.yml=./config/8-tv.yml
+      - 9-imdb.yml=./config/9-imdb.yml
+      - 98-movie.yml=./config/98-movie.yml
+      - 99-overlays.yml=./config/99-overlays.yml
+generatorOptions:
+  disableNameSuffixHash: true

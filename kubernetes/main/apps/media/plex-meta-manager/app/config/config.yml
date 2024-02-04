@@ -1,0 +1,99 @@
+libraries:
+  Filme:
+    split_duplicates: true
+    schedule: hourly(1)
+    metadata_path:
+    - file: config/1-moviecharts.yml
+    - file: config/3-bestof.yml
+    - file: config/4-decade.yml
+    - file: config/5-holliday.yml
+    - file: config/6-studios.yml
+    - file: config/9-imdb.yml
+    - file: config/98-movie.yml
+  Serien:
+    schedule: hourly(0)
+    metadata_path:
+    - file: config/2-tvcharts.yml
+    - file: config/7-networks.yml
+    - file: config/8-tv.yml
+  Filme-4K:
+    schedule: hourly(6),hourly(18)
+    overlay_path:
+    - remove_overlays: false
+    - file: config/99-overlays.yml
+      template_variables:
+        4K: true
+        4K-HDR: true
+        4K-Dolby: true
+        4K-Episode: false
+  Serien-4K:
+    schedule: hourly(6),hourly(18)
+    overlay_path:
+    - remove_overlays: false
+    - file: config/99-overlays.yml
+      template_variables:
+        4K: true
+        4K-HDR: true
+        4K-Dolby: true
+        4K-Episode: true
+settings:
+  cache: true
+  cache_expiration: 60
+  sync_mode: sync
+  show_unmanaged: true
+  show_filtered: false
+  show_missing: true
+  save_missing: true
+  run_again_delay: 2
+  asset_directory: config/assets
+  asset_folders: false
+  assets_for_all: false
+  released_missing_only: false
+  create_asset_folders: false
+  missing_only_released: false
+  delete_below_minimum: false
+  minimum_items: 1
+  asset_depth: 0
+  dimensional_asset_rename: false
+  download_url_assets: false
+  show_missing_season_assets: false
+  default_collection_order:
+  delete_not_scheduled: false
+  only_filter_missing: false
+  show_options: false
+  show_missing_assets: false
+  tvdb_language: default
+  ignore_ids:
+  ignore_imdb_ids:
+  verify_ssl: true
+  playlist_sync_to_users: all
+  show_missing_episode_assets: false
+  show_asset_not_needed: true
+  item_refresh_delay: 0
+  custom_repo:
+  prioritize_assets: false
+  playlist_report: false
+  check_nightly: false
+  show_unconfigured: true
+  playlist_exclude_users:
+  run_order:
+  - operations
+  - metadata
+  - collections
+  - overlays
+plex:
+  url: https://plex-ext.media.svc.cluster.local
+  token: ${PLEX_TOKEN}
+  timeout: 120
+  clean_bundles: true
+  empty_trash: false
+  optimize: false
+  db_cache:
+tmdb:
+  apikey: ${TMDB_TOKEN}
+  language: en
+  cache_expiration: 60
+  region:
+omdb:
+  apikey: ${OMDB_TOKEN}
+  cache_expiration: 60
