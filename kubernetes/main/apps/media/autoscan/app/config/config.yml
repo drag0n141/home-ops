@@ -33,5 +33,5 @@ triggers:
 
 targets:
   plex:
-    - url: https://plex.media.svc.cluster.local:32400
+    - url: http://plex.media.svc.cluster.local:32400
       token: "{AUTOSCAN_TOKEN}"
