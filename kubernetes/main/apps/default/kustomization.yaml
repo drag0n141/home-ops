@@ -18,6 +18,7 @@ resources:
   - ./guacamole/ks.yaml
   - ./homepage/ks.yaml
   - ./kitchenowl/ks.yaml
+  - ./kms/ks.yaml
   - ./ldap-lb/ks.yaml
   - ./linkding/ks.yaml
   - ./mailrise/ks.yaml
