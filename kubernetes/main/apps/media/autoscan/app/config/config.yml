@@ -1,0 +1,37 @@
+---
+minimum-age: 30s
+scan-delay: 15s
+scan-stats: 1m
+
+authentication:
+  username: "{AUTOSCAN_USERNAME}"
+  password: "{AUTOSCAN_PASSWORD}"
+
+anchors:
+  - /mnt/user/media/.anchors/local.anchor
+
+port: 3030
+
+triggers:
+  manual:
+    priority: 0
+  sonarr:
+    - name: sonarr
+      priority: 2
+    - name: sonarrkids
+      priority: 2
+    - name: sonarr4k
+      priority: 4
+  radarr:
+    - name: radarr
+      priority: 2
+    - name: radarr4k
+      priority: 4
+  lidarr:
+    - name: lidarr
+      priority: 2
+
+targets:
+  plex:
+    - url: https://plex.media.svc.cluster.local
+      token: "{AUTOSCAN_TOKEN}"
