@@ -40,6 +40,15 @@ templates:
     allowed_library_types: <<4K-Episode>>
 
 overlays:
+  backdrop:
+    overlay:
+      name: backdrop
+      back_color: "#1c1c1c"
+      back_height: 80
+      vertical_position: top
+    plex_search:
+      all:
+        resolution: '4K'
   4K:
     template:
       name: 4K
