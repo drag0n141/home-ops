@@ -12,14 +12,42 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-    - host: "traefik.${SECRET_DOMAIN_INTERNAL}"
+    - host: "traefik-external.${SECRET_DOMAIN_INTERNAL}"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: traefik
+                name: traefik-external
+                port:
+                  number: 9000
+  tls:
+    - hosts:
+        - "traefik.${SECRET_DOMAIN_INTERNAL}"
+      secretName: "${SECRET_DOMAIN/./-}-production-tls"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-dashboard
+  annotations:
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "devicon:traefikproxy"
+    hajimari.io/appName: "traefik"
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+spec:
+  ingressClassName: traefik-internal
+  rules:
+    - host: "traefik-internal.${SECRET_DOMAIN_INTERNAL}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: traefik-internal
                 port:
                   number: 9000
   tls:
