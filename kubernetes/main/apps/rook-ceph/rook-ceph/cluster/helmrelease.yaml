@@ -35,7 +35,7 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        ingressClassName: traefik
+        ingressClassName: traefik-internal
         annotations:
           hajimari.io/icon: "rook-ceph"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
