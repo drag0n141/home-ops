@@ -44,7 +44,7 @@ spec:
       type: LoadBalancer
       annotations:
         external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
-        io.cilium/lb-ipam-ips: "${INGRESS_TRAEFIK_ADDR}"
+        io.cilium/lb-ipam-ips: "${TRAEFIK_EXTERNAL_ADDR}"
       spec:
         externalTrafficPolicy: Cluster
     env:
@@ -159,7 +159,7 @@ spec:
       kubernetesIngress:
         enabled: true
         ingressClass: traefik
-        ip: "${INGRESS_TRAEFIK_ADDR}"
+        ip: "${TRAEFIK_EXTERNAL_ADDR}"
         allowExternalNameServices: true
         publishedService:
           enabled: true

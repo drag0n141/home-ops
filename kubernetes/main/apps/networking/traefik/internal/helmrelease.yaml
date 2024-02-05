@@ -1,0 +1,126 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app traefik-internal
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: traefik
+      version: 26.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: traefik
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    deployment:
+      kind: Deployment
+      replicas: 1
+    rollback:
+      recreate: true
+      force: true
+      cleanupOnFail: true
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 3
+    service:
+      enabled: true
+      type: LoadBalancer
+      annotations:
+        coredns.io/hostname: "ingress-int.${SECRET_DOMAIN_INTERNAL}"
+        io.cilium/lb-ipam-ips: "${TRAEFIK_INTERNAL_ADDR}"
+      spec:
+        externalTrafficPolicy: Cluster
+    env:
+      - name: TZ
+        value: "${TIMEZONE}"
+    logs:
+      general:
+        format: json
+        level: INFO
+      access:
+        enabled: true
+        format: json
+    ingressClass:
+      enabled: true
+      isDefaultClass: false
+      fallbackApiVersion: v1
+    ingressRoute:
+      dashboard:
+        enabled: false
+    globalArguments:
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--serversTransport.insecureSkipVerify=true"
+      - "--global.sendanonymoususage=false"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.entryPoint=metrics"
+    ports:
+      traefik:
+        expose: true
+      web:
+        redirectTo:
+          port: websecure
+      websecure:
+        tls:
+          enabled: true
+          options: default
+        forwardedHeaders:
+          trustedIPs:
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+        proxyProtocol:
+          trustedIPs:
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+        http3:
+          enabled: true
+      metrics:
+        port: 8082
+        expose: true
+        exposedPort: 8082
+    metrics:
+      prometheus:
+        service:
+          enabled: true
+        serviceMonitor:
+          enabled: true
+    pilot:
+      enabled: false
+    providers:
+      kubernetesCRD:
+        enabled: true
+        ingressClass: traefik-internal
+        allowCrossNamespace: true
+        allowExternalNameServices: true
+      kubernetesIngress:
+        enabled: true
+        ingressClass: traefik-internal
+        ip: "${TRAEFIK_INTERNAL_ADDR}"
+        allowExternalNameServices: true
+        publishedService:
+          enabled: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 250Mi
+      limits:
+        memory: 500Mi
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: "true"
