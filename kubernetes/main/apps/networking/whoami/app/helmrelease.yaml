@@ -23,9 +23,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: traefik
-      namespace: networking
   values:
     controllers:
       main:
