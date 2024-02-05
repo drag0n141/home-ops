@@ -39,7 +39,7 @@ spec:
       redirectURL: https://gitops.${SECRET_DOMAIN_INTERNAL}/oauth2/callback
     ingress:
       enabled: true
-      className: traefik
+      className: traefik-external
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"

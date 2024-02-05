@@ -52,7 +52,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: traefik
+        className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-homepage@kubernetescrd"
@@ -69,7 +69,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         enabled: true
-        className: traefik
+        className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-homepage@kubernetescrd"

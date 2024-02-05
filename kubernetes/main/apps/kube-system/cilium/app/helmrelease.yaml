@@ -76,7 +76,7 @@ spec:
         rollOutPods: true
         ingress:
           enabled: true
-          className: traefik
+          className: traefik-external
           annotations:
             hajimari.io/icon: simple-icons:cilium
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"

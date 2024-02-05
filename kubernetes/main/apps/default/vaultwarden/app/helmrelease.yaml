@@ -78,7 +78,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: traefik
+        className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
@@ -95,7 +95,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       admin:
         enabled: true
-        className: traefik
+        className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"

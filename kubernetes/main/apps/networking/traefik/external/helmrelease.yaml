@@ -153,12 +153,12 @@ spec:
     providers:
       kubernetesCRD:
         enabled: true
-        ingressClass: traefik
+        ingressClass: traefik-external
         allowCrossNamespace: true
         allowExternalNameServices: true
       kubernetesIngress:
         enabled: true
-        ingressClass: traefik
+        ingressClass: traefik-external
         ip: "${TRAEFIK_EXTERNAL_ADDR}"
         allowExternalNameServices: true
         publishedService:
