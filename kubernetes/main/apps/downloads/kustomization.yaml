@@ -6,5 +6,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./prowlarr/ks.yaml
+  - ./sabnzbd/ks.yaml
   - ./socks-proxy/ks.yaml
   - ./tailscale/ks.yaml
