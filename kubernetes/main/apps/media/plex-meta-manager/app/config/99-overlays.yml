@@ -45,7 +45,7 @@ overlays:
       name: 4K
     overlay:
       name: 4K
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K.png
+      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-Poster.png
     plex_search:
       all:
         resolution: '4K'
@@ -57,7 +57,7 @@ overlays:
       name: 4K-HDR
     overlay:
       name: 4K-HDR
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-HDR.png
+      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-HDR-Poster.png
     plex_search:
       all:
         resolution: '4K'
@@ -69,7 +69,7 @@ overlays:
       name: 4K-Dolby
     overlay:
       name: 4K-Dolby
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-Dolby.png
+      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-Dolby-Poster.png
     plex_search:
       all:
         resolution: '4K'
