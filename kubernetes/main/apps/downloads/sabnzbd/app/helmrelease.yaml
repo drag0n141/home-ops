@@ -35,8 +35,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.2.2@sha256:5b1f15c8d25afa2342505492486361d4ecf14449e1453aeea45cd7c1e5eeb63a
+              repository: ghcr.io/drag0n141/docker-sabnzbd
+              tag: latest@sha256:e64b1e4ef1a61d1beafd6ecf2eb41ef2d2d22a17be4b907a770b4259d795ec10
             env:
               TZ: ${TIMEZONE}
               SABNZBD__PORT: &port 80
