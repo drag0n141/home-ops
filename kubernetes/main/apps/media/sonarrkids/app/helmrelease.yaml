@@ -43,8 +43,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.1.1047@sha256:69dc3cf877077dc4a8827f433e20aa2e953b87bcdb3a04437c82dabc7ef216db
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.1.929@sha256:4d107b1f0bfa652195d1f4054bdceac271553cfcc397a7b8ceedbfa625cba0b8
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
