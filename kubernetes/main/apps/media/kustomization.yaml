@@ -8,6 +8,6 @@ resources:
   - ./autoscan/ks.yaml
   - ./moviematch/ks.yaml
   - ./overseerr/ks.yaml
-  # - ./plex-meta-manager/ks.yaml
+  - ./plex-meta-manager/ks.yaml
   - ./plex/ks.yaml
   - ./tautulli/ks.yaml
