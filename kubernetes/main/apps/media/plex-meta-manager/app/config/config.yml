@@ -82,7 +82,7 @@ settings:
   - collections
   - overlays
 plex:
-  url: https://plex-ext.media.svc.cluster.local
+  url: https://${SECRET_PLEX_SERVER}:42400
   token: ${PLEX_TOKEN}
   timeout: 120
   clean_bundles: false
