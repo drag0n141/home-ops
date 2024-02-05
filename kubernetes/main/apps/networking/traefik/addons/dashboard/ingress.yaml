@@ -10,7 +10,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-internal
   rules:
     - host: "traefik.${SECRET_DOMAIN_INTERNAL}"
       http:
