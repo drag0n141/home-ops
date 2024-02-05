@@ -10,4 +10,5 @@ resources:
   - ./overseerr/ks.yaml
   - ./plex-meta-manager/ks.yaml
   - ./plex/ks.yaml
+  - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
