@@ -90,12 +90,12 @@ plex:
   optimize: false
   db_cache:
 tmdb:
-  apikey: ${TMDB_API}
+  apikey: ${TMDB_API_KEY}
   language: en
   cache_expiration: 60
   region:
 omdb:
-  apikey: ${OMDB_API}
+  apikey: ${OMDB_API_KEY}
   cache_expiration: 60
 trakt:
   client_id: ${TRAKT_CLIENT_ID}
