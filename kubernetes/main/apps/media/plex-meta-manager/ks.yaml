@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app plex-meta-manger
+  name: &app plex-meta-manager
   namespace: flux-system
 spec:
   targetNamespace: media
-  path: ./kubernetes/main/apps/media/plex-meta-manger/app
+  path: ./kubernetes/main/apps/media/plex-meta-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
