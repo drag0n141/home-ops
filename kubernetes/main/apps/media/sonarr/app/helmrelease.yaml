@@ -122,7 +122,6 @@ spec:
         path: /mnt/user/media
         globalMounts:
           - path: /mnt/user/media
-            readOnly: true
       downloads:
         type: nfs
         server: ${SECRET_NFS_SERVER}
