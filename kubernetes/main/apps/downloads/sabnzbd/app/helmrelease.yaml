@@ -35,12 +35,18 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/linuxserver/sabnzbd
-              tag: 4.2.2@sha256:6b05f806c3a4700e09dc118214021dedab69a7075d7b36f82cc692956ce35523
+              repository: ghcr.io/drag0n141/docker-sabnzbd
+              tag: latest@sha256:9ec47f57e865d8392ecc51577669afdd8441c5b99b29a57c02038dd32db897a4
             env:
               TZ: ${TIMEZONE}
-              PUID: 1000
-              PGID: 1000
+              SABNZBD__PORT: &port 80
+              SABNZBD__HOST_WHITELIST_ENTRIES: >-
+                sabnzbd,
+                sabnzbd.default,
+                sabnzbd.default.svc,
+                sabnzbd.default.svc.cluster,
+                sabnzbd.default.svc.cluster.local,
+                sabnzbd.${SECRET_DOMAIN_INTERNAL}
             probes:
               liveness: &probes
                 enabled: true
@@ -56,11 +62,23 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
               limits:
                 memory: 8Gi
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
       main:
         ports:
