@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: traefik-dashboard
+  name: traefik-external-dashboard
   annotations:
     hajimari.io/enable: "true"
     hajimari.io/icon: "devicon:traefikproxy"
@@ -30,7 +30,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: traefik-dashboard
+  name: traefik-internal-dashboard
   annotations:
     hajimari.io/enable: "true"
     hajimari.io/icon: "devicon:traefikproxy"
