@@ -45,9 +45,9 @@ settings:
   show_missing: true
   save_missing: true
   run_again_delay: 2
-  asset_directory: config/assets
+  asset_directory: /config/assets
   asset_folders: false
-  assets_for_all: false
+  assets_for_all: true
   released_missing_only: false
   create_asset_folders: false
   missing_only_released: false
