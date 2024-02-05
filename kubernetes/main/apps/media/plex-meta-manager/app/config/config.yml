@@ -85,7 +85,7 @@ plex:
   url: https://plex-ext.media.svc.cluster.local
   token: ${PLEX_TOKEN}
   timeout: 120
-  clean_bundles: true
+  clean_bundles: false
   empty_trash: false
   optimize: false
   db_cache:
