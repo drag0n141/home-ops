@@ -24,7 +24,9 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: traefik
+    - name: traefik-external
+      namespace: networking
+    - name: traefik-internal
       namespace: networking
   values:
     controllers:
