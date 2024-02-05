@@ -9,7 +9,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-external
   rules:
     - host: &host "flux-webhook.${SECRET_DOMAIN}"
       http:
