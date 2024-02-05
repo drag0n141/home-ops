@@ -90,10 +90,21 @@ plex:
   optimize: false
   db_cache:
 tmdb:
-  apikey: ${TMDB_TOKEN}
+  apikey: ${TMDB_API}
   language: en
   cache_expiration: 60
   region:
 omdb:
-  apikey: ${OMDB_TOKEN}
+  apikey: ${OMDB_API}
   cache_expiration: 60
+trakt:
+  client_id: ${TRAKT_CLIENT_ID}
+  client_secret: ${TRAKT_CLIENT_SECRET}
+  authorization:
+    access_token: ${TRAKT_ACCESS_TOKEN}
+    token_type: Bearer
+    expires_in: 7889237
+    refresh_token: ${TRAKT_REFRESH_TOKEN}
+    scope: public
+    created_at: 1703401238
+  pin:
