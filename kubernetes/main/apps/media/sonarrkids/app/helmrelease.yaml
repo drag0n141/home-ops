@@ -39,7 +39,7 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: sonarr-secret
+                  name: sonarrkids-secret
         containers:
           main:
             image:
