@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: traefik
+  name: &app traefik-external
 spec:
   interval: 30m
   chart:
