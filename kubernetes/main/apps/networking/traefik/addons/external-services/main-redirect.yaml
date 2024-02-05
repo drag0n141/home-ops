@@ -7,7 +7,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd,networking-traefik-middleware-redirect-nextcloud@kubernetescrd"
 spec:
-  ingressClassName: traefik
+  ingressClassName: traefik-external
   rules:
     - host: &host "${SECRET_DOMAIN}"
       http:
