@@ -67,7 +67,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        ingressClassName: traefik
+        ingressClassName: traefik-internal
         hostname: &host "thanos.${SECRET_DOMAIN_INTERNAL}"
         tls: true
         extraTls:
