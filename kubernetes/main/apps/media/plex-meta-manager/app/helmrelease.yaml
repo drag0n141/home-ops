@@ -110,6 +110,6 @@ spec:
           - path: /config/98-movie.yml
             subPath: 98-movie.yml
             readOnly: true
-          - path: /config/99-overlays.yml.yml
-            subPath: 99-overlays.yml.yml
+          - path: /config/99-overlays.yml
+            subPath: 99-overlays.yml
             readOnly: true
