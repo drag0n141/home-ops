@@ -52,6 +52,7 @@ spec:
           http:
             port: 80
       dns:
+        controller: main
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${ADGUARD_LB_ADDR}"
