@@ -22,6 +22,7 @@ blocking:
       - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
       - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
+      - https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
     extra: # Ref: https://github.com/badmojr/1Hosts
       - https://o0.pages.dev/Xtra/domains.txt
     misc: # Ref: https://firebog.net
