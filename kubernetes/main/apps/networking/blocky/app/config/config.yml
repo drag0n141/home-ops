@@ -107,7 +107,7 @@ blocking:
       - misc
       - normal
       - trackers
-    ${SERVER_CIDR}:
+    ${NODE_CIDR}:
       - ads
       - misc
       - normal
