@@ -60,6 +60,7 @@ spec:
           http:
             port: 8384
       sync:
+        controller: main
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
