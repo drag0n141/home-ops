@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sonarr
+  name: &app sonarr4k
   namespace: flux-system
 spec:
   targetNamespace: media
   dependsOn:
     - name: cloudnative-pg-cluster
-  path: ./kubernetes/main/apps/media/sonarr/app
+  path: ./kubernetes/main/apps/media/sonarr4k/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -20,4 +20,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+      VOLSYNC_CAPACITY: 5Gi
