@@ -62,7 +62,7 @@ blocking:
   whiteLists:
     ads: &whiteList
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/allowlist.txt
+      - https://raw.githubusercontent.com/drag0n141/Lists-AdGuard-or-Pihole/master/Whitelists/whitelist.txt
     extra: *whiteList
     misc: *whiteList
     native: *whiteList
@@ -104,12 +104,11 @@ caching:
   prefetchExpires: 2h
 
 clientLookup:
-  upstream: ${CILIUM_BGP_PEER}
+  upstream: tcp+udp:192.168.254.1
 
 conditional:
   mapping:
-    cluster.local: ${COREDNS_ADDR}
-    ${SECRET_DOMAIN_INTERNAL}: ${K8S_GATEWAY_ADDR}
+    ${SECRET_DOMAIN_INTERNAL}: k8s-gateway.networking.svc.cluster.local:53
 
 connectIPVersion: v4
 
@@ -121,12 +120,9 @@ hostsFile:
   sources:
     - /etc/hosts
     - |
-      10.0.0.10 m0.k8s.${PUBLIC_DOMAIN}
-      10.0.0.11 m1.k8s.${PUBLIC_DOMAIN}
-      10.0.0.12 m2.k8s.${PUBLIC_DOMAIN}
-      10.0.0.20 w0.k8s.${PUBLIC_DOMAIN}
-      10.0.0.21 w1.k8s.${PUBLIC_DOMAIN}
-      10.0.0.22 w2.k8s.${PUBLIC_DOMAIN}
+      192.168.254.81 k3s-m01.${PUBLIC_DOMAIN}
+      192.168.254.82 k3s-m02.${PUBLIC_DOMAIN}
+      192.168.254.83 k3s-m03.${PUBLIC_DOMAIN}
 
 log:
   level: info
@@ -142,7 +138,7 @@ prometheus:
 
 queryLog:
   type: postgresql
-  target: postgresql://{{ .BLOCKY_POSTGRES_USER }}:{{ .BLOCKY_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
+  target: postgresql://{{ .BLOCKY_POSTGRES_USER }}:{{ .BLOCKY_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky_db
   logRetentionDays: 10
 
 redis:
