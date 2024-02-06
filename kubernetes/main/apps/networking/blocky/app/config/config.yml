@@ -18,6 +18,7 @@ blocking:
       - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
       - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
       - https://v.firebog.net/hosts/Easylist.txt
+      - https://easylist.to/easylistgermany/easylistgermany.txt
       - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
       - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
@@ -46,9 +47,6 @@ blocking:
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/multi.txt
     other: # Ref: https://firebog.net
       - https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
-      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/FullBlock.txt
-      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/Paranoid.txt
-      - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
     pro: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt
     suspicious: # Ref: https://firebog.net
@@ -56,6 +54,7 @@ blocking:
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       - https://v.firebog.net/hosts/static/w3kbl.txt
       - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/notserious
+      - https://s3.amazonaws.com/lists.disconnect.me/simple_malware.txt
     tif: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt
     trackers: # Ref: https://firebog.net
@@ -64,8 +63,13 @@ blocking:
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
       - https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
       - https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
+      - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
     ultimate: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt
+    update: # Ref: https://github.com/buggerman/SwitchBlockerForPiHole
+      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/FullBlock.txt
+      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/Paranoid.txt
+      - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
 
   whiteLists:
     ads: &whiteList
@@ -81,6 +85,7 @@ blocking:
     tif: *whiteList
     trackers: *whiteList
     ultimate: *whiteList
+    update: *whiteList
 
   clientGroupsBlock:
     default:
@@ -94,16 +99,17 @@ blocking:
       - suspicious
       - tif
       - trackers
-    ${ADMIN_CIDR}:
-      - suspicious
-      - tif
       - ultimate
-    ${SERVER_CIDR}:
+      - update
+    ${ADMIN_CIDR}:
+      - ads
       - misc
-      - native
-      - other
-      - suspicious
-      - tif
+      - normal
+      - trackers
+    ${SERVER_CIDR}:
+      - ads
+      - misc
+      - normal
       - trackers
 
 caching:
