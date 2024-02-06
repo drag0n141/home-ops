@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/syncthing/syncthing
-              tag: 1.27.2
+              tag: 1.27.3
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
