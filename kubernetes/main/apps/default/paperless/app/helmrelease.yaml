@@ -1,0 +1,123 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app paperless
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: paperless-secret
+              - secretRef:
+                  name: paperless-redis-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.4.3
+            env:
+              USERMAP_UID: 1000
+              USERMAP_GID: 1000
+              PAPERLESS_TIME_ZONE: ${TIMEZONE}
+              PAPERLESS_WEBSERVER_WORKERS: "2"
+              PAPERLESS_TASK_WORKERS: "2"
+              PAPERLESS_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
+              PAPERLESS_PORT: "8000"
+              PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/incoming
+              PAPERLESS_DATA_DIR: /usr/src/paperless/data
+              PAPERLESS_EXPORT_DIR: /usr/src/paperless/export
+              PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
+              PAPERLESS_CONSUMER_POLLING: "360"
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              PAPERLESS_OCR_LANGUAGES: deu
+              PAPERLESS_OCR_LANGUAGE: deu
+              PAPERLESS_OCR_SKIP_ARCHIVE_FILE: with_text
+              PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
+              PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
+              PAPERLESS_TIKA_ENABLED: "1"
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+    service:
+      main:
+        ports:
+          http:
+            port: 8000
+    ingress:
+      main:
+        enabled: true
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "paperless.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: paperless
+        advancedMounts:
+          main:
+            main:
+              - subPath: "data"
+                path: "/usr/src/paperless/data"
+              - subPath: "media"
+                path: "/usr/src/paperless/media"
+      nas:
+        type: nfs
+        server: ${SECRET_NFS_SERVER}
+        path: /mnt/user/paperless
+        advancedMounts:
+          main:
+            main:
+              - subPath: "incoming"
+                path: "/usr/src/paperless/incoming"
+              - subPath: "export"
+                path: "/usr/src/paperless/export"
