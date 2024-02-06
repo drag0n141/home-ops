@@ -67,8 +67,7 @@ spec:
               PAPERLESS_OCR_LANGUAGE: deu
               PAPERLESS_OCR_SKIP_ARCHIVE_FILE: with_text
               PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
-              PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
-              PAPERLESS_TIKA_ENABLED: "1"
+              PAPERLESS_TIKA_ENABLED: "0"
             envFrom: *envFrom
             resources:
               requests:
