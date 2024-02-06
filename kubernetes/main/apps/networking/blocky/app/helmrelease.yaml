@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app adguard
+  name: &app blocky
 spec:
   interval: 30m
   chart:
@@ -23,11 +23,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   values:
     controllers:
       main:
@@ -36,8 +31,8 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/adguard/adguardhome
-              tag: v0.107.43
+              repository: ghcr.io/0xerr0r/blocky
+              tag: v0.23
             env:
               TZ: ${TIMEZONE}
             resources:
@@ -50,11 +45,11 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: 4000
       dns:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${ADGUARD_LB_ADDR}"
+          io.cilium/lb-ipam-ips: "${BLOCKY_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           dns-tcp:
@@ -71,7 +66,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "adguard.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "blocky.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -82,13 +77,11 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      data:
+      config:
         enabled: true
-        existingClaim: adguard
-        advancedMounts:
-          main:
-            main:
-              - subPath: "conf"
-                path: "/opt/adguardhome/conf"
-              - subPath: "work"
-                path: "/opt/adguardhome/work"
+        type: configMap
+        name: blocky-configmap
+        globalMounts:
+          - path: /app/config.yml
+            subPath: config.yml
+            readOnly: true
