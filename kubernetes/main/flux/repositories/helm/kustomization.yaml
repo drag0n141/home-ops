@@ -26,6 +26,7 @@ resources:
   - ./mailu.yaml
   - ./mariadb-operator.yaml
   - ./metrics-server.yaml
+  - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
   - ./pihole.yaml
   - ./piraeus.yaml
