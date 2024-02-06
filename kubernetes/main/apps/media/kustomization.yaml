@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./autoscan/ks.yaml
+  - ./lidarr/ks.yaml
   - ./moviematch/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex-meta-manager/ks.yaml
