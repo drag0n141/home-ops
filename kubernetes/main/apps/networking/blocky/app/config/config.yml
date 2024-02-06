@@ -71,6 +71,8 @@ blocking:
       - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/FullBlock.txt
       - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/Paranoid.txt
       - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
+    block:
+      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/doh-vpn-proxy-bypass.txt
 
   whiteLists:
     ads: &whiteList
