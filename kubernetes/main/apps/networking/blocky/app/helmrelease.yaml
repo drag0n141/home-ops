@@ -33,6 +33,14 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: blocky-secret
         containers:
           main:
             image:
@@ -63,6 +71,9 @@ spec:
               limits:
                 memory: 1Gi
         pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
