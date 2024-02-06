@@ -27,6 +27,7 @@ resources:
   - ./netbox/ks.yaml
   - ./obsidian-livesync/ks.yaml
   - ./pairdrop/ks.yaml
+  - ./paperless/ks.yaml
   - ./portainer/ks.yaml
   - ./proton-bridge/ks.yaml
   - ./rdesktop/ks.yaml
