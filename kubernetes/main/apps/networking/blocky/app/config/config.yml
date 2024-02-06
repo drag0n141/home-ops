@@ -109,6 +109,10 @@ clientLookup:
 conditional:
   mapping:
     ${SECRET_DOMAIN_INTERNAL}: k8s-gateway.networking.svc.cluster.local:53
+    ${SECRET_DOMAIN_INT}: 192.168.254.1:53
+    ${SECRET_DOMAIN_LAB}: 192.168.254.1:53
+    ${SECRET_DOMAIN_AD}: 192.168.254.31:53
+    ${SECRET_DOMAIN_GUEST}: 192.168.30.254:53
 
 connectIPVersion: v4
 
