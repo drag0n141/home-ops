@@ -49,6 +49,7 @@ spec:
       dns:
         type: LoadBalancer
         annotations:
+          coredns.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${BLOCKY_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
@@ -58,24 +59,6 @@ spec:
           dns-udp:
             port: 53
             protocol: UDP
-    ingress:
-      main:
-        enabled: true
-        className: traefik-internal
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "blocky.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
         enabled: true
