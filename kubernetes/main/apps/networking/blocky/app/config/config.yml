@@ -1,9 +1,13 @@
 ---
 blocking:
   loading:
+    refreshPeriod: 12h
     downloads:
       timeout: 60s
-    maxErrorsPerSource: -1
+    maxErrorsPerSource: 5
+
+  blockType: zeroIp
+  blockTTL: 5m
 
   blackLists:
     ads: # Ref: https://firebog.net
