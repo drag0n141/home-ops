@@ -86,7 +86,6 @@ blocking:
     tif: *whiteList
     trackers: *whiteList
     ultimate: *whiteList
-    update: *whiteList
 
   clientGroupsBlock:
     default:
