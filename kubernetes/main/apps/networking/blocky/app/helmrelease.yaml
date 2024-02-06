@@ -76,6 +76,7 @@ spec:
           http:
             port: 4000
       dns:
+        controller: main
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
