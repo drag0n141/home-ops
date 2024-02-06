@@ -12,6 +12,7 @@ blocking:
   blackLists:
     ads: # Ref: https://firebog.net
       - https://adaway.org/hosts.txt
+      - https://www.sunshine.it/blacklist.txt
       - https://v.firebog.net/hosts/AdguardDNS.txt
       - https://v.firebog.net/hosts/Admiral.txt
       - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
@@ -37,21 +38,24 @@ blocking:
       - https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
       - https://urlhaus.abuse.ch/downloads/hostfile/
     native: # Ref: https://github.com/hagezi/dns-blocklists
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.amazon.txt
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.apple.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.huawei.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.lgwebos.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.tiktok.extended.txt
+      - https://perflyst.github.io/PiHoleBlocklist/SmartTV.txt
     normal: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/multi.txt
     other: # Ref: https://firebog.net
       - https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
+      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/FullBlock.txt
+      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/Paranoid.txt
+      - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
     pro: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt
     suspicious: # Ref: https://firebog.net
       - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       - https://v.firebog.net/hosts/static/w3kbl.txt
+      - https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/notserious
     tif: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt
     trackers: # Ref: https://firebog.net
