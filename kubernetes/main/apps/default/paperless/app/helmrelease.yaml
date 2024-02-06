@@ -56,7 +56,7 @@ spec:
               PAPERLESS_TASK_WORKERS: "2"
               PAPERLESS_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
               PAPERLESS_PORT: "8000"
-              PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/incoming
+              PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
               PAPERLESS_EXPORT_DIR: /usr/src/paperless/export
               PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
@@ -116,7 +116,7 @@ spec:
         advancedMounts:
           main:
             main:
-              - subPath: "incoming"
-                path: "/usr/src/paperless/incoming"
+              - subPath: "consume"
+                path: "/usr/src/paperless/consume"
               - subPath: "export"
                 path: "/usr/src/paperless/export"
