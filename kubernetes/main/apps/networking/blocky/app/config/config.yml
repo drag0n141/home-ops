@@ -154,6 +154,7 @@ redis:
     - redis-node-2.redis-headless.databases.svc.cluster.local:26379
 
 upstreams:
+  strategy: strict
   groups:
     default:
       - tcp-tls:1.1.1.3:853
