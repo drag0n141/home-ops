@@ -59,6 +59,14 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 1Gi
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
     service:
       main:
         ports:
@@ -80,6 +88,12 @@ spec:
     serviceMonitor:
       main:
         enabled: true
+        serviceName: *app
+        endpoints:
+          - interval: 30s
+            path: /metrics
+            port: http
+            scrapeTimeout: 10s
     persistence:
       config:
         enabled: true
