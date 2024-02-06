@@ -107,6 +107,7 @@ clientLookup:
   upstream: tcp+udp:192.168.254.1
 
 conditional:
+  fallbackUpstream: false
   mapping:
     ${SECRET_DOMAIN_INTERNAL}: tcp+udp:k8s-gateway.networking.svc.cluster.local
     ${SECRET_DOMAIN_INT}: tcp+udp:192.168.254.1
