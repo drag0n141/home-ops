@@ -10,6 +10,8 @@ resources:
   - ./overseerr/ks.yaml
   - ./plex-meta-manager/ks.yaml
   - ./plex/ks.yaml
+  - ./radarr/ks.yaml
+  - ./radarr4k/ks.yaml
   - ./sonarr/ks.yaml
   - ./sonarr4k/ks.yaml
   - ./sonarrkids/ks.yaml
