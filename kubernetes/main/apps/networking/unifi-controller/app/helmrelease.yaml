@@ -50,15 +50,19 @@ spec:
                 memory: 1024M
     service:
       main:
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+        ports:
+          http:
+            port: 8443
+      unifi:
+        controller: main
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "unifi.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${UNIFI_LB_ADDR}"
-          traefik.ingress.kubernetes.io/service.serversscheme: https
         externalTrafficPolicy: Cluster
         ports:
-          http:
-            port: 8443
           controller:
             port: 8080
             protocol: TCP
