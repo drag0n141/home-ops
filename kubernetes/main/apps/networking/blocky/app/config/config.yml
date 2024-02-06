@@ -174,11 +174,10 @@ upstreams:
   strategy: strict
   groups:
     default:
-      - tcp-tls:1.1.1.3:853
-      - tcp-tls:1.0.0.3:853
+      - tcp-tls:family.cloudflare-dns.com
     ${ADMIN_CIDR}:
-      - tcp-tls:1.1.1.1:853
-      - tcp-tls:1.0.0.1:853
+      - tcp-tls:1dot1dot1dot1.cloudflare-dns.com
+      - tcp-tls:dns.quad9.net
     ${NODE_CIDR}:
-      - tcp-tls:1.1.1.1:853
-      - tcp-tls:1.0.0.1:853
+      - tcp-tls:1dot1dot1dot1.cloudflare-dns.com
+      - tcp-tls:dns.quad9.net
