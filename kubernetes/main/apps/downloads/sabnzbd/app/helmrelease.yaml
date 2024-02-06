@@ -108,6 +108,10 @@ spec:
         existingClaim: sabnzbd
         globalMounts:
           - path: /config
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
       downloads:
         type: nfs
         server: ${SECRET_NFS_SERVER}
