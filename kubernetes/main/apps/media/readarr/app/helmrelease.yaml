@@ -48,7 +48,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
-              READARR__AUTHENTICATION_METHOD: External
+              READARR__AUTHENTICATION_METHOD: None
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               READARR__INSTANCE_NAME: Readarr
               READARR__PORT: &port 8787
