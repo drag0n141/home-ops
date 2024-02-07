@@ -64,6 +64,7 @@ spec:
         annotations:
           coredns.io/hostname: "mosquitto.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${MOSQUITTO_LB_ADDR}"
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 1883
