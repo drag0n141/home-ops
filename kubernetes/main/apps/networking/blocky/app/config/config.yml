@@ -80,7 +80,7 @@ blocking:
     block: []
     extra: *whiteList
     misc: *whiteList
-    native: *whiteList
+    native: []
     normal: *whiteList
     other: *whiteList
     pro: *whiteList
