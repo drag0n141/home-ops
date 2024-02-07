@@ -7,6 +7,7 @@ metadata:
 data:
   TIMEZONE: "Europe/Berlin"
   COREDNS_ADDR: "10.43.0.10"
+  K8SGATEWAY_ADDR: "10.43.0.15"
   KUBE_VIP_ADDR: "192.168.254.250"
   BGP_ROUTER: "192.168.254.1/32"
   # CIDR
