@@ -171,12 +171,20 @@ redis:
     - redis-node-1.redis-headless.database.svc.cluster.local:26379
     - redis-node-2.redis-headless.database.svc.cluster.local:26379
 
-#bootstrapDns:
-#  - upstream: https://dns.quad9.net/dns-query
-#    ips:
-#      - 9.9.9.9
-#      - 149.112.112.112
-#  - upstream: tcp+udp:${COREDNS_ADDR}
+bootstrapDns:
+  - upstream: tcp-tls:family.cloudflare-dns.com
+    ips:
+      - 1.1.1.3
+      - 1.0.0.3
+  - upstream: tcp-tls:1dot1dot1dot1.cloudflare-dns.com
+    ips:
+      - 1.1.1.1
+      - 1.0.0.1
+  - upstream: tcp-tls:dns.quad9.net
+    ips:
+      - 9.9.9.9
+      - 149.112.112.112
+  - ips: tcp+udp:${COREDNS_ADDR}
 
 upstreams:
   strategy: strict
