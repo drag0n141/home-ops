@@ -159,7 +159,7 @@ prometheus:
 queryLog:
   type: postgresql
   target: postgresql://${BLOCKY_POSTGRES_USER}:${BLOCKY_POSTGRES_PASS}@postgres-rw.database.svc.cluster.local:5432/${BLOCKY_POSTGRES_DB}
-  logRetentionDays: 10
+  logRetentionDays: 7
 
 redis:
   required: true
