@@ -102,7 +102,6 @@ blocking:
       - suspicious
       - tif
       - trackers
-      - ultimate
     ${VPN_CIDR}:
       - ads
       - misc
