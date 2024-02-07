@@ -77,6 +77,7 @@ blocking:
     ads: &whiteList
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
       - https://raw.githubusercontent.com/drag0n141/Lists-AdGuard-or-Pihole/master/Whitelists/whitelist.txt
+    block: []
     extra: *whiteList
     misc: *whiteList
     native: *whiteList
