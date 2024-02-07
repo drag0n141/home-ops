@@ -5,5 +5,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  # - ./home-assistant/ks.yaml
+  - ./home-assistant/ks.yaml
   - ./scrypted/ks.yaml
