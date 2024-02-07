@@ -4,7 +4,7 @@ blocking:
     refreshPeriod: 12h
     downloads:
       timeout: 60s
-    maxErrorsPerSource: 5
+    maxErrorsPerSource: -1
 
   blockType: zeroIp
   blockTTL: 5m
