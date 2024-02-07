@@ -135,15 +135,6 @@ connectIPVersion: v4
 ecs:
   useAsClient: true
 
-hostsFile:
-  filterLoopback: true
-  sources:
-    - /etc/hosts
-    - |
-      192.168.254.81 k3s-m01.${SECRET_DOMAIN_INT}
-      192.168.254.82 k3s-m02.${SECRET_DOMAIN_INT}
-      192.168.254.83 k3s-m03.${SECRET_DOMAIN_INT}
-
 log:
   level: info
   format: text
