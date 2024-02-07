@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-    mosquitto_pwd: ENC[AES256_GCM,data:zXxtNBaRmryhE1Gd5xgR89XGRGNq0k+SPel3cy07+1DQ7Ds=,iv:EVioNNmIorsDEIxQmhx08uB+VnH3DnYjBVwJQnYjWBY=,tag:/aVG2vHs2FvILMF4HKm3cg==,type:str]
+    mosquitto_pwd: ENC[AES256_GCM,data:LHZUZ3b7Y5d4sgBHv81k1+1Hf6/shq+q/7xgshz3ZTy2fs4Z++yO0aGSGa2dVv88,iv:WTtBzLukjs96EH4CFIFo25pHQuzzbmcBD9E7nI02I3k=,tag:utZCov0k4RjqGKbjQKfPVg==,type:str]
 kind: Secret
 metadata:
     creationTimestamp: null
@@ -21,8 +21,8 @@ sops:
             KzExbEthNC90aVBPZjRNK3RIR2g5dFkKEVz9U8gCZL7viqIkSHRIYuOnX2iwSGhQ
             m/qpiH1SBxaRFpf+yFTfCiTf7kl+2uyrWwsE0zi6lVJQXoRJXrHqRg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-02-07T14:18:41Z"
-    mac: ENC[AES256_GCM,data:03kcLRdH0ni+Dn1E0M/0Vradhg9gTGpu/95p8xLDnafhGyR2eKQx/ua9EQrnqJlHTgs7DLGOvB0VI10PyjGmrLGgYpIKMuEEqIOWSZNgJsjtpBtl0y+wtq5MWsh4JFlLaSFwuEsm6CIQY/9Hxs58RjummO3VW2jFVKE50avVwcI=,iv:1Bb8HhHi0Y1aqOSaopdY723KV5G4+JQfbWisXh84ans=,tag:+4S9C9Ioy/7DshB0+p+CYg==,type:str]
+    lastmodified: "2024-02-07T14:20:59Z"
+    mac: ENC[AES256_GCM,data:/qXUWI9I/+a5Wvi/tfeNszPgmeFTCUpgUuKBoCKnpo8Ni+x7rHattKwJ5p0S9OsJgRulE7gxAbK4p1ZZkQ1YdXiN1AxOCggZejEXozlrBN3OUPgFtu+9f4Sld/8t8A/Bm3kXtdpZmm/OzGIkE6st5myOy9SgsgrTAG12wWljrX4=,iv:zcjeMvIw6ApWkGCug0WhzftrTTVwbkne7Epitgibu24=,tag:/fUQLMjlIRlIPbVbWdpD8A==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.8.1
