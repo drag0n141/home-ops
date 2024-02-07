@@ -14,9 +14,6 @@ spec:
           "master": "enp86s0",
           "mtu": 1500,
           "vlanId": 150,
-          "capabilities": {
-            "ips": true
-          },
           "ipam": {
             "type": "static",
             "routes": [
