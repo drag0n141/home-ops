@@ -11,7 +11,7 @@ spec:
       "plugins": [
         {
           "type": "macvlan",
-          "master": "enp86s0.160",
+          "master": "vlan160",
           "mode": "bridge",
           "capabilities": {
             "ips": true
