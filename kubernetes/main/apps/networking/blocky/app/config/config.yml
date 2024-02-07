@@ -92,6 +92,7 @@ blocking:
   clientGroupsBlock:
     default:
       - ads
+      - block
       - extra
       - misc
       - native
@@ -102,7 +103,6 @@ blocking:
       - tif
       - trackers
       - ultimate
-      - block
     ${ADMIN_CIDR}:
       - ads
       - misc
