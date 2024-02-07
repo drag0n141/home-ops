@@ -23,6 +23,11 @@ blocking:
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
       - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
       - https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
+    block: # Ref: https://github.com/buggerman/SwitchBlockerForPiHole
+      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/FullBlock.txt
+      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/Paranoid.txt
+      - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
+      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/doh-vpn-proxy-bypass.txt
     extra: # Ref: https://github.com/badmojr/1Hosts
       - https://o0.pages.dev/Xtra/domains.txt
     misc: # Ref: https://firebog.net
@@ -67,11 +72,6 @@ blocking:
       - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
     ultimate: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt
-    block: # Ref: https://github.com/buggerman/SwitchBlockerForPiHole
-      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/FullBlock.txt
-      - https://raw.githubusercontent.com/buggerman/SwitchBlockerForPiHole/master/Paranoid.txt
-      - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/doh-vpn-proxy-bypass.txt
 
   whiteLists:
     ads: &whiteList
