@@ -103,7 +103,7 @@ spec:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         hosts:
           - host: &host "zigbee.${SECRET_DOMAIN_INTERNAL}"
             paths:
