@@ -139,7 +139,6 @@ conditional:
     ${SECRET_DOMAIN_INT}: tcp+udp:192.168.254.1
     ${SECRET_DOMAIN_LAB}: tcp+udp:192.168.254.1
     ${SECRET_DOMAIN_AD}: tcp+udp:192.168.254.31
-    ${SECRET_DOMAIN_GUEST}: tcp+udp:192.168.30.254
 
 connectIPVersion: v4
 
