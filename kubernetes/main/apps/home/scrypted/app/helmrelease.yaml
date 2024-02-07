@@ -50,8 +50,6 @@ spec:
               limits:
                 memory: 2048Mi
                 gpu.intel.com/i915: 1
-            securityContext:
-              privileged: true
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
