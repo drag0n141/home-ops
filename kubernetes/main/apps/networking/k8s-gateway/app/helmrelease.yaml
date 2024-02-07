@@ -29,7 +29,6 @@ spec:
     domain: "${SECRET_DOMAIN_INTERNAL}"
     ttl: 1
     service:
-      clusterIP: "${K8SGATEWAY_ADDR}"
       type: LoadBalancer
       port: 53
       annotations:
