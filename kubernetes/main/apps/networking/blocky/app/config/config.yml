@@ -29,7 +29,7 @@ blocking:
       - https://gist.githubusercontent.com/aqualad/61814c4487a5799156e5adf6d2f00392/raw/5a4be2f4aecbfb1e0da50ae9ca4f7060e364e908/BlockPS4Updates
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/doh-vpn-proxy-bypass.txt
     extra: # Ref: https://github.com/badmojr/1Hosts
-      - https://o0.pages.dev/Xtra/domains.txt
+      - https://o0.pages.dev/Lite/domains.txt
     misc: # Ref: https://firebog.net
       - https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
       - https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
