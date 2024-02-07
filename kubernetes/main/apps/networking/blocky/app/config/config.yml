@@ -103,6 +103,11 @@ blocking:
       - tif
       - trackers
       - ultimate
+    ${VPN_CIDR}:
+      - ads
+      - misc
+      - normal
+      - trackers
     ${ADMIN_CIDR}:
       - ads
       - misc
