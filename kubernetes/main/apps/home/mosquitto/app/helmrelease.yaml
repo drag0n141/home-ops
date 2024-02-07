@@ -84,7 +84,7 @@ spec:
                 subPath: mosquitto.conf
       secret-file:
         type: secret
-        name: mosquitto-secret
+        name: mosquitto-files
         advancedMounts:
           main:
             init-config:
