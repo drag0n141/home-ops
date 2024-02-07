@@ -113,6 +113,11 @@ blocking:
       - misc
       - normal
       - trackers
+    ${LAB_CIDR}:
+      - ads
+      - misc
+      - normal
+      - trackers
     ${NODE_CIDR}:
       - ads
       - misc
