@@ -12,7 +12,6 @@ spec:
         {
           "type": "macvlan",
           "master": "vlan150",
-          "mode": "bridge",
           "capabilities": {
             "ips": true
           },
