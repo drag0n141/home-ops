@@ -29,6 +29,8 @@ spec:
     - name: volsync
       namespace: storage
   values:
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       repository: public.ecr.aws/docker/library/nextcloud
       tag: 28.0.2-fpm-alpine
