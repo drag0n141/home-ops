@@ -49,11 +49,6 @@ access_control:
       policy: bypass
       resources:
         - "^/api/.*$"
-    # Nextcloud One Factor Login
-    - domain: "nextcloud.${SECRET_DOMAIN}"
-      policy: one_factor
-      subject:
-        - "group:Nextcloud"
     # Portainer Two Factor Login
     - domain: "portainer.${SECRET_DOMAIN_INTERNAL}"
       policy: two_factor
