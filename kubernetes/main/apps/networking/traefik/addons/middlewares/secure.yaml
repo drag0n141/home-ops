@@ -42,7 +42,7 @@ spec:
     customResponseHeaders:
       permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
       X-Frame-Options: "SAMEORIGIN"
-      X-Robots-Tag: "none,noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+      X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
@@ -84,7 +84,7 @@ spec:
     customResponseHeaders:
       permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
       X-Frame-Options: "SAMEORIGIN"
-      X-Robots-Tag: "none,noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+      X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
@@ -127,7 +127,7 @@ spec:
     customResponseHeaders:
       permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
       X-Frame-Options: "SAMEORIGIN"
-      X-Robots-Tag: "none,noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+      X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
@@ -178,7 +178,7 @@ spec:
     customResponseHeaders:
       permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
       X-Frame-Options: "SAMEORIGIN"
-      X-Robots-Tag: "none,noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+      X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
