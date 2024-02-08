@@ -120,6 +120,7 @@ spec:
             'skeletondirectory' => '',
             'knowledgebaseenabled' => 'false',
             'maintenance_window_start' => '1',
+            'enable_previews' => false,
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
