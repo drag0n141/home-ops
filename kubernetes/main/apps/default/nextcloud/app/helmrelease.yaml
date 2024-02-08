@@ -104,13 +104,19 @@ spec:
             'trusted_proxies' =>
             array (
               0 => '127.0.0.1',
-              1 => '172.16.0.0/16',
+              1 => '${CLUSTER_CIDR}',
+              2 => '${SERVICE_CIDR}',
             ),
             'forwarded_for_headers' =>
             array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
             'default_phone_region' => 'DE',
+            'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
+            'overwriteprotocol' => 'https',
+            'quota_include_external_storage' => 'false',
+            'skeletondirectory' => '',
+            'knowledgebaseenabled' => 'false',
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
