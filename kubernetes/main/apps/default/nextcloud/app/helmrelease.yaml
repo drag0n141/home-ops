@@ -1,0 +1,114 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app nextcloud
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    image:
+      flavor: fpm-alpine
+    nginx:
+      enabled: true
+    nextcloud:
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16
+          envFrom:
+            - secretRef: &envFrom
+                name: nextcloud-secret
+            - secretRef:
+                name: nextcloud-redis-secret
+      datadir: /var/www/data
+      extraEnv:
+        - name: REDIS_HOST
+          value: nextcloud-redis.default.svc.cluster.local
+        - name: REDIS_HOST_PORT
+          value: "6379"
+        - name: REDIS_HOST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-redis-secret
+              key: REDIS_PASSWORD
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secret
+      host: &host nextcloud.${SECRET_DOMAIN}
+      mail:
+        enabled: true
+        fromAddress: nextcloud
+        domain: ${SECRET_DOMAIN}
+        smtp:
+          host: smtp-relay.networking.svc.cluster.local
+          port: 2525
+          authtype: NONE
+          name: ""
+          password: ""
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+    cronjob:
+      enabled: true
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: postgres-rw.database.svc.cluster.local
+      database: nextcloud_db
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secret
+        usernameKey: INIT_POSTGRES_USER
+        passwordKey: INIT_POSTGRES_PASS
+    ingress:
+      enabled: true
+      className: traefik-external
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      path: /
+      pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      enabled: true
+      existingClaim: nextcloud
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-nfs
+        accessMode: ReadWriteMany
+    # this seems to be required for nextcloud initialization which takes a long time
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 10
+      periodSeconds: 20
+      timeoutSeconds: 5
+      failureThreshold: 30
+      successThreshold: 1
