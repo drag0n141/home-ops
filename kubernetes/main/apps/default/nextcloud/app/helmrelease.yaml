@@ -161,7 +161,7 @@ spec:
             'oidc_login_redir_fallback' => false,
             'oidc_login_alt_login_page' => 'assets/login.php',
             'oidc_login_tls_verify' => true,
-            'oidc_create_groups' => false,
+            'oidc_create_groups' => true,
             'oidc_login_webdav_enabled' => false,
             'oidc_login_password_authentication' => false,
             'oidc_login_public_key_caching_time' => 86400,
