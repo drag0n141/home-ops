@@ -30,9 +30,14 @@ spec:
       namespace: storage
   values:
     image:
+      repository: nextcloud
+      tag: 28.0.2-fpm-alpine
       flavor: fpm-alpine
     nginx:
       enabled: true
+      image:
+        repository: nginx
+        tag: 1.25-alpine
     nextcloud:
       extraInitContainers:
         - name: init-db
