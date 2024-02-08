@@ -35,9 +35,6 @@ spec:
       flavor: fpm-alpine
     nginx:
       enabled: true
-      image:
-        repository: nginx
-        tag: 1.25-alpine
     nextcloud:
       extraInitContainers:
         - name: init-db
