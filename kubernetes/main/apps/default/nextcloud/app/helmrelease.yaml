@@ -34,6 +34,10 @@ spec:
       tag: 28.0.2-fpm-alpine
     nginx:
       enabled: true
+      image:
+        repository: public.ecr.aws/nginx/nginx
+      config:
+        default: true
       securityContext:
         runAsGroup: ${APP_GID}
       resources:
