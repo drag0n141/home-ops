@@ -39,11 +39,6 @@ spec:
               PGID: 1000
     service:
       main:
-        type: LoadBalancer
-        annotations:
-          coredns.io/hostname: "rdesktop.${SECRET_DOMAIN_INTERNAL}"
-          io.cilium/lb-ipam-ips: "${RDP_LB_ADDR}"
-        externalTrafficPolicy: Cluster
         ports:
           http:
             enabled: false
