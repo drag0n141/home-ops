@@ -187,13 +187,14 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      host: postgres-rw.database.svc.cluster.local
       database: nextcloud_db
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
-        usernameKey: INIT_POSTGRES_USER
-        passwordKey: INIT_POSTGRES_PASS
+        host: POSTGRES_HOST
+        databaseKey: POSTGRES_DB
+        usernameKey: POSTGRES_USER
+        passwordKey: POSTGRES_PASSWORD
     startupProbe:
       enabled: true
       initialDelaySeconds: 5
