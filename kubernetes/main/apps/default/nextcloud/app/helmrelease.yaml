@@ -190,7 +190,7 @@ spec:
       database: nextcloud_db
       existingSecret:
         enabled: true
-        secretName: nextcloud-secret
+        secretName: *secret
         host: POSTGRES_HOST
         databaseKey: POSTGRES_DB
         usernameKey: POSTGRES_USER
