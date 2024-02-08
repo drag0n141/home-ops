@@ -72,10 +72,6 @@ spec:
           authtype: NONE
           name: ""
           password: ""
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
     cronjob:
       enabled: true
     internalDatabase:
