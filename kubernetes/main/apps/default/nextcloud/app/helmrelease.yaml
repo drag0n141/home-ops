@@ -64,6 +64,14 @@ spec:
             - secretRef:
                 name: nextcloud-redis-secret
       datadir: /var/www/data
+      extraVolumes:
+      - name: nfs-home
+        nfs:
+          server: "${SECRET_NFS_SERVER}"
+          path: "/mnt/user/home"
+      extraVolumeMounts:
+      - name: nfs-home
+        mountPath: "/mnt/user/home"
       extraEnv:
         - name: REDIS_HOST
           value: nextcloud-redis.default.svc.cluster.local
