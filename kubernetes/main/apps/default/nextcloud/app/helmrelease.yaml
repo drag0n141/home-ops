@@ -30,12 +30,25 @@ spec:
       namespace: storage
   values:
     image:
-      repository: nextcloud
+      repository: public.ecr.aws/docker/library/nextcloud
       tag: 28.0.2-fpm-alpine
-      flavor: fpm-alpine
     nginx:
       enabled: true
+      securityContext:
+        runAsGroup: ${APP_GID}
+      resources:
+        requests:
+          cpu: 50m
+          memory: 20Mi
+        limits:
+          memory: 100Mi
     nextcloud:
+      host: &host nextcloud.${SECRET_DOMAIN}
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_GID}
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16
@@ -58,7 +71,6 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
-      host: &host nextcloud.${SECRET_DOMAIN}
       mail:
         enabled: true
         fromAddress: nextcloud
@@ -71,6 +83,13 @@ spec:
           password: ""
     cronjob:
       enabled: true
+      securityContext:
+        runAsGroup: ${APP_GID}
+    metrics:
+      enabled: false
+      https: true
+      serviceMonitor:
+        enabled: false
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -83,6 +102,29 @@ spec:
         secretName: nextcloud-secret
         usernameKey: INIT_POSTGRES_USER
         passwordKey: INIT_POSTGRES_PASS
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 360
+      successThreshold: 1
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    securityContext:
+      fsGroupChangePolicy: OnRootMismatch
     ingress:
       enabled: true
       className: traefik-external
