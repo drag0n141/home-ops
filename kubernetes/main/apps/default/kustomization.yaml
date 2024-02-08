@@ -24,7 +24,7 @@ resources:
   - ./memos/ks.yaml
   - ./mind/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
-  - ./netbox/ks.yaml
+  # - ./netbox/ks.yaml
   - ./nextcloud/ks.yaml
   - ./obsidian-livesync/ks.yaml
   - ./pairdrop/ks.yaml
