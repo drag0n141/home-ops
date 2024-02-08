@@ -119,6 +119,7 @@ spec:
             'quota_include_external_storage' => 'false',
             'skeletondirectory' => '',
             'knowledgebaseenabled' => 'false',
+            'maintenance_window_start' => '1',
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
