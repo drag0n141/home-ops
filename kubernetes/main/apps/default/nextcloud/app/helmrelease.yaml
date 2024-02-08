@@ -68,10 +68,10 @@ spec:
       - name: nfs-home
         nfs:
           server: "${SECRET_NFS_SERVER}"
-          path: "/mnt/user/home"
+          path: "/mnt/user/Home"
       extraVolumeMounts:
       - name: nfs-home
-        mountPath: "/mnt/user/home"
+        mountPath: "/mnt/user/Home"
       extraEnv:
         - name: REDIS_HOST
           value: nextcloud-redis.default.svc.cluster.local
