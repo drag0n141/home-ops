@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: downloads
+  dependsOn:
+    - name: pod-gateway
   path: ./kubernetes/main/apps/downloads/socks-proxy/app
   prune: true
   sourceRef:
