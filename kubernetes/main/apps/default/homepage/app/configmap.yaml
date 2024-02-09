@@ -28,85 +28,17 @@ data:
         - Autoscan:
             - icon: mdi-card-search
               description: ""
-              href: https://autoscan.${SECRET_DOMAIN_EXT02}/triggers/manual
-        - Autoscan-Plex:
-            - icon: mdi-card-search
-              description: ""
-              href: https://autoscan-plex.${SECRET_DOMAIN_EXT01}/triggers/manual
-        - Autoscan-Home:
-            - icon: mdi-card-search
-              description: ""
-              href: https://autoscan-home.${SECRET_DOMAIN_INT}/triggers/manual
-        - Autoscan-Jellyfin:
-            - icon: mdi-card-search
-              description: ""
-              href: https://autoscan-jellyfin.${SECRET_DOMAIN_EXT02}/triggers/manual
-        - CloudCMD:
-            - icon: cloudcmd.png
-              description: ""
-              href: https://cloudcmd-feeder.${SECRET_DOMAIN_EXT02}
-        - OliveTin-Feeder:
-            - icon: olivetin.png
-              description: ""
-              href: https://olivetin-feeder.${SECRET_DOMAIN_EXT02}
-        - OliveTin-Plex:
-            - icon: olivetin.png
-              description: ""
-              href: https://olivetin-plex.${SECRET_DOMAIN_EXT01}
-        - OliveTin-Jellyfin:
-            - icon: olivetin.png
-              description: ""
-              href: https://olivetin-jellyfin.${SECRET_DOMAIN_EXT02}
-        - OliveTin-Cloud:
-            - icon: olivetin.png
-              description: ""
-              href: https://olivetin-cloud.${SECRET_DOMAIN_EXT03}
+              href: https://autoscan.${SECRET_DOMAIN_INTERNAL}/triggers/manual
         - OliveTin-Home:
             - icon: olivetin.png
               description: ""
               href: https://olivetin-home.${SECRET_DOMAIN_INT}
-        - OliveTin-Print:
-            - icon: olivetin.png
-              description: ""
-              href: https://olivetin-print.${SECRET_DOMAIN_INT}
 
     - Server Monitoring:
-        - Glances-Feeder:
-            - icon: glances.png
-              description: ""
-              href: https://glances-feeder.${SECRET_DOMAIN_EXT02}
-        - Glances-Plex:
-            - icon: glances.png
-              description: ""
-              href: https://glances-plex.${SECRET_DOMAIN_EXT01}
-        - Glances-Jellyfin:
-            - icon: glances.png
-              description: ""
-              href: https://glances-jellyfin.${SECRET_DOMAIN_EXT02}
-        - Glances-Cloud:
-            - icon: glances.png
-              description: ""
-              href: https://glances-cloud.${SECRET_DOMAIN_EXT03}
         - Glances-Home:
             - icon: glances.png
               description: ""
               href: https://glances-home.${SECRET_DOMAIN_INT}
-        - Doozle-Feeder:
-            - icon: dozzle.png
-              description: ""
-              href: https://dozzle-feeder.${SECRET_DOMAIN_EXT02}
-        - Doozle-Plex:
-            - icon: dozzle.png
-              description: ""
-              href: https://dozzle-plex.${SECRET_DOMAIN_EXT01}
-        - Doozle-Jellyfin:
-            - icon: dozzle.png
-              description: ""
-              href: https://dozzle-jellyfin.${SECRET_DOMAIN_EXT02}
-        - Doozle-Cloud:
-            - icon: dozzle.png
-              description: ""
-              href: https://dozzle-cloud.${SECRET_DOMAIN_EXT03}
         - Doozle-Home:
             - icon: dozzle.png
               description: ""
@@ -159,7 +91,7 @@ data:
             description: Plex Media Server
             widget:
               type: plex
-              url: https://plex.${SECRET_DOMAIN_INTERNAL}
+              url: http://plex.media.svc.cluster.local:32400
               key: {{HOMEPAGE_VAR_DOCKER_PLEX_TOKEN}}
 
         - SABnzbd:
