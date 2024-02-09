@@ -42,12 +42,6 @@ spec:
         default: true
       securityContext:
         runAsGroup: ${APP_GID}
-      resources:
-        requests:
-          cpu: 50m
-          memory: 20Mi
-        limits:
-          memory: 100Mi
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
       securityContext:
