@@ -82,7 +82,7 @@ spec:
       localtime:
         type: hostPath
         hostPath: /etc/localtime
-        hostPathType: Socket
+        hostPathType: File
         globalMounts:
           - path: /etc/localtime
             readOnly: true
