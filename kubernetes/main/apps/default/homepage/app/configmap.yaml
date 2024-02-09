@@ -159,7 +159,7 @@ data:
             description: Plex Media Server
             widget:
               type: plex
-              url: https://plex.${SECRET_DOMAIN_EXT01}
+              url: https://plex.${SECRET_DOMAIN_INTERNAL}
               key: {{HOMEPAGE_VAR_DOCKER_PLEX_TOKEN}}
 
         - SABnzbd:
@@ -168,7 +168,7 @@ data:
             description: NZB Downloader
             widget:
               type: sabnzbd
-              url: https://sabnzbd.${SECRET_DOMAIN_EXT02}
+              url: http://sabnzbd.downloads.svc.cluster.local:8080
               key: {{HOMEPAGE_VAR_DOCKER_SABNZBD_TOKEN}}
 
         - Uptime Kuma:
@@ -187,7 +187,7 @@ data:
             widget:
               type: portainer
               url: http://portainer.default.svc.cluster.local:9000
-              env: 3
+              env: 8
               key: {{HOMEPAGE_VAR_PORTAINER_TOKEN}}
 
   settings.yaml: |
