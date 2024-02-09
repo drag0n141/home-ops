@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./alert-manager/ks.yaml
+  - ./checkmk/ks.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./kube-state-metrics/ks.yaml
