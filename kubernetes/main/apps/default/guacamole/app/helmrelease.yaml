@@ -31,8 +31,8 @@ spec:
         initContainers:
           01-init-db:
             image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16.1@sha256:528aedb8e276d46ecb264b46d0d009457d9a2491f09ce4f3540d45636249c3f5
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
             envFrom: &envFrom
               - secretRef:
                   name: guacamole-secret
