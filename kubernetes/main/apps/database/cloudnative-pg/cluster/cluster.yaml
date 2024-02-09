@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: postgres16
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1-19
@@ -39,7 +39,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://minio.${SECRET_DOMAIN_INT}
-      serverName: postgres
+      serverName: postgres16
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
