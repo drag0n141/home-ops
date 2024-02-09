@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smarter-device-manager-configmap
+  labels:
+    app.kubernetes.io/name: smarter-device-manager
+data:
+  conf.yaml: |
+    ---
+    - devicematch: ^ttyACM[0-9]*$
+      nummaxdevices: 1
