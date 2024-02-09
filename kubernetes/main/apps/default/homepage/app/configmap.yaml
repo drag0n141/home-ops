@@ -86,7 +86,7 @@ data:
     ---
     - Services:
         - Plex:
-            href: https://plex.${SECRET_DOMAIN}
+            href: https://plex.${SECRET_DOMAIN_INTERNAL}
             icon: plex.png
             description: Plex Media Server
             widget:
@@ -95,7 +95,7 @@ data:
               key: {{HOMEPAGE_VAR_DOCKER_PLEX_TOKEN}}
 
         - SABnzbd:
-            href: https://sabnzbd.${SECRET_DOMAIN_EXT02}
+            href: https://sabnzbd.${SECRET_DOMAIN_INTERNAL}
             icon: sabnzbd.png
             description: NZB Downloader
             widget:
