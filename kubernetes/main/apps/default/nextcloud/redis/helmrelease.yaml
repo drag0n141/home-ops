@@ -55,4 +55,3 @@ spec:
           redis:
             enabled: true
             port: *port
-
