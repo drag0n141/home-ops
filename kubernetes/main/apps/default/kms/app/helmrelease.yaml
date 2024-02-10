@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/drag0n141/docker-kms
-              tag: latest@sha256:6124014ead1a9b1fb4b136ce3b2e1e77e2c0951fff2765818d72c33bde1344db
+              tag: latest@sha256:c86bf1d22cf583ccba2d93316bd46e892800c7dda3de00cf368d0ef78dfe8ca3
             env:
               TZ: ${TIMEZONE}
             resources:
