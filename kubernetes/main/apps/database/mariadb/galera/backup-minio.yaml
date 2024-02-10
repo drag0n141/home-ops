@@ -13,7 +13,7 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: https://minio.${SECRET_DOMAIN_INT}
+      endpoint: minio.${SECRET_DOMAIN_INT}
       region: us-east-1
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
