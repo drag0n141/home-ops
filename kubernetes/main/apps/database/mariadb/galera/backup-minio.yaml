@@ -14,7 +14,6 @@ spec:
     s3:
       bucket: mariadb
       endpoint: minio.${SECRET_DOMAIN_INT}
-      region: us-east-1
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
         key: aws-access-key-id
