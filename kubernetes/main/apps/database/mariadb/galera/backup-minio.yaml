@@ -12,10 +12,13 @@ spec:
   args:
     - --single-transaction
     - --all-databases
+  logLevel: info
   storage:
     s3:
       bucket: mariadb
       endpoint: https://minio.${SECRET_DOMAIN_INT}
+      tls:
+        enabled: true
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
         key: aws-access-key-id
