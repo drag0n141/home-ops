@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/drag0n141/docker-autoscan
-              tag: latest@sha256:ff5c472b9237bf8616b44901f538b79192cd626ec96eb8311984fa55ba68cdf4
+              tag: latest@sha256:32a068ba3bf7f5af3e1780e4d1600f6544a790a9dde4b63e92148aff91e21e2f
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
