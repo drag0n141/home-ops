@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/drag0n141/docker-socks5
-              tag: latest@sha256:833ebfaf6c3b62cf8b2f8b35a054b8ca539527778628e9418fdadbd6f1d22fe1
+              tag: latest@sha256:94eae6bc6d0ce42d7cbde4d72ba64301a3887081e5319a6297a767f0d9e66ebe
             env:
               TZ: ${TIMEZONE}
               PUID: "1000"
