@@ -8,11 +8,8 @@ spec:
     name: mariadb-galera
   schedule:
     cron: "0 4 * * *"
+    suspend: false
   maxRetention: 720h # 30 days
-  args:
-    - --single-transaction
-    - --all-databases
-  logLevel: info
   storage:
     s3:
       bucket: mariadb
@@ -25,6 +22,10 @@ spec:
       secretAccessKeySecretKeyRef:
         name: mariadb-secret
         key: aws-secret-access-key
+  args:
+    - --single-transaction
+    - --all-databases
+  logLevel: info
   resources:
     requests:
       cpu: 100m
