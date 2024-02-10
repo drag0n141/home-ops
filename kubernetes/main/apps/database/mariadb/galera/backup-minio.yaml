@@ -7,13 +7,14 @@ spec:
   mariaDbRef:
     name: mariadb-galera
   schedule:
-    cron: "53 19 * * *"
+    cron: "56 19 * * *"
     suspend: false
   maxRetention: 720h # 30 days
   storage:
     s3:
       bucket: mariadb
       endpoint: minio.${SECRET_DOMAIN_INT}
+      region: us-east-1
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
         key: aws-access-key-id
