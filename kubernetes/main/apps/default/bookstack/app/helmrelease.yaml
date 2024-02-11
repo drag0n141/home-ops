@@ -33,14 +33,6 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/mysql-init
-              tag: 10.11
-            envFrom: &envFrom
-              - secretRef:
-                  name: bookstack-secret
         containers:
           main:
             image:
@@ -50,7 +42,9 @@ spec:
               TZ: ${TIMEZONE}
               PGID: 1000
               PUID: 1000
-            envFrom: *envFrom
+            envFrom: &envFrom
+              - secretRef:
+                  name: bookstack-secret
     service:
       main:
         ports:
