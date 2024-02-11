@@ -51,7 +51,7 @@ spec:
         readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/onedr0p/postgres-init:16
+          image: ghcr.io/drag0n141/postgres-init:16
           envFrom:
             - secretRef: &envFrom
                 name: nextcloud-secret
