@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.12.2.4211@sha256:3d774a4cbeac82cd4bfdb96097836fadd082db318d631598bfb3e76a26caf73a
+              tag: 1.13.3.4273@sha256:7645fa4904027d22b70ce73bfe86b4a03f604867d717aee4e92da4a950af830e
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
