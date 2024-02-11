@@ -13,7 +13,7 @@ spec:
   storage:
     s3:
       bucket: mariadb
-      endpoint: minio.${SECRET_DOMAIN_INT}
+      endpoint: minio.${SECRET_DOMAIN_INT}:443
       region: us-east-1
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
@@ -21,6 +21,11 @@ spec:
       secretAccessKeySecretKeyRef:
         name: mariadb-secret
         key: aws-secret-access-key
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: mariadb-files
+          key: ca.crt
   args:
     - --single-transaction
     - --all-databases
