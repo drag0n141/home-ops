@@ -31,7 +31,7 @@ spec:
         initContainers:
           01-init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/drag0n141/postgres-init
               tag: 16
             envFrom: &envFrom
               - secretRef:
@@ -48,7 +48,7 @@ spec:
               - /opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql
           03-init-migrations:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/drag0n141/postgres-init
               tag: 16
             envFrom: *envFrom
             command:
