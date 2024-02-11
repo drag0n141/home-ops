@@ -38,18 +38,18 @@ spec:
               TZ: ${TIMEZONE}
               LOG_LEVEL: info
               CRON: "*/10 * * * *"
-              RUNONSTART: true
+              RUN_ON_STAR: true
               API_PORT: &port 8080
-              FEATURES_GENERALSETTINGS: true
-              FEATURES_QUERYLOGCONFIG: true
-              FEATURES_STATSCONFIG: true
-              FEATURES_CLIENTSETTINGS: true
+              FEATURES_GENERAL_SETTINGS: true
+              FEATURES_QUERY_LOG_CONFIG: true
+              FEATURES_STATS_CONFIG: true
+              FEATURES_CLIENT_SETTINGS: true
               FEATURES_SERVICES: true
               FEATURES_FILTERS: true
-              FEATURES_DHCP_SERVERCONFIG: false
-              FEATURES_DHCP_STATICLEASES: false
-              FEATURES_DNS_SERVERCONFIG: true
-              FEATURES_DNS_ACCESSLISTS: true
+              FEATURES_DHCP_SERVER_CONFIG: false
+              FEATURES_DHCP_STATIC_LEASES: false
+              FEATURES_DNS_SERVER_CONFIG: true
+              FEATURES_DNS_ACCESS_LISTS: true
               FEATURES_DNS_REWRITES: true
             envFrom:
               - secretRef:
