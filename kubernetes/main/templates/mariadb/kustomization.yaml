@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ./database.yaml
   - ./grant.yaml
-  - ./secret.yaml
   - ./user.yaml
