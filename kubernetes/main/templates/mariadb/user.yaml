@@ -1,0 +1,12 @@
+---
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: User
+metadata:
+  name: "${APP}"
+spec:
+  mariaDbRef:
+    name: mariadb-galera
+  passwordSecretKeyRef:
+    name: "${APP}-mariadb-secret"
+    key: password
+  maxUserConnections: 20
