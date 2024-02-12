@@ -31,7 +31,7 @@ spec:
     cni:
       image:
         repository: ghcr.io/onedr0p/cni-plugins
-        tag: 1.4.0@sha256:51db2248cb1ac7c73163e740ceaebcdef9e14b84a53e36b2f0880e6c05d67e0f
+        tag: 1.4.0@sha256:20435e42f07eced0caeb95341cb0c565cd84b118be968eebfa28aa4e8cfbfeba
       paths:
         config: /etc/cni/net.d
         bin: /opt/cni/bin
