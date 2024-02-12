@@ -7,6 +7,6 @@ spec:
   mariaDbRef:
     name: mariadb-galera
   passwordSecretKeyRef:
-    name: "${APP}-mariadb-secret"
-    key: password
+    name: "${APP}-secret"
+    key: MARIADB_PASSWORD
   maxUserConnections: 20
