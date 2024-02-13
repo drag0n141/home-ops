@@ -55,7 +55,6 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
     service:
       main:
         type: LoadBalancer
