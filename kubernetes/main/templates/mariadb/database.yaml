@@ -8,5 +8,6 @@ spec:
   name: "${MARIADB_DATABASE:-${APP}_db}"
   mariaDbRef:
     name: mariadb-galera
+    namespace: database
   characterSet: "${MARIADB_CHARACTERSET:-utf8}"
   collate: "${MARIADB_COLLATE:-utf8_general_ci}"
