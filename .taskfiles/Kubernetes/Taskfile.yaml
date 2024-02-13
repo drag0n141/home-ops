@@ -20,7 +20,7 @@ tasks:
             "containers": [
               {
                 "name": "debug",
-                "image": "ghcr.io/onedr0p/alpine:rolling",
+                "image": "ghcr.io/drag0n141/alpine:latest",
                 "command": ["/bin/bash"],
                 "stdin": true,
                 "stdinOnce": true,
