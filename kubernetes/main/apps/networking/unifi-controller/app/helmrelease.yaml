@@ -36,18 +36,27 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/linuxserver/unifi-controller
-              tag: 8.0.24@sha256:0ae315a3a45635e443899e30e86bd507c2c48922cb27f4bc7241777885f4650e
+              repository: ghcr.io/jacobalberty/unifi-docker
+              tag: v8.0.28@sha256:f88940c7c713a6fd492be528953b83320deba91dfd86f3a499dd101223e043d5
             env:
               TZ: ${TIMEZONE}
-              PUID: 1000
-              PGID: 1000
+              RUNAS_UID0: false
+              UNIFI_UID: 999
+              UNIFI_GID: 999
+              UNIFI_STDOUT: true
+              JVM_MAX_HEAP_SIZE: 1024M
             resources:
               requests:
                 cpu: 10m
                 memory: 50M
               limits:
                 memory: 1024M
+        pod:
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            fsGroup: 999
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         annotations:
@@ -95,4 +104,4 @@ spec:
         enabled: true
         existingClaim: unifi-controller
         globalMounts:
-          - path: /config
+          - path: /unifi
