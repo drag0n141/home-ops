@@ -38,10 +38,6 @@ spec:
               tag: 1.4.3@sha256:a9783b42660271fb961ce250052713abcfbafee677e629190c328a394b994112
             env:
               TZ: ${TIMEZONE}
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
