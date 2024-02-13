@@ -36,18 +36,28 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/drag0n141/docker-autoscan
-              tag: latest@sha256:32a068ba3bf7f5af3e1780e4d1600f6544a790a9dde4b63e92148aff91e21e2f
+              repository: ghcr.io/drag0n141/autoscan
+              tag: 1.4.0@sha256:0c2719183f35387c90d7ca169503c21d04ed9d82f65f766bbf0e34d2a4faac7c
             env:
               TZ: ${TIMEZONE}
-              PGID: 1000
-              PUID: 1000
               AUTOSCAN_VERBOSITY: 0
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 512Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
       main:
         ports:
