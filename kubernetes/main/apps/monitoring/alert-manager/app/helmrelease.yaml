@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: quay.io/prometheus/alertmanager
-              tag: main@sha256:bbbdd0eda3fcdff13a4d6b47600991db8cabb26cbad7afedaabde5d85d199c41
+              tag: main@sha256:373918275e989b742d75d667b539e99d805617185d751326ff2a77bed851f745
             env:
               TZ: ${TIMEZONE}
             resources:
