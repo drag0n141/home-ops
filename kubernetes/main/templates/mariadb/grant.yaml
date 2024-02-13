@@ -11,5 +11,4 @@ spec:
   database: "${MARIADB_DATABASE:-${APP}_db}"
   table: "*"
   username: "${MARIADB_USERNAME:-${APP}}"
-  grantOption: true
   host: "%"
