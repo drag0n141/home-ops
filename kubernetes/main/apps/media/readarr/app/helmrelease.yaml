@@ -43,8 +43,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.18.2411@sha256:a1d9eb2001d499322e00876106a675c36b6f750cd253843595bb8e022a54f37a
+              repository: ghcr.io/drag0n141/readarr-develop
+              tag: 0.3.18@sha256:a8943b8922d92efe33216cf19b7062b6ca417372a1415a8104a59ba99ee81df8
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
