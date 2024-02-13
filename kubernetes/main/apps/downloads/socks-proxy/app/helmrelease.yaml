@@ -35,12 +35,12 @@ spec:
           main:
             image:
               repository: ghcr.io/drag0n141/socks5
-              tag: 1.4.3@sha256:e817bf5fe2d050622e870433ead57d59a2c855c99f70a43ccbb067993759fb49
+              tag: 1.4.3@sha256:5aa1d949bd121669a06db4884c158e442da63b186436130c69d3401671154c55
             env:
               TZ: ${TIMEZONE}
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
