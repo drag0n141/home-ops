@@ -21,4 +21,5 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 512Mi
+      MARIADB_USERNAME: bookstack_wiki
       MARIADB_DATABASE: bookstack_wiki_db
