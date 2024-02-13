@@ -3,6 +3,7 @@ apiVersion: mariadb.mmontes.io/v1alpha1
 kind: Database
 metadata:
   name: "${APP}"
+  namespace: database
 spec:
   name: "${MARIADB_DATABASE:-${APP}_db}"
   mariaDbRef:
