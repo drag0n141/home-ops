@@ -3,10 +3,10 @@ apiVersion: mariadb.mmontes.io/v1alpha1
 kind: Grant
 metadata:
   name: "${APP}"
-  namespace: database
 spec:
   mariaDbRef:
     name: mariadb-galera
+    namespace: database
   privileges:
     - "ALL"
   database: "${MARIADB_DATABASE:-${APP}_db}"
