@@ -43,8 +43,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/lidarr
-              tag: 2.1.7.4030@sha256:9ab797438ecb48d9097b5fe867c1aa95200f05f635f462f9487af3f7a4321a83
+              repository: ghcr.io/drag0n141/lidarr
+              tag: 2.1.7.4030@sha256:b226a841d545fd247ec6b2630026bb95f9f631e15d777260930a559dddb98298
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
