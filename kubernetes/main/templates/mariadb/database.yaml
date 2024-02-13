@@ -4,7 +4,7 @@ kind: Database
 metadata:
   name: "${APP}"
 spec:
-  name: "${MARIADB_DATABASE:-_db}"
+  name: "${MARIADB_DATABASE:-${APP}_db}"
   mariaDbRef:
     name: mariadb-galera
   characterSet: "${MARIADB_CHARACTERSET:-utf8}"
