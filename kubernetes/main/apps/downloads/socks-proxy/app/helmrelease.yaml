@@ -34,18 +34,28 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/drag0n141/docker-socks5
-              tag: latest@sha256:94eae6bc6d0ce42d7cbde4d72ba64301a3887081e5319a6297a767f0d9e66ebe
+              repository: ghcr.io/drag0n141/socks5
+              tag: 1.4.3@sha256:e817bf5fe2d050622e870433ead57d59a2c855c99f70a43ccbb067993759fb49
             env:
               TZ: ${TIMEZONE}
-              PUID: "1000"
-              PGID: "1000"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
-                memory: 128M
+                memory: 128Mi
               limits:
                 memory: 128Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
       main:
         type: LoadBalancer
