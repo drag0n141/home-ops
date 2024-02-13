@@ -1,0 +1,68 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/onedr0p/home-ops/main/docs/src/assets/logo.png" align="center" width="144px" height="144px"/>
+
+### My Home Operations Repository :octocat:
+
+_... managed with Flux, Renovate, and GitHub Actions_ 🤖
+
+</div>
+
+<div align="center">
+
+[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdrag0n141%2Fhome-ops%2Fmaster%2Fkubernetes%2Fmain%2Fapps%2Fsystem%2Fsystem-upgrade-controller%2Fplans%2Fserver.yaml&query=spec.version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://k3s.io/)&nbsp;&nbsp;
+[![Renovate](https://img.shields.io/github/actions/workflow/status/drag0n141/home-ops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/drag0n141/home-ops/actions/workflows/renovate.yaml)
+
+</div>
+
+
+### :wrench:&nbsp; Tools
+
+| Tool                                                               | Purpose                                                             |
+|--------------------------------------------------------------------|---------------------------------------------------------------------|
+| [ansible](https://www.ansible.com)                                 | Preparing Ubuntu for Kubernetes and installing k3s                  |
+| [flux](https://toolkit.fluxcd.io/)                                 | Operator that manages your k8s cluster based on your Git repository |
+| [go-task](https://github.com/go-task/task)                         | A task runner / simpler Make alternative written in Go              |
+| [sops](https://github.com/mozilla/sops)                            | Encrypts k8s secrets with GnuPG                                     |
+
+
+## 💻 Nodes
+| Node             | Hostname | RAM  | Storage                      | Function          | Operating System |
+|------------------|----------|------|------------------------------|-------------------|------------------|
+| Intel NUC13ANHI3 | K3s-M01  | 64GB | OS-Disk 512GB, Rook-Disk 4TB | Kuberneter Master | Debian 12        |
+| Intel NUC13ANHI3 | K3s-M02  | 64GB | OS-Disk 512GB, Rook-Disk 4TB | Kuberneter Master | Debian 12        |
+| Intel NUC13ANHI3 | K3s-M03  | 64GB | OS-Disk 512GB, Rook-Disk 4TB | Kuberneter Master | Debian 12        |
+
+## Storage
+| Node              | Hostname  | RAM   | Storage                                                       | Function                    | Operating System |
+|-------------------|-----------|-------|---------------------------------------------------------------|-----------------------------|------------------|
+| Self-Build Server | Proxmox01 | 128GB | 6 x 20TB HDD (data), 2 x 1TB NVME (cache), 2 x 1TB NVME (vms) | VM Host and Backuup Server  | Proxmox 7.4      |
+
+## Network
+
+| Vendor   | Model                        | Function                                                              |
+|----------|------------------------------|-----------------------------------------------------------------------|
+| Mikrotik | CRS317-1G-16S+RM             | Main Rack Switch with and 10G SFP+                                    |
+| Mikrotik | CRS326-24G-2S+RM             | Second Rack Switch with RJ45, connected with 10G SFP+                 |
+| Mikrotik | CRS326-24G-2S+RM             | Livingroom Switch for TV and everything else, connected with 10G SFP+ |
+| Topton   | N5105                        | Main pfSense Router                                                   |
+
+Kubernetes nodes are on their own VLAN which has access to the NAS.
+
+## ☁️ Cloud Dependencies
+
+While most of my infrastructure and workloads are self-hosted I do rely upon the cloud for parts that are hard to self-host.
+
+| Service                                                               | Use                                                                | Cost           |
+|-----------------------------------------------------------------------|--------------------------------------------------------------------|----------------|
+| [Cloudflare](https://www.cloudflare.com/)                             | Domain Management                                                  | Free           |
+| [Netcup](https://netcup.eu/)                                          | Domain(s)                                                          | ~$24/yr        |
+| [GitHub](https://github.com/)                                         | Hosting this repository and continuous integration/deployments     | Free           |
+| [ProtonMail](https://proton.me/)                                      | Email hosting and VPN                                              | ~$90/yr        |
+| [NextDNS](https://nextdns.io/)                                        | DNS server which includes AdBlocking for Traveling                 | ~$20/yr        |
+| [Wasabi](https://wasabi.com/)                                         | S3 Offsite Backup                                                  | ~120€/yr       |                                                  
+|                                                                       |                                                                    | Total: ~20€/mo |
+
+## Stargazers
+
+[![Star History Chart](https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date)](https://star-history.com/#drag0n141/home-ops&Date)
