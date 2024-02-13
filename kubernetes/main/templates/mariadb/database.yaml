@@ -2,8 +2,9 @@
 apiVersion: mariadb.mmontes.io/v1alpha1
 kind: Database
 metadata:
-  name: "${MARIADB_DATABASE:-${APP}_db}"
+  name: "${APP}"
 spec:
+  name: "${MARIADB_DATABASE:-_db}"
   mariaDbRef:
     name: mariadb-galera
   characterSet: "${MARIADB_CHARACTERSET:-utf8}"
