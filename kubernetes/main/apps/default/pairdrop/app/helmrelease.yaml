@@ -33,8 +33,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/linuxserver/pairdrop
-              tag: 1.10.7@sha256:c5494c46613635ec5ea8ef7cdfcc6f09d2b7a48710a255cd03fab18096e324c3
+              repository: ghcr.io/schlagmichdoch/pairdrop
+              tag: v1.10.7@sha256:7ac5e3821d8a90635cf823a3b74e8a28c3c90a6ea1dfc10e3366fb4217e2901b
             env:
               TZ: ${TIMEZONE}
             resources:
@@ -43,6 +43,12 @@ spec:
                 memory: 50M
               limits:
                 memory: 256M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
