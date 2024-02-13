@@ -8,6 +8,7 @@ spec:
   name: "${MARIADB_USERNAME:-${APP}}"
   mariaDbRef:
     name: mariadb-galera
+    namespace: database
   passwordSecretKeyRef:
     name: "${APP}-secret"
     key: MARIADB_PASSWORD
