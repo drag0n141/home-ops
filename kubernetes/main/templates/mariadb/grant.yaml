@@ -8,6 +8,6 @@ spec:
     name: mariadb-galera
   privileges:
     - "ALL"
-  database: "${APP}_db"
+  database: "${MARIADB_DATABASE:-${APP}_db}"
   table: "*"
-  username: "${APP}"
+  username: "${MARIADB_USERNAME:-${APP}}"
