@@ -30,8 +30,8 @@ spec:
       tag: v4.0.2-thick@sha256:3fbcc32bd4e4d15bd93c96def784a229cd84cca27942bf4858b581f31c97ee02
     cni:
       image:
-        repository: ghcr.io/onedr0p/cni-plugins
-        tag: 1.4.0@sha256:20435e42f07eced0caeb95341cb0c565cd84b118be968eebfa28aa4e8cfbfeba
+        repository: ghcr.io/drag0n141/cni-plugins
+        tag: 1.4.0@sha256:f750765a8065ec5092e692c2ae645b0f138aa41e3df0eaf34aeeb85f96d52011
       paths:
         config: /etc/cni/net.d
         bin: /opt/cni/bin
