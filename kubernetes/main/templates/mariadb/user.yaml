@@ -10,5 +10,5 @@ spec:
   passwordSecretKeyRef:
     name: "${APP}-secret"
     key: MARIADB_PASSWORD
-  maxUserConnections: 20
+  maxUserConnections: 10
   host: "%"
