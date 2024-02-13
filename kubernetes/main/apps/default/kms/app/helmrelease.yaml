@@ -31,10 +31,14 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/drag0n141/docker-kms
-              tag: latest@sha256:c86bf1d22cf583ccba2d93316bd46e892800c7dda3de00cf368d0ef78dfe8ca3
+              repository: ghcr.io/drag0n141/kms
+              tag: svn1113@sha256:7fe95aa8a5d983058d95f8702edf50ac782226bbadadd9172b115927e64304ae
             env:
               TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -48,6 +52,14 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
       main:
         type: LoadBalancer
