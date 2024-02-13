@@ -5,3 +5,4 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
   - ../../../../templates/volsync
+  - ../../../../templates/mariadb
