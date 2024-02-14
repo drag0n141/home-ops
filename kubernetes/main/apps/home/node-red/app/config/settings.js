@@ -12,13 +12,13 @@ module.exports = {
       icon: "fa-cloud",
       strategy: require("passport-openidconnect").Strategy,
       options: {
-        issuer: process.env.NODE_RED_OAUTH_ISSUER_URL,
-        authorizationURL: process.env.NODE_RED_OAUTH_AUTH_URL,
-        tokenURL: process.env.NODE_RED_OAUTH_TOKEN_URL,
-        userInfoURL: process.env.NODE_RED_OAUTH_USER_URL,
+        issuer: "https://authelia.${SECRET_DOMAIN}",
+        authorizationURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/authorization",
+        tokenURL: "http://authelia.security.svc.cluster.local:9091/api/oidc/token",
+        userInfoURL: "http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo",
         clientID: "nodered",
         clientSecret: process.env.NODE_RED_OAUTH_CLIENT_SECRET,
-        callbackURL: process.env.NODE_RED_OAUTH_CALLBACK_URL,
+        callbackURL: "https://nodered.${SECRET_DOMAIN_INTERNAL}/auth/strategy/callback",
         scope: ["email", "profile", "openid"],
         proxy: true,
         verify: function (issuer, profile, done) {
