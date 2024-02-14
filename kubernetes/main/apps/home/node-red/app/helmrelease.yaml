@@ -78,7 +78,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: node-red
         globalMounts:
           - path: /data
@@ -89,5 +88,3 @@ spec:
           - path: /data/settings.js
             subPath: settings.js
             readOnly: true
-      tmp:
-        type: emptyDir
