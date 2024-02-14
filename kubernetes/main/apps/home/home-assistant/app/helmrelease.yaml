@@ -35,8 +35,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.2.1@sha256:42c9a659bedd062d3521fdbf482b813745049c7483c6d370cf2d0b622175777f
+              repository: ghcr.io/drag0n141/home-assistant
+              tag: 2024.2.1@sha256:00d0700c84b46c320f5f9ece64c105509c0e67da32b9f158cc4b32a46ee6f38e
             env:
               TZ: ${TIMEZONE}
             probes:
