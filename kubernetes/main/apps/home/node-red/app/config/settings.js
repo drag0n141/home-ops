@@ -82,4 +82,4 @@ module.exports = {
 
   mqttReconnectTime: 15000,
   serialReconnectTime: 15000,
-};
+}
