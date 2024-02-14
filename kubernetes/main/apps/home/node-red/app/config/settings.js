@@ -14,8 +14,8 @@ module.exports = {
       options: {
         issuer: "https://authelia.${SECRET_DOMAIN}",
         authorizationURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/authorization",
-        tokenURL: "http://authelia.security.svc.cluster.local:9091/api/oidc/token",
-        userInfoURL: "http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo",
+        tokenURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/token",
+        userInfoURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo",
         clientID: "nodered",
         clientSecret: process.env.NODE_RED_OAUTH_CLIENT_SECRET,
         callbackURL: "https://nodered.${SECRET_DOMAIN_INTERNAL}/auth/strategy/callback",
