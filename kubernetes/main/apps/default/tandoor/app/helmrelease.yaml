@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
-              tag: 1.5.12
+              tag: 1.5.13
             env:
               TIMEZONE: ${TIMEZONE}
               DEBUG: "0"
