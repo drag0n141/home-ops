@@ -22,7 +22,7 @@ module.exports = {
         scope: ["email", "profile", "openid"],
         proxy: true,
         verify: function (issuer, profile, done) {
-          done(null, profile);
+          done(null, profile)
         },
       },
     },
