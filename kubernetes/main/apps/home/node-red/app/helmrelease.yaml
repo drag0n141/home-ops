@@ -42,6 +42,10 @@ spec:
             envFrom:
               - secretRef:
                   name: node-red-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
