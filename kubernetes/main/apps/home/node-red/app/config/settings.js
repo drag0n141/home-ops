@@ -3,6 +3,32 @@ module.exports = {
   credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET,
   flowFilePretty: true,
 
+  adminAuth: {
+    type: "strategy",
+    strategy: {
+      name: "openidconnect",
+      autoLogin: true,
+      label: "Sign in",
+      icon: "fa-cloud",
+      strategy: require("passport-openidconnect").Strategy,
+      options: {
+        issuer: "https://authelia.${SECRET_DOMAIN}",
+        authorizationURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/authorization",
+        tokenURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/token",
+        userInfoURL: "https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo",
+        clientID: "nodered",
+        clientSecret: process.env.NODE_RED_OAUTH_CLIENT_SECRET,
+        callbackURL: "https://nodered.${SECRET_DOMAIN_INTERNAL}/auth/strategy/callback",
+        scope: ["email", "profile", "openid"],
+        proxy: true,
+        verify: function (issuer, profile, done) {
+          done(null, profile)
+        },
+      },
+    },
+    users: [{username: "DrAg0n141", permissions: ["*"]}],
+  },
+
   uiPort: process.env.PORT || 1880,
 
   diagnostics: {
