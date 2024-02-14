@@ -39,11 +39,6 @@ spec:
               tag: 3.1.5@sha256:924ad08270bb8de2646586cbf65bd9d1aaad8f17576e216f076efaa52c5b17ce
             env:
               TZ: ${TIMEZONE}
-              NODE_RED_OAUTH_ISSUER_URL: https://authelia.${SECRET_DOMAIN}
-              NODE_RED_OAUTH_AUTH_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/authorization
-              NODE_RED_OAUTH_CALLBACK_URL: https://nodered.${SECRET_DOMAIN_INTERNAL}/auth/strategy/callback
-              NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
-              NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
             envFrom:
               - secretRef:
                   name: node-red-secret
