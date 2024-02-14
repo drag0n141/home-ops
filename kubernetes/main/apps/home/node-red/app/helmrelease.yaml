@@ -89,3 +89,5 @@ spec:
           - path: /data/settings.js
             subPath: settings.js
             readOnly: true
+      tmp:
+        type: emptyDir
