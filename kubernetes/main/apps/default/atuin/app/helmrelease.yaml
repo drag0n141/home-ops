@@ -44,10 +44,17 @@ spec:
             args: ["server", "start"]
             env:
               TZ: ${TIMEZONE}
-              ATUIN_HOST: "0.0.0.0"
-              ATUIN_PORT: 8888
+              ATUIN_HOST: 0.0.0.0
+              ATUIN_PORT: &port 8888
               ATUIN_OPEN_REGISTRATION: true
+              ATUIN_METRICS__HOST: 0.0.0.0
+              ATUIN_METRICS__PORT: &metricsPort 8080
+              ATUIN_TLS__ENABLE: "false"
             envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 128Mi
@@ -65,7 +72,18 @@ spec:
       main:
         ports:
           http:
-            port: 8888
+            port: *port
+          metrics:
+            port: *metricsPort
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       main:
         enabled: true
