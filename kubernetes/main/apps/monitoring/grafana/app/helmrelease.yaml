@@ -169,23 +169,6 @@ spec:
             url: http://alert-manager.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
-          - name: Blocky
-            type: postgres
-            uid: blocky
-            access: proxy
-            url: postgres-ro.database.svc.cluster.local
-            user: ${BLOCKY_POSTGRES_USER}
-            jsonData:
-              database: ${BLOCKY_POSTGRES_DB}
-              sslmode: "disable"
-              maxOpenConns: 100
-              maxIdleConns: 100
-              maxIdleConnsAuto: true
-              connMaxLifetime: 14400
-              postgresVersion: 1600
-              timescaledb: false
-            secureJsonData:
-              password: ${BLOCKY_POSTGRES_PASS}
     dashboards:
       default:
         cloudflared:
