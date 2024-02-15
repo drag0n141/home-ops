@@ -74,15 +74,11 @@ spec:
               - secretRef:
                   name: zigbee2mqtt-secret
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              privileged: true
             resources:
               requests:
-                smarter-devices/ttyACM0: 1
                 cpu: 10m
               limits:
-                smarter-devices/ttyACM0: 1
                 memory: 512Mi
         pod:
           nodeSelector:
