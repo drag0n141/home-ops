@@ -198,7 +198,8 @@ spec:
           revision: 4
           datasource: Prometheus
         cloudnative-pg:
-          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
+          gnetId: 20417 # https://grafana.com/grafana/dashboards/20417?tab=revisions
+          revision: 1
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
