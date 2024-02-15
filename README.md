@@ -29,9 +29,9 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 ## 💻 Nodes
 | Node             | Hostname | RAM  | Storage                      | Function          | Operating System |
 |------------------|----------|------|------------------------------|-------------------|------------------|
-| Intel NUC13ANHI3 | K3s-M01  | 64GB | OS-Disk 512GB, Rook-Disk 4TB | Kuberneter Master | Debian 12        |
-| Intel NUC13ANHI3 | K3s-M02  | 64GB | OS-Disk 512GB, Rook-Disk 4TB | Kuberneter Master | Debian 12        |
-| Intel NUC13ANHI3 | K3s-M03  | 64GB | OS-Disk 512GB, Rook-Disk 4TB | Kuberneter Master | Debian 12        |
+| Intel NUC13ANHI5 | K3s-M01  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
+| Intel NUC13ANHI5 | K3s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
+| Intel NUC13ANHI5 | K3s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
 
 ## Stor
 | Node              | Hostname  | RAM   | Storage                                                       | Function        | Operating System |
