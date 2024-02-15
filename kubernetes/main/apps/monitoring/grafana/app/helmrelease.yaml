@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   values:
     extraInitContainers:
-      - name: 01-init-db
+      - name: init-db
         image: ghcr.io/drag0n141/postgres-init:16
         envFrom:
           - secretRef:
