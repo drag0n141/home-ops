@@ -169,6 +169,23 @@ spec:
             url: http://alert-manager.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
+          - name: Blocky
+            type: postgres
+            uid: blocky
+            access: proxy
+            url: postgres-ro.database.svc.cluster.local
+            user: ${BLOCKY_POSTGRES_USER}
+            jsonData:
+              database: ${BLOCKY_POSTGRES_DB}
+              sslmode: "disable"
+              maxOpenConns: 100
+              maxIdleConns: 100
+              maxIdleConnsAuto: true
+              connMaxLifetime: 14400
+              postgresVersion: 1600
+              timescaledb: false
+            secureJsonData:
+              password: ${BLOCKY_POSTGRES_PASS}
     dashboards:
       default:
         cloudflared:
@@ -215,9 +232,7 @@ spec:
               value: https:\\/\\/blocky.networking.svc.cluster.local:4000
         blocky-query:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
-          datasource:
-            - name: DS_POSTGRES
-              value: Blocky
+          datasource: Blocky
       ceph:
         ceph-cluster:
           gnetId: 2842 # https://grafana.com/grafana/dashboards/2842?tab=revisions
