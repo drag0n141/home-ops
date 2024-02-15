@@ -8,8 +8,5 @@ configMapGenerator:
   - name: blocky-configmap
     files:
       - ./config/config.yml
-  - name: blocky-datasource
-    files:
-      - ./datasource/datasource.yaml
 generatorOptions:
   disableNameSuffixHash: true
