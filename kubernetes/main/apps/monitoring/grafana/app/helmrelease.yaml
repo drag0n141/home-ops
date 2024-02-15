@@ -43,7 +43,6 @@ spec:
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN_INTERNAL}
-      VAR_BLOCKY_URL: http://blocky.networking.svc.cluster.local:4000
     envFromSecrets:
       - name: *secret
     grafana.ini:
@@ -90,7 +89,7 @@ spec:
               path: /var/lib/grafana/dashboards/default
           - name: blocky
             orgId: 1
-            folder: ""
+            folder: Blocky
             type: file
             disableDeletion: false
             editable: true
@@ -205,7 +204,11 @@ spec:
         blocky:
           gnetId: 13768
           revision: 3
-          datasource: Prometheus
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+            - name: VAR_BLOCKY_URL
+              value: https:\\/\\/blocky.networking.svc.cluster.local:4000
         blocky-query:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
           datasource:
