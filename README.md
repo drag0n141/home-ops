@@ -43,7 +43,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 
 | Vendor   | Model                        | Function                                                              |
 |----------|------------------------------|-----------------------------------------------------------------------|
-| Mikrotik | CRS317-1G-16S+RM             | Main Rack Switch with and 10G SFP+                                    |
+| Mikrotik | CRS317-1G-16S+RM             | Main Rack Switch and 10G SFP+                                        |
 | Mikrotik | CRS326-24G-2S+RM             | Second Rack Switch with RJ45, connected with 10G SFP+                 |
 | Mikrotik | CRS326-24G-2S+RM             | Livingroom Switch for TV and everything else, connected with 10G SFP+ |
 | Topton   | N5105                        | Main pfSense Router                                                   |
