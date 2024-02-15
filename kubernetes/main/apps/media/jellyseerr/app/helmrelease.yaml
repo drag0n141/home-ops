@@ -33,15 +33,24 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/drag0n141/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: jellyseerr-secret
         containers:
           main:
             image:
-              repository: ghcr.io/sct/overseerr
-              tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: preview-postgres@sha256:15f9bd26ec3d3e6aa9b0459604a39797e0003dbb5cf7c22b2df835c3aea2c503
             env:
               TZ: ${TIMEZONE}
               LOG_LEVEL: "info"
               PORT: &port 80
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -63,8 +72,7 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
-                memory: 256Mi
+                cpu: 10m
               limits:
                 memory: 2Gi
         pod:
@@ -87,7 +95,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "overseerr.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "jellyseerr.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -98,10 +106,18 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      data:
+      config:
         enabled: true
-        existingClaim: overseerr
+        existingClaim: jellyseerr
         globalMounts:
           - path: /app/config
+      cache:
+        existingClaim: jellyseerr-cache
+        globalMounts:
+          - path: /app/config/cache
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config/logs
       tmp:
         type: emptyDir
