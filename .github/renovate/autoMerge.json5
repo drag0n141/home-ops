@@ -15,7 +15,7 @@
       "automerge": true,
       "automergeType": "branch",
       "ignoreTests": true,
-      "excludePackagePatterns": ["authelia"],
+      "excludePackagePatterns": [],
       "matchUpdateTypes": ["minor", "patch", "digest"]
     }
   ]
