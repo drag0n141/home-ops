@@ -6,16 +6,16 @@ datasources:
     type: postgres
     uid: blocky
     access: proxy
-    url: postgres-ro.database.svc.cluster.local:5432
+    url: postgres-ro.database.svc.cluster.local
     user: ${BLOCKY_POSTGRES_USER}
     jsonData:
       database: ${BLOCKY_POSTGRES_DB}
-      sslmode: disable
+      sslmode: "disable"
       maxOpenConns: 100
       maxIdleConns: 100
       maxIdleConnsAuto: true
       connMaxLifetime: 14400
-      postgresVersion: 1500
+      postgresVersion: 1600
       timescaledb: false
     secureJsonData:
       password: ${BLOCKY_POSTGRES_PASS}
