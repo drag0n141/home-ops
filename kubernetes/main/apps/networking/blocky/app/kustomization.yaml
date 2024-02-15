@@ -4,10 +4,12 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
-  - ./datasource
 configMapGenerator:
   - name: blocky-configmap
     files:
       - ./config/config.yml
+  - name: blocky-datasource
+    files:
+      - ./datasource/datasource.yaml
 generatorOptions:
   disableNameSuffixHash: true
