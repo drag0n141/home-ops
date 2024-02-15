@@ -197,11 +197,6 @@ spec:
           gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
           revision: 1
           datasource: Prometheus
-        minio:
-          gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
-          revision: 23
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         node-exporter-full:
           gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
@@ -209,10 +204,6 @@ spec:
         redis:
           gnetId: 763 # https://grafana.com/grafana/dashboards/763?tab=revisions
           revision: 5
-          datasource: Prometheus
-        zfs:
-          gnetId: 7845 # https://grafana.com/grafana/dashboards/7845?tab=revisions
-          revision: 4
           datasource: Prometheus
         cloudnative-pg:
           gnetId: 20417 # https://grafana.com/grafana/dashboards/20417?tab=revisions
