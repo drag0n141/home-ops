@@ -321,7 +321,6 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
-        label: grafana_datasource
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
