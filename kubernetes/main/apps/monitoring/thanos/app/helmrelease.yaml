@@ -59,6 +59,10 @@ spec:
       type: s3
       config:
         insecure: true
+    receive:
+      enabled: false
+      networkPolicy:
+        enabled: false
     queryFrontend:
       enabled: true
       replicaCount: 2
@@ -74,6 +78,8 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      networkPolicy:
+        enabled: false
     query:
       enabled: true
       replicaCount: 2
@@ -83,9 +89,13 @@ spec:
         sidecarsNamespace: monitoring
       stores:
         - thanos-svc-nas.${SECRET_DOMAIN_INTERNAL}:10901
+      networkPolicy:
+        enabled: false
     bucketweb:
       enabled: true
       replicaCount: 2
+      networkPolicy:
+        enabled: false
     compactor:
       enabled: true
       extraFlags:
@@ -98,6 +108,8 @@ spec:
         enabled: true
         storageClass: local-hostpath
         size: 10Gi
+      networkPolicy:
+        enabled: false
     storegateway:
       enabled: true
       replicaCount: 2
@@ -105,6 +117,8 @@ spec:
         enabled: true
         storageClass: local-hostpath
         size: 1Gi
+      networkPolicy:
+        enabled: false
     ruler:
       enabled: true
       replicaCount: 2
@@ -133,6 +147,8 @@ spec:
           memory: 128M
         limits:
           memory: 256M
+      networkPolicy:
+        enabled: false
     metrics:
       enabled: true
       serviceMonitor:
