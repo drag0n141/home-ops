@@ -13,6 +13,7 @@ includes:
   ansible: .taskfiles/Ansible/Taskfile.yaml
   flux: .taskfiles/Flux/Taskfile.yaml
   kubernetes: .taskfiles/Kubernetes/Taskfile.yaml
+  rook: .taskfiles/Rook/Taskfile.yaml
   sops: .taskfiles/Sops/Taskfile.yaml
   volsync: .taskfiles/VolSync/Taskfile.yaml
 
