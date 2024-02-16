@@ -5,6 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./actual/ks.yaml
   - ./adguardhome-sync/ks.yaml
   - ./app-2fauth/ks.yaml
   - ./atuin/ks.yaml
