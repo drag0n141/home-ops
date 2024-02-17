@@ -41,6 +41,7 @@ spec:
               tag: 1.40.0.7998-c29d4c0c8@sha256:ddea0aeb9b48c118cba28018bb6a78c8933205db07ae425887dc97ba71658a52
             env:
               TZ: ${TIMEZONE}
+              PLEX_ADVERTISE_URL: https://${PLEX_LB_ADDR}:32400
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24,192.168.140.0/24
             probes:
               liveness: &probes
