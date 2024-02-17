@@ -8,7 +8,5 @@ metadata:
 data:
   conf.yaml: |
     ---
-    - devicematch: ^SONOFF$
-      nummaxdevices: 1
     - devicematch: ^ttyACM[0-9]*$
       nummaxdevices: 1
