@@ -110,10 +110,10 @@ spec:
         existingClaim: plex
         globalMounts:
           - path: /config
+      tmp:
+        type: emptyDir
       transcode:
         type: emptyDir
-        globalMounts:
-          - path: /transcode
       media:
         type: nfs
         server: ${SECRET_NFS_SERVER}
