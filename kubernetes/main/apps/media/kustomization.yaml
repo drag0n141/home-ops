@@ -10,7 +10,7 @@ resources:
   - ./lidarr/ks.yaml
   - ./moviematch/ks.yaml
   - ./plex-meta-manager/ks.yaml
-  - ./plex/ks.yaml
+  # - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./radarr4k/ks.yaml
   - ./readarr/ks.yaml
