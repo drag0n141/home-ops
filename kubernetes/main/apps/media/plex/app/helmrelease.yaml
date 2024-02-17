@@ -44,18 +44,10 @@ spec:
               PLEX_ADVERTISE_URL: https://${PLEX_LB_ADDR}:32400
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24,192.168.140.0/24
             probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /identity
-                    port: 32400
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
               startup:
                 enabled: false
             securityContext:
@@ -71,13 +63,6 @@ spec:
         pod:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [44, 10000]
     service:
       main:
         type: LoadBalancer
