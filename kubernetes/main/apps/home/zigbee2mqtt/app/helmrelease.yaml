@@ -79,14 +79,14 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                smarter-devices/ttyACM0: 1
+                smarter-devices/SONOFF: 1
                 cpu: 10m
               limits:
-                smarter-devices/ttyACM0: 1
+                smarter-devices/SONOFF: 1
                 memory: 512Mi
         pod:
           nodeSelector:
-            phoscon.feature.node.kubernetes.io/conbee: "true"
+            zigbee.feature.node.kubernetes.io/sonoff: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
