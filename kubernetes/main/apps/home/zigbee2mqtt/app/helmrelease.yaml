@@ -79,10 +79,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                smarter-devices/SONOFF: 1
+                smarter-devices/ttyACM0: 1
                 cpu: 10m
               limits:
-                smarter-devices/SONOFF: 1
+                smarter-devices/ttyACM0: 1
                 memory: 512Mi
         pod:
           nodeSelector:
