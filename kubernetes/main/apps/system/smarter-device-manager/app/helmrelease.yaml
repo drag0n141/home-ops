@@ -41,11 +41,13 @@ spec:
                 memory: 50Mi
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
         pod:
           priorityClassName: system-node-critical
+    service:
+      main:
+        enabled: false
     persistence:
       config:
         enabled: true
