@@ -41,6 +41,22 @@ spec:
               tag: 1.40.0.7998-c29d4c0c8@sha256:ddea0aeb9b48c118cba28018bb6a78c8933205db07ae425887dc97ba71658a52
             env:
               TZ: ${TIMEZONE}
+              PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24,192.168.140.0/24
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: 32400
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -60,7 +76,7 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [44, 105, 10000]
+            supplementalGroups: [44, 10000]
     service:
       main:
         type: LoadBalancer
