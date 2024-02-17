@@ -69,7 +69,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 38400
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
-              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ezsp
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
