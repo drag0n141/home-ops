@@ -1,10 +1,10 @@
 apiVersion: v1
 data:
-    mosquitto_pwd: ENC[AES256_GCM,data:LHZUZ3b7Y5d4sgBHv81k1+1Hf6/shq+q/7xgshz3ZTy2fs4Z++yO0aGSGa2dVv88,iv:WTtBzLukjs96EH4CFIFo25pHQuzzbmcBD9E7nI02I3k=,tag:utZCov0k4RjqGKbjQKfPVg==,type:str]
+    users: ENC[AES256_GCM,data:0H5xql8iln+k90NPGp+AQ+9H/GhXCtpRiS00ntDTQwWd289DXDDVDih2ijO4vMj/fgZ4ZYiQky/LMhRnSkSAmN/nIxK6+H5Cb2nIv68M9ArYIewXF4ri8zyAD7LY8DFq+JWgBnx7264h2eyfKP+n2bHH,iv:QIAI35pHk5DjGxA2vAsC1EZaI3vTdvb57WydQVmGvHs=,tag:5gGP3WHxZMT3pxCCXsJ1MA==,type:str]
 kind: Secret
 metadata:
     creationTimestamp: null
-    name: mosquitto-files
+    name: radicale-files
     namespace: home
 sops:
     kms: []
@@ -21,8 +21,8 @@ sops:
             KzExbEthNC90aVBPZjRNK3RIR2g5dFkKEVz9U8gCZL7viqIkSHRIYuOnX2iwSGhQ
             m/qpiH1SBxaRFpf+yFTfCiTf7kl+2uyrWwsE0zi6lVJQXoRJXrHqRg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-02-07T14:20:59Z"
-    mac: ENC[AES256_GCM,data:/qXUWI9I/+a5Wvi/tfeNszPgmeFTCUpgUuKBoCKnpo8Ni+x7rHattKwJ5p0S9OsJgRulE7gxAbK4p1ZZkQ1YdXiN1AxOCggZejEXozlrBN3OUPgFtu+9f4Sld/8t8A/Bm3kXtdpZmm/OzGIkE6st5myOy9SgsgrTAG12wWljrX4=,iv:zcjeMvIw6ApWkGCug0WhzftrTTVwbkne7Epitgibu24=,tag:/fUQLMjlIRlIPbVbWdpD8A==,type:str]
+    lastmodified: "2024-02-19T20:29:06Z"
+    mac: ENC[AES256_GCM,data:5bF6xfTGZYL6ibqnJL9HiEi0svR39AWownoY5TR8L5aNqktvkCgTLLNWAplmkUQXfmxbNo7/gQA/nGAE9jqP4VWtWRD6nVxCctRJzWu2zBy1yxijIhLr8AcS+c1DZrv15r3YQtjhpHUpiCxl33LF/OrEKaOApvDaJ1dcdBCFXN4=,iv:C49Jp6NHdn2mNYFGnWGYZKKRFJibFYMJIImhSwPvC4w=,tag:JtBi7u+v4Jh0HSlxOc6Q4A==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.8.1
