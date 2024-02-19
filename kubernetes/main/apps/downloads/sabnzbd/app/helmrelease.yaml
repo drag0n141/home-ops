@@ -123,4 +123,4 @@ spec:
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/nzb
         globalMounts:
-          - path: /mnt/user/nzb
+          - path: /nzb
