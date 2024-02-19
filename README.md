@@ -33,13 +33,13 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 | Intel NUC13ANHI5 | K3s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
 | Intel NUC13ANHI5 | K3s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
 
-## Stor
+## 💽 Server
 | Node              | Hostname  | RAM   | Storage                                                       | Function        | Operating System |
 |-------------------|-----------|-------|---------------------------------------------------------------|-----------------|------------------|
 | Self-Build Server | Proxmox01 | 128GB | 6 x 20TB HDD (data), 2 x 1TB NVME (cache), 2 x 1TB NVME (vms) | VM Host and NAS | Proxmox 7.4      |
 | Self-Build Server | Proxmox02 | 256GB | 5 x 8TB HDD (data), 2 x 1TB SSD (vms)                         | Backup Server   | Proxmox 7.4      |
 
-## Network
+## 🌐 Network
 
 | Vendor   | Model                        | Function                                                              |
 |----------|------------------------------|-----------------------------------------------------------------------|
