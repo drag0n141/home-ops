@@ -62,12 +62,14 @@ spec:
               FEATURES_ROBOTS_TXT: "false"
               FEATURES_USER_REGISTRATION: "false"
               # Uploader
+              UPLOADER_ROUTE: /u
+              UPLOADER_LENGTH: 6
               UPLOADER_DEFAULT_FORMAT: "DATE"
               UPLOADER_DISABLED_EXTENSIONS: "ps1,pdf,bat,exe,sh,fish"
               UPLOADER_FORMAT_DATE: "YYYY-MM-DD_HH-mm-ss"
               UPLOADER_DEFAULT_EXPIRATION: ""
               # URLs
-              URLS_ROUTE: &shorten /g
+              URLS_ROUTE: /g
               URLS_LENGTH: 6
               # Website
               WEBSITE_TITLE: "Zipline"
@@ -118,7 +120,7 @@ spec:
         hosts:
           - host: &shortenhost "zl.${SECRET_DOMAIN_SHORT}"
             paths:
-              - path: *shorten
+              - path: /
                 service:
                   name: main
                   port: http
