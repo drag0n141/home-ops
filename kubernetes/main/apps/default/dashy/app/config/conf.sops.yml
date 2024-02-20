@@ -290,7 +290,7 @@ sections:
           description: ENC[AES256_GCM,data:SlPobok/eUxDTLxzDXNLdQ==,iv:C/RjxmHyID4Tv94B7iXoouFDeE/LNiObOiE8ITEkvWo=,tag:QoGMQqT8eTQUwXYvc7eZqA==,type:str]
           url: ENC[AES256_GCM,data:LaIZXvIscrdtkZVAGX408nqeUw==,iv:qTeEVvcWu1fojqKjcWf56PYnPDnGxOZsq+t3K4tfqmI=,tag:7pvq4+iObQITyA7GOHk/Vw==,type:str]
           target: ENC[AES256_GCM,data:YnInBoODcQ==,iv:2iaIzKmPaY7IVfZVjQq5Zh79zTZ9J1qBTz9KTz3hBFU=,tag:3y2uSOWpch2wljJ09oE8qQ==,type:str]
-          icon: ENC[AES256_GCM,data:Lh7iNNkEN5faJA==,iv:CxTVAVzn4kLSZTp4+SB6N43Jy4yDyNRUdb/k80Cer0E=,tag:yqmtn2Py/8dCeD+nV2fUSg==,type:str]
+          icon: ENC[AES256_GCM,data:07ZXGR88Y5dRkr470CbZig==,iv:anJ3nKO5D974xSGUqIN8EdAXA7oS4PKIS5nrrrY8SJc=,tag:XCu/Mizi5is6pgmmnvDUyw==,type:str]
         - title: ENC[AES256_GCM,data:vzsyHmr7/3jgqgUQpTk=,iv:TUMLc0P8pxpdwYjQt6ZrJ0FuwFMRWcmHoFRzWh1fwao=,tag:T791UydM7F25l0PZJUkFFQ==,type:str]
           description: ENC[AES256_GCM,data:BtoMRXZ7m+sSiRqWvFk=,iv:J9TYBvIBvOnarMqrF5gZmafYfbUwSMp+ezh1wGgbVXM=,tag:D9q2tHMhjhQ6yTbAyx+9AQ==,type:str]
           url: ENC[AES256_GCM,data:DNo+EZxEkfDwtHNgiL6RmFDg6GZVARfa1uru7tUG,iv:8NkGKD9lZVHoWn1iAXCOTgvfi9gUdE6sclKg5K3sr+4=,tag:yllV4muMyxEmZuNjEkR9VQ==,type:str]
@@ -732,8 +732,8 @@ sops:
             S3Naa1FaSzNEdzN6OXg3NVJ5aDMvdGMK+GCWClRDb8sUcLSoL7Y0bv285TWcufyG
             rKU05XCEcQEclWjAcKL2OBTXXCwDzISittmHmYRVBCF2C0NNVyxd9w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-02-20T14:53:24Z"
-    mac: ENC[AES256_GCM,data:aCkdYM/OTrOp6l2NNlFjpYw8dbOZOPYZJdIT5Hfv7Hc8isfCLoOKDPvXKEvENcFULFpEeYK/g1GFwdoudaKxw6Q5FmqdFzGFCAxzkUHoVtD91WdL8EB9009nDGozCUartjdXGFA4jRvk0Ky2bye4Ov4qQVxZMU/EopoYzixc2lU=,iv:vtdHWk55ymrJTmXRLrAdXtuVIsJHFgh07XxrW3MjddE=,tag:kOXdbVFqhcIwhXbSxIXyOg==,type:str]
+    lastmodified: "2024-02-20T14:56:48Z"
+    mac: ENC[AES256_GCM,data:FOqCaO92Pn6j2M6SS9M1ITvZyTJWuxkNZHKb8HK0Sj4riTMoKX8LI/gPU6nfYfrco617T0DkNYXRUlHClUrObbyLs3Sob6bI8hWaK6AVQjejvcajDzWZDaGMz/QPd3yWFDpdZIKP5bhnYMKigqTt9gRQhxBKHcdYVAcpvh0OIrk=,iv:VHhsq2fuhsmkqfdNJygWgqnqnill8KQ6xaHy0qMfN/4=,tag:QAs2IBdt7j6klZXwJoVTUw==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.1
