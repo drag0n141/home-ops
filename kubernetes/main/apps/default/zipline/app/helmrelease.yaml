@@ -116,10 +116,9 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &shortenhost zl.${SECRET_DOMAIN_SHORT}
+          - host: &shortenhost "zl.${SECRET_DOMAIN_SHORT}"
             paths:
               - path: *shorten
-                pathType: Prefix
                 service:
                   name: main
                   port: http
