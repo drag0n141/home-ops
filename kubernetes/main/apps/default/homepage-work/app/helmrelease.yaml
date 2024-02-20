@@ -79,3 +79,12 @@ spec:
           - path: /app/config/widgets.yaml
             subPath: widgets.yaml
             readOnly: true
+          - path: /app/config/docker.yaml
+            subPath: docker.yaml
+            readOnly: true
+          - path: /app/config/kubernetes.yaml
+            subPath: kubernetes.yaml
+            readOnly: true
+          - path: /app/config/services.yaml
+            subPath: services.yaml
+            readOnly: true
