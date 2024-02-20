@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/diced/zipline
-              tag:  3.7.8@sha256:7eab78e72023552bf241d0a3811bed483b24ece43739e44f6afb856926a1be66
+              tag: 3.7.8@sha256:7eab78e72023552bf241d0a3811bed483b24ece43739e44f6afb856926a1be66
             env:
               TZ: ${TIMEZONE}
               # Core config
@@ -96,12 +96,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: traefik-internal
+        className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "zipline.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "zl.${SECRET_DOMAIN_SHORT}"
             paths:
               - path: /
                 service:
@@ -111,20 +111,3 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-      shorten:
-        enabled: true
-        className: traefik-external
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &shortenhost "zl.${SECRET_DOMAIN_SHORT}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *shortenhost
-            secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
