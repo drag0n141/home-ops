@@ -70,7 +70,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: Secret
+        type: secret
         name: homepage-work-files
         globalMounts:
           - path: /app/config/bookmarks.yaml
