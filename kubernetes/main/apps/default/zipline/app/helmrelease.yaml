@@ -120,23 +120,7 @@ spec:
         hosts:
           - host: &shortenhost "zl.${SECRET_DOMAIN_SHORT}"
             paths:
-              - path: /g
-                service:
-                  name: main
-                  port: http
-              - path: /u
-                service:
-                  name: main
-                  port: http
-              - path: /r
-                service:
-                  name: main
-                  port: http
-              - path: /code
-                service:
-                  name: main
-                  port: http
-              - path: /view
+              - path: /
                 service:
                   name: main
                   port: http
