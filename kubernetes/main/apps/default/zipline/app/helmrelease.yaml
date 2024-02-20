@@ -120,6 +120,9 @@ spec:
             paths:
               - path: *shorten
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *shortenhost
