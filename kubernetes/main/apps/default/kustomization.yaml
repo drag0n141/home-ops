@@ -41,3 +41,4 @@ resources:
   - ./ts3/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./vikunja/ks.yaml
+  - ./zipline/ks.yaml

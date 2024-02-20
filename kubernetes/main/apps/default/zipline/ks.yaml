@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app zipline
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  dependsOn:
+    - name: cloudnative-pg-cluster
+  path: ./kubernetes/main/apps/default/zipline/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
