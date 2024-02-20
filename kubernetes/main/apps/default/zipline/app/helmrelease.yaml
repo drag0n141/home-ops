@@ -132,6 +132,10 @@ spec:
                 service:
                   name: main
                   port: http
+              - path: /view
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *shortenhost
