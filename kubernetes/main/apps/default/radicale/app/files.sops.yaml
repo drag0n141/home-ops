@@ -5,7 +5,7 @@ kind: Secret
 metadata:
     creationTimestamp: null
     name: radicale-files
-    namespace: home
+    namespace: default
 sops:
     kms: []
     gcp_kms: []
@@ -21,8 +21,8 @@ sops:
             KzExbEthNC90aVBPZjRNK3RIR2g5dFkKEVz9U8gCZL7viqIkSHRIYuOnX2iwSGhQ
             m/qpiH1SBxaRFpf+yFTfCiTf7kl+2uyrWwsE0zi6lVJQXoRJXrHqRg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-02-19T20:32:59Z"
-    mac: ENC[AES256_GCM,data:LF9VFHtP0tPBoz9JtYz7I8xXN5+PLY6eDAtgZJFT0U30oUvazyacK75avLTbLxr+pPobXYLdClohPYBR950SrFvoYeQ9a8/4myVKU8QQ4YUk7z2qJMUG/VMW7sqDfGe1N6iogKjAlXwhdStqpAtBbCkQwd9YoSFexwVkmQumE8w=,iv:qq3AX9VFEUuMG4CZOIVmyKiwSm0D+uR34JCc/+9qo74=,tag:k4gJNI2/yFLIcr+mHhnE/A==,type:str]
+    lastmodified: "2024-02-20T07:50:24Z"
+    mac: ENC[AES256_GCM,data:OPVvr+4MUvh+thnXH4nnrtmYVCFsAbmCL/WDex8VCNnIYmuWj97DUHtbKJJprUID94sglLZ54PmTKhFeXQcYoHLcPcdyapftJxr3l92rGHAeoSrMk2BLnVZAwTg9enoU+m8Ko78L2YruzFqjt1EkiZ8o7ze5jHg0F77fFKCzAKU=,iv:VcIuA5/IVatEu/2J0y8dxkzXlowMpiYV8nI+u68qVfs=,tag:B+XLy8MyXQG6kZq1KqbJTw==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.8.1
