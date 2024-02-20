@@ -96,12 +96,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: traefik-external
+        className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "zipline.${SECRET_DOMAIN}"
+          - host: &host "zipline.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -120,7 +120,15 @@ spec:
         hosts:
           - host: &shortenhost "zl.${SECRET_DOMAIN_SHORT}"
             paths:
-              - path: /
+              - path: /g
+                service:
+                  name: main
+                  port: http
+              - path: /u
+                service:
+                  name: main
+                  port: http
+              - path: /code
                 service:
                   name: main
                   port: http
