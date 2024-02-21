@@ -123,7 +123,7 @@ spec:
       enabled: true
       replicaCount: 2
       replicaLabel: __replica__
-      alertmanagers: ["http://alert-manager.monitoring.svc.cluster.local:9093"]
+      alertmanagers: ["http://alertmanager.monitoring.svc.cluster.local:9093"]
       extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
       clusterName: main
       config: |-
