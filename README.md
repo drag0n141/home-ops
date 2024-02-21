@@ -54,16 +54,19 @@ Kubernetes nodes are on their own VLAN which has access to the NAS.
 
 While most of my infrastructure and workloads are self-hosted I do rely upon the cloud for parts that are hard to self-host.
 
-| Service                                         | Use                                                                | Cost           |
-|---------------------------------------------|--------------------------------------------------------------------|----------------|
-| [Cloudflare](https://www.cloudflare.com/)   | Domain Management                                                  | Free           |
-| [Netcup](https://netcup.eu/)                | Domain(s)                                                          | ~$24/yr        |
-| [GitHub](https://github.com/)               | Hosting this repository and continuous integration/deployments     | Free           |
-| [ProtonMail](https://proton.me/)            | Email hosting and VPN                                              | ~$90/yr        |
-| [NextDNS](https://nextdns.io/)              | DNS server which includes AdBlocking for Traveling                 | ~$20/yr        |
-| [Pushover](https://pushover.net/)           | Kubernetes Alerts                                                  | $5 OTP         |
-| [Wasabi](https://wasabi.com/)               | S3 Offsite Backup                                                  | ~120€/yr       |                                                  
-|                                             |                                                                    | Total: ~20€/mo |
+| Service                                      | Use                                                                | Cost           |
+|----------------------------------------------|--------------------------------------------------------------------|----------------|
+| [Cloudflare](https://www.cloudflare.com/)    | Domain Management                                                  | Free           |
+| [Netcup](https://netcup.eu/)                 | Domain(s)                                                          | ~$24/yr        |
+| [Eweka](https://www.eweka.nl/)               | Usenet Access                                                      | ~$35/yr        |
+| [Newshosting](https://www.newshosting.com/)  | Usenet Access                                                      | ~$20/yr        |
+| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments     | Free           |
+| [Migadu](https://migadu.com/)                | Email hosting for Kubernetes Mails                                 | ~$20/yr        |
+| [ProtonMail](https://proton.me/)             | Email hosting and VPN                                              | ~$90/yr        |
+| [NextDNS](https://nextdns.io/)               | DNS server which includes AdBlocking for Traveling                 | ~$20/yr        |
+| [Pushover](https://pushover.net/)            | Kubernetes Alerts                                                  | $5 OTP         |
+| [Wasabi](https://wasabi.com/)                | S3 Offsite Backup                                                  | ~120€/yr       |                                                  
+|                                              |                                                                    | Total: ~27€/mo |
 
 ## Stargazers
 
