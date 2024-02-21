@@ -24,7 +24,7 @@ metadata:
 spec:
   targetNamespace: default
   dependsOn:
-    - name: cloudnative-pg-cluster
+    - name: cloudnative-pg-cluster-vector
     - name: immich-redis
   path: ./kubernetes/main/apps/default/immich/app
   prune: true
