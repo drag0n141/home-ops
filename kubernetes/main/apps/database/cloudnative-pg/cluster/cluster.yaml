@@ -16,10 +16,12 @@ spec:
   postgresql:
     parameters:
       max_connections: "400"
-      max_slot_wal_keep_size: 5GB
-      shared_buffers: 512MB
+      shared_buffers: 256MB
     shared_preload_libraries:
       - "vectors.so"
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
   resources:
     requests:
       cpu: 500m
