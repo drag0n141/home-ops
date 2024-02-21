@@ -73,8 +73,8 @@ spec:
                 memory: 512M
           nginx:
             image:
-              repository: public.ecr.aws/nginx/nginx
-              tag: 1.25.3
+              repository: ghcr.io/nginxinc/nginx-unprivileged
+              tag: 1.25.4
         pod:
           securityContext:
             runAsUser: 568
