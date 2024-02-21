@@ -30,6 +30,7 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
         containers:
           main:
             image:
@@ -47,9 +48,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 250M
+                memory: 250Mi
               limits:
-                memory: 4000M
+                memory: 4000Mi
         pod:
           securityContext:
             runAsUser: 568
@@ -71,11 +72,3 @@ spec:
           - path: /usr/src/app/upload
       cache:
         type: emptyDir
-      geocoding-dump:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/src/app/.reverse-geocoding-dump
-      transformers-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/src/app/.transformers_cache
