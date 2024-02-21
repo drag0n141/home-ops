@@ -6,7 +6,7 @@ resources:
   - ./secret.sops.yaml
   - ../../../../templates/volsync
 configMapGenerator:
-  - name: alert-manager-configmap
+  - name: alertmanager-configmap
     files:
       - ./config/alertmanager.yml
 generatorOptions:

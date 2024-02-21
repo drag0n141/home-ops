@@ -120,6 +120,11 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
 
       prometheusSpec:
+        alertingEndpoints:
+          - namespace: monitoring
+            name: alertmanager
+            port: 9093
+            apiVersion: v2
         replicas: 1
         enableAdminAPI: true
         walCompression: true

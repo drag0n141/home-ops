@@ -31,13 +31,14 @@ spec:
   values:
     controllers:
       main:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           main:
             image:
               repository: quay.io/prometheus/alertmanager
-              tag: main@sha256:0cdde08a824cce3c1fb51c2464030cb2db6283f3a598861c7b8940e0110af4fe
+              tag: v0.26.0
             env:
               TZ: ${TIMEZONE}
             resources:
@@ -73,19 +74,19 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: alert-manager-configmap
+        name: alertmanager-configmap
         globalMounts:
           - path: /etc/alertmanager
             readOnly: true
       secrets:
         enabled: true
         type: secret
-        name: alert-manager-secret
+        name: alertmanager-secret
         globalMounts:
           - path: /etc/secrets
             readOnly: true
       data:
         enabled: true
-        existingClaim: alert-manager
+        existingClaim: alertmanager
         globalMounts:
           - path: /alertmanager
