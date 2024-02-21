@@ -53,6 +53,16 @@
       "separateMinorPatch": true
     },
     {
+      "description": ["Immich Group"],
+      "groupName": "Immich",
+      "matchPackagePatterns": ["immich-app"],
+      "matchDatasources": ["docker"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": ["System Upgrade Controller Group"],
       "groupName": "System Upgrade Controller",
       "matchPackagePatterns": ["system-upgrade-controller"],
