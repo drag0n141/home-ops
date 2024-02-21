@@ -1,0 +1,9 @@
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: pikvm
+spec:
+  staticConfigs:
+    - targets: ["pikvm.${SECRET_DOMAIN_INT}"]
+  metricsPath: /api/export/prometheus/metrics
