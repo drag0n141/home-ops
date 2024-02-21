@@ -35,7 +35,7 @@ spec:
               name: authentik-secret
     image:
       repository: ghcr.io/goauthentik/server
-      tag: 2023.10.7
+      tag: 2024.2.0
     authentik:
       log_level: info
       email:
