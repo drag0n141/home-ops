@@ -61,6 +61,10 @@ spec:
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               EMAIL_PORT: 2525
             envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -71,6 +75,13 @@ spec:
             image:
               repository: public.ecr.aws/nginx/nginx
               tag: 1.25.3
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
@@ -136,3 +147,12 @@ spec:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
                 readOnly: true
+      temp:
+        type: emptyDir
+        advancedMounts:
+          main:
+            main:
+              - path: /tmp
+                subPath: app-tmp
+              - path: /opt/recipes/cookbook/static/django_js_reverse
+                subPath: django_js_reverse
