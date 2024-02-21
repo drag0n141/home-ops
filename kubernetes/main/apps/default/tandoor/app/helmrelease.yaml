@@ -48,19 +48,41 @@ spec:
               tag: 1.5.13
             env:
               TZ: ${TIMEZONE}
-              DEBUG: "0"
+              DEBUG: 0
               ALLOWED_HOSTS: "*"
               DB_ENGINE: django.db.backends.postgresql_psycopg2
-              GUNICORN_MEDIA: "0"
-              REMOTE_USER_AUTH: "0"
-              FRACTION_PREF_DEFAULT: "0"
-              COMMENT_PREF_DEFAULT: "1"
-              SHOPPING_MIN_AUTOSYNC_INTERVAL: "5"
-              TANDOOR_PORT: "8080"
-              ENABLE_SIGNUP: "0"
+              GUNICORN_MEDIA: 0
+              REMOTE_USER_AUTH: 0
+              FRACTION_PREF_DEFAULT: 0
+              COMMENT_PREF_DEFAULT: 1
+              SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
+              TANDOOR_PORT: &tandoorPort 8000
+              ENABLE_SIGNUP: 0
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               EMAIL_PORT: 2525
             envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /accounts/login/
+                    port: *tandoorPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /accounts/login/
+                    port: *tandoorPort
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
