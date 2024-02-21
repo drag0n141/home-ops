@@ -47,12 +47,12 @@ spec:
               repository: ghcr.io/tandoorrecipes/recipes
               tag: 1.5.13
             env:
-              TIMEZONE: ${TIMEZONE}
+              TZ: ${TIMEZONE}
               DEBUG: "0"
               ALLOWED_HOSTS: "*"
               DB_ENGINE: django.db.backends.postgresql_psycopg2
               GUNICORN_MEDIA: "0"
-              REVERSE_PROXY_AUTH: "0"
+              REMOTE_USER_AUTH: "0"
               FRACTION_PREF_DEFAULT: "0"
               COMMENT_PREF_DEFAULT: "1"
               SHOPPING_MIN_AUTOSYNC_INTERVAL: "5"
