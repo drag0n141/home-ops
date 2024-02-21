@@ -7,4 +7,5 @@ spec:
   staticConfigs:
     - targets:
         - pikvm.${SECRET_DOMAIN_INT}:9100
+        - 192.168.254.1:9100
   metricsPath: /metrics
