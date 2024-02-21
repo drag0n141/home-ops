@@ -128,15 +128,11 @@ spec:
         replicas: 1
         enableAdminAPI: true
         walCompression: true
-        externalLabels:
-          cluster: main
         replicaExternalLabelName: __replica__
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
-        retention: 2d
-        retentionSize: 15GB
         scrapeInterval: 1m
         thanos:
           image: quay.io/thanos/thanos:v0.34.1@sha256:567346c3f6ff2927c2c6c0daad977b2213f62d45eca54d48afd19e6deb902181
