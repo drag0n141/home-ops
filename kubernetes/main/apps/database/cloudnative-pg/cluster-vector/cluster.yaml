@@ -14,11 +14,10 @@ spec:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
   postgresql:
+    shared_preload_libraries: ["vectors.so"]
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
-    shared_preload_libraries:
-      - "vectors.so"
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: true
