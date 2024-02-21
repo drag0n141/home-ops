@@ -22,7 +22,6 @@ spec:
       - "vectors.so"
   resources:
     requests:
-      memory: 2Gi
       cpu: 500m
     limits:
       memory: 4Gi
