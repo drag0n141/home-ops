@@ -100,6 +100,7 @@ spec:
         domain: ${SECRET_DOMAIN}
         smtp:
           port: 2525
+          secure: NONE
           authtype: NONE
       configs:
         local.config.php: |-
