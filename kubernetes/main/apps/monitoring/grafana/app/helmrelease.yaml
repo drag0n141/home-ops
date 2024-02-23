@@ -336,6 +336,16 @@ spec:
       enabled: false
     testFramework:
       enabled: false
+    rbac:
+      pspEnabled: false
+    resources:
+      requests:
+        cpu: 10m
+      limits:
+        memory: 250M
+    serviceAccount:
+      create: true
+      autoMount: true
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
