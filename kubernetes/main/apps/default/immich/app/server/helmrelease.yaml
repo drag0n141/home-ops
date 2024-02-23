@@ -28,7 +28,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         strategy: RollingUpdate
-        containers:
         initContainers:
           init-db:
             image:
@@ -41,6 +40,7 @@ spec:
                   name: immich-redis-secret
               - configMapRef:
                   name: immich-configmap
+        containers:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
