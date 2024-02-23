@@ -49,6 +49,21 @@ spec:
             env:
               TZ: ${TIMEZONE}
             envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /server-info/ping
+                    port: 3001
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 10m
