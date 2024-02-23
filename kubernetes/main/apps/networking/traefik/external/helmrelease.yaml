@@ -27,13 +27,13 @@ spec:
   values:
     deployment:
       kind: Deployment
-      replicas: 1
+      replicas: 3
     rollback:
       recreate: true
       force: true
       cleanupOnFail: true
     autoscaling:
-      enabled: true
+      enabled: false
       minReplicas: 1
       maxReplicas: 3
     service:
@@ -160,11 +160,16 @@ spec:
         allowExternalNameServices: true
         publishedService:
           enabled: true
+    topologySpreadConstraints:
+      - maxSkew: 2
+        topologyKey: kubernetes.io/hostname
+         whenUnsatisfiable: DoNotSchedule
+         labelSelector:
+           matchLabels:
+             app.kubernetes.io/instance: traefik-external
+             app.kubernetes.io/component: controller
     resources:
       requests:
         cpu: 100m
-        memory: 250Mi
       limits:
-        memory: 500Mi
-    nodeSelector:
-      node-role.kubernetes.io/control-plane: "true"
+        memory: 750Mi
