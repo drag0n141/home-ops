@@ -318,8 +318,6 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
-    serviceMonitor:
-      enabled: true
     ingress:
       enabled: true
       ingressClassName: traefik-internal
@@ -346,6 +344,8 @@ spec:
     serviceAccount:
       create: true
       autoMount: true
+    serviceMonitor:
+      enabled: true
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
