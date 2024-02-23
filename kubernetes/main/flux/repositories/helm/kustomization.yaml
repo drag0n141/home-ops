@@ -35,5 +35,4 @@ resources:
   - ./rook-ceph.yaml
   - ./stakater.yaml
   - ./traefik.yaml
-  - ./weave-gitops.yaml
   - ./xenitab.yaml
