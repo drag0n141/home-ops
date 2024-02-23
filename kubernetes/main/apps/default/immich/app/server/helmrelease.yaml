@@ -66,11 +66,12 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 10m
-                memory: 128Mi
+                cpu: 1000m
+                memory: 150Mi
               limits:
-                memory: 1024Mi
+                memory: 1000Mi
         pod:
+          enableServiceLinks: false
           securityContext:
             runAsUser: 568
             runAsGroup: 568
