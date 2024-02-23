@@ -29,13 +29,11 @@ spec:
           reloader.stakater.com/auto: "true"
         strategy: RollingUpdate
         containers:
-          main:
+        initContainers:
+          init-db:
             image:
-              repository: ghcr.io/immich-app/immich-server
-              tag: v1.95.1@sha256:78665b75735f248b2ee1646a671d340b6a221260d87c38771c060aef62421a19
-            args: ["start-server.sh"]
-            env:
-              TZ: ${TIMEZONE}
+              repository: ghcr.io/drag0n141/postgres-init
+              tag: 16
             envFrom: &envFrom
               - secretRef:
                   name: immich-secret
@@ -43,6 +41,14 @@ spec:
                   name: immich-redis-secret
               - configMapRef:
                   name: immich-configmap
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.95.1@sha256:78665b75735f248b2ee1646a671d340b6a221260d87c38771c060aef62421a19
+            args: ["start-server.sh"]
+            env:
+              TZ: ${TIMEZONE}
+            envFrom: *envFrom
             resources:
               requests:
                 cpu: 10m
