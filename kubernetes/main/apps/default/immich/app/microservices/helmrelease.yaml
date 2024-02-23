@@ -54,13 +54,14 @@ spec:
                 gpu.intel.com/i915: 1
                 memory: 4000Mi
         pod:
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
+          enableServiceLinks: false
           securityContext:
             runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
     service:
       main:
         enabled: false
