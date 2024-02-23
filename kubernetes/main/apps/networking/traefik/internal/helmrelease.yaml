@@ -108,14 +108,9 @@ spec:
         enabled: true
         ingressClass: traefik-internal
         allowCrossNamespace: true
-        allowExternalNameServices: true
       kubernetesIngress:
         enabled: true
         ingressClass: traefik-internal
-        ip: "${TRAEFIK_INTERNAL_ADDR}"
-        allowExternalNameServices: true
-        publishedService:
-          enabled: true
     topologySpreadConstraints:
       - maxSkew: 2
         topologyKey: kubernetes.io/hostname
