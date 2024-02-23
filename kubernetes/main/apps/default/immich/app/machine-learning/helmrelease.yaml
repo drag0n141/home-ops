@@ -52,7 +52,7 @@ spec:
                 spec:
                   httpGet:
                     path: /ping
-                    port: *port
+                    port: 3003
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
