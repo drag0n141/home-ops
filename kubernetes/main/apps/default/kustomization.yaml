@@ -15,8 +15,8 @@ resources:
   - ./freshrss/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
-  - ./immich/ks.yaml
-  # - ./homepage/ks.yaml
+  # - ./immich/ks.yaml
+  - ./homepage/ks.yaml
   - ./homepage-work/ks.yaml
   - ./kitchenowl/ks.yaml
   - ./kms/ks.yaml
