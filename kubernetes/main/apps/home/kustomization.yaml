@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./notifications.yaml
   # Flux-Kustomizations
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml

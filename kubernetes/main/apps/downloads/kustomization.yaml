@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./notifications.yaml
   # Flux-Kustomizations
   - ./prowlarr/ks.yaml
   - ./sabnzbd/ks.yaml

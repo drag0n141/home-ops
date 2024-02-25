@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./notifications.yaml
   # Flux-Kustomizations
   - ./blocky/ks.yaml
   - ./cloudflared/ks.yaml

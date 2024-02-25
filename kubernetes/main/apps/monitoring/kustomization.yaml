@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./notifications.yaml
   # Flux-Kustomizations
   - ./alertmanager/ks.yaml
   - ./grafana/ks.yaml
