@@ -64,7 +64,7 @@ spec:
         hosts:
         - host: &host "auth.${SECRET_DOMAIN}"
           paths:
-          - path: "/"
+          - path: /
             pathType: Prefix
         tls:
         - hosts:
@@ -75,17 +75,17 @@ spec:
           enabled: true
       resources:
         requests:
-          cpu: 100m
-          memory: 512Mi
+          cpu: 50m
+          memory: 500Mi
         limits:
-          memory: 2Gi
+          memory: 2000Mi
     worker:
       resources:
         requests:
           cpu: 50m
-          memory: 512Mi
+          memory: 500Mi
         limits:
-          memory: 1Gi
+          memory: 1000MI
     postgresql:
       enabled: false
     redis:
