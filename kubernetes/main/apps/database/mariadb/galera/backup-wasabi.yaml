@@ -7,7 +7,7 @@ spec:
   mariaDbRef:
     name: mariadb-galera
   schedule:
-    cron: "0 4 * * *"
+    cron: "30 4 * * *"
     suspend: false
   maxRetention: 336h # 14 days
   storage:
@@ -25,7 +25,7 @@ spec:
         enabled: true
         caSecretKeyRef:
           name: mariadb-files
-          key: ca.crt
+          key: digicert-ca.crt
   args:
     - --single-transaction
     - --all-databases
