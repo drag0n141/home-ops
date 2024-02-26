@@ -9,7 +9,7 @@ spec:
   schedule:
     cron: "0 4 * * *"
     suspend: false
-  maxRetention: 720h # 30 days
+  maxRetention: 336h # 14 days
   storage:
     s3:
       bucket: mariadb
