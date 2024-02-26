@@ -62,14 +62,14 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-        - host: &host "auth.${SECRET_DOMAIN}"
-          paths:
-          - path: /
-            pathType: Prefix
+          - host: &host "auth.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
         tls:
-        - hosts:
-          - *host
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+          - hosts:
+            - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       metrics:
         serviceMonitor:
           enabled: true
