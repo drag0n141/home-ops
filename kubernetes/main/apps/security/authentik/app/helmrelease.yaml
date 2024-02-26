@@ -52,9 +52,6 @@ spec:
         - name: init-db
           image: ghcr.io/drag0n141/postgres-init:16
           envFrom: *envFrom
-      image:
-        repository: ghcr.io/goauthentik/server
-        tag: 2024.2.1
       ingress:
         enabled: true
         ingressClassName: traefik-external
