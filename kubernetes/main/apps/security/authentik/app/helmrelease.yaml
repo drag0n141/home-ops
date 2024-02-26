@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   values:
     global:
-      deploymentAnnotations:
+      podAnnotations:
         reloader.stakater.com/auto: "true"
       deploymentStrategy:
         type: RollingUpdate
