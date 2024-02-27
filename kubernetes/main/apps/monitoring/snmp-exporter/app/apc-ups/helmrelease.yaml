@@ -39,9 +39,9 @@ spec:
       enabled: true
       params:
         - name: apc-ups-0
-          module:
-            - apcups
+          module: ["apcups"]
           target: usv01.${SECRET_DOMAIN_INT}
+          auth: ["public_v1"]
       path: /snmp
       scrapeTimeout: 10s
       relabelings:
