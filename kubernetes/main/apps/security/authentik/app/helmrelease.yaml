@@ -69,19 +69,6 @@ spec:
       metrics:
         serviceMonitor:
           enabled: true
-      resources:
-        requests:
-          cpu: 50m
-          memory: 500Mi
-        limits:
-          memory: 2000Mi
-    worker:
-      resources:
-        requests:
-          cpu: 50m
-          memory: 500Mi
-        limits:
-          memory: 1000MI
     postgresql:
       enabled: false
     redis:
