@@ -6,8 +6,16 @@ resources:
   - ./secret.sops.yaml
   - ./datasource
 configMapGenerator:
+  - name: blocky-datasource
+    files:
+      - datasource.yaml=./resources/datasource.yaml
+    options:
+      labels:
+        grafana_datasource: "true"
   - name: blocky-configmap
     files:
-      - ./config/config.yml
+      - config.yml=./resources/config.yml
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
