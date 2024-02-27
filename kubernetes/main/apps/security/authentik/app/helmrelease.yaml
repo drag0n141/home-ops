@@ -65,7 +65,7 @@ spec:
                 pathType: Prefix
         tls:
           - hosts:
-            - *host
+              - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       metrics:
         serviceMonitor:
