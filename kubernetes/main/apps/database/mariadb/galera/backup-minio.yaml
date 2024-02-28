@@ -17,7 +17,7 @@ spec:
       region: us-east-1
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
-        key: minio-ws-access-key-id
+        key: minio-aws-access-key-id
       secretAccessKeySecretKeyRef:
         name: mariadb-secret
         key: minio-aws-secret-access-key
