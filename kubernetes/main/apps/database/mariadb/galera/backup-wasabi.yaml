@@ -17,7 +17,7 @@ spec:
       region: eu-central-2
       accessKeyIdSecretKeyRef:
         name: mariadb-secret
-        key: wasabi-ws-access-key-id
+        key: wasabi-aws-access-key-id
       secretAccessKeySecretKeyRef:
         name: mariadb-secret
         key: wasabi-aws-secret-access-key
