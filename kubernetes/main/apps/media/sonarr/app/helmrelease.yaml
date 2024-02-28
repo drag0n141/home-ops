@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: ghcr.io/drag0n141/sonarr
-              tag: 4.0.1@sha256:892db2994430c1e47dc9aa6d549dbb96dbb60f180088eb888ee99a065efdf17f
+              tag: 4.0.2@sha256:d1a7348ac8967e7ca1035dfcb5af892be5e42f676b941f7312d7f163f96ef08b
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
