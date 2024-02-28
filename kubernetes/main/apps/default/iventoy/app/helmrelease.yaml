@@ -1,0 +1,109 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app iventoy
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/ziggyds/iventoy
+              tag: latest@sha256:ea7532fd52a03ee3fac087fcee5f4c31cc3c432fb46e434d748911350e2dc139
+            env:
+              TZ: ${TIMEZONE}
+              AUTO_START_PXE: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50M
+              limits:
+                memory: 512M
+    service:
+      main:
+        ports:
+          http:
+            port: 26000
+      iventoy:
+        controller: main
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${IVENTOY_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          dhcp:
+            port: 67
+            protocol: UDP
+          tftp:
+            port: 69
+            protocol: UDP
+          pxe:
+            port: 16000
+            protocol: TCP
+          nbd:
+            port: 10809
+            protocol: TCP
+    ingress:
+      main:
+        enabled: true
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "iventoy.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: iventoy
+        advancedMounts:
+          main:
+            main:
+              - path: /app/data
+                subPath: data
+              - path: /app/log
+                subPath: log
+      iso:
+        type: nfs
+        server: ${SECRET_NFS_SERVER}
+        path: /mnt/user/ISO/template/iso
+        globalMounts:
+          - path: /app/iso
+
