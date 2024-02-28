@@ -23,7 +23,6 @@ resources:
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
   - ./kube-vip.yaml
-  - ./mailu.yaml
   - ./mariadb-operator.yaml
   - ./metrics-server.yaml
   - ./nextcloud.yaml
