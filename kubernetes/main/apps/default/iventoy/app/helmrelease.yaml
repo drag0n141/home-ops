@@ -41,6 +41,8 @@ spec:
             env:
               TZ: ${TIMEZONE}
               AUTO_START_PXE: true
+            securityContext:
+              privileged: true
             resources:
               requests:
                 cpu: 10m
