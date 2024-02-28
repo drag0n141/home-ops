@@ -10,6 +10,7 @@ resources:
   - ./atuin/ks.yaml
   - ./bookstack/ks.yaml
   - ./bookstack-wiki/ks.yaml
+  - ./cyberchef/ks.yaml
   - ./dashy/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
