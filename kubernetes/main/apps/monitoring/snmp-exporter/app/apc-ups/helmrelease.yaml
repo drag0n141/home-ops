@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: prometheus-snmp-exporter
-      version: 3.1.1
+      version: 5.1.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -25,8 +25,6 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: *app
-    image:
-      repository: quay.io/prometheus/snmp-exporter
     extraArgs: ["--config.file=/config/snmp.yaml"]
     extraConfigmapMounts:
       - name: &name apc-ups-snmp-configmap
