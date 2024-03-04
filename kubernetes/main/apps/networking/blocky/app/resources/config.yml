@@ -7,7 +7,7 @@ blocking:
     maxErrorsPerSource: -1
 
   blockType: zeroIp
-  blockTTL: 5m
+  blockTTL: 1m
 
   blackLists:
     ads: # Ref: https://firebog.net
