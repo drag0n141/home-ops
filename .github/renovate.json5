@@ -3,11 +3,14 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
+    "replacements:k8s-registry-move",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
     ":automergeDigest",
     ":automergeBranch",
+    ":skipStatusChecks",
+    ":timezone(Europe/Berlin)",
     "github>drag0n141/home-ops//.github/renovate/allowedVersions.json5",
     "github>drag0n141/home-ops//.github/renovate/autoMerge.json5",
     "github>drag0n141/home-ops//.github/renovate/clusters.json5",
@@ -23,10 +26,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
-  "ignorePaths": [
-    "**/*.sops.*",
-    "**/.archive/**"
-  ],
+  "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
