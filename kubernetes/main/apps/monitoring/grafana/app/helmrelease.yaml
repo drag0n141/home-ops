@@ -172,31 +172,36 @@ spec:
     dashboards:
       default:
         cloudflared:
-          gnetId: 17457 # https://grafana.com/grafana/dashboards/17457?tab=revisions
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
           revision: 6
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         external-dns:
-          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
-          revision: 1
+          # renovate: depName="External-dns"
+          gnetId: 15038
+          revision: 3
           datasource: Prometheus
         node-exporter-full:
-          gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
-          revision: 31
+          # renovate: depName="Node Exporter Full"
+          gnetId: 1860
+          revision: 34
           datasource: Prometheus
         redis:
-          gnetId: 763 # https://grafana.com/grafana/dashboards/763?tab=revisions
-          revision: 5
-          datasource: Prometheus
-        cloudnative-pg:
-          gnetId: 20417 # https://grafana.com/grafana/dashboards/20417?tab=revisions
+          # renovate: depName="Redis Dashboard for Prometheus Redis Exporter 1.x"
+          gnetId: 763
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
           revision: 1
-          datasource: Prometheus
-        cert-manager:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
       blocky:
         blocky:
+          # renovate: depName="Blocky"
           gnetId: 13768
           revision: 3
           datasource:
@@ -209,15 +214,18 @@ spec:
           datasource: Blocky
       ceph:
         ceph-cluster:
-          gnetId: 2842 # https://grafana.com/grafana/dashboards/2842?tab=revisions
+          # renovate: depName="Ceph Cluster"
+          gnetId: 2842
           revision: 17
           datasource: Prometheus
         ceph-osd:
-          gnetId: 5336 # https://grafana.com/grafana/dashboards/5336?tab=revisions
+          # renovate: depName="Ceph - OSD (Single)"
+          gnetId: 5336
           revision: 9
           datasource: Prometheus
         ceph-pools:
-          gnetId: 5342 # https://grafana.com/grafana/dashboards/5342?tab=revisions
+          # renovate: depName="Ceph - Pools"
+          gnetId: 5342
           revision: 9
           datasource: Prometheus
       flux:
@@ -229,22 +237,39 @@ spec:
           datasource: Prometheus
       kubernetes:
         kubernetes-api-server:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 16
           datasource: Prometheus
         kubernetes-coredns:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
+          revision: 17
           datasource: Prometheus
         kubernetes-global:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 37
           datasource: Prometheus
         kubernetes-namespaces:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 34
           datasource: Prometheus
         kubernetes-nodes:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 29
           datasource: Prometheus
         kubernetes-pods:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          # renovate: depName="Kubernetes / Views / Pods"
+          gNetId: 15760
+          revision: 21
+          datasource: Prometheus
+        kubernetes-volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
           datasource: Prometheus
       thanos:
         thanos-bucket-replicate:
@@ -276,24 +301,29 @@ spec:
           datasource: Prometheus
       networking:
         traefik:
-          gnetId: 4475 # https://grafana.com/grafana/dashboards/4475?tab=revisions
+          # renovate: depName="Traefik"
+          gnetId: 4475
           revision: 5
           datasource: Prometheus
       unifi:
         unifi-insights:
-          gnetId: 11315 # https://grafana.com/grafana/dashboards/11315?tab=revisions
+          # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
+          gnetId: 11315
           revision: 9
           datasource: Prometheus
         unifi-network-sites:
-          gnetId: 11311 # https://grafana.com/grafana/dashboards/11311?tab=revisions
+          # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
+          gnetId: 11311
           revision: 5
           datasource: Prometheus
         unifi-uap:
-          gnetId: 11314 # https://grafana.com/grafana/dashboards/11314?tab=revisions
+          # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
+          gnetId: 11314
           revision: 10
           datasource: Prometheus
         unifi-usw:
-          gnetId: 11312 # https://grafana.com/grafana/dashboards/11312?tab=revisions
+          # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
+          gnetId: 11312
           revision: 9
           datasource: Prometheus
     sidecar:
