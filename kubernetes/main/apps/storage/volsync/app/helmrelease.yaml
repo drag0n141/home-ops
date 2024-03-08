@@ -30,7 +30,7 @@ spec:
     manageCRDs: true
     image: &image
       repository: ghcr.io/drag0n141/volsync
-      tag: 0.8.0
+      tag: 0.8.1
     restic:
       <<: *image
     metrics:
