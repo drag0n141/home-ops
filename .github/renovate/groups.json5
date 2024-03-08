@@ -55,7 +55,7 @@
     {
       "description": ["Immich Group"],
       "groupName": "Immich",
-      "matchPackagePatterns": ["immich-app"],
+      "matchPackagePatterns": ["immich"],
       "matchDatasources": ["docker"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
