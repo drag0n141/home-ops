@@ -23,29 +23,32 @@ spec:
       podIndex: 0
       automaticFailover: true
     sst: mariabackup
+    availableWhenDonor: false
+    galeraLibPath: /usr/lib/galera/libgalera_smm.so
     replicaThreads: 1
     agent:
-      image: ghcr.io/mariadb-operator/agent:v0.0.3
+      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.26
       port: 5555
       kubernetesAuth:
         enabled: true
       gracefulShutdownTimeout: 5s
     recovery:
       enabled: true
+      minClusterSize: 50%
       clusterHealthyTimeout: 3m
       clusterBootstrapTimeout: 10m
       podRecoveryTimeout: 5m
       podSyncTimeout: 5m
     initContainer:
-      image: ghcr.io/mariadb-operator/init:v0.0.6
-    volumeClaimTemplate:
-      storageClassName: local-hostpath
-      resources:
-        requests:
-          storage: 300Mi
-      accessModes:
-        - ReadWriteOnce
-  podSecurityContext:
+      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.26
+    config:
+      reuseStorageVolume: false
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 300Mi
+        accessModes:
+          - ReadWriteOnce
     runAsUser: 0
   service:
     type: LoadBalancer
@@ -73,11 +76,13 @@ spec:
                   - mariadb-galera
           topologyKey: "kubernetes.io/hostname"
   tolerations:
-    - key: "mariadb.mmontes.io/ha"
+    - key: "k8s.mariadb.com/ha"
       operator: "Exists"
       effect: "NoSchedule"
   podDisruptionBudget:
-    maxUnavailable: 66%
+    maxUnavailable: 33%
+  updateStrategy:
+    type: RollingUpdate
   myCnf: |
     [mariadb]
     bind-address=*
@@ -92,14 +97,19 @@ spec:
     limits:
       memory: 1Gi
   metrics:
-    enabled: false
-  volumeClaimTemplate:
+    enabled: true
+  storage:
+    size: 10Gi
     storageClassName: local-hostpath
-    resources:
-      requests:
-        storage: 10Gi
-    accessModes:
+    resizeInUseVolumes: false
+    waitForVolumeResize: false
+    volumeClaimTemplate:
+      accessModes:
       - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: local-hostpath
   bootstrapFrom:
     backupRef:
       name: mariadb-minio
