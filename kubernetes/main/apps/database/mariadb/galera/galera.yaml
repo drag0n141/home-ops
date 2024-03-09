@@ -100,7 +100,7 @@ spec:
         storage: 10Gi
     accessModes:
       - ReadWriteOnce
-#  bootstrapFrom:
-#    backupRef:
-#      name: mariadb-minio
-#    targetRecoveryTime: 2024-02-13T09:00:00Z
+  bootstrapFrom:
+    backupRef:
+      name: mariadb-minio
+    targetRecoveryTime: 2024-03-09T03:00:01Z
