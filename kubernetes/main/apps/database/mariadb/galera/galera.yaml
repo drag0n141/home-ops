@@ -81,8 +81,6 @@ spec:
       effect: "NoSchedule"
   podDisruptionBudget:
     maxUnavailable: 33%
-  updateStrategy:
-    type: RollingUpdate
   myCnf: |
     [mariadb]
     bind-address=*
