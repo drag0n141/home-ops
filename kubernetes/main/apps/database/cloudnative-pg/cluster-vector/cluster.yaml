@@ -41,7 +41,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://minio.${SECRET_DOMAIN_INT}
-      serverName: &currentCluster postgres-vector
+      serverName: &currentCluster postgres-vector-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -49,11 +49,11 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: aws-secret-access-key
-#  bootstrap:
-#    recovery:
-#      source: &previousCluster postgres-vecto
-#  externalClusters:
-#    - name: *previousCluster
-#      barmanObjectStore:
-#        <<: *barmanObjectStore
-#        serverName: *previousCluster
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres-vector
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
