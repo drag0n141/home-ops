@@ -27,7 +27,7 @@ spec:
     galeraLibPath: /usr/lib/galera/libgalera_smm.so
     replicaThreads: 1
     agent:
-      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.26
+      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
       port: 5555
       kubernetesAuth:
         enabled: true
@@ -40,7 +40,7 @@ spec:
       podRecoveryTimeout: 5m
       podSyncTimeout: 5m
     initContainer:
-      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.26
+      image: ghcr.io/mariadb-operator/mariadb-operator:v0.0.27
     config:
       reuseStorageVolume: false
       volumeClaimTemplate:
