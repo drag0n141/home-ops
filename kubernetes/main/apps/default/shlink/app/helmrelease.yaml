@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/shlinkio/shlink
-              tag: 4.0.1@sha256:0e1aadfc197617155103584e98c1e03478c1370bebca842156c3d73a7277b72f
+              tag: 4.0.2@sha256:7a269a8598ee3e6dc14cb167bf9c8b18de92327606b9e717bc9972d086bc923f
             env:
               TIMEZONE: ${TIMEZONE}
               DEFAULT_DOMAIN: &host ${SECRET_DOMAIN_SHORT}
