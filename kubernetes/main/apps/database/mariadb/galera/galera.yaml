@@ -66,15 +66,7 @@ spec:
       coredns.io/hostname: "mariadb-ro.${SECRET_DOMAIN_INTERNAL}"
       io.cilium/lb-ipam-ips: "${MARIADBRO_LB_ADDR}"
   affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: app.kubernetes.io/instance
-                operator: In
-                values:
-                  - mariadb-galera
-          topologyKey: "kubernetes.io/hostname"
+    enableAntiAffinity: true
   tolerations:
     - key: "k8s.mariadb.com/ha"
       operator: "Exists"
