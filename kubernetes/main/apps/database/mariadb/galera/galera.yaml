@@ -67,7 +67,7 @@ spec:
       io.cilium/lb-ipam-ips: "${MARIADBRO_LB_ADDR}"
   affinity:
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
+      preferredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
               - key: app.kubernetes.io/instance
