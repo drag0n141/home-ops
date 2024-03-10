@@ -8,8 +8,8 @@ resources:
   # Flux-Kustomizations
   - ./app-2fauth/ks.yaml
   - ./atuin/ks.yaml
-  - ./bookstack/ks.yaml
-  - ./bookstack-wiki/ks.yaml
+#   - ./bookstack/ks.yaml
+#   - ./bookstack-wiki/ks.yaml
   - ./cyberchef/ks.yaml
   - ./dashy/ks.yaml
   - ./epicgames/ks.yaml
