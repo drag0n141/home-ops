@@ -87,7 +87,7 @@ spec:
     limits:
       memory: 1Gi
   metrics:
-    enabled: true
+    enabled: false
   storage:
     size: 10Gi
     storageClassName: local-hostpath
