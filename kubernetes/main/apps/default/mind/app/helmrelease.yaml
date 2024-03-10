@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/mrcas/mind
-              tag: v1.3.3
+              tag: v1.4.0
             env:
               TZ: ${TIMEZONE}
     service:
