@@ -99,8 +99,6 @@ spec:
   storage:
     size: 10Gi
     storageClassName: local-hostpath
-    resizeInUseVolumes: false
-    waitForVolumeResize: false
     volumeClaimTemplate:
       accessModes:
       - ReadWriteOnce
