@@ -99,5 +99,18 @@ spec:
           storage: 10Gi
       storageClassName: local-hostpath
   bootstrapFrom:
-    backupRef:
-      name: mariadb-minio
+    s3:
+      bucket: mariadb
+      endpoint: minio.${SECRET_DOMAIN_INT}:443
+      region: us-east-1
+      accessKeyIdSecretKeyRef:
+        name: mariadb-secret
+        key: minio-aws-access-key-id
+      secretAccessKeySecretKeyRef:
+        name: mariadb-secret
+        key: minio-aws-secret-access-key
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: mariadb-files
+          key: ca.crt
