@@ -111,4 +111,3 @@ spec:
   bootstrapFrom:
     backupRef:
       name: mariadb-minio
-    targetRecoveryTime: 2024-03-08T03:00:00Z
