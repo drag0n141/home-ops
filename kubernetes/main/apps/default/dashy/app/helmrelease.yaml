@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/lissy93/dashy
-              tag: 2.1.2@sha256:f1999f83cd8b1e68c7fe270b4966702804726dcaef942497689713ce0e5aa450
+              tag: 2.1.2@sha256:4fabb423f22891a4840982b7a9310142c542f482a05ce59a95a2f6cac94d7886
             env:
               TZ: ${TIMEZONE}
               GID: 1000
