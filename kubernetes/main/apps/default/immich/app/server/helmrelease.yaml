@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.98.1@sha256:4421f65082d70e446284e887c48e8231fd768469387d12c484dc628001ffceba
+              tag: v1.98.2@sha256:5d46c02f171b2c85c5c445ed9ae233d68568b241e14e293b0195d539b98de42a
             args: ["start-server.sh"]
             env:
               TZ: ${TIMEZONE}
