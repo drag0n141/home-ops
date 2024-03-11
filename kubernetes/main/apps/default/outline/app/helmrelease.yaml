@@ -1,0 +1,108 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app outline
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/drag0n141/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: outline-secret
+        containers:
+          main:
+            image:
+              repository: docker.io/outlinewiki/outline
+              tag: 0.75.2@sha256:830923e3e7b4b3f2969db56a6033a03947f9a191d35b60a1fd80ed130ade5a1d
+            env:
+              TZ: ${TIMEZONE}
+              URL: https://outline.${SECRET_DOMAIN_INTERNAL}
+              ENABLE_UPDATES: false
+              FILE_STORAGE: local
+              FILE_STORAGE_UPLOAD_MAX_SIZE: 26214400
+              OIDC_CLIENT_ID: outline
+              OIDC_DISPLAY_NAME: Authelia
+              OIDC_SCOPES: "openid offline_access profile email"
+              OIDC_AUTH_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/authorization"
+              OIDC_TOKEN_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/token"
+              OIDC_USERINFO_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo"
+              OIDC_USERNAME_CLAIM: preferred_username
+              PORT: 8080
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: 2525
+              SMTP_FROM_EMAIL: outline@${SECRET_DOMAIN}
+              SMTP_SECURE: false
+            envFrom: *envFrom
+            command:
+              [
+                "/bin/sh",
+                "-c",
+                "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled",
+              ]
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 750Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+        hosts:
+          - host: &host "outline.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: outline
+        globalMounts:
+          - path: /var/lib/outline/data
