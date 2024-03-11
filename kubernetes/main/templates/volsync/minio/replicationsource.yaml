@@ -23,4 +23,4 @@ spec:
     pruneIntervalDays: 7
     retain:
       daily: 7
-      within: 3d
+      weekly: 5
