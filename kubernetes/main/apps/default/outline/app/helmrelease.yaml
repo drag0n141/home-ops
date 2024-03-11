@@ -48,7 +48,7 @@ spec:
               tag: 0.75.2@sha256:830923e3e7b4b3f2969db56a6033a03947f9a191d35b60a1fd80ed130ade5a1d
             env:
               TZ: ${TIMEZONE}
-              URL: https://outline.${SECRET_DOMAIN_INTERNAL}
+              URL: "https://outline.${SECRET_DOMAIN_INTERNAL}"
               ENABLE_UPDATES: false
               FILE_STORAGE: local
               FILE_STORAGE_UPLOAD_MAX_SIZE: 26214400
@@ -58,11 +58,11 @@ spec:
               OIDC_AUTH_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/authorization"
               OIDC_TOKEN_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/token"
               OIDC_USERINFO_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo"
-              OIDC_USERNAME_CLAIM: preferred_username
+              OIDC_USERNAME_CLAIM: email
               PORT: 8080
-              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local.
               SMTP_PORT: 2525
-              SMTP_FROM_EMAIL: outline@${SECRET_DOMAIN}
+              SMTP_FROM_EMAIL: "outline@${SECRET_DOMAIN}"
               SMTP_SECURE: false
               WEB_CONCURRENCY: 10
             envFrom: *envFrom
@@ -70,7 +70,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 250Mi
+                memory: 50Mi
               limits:
                 memory: 750Mi
     service:
