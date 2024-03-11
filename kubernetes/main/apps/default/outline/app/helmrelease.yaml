@@ -54,7 +54,8 @@ spec:
               AWS_S3_UPLOAD_BUCKET_URL: "https://s3.${SECRET_DOMAIN_INTERNAL}"
               AWS_S3_UPLOAD_MAX_SIZE: "26214400"
               FILE_STORAGE: s3
-              FILE_STORAGE_UPLOAD_MAX_SIZE: 26214400
+              FILE_STORAGE_UPLOAD_MAX_SIZE: 5120000
+              MAXIMUM_IMPORT_SIZE: 5120000
               OIDC_CLIENT_ID: outline
               OIDC_DISPLAY_NAME: Authelia
               OIDC_SCOPES: "openid profile email"
