@@ -28,10 +28,5 @@ spec:
       namespace: storage
   values:
     manageCRDs: true
-    image: &image
-      repository: ghcr.io/drag0n141/volsync
-      tag: 0.8.1
-    restic:
-      <<: *image
     metrics:
       disableAuth: true
