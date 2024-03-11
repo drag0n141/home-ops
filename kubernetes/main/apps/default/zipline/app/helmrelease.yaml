@@ -51,7 +51,7 @@ spec:
               # Datasources
               DATASOURCE_TYPE: "s3"
               DATASOURCE_S3_BUCKET: zipline
-              DATASOURCE_S3_ENDPOINT: minio.${SECRET_DOMAIN_INT}
+              DATASOURCE_S3_ENDPOINT: s3.${SECRET_DOMAIN_INTERNAL}
               DATASOURCE_S3_PORT: 443
               DATASOURCE_S3_FORCE_S3_PATH: "true"
               DATASOURCE_S3_USE_SSL: "true"
