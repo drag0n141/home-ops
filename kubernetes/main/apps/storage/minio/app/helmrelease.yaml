@@ -1,0 +1,119 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app minio
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    controllers:
+      minio:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: quay.io/minio/minio
+              tag: RELEASE.2024-03-07T00-43-48Z@sha256:0534dcbc36264485c80c7cff2d58be2c392debef8fcddb31652b527307b7fb80
+            env:
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN_INTERNAL},https://s3.${SECRET_DOMAIN_INTERNAL}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_INTERNAL}
+              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN_INTERNAL}
+              MINIO_UPDATE: "off"
+            envFrom:
+              - secretRef:
+                  name: minio-secret
+            args:
+              - server
+              - /data
+              - --console-address
+              - :9001
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /minio/health/live
+                    port: 9000
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 6
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+              fsGroup: 568
+              fsGroupChangePolicy: OnRootMismatch
+              supplementalGroups: [100]
+    service:
+      app:
+        controller: minio
+        ports:
+          http:
+            port: 9001
+          s3:
+            port: 9000
+    serviceMonitor:
+      app:
+        serviceName: minio
+        endpoints:
+          - port: s3
+            scheme: http
+            path: /minio/v2/metrics/cluster
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host minio.${SECRET_DOMAIN_INTERNAL}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: &s3Host s3.${SECRET_DOMAIN_INTERNAL}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: s3
+        tls:
+          - hosts:
+              - *host
+              - *s3Host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: minio
+        globalMounts:
+          - path: /data

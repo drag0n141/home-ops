@@ -7,5 +7,6 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./local-path-provisioner/ks.yaml
+  - ./minio/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
