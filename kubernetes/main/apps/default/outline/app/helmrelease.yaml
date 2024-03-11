@@ -54,7 +54,7 @@ spec:
               FILE_STORAGE_UPLOAD_MAX_SIZE: 26214400
               OIDC_CLIENT_ID: outline
               OIDC_DISPLAY_NAME: Authelia
-              OIDC_SCOPES: "openid offline_access profile email"
+              OIDC_SCOPES: "openid profile email"
               OIDC_AUTH_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/authorization"
               OIDC_TOKEN_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/token"
               OIDC_USERINFO_URI: "https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo"
@@ -64,13 +64,9 @@ spec:
               SMTP_PORT: 2525
               SMTP_FROM_EMAIL: outline@${SECRET_DOMAIN}
               SMTP_SECURE: false
+              WEB_CONCURRENCY: 10
             envFrom: *envFrom
-            command:
-              [
-                "/bin/sh",
-                "-c",
-                "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled",
-              ]
+            command: ["/bin/sh", "-c", "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled"]
             resources:
               requests:
                 cpu: 10m

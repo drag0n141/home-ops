@@ -155,6 +155,6 @@ identity_providers:
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
-        scopes:  ["openid", "offline_access", "profile", "email"]
+        scopes:  ["openid", "profile", "email"]
         redirect_uris: ["https://outline.${SECRET_DOMAIN_INTERNAL}/auth/oidc.callback"]
         userinfo_signed_response_alg: none
