@@ -5,4 +5,4 @@ resources:
 #  - ./backup-minio.yaml
 #  - ./backup-wasabi.yaml
   - ./galera.yaml
-#   - ./restore-minio.yaml
+  - ./restore-minio.yaml
