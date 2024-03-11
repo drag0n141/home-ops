@@ -25,13 +25,13 @@ resources:
   - ./linkding/ks.yaml
   - ./mailrise/ks.yaml
   - ./memos/ks.yaml
-  - ./mind/ks.yaml
+#   - ./mind/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
   - ./netbox/ks.yaml
   - ./nextcloud/ks.yaml
   - ./obsidian-livesync/ks.yaml
   - ./outline/ks.yaml
-#  - ./pairdrop/ks.yaml
+#   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
   - ./portainer/ks.yaml
   - ./proton-bridge/ks.yaml
