@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./backup-minio.yaml
-  - ./backup-wasabi.yaml
+#  - ./backup-minio.yaml
+#  - ./backup-wasabi.yaml
   - ./galera.yaml
-  - ./restore-minio.yaml
+#   - ./restore-minio.yaml
