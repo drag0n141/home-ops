@@ -37,14 +37,20 @@ spec:
       enabled: false
     loginRequired: true
     timeZone: ${TIMEZONE}
-    dateFormat: 'j. F, Y'
-    shortDateFormat: 'j.m.Y'
-    timeFormat: 'G:i'
-    shortTimeFormat: 'H:i:s'
-    dateTimeFormat: 'j. F, Y g:i a'
-    shortDateTimeFormat: 'j.m.Y H:i'
+    dateFormat: "j. F, Y"
+    shortDateFormat: "j.m.Y"
+    timeFormat: "G:i"
+    shortTimeFormat: "H:i:s"
+    dateTimeFormat: "j. F, Y g:i a"
+    shortDateTimeFormat: "j.m.Y H:i"
     storageBackend: storages.backends.s3boto3.S3Boto3Storage
-    existingSecret: netbox-files
+    storageConfig:
+      AWS_ACCESS_KEY_ID: "netbox"
+      AWS_SECRET_ACCESS_KEY: "${SECRET_NETBOX_ACCESS_KEY}"
+      AWS_STORAGE_BUCKET_NAME: "netbox"
+      AWS_S3_ENDPOINT_URL: "https://s3.${SECRET_DOMAIN_INTERNAL}"
+      AWS_S3_REGION_NAME: "us-east-1"
+    existingSecret: netbox-secret
     metricsEnabled: true
     postgresql:
       enabled: false
