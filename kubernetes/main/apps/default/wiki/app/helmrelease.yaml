@@ -78,9 +78,3 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      data:
-        enabled: true
-        existingClaim: wiki
-        globalMounts:
-          - path: /data
