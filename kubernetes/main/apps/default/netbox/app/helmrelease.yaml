@@ -106,6 +106,8 @@ spec:
     extraInitContainers:
       - image: ghcr.io/drag0n141/postgres-init:16
         name: init-db
+        securityContext:
+          runAsUser: 999
         envFrom: &envFrom
           - secretRef:
               name: netbox-secret
