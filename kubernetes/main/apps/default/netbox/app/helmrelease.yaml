@@ -2,84 +2,113 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app netbox
+  name: netbox
 spec:
   interval: 30m
   chart:
     spec:
-      chart: app-template
-      version: 2.6.0
+      chart: netbox
+      version: 4.1.1
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: bootc
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   values:
-    controllers:
-      main:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: netbox-secret
-              - secretRef:
-                  name: netbox-redis-secret
-        containers:
-          main:
-            image:
-              repository: ghcr.io/linuxserver/netbox
-              tag: 3.7.3@sha256:265b4e18dd641a0a85a630b18befe5287a8a2a1702b50bb7894137dc8a7ed3f5
-            env:
-              TZ: ${TIMEZONE}
-              PGID: 1000
-              PUID: 1000
-              REDIS_HOST: "netbox-redis.default.svc.cluster.local"
-            envFrom: *envFrom
-    service:
-      main:
-        ports:
-          http:
-            port: 8000
-    ingress:
-      main:
-        enabled: true
-        className: traefik-internal
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "netbox.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    image:
+      repository: docker.io/netboxcommunity/netbox
+      tag: "v3.7.3"
+    superuser:
+      name: drag0n141
+      email: server.netbox@${SECRET_DOMAIN_SHORT}
+    admins:
+      - ["drag0n141", "server.netbox@${SECRET_DOMAIN_SHORT}"]
+    logging:
+      disable_existing_loggers: false
+      handlers:
+        console:
+          class: logging.StreamHandler
+      loggers:
+        netbox.authentication.*:
+          handlers:
+            - console
+          level: DEBUG
+      version: 1
+    remoteAuth:
+      enabled: false
+    loginRequired: true
+    timeZone: ${TIMEZONE}
+    dateFormat: 'j. F, Y'
+    shortDateFormat: 'j.m.Y'
+    timeFormat: 'G:i'
+    shortTimeFormat: 'H:i:s'
+    dateTimeFormat: 'j. F, Y g:i a'
+    shortDateTimeFormat: 'j.m.Y H:i'
+    storageBackend: storages.backends.s3boto3.S3Boto3Storage
+    existingSecret: netbox-files
+    metricsEnabled: true
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+    tasksRedis:
+      host: netbox-redis.default.svc.cluster.local
+      existingSecretName: "netbox-redis-secret"
+      existingSecretKey: "REDIS_PASSWORD"
+    cachingRedis:
+      host: netbox-redis.default.svc.cluster.local
+      existingSecretName: "netbox-redis-secret"
+      existingSecretKey: "REDIS_PASSWORD"
+    externalDatabase:
+      host: postgres-rw.database.svc.cluster.local
+      port: 5432
+      database: netbox_db
+      username: netbox
+      existingSecretName: "netbox-secret"
+      existingSecretKey: "NETBOX_PG_PASS"
+    email:
+      server: smtp-relay.networking.svc.cluster.local
+      port: 2525
+      from: netbox@${SECRET_DOMAIN}
     persistence:
-      data:
-        enabled: true
-        existingClaim: netbox
-        globalMounts:
-          - path: /config
+      enabled: false
+    reportsPersistence:
+      enabled: false
+    ingress:
+      enabled: true
+      className: traefik-internal
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      hosts:
+        - host: &host "netbox.${SECRET_DOMAIN_INTERNAL}"
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: netbox
+                  port:
+                    number: 80
+      tls:
+        - hosts:
+            - *host
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    init:
+      image:
+        repository: docker.io/library/busybox
+        tag: 1.36.1
+    extraInitContainers:
+      - image: ghcr.io/drag0n141/postgres-init:16
+        name: init-db
+        envFrom: &envFrom
+          - secretRef:
+              name: netbox-secret
+    extraConfig:
+      - secret:
+          secretName: netbox-secret
+    updateStrategy:
+      type: RollingUpdate
+    worker:
+      enabled: true
+      updateStrategy:
+        type: RollingUpdate
