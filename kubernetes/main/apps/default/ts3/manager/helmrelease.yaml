@@ -39,7 +39,7 @@ spec:
                   name: ts3-manager-secret
     service:
       app:
-        controller: ts3
+        controller: ts3-manager
         ports:
           http:
             port: 8080
