@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      jellyseerr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -42,7 +41,7 @@ spec:
               - secretRef:
                   name: jellyseerr-secret
         containers:
-          main:
+          app:
             image:
               repository: docker.io/fallenbagel/jellyseerr
               tag: preview-postgres@sha256:15f9bd26ec3d3e6aa9b0459604a39797e0003dbb5cf7c22b2df835c3aea2c503
@@ -83,13 +82,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: jellyseerr
         ports:
           http:
             port: *port
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -99,7 +98,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

@@ -8,20 +8,20 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -29,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      readarr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -41,7 +41,7 @@ spec:
               - secretRef:
                   name: readarr-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/drag0n141/readarr-develop
               tag: 0.3.19@sha256:8f98f3319631bf8c9354afad76bc45b8babb26b404918bd92a35d447647d0552
@@ -88,12 +88,13 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [10000]
     service:
-      main:
+      app:
+        controller: readarr
         ports:
           http:
             port: *port
     ingress:
-      main:
+      app:
         enabled: true
         className: traefik-internal
         annotations:
@@ -104,7 +105,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

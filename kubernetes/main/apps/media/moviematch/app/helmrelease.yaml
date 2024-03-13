@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,16 +20,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      moviematch:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/lukechannings/moviematch
               tag: 1.10.0
@@ -45,13 +44,13 @@ spec:
               limits:
                 memory: 500Mi
     service:
-      main:
+      app:
+        controller: moviematch
         ports:
           http:
             port: 8000
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -61,7 +60,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

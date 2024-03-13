@@ -8,20 +8,20 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -29,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      lidarr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -41,7 +41,7 @@ spec:
               - secretRef:
                   name: lidarr-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/drag0n141/lidarr
               tag: 2.1.7.4030@sha256:b226a841d545fd247ec6b2630026bb95f9f631e15d777260930a559dddb98298
@@ -88,13 +88,13 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [10000]
     service:
-      main:
+      app:
+        controller: lidarr
         ports:
           http:
             port: *port
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -104,7 +104,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

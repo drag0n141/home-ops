@@ -8,20 +8,20 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -29,11 +29,11 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      tautulli:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/drag0n141/tautulli
               tag: 2.13.4@sha256:f36542138d78cfac04034431aefe9c51f09472c67198edf5e19ea12183ce46fa
@@ -85,13 +85,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: tautulli
         ports:
           http:
             port: *port
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -101,7 +101,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -109,7 +109,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: tautulli
         globalMounts:
           - path: /config
