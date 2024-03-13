@@ -55,12 +55,12 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: app
+        controller: syncthing
         ports:
           http:
             port: 8384
       sync:
-        controller: app
+        controller: syncthing
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
