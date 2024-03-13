@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -30,7 +30,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      tandoor:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -42,7 +42,7 @@ spec:
               - secretRef:
                   name: tandoor-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
               tag: 1.5.14
@@ -105,13 +105,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: tandoor
         ports:
           http:
             port: 8080
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -121,36 +121,18 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-      internal:
-        enabled: true
-        className: traefik-internal
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &internal "recipes.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *internal
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: tandoor
         advancedMounts:
-          main:
-            main:
+          tandoor:
+            app:
               - path: /opt/recipes/mediafiles
                 subPath: mediafiles
               - path: /opt/recipes/staticfiles
@@ -164,7 +146,7 @@ spec:
         type: configMap
         name: tandoor-configmap
         advancedMounts:
-          main:
+          tandoor:
             nginx:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
@@ -172,8 +154,8 @@ spec:
       temp:
         type: emptyDir
         advancedMounts:
-          main:
-            main:
+          tandoor:
+            app:
               - path: /tmp
                 subPath: app-tmp
               - path: /opt/recipes/cookbook/static/django_js_reverse

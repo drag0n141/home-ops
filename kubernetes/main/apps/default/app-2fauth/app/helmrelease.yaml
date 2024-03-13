@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      app-2fauth:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -42,7 +41,7 @@ spec:
               - secretRef:
                   name: app-2fauth-secret
         containers:
-          main:
+          app:
             image:
               repository: docker.io/2fauth/2fauth
               tag: 5.0.4
@@ -62,13 +61,13 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: app-2fauth
         ports:
           http:
             port: 8000
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -78,7 +77,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -86,7 +85,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: app-2fauth
         globalMounts:
           - path: /2fauth
