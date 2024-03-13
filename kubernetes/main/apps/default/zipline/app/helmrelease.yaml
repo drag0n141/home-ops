@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,15 +20,14 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: minio
       namespace: storage
   values:
     controllers:
-      main:
+      outline:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -40,7 +39,7 @@ spec:
               - secretRef:
                   name: zipline-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/diced/zipline
               tag: 3.7.9@sha256:3c181140c66787b7db6ab98726a807cd23b1332a22c79cd2d93064f1920cf466
@@ -92,13 +91,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: outline
         ports:
           http:
             port: 3000
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -108,7 +107,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

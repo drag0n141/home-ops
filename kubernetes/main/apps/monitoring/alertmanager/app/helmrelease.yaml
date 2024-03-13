@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -30,12 +30,12 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      alertmanager:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: quay.io/prometheus/alertmanager
               tag: v0.27.0
@@ -48,13 +48,13 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      main:
+      app:
+        controller: alertmanager
         ports:
           http:
             port: 9093
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -64,7 +64,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

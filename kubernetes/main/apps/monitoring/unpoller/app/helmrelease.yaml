@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,16 +20,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      unpoller:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.10.0@sha256:c2ac3a1415efeec0ad2a191786e570348748570bbdd414d0a56ef663ee09dca4
@@ -57,15 +56,17 @@ spec:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
-            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
     service:
-      main:
+      app:
+        controller: unpoller
         ports:
           http:
             port: 9130
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: unpoller
         endpoints:
           - port: http
             scheme: http
