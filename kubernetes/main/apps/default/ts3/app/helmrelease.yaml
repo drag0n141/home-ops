@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      ts3:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -42,7 +41,7 @@ spec:
               - secretRef:
                   name: ts3-server-secret
         containers:
-          main:
+          app:
             image:
               repository: docker.io/teamspeak
               tag: 3.13.7
@@ -61,15 +60,14 @@ spec:
               startup:
                 enabled: false
     service:
-      main:
+      app:
+        controller: ts3
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${TS3_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
-          http:
-            enabled: false
           voice:
             port: 9987
             protocol: UDP
