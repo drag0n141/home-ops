@@ -74,15 +74,15 @@ spec:
         type: configMap
         name: mosquitto-configmap
         advancedMounts:
-          main:
-            main:
+          mosquitto:
+            app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf
       secret-file:
         type: secret
         name: mosquitto-files
         advancedMounts:
-          main:
+          mosquitto:
             init-config:
               - path: /tmp/secret
       external-config:
