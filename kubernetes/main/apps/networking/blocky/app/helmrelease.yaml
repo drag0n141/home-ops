@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -28,7 +28,7 @@ spec:
       namespace: database
   values:
     controllers:
-      main:
+      blocky:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -42,7 +42,7 @@ spec:
               - secretRef:
                   name: blocky-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/0xerr0r/blocky
               tag: v0.23@sha256:450d193393c0dceb108d1cd80a5580ab9d851127c924c1ae89361d32161ae528
@@ -91,12 +91,13 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     service:
-      main:
+      app:
+        controller: blocky
         ports:
           http:
             port: 4000
       dns:
-        controller: main
+        controller: blocky
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
@@ -111,8 +112,7 @@ spec:
             protocol: UDP
     serviceMonitor:
       main:
-        enabled: true
-        serviceName: *app
+        serviceName: blocky
         endpoints:
           - interval: 30s
             path: /metrics

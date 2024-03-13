@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: traefik-external
       namespace: networking
@@ -30,13 +29,13 @@ spec:
       namespace: networking
   values:
     controllers:
-      main:
+      error-pages:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tarampampam/error-pages
               tag: 2.26.0@sha256:e27d3ba012845a6cb3a3b5660553a978246f0bebb1ea18497aa75f9368da99b2
@@ -58,7 +57,8 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     service:
-      main:
+      app:
+        controller: error-pages
         ports:
           http:
             port: 8080

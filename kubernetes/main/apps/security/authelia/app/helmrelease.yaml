@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,15 +20,14 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: redis
       namespace: database
   values:
     controllers:
-      main:
+      authelia:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -42,7 +41,7 @@ spec:
               - secretRef:
                   name: authelia-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/authelia/authelia
               tag: v4.38.0-beta3@sha256:b48ae4d0ed9d1eee76efe382df60928bae550ec19e5663858dde6dc5f41cf285
@@ -104,7 +103,8 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
     service:
-      main:
+      app:
+        controller: authelia
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
@@ -116,8 +116,8 @@ spec:
           metrics:
             port: 8080
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: authelia
         endpoints:
           - port: metrics
             scheme: http
@@ -125,8 +125,7 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -136,7 +135,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

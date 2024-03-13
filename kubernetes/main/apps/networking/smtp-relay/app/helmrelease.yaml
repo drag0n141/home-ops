@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,13 +25,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      smtp-relay:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.1
@@ -42,18 +42,25 @@ spec:
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
-                memory: 128M
               limits:
-                memory: 256M
+                memory: 128M
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
@@ -62,7 +69,8 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     service:
-      main:
+      app:
+        controller: smtp-relay
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "smtp.${SECRET_DOMAIN_INTERNAL}"
@@ -74,8 +82,14 @@ spec:
           smtp:
             port: 2525
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: smtp-relay
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     persistence:
       config:
         enabled: true

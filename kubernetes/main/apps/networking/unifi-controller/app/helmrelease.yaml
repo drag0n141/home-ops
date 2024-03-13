@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,11 +29,11 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      unifi-controller:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/jacobalberty/unifi-docker
               tag: v8.0.28@sha256:f88940c7c713a6fd492be528953b83320deba91dfd86f3a499dd101223e043d5
@@ -58,14 +57,15 @@ spec:
             fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: unifi-controller
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: https
         ports:
           http:
             port: 8443
       unifi:
-        controller: main
+        controller: unifi-controller
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "unifi.${SECRET_DOMAIN_INTERNAL}"
@@ -82,8 +82,7 @@ spec:
             port: 10001
             protocol: UDP
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -93,7 +92,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
