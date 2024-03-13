@@ -28,8 +28,8 @@ spec:
     - name: volsync
       namespace: storage
   values:
-    dashy:
-      main:
+    controllers:
+      dashy:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
