@@ -20,15 +20,14 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      system-upgrade-controller:
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: docker.io/rancher/system-upgrade-controller
               tag: v0.13.4@sha256:3df6d01b9eb583a78c309ce0b2cfeed98a9af97983e4ea96bf53410dd56c6f45
@@ -47,16 +46,17 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              seccompProfile:
+                type: RuntimeDefault
         pod:
           securityContext:
-            runAsNonRoot: true
             runAsUser: 65534
             runAsGroup: 65534
-            allowPrivilegeEscalation: false
-            seccompProfile:
-              type: RuntimeDefault
-            capabilities:
-              drop: ["ALL"]
+            runAsNonRoot: true
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
@@ -73,9 +73,6 @@ spec:
     serviceAccount:
       create: true
       name: system-upgrade
-    service:
-      main:
-        enabled: false
     persistence:
       tmp:
         type: emptyDir
