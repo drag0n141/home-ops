@@ -55,9 +55,9 @@ spec:
               PAPERLESS_TASK_WORKERS: "2"
               PAPERLESS_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
               PAPERLESS_PORT: "8000"
-              PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
+              PAPERLESS_CONSUMPTION_DIR: /data/nas/consume
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
-              PAPERLESS_EXPORT_DIR: /usr/src/paperless/export
+              PAPERLESS_EXPORT_DIR: /data/nas/export
               PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
               PAPERLESS_CONSUMER_POLLING: "360"
               PAPERLESS_CONSUMER_RECURSIVE: "true"
@@ -111,10 +111,5 @@ spec:
         type: nfs
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/paperless
-        advancedMounts:
-          paperless:
-            app:
-              - subPath: "consume"
-                path: "/usr/src/paperless/consume"
-              - subPath: "export"
-                path: "/usr/src/paperless/export"
+        globalMounts:
+          - path: /data/nas
