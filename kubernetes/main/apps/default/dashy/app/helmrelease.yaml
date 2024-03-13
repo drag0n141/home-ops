@@ -28,8 +28,8 @@ spec:
     - name: volsync
       namespace: storage
   values:
-    dashy:
-      main:
+    controllers:
+      dashy:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -92,8 +92,8 @@ spec:
       data:
         existingClaim: dashy
         advancedMounts:
-          main:
-            main:
+          dashy:
+            app:
               - subPath: "icons"
                 path: "/app/public/item-icons"
               - subPath: "backgrounds"
