@@ -108,7 +108,7 @@ spec:
         controller: cloudflared
         ports:
           http:
-            port: *port
+            port: 8080
     serviceMonitor:
       app:
         serviceName: cloudflared
