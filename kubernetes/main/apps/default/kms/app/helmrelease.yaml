@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,16 +20,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      kms:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/drag0n141/kms
               tag: svn1113@sha256:c63bad97b861877a8c0bddbdb1f2629bf05aaf6ae8929062d4e1b1e4d0e0db07
@@ -61,14 +60,13 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [10000]
     service:
-      main:
+      app:
+        controller: kms
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "kms.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${KMS_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
-          http:
-            enabled: false
           kms:
             port: 1688

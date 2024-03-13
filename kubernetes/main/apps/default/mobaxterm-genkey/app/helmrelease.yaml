@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,24 +29,24 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      mobaxterm-genkey:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/malaohu/mobaxterm-genkey
               tag: latest@sha256:c592d8a24d18bed16ee0ccf3ca460f520365372ebd7d325b64d68e0673418bf5
             env:
               TZ: ${TIMEZONE}
     service:
-      main:
+      app:
+        controller: mobaxterm-genkey
         ports:
           http:
             port: 5000
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -57,7 +56,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

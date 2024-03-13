@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      gotify:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -42,7 +41,7 @@ spec:
               - secretRef:
                   name: gotify-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/gotify/server
               tag: 2.4.0
@@ -56,13 +55,13 @@ spec:
               limits:
                 memory: 256Mi
     service:
-      main:
+      app:
+        controller: gotify
         ports:
           http:
             port: 80
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -72,14 +71,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
-        enabled: true
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -89,7 +87,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -97,7 +95,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: gotify
         globalMounts:
           - path: /app/data

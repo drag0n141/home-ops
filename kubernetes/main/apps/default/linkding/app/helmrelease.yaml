@@ -84,7 +84,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: linkding
         globalMounts:
           - path: /etc/linkding/data
