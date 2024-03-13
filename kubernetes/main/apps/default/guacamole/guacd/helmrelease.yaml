@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,16 +20,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      guacd:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/guacamole/guacd
               tag: 1.5.4
@@ -42,7 +41,8 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
+        controller: guacd
         ports:
           http:
             port: 4822

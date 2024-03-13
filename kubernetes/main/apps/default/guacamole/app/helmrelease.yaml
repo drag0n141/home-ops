@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,12 +20,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      guacamole:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -58,7 +57,7 @@ spec:
               - export PGPASSWORD=$(INIT_POSTGRES_PASS);
                 psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/initdb.sql || true;
         containers:
-          main:
+          app:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.4
@@ -75,13 +74,13 @@ spec:
               limits:
                 memory: 750Mi
     service:
-      main:
+      app:
+        controller: guacamole
         ports:
           http:
             port: 8080
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -91,7 +90,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -101,7 +100,7 @@ spec:
       migrations:
         type: emptyDir
         advancedMounts:
-          main:
+          guacamole:
             02-init-schema:
               - path: /migrations
             03-init-migrations:
