@@ -8,31 +8,31 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: immich-server
       namespace: default
   values:
     controllers:
-      main:
+      immich-machine-learning:
         annotations:
           reloader.stakater.com/auto: "true"
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.98.2@sha256:ac21ed6160c106eb26f704626d1fbf693dd74640131afd4d2ccad5db26aa98c5
@@ -74,13 +74,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: immich-machine-learning
         ports:
           http:
             port: 3003
     persistence:
       library:
-        enabled: true
         type: nfs
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/photos

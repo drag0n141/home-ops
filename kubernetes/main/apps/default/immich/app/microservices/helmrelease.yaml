@@ -8,30 +8,30 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: immich-server
       namespace: default
   values:
     controllers:
-      main:
+      immich-microservices:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.98.2@sha256:5d46c02f171b2c85c5c445ed9ae233d68568b241e14e293b0195d539b98de42a
@@ -62,12 +62,8 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
-    service:
-      main:
-        enabled: false
     persistence:
       library:
-        enabled: true
         type: nfs
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/photos

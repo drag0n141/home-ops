@@ -8,23 +8,23 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      immich:
         annotations:
           reloader.stakater.com/auto: "true"
         strategy: RollingUpdate
@@ -41,7 +41,7 @@ spec:
               - configMapRef:
                   name: immich-configmap
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.98.2@sha256:5d46c02f171b2c85c5c445ed9ae233d68568b241e14e293b0195d539b98de42a
@@ -78,13 +78,13 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: immich
         ports:
           http:
             port: 3001
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -95,7 +95,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -103,7 +103,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       library:
-        enabled: true
         type: nfs
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/photos
