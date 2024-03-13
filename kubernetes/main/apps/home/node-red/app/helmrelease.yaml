@@ -8,20 +8,20 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -29,11 +29,11 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      node-red:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/nodered/node-red
               tag: 3.1.7@sha256:867a225c65ed6364e7e88a788b9ac54711544cd1af94c488f7954f880104d61a
@@ -59,13 +59,13 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: node-red
         ports:
           http:
             port: 1880
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -75,7 +75,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
