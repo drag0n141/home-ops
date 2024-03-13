@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,9 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -30,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      paperless:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -44,7 +43,7 @@ spec:
               - secretRef:
                   name: paperless-redis-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.6.2
@@ -76,13 +75,13 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      main:
+      app:
+        controller: paperless
         ports:
           http:
             port: 8000
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -92,7 +91,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -100,11 +99,10 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: paperless
         advancedMounts:
-          main:
-            main:
+          paperless:
+            app:
               - subPath: "data"
                 path: "/usr/src/paperless/data"
               - subPath: "media"
@@ -114,8 +112,8 @@ spec:
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/paperless
         advancedMounts:
-          main:
-            main:
+          paperless:
+            app:
               - subPath: "consume"
                 path: "/usr/src/paperless/consume"
               - subPath: "export"

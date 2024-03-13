@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,16 +20,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      rdesktop:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/linuxserver/rdesktop
               tag: latest@sha256:1818b1c9649830834d93525d67a7f9d7ca82ff6be1abfe5634596d794b7582cd
@@ -38,16 +37,14 @@ spec:
               PUID: 1000
               PGID: 1000
     service:
-      main:
+      app:
+        controller: rdesktop
         ports:
-          http:
-            enabled: false
           rdp:
             port: 3389
             protocol: TCP
     persistence:
       data:
-        enabled: true
         existingClaim: rdesktop
         globalMounts:
           - path: /config

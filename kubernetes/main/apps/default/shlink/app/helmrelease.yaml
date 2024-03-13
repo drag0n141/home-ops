@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,15 +20,14 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: redis
       namespace: database
   values:
     controllers:
-      main:
+      shlink:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -42,7 +41,7 @@ spec:
               - secretRef:
                   name: shlink-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/shlinkio/shlink
               tag: 4.0.2@sha256:7a269a8598ee3e6dc14cb167bf9c8b18de92327606b9e717bc9972d086bc923f
@@ -92,13 +91,13 @@ spec:
             runAsGroup: 1001
             runAsNonRoot: true
     service:
-      main:
+      app:
+        controller: shlink
         ports:
           http:
             port: *port
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -108,7 +107,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

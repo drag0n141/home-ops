@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,18 +20,17 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      pairdrop:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/schlagmichdoch/pairdrop
               tag: v1.10.7@sha256:7ac5e3821d8a90635cf823a3b74e8a28c3c90a6ea1dfc10e3366fb4217e2901b
@@ -44,13 +43,13 @@ spec:
               limits:
                 memory: 256M
     service:
-      main:
+      app:
+        controller: pairdrop
         ports:
           http:
             port: 3000
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -60,14 +59,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
-        enabled: true
         className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -77,7 +75,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
