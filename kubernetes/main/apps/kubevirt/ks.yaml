@@ -14,7 +14,7 @@ spec:
   interval: 30m
   prune: true
   wait: true
-  path: "./deploy"
+  path: ./deploy
   sourceRef:
     kind: GitRepository
     name: kubevirt
