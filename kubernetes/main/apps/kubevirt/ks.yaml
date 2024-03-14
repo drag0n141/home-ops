@@ -37,7 +37,7 @@ spec:
           name: not-used
         spec:
           configuration:
-            vmStateStorageClass: "file"
+            vmStateStorageClass: ceph-block
             developerConfiguration:
               featureGates:
                 - VMPersistentState
