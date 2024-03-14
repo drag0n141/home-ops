@@ -11,7 +11,7 @@ spec:
       guest: 2048Mi
   clock:
     preferredClockOffset:
-      timezone: "${TIMEZONE}"
+      timezone: ${TIMEZONE}
     preferredTimer:
       hpet:
         present: false
