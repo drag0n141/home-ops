@@ -39,4 +39,6 @@ spec:
         spinlocks: 8191
       vapic: {}
     preferredSmm: {}
+  volumes:
+    preferredStorageClassName: ceph-block
   preferredTerminationGracePeriodSeconds: 180
