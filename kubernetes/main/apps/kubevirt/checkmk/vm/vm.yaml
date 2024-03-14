@@ -21,7 +21,7 @@ spec:
         - name: "default"
           multus:
             default: true
-            networkName: multus-iot
+            networkName: networking/multus-iot
       volumes:
         - name: "root-drive"
           persistentVolumeClaim:
