@@ -16,7 +16,7 @@ spec:
       labels:
         kubevirt.io/os: linux
     spec:
-      hostname: "checkmk"
+      hostname: checkmk
       networks:
         - name: eth0
           multus:
