@@ -1,0 +1,43 @@
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: checkmk
+spec:
+  preference:
+    kind: VirtualMachinePreference
+    name: checkmk
+  instancetype:
+    kind: VirtualMachineInstancetype
+    name: checkmk
+  runStrategy: "Always"
+  template:
+    metadata:
+      labels:
+        kubevirt.io/os: "linux"
+    spec:
+      hostname: "CheckMK-Server"
+      networks:
+        - name: "default"
+          multus:
+            default: true
+            networkName: multus-iot
+      volumes:
+        - name: "root-drive"
+          persistentVolumeClaim:
+            claimName: "checkmk"
+      domain:
+        devices:
+          disks:
+            - name: "root-drive"
+              disk: {}
+          interfaces:
+            - name: "default"
+              bridge: {}
+          autoattachInputDevice: false
+          inputs: []
+        firmware:
+          uuid: "${SECRET_CHECKMK_UUID}"
+          bootloader:
+            efi:
+              persistent: true

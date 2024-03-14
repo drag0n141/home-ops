@@ -1,0 +1,43 @@
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: dc01
+spec:
+  preference:
+    kind: VirtualMachinePreference
+    name: dc01
+  instancetype:
+    kind: VirtualMachineInstancetype
+    name: dc01
+  runStrategy: "Always"
+  template:
+    metadata:
+      labels:
+        kubevirt.io/os: "windows"
+    spec:
+      hostname: "DC01"
+      networks:
+        - name: "default"
+          multus:
+            default: true
+            networkName: multus-iot
+      volumes:
+        - name: "c-drive"
+          persistentVolumeClaim:
+            claimName: "dc01"
+      domain:
+        devices:
+          disks:
+            - name: "c-drive"
+              disk: {}
+          interfaces:
+            - name: "default"
+              bridge: {}
+          autoattachInputDevice: false
+          inputs: []
+        firmware:
+          uuid: "${SECRET_DC01_UUID}"
+          bootloader:
+            efi:
+              persistent: true

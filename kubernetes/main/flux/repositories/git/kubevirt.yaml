@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: kubevirt
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/drag0n141/kubevirt-flux.git
+  ref:
+    tag: v1.2.0
+  ignore: |
+    # exclude all
+    /*
+    # include files
+    !/deploy

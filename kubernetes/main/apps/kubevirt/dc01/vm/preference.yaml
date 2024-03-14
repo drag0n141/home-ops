@@ -1,0 +1,47 @@
+---
+apiVersion: instancetype.kubevirt.io/v1beta1
+kind: VirtualMachinePreference
+metadata:
+  name: dc01
+spec:
+  requirements:
+    cpu:
+      guest: 2
+    memory:
+      guest: 4096Mi
+  clock:
+    preferredClockOffset:
+      timezone: "${TIMEZONE}"
+    preferredTimer:
+      hpet:
+        present: false
+      hyperv: {}
+      pit:
+        tickPolicy: delay
+      rtc:
+        tickPolicy: catchup
+  cpu:
+    preferredCPUTopology: preferSockets
+  devices:
+    preferredDiskBus: virtio
+    preferredInterfaceModel: virtio
+    preferredTPM:
+      persistent: true
+    preferredAutoattachMemBalloon: false
+    preferredAutoattachGraphicsDevice: true
+    preferredAutoattachSerialConsole: true
+    preferredAutoattachPodInterface: true
+    preferredAutoattachInputDevice: false # save CPU resources, similar to disabling tablet input on Proxmox
+  features:
+    preferredAcpi: {}
+    preferredApic: {}
+    preferredHyperv:
+      relaxed: {}
+      spinlocks:
+        spinlocks: 8191
+      vapic: {}
+    preferredSmm: {}
+  firmware:
+    preferredUseEfi: true
+    preferredUseSecureBoot: true
+  preferredTerminationGracePeriodSeconds: 180
