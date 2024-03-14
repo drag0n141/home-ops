@@ -10,7 +10,7 @@ spec:
   instancetype:
     kind: VirtualMachineInstancetype
     name: checkmk
-  runStrategy: "Always"
+  runStrategy: Always
   template:
     metadata:
       labels:
@@ -18,21 +18,21 @@ spec:
     spec:
       hostname: "checkmk"
       networks:
-        - name: "default"
+        - name: eth0
           multus:
             default: true
             networkName: networking/multus-iot
       volumes:
-        - name: "root-drive"
+        - name: root
           persistentVolumeClaim:
-            claimName: "checkmk"
+            claimName: checkmk
       domain:
         devices:
           disks:
-            - name: "root-drive"
+            - name: root
               disk: {}
           interfaces:
-            - name: "default"
+            - name: eth0
               bridge: {}
           autoattachInputDevice: false
           inputs: []
