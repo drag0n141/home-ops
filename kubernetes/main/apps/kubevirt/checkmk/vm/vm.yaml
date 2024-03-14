@@ -16,7 +16,7 @@ spec:
       labels:
         kubevirt.io/os: "linux"
     spec:
-      hostname: "CheckMK-Server"
+      hostname: "checkmk"
       networks:
         - name: "default"
           multus:
