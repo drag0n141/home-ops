@@ -47,7 +47,7 @@ spec:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
     devices:
-      - eth0
+      - vlan254
       - enp86s0
     endpointRoutes:
       enabled: true
