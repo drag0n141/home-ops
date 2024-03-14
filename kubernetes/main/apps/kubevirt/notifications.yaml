@@ -18,7 +18,7 @@ spec:
     name: alert-manager
   eventSeverity: error
   eventSources:
-    - kind: VirtualMachine
+    - kind: GitRepository
       name: "*"
   exclusionList:
     - "error.*lookup github\\.com"
