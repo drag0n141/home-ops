@@ -40,5 +40,5 @@ spec:
       vapic: {}
     preferredSmm: {}
   volumes:
-    preferredStorageClassName: ceph-block
+    preferredStorageClassName: ceph-filesystem
   preferredTerminationGracePeriodSeconds: 180
