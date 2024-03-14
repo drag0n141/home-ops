@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: docker.io/netboxcommunity/netbox
-      tag: v3.7.3
+      tag: v3.7.4
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
