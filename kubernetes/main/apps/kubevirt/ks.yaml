@@ -2,23 +2,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kubevirt
+  name: &app kubevirt
   namespace: flux-system
-  labels:
-    kustomization.flux.home.arpa/name: "kubevirt"
-    kustomization.flux.home.arpa/default: "false"
-    kustomization.flux.home.arpa/helmpatches: "false"
-    substitution.flux.home.arpa/disabled: "true"
-    prune.flux.home.arpa/disabled: "false"
 spec:
-  interval: 30m
-  prune: true
-  wait: true
+  targetNamespace: kubevirt
+  dependsOn:
+    - name: rook-ceph-cluster
   path: ./deploy
+  prune: true
   sourceRef:
     kind: GitRepository
     name: kubevirt
-  dependsOn: []
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
   patches:
     # namespace is managed separately by main ks, no need for this ks to also manage it, KubeVirt bundles namespace into kubevirt-operator.yaml
     - patch: |
