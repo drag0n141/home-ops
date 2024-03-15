@@ -1,0 +1,18 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-server
+spec:
+  config: |-
+    {
+      "cniVersion": "0.3.1",
+      "name": "multus-server",
+      "plugins": [
+        {
+          "type": "bridge",
+          "bridge": "vlan254",
+          "ipam": { "type": "dhcp" }
+        }
+      ]
+    }
