@@ -86,3 +86,4 @@ spec:
           multus-dhcp:
             app:
               - path: /host/var/run/netns
+                mountPropagation: HostToContainer
