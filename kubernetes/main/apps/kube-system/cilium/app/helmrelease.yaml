@@ -46,9 +46,7 @@ spec:
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
-    devices:
-      - vlan254
-      - enp86s0
+    devices: vlan254
     endpointRoutes:
       enabled: true
     hubble:
