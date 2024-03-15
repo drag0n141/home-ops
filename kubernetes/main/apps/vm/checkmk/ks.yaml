@@ -5,12 +5,12 @@ metadata:
   name: &app checkmk-deps
   namespace: flux-system
 spec:
-  targetNamespace: kubevirt
+  targetNamespace: vm
   dependsOn:
     - name: kubevirt
     - name: rook-ceph-cluster
     - name: volsync
-  path: ./kubernetes/main/apps/kubevirt/checkmk/deps
+  path: ./kubernetes/main/apps/vm/checkmk/deps
   prune: true
   sourceRef:
     kind: GitRepository
@@ -30,10 +30,10 @@ metadata:
   name: &app checkmk
   namespace: flux-system
 spec:
-  targetNamespace: kubevirt
+  targetNamespace: vm
   dependsOn:
     - name: checkmk-deps
-  path: ./kubernetes/main/apps/kubevirt/checkmk/vm
+  path: ./kubernetes/main/apps/vm/checkmk/vm
   prune: true
   sourceRef:
     kind: GitRepository
