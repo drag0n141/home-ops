@@ -10,13 +10,15 @@ spec:
       "name": "multus-iot",
       "plugins": [
         {
-          "type": "bridge",
-          "bridge": "br0",
+          "type": "macvlan",
+          "master": "br0",
+          "mode": "bridge",
           "vlan": 150,
-          "isDefaultGateway": false,
-          "uplinkInterface": "eth0",
+          "capabilities": {
+            "ips": true
+          },
           "ipam": {
-            "type": "dhcp",
+            "type": "static",
             "routes": [
               { "dst": "192.168.150.0/24" }
             ]
