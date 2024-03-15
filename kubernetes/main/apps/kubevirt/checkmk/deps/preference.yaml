@@ -15,7 +15,6 @@ spec:
     preferredTimer:
       hpet:
         present: false
-      hyperv: {}
       pit:
         tickPolicy: delay
       rtc:
@@ -33,12 +32,9 @@ spec:
   features:
     preferredAcpi: {}
     preferredApic: {}
-    preferredHyperv:
-      relaxed: {}
-      spinlocks:
-        spinlocks: 8191
-      vapic: {}
     preferredSmm: {}
+  firmware:
+    preferredUseBios: true
   volumes:
     preferredStorageClassName: ceph-filesystem
   preferredTerminationGracePeriodSeconds: 180
