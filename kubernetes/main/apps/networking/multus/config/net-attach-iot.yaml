@@ -6,20 +6,20 @@ metadata:
 spec:
   config: |-
     {
-      "cniVersion": "0.3.1",
+      "cniVersion": "0.4.0",
       "name": "multus-iot",
       "plugins": [
         {
           "type": "bridge",
           "bridge": "br0",
           "vlan": 150,
-          "capabilities": {
-            "ips": true
-          },
+          "isDefaultGateway": false,
+          "uplinkInterface": "eth0",
+          "enableIPv6": true,
           "ipam": {
-            "type": "static",
-            "routes": [
-              { "dst": "192.168.150.0/24" }
+            "type": "dhcp",
+            "provide": [
+               { "option": "12", "fromArg": "K8S_POD_NAME" }
             ]
           }
         }
