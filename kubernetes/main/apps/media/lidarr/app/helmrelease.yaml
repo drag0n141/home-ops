@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/lidarr
-              tag: 2.1.7.4030@sha256:b226a841d545fd247ec6b2630026bb95f9f631e15d777260930a559dddb98298
+              tag: 2.1.7.4030@sha256:0b953c953a21085aa97fc9123ca2302aae4e1080e9cabb574cb6e4aee54f3dcb
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
