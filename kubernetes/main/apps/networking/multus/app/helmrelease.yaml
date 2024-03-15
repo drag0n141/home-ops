@@ -30,8 +30,8 @@ spec:
       tag: v4.0.2-thick@sha256:3fbcc32bd4e4d15bd93c96def784a229cd84cca27942bf4858b581f31c97ee02
     cni:
       image:
-        repository: ghcr.io/drag0n141/cni-plugins
-        tag: 1.4.1@sha256:ee4ecbab2eb9d224ea8bfcc9d3abb8f291ae201a597df119f15d07e863bf7c12
+        repository: ghcr.io/angelnu/cni-plugins
+        tag: 1.4.1@sha256:e2ce5f6503622893ac13de6cb46dbddc8461525793bc08975fb8cc787299c1e9
       paths:
         config: /etc/cni/net.d
         bin: /opt/cni/bin
