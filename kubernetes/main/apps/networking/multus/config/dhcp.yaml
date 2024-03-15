@@ -37,7 +37,7 @@ spec:
       - name: kube-dhcp
         image: ghcr.io/drag0n141/cni-plugins:1.4.1
         command:
-        - /host/opt/cni/bin/dhcp
+        - /plugins/dhcp
         args:
         - daemon
         - -hostprefix
