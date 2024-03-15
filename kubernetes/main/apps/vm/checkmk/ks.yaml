@@ -22,8 +22,6 @@ spec:
   postBuild:
     substitute:
       APP: checkmk
-      APP_UID: "107"
-      APP_GID: "107"
       VOLSYNC_CAPACITY: 10Gi
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
