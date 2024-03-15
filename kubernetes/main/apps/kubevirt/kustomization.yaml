@@ -7,4 +7,4 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./ks.yaml
-#   - ./checkmk/ks.yaml
+  - ./checkmk/ks.yaml
