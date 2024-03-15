@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: kube-dhcp-ds-amd64
+  name: kube-dhcp
   namespace: networking
   labels:
     tier: node
@@ -19,6 +19,8 @@ spec:
         app: dhcp
     spec:
       hostNetwork: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
       nodeSelector:
         beta.kubernetes.io/arch: amd64
       tolerations:
