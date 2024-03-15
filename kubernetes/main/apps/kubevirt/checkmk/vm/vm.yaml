@@ -21,7 +21,7 @@ spec:
         - name: eth0
           multus:
             default: true
-            networkName: networking/multus-iot
+            networkName: networking/multus-server
       volumes:
         - name: root
           persistentVolumeClaim:
