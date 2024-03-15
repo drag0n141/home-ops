@@ -41,16 +41,9 @@ spec:
         containers:
           app:
             image:
-              repository: quay.io/k0sproject/cni-node
-              tag: 1.1.1-k0s.1
-            command:
-              - "/opt/cni/bin/dhcp"
-            args:
-              - "daemon"
-              - "-hostprefix"
-              - "/host"
-              - "-broadcast"
-              - "true"
+              repository: ghcr.io/drag0n141/cni-plugins
+              tag: 1.4.1@sha256:ee4ecbab2eb9d224ea8bfcc9d3abb8f291ae201a597df119f15d07e863bf7c12
+            command: ["/plugins/dhcp", "daemon", "-hostprefix", "/host", "-broadcast", "true"]
             resources:
               requests:
                 cpu: 10m
@@ -64,7 +57,6 @@ spec:
       socketpath:
         type: hostPath
         hostPath: /run/cni
-        hostPathType: Directory
         advancedMounts:
           multus-dhcp:
             clean-up:
@@ -74,7 +66,6 @@ spec:
       procpath:
         type: hostPath
         hostPath: /proc
-        hostPathType: Directory
         advancedMounts:
           multus-dhcp:
             app:
@@ -82,7 +73,6 @@ spec:
       netnspath:
         type: hostPath
         hostPath: /var/run/netns
-        hostPathType: Directory
         advancedMounts:
           multus-dhcp:
             app:
