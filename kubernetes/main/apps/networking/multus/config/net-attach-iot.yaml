@@ -13,7 +13,11 @@ spec:
           "type": "bridge",
           "bridge": "br0",
           "vlan": 150,
-          "ipam": { "type": "dhcp" }
+          "isDefaultGateway": false,
+          "ipam": {
+            "type": "dhcp",
+            "routes": [
+              { "dst": "192.168.150.0/24" }
         }
       ]
     }
