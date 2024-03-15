@@ -12,7 +12,7 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
   name: alert-manager
-  namespace: kubevirt
+  namespace: vm
 spec:
   providerRef:
     name: alert-manager
