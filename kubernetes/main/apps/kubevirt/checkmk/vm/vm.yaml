@@ -34,10 +34,8 @@ spec:
           interfaces:
             - name: eth0
               bridge: {}
-          autoattachInputDevice: false
-          inputs: []
         firmware:
           uuid: "${SECRET_CHECKMK_UUID}"
           bootloader:
-            efi:
-              persistent: true
+            bios:
+              useSerial: true
