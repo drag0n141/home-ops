@@ -15,11 +15,10 @@ spec:
           "vlan": 150,
           "isDefaultGateway": false,
           "uplinkInterface": "eth0",
-          "enableIPv6": true,
-          "ipam": {
-            "type": "dhcp",
-            "provide": [
-               { "option": "12", "fromArg": "K8S_POD_NAME" }
+          "enableIPv6": false,
+            "type": "static",
+            "routes": [
+              { "dst": "192.168.150.0/24" }
             ]
           }
         }
