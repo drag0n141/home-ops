@@ -38,9 +38,10 @@ spec:
             vmStateStorageClass: ceph-filesystem
             developerConfiguration:
               featureGates:
-                - VMPersistentState
-                - DataVolumes
                 - AutoResourceLimitsGate
+                - DataVolumes
+                - Root
+                - VMPersistentState
       target:
         group: kubevirt.io
         kind: KubeVirt
