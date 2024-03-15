@@ -37,7 +37,14 @@ spec:
       containers:
       - name: kube-dhcp
         image: ghcr.io/drag0n141/cni-plugins:1.4.1
-        command: ["./dhcp", "daemon", "-hostprefix", "/host", "-broadcast", "true"]
+        command:
+        - /host/opt/cni/bin/dhcp
+        args:
+        - daemon
+        - -hostprefix
+        - /host
+        - -broadcast
+        - true
         resources:
           requests:
             cpu: "100m"
