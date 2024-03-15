@@ -23,6 +23,9 @@ spec:
     substitute:
       APP: checkmk
       VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_STORAGECLASS: ceph-filesystem
+      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
