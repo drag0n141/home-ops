@@ -13,9 +13,6 @@ spec:
           "type": "bridge",
           "bridge": "br0",
           "vlan": "150",
-          "capabilities": {
-            "ips": true
-          },
           "ipam": {
             "type": "static",
             "routes": [
