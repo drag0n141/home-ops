@@ -21,8 +21,6 @@ spec:
       hostNetwork: true
       nodeSelector:
         kubernetes.io/arch: amd64
-      nodeSelector:
-        beta.kubernetes.io/arch: amd64
       tolerations:
       - operator: Exists
         effect: NoSchedule
@@ -38,7 +36,7 @@ spec:
           mountPath: /host/run/cni
       containers:
       - name: kube-dhcp
-        image: gucio1200/cni-dhcp-daemon:latest
+        image: ghcr.io/drag0n141/cni-plugins:1.4.1
         command: ["./dhcp", "daemon", "-hostprefix", "/host", "-broadcast", "true"]
         resources:
           requests:
