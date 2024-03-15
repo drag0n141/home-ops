@@ -10,9 +10,9 @@ spec:
       "name": "multus-iot",
       "plugins": [
         {
-          "type": "macvlan",
-          "master": "enp86s0.150",
-          "mode": "bridge",
+          "type": "bridge",
+          "bridge": "br0",
+          "vlan": "150",
           "capabilities": {
             "ips": true
           },
