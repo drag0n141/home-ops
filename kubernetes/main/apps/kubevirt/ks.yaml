@@ -39,6 +39,7 @@ spec:
             developerConfiguration:
               featureGates:
                 - VMPersistentState
+                - DataVolumes
                 - AutoResourceLimitsGate
       target:
         group: kubevirt.io
