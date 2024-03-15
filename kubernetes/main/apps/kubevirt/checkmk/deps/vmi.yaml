@@ -1,0 +1,28 @@
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: checkmk
+spec:
+  domain:
+    devices:
+      disks:
+      - disk:
+          bus: virtio
+        name: root
+      interfaces:
+      - bridge: {}
+        name: eth0
+      rng: {}
+    resources:
+      requests:
+        memory: 1024Mi
+  networks:
+  - multus:
+      networkName: networking/multus-server
+    name: eth0
+  terminationGracePeriodSeconds: 0
+  volumes:
+  - name: root
+    persistentVolumeClaim:
+      claimName: checkmk
