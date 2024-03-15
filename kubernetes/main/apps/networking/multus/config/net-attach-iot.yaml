@@ -11,8 +11,7 @@ spec:
       "plugins": [
         {
           "type": "bridge",
-          "bridge": "br0",
-          "vlan": "150",
+          "bridge": "vlan150",
           "ipam": {
             "type": "static",
             "routes": [
