@@ -59,6 +59,7 @@ spec:
       socketpath:
         type: hostPath
         hostPath: /run/cni
+        hostPathType: Directory
         advancedMounts:
           multus-dhcp:
             clean-up:
@@ -68,6 +69,7 @@ spec:
       procpath:
         type: hostPath
         hostPath: /proc
+        hostPathType: Directory
         advancedMounts:
           multus-dhcp:
             app:
@@ -75,6 +77,7 @@ spec:
       netnspath:
         type: hostPath
         hostPath: /var/run/netns
+        hostPathType: Directory
         advancedMounts:
           multus-dhcp:
             app:
