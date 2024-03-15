@@ -50,8 +50,6 @@ spec:
               - "daemon"
               - "-hostprefix"
               - "/host"
-              - "-broadcast"
-              - "true"
             resources:
               requests:
                 cpu: 10m
