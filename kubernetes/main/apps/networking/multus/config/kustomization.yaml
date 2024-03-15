@@ -5,3 +5,4 @@ resources:
   - ./dhcp.yaml
   - ./net-attach-cam.yaml
   - ./net-attach-iot.yaml
+  - ./net-attach-server.yaml
