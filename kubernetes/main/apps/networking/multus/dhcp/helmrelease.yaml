@@ -41,10 +41,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/cni-plugins
-              tag: 1.4.1@sha256:ee4ecbab2eb9d224ea8bfcc9d3abb8f291ae201a597df119f15d07e863bf7c12
+              repository: quay.io/k0sproject/cni-node
+              tag: 1.1.1-k0s.1
             command:
-              - "/plugins/dhcp"
+              - "/opt/cni/bin/dhcp"
             args:
               - "daemon"
               - "-hostprefix"
