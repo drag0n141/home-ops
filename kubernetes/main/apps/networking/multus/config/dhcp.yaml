@@ -42,8 +42,6 @@ spec:
         - daemon
         - -hostprefix
         - /host
-        - -broadcast
-        - true
         resources:
           requests:
             cpu: "100m"
