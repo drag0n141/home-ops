@@ -16,6 +16,7 @@ spec:
           "isDefaultGateway": false,
           "uplinkInterface": "eth0",
           "enableIPv6": false,
+          "ipam": {
             "type": "static",
             "routes": [
               { "dst": "192.168.150.0/24" }
