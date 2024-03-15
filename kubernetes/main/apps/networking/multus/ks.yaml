@@ -19,6 +19,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app multus-dhcp
+  namespace: flux-system
+spec:
+  targetNamespace: networking
+  dependsOn:
+    - name: multus
+  path: ./kubernetes/main/apps/networking/multus/dhcp
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app multus-config
   namespace: flux-system
 spec:
