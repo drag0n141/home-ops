@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app multus-dhcp
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      multus-dhcp:
+        type: daemonset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          clean-up:
+            image:
+              repository: public.ecr.aws/docker/library/busybox
+              tag: latest@sha256:650fd573e056b679a5110a70aabeb01e26b76e545ec4b9c70a9523f2dfaf18c6
+            command:
+              - "/bin/sh"
+              - "-c"
+              - "rm -f /host/run/cni/dhcp.sock"
+            securityContext:
+              privileged: true
+        containers:
+          app:
+            image:
+              repository: ghcr.io/drag0n141/cni-plugins
+              tag: 1.4.1@sha256:ee4ecbab2eb9d224ea8bfcc9d3abb8f291ae201a597df119f15d07e863bf7c12
+            command:
+              - "/plugins/dhcp"
+            args:
+              - "daemon -hostprefix /host -broadcast true"
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 50Mi
+            securityContext:
+              privileged: true
+    persistence:
+      socketpath:
+        type: hostPath
+        hostPath: /run/cni
+        advancedMounts:
+          multus-dhcp:
+            clean-up:
+              - path: /host/run/cni
+            app:
+              - path: /host/run/cni
+      procpath:
+        type: hostPath
+        hostPath: /proc
+        advancedMounts:
+          multus-dhcp:
+            app:
+              - path: /host/proc
+      netnspath:
+        type: hostPath
+        hostPath: /var/run/netns
+        advancedMounts:
+          multus-dhcp:
+            app:
+              - path: /host/var/run/netns
