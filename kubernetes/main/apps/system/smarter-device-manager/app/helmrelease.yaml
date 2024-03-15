@@ -43,10 +43,6 @@ spec:
               capabilities: { drop: ["ALL"] }
         pod:
           priorityClassName: system-node-critical
-    service:
-      app:
-        controller: sdm
-        enabled: false
     persistence:
       config:
         enabled: true
