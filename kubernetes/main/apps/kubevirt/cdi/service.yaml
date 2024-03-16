@@ -27,7 +27,7 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-    - host: "cdi.${SECRET_DOMAIN_INTERNAL}"
+    - host: &host "cdi.${SECRET_DOMAIN_INTERNAL}"
       http:
         paths:
           - path: /
