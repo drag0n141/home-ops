@@ -116,24 +116,17 @@ spec:
         path: /mnt/user/Home
         globalMounts:
           - path: /data
-      config:
-        type: nfs
-        server: *nfsServer
-        path: &nfsPath /mnt/user/ocis
-        advancedMounts:
-          ocis:
-            app:
-              - subPath: "config"
-                Path: "/etc/ocis"
       data:
         type: nfs
         server: *nfsServer
-        path: *nfsPath
+        path: /mnt/user/ocis
         advancedMounts:
           ocis:
             app:
-              - subPath: "data"
-                Path: "/var/lib/ocis"
+              - path: /etc/ocis
+                subPath: config
+              - path: /var/lib/ocis
+                subPath: data
       config-proxy:
         type: configMap
         name: ocis-configmap
