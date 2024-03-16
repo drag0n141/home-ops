@@ -123,8 +123,8 @@ spec:
         advancedMounts:
           ocis:
             app:
-              - path: /etc/ocis
-                subPath: config
+              - subPath: "config"
+                Path: "/etc/ocis"
       data:
         type: nfs
         server: *nfsServer
@@ -132,8 +132,8 @@ spec:
         advancedMounts:
           ocis:
             app:
-              - path: /var/lib/ocis
-                subPath: data
+              - subPath: "data"
+                Path: "/var/lib/ocis"
       config-proxy:
         type: configMap
         name: ocis-configmap
