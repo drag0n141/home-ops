@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/tautulli
-              tag: 2.13.4@sha256:f36542138d78cfac04034431aefe9c51f09472c67198edf5e19ea12183ce46fa
+              tag: 2.13.4@sha256:427222d297a63e47908961e5d1a2676ec2f75c145b69a4385b5601b5523fef71
             env:
               TZ: ${TIMEZONE}
             probes:
