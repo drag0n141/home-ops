@@ -1,0 +1,144 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app ocis
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      ocis:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/owncloud/ocis
+              tag: 5.0.0-rc.5
+            command: [/bin/sh]
+            args: ["-c", "ocis init || true; ocis server"]
+            env:
+              TZ: ${TIMEZONE}
+              OCIS_INSECURE: true
+              OCIS_URL: https://cloud.${SECRET_DOMAIN}
+              PROXY_TLS: false
+              DEMO_USERS: false
+              PROXY_HTTP_ADDR: 0.0.0.0:9200
+              OCIS_LOG_LEVEL: info
+              OCIS_LOG_COLOR: true
+              OCIS_LOG_PRETTY: true
+              PROXY_DEBUG_ADDR: 0.0.0.0:9205
+              STORAGE_USERS_OCIS_ROOT: /data
+              NOTIFICATIONS_SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              NOTIFICATIONS_SMTP_PORT: 2525
+              NOTIFICATIONS_SMTP_SENDER: cloud@${SECRET_DOMAIN}
+              NOTIFICATIONS_SMTP_INSECURE: true
+              WEB_OIDC_METADATA_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OCIS_OIDC_ISSUER: https://auth.${SECRET_DOMAIN}
+              WEB_OIDC_CLIENT_ID: ocis
+              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
+              PROXY_OIDC_REWRITE_WELLKNOWN: true
+              PROXY_AUTOPROVISION_ACCOUNTS: true
+              PROXY_USER_OIDC_CLAIM: preferred_username
+              PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
+              WEB_OIDC_SCOPE: "openid profile email groups"
+              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
+            envFrom:
+              - secretRef:
+                  name: ocis-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+    service:
+      app:
+        controller: ocis
+        ports:
+          http:
+            port: 9200
+          metrics:
+            port: 9205
+    serviceMonitor:
+      app:
+        serviceName: ocis
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: traefik-external
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "cloud.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      storage-users:
+        type: nfs
+        server: &nfsServer ${SECRET_NFS_SERVER}
+        path: /mnt/user/Home
+        globalMounts:
+          - path: /data
+
+      config:
+        type: nfs
+        server: *nfsServer
+        path: &nfsPath /mnt/user/ocis
+        advancedMounts:
+          ocis:
+            app:
+              - path: /etc/ocis
+                subPath: config
+      data:
+        type: nfs
+        server: *nfsServer
+        path: *nfsPath
+        advancedMounts:
+          ocis:
+            app:
+              - path: /var/lib/ocis
+                subPath: data
+      config-proxy:
+        type: configMap
+        name: ocis-configmap
+        globalMounts:
+          - path: /etc/ocis/proxy.yaml
+            subPath: proxy.yaml
+            readOnly: true
