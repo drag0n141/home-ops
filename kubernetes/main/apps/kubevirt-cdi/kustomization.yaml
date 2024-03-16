@@ -6,4 +6,4 @@ resources:
   - ./namespace.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./cdi
+#   - ./cdi
