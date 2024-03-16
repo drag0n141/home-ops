@@ -39,12 +39,6 @@ spec:
             podResourceRequirements:
               limits:
                 memory: 1Gi
-          infra:
-            nodeSelector:
-              kubernetes.io/arch: "amd64"
-          workload:
-            nodeSelector:
-              kubernetes.io/arch: "amd64"
       target:
         group: cdi.kubevirt.io
         kind: CDI
