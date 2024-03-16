@@ -50,8 +50,8 @@ spec:
               NOTIFICATIONS_SMTP_PORT: 2525
               NOTIFICATIONS_SMTP_SENDER: cloud@${SECRET_DOMAIN}
               NOTIFICATIONS_SMTP_INSECURE: true
-              WEB_OIDC_METADATA_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
-              OCIS_OIDC_ISSUER: https://auth.${SECRET_DOMAIN}
+              WEB_OIDC_METADATA_URL: https://authelia.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OCIS_OIDC_ISSUER: https://authelia.${SECRET_DOMAIN}
               WEB_OIDC_CLIENT_ID: ocis
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
               PROXY_OIDC_REWRITE_WELLKNOWN: true
