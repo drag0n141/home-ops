@@ -61,7 +61,7 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"multus-server",
+                "name":"multus-admin",
                 "namespace": "networking",
                 "ips": ["192.168.140.5/24"]
               }]
