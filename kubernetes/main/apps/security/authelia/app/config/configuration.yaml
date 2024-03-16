@@ -165,8 +165,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - id: ocis
         description: OwnCloud Infinite Scale
-        secret: "${OCIS_OAUTH_CLIENT_SECRET}"
-        public: false
+        public: true
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
