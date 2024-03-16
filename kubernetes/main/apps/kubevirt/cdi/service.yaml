@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: cdi-uploadproxy
   namespace: kubevirt
+  annotations:
+    traefik.ingress.kubernetes.io/service.serversscheme: https
   labels:
     cdi.kubevirt.io: "cdi-uploadproxy"
 spec:
