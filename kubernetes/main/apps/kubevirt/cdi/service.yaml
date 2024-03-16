@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cdi-uploadproxy
+  namespace: kubevirt
+  annotations:
+    coredns.io/hostname: "cdi.${SECRET_DOMAIN_INTERNAL}"
+    io.cilium/lb-ipam-ips: "${CDI_LB_ADDR}"
+  labels:
+    cdi.kubevirt.io: "cdi-uploadproxy"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: cdi
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+  selector:
+    cdi.kubevirt.io: cdi-uploadproxy

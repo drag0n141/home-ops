@@ -1,0 +1,50 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app kubevirt-cdi
+  namespace: flux-system
+spec:
+  targetNamespace: kubevirt
+  dependsOn:
+    - name: kubevirt
+    - name: rook-ceph-cluster
+  path: ./deploy
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: kubevirt-cdi
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  patches:
+    # namespace is managed separately by main ks, no need for this ks to also manage it, KubeVirt bundles namespace into kubevirt-operator.yaml
+    - patch: |
+        $patch: delete
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: kubevirt
+      target:
+        kind: Namespace
+        name: kubevirt
+    - patch: |
+        apiVersion: cdi.kubevirt.io/v1beta1
+        kind: CDI
+        metadata:
+          name: not-used
+        spec:
+          config:
+            podResourceRequirements:
+              limits:
+                memory: 1Gi
+          infra:
+            nodeSelector:
+              kubernetes.io/arch: "amd64"
+          workload:
+            nodeSelector:
+              kubernetes.io/arch: "amd64"
+      target:
+        group: cdi.kubevirt.io
+        kind: CDI

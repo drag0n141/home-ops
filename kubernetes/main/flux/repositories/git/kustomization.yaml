@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ./kubernetes-csi-addons.yaml
   - ./kubevirt.yaml
+  - ./kubevirt-cdi.yaml
   # - ./local-path-provisioner.yaml
