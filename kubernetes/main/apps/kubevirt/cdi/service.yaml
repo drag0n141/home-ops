@@ -4,9 +4,6 @@ kind: Service
 metadata:
   name: cdi-uploadproxy
   namespace: kubevirt
-  annotations:
-    coredns.io/hostname: "cdi.${SECRET_DOMAIN_INTERNAL}"
-    io.cilium/lb-ipam-ips: "${CDI_LB_ADDR}"
   labels:
     cdi.kubevirt.io: "cdi-uploadproxy"
 spec:
@@ -18,3 +15,29 @@ spec:
       targetPort: 8443
   selector:
     cdi.kubevirt.io: cdi-uploadproxy
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cdi-uploadproxy
+  namespace: kubevirt
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+spec:
+  ingressClassName: traefik-internal
+  rules:
+    - host: "cdi.${SECRET_DOMAIN_INTERNAL}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cdi
+                port:
+                  number: 8443
+  tls:
+    - hosts:
+        - *host
+      secretName: "${SECRET_DOMAIN/./-}-production-tls"
