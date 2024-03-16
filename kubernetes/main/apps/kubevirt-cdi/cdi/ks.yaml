@@ -5,7 +5,7 @@ metadata:
   name: &app kubevirt-cdi
   namespace: flux-system
 spec:
-  targetNamespace: kubevirt
+  targetNamespace: kubevirt-cdi
   dependsOn:
     - name: kubevirt
     - name: rook-ceph-cluster
@@ -19,16 +19,15 @@ spec:
   retryInterval: 1m
   timeout: 5m
   patches:
-    # namespace is managed separately by main ks, no need for this ks to also manage it, KubeVirt bundles namespace into kubevirt-operator.yaml
     - patch: |
         $patch: delete
         apiVersion: v1
         kind: Namespace
         metadata:
-          name: kubevirt
+          name: kubevirt-cdi
       target:
         kind: Namespace
-        name: kubevirt
+        name: kubevirt-cdi
     - patch: |
         apiVersion: cdi.kubevirt.io/v1beta1
         kind: CDI
