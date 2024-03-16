@@ -11,8 +11,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - name: cdi-uploadproxy
-      port: 443
+    - port: 443
       protocol: TCP
       targetPort: 8443
   selector:
