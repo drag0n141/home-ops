@@ -34,7 +34,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: cdi
+                name: cdi-uploadproxy
                 port:
                   number: 8443
   tls:
