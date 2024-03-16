@@ -9,7 +9,6 @@ metadata:
   labels:
     cdi.kubevirt.io: "cdi-uploadproxy"
 spec:
-  type: LoadBalancer
   ports:
     - port: 443
       protocol: TCP
