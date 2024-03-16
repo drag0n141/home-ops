@@ -36,7 +36,7 @@ spec:
               service:
                 name: cdi-uploadproxy
                 port:
-                  number: 8443
+                  number: 443
   tls:
     - hosts:
         - *host
