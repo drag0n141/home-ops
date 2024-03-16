@@ -5,4 +5,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./ks.yaml
   # Flux-Kustomizations
-  - ./datavolume.yaml
+  - ./pvc.yaml
+  - ./service.yaml
