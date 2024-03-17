@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: docker.io/2fauth/2fauth
-              tag: 5.0.4
+              tag: 5.1.0
             env:
               TZ: ${TIMEZONE}
               ASSET_URL: https://2fauth.${SECRET_DOMAIN_INTERNAL}
