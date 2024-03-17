@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: docker.io/sissbruecker/linkding
-              tag: 1.24.0
+              tag: 1.24.2
             env:
               TZ: ${TIMEZONE}
               LD_DISABLE_BACKGROUND_TASKS: false
