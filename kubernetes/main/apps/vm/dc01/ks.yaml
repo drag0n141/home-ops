@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
     - name: volsync
-  path: ./kubernetes/main/apps/kubevirt/dc01/vm
+  path: ./kubernetes/main/apps/vm/dc01/vm
   prune: true
   sourceRef:
     kind: GitRepository
