@@ -1,4 +1,26 @@
 ---
+authentication_backend:
+  password_reset:
+    disable: true
+  refresh_interval: 1m
+  ldap:
+    implementation: activedirectory
+    timeout: 5s
+    start_tls: false
+    additional_users_dn: ou=Benutzer,ou=Home
+    users_filter: (&({username_attribute}={input})(objectClass=person))
+    additional_groups_dn: ou=Gruppen,ou=Home
+    groups_filter: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
+    group_search_mode: filter
+    user: uid=admin,ou=people,dc=home,dc=arpa
+    password: password
+    attributes:
+      username: sAMAccountName
+      display_name: displayName
+      mail: mail
+      member_of: memberOf
+      group_name: cn
+
 session:
   same_site: lax
   inactivity: 5m

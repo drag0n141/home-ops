@@ -44,21 +44,10 @@ spec:
           app:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: v4.38.0-beta3@sha256:b48ae4d0ed9d1eee76efe382df60928bae550ec19e5663858dde6dc5f41cf285
+              tag: 4.38.4@sha256:b92ad6ed6050baf91aa554abeea0f942f8fb798b62f835b1eaa3c8eeb4705f54
             env:
               TZ: ${TIMEZONE}
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=Gruppen,ou=Home
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=Benutzer,ou=Home
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_DISPLAY_NAME_ATTRIBUTE: displayName
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUPS_FILTER: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUP_NAME_ATTRIBUTE: cn
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_IMPLEMENTATION: activedirectory
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_MAIL_ATTRIBUTE: mail
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_START_TLS: "false"
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERNAME_ATTRIBUTE: sAMAccountName
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&({username_attribute}={input})(objectClass=person))
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TLS_SKIP_VERIFY: "true"
-              AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
               AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
               AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
               AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
