@@ -5,7 +5,7 @@ metadata:
   name: &app kubevirt-cdi
   namespace: flux-system
 spec:
-  targetNamespace: kubevirt
+  targetNamespace: cdi
   dependsOn:
     - name: kubevirt
     - name: rook-ceph-cluster
@@ -24,10 +24,10 @@ spec:
         apiVersion: v1
         kind: Namespace
         metadata:
-          name: kubevirt
+          name: cdi
       target:
         kind: Namespace
-        name: kubevirt
+        name: cdi
     - patch: |
         apiVersion: cdi.kubevirt.io/v1beta1
         kind: CDI
