@@ -10,6 +10,9 @@ spec:
       - disk:
           bus: virtio
         name: root
+      - cdrom:
+          bus: sata
+        name: debianiso
       interfaces:
       - bridge: {}
         name: eth0
@@ -26,3 +29,6 @@ spec:
   - name: root
     persistentVolumeClaim:
       claimName: checkmk
+  - name: debianiso
+    persistentVolumeClaim:
+      claimName: default/debian12
