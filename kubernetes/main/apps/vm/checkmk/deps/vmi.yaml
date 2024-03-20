@@ -31,4 +31,4 @@ spec:
       claimName: checkmk
   - name: debianiso
     persistentVolumeClaim:
-      claimName: default/debian12
+      claimName: debian12
