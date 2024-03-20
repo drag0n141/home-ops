@@ -21,25 +21,24 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     auth:
       enabled: false
       sentinel: false
     master:
+      resourcesPreset: small
       persistence:
         enabled: false
     replica:
+      resourcesPreset: small
       persistence:
         enabled: false
     sentinel:
       enabled: true
       masterSet: redis-master
-      getMasterTimeout: 10
-      startupProbe:
-        failureThreshold: 2
+      resourcesPreset: small
       persistence:
         enabled: false
     networkPolicy:
@@ -49,3 +48,4 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
+      resourcesPreset: small
