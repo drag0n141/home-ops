@@ -34,7 +34,6 @@ spec:
               tag: v0.3.3@sha256:24eae648ac9d8beab4a821820d1396a976302769ca20998807a7a5942d5074a9
             env:
               TZ: ${TIMEZONE}
-            envFrom: *envFrom
             resources:
               requests:
                 cpu: 10m
