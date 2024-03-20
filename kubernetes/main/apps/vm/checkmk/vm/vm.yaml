@@ -26,10 +26,15 @@ spec:
         - name: root
           persistentVolumeClaim:
             claimName: checkmk
+        - name: disk0
+          persistentVolumeClaim:
+            claimName: default/debian12
       domain:
         devices:
           disks:
             - name: root
+              disk: {}
+            - name: disk0
               disk: {}
           interfaces:
             - name: eth0
