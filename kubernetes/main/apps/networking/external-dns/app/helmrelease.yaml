@@ -34,9 +34,8 @@ spec:
             name: external-dns-secret
             key: api-token
     extraArgs:
+      - --ingress-class=traefik-external
       - --cloudflare-proxied
-      - --zone-id-filter=${SECRET_DOMAIN_ZONE_ID}
-      - --annotation-filter=external-dns.alpha.kubernetes.io/target
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
     policy: sync
@@ -48,9 +47,3 @@ spec:
       enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: external-dns-secret
-    resources:
-      requests:
-        cpu: 5m
-        memory: 83Mi
-      limits:
-        memory: 168Mi
