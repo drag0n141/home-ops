@@ -100,7 +100,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: unifi-controller
         globalMounts:
           - path: /unifi
