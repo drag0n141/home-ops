@@ -73,6 +73,16 @@ spec:
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -80,10 +90,10 @@ spec:
             resources:
               requests:
                 smarter-devices/ttyACM0: 1
-                cpu: 10m
+                cpu: 8m
               limits:
                 smarter-devices/ttyACM0: 1
-                memory: 512Mi
+                memory: 384Mi
         pod:
           nodeSelector:
             zigbee.feature.node.kubernetes.io/sonoff: "true"
