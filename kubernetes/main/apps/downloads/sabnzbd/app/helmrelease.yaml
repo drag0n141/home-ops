@@ -112,12 +112,12 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-      downloads:
+      media:
         type: nfs
         server: ${SECRET_NFS_SERVER}
-        path: /mnt/user/downloads
+        path: /mnt/user/media
         globalMounts:
-          - path: /mnt/user/downloads
+          - path: /mnt/user/media
       nzb:
         type: nfs
         server: ${SECRET_NFS_SERVER}
