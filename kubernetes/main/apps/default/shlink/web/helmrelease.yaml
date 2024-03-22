@@ -43,18 +43,13 @@ spec:
             resources:
               requests:
                 cpu: 5m
-                memory: 100M
+                memory: 50M
               limits:
-                memory: 250M
+                memory: 100M
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
-        pod:
-          securityContext:
-            runAsUser: 1001
-            runAsGroup: 1001
-            runAsNonRoot: true
     service:
       app:
         controller: shlink-web
@@ -78,12 +73,3 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-      tmp-data:
-        type: emptyDir
-        globalMounts:
-          - path: /etc/shlink/data
