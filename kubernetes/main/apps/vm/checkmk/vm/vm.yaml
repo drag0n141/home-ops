@@ -22,20 +22,17 @@ spec:
           multus:
             default: true
             networkName: networking/multus-server
-      volumes:
-        - name: root
-          persistentVolumeClaim:
-            claimName: checkmk
-        - name: debianiso
-          persistentVolumeClaim:
-            claimName: debian12
       domain:
         devices:
           disks:
-            - name: root
-              disk: {}
-            - name: debianiso
-              disk: {}
+            - bootOrder: 1
+              cdrom:
+                bus: sata
+              name: debianiso
+            - bootOrder: 2
+              disk:
+                bus: virtio
+              name: root
           interfaces:
             - name: eth0
               bridge: {}
@@ -44,3 +41,10 @@ spec:
           bootloader:
             bios:
               useSerial: true
+      volumes:
+        - name: root
+          persistentVolumeClaim:
+            claimName: checkmk
+        - name: debianiso
+          persistentVolumeClaim:
+            claimName: debian12
