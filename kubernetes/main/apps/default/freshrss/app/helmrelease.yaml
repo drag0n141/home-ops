@@ -48,6 +48,16 @@ spec:
             env:
               TZ: ${TIMEZONE}
               CRON_MIN: "17,47"
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10Mi
+              limits:
+                memory: 250Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: freshrss
