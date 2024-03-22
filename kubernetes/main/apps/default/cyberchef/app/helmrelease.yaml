@@ -40,10 +40,6 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 100Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: cyberchef
@@ -67,12 +63,3 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /var/cache/nginx/client_temp
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
