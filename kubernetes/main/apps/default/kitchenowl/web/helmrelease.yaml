@@ -41,10 +41,6 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 150Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: kitchenowl-web
