@@ -47,7 +47,7 @@ spec:
                 memory: 200Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
             probes:
               liveness:
@@ -88,7 +88,4 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-      localtime:
-        type: emptyDir
-        globalMounts:
-          - path: /etc/localtime
+
