@@ -54,6 +54,16 @@ spec:
               MAIL_PORT: 2525
               MAIL_FROM_NAME: 2FAuth
             envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 150Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
         pod:
           securityContext:
             runAsUser: 1000
