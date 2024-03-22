@@ -39,6 +39,16 @@ spec:
               tag: v1.4.0
             env:
               TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: mind
