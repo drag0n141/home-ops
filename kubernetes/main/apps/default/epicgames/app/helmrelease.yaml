@@ -41,8 +41,8 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 5m
-                memory: 50Mi
+                cpu: 10m
+                memory: 100Mi
               limits:
                 memory: 400Mi
             securityContext:
