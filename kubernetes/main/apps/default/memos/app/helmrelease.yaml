@@ -40,6 +40,16 @@ spec:
             env:
               TZ: ${TIMEZONE}
               MEMOS_PORT: 5230
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 150Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: memos
