@@ -26,10 +26,6 @@ spec:
         devices:
           disks:
             - bootOrder: 1
-              cdrom:
-                bus: sata
-              name: debianiso
-            - bootOrder: 2
               disk:
                 bus: virtio
               name: root
@@ -45,6 +41,3 @@ spec:
         - name: root
           persistentVolumeClaim:
             claimName: checkmk
-        - name: debianiso
-          persistentVolumeClaim:
-            claimName: debian12
