@@ -108,3 +108,11 @@ spec:
                 path: "/app/public/item-icons"
               - subPath: "backgrounds"
                 path: "/app/public/backgrounds"
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /usr/local/share/.cache
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
