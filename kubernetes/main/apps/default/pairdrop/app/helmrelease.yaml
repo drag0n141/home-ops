@@ -89,7 +89,7 @@ spec:
       cache:
         type: emptyDir
         globalMounts:
-          - path: /root/.npm/_cacache/tmp
+          - path: /root/.npm/_cacache
       logs:
         type: emptyDir
         globalMounts:
