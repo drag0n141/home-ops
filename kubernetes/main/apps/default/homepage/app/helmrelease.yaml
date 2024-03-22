@@ -39,8 +39,10 @@ spec:
                   name: homepage-secret
             resources:
               requests:
-                cpu: 25m
-                memory: 50Mi
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 250Mi
     service:
       app:
         controller: homepage
@@ -49,6 +51,7 @@ spec:
             port: 3000
     serviceAccount:
       create: true
+      name: homepage
     ingress:
       app:
         className: traefik-external
