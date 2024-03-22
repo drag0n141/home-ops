@@ -85,3 +85,12 @@ spec:
           - hosts:
               - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /root/.npm/_cacache/tmp
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /root/.npm/_logs
