@@ -152,6 +152,11 @@ spec:
         retentionSize: 15GB
         externalLabels:
           cluster: main
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 1500Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
