@@ -6,5 +6,5 @@ resources:
   - ./namespace.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./kubevirt
+  - ./kubevirt/ks.yaml
   - ./manager/ks.yaml
