@@ -32,6 +32,7 @@ spec:
           interfaces:
             - name: eth0
               bridge: {}
+              macAddress: "de:f3:4b:67:a9:ca"
         firmware:
           uuid: "${SECRET_CHECKMK_UUID}"
           bootloader:
