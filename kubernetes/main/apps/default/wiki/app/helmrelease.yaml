@@ -82,3 +82,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /wiki/data/cache
+      uploads:
+        type: emptyDir
+        globalMounts:
+          - path: /wiki/data/uploads
