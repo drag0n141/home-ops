@@ -53,4 +53,5 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     serviceAccount:
+      create: true
       name: tailscale
