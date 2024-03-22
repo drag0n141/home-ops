@@ -42,6 +42,16 @@ spec:
               GID: 1000
               UID: 1000
               NODE_ENV: production
+            resources:
+              requests:
+                cpu: 5m
+                memory: 200Mi
+              limits:
+                memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: dashy
