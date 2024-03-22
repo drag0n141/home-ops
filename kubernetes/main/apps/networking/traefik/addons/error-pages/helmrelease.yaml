@@ -47,7 +47,11 @@ spec:
                 cpu: 5m
                 memory: 10M
               limits:
-                memory: 256M
+                memory: 100M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
         pod:
           topologySpreadConstraints:
             - maxSkew: 1
