@@ -44,9 +44,13 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 256Mi
+                memory: 100Mi
               limits:
-                memory: 512Mi
+                memory: 250Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
         pod:
           securityContext:
             runAsUser: 1000
