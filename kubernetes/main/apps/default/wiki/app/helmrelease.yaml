@@ -77,3 +77,8 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /wiki/data/cache
