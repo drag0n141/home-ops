@@ -5,7 +5,7 @@ metadata:
   name: &app manager
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
+  targetNamespace: kubevirt
   path: ./kubernetes/main/apps/kubevirt/manager/app
   prune: true
   sourceRef:
