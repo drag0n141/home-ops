@@ -36,16 +36,16 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 25m
-                memory: 50Mi
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 250Mi
     service:
       app:
         controller: homepage
         ports:
           http:
             port: 3000
-    serviceAccount:
-      create: true
     ingress:
       app:
         className: traefik-external
