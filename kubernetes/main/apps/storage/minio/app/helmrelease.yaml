@@ -36,6 +36,11 @@ spec:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-03-15T01-07-19Z@sha256:ea2c70cda70860c7d10f04ce1df640d3abb995784cb7aeedef8d4baa53a5a113
+            args:
+              - server
+              - /data
+              - --console-address
+              - :9001
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN_INTERNAL},https://s3.${SECRET_DOMAIN_INTERNAL}
               MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_INTERNAL}
@@ -44,11 +49,10 @@ spec:
             envFrom:
               - secretRef:
                   name: minio-secret
-            args:
-              - server
-              - /data
-              - --console-address
-              - :9001
+            resources:
+              requests:
+                cpu: 5m
+                memory: 100Mi
             probes:
               liveness: &probes
                 enabled: true
