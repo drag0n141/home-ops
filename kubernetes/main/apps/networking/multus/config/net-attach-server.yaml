@@ -12,6 +12,7 @@ spec:
         {
           "type": "bridge",
           "bridge": "br0",
+          "vlan": 254,
           "ipam": {
             "type": "dhcp",
             "provide": [
