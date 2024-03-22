@@ -37,6 +37,12 @@ spec:
             envFrom:
               - secretRef:
                   name: ts3-manager-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
     service:
       app:
         controller: ts3-manager
