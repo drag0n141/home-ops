@@ -51,6 +51,16 @@ spec:
         - name: init-db
           image: ghcr.io/drag0n141/postgres-init:16
           envFrom: *envFrom
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 800Mi
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       ingress:
         enabled: true
         ingressClassName: traefik-external
@@ -66,9 +76,14 @@ spec:
         - hosts:
           - auth.${SECRET_DOMAIN}
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
-      metrics:
-        serviceMonitor:
-          enabled: true
+    worker:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 5m
+          memory: 200Mi
+        limits:
+          memory: 500Mi
     postgresql:
       enabled: false
     redis:
