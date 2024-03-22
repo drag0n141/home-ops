@@ -36,10 +36,10 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 10m
-                memory: 100Mi
+                cpu: 5m
+                memory: 50Mi
               limits:
-                memory: 256Mi
+                memory: 150Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
