@@ -47,7 +47,7 @@ spec:
                 memory: 200Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
     service:
       app:
@@ -77,7 +77,3 @@ spec:
         existingClaim: mind
         globalMounts:
           - path: /app/db
-      backend:
-        type: emptyDir
-        globalMounts:
-          - path: /app/backend/
