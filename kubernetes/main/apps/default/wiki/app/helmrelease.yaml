@@ -46,10 +46,14 @@ spec:
             envFrom: *envFrom
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
                 memory: 50Mi
               limits:
-                memory: 750Mi
+                memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: wiki
