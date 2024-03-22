@@ -65,3 +65,12 @@ spec:
     serviceAccount:
       create: true
       name: tailscale
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache/Tailscale
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
