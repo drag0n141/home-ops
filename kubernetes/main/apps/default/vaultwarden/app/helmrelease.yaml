@@ -63,6 +63,10 @@ spec:
                 memory: 64Mi
               limits:
                 memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
         pod:
           securityContext:
             runAsUser: 1000
