@@ -41,10 +41,14 @@ spec:
                   name: mailrise-secret
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
                 memory: 10Mi
               limits:
                 memory: 200Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: mailrise
