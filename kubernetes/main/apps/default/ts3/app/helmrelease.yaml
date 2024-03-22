@@ -89,7 +89,6 @@ spec:
             protocol: TCP
     persistence:
       data:
-        enabled: true
         existingClaim: ts3-server
         globalMounts:
           - path: /var/ts3server
