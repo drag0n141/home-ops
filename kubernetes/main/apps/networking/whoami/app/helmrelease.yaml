@@ -36,10 +36,14 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
                 memory: 16M
               limits:
                 memory: 32M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: whoami
