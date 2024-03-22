@@ -76,6 +76,8 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
       tmp-data:
         type: emptyDir
         globalMounts:
