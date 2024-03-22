@@ -39,6 +39,12 @@ spec:
               tag: 1.23.11
             env:
               TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
     service:
       app:
         controller: uptime-kuma
