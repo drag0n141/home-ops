@@ -105,6 +105,26 @@ spec:
               sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
+      resources:
+        requests:
+          cpu: 15m
+          memory: 127M
+        limits:
+          memory: 153M
+    prometheusOperator:
+      resources:
+        requests:
+          cpu: 35m
+          memory: 273M
+        limits:
+          memory: 326M
+      prometheusConfigReloader:
+        resources:
+          requests:
+            cpu: 5m
+            memory: 32M
+          limits:
+            memory: 32M
     prometheus:
       ingress:
         enabled: true
@@ -152,6 +172,12 @@ spec:
         retentionSize: 15GB
         externalLabels:
           cluster: main
+        resources:
+          requests:
+            cpu: 257m
+            memory: 3760M
+          limits:
+            memory: 3760M
         storageSpec:
           volumeClaimTemplate:
             spec:
