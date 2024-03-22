@@ -68,9 +68,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 128M
+                memory: 128Mi
               limits:
-                memory: 1Gi
+                memory: 1024Mi
         pod:
           securityContext:
             runAsUser: 568
@@ -103,7 +103,10 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /config
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
