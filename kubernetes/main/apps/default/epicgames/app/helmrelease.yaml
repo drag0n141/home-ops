@@ -84,3 +84,7 @@ spec:
         existingClaim: epicgames
         globalMounts:
           - path: /usr/app/config
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
