@@ -38,10 +38,14 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
                 memory: 50M
               limits:
-                memory: 256M
+                memory: 250M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: pairdrop
