@@ -40,6 +40,16 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: kitchenowl-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 200Mi
+              limits:
+                memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
         containers:
           app:
             image:
