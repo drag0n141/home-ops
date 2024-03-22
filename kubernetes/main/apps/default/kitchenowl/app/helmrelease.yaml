@@ -40,6 +40,14 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: kitchenowl-secret
+        containers:
+          app:
+            image:
+              repository: docker.io/tombursch/kitchenowl
+              tag: v93
+            env:
+              TZ: ${TIMEZONE}
+            envFrom: *envFrom
             resources:
               requests:
                 cpu: 10m
@@ -50,14 +58,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-        containers:
-          app:
-            image:
-              repository: docker.io/tombursch/kitchenowl
-              tag: v93
-            env:
-              TZ: ${TIMEZONE}
-            envFrom: *envFrom
     service:
       app:
         controller: kitchenowl
