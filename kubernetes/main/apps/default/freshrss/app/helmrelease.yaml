@@ -54,10 +54,6 @@ spec:
                 memory: 10Mi
               limits:
                 memory: 250Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: freshrss
