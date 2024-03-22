@@ -42,10 +42,14 @@ spec:
                   name: shlink-web-secret
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
                 memory: 100M
               limits:
                 memory: 250M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: shlink-web
@@ -69,3 +73,10 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      tmp:
+        type: emptyDir
+      tmp-data:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/shlink/data
