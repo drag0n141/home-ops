@@ -5,11 +5,10 @@ metadata:
   name: tailscale
   namespace: downloads
 rules:
-  - apiGroups: [""] # "" indicates the core API group
+  - apiGroups: [""]
     resources: ["secrets"]
-    # Create can not be restricted to a resource name.
     verbs: ["create"]
-  - apiGroups: [""] # "" indicates the core API group
+  - apiGroups: [""]
     resourceNames: ["tailscale-state"]
     resources: ["secrets"]
     verbs: ["get", "update", "patch"]
@@ -21,7 +20,7 @@ metadata:
   namespace: downloads
 subjects:
   - kind: ServiceAccount
-    name: "tailscale"
+    name: tailscale
     namespace: downloads
 roleRef:
   kind: Role
