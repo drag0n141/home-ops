@@ -39,10 +39,14 @@ spec:
                   name: moviematch-secret
             resources:
               requests:
-                cpu: 100m
+                cpu: 5m
                 memory: 100Mi
               limits:
                 memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: moviematch
@@ -66,3 +70,8 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
