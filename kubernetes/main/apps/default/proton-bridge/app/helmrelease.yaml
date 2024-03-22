@@ -39,6 +39,12 @@ spec:
               tag: 3.9.1-1@sha256:e8c16117537805920cbffa681bc3f823191c25ff147e4d433e922995833c82a3
             env:
               TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 5m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
             probes:
               liveness:
                 enabled: false
