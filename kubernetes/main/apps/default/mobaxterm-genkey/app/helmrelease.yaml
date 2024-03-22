@@ -39,6 +39,16 @@ spec:
               tag: latest@sha256:c592d8a24d18bed16ee0ccf3ca460f520365372ebd7d325b64d68e0673418bf5
             env:
               TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: mobaxterm-genkey
