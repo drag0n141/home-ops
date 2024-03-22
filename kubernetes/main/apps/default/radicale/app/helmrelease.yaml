@@ -39,12 +39,22 @@ spec:
               tag: 3.1.9@sha256:83e7935c55f07d13983555e53b28ac96e3c85805912a3d830942d8361aa52098
             env:
               TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
             resources:
               requests:
                 cpu: 10m
-                memory: 50Mi
+                memory: 100Mi
               limits:
-                memory: 1Gi
+                memory: 1024Mi
         pod:
           securityContext:
             runAsUser: 568
