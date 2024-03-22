@@ -102,3 +102,7 @@ spec:
         existingClaim: gotify
         globalMounts:
           - path: /app/data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
