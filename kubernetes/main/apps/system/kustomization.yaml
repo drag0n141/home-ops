@@ -7,6 +7,7 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./intel-device-plugin/ks.yaml
+  - ./k8tz/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./reflector/ks.yaml
   - ./reloader/ks.yaml

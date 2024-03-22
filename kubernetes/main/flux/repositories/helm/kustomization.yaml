@@ -22,6 +22,7 @@ resources:
   - ./intel.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
+  - ./k8tz.yaml
   - ./kubernetes-dashboard.yaml
   - ./kube-vip.yaml
   - ./mariadb-operator.yaml
