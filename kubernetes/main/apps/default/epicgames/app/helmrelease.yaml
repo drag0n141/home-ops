@@ -88,3 +88,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      localtime:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/localtime
