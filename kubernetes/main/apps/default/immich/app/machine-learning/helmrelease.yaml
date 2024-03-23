@@ -88,3 +88,13 @@ spec:
           - path: /usr/src/app/upload
       cache:
         type: emptyDir
+        globalMounts:
+          - path: /cache
+      geocoding-dump:
+        type: emptyDir
+        globalMounts:
+          - path: /usr/src/app/.reverse-geocoding-dump
+      transformers-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /usr/src/app/.transformers_cache
