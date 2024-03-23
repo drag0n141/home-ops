@@ -66,6 +66,10 @@ spec:
                 memory: 250Mi
               limits:
                 memory: 4000Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
         pod:
           enableServiceLinks: false
           securityContext:
@@ -94,7 +98,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /usr/src/app/.reverse-geocoding-dump
-      transformers-cache:
+      tmp:
         type: emptyDir
         globalMounts:
-          - path: /usr/src/app/.transformers_cache
+          - path: /tmp
