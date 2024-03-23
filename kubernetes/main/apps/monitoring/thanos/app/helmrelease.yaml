@@ -92,10 +92,7 @@ spec:
       networkPolicy:
         enabled: false
     bucketweb:
-      enabled: true
-      replicaCount: 2
-      networkPolicy:
-        enabled: false
+      enabled: false
     compactor:
       enabled: true
       extraFlags:
