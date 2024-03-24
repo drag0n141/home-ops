@@ -121,9 +121,3 @@ spec:
         path: /mnt/user/media
         globalMounts:
           - path: /mnt/user/media
-      downloads:
-        type: nfs
-        server: ${SECRET_NFS_SERVER}
-        path: /mnt/user/downloads
-        globalMounts:
-          - path: /mnt/user/downloads
