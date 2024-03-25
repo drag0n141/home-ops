@@ -17,12 +17,7 @@ spec:
       for: 5m
       annotations:
         summary: "PVC available space low"
-        description: |
-          PVC {{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
-
-          Your application may become unable to write data to disk.
-
-          Either increase the PVC size or delete files to free up space.
+        description: PVC {{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
       labels:
         severity: critical (2)
     - alert: VolumeFreeInodesLow
@@ -39,14 +34,6 @@ spec:
       for: 5m
       annotations:
         summary: "PVC free inodes low"
-        description: |
-          PVC {{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
-
-          Your application may become unable to create new files and directories.
-
-          Inodes are used to track files and directories. When the number of inodes is low, you may not be able to create new files or directories.
-          A high inode usage may stem from many small files. Increasing the PVC size will scale up inodes proportionally.
-
-          Either increase the PVC size or delete files to free up inodes.
+        description: PVC {{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
       labels:
         severity: critical (2)
