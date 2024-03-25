@@ -18,7 +18,7 @@ spec:
         annotations:
           description: PVC {{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
         labels:
-          severity: critical (2)
+          severity: critical
       - alert: VolumeFreeInodesLow
         expr: |
           (
@@ -34,4 +34,4 @@ spec:
         annotations:
           description: PVC {{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
         labels:
-          severity: critical (2)
+          severity: critical
