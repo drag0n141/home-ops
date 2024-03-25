@@ -32,7 +32,7 @@ resources:
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
   - ./portainer/ks.yaml
-#   - ./proton-bridge/ks.yaml
+  - ./proton-bridge/ks.yaml
   - ./radicale/ks.yaml
   - ./rdesktop/ks.yaml
   - ./shlink/ks.yaml
