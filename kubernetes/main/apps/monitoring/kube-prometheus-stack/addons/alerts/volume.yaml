@@ -5,7 +5,7 @@ metadata:
   name: volume-alert
 spec:
   groups:
-    - name: VolumeLow
+    - name: volume
       rules:
         - alert: VolumeAvailableSpaceLow
           annotations:
