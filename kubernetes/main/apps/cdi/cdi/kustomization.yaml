@@ -6,3 +6,4 @@ resources:
   - ./ks.yaml
   # Flux-Kustomizations
   - ./service.yaml
+  - ./storageprofiles.yaml
