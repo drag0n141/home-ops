@@ -17,8 +17,8 @@ spec:
               sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
             ) < 0.1 (1)
           for: 5m
-            labels:
-              severity: critical
+          labels:
+            severity: critical
         - alert: VolumeFreeInodesLow
           annotations:
             description: PVC {{ $labels.namespace }}/{{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
