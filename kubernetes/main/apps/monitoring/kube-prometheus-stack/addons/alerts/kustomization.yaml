@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./dockerhub.yaml
   - ./oomkilled.yaml
-  - ./volume.yaml
