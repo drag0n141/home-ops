@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/prowlarr
-              tag: 1.14.3@sha256:89117c9aeeb6c6f39a2f471331fe1d349bb9883225180c54d76a9863d1180578
+              tag: 1.14.3@sha256:80365f477c52f62e2be2933247d210a2af67e19198886807f94b6025a7acb11c
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
