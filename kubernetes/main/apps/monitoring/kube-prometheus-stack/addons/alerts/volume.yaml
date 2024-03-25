@@ -5,33 +5,33 @@ metadata:
   name: volume-alert
 spec:
   groups:
-  - name: VolumeLow
-    rules:
-      - alert: VolumeAvailableSpaceLow
-        expr: |
-          (
-            sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
-          /
-            sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
-          ) < 0.1 (1)
-        for: 5m
-        annotations:
-          description: PVC {{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
-        labels:
-          severity: critical
-      - alert: VolumeFreeInodesLow
-        expr: |
-          (
-            sum(
-              kubelet_volume_stats_inodes_free{persistentvolumeclaim!=""} * on(persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass!="cephfs-fspool-cluster"} (3)
-            ) by (persistentvolumeclaim)
-          /
-            sum(
-              kubelet_volume_stats_inodes{persistentvolumeclaim!=""} * on(persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass!="cephfs-fspool-cluster"}
-            ) by (persistentvolumeclaim)
-          ) < 0.1 (4)
-        for: 5m
-        annotations:
-          description: PVC {{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
-        labels:
-          severity: critical
+    - name: VolumeLow
+      rules:
+        - alert: VolumeAvailableSpaceLow
+          annotations:
+            description: PVC {{ $labels.namespace }}/{{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
+          expr: |
+            (
+              sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
+            /
+              sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
+            ) < 0.1 (1)
+          for: 5m
+            labels:
+              severity: critical
+        - alert: VolumeFreeInodesLow
+          annotations:
+            description: PVC {{ $labels.namespace }}/{{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
+          expr: |
+            (
+              sum(
+                kubelet_volume_stats_inodes_free{persistentvolumeclaim!=""} * on(persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass!="cephfs-fspool-cluster"} (3)
+              ) by (persistentvolumeclaim)
+            /
+              sum(
+                kubelet_volume_stats_inodes{persistentvolumeclaim!=""} * on(persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass!="cephfs-fspool-cluster"}
+              ) by (persistentvolumeclaim)
+            ) < 0.1 (4)
+          for: 5m
+          labels:
+            severity: critical
