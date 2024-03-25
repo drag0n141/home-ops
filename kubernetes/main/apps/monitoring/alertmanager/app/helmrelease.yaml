@@ -41,6 +41,19 @@ spec:
               tag: v0.27.0
             env:
               TZ: ${TIMEZONE}
+            ports:
+              - name: http
+                containerPort: 9093
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
             resources:
               requests:
                 cpu: 11m
