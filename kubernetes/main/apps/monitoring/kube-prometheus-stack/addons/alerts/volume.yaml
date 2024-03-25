@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: volume-alert
+spec:
+  groups:
+  - name: VolumeLow
+    rules:
+    - alert: VolumeAvailableSpaceLow
+      expr: |
+        (
+          sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
+        /
+          sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim!=""}) by (persistentvolumeclaim)
+        ) < 0.1 (1)
+      for: 5m
+      labels:
+        severity: critical (2)
+      annotations:
+        summary: "PVC available space low"
+        description: |
+          PVC {{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
+
+          Your application may become unable to write data to disk.
+
+          Either increase the PVC size or delete files to free up space.
+    - alert: VolumeFreeInodesLow
+      expr: |
+        (
+          sum(
+            kubelet_volume_stats_inodes_free{persistentvolumeclaim!=""} * on(persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass!="cephfs-fspool-cluster"} (3)
+          ) by (persistentvolumeclaim)
+        /
+          sum(
+            kubelet_volume_stats_inodes{persistentvolumeclaim!=""} * on(persistentvolumeclaim) kube_persistentvolumeclaim_info{storageclass!="cephfs-fspool-cluster"}
+          ) by (persistentvolumeclaim)
+        ) < 0.1 (4)
+      for: 5m
+      labels:
+        severity: critical (2)
+      annotations:
+        summary: "PVC free inodes low"
+        description: |
+          PVC {{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
+
+          Your application may become unable to create new files and directories.
+
+          Inodes are used to track files and directories. When the number of inodes is low, you may not be able to create new files or directories.
+          A high inode usage may stem from many small files. Increasing the PVC size will scale up inodes proportionally.
+
+          Either increase the PVC size or delete files to free up inodes.
