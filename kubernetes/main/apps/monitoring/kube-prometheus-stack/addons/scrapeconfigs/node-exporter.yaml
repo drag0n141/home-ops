@@ -2,10 +2,14 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: node-exporter
+  name: &name node-exporter
 spec:
   staticConfigs:
     - targets:
         - pikvm.${SECRET_DOMAIN_INT}:9100
-        - 192.168.254.1:9100
+        - 192.168.254.251:9100
   metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
