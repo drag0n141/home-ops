@@ -16,7 +16,6 @@ spec:
           ) < 0.1 (1)
         for: 5m
         annotations:
-          summary: "PVC available space low"
           description: PVC {{ \$labels.persistentvolumeclaim }} available space {{ \$value | humanizePercentage }} is low.
         labels:
           severity: critical (2)
@@ -33,7 +32,6 @@ spec:
           ) < 0.1 (4)
         for: 5m
         annotations:
-          summary: "PVC free inodes low"
           description: PVC {{ \$labels.persistentvolumeclaim }} free inodes {{ \$value | humanizePercentage }} is low.
         labels:
           severity: critical (2)
