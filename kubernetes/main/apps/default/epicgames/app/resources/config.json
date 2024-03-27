@@ -1,0 +1,26 @@
+{
+  "searchStrategy": "all",
+  "runOnStartup": true,
+  "cronSchedule": "0 0,6,12,18 * * *",
+  "logLevel": "info",
+  "testNotifiers": false,
+  "webPortalConfig": {
+    "baseUrl": "https://epic.${SECRET_DOMAIN_INTERNAL}",
+  },
+  "accounts": [
+    {
+      "email": "${SECRET_ACME_EMAIL}",
+    },
+  ],
+   "notifiers": [
+     {
+       "type": "email",
+       "smtpHost": "smtp-relay.networking.svc.cluster.local",
+       "smtpPort": 2525,
+       "emailSenderAddress": "epicgames@${SECRET_DOMAIN}",
+       "emailSenderName": "Epic Games Captchas",
+       "emailRecipientAddress": "server.epicgames@${SECRET_DOMAIN_SHORT}",
+       "secure": false,
+     },
+   ],
+}

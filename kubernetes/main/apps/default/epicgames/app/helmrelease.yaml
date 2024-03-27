@@ -81,11 +81,17 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: epicgames
+        type: configMap
+        name: epicgames-configmap
+        globalMounts:
+          - path: /usr/app/config/config.json
+            subPath: config.json
+            readOnly: true
+      config-folder:
+        type: emptyDir
         globalMounts:
           - path: /usr/app/config
       tmp:
         type: emptyDir
         globalMounts:
           - path: /tmp
-
