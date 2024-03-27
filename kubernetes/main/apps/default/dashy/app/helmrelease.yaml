@@ -116,3 +116,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      dist:
+        type: emptyDir
+        globalMounts:
+          - path: /app/dist
