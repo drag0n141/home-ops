@@ -41,8 +41,6 @@ spec:
             envFrom:
               - secretRef:
                   name: immich-secret
-              - secretRef:
-                  name: immich-redis-secret
               - configMapRef:
                   name: immich-configmap
             probes:
