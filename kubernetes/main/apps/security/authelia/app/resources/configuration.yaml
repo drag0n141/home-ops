@@ -32,6 +32,7 @@ session:
       authelia_url: https://authelia.${SECRET_DOMAIN}
   redis:
     database_index: 2
+    password: ${SECRET_REDIS_PASSWORD}
     host: dragonfly.database.svc.cluster.local
 
 notifier:
