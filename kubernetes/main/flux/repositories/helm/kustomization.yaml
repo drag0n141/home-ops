@@ -5,7 +5,6 @@ resources:
   - ./angelnu.yaml
   - ./authentik.yaml
   - ./backube.yaml
-  - ./bitnami.yaml
   - ./bjw-s.yaml
   - ./bootc.yaml
   - ./cilium.yaml
@@ -16,7 +15,6 @@ resources:
   - ./emberstack.yaml
   - ./external-dns.yaml
   - ./grafana.yaml
-  - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
