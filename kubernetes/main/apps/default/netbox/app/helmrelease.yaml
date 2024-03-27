@@ -57,13 +57,11 @@ spec:
     redis:
       enabled: false
     tasksRedis:
-      host: netbox-redis.default.svc.cluster.local
-      existingSecretName: "netbox-redis-secret"
-      existingSecretKey: "REDIS_PASSWORD"
+      host: dragonfly.database.svc.cluster.local:6379
+      database: 3
     cachingRedis:
-      host: netbox-redis.default.svc.cluster.local
-      existingSecretName: "netbox-redis-secret"
-      existingSecretKey: "REDIS_PASSWORD"
+      host: dragonfly.database.svc.cluster.local:6379
+      database: 4
     externalDatabase:
       host: postgres-rw.database.svc.cluster.local
       port: 5432
