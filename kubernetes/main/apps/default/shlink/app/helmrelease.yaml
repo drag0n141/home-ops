@@ -22,14 +22,9 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: redis
-      namespace: database
   values:
     controllers:
       shlink:
-        replicas: 2
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
