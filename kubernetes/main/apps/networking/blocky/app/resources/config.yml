@@ -162,13 +162,10 @@ queryLog:
   logRetentionDays: 7
 
 redis:
-  required: true
-  address: redis-master
-  database: 15
-  sentinelAddresses:
-    - redis-node-0.redis-headless.database.svc.cluster.local:26379
-    - redis-node-1.redis-headless.database.svc.cluster.local:26379
-    - redis-node-2.redis-headless.database.svc.cluster.local:26379
+  required: false
+  address: dragonfly.database.svc.cluster.local:6379
+  password: ${SECRET_REDIS_PASSWORD}
+  database: 8
 
 bootstrapDns:
   - upstream: tcp-tls:family.cloudflare-dns.com
