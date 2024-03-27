@@ -16,6 +16,7 @@ spec:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=2
     - --cluster_mode=emulated
+    - --requirepass=${SECRET_REDIS_PASSWORD}
   resources:
     requests:
       cpu: 100m
