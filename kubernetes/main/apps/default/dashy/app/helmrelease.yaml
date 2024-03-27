@@ -50,8 +50,8 @@ spec:
                 memory: 500Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: dashy
@@ -116,7 +116,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-      dist:
-        type: emptyDir
-        globalMounts:
-          - path: /app/dist
