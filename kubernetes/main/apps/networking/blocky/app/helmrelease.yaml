@@ -90,6 +90,7 @@ spec:
     service:
       app:
         controller: blocky
+        primary: true
         ports:
           http:
             port: 4000
