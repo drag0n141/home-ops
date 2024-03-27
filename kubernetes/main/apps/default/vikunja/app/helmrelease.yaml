@@ -40,8 +40,6 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: vikunja-secret
-              - secretRef:
-                  name: vikunja-redis-secret
         containers:
           main:
             image:
@@ -63,7 +61,7 @@ spec:
               VIKUNJA_CACHE_ENABLED: "true"
               VIKUNJA_CACHE_TYPE: redis
               VIKUNJA_REDIS_ENABLED: "true"
-              VIKUNJA_REDIS_HOST: vikunja-redis.default.svc.cluster.local:6379
+              VIKUNJA_REDIS_HOST: dragonfly.database.svc.cluster.local:6379
             envFrom: *envFrom
             resources:
               requests:
