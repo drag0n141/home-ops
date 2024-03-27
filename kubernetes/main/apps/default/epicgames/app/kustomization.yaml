@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: authelia-configmap
+  - name: epicgames-configmap
     files:
       - config.json=./resources/config.json
 generatorOptions:
