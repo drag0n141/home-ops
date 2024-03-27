@@ -37,7 +37,6 @@ spec:
       dashboard:
         ingressClassName: traefik-internal
         annotations:
-          hajimari.io/icon: "rook-ceph"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         host:

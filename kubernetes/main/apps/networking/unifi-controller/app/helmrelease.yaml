@@ -59,6 +59,7 @@ spec:
     service:
       app:
         controller: unifi-controller
+        primary: true
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: https
         ports:

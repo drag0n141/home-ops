@@ -60,6 +60,7 @@ spec:
     service:
       app:
         controller: syncthing
+        primary: true
         ports:
           http:
             port: 8384

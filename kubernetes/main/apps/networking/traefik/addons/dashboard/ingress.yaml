@@ -4,9 +4,6 @@ kind: Ingress
 metadata:
   name: traefik-external-dashboard
   annotations:
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "devicon:traefikproxy"
-    hajimari.io/appName: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
 spec:
@@ -32,9 +29,6 @@ kind: Ingress
 metadata:
   name: traefik-internal-dashboard
   annotations:
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "devicon:traefikproxy"
-    hajimari.io/appName: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
 spec:

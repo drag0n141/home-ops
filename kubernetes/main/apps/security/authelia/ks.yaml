@@ -8,6 +8,7 @@ spec:
   targetNamespace: security
   dependsOn:
     - name: cloudnative-pg-cluster
+    - name: dragonfly-cluster
   path: ./kubernetes/main/apps/security/authelia/app
   prune: true
   sourceRef:

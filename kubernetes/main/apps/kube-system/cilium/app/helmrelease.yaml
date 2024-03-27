@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.15.2
+      version: 1.15.3
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -79,7 +79,6 @@ spec:
           enabled: true
           className: traefik-internal
           annotations:
-            hajimari.io/icon: simple-icons:cilium
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
             traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
           hosts:

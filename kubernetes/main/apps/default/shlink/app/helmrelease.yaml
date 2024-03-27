@@ -22,14 +22,9 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: redis
-      namespace: database
   values:
     controllers:
       shlink:
-        replicas: 2
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -51,11 +46,6 @@ spec:
               DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
               IS_HTTPS_ENABLED: "true"
               PORT: &port 80
-              REDIS_PUB_SUB_ENABLED: "true"
-              REDIS_SENTINEL_SERVICE: redis-master
-              REDIS_SERVERS: "redis-node-0.redis-headless.database.svc.cluster.local:26379,\
-                redis-node-1.redis-headless.database.svc.cluster.local:26379,\
-                redis-node-2.redis-headless.database.svc.cluster.local:26379"
               SHELL_VERBOSITY: 3
               TASK_WORKER_NUM: 4
               WEB_WORKER_NUM: 1

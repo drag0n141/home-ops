@@ -18,4 +18,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 128Mi
+      VOLSYNC_CAPACITY: 512Mi

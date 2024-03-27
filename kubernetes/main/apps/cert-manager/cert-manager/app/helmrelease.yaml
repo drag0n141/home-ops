@@ -20,16 +20,13 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     installCRDs: true
-    extraArgs:
-      - --dns01-recursive-nameservers=https://1.1.1.1/dns-query,https://9.9.9.9/dns-query
-      - --dns01-recursive-nameservers-only
+    dns01RecursiveNameservers: https://1.1.1.1/dns-query,https://9.9.9.9/dns-query
+    dns01RecursiveNameserversOnly: true
     prometheus:
       enabled: true
       servicemonitor:
         enabled: true
-        prometheusInstance: monitoring
