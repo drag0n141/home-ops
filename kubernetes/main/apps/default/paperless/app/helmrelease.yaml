@@ -40,8 +40,6 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: paperless-secret
-              - secretRef:
-                  name: paperless-redis-secret
         containers:
           app:
             image:
