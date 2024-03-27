@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./objectbucketclaim.yaml
+configMapGenerator:
+  - name: thanos-cache-configmap
+    files:
+      - cache.yaml=./resources/cache.yaml
+generatorOptions:
+  disableNameSuffixHash: true
