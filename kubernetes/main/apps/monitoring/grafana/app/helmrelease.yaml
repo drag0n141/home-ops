@@ -200,10 +200,8 @@ spec:
           gnetId: 13768
           revision: 3
           datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-            - name: VAR_BLOCKY_URL
-              value: https:\\/\\/blocky.networking.svc.cluster.local:4000
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_BLOCKY_URL, value: 'http:\\/\\/blocky.networking.svc.cluster.local:4000' }
         blocky-query:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
           datasource: Blocky
