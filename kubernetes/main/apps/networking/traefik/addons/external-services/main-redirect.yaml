@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: main-redirect
   annotations:
+    external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd,networking-traefik-middleware-redirect-nextcloud@kubernetescrd"
 spec:
