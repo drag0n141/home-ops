@@ -7,6 +7,7 @@ spec:
   staticConfigs:
     - targets:
         - pikvm.${SECRET_DOMAIN_INT}:9100
+        - nas01-server.${SECRET_DOMAIN_INT}:9100
         - 192.168.254.251:9100
   metricsPath: /metrics
   relabelings:
