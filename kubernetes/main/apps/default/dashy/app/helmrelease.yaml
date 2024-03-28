@@ -60,12 +60,12 @@ spec:
             port: 80
     ingress:
       app:
-        className: traefik-external
+        className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-dashy@kubernetescrd"
         hosts:
-          - host: &host "dashy.${SECRET_DOMAIN}"
+          - host: &host "dashy.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -74,22 +74,6 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
-      internal:
-        className: traefik-internal
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-dashy@kubernetescrd"
-        hosts:
-          - host: &internal "dashy.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *internal
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
