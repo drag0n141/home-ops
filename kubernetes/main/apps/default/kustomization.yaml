@@ -9,7 +9,6 @@ resources:
   - ./app-2fauth/ks.yaml
   - ./atuin/ks.yaml
   - ./cyberchef/ks.yaml
-  - ./dashy/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./freshrss/ks.yaml
