@@ -24,6 +24,7 @@ rules:
       - get
       - list
   - apiGroups:
+      - traefik.io
       - traefik.containo.us
     resources:
       - ingressroutes
