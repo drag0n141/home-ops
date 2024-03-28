@@ -87,11 +87,17 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        type: configMap
-        name: homepage-config
+        type: secret
+        name: homepage-work-files
         globalMounts:
           - path: /app/config/bookmarks.yaml
             subPath: bookmarks.yaml
+            readOnly: true
+          - path: /app/config/settings.yaml
+            subPath: settings.yaml
+            readOnly: true
+          - path: /app/config/widgets.yaml
+            subPath: widgets.yaml
             readOnly: true
           - path: /app/config/docker.yaml
             subPath: docker.yaml
@@ -101,10 +107,4 @@ spec:
             readOnly: true
           - path: /app/config/services.yaml
             subPath: services.yaml
-            readOnly: true
-          - path: /app/config/settings.yaml
-            subPath: settings.yaml
-            readOnly: true
-          - path: /app/config/widgets.yaml
-            subPath: widgets.yaml
             readOnly: true
