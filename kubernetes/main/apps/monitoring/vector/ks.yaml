@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vector-aggregator
+  name: &app vector
   namespace: flux-system
 spec:
   targetNamespace: monitoring
   dependsOn:
     - name: loki
-  path: ./kubernetes/main/apps/monitoring/vector/aggregator
+  path: ./kubernetes/main/apps/monitoring/vector/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -26,7 +26,7 @@ metadata:
 spec:
   targetNamespace: monitoring
   dependsOn:
-    - name: vector-aggregator
+    - name: vector
   path: ./kubernetes/main/apps/monitoring/vector/agent
   prune: true
   sourceRef:
