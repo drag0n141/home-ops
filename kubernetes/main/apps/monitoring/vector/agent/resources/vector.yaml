@@ -2,7 +2,7 @@
 data_dir: /vector-data-dir
 
 sources:
-  journald_source:
+  journal_logs:
     type: journald
     journal_directory: /var/log/journal
   kubernetes_source:
@@ -25,7 +25,7 @@ sinks:
     compression: true
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6000
-    inputs: ["journald_source"]
+    inputs: ["journal_logs"]
   kubernetes:
     type: vector
     compression: true
