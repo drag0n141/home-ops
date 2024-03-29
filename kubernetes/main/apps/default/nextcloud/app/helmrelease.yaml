@@ -55,8 +55,6 @@ spec:
           envFrom:
             - secretRef: &envFrom
                 name: nextcloud-secret
-            - secretRef:
-                name: nextcloud-redis-secret
       datadir: /var/www/data
       extraVolumes:
       - name: nfs-home
