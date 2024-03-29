@@ -15,7 +15,7 @@ sources:
       namespace_labels: ""
     node_annotation_fields:
       node_labels: ""
-  journald_logs:
+  journald_source:
     type: journald
     journal_directory: /var/log/journal
 
@@ -31,4 +31,4 @@ sinks:
     compression: true
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6010
-    inputs: ["journald_logs"]
+    inputs: ["journald_source"]
