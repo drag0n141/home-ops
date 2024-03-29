@@ -20,8 +20,7 @@ sources:
     address: 0.0.0.0:1514
     max_length: 102400
     mode: udp
-    permit_origin:
-      - 192.168.254.0/24
+    permit_origin: ["192.168.254.0/24"]
 
 sinks:
   kubernetes:
