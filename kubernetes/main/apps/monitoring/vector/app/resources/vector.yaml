@@ -4,11 +4,6 @@ api:
   enabled: true
   address: 0.0.0.0:8686
 
-enrichment_tables:
-  geoip_table:
-    type: geoip
-    path: /usr/share/GeoIP/GeoLite2-City.mmdb
-
 # Sources
 sources:
   journald_source:
@@ -20,6 +15,11 @@ sources:
     type: vector
     version: "2"
     address: 0.0.0.0:6010
+
+  mikrotik_source:
+    type: vector
+    version: "2"
+    address: 0.0.0.0:6020
 
 # Transformations
 transforms:
@@ -57,3 +57,16 @@ sinks:
       app: '{{ custom_app_name }}'
       namespace: '{{ kubernetes.pod_namespace }}'
       node: '{{ kubernetes.pod_node_name }}'
+
+  mikrotik:
+    inputs: ["mikrotik_source"]
+    type: loki
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    mode: "bulk"
+    compression: gzip
+    api_version: "v8"
+    healthcheck:
+      enabled: false
+    query:
+      _msg_field: "message"
+      _stream_fields: "hostname,source_ip"
