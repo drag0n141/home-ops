@@ -15,6 +15,9 @@ sources:
       namespace_labels: ""
     node_annotation_fields:
       node_labels: ""
+  journald_logs:
+    type: journald
+    journal_directory: /var/log/journal
 
 sinks:
   kubernetes:
@@ -23,3 +26,10 @@ sinks:
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6010
     inputs: ["kubernetes_source"]
+
+  journald:
+    type: vector
+    compression: true
+    version: "2"
+    address: vector-aggregator.monitoring.svc.cluster.local:6010
+    inputs: ["journald_logs"]
