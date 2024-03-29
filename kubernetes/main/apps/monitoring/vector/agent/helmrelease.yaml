@@ -35,6 +35,7 @@ spec:
             image:
               repository: docker.io/timberio/vector
               tag: 0.37.0-alpine@sha256:7f4f5c1aec8feaa3ea1bea069e22517788ce9eecee9d5d8af95590cf3e67fc2f
+            args: ["--config", "/etc/vector/vector.yaml"]
             env:
               PROCFS_ROOT: /host/proc
               SYSFS_ROOT: /host/sys
@@ -53,7 +54,6 @@ spec:
                   fieldRef:
                     apiVersion: v1
                     fieldPath: metadata.namespace
-            args: ["--config", "/etc/vector/vector.yaml"]
             resources:
               requests:
                 cpu: 23m
