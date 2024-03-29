@@ -51,7 +51,7 @@ spec:
           log_level: info
           http_listen_port: 3100
           grpc_listen_port: 9095
-        memberlistConfig:
+        memberlist:
           bind_addr: []
           join_members: ["loki-memberlist"]
         limits_config:
