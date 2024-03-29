@@ -2,6 +2,9 @@
 data_dir: /vector-data-dir
 
 sources:
+  journald_source:
+    type: journald
+    journal_directory: /var/log/journal
   kubernetes_source:
     type: kubernetes_logs
     use_apiserver_cache: true
@@ -15,20 +18,17 @@ sources:
       namespace_labels: ""
     node_annotation_fields:
       node_labels: ""
-  journald_source:
-    type: journald
-    journal_directory: /var/log/journal
 
 sinks:
+  journald:
+    type: vector
+    compression: true
+    version: "2"
+    address: vector-aggregator.monitoring.svc.cluster.local:6000
+    inputs: ["journald_source"]
   kubernetes:
     type: vector
     compression: true
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6010
     inputs: ["kubernetes_source"]
-  journald:
-    type: vector
-    compression: true
-    version: "2"
-    address: vector-aggregator.monitoring.svc.cluster.local:6010
-    inputs: ["journald_source"]
