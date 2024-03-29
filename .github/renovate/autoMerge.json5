@@ -15,7 +15,7 @@
       "automerge": true,
       "automergeType": "branch",
       "ignoreTests": true,
-      "excludePackagePatterns": ["immich"],
+      "excludePackagePatterns": ["immich", "vector"],
       "matchUpdateTypes": ["minor", "patch", "digest"]
     }
   ]
