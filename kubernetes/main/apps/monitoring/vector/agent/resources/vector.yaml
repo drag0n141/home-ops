@@ -26,7 +26,6 @@ sinks:
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6010
     inputs: ["kubernetes_source"]
-
   journald:
     type: vector
     compression: true
