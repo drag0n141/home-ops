@@ -18,6 +18,13 @@ sources:
       namespace_labels: ""
     node_annotation_fields:
       node_labels: ""
+  mikrotik_source:
+    type: syslog
+    address: 0.0.0.0:1514
+    max_length: 102400
+    mode: udp
+    permit_origin:
+      - 192.168.254.0/24
 
 sinks:
   journald:
@@ -32,3 +39,9 @@ sinks:
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6010
     inputs: ["kubernetes_source"]
+  mikrotik:
+    type: vector
+    compression: true
+    version: "2"
+    address: vector-aggregator.monitoring.svc.cluster.local:6020
+    inputs: ["mikrotik_source"]
