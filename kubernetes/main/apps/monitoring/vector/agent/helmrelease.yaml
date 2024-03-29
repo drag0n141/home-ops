@@ -96,11 +96,11 @@ spec:
         hostPathType: Directory
         globalMounts:
           - path: /var/lib
-          - readOnly: true
+            readOnly: true
       var-log:
         type: hostPath
         hostPath: /var/log
         hostPathType: Directory
         globalMounts:
           - path: /var/log
-          - readOnly: true
+            readOnly: true
