@@ -51,7 +51,8 @@ spec:
           log_level: info
           http_listen_port: 3100
           grpc_listen_port: 9095
-        memberlist:
+        memberlistConfig:
+          bind_addr: []
           join_members: ["loki-memberlist"]
         limits_config:
           retention_period: 14d
@@ -152,11 +153,25 @@ spec:
       extraVolumes:
         - name: rules
           emptyDir: {}
+      extraArgs:
+        - -memberlist.bind-addr=$(MY_POD_IP)
+      extraEnv:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
     write:
       replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-hostpath
+      extraArgs:
+        - -memberlist.bind-addr=$(MY_POD_IP)
+      extraEnv:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
     backend:
       replicas: 2
       persistence:
@@ -173,6 +188,13 @@ spec:
             name: loki-alerting-rules
         - name: scratch
           emptyDir: {}
+      extraArgs:
+        - -memberlist.bind-addr=$(MY_POD_IP)
+      extraEnv:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
     monitoring:
       dashboards:
         annotations:
