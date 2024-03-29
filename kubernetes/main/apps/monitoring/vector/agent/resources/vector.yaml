@@ -2,9 +2,6 @@
 data_dir: /vector-data-dir
 
 sources:
-  journal_logs:
-    type: journald
-    journal_directory: /var/log/journal
   kubernetes_source:
     type: kubernetes_logs
     use_apiserver_cache: true
@@ -27,12 +24,6 @@ sources:
       - 192.168.254.0/24
 
 sinks:
-  journald:
-    type: vector
-    compression: true
-    version: "2"
-    address: vector-aggregator.monitoring.svc.cluster.local:6000
-    inputs: ["journal_logs"]
   kubernetes:
     type: vector
     compression: true
