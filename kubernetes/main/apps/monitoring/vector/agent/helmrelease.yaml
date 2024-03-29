@@ -60,6 +60,18 @@ spec:
                 memory: 249M
             securityContext:
               privileged: true
+    service:
+      app:
+        controller: vector-agent
+        type: LoadBalancer
+        annotations:
+          coredns.io/hostname: "vector-agent.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${VECTOR_AGENT_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          agent:
+            port: 1514
+            protocol: UDP
     serviceAccount:
       create: true
       name: vector-agent
