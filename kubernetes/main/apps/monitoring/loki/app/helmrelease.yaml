@@ -141,6 +141,13 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      resources:
+        requests:
+          cpu: 50m
+          memory: 32Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
     read:
       replicas: 2
       persistence:
@@ -152,11 +159,25 @@ spec:
       extraVolumes:
         - name: rules
           emptyDir: {}
+      resources:
+        requests:
+          cpu: 50m
+          memory: 32Mi
+        limits:
+          cpu: 500m
+          memory: 192Mi
     write:
       replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-hostpath
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 1Gi
     backend:
       replicas: 2
       persistence:
@@ -173,6 +194,13 @@ spec:
             name: loki-alerting-rules
         - name: scratch
           emptyDir: {}
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
     monitoring:
       dashboards:
         annotations:
