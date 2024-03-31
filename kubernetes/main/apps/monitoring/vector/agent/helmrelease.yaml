@@ -56,11 +56,8 @@ spec:
                     fieldPath: metadata.namespace
             resources:
               requests:
-                cpu: 20m
+                cpu: 23m
                 memory: 250M
-              limits:
-                cpu: 100m
-                memory: 800M
             securityContext:
               privileged: true
     service:
