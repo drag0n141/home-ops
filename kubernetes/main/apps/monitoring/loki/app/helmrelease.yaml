@@ -205,8 +205,10 @@ spec:
       dashboards:
         annotations:
           grafana_folder: Loki
+        labels:
+          grafana.io/dashboard: "true"
       serviceMonitor:
-        enabled: false
+        enabled: true
         metricsInstance:
           enabled: false
       selfMonitoring:
