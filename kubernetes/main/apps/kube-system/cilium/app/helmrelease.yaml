@@ -27,9 +27,9 @@ spec:
   values:
     autoDirectNodeRoutes: true
     cgroup:
-    autoMount:
-      enabled: false
-    hostRoot: /sys/fs/cgroup
+      autoMount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
     bandwidthManager:
       enabled: true
       bbr: true
