@@ -26,6 +26,10 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: true
+    cgroup:
+    autoMount:
+      enabled: false
+    hostRoot: /sys/fs/cgroup
     bandwidthManager:
       enabled: true
       bbr: true
