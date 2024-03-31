@@ -70,6 +70,7 @@ spec:
         externalTrafficPolicy: Cluster
         ports:
           http:
+            primary: true
             port: 8686
           journald:
             port: 6000
