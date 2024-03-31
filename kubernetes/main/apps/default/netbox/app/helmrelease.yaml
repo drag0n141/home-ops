@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: quay.io/tgenannt/netbox
+      repository: ghcr.io/netbox-community/netbox
       tag: v3.7.4
     superuser:
       name: drag0n141
