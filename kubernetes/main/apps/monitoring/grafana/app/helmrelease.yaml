@@ -41,6 +41,9 @@ spec:
       GF_AUTH_GENERIC_OAUTH_API_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_EMPTY_SCOPES: false
+      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email groups
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/token
       GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OAUTH_CLIENT_SECRET}
       GF_AUTH_OAUTH_AUTO_LOGIN: true
@@ -57,36 +60,6 @@ spec:
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN_INTERNAL}
     envFromSecrets:
       - name: *secret
-    grafana.ini:
-      analytics:
-        check_for_updates: false
-        check_for_plugin_updates: false
-        reporting_enabled: false
-      auth:
-        oauth_auto_login: true
-        oauth_allow_insecure_email_lookup: true
-      auth.generic_oauth:
-        enabled: true
-        name: Authelia
-        icon: signin
-        scopes: openid profile email groups
-        empty_scopes: false
-        login_attribute_path: preferred_username
-        groups_attribute_path: groups
-        name_attribute_path: name
-        use_pkce: true
-      auth.generic_oauth.group_mapping:
-        org_id: 1
-        role_attribute_path: |
-          contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
-      auth.basic:
-        enabled: false
-      auth.anonymous:
-        enabled: false
-        # org_id: 1
-        # org_role: Viewer
-      news:
-        news_feed_enabled: false
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
