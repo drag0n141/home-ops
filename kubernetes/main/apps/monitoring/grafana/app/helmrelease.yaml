@@ -32,11 +32,18 @@ spec:
               name: &secret grafana-secret
     replicas: 2
     env:
+      GF_ANALYTICS_CHECK_FOR_UPDATES: false
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: false
+      GF_ANALYTICS_REPORTING_ENABLED: false
+      GF_AUTH_ANONYMOUS_ENABLED: false
+      GF_AUTH_BASIC_ENABLED: false
+      GF_AUTH_GENERIC_OAUTH_ENABLED: true
       GF_AUTH_GENERIC_OAUTH_API_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/token
       GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OAUTH_CLIENT_SECRET}
+      GF_AUTH_OAUTH_AUTO_LOGIN: true
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
