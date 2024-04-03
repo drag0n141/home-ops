@@ -8,10 +8,10 @@ spec:
   chart:
     spec:
       chart: spegel
-      version: v0.0.18
+      version: v0.0.19
       sourceRef:
         kind: HelmRepository
-        name: xenitab
+        name: spegel
         namespace: flux-system
   maxHistory: 2
   install:
@@ -26,16 +26,6 @@ spec:
     spegel:
       containerdSock: /run/k3s/containerd/containerd.sock
       containerdRegistryConfigPath: /var/lib/rancher/k3s/agent/etc/containerd/certs.d
-      registries:
-        - https://docker.io
-        - https://ghcr.io
-        - https://quay.io
-        - https://mcr.microsoft.com
-        - https://public.ecr.aws
-        - https://gcr.io
-        - https://registry.k8s.io
-        - https://k8s.gcr.io
-        - https://lscr.io
     service:
       registry:
         hostPort: 29999
