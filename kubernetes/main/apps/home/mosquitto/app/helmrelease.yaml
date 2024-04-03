@@ -42,6 +42,11 @@ spec:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.18@sha256:cb3afd02611b0c58b328196ab00de0158322b4c1e014841fb182d2a0ea3a79b9
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -50,13 +55,13 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 16Mi
+                memory: 64Mi
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 65534
+            runAsGroup: 65534
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: 65534
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -66,7 +71,6 @@ spec:
             port: 1883
     persistence:
       config:
-        enabled: true
         existingClaim: mosquitto
         globalMounts:
           - path: /data
