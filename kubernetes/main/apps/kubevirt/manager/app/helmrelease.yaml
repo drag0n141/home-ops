@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: docker.io/kubevirtmanager/kubevirt-manager
-              tag: 1.3.3@sha256:269de74077555bda5013eab8c121af9df39f958e1aac02e367f4149351db5309
+              tag: 1.3.3@sha256:df3ea27d4a9ec74c00e557633e97e6fdc3f59d12bd6582c716484cb68d8a1bfd
             env:
               TZ: ${TIMEZONE}
             resources:
