@@ -73,6 +73,16 @@
       "separateMinorPatch": true
     },
     {
+      "description": ["Dragonfly Operator Group"],
+      "groupName": "Dragonfly Operator",
+      "matchPackagePatterns": ["dragonflydb.operator"],
+      "matchDatasources": ["docker", "github-releases"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": ["Volsync Group"],
       "groupName": "Volsync",
       "matchPackagePatterns": ["volsync"],
