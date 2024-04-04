@@ -13,4 +13,7 @@ spec:
       services:
         - kind: Service
           name: error-pages
+          namespace: networking
           port: 8080
+      middlewares:
+        - name: traefik-middleware-error-pages
