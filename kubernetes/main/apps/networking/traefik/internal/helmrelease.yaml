@@ -56,6 +56,8 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         entryPoints: ["web", "websecure"]
         matchRule: Host(`traefik-internal.${SECRET_DOMAIN_INTERNAL}`)
+        tls:
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     globalArguments:
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
