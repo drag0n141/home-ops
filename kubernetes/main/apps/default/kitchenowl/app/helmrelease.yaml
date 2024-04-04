@@ -47,6 +47,9 @@ spec:
               tag: v0.5.0@sha256:3cd3b1d1859c1a3f76fcdad69e13b45fd64b7caff94cadd53ba72ab6bccaf5e9
             env:
               TZ: ${TIMEZONE}
+              SMTP_PORT: 2525
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_FROM: kitchenowl@${SECRET_DOMAIN}
             envFrom: *envFrom
             resources:
               requests:
