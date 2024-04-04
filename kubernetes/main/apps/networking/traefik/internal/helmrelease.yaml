@@ -53,9 +53,10 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "traefik-internal"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         entryPoints: ["web", "websecure"]
         matchRule: Host(`traefik-internal.${SECRET_DOMAIN_INTERNAL}`)
+        middlewares:
+          - name: traefik-middleware-chain-authelia
         tls:
           hosts:
             - traefik-internal.${SECRET_DOMAIN_INTERNAL}
