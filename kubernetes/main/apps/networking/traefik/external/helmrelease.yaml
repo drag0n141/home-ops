@@ -52,13 +52,8 @@ spec:
       dashboard:
         enabled: false
     globalArguments:
-      - "--api=true"
-      - "--api.dashboard=true"
-      - "--api.insecure=true"
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
-      - "--metrics.prometheus=true"
-      - "--metrics.prometheus.entryPoint=metrics"
     ports:
       traefik:
         expose:
