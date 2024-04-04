@@ -57,6 +57,8 @@ spec:
         entryPoints: ["web", "websecure"]
         matchRule: Host(`traefik-internal.${SECRET_DOMAIN_INTERNAL}`)
         tls:
+          hosts:
+            - traefik-internal.${SECRET_DOMAIN_INTERNAL}
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
     globalArguments:
       - "--serversTransport.insecureSkipVerify=true"
