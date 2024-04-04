@@ -28,14 +28,6 @@ spec:
     deployment:
       kind: Deployment
       replicas: 3
-    rollback:
-      recreate: true
-      force: true
-      cleanupOnFail: true
-    autoscaling:
-      enabled: false
-      minReplicas: 1
-      maxReplicas: 3
     service:
       enabled: true
       type: LoadBalancer
@@ -49,11 +41,9 @@ spec:
         value: "${TIMEZONE}"
     logs:
       general:
-        format: json
         level: INFO
       access:
         enabled: true
-        format: json
     ingressClass:
       enabled: true
       isDefaultClass: false
