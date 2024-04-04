@@ -83,6 +83,16 @@
       "separateMinorPatch": true
     },
     {
+      "description": ["Kitchenowl Group"],
+      "groupName": "Kitchenowl",
+      "matchPackagePatterns": ["kitchenowl"],
+      "matchDatasources": ["docker"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": ["Volsync Group"],
       "groupName": "Volsync",
       "matchPackagePatterns": ["volsync"],
