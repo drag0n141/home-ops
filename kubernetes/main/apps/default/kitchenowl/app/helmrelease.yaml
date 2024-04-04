@@ -43,8 +43,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/tombursch/kitchenowl
-              tag: v93
+              repository: docker.io/tombursch/kitchenowl-backend
+              tag: v0.5.0@sha256:3cd3b1d1859c1a3f76fcdad69e13b45fd64b7caff94cadd53ba72ab6bccaf5e9
             env:
               TZ: ${TIMEZONE}
             envFrom: *envFrom
