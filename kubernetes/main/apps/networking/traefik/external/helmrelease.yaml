@@ -57,10 +57,6 @@ spec:
         matchRule: Host(`traefik-external.${SECRET_DOMAIN_INTERNAL`})
         entryPoints: ["websecure"]
         middlewares: ["networking-traefik-middleware-chain-authelia@kubernetescrd"]
-        tls:
-          - hosts:
-              - "traefik-external.${SECRET_DOMAIN_INTERNAL}"
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     globalArguments:
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
