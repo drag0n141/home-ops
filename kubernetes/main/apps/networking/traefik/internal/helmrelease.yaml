@@ -71,7 +71,8 @@ spec:
       - "--metrics.prometheus.entryPoint=metrics"
     ports:
       traefik:
-        expose: true
+        expose:
+          default: false
       web:
         redirectTo:
           port: websecure
@@ -92,9 +93,8 @@ spec:
         http3:
           enabled: true
       metrics:
-        port: 8082
-        expose: true
-        exposedPort: 8082
+        expose:
+          default: false
     metrics:
       prometheus:
         service:
