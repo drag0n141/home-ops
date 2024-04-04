@@ -15,7 +15,7 @@ spec:
           name: error-pages
           namespace: networking
           port: 8080
-      tls:
-        secretName: "${SECRET_DOMAIN/./-}-production-tls"
       middlewares:
         - name: traefik-middleware-error-pages
+  tls:
+    secretName: "${SECRET_DOMAIN/./-}-production-tls"
