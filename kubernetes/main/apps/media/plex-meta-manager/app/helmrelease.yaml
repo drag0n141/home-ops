@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: docker.io/meisnate12/plex-meta-manager
-              tag: v1.20.0
+              tag: v1.21.0
             env:
               TZ: ${TIMEZONE}
               PMM_READ_ONLY_CONFIG: true
