@@ -50,7 +50,17 @@ spec:
       fallbackApiVersion: v1
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik-internal"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+        matchRule: Host(`traefik-external.${SECRET_DOMAIN_INTERNAL`})
+        entryPoints: ["websecure"]
+        middlewares: ["networking-traefik-middleware-chain-authelia@kubernetescrd"]
+        tls:
+          - hosts:
+              - "traefik-external.${SECRET_DOMAIN_INTERNAL}"
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     globalArguments:
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
