@@ -2,7 +2,7 @@ libraries:
   Filme:
     split_duplicates: true
     schedule: hourly(1)
-    metadata_path:
+    collection_files:
     - file: config/1-moviecharts.yml
     - file: config/3-bestof.yml
     - file: config/4-decade.yml
@@ -12,13 +12,13 @@ libraries:
     - file: config/98-movie.yml
   Serien:
     schedule: hourly(0)
-    metadata_path:
+    collection_files:
     - file: config/2-tvcharts.yml
     - file: config/7-networks.yml
     - file: config/8-tv.yml
   Filme-4K:
     schedule: hourly(6),hourly(18)
-    overlay_path:
+    overlay_files:
     - remove_overlays: false
     - file: config/99-overlays.yml
       template_variables:
@@ -28,7 +28,7 @@ libraries:
         4K-Episode: false
   Serien-4K:
     schedule: hourly(6),hourly(18)
-    overlay_path:
+    overlay_files:
     - remove_overlays: false
     - file: config/99-overlays.yml
       template_variables:
