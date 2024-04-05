@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: storage
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/storage/minio/app
   prune: true
   sourceRef:
