@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: flux-system
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/flux-system/addons/app
   prune: true
   sourceRef:
