@@ -15,7 +15,7 @@
       "automerge": true,
       "automergeType": "branch",
       "ignoreTests": true,
-      "excludePackagePatterns": ["immich", "vector"],
+      "excludePackagePatterns": ["immich", "vector", "zigbee2mqtt"],
       "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
