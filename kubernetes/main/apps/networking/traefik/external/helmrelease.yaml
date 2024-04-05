@@ -58,6 +58,7 @@ spec:
         matchRule: Host(`traefik-external.${SECRET_DOMAIN_INTERNAL}`)
         middlewares:
           - name: traefik-middleware-chain-authelia
+            namespace: networking
         tls:
           hosts:
             - traefik-external.${SECRET_DOMAIN_INTERNAL}
