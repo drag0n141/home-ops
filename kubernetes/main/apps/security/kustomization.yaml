@@ -8,3 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
+  - ./external-secrets/ks.yaml

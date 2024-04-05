@@ -14,6 +14,7 @@ resources:
   - ./descheduler.yaml
   - ./emberstack.yaml
   - ./external-dns.yaml
+  - ./external-secrets.yaml
   - ./grafana.yaml
   - ./intel.yaml
   - ./jetstack.yaml
