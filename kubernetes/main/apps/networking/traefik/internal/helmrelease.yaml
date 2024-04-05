@@ -52,7 +52,7 @@ spec:
       dashboard:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "traefik-internal"
+          kubernetes.io/ingress.class: traefik-internal
           coredns.io/hostname: "traefik-internal.${SECRET_DOMAIN_INTERNAL}"
         entryPoints: ["web", "websecure"]
         matchRule: Host(`traefik-internal.${SECRET_DOMAIN_INTERNAL}`)
