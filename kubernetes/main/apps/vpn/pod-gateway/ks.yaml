@@ -8,6 +8,7 @@ spec:
   targetNamespace: vpn
   dependsOn:
     - name: cert-manager-issuers
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/vpn/pod-gateway/app
   prune: true
   sourceRef:
