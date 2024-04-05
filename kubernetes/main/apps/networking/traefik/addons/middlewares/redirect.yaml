@@ -12,16 +12,6 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: traefik-middleware-redirect-overseerr
-spec:
-  redirectRegex:
-    regex: "^https://(.*)${SECRET_DOMAIN}/(.*)"
-    replacement: "https://overseerr.${SECRET_DOMAIN}/${2}"
-    permanent: true
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
   name: traefik-middleware-redirect-nextcloud
 spec:
   redirectRegex:
