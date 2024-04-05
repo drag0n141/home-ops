@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
-              tag: 1.36.1
+              tag: 1.36.0@sha256:4de1ee53d67a9b4556045c34a2722bfd2348dabbefcb792e862643104d3e9fd0
             env:
               TZ: ${TIMEZONE}
               ZIGBEE2MQTT_DATA: /config
@@ -90,7 +90,7 @@ spec:
             resources:
               requests:
                 smarter-devices/ttyACM0: 1
-                cpu: 8m
+                cpu: 10m
               limits:
                 smarter-devices/ttyACM0: 1
                 memory: 384Mi
