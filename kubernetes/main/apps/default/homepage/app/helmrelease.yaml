@@ -89,7 +89,7 @@ spec:
     persistence:
       config:
         type: secret
-        name: homepage-secret
+        name: homepage-files
         globalMounts:
           - path: /app/config/bookmarks.yaml
             subPath: bookmarks.yaml
