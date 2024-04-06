@@ -38,7 +38,7 @@ spec:
           02-init-schema:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.4
+              tag: 1.5.5
             envFrom: *envFrom
             command:
               - "/bin/sh"
@@ -60,7 +60,7 @@ spec:
           app:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.4
+              tag: 1.5.5
             env:
               TZ: ${TIMEZONE}
               WEBAPP_CONTEXT: ROOT
