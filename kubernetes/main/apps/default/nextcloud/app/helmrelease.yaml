@@ -225,6 +225,7 @@ spec:
       className: traefik-external
       annotations:
         external-dns.alpha.kubernetes.io/target: "vpn-ip.${SECRET_DOMAIN}"
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
       path: /
