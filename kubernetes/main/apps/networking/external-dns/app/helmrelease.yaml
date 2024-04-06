@@ -28,11 +28,16 @@ spec:
     fullnameOverride: *app
     provider: cloudflare
     env:
-      - name: CF_API_TOKEN
+      - name: &name CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: external-dns-secret
-            key: api-token
+            name: &secret external-dns-secret
+            key: *name
+      - name: &name CF_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: *name
     extraArgs:
       - --ingress-class=traefik-external
       - --cloudflare-proxied
