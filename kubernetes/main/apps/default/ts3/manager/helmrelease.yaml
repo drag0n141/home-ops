@@ -51,7 +51,7 @@ spec:
             port: 8080
     ingress:
       app:
-        className: traefik-external
+        className: traefik-internal
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
