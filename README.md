@@ -56,6 +56,7 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 
 | Service                                      | Use                                                                | Cost           |
 |----------------------------------------------|--------------------------------------------------------------------|----------------|
+| [1Password](https://1password.com/)          | Secrets with [External Secrets](https://external-secrets.io/)      | ~65€/yr        |
 | [Cloudflare](https://www.cloudflare.com/)    | Domain Management                                                  | Free           |
 | [Netcup](https://netcup.eu/)                 | Domain(s)                                                          | ~24€/yr        |
 | [Eweka](https://www.eweka.nl/)               | Usenet Access                                                      | ~35€/yr        |
@@ -66,7 +67,7 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 | [NextDNS](https://nextdns.io/)               | DNS server which includes AdBlocking for Traveling                 | ~20€/yr        |
 | [Pushover](https://pushover.net/)            | Kubernetes Alerts                                                  | 5€ OTP         |
 | [Wasabi](https://wasabi.com/)                | S3 Offsite Backup                                                  | ~120€/yr       |                                                  
-|                                              |                                                                    | Total: ~27€/mo |
+|                                              |                                                                    | Total: ~32€/mo |
 
 ## Stargazers
 
