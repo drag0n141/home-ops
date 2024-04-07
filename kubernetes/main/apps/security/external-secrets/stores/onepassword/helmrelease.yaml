@@ -63,11 +63,11 @@ spec:
                     path: /health
                     port: 80
                   initialDelaySeconds: 15
-            securityContext: &securityContext
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            resources: &resources
+            resources:
               requests:
                 cpu: 10m
                 memory: 256M
@@ -107,7 +107,7 @@ spec:
                     path: /health
                     port: 8081
                   initialDelaySeconds: 15
-            securityContext: &securityContext
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
