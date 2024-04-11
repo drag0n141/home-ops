@@ -83,7 +83,7 @@ access_control:
         - "^/meshrelay.*$"
         - "^/wl/.*$"
     # One Factor Login
-    - domain: ["nextcloud.${SECRET_DOMAIN}", "cloud.${SECRET_DOMAIN}"]
+    - domain: ["nextcloud.${SECRET_DOMAIN}"]
       policy: one_factor
       subject: ["group:Nextcloud"]
     # Two Factor Login
