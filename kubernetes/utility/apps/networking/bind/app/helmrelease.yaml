@@ -108,8 +108,8 @@ spec:
           - path: /etc/bind/rndc.key
             subPath: RNDC_KEY_FILE
             readOnly: true
-          - path: /etc/bind/ddnsupdate.key
-            subPath: DDNSUPDATE_KEY_FILE
+          - path: /etc/bind/dhcpd.key
+            subPath: DHCPD_KEY_FILE
             readOnly: true
           - path: /etc/bind/externaldns.key
             subPath: EXTERNALDNS_KEY_FILE
