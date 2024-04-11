@@ -25,9 +25,11 @@ cluster/main:
   - changed-files:
       - any-glob-to-any-file: ansible/main/**/*
       - any-glob-to-any-file: kubernetes/main/**/*
-      - any-glob-to-any-file: terraform/main/**/*
 cluster/storage:
   - changed-files:
       - any-glob-to-any-file: ansible/storage/**/*
       - any-glob-to-any-file: kubernetes/storage/**/*
-      - any-glob-to-any-file: terraform/storage/**/*
+cluster/utility:
+  - changed-files:
+      - any-glob-to-any-file: ansible/utility/**/*
+      - any-glob-to-any-file: kubernetes/utility/**/*
