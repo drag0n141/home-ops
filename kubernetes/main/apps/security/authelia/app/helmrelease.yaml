@@ -36,7 +36,7 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: authelia-secret
+                  name: authelia-db-secret
         containers:
           app:
             image:
@@ -44,18 +44,12 @@ spec:
               tag: 4.38.7@sha256:1bfa7206c144f8cd184743a7ed629f4a02d2dceb50e7260588373fe6de4cd959
             env:
               TZ: ${TIMEZONE}
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TLS_SKIP_VERIFY: "true"
               AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
               AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
               AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
               AUTHELIA_THEME: dark
               X_AUTHELIA_CONFIG: /config/configuration.yaml
               X_AUTHELIA_CONFIG_FILTERS: expand-env
-              AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: authelia-files
-                    key: issuer-private-key
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -131,8 +125,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: authelia-configmap
+        type: secret
+        name: authelia-secret
         globalMounts:
           - path: /config/configuration.yaml
             subPath: configuration.yaml

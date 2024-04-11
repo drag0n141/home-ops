@@ -4,16 +4,18 @@ authentication_backend:
     disable: true
   refresh_interval: 1m
   ldap:
+    address: ldaps://dc01.${SECRET_DOMAIN_AD}
     implementation: activedirectory
     timeout: 5s
     start_tls: false
+    base_dn: "{{ .AD_BASE_DN }}"
     additional_users_dn: ou=Benutzer,ou=Home
     users_filter: (&({username_attribute}={input})(objectClass=person))
     additional_groups_dn: ou=Gruppen,ou=Home
     groups_filter: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
     group_search_mode: filter
-    user: uid=admin,ou=people,dc=home,dc=arpa
-    password: password
+    user: "{{ .AD_AUTHELIA_USER_DN }}"
+    password: "{{ .AD_AUTHELIA_USER_PASSWORD }}"
     attributes:
       username: sAMAccountName
       display_name: displayName
@@ -22,6 +24,7 @@ authentication_backend:
       group_name: cn
 
 session:
+  secret: "{{ .AUTHELIA_SESSION_SECRET }}"
   same_site: lax
   inactivity: 5m
   expiration: 1h
@@ -34,6 +37,9 @@ session:
     database_index: 2
     password: ${SECRET_REDIS_PASSWORD}
     host: dragonfly.database.svc.cluster.local
+
+storage:
+  encryption_key: "{{ .AUTHELIA_STORAGE_ENCRYPTION_KEY }}"
 
 notifier:
   disable_startup_check: true
@@ -117,11 +123,20 @@ access_control:
       subject:
         - "group:Authelia"
 
+identity_validation:
+  reset_password:
+    jwt_secret: "{{ .AUTHELIA_JWT_SECRET }}"
+
 identity_providers:
   oidc:
+    hmac_secret: "{{ .AUTHELIA_OIDC_HMAC_SECRET }}"
     cors:
       endpoints: ["authorization", "token", "revocation", "introspection"]
       allowed_origins_from_client_redirect_uris: true
+    jwks:
+      - key: |-
+          {{- .AUTHELIA_OIDC_ISSUER_KEY | nindent 10 }}
+        algorithm: 'RS256'
     clients:
       - id: grafana
         description: Grafana
