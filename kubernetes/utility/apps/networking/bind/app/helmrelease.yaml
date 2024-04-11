@@ -102,9 +102,6 @@ spec:
         name: bind-secret
         defaultMode: 400
         globalMounts:
-          - path: /etc/bind/rndc.conf
-            subPath: RNDC_CONF_FILE
-            readOnly: true
           - path: /etc/bind/rndc.key
             subPath: RNDC_KEY_FILE
             readOnly: true
