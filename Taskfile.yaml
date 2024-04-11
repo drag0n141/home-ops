@@ -6,7 +6,7 @@ vars:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
 
 env:
-  KUBECONFIG: "{{.ROOT_DIR}}/kubernetes/main/kubeconfig:{{.KUBERNETES_DIR}}/kubernetes/utility/kubeconfig"
+  KUBECONFIG: "{{.ROOT_DIR}}/kubernetes/main/kubeconfig:{{.ROOT_DIR}}/kubernetes/utility/kubeconfig"
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
