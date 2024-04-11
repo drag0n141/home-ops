@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: error-pages
+  namespace: networking
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: HostRegexp(`{host:.+}`)
+      priority: 10
+      services:
+        - kind: Service
+          name: error-pages
+          namespace: networking
+          port: 8080
+  tls:
+    secretName: "${SECRET_DOMAIN/./-}-production-tls"

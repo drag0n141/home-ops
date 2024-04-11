@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrelease.yaml
+  - ./secret.sops.yaml
+configMapGenerator:
+  - name: blocky-datasource
+    files:
+      - datasource.yaml=./resources/datasource.yaml
+    options:
+      labels:
+        grafana_datasource: "true"
+  - name: blocky-configmap
+    files:
+      - config.yml=./resources/config.yml
+generatorOptions:
+  disableNameSuffixHash: true

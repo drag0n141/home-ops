@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-error-pages
+spec:
+  errors:
+    status:
+      - "400-400"
+      - "402-402"
+      - "404-599"
+    query: /{status}.html
+    service:
+      name: error-pages
+      port: 8080

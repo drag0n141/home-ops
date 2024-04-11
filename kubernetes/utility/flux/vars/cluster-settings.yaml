@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  TIMEZONE: "Europe/Berlin"
+  COREDNS_ADDR: "10.43.0.10"
+  BGP_ROUTER: "192.168.254.1/32"
+  # CIDR
+  CLUSTER_CIDR: "10.42.0.0/16"
+  SERVICE_CIDR: "10.43.0.0/16"
+  VPN_CIDR: "192.168.40.0/24"
+  ADMIN_CIDR: "192.168.140.0/24"
+  LAB_CIDR: "192.168.200.0/24"
+  BGP_CIDR: "192.168.222.1/24"
+  NODE_CIDR: "192.168.254.0/24"
+  # BGP ADDRs
+  TRAEFIK_INTERNAL_ADDR: "192.168.222.211"
+  BLOCKY_LB_ADDR: "192.168.222.254"

@@ -1,0 +1,11 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-compress
+spec:
+  compress:
+    minResponseBodyBytes: 1024
+    excludedContentTypes:
+      - application/zip
+      - application/octet-stream

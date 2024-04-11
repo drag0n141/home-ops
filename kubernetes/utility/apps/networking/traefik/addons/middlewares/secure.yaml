@@ -1,0 +1,49 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-rate-limit
+spec:
+  rateLimit:
+    average: 100
+    burst: 50
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-secure-headers
+spec:
+  headers:
+    accessControlAllowMethods:
+      - GET
+      - OPTIONS
+      - PUT
+      - POST
+    accessControlMaxAge: 100
+    accessControlAllowOriginListRegex:
+      - "https://(.*?)${SECRET_DOMAIN}"
+    hostsProxyHeaders:
+      - "X-Forwarded-Host"
+      - "X-Forwarded-For"
+      - "X-Forwarded-Proto"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
+    stsSeconds: 31536000
+    stsIncludeSubdomains: false
+    stsPreload: true
+    forceSTSHeader: true
+    customFrameOptionsValue: "allow-from https:${SECRET_DOMAIN}"
+    contentTypeNosniff: true
+    browserXssFilter: true
+    frameDeny: true
+    referrerPolicy: "same-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
+    customResponseHeaders:
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
+      X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+      X-Permitted-Cross-Domain-Policies: "none"
+      X-Forwarded-Proto: "https"
+      City: X-GEO-City
+      server: ""
