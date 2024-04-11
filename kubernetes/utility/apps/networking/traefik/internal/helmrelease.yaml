@@ -30,6 +30,7 @@ spec:
       enabled: true
       type: LoadBalancer
       annotations:
+        external-dns.alpha.kubernetes.io/hostname: "ingress-utility.${SECRET_DOMAIN_INT}"
         io.cilium/lb-ipam-ips: "${TRAEFIK_INTERNAL_ADDR}"
       spec:
         externalTrafficPolicy: Cluster
