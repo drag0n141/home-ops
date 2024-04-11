@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: rook-ceph
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/app
   prune: false
   sourceRef:
@@ -23,6 +25,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: rook-ceph
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/cluster
   prune: false
   sourceRef:
