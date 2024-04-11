@@ -32,8 +32,6 @@ spec:
       auth_enabled: false
       analytics:
         reporting_enabled: false
-      ingester:
-        chunk_encoding: snappy
       server:
         log_level: info
         grpc_server_max_recv_msg_size: 8388608
