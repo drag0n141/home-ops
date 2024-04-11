@@ -96,7 +96,7 @@ access_control:
       resources: ["^/admin.*$"]
       subject: ["group:Authelia"]
     # Standard One Factor Login
-    - domain: ["*.${SECRET_DOMAIN}"]
+    - domain: ["*.${SECRET_DOMAIN}", "*.${SECRET_DOMAIN_INTERNAL}", "*.${SECRET_DOMAIN_INT}"]
       policy: one_factor
       subject: ["group:Authelia"]
 
