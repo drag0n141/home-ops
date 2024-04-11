@@ -64,10 +64,12 @@ access_control:
   default_policy: deny
   rules:
     # Rules applied to everyone
-    - domain: "authelia.${SECRET_DOMAIN}"
+    - domain:
+        - "authelia.${SECRET_DOMAIN}"
       policy: bypass
     # Bypass Rule for api / trigges
-    - domain: "*.${SECRET_DOMAIN}"
+    - domain:
+        - "*.${SECRET_DOMAIN}"
       policy: bypass
       resources:
         - "^/api/.*$"
@@ -106,7 +108,8 @@ access_control:
       subject:
         - "group:Authelia"
     # Standard One Factor Login
-    - domain: "*.${SECRET_DOMAIN}"
+    - domain:
+        - "*.${SECRET_DOMAIN}"
       policy: one_factor
       subject:
         - "group:Authelia"
