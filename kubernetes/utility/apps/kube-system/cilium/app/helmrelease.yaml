@@ -43,8 +43,8 @@ spec:
     bgpControlPlane:
       enabled: true
     cluster:
-      id: 1
-      name: main
+      id: 2
+      name: utility
     cni:
       exclusive: false
     containerRuntime:
@@ -109,6 +109,7 @@ spec:
     localRedirectPolicy: true
     operator:
       rollOutPods: true
+      replicas: 1
       prometheus:
         enabled: true
         serviceMonitor:
