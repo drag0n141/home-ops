@@ -26,6 +26,10 @@ spec:
   dependsOn:
     - name: local-path-provisioner
       namespace: storage
+    - name: vector-agent
+      namespace: monitoring
+    - name: vector-aggregator
+      namespace: monitoring
   values:
     deploymentMode: SimpleScalable
     loki:
@@ -76,6 +80,11 @@ spec:
         enable_api: true
         enable_alertmanager_v2: true
         alertmanager_url: http://alertmanager.monitoring.svc.cluster.local:9093
+        storage:
+          type: local
+          local:
+            directory: /rules
+        rule_path: /rules/fake
     gateway:
       replicas: 3
       enabled: true
@@ -137,6 +146,12 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
+      rules:
+        searchNamespace: ALL
+        folder: /rules/fake
     lokiCanary:
       enabled: false
     test:
@@ -147,10 +162,6 @@ spec:
       name: loki-bucket
       valuesKey: BUCKET_NAME
     - targetPath: loki.storage.bucketNames.ruler
-      kind: ConfigMap
-      name: loki-bucket
-      valuesKey: BUCKET_NAME
-    - targetPath: loki.storage.bucketNames.admin
       kind: ConfigMap
       name: loki-bucket
       valuesKey: BUCKET_NAME
