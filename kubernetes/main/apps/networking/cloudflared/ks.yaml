@@ -8,6 +8,7 @@ spec:
   targetNamespace: networking
   dependsOn:
     - name: external-dns
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/networking/cloudflared/app
   prune: true
   sourceRef:
