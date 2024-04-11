@@ -96,7 +96,6 @@ spec:
         controller: blocky
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${BLOCKY_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
