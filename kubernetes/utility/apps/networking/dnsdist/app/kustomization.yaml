@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: dnsdist-configmap
     files:
-      - dnsdist.conf=./config/dnsdist.conf
+      - dnsdist.conf=./resources/dnsdist.conf
 generatorOptions:
   disableNameSuffixHash: true
