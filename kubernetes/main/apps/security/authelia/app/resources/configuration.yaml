@@ -140,36 +140,36 @@ identity_providers:
           {{- .AUTHELIA_OIDC_ISSUER_KEY | nindent 10 }}
         algorithm: 'RS256'
     clients:
-      - id: grafana
-        description: Grafana
-        secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
+      - client_id: grafana
+        client_name: Grafana
+        client_secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://grafana.${SECRET_DOMAIN_INTERNAL}/login/generic_oauth"]
         userinfo_signed_response_alg: none
-      - id: portainer
-        description: Portainer
-        secret: "${PORTAINER_OAUTH_CLIENT_SECRET}"
+      - client_id: portainer
+        client_name: Portainer
+        client_secret: "${PORTAINER_OAUTH_CLIENT_SECRET}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://portainer.${SECRET_DOMAIN_INTERNAL}/"]
         userinfo_signed_response_alg: none
-      - id: nextcloud
-        description: Nextcloud
-        secret: "${NEXTCLOUD_OAUTH_CLIENT_SECRET}"
+      - client_id: nextcloud
+        client_name: Nextcloud
+        client_secret: "${NEXTCLOUD_OAUTH_CLIENT_SECRET}"
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://nextcloud.${SECRET_DOMAIN}/apps/oidc_login/oidc"]
         userinfo_signed_response_alg: none
-      - id: nodered
-        description: Node-RED
-        secret: "${NODE_RED_OAUTH_CLIENT_SECRET}"
+      - client_id: nodered
+        client_name: Node-RED
+        client_secret: "${NODE_RED_OAUTH_CLIENT_SECRET}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -177,9 +177,9 @@ identity_providers:
         redirect_uris: ["https://nodered.${SECRET_DOMAIN_INTERNAL}/auth/strategy/callback"]
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_post
-      - id: outline
-        description: Outline
-        secret: "${OUTLINE_OAUTH_CLIENT_SECRET}"
+      - client_id: outline
+        client_name: Outline
+        client_secret: "${OUTLINE_OAUTH_CLIENT_SECRET}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
