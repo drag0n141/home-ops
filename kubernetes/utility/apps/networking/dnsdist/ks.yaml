@@ -6,8 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
-  dependsOn:
-    - name: external-secrets-stores
   path: ./kubernetes/utility/apps/networking/dnsdist/app
   prune: true
   sourceRef:
