@@ -1,0 +1,120 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app bind
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      bind:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/internetsystemsconsortium/bind9
+              tag: 9,19
+            command:
+              - "/usr/sbin/named"
+            args:
+              - "-4"
+              - "-g"
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 5m
+                memory: 256Mi
+              limits:
+                memory: 256Mi
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    service:
+      app:
+        controller: bind
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${BIND_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          dns-tcp:
+            port: 53
+            protocol: TCP
+          dns-udp:
+            port: 53
+            protocol: UDP
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: bind-configmap
+        globalMounts:
+          - path: /etc/bind/named.conf
+            subPath: named.conf
+            readOnly: true
+          - path: /etc/bind/zones/db.168.192.in-addr.arpa
+            subPath: db.168.192.in-addr.arpa
+            readOnly: true
+          - path: /etc/bind/zones/db.${SECRET_DOMAIN_INT}
+            subPath: db.${SECRET_DOMAIN_INT}
+            readOnly: true
+          - path: /etc/bind/zones/db.${SECRET_DOMAIN_LAB}
+            subPath: db.${SECRET_DOMAIN_LAB}
+            readOnly: true
+      secret-config:
+        type: secret
+        name: bind-secret
+        defaultMode: 400
+        globalMounts:
+          - path: /etc/bind/rndc.conf
+            subPath: RNDC_CONF_FILE
+            readOnly: true
+          - path: /etc/bind/rndc.key
+            subPath: RNDC_KEY_FILE
+            readOnly: true
+          - path: /etc/bind/ddnsupdate.key
+            subPath: DDNSUPDATE_KEY_FILE
+            readOnly: true
+          - path: /etc/bind/externaldns.key
+            subPath: EXTERNALDNS_KEY_FILE
+            readOnly: true
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/cache/bind
