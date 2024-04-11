@@ -64,12 +64,10 @@ access_control:
   default_policy: deny
   rules:
     # Rules applied to everyone
-    - domain:
-        - "authelia.${SECRET_DOMAIN}"
+    - domain: ["authelia.${SECRET_DOMAIN}"]
       policy: bypass
     # Bypass Rule for api / trigges
-    - domain:
-        - "*.${SECRET_DOMAIN}"
+    - domain: ["*.${SECRET_DOMAIN}"]
       policy: bypass
       resources:
         - "^/api/.*$"
@@ -85,34 +83,22 @@ access_control:
         - "^/meshrelay.*$"
         - "^/wl/.*$"
     # One Factor Login
-    - domain:
-        - "nextcloud.${SECRET_DOMAIN}"
-        - "cloud.${SECRET_DOMAIN}"
+    - domain: ["nextcloud.${SECRET_DOMAIN}", "cloud.${SECRET_DOMAIN}"]
       policy: one_factor
-      subject:
-        - "group:Nextcloud"
+      subject: ["group:Nextcloud"]
     # Two Factor Login
-    - domain:
-        - "portainer.${SECRET_DOMAIN_INTERNAL}"
-        - "2fauth.${SECRET_DOMAIN_INTERNAL}"
-        - "guacamole.${SECRET_DOMAIN}"
+    - domain: ["portainer.${SECRET_DOMAIN_INTERNAL}", "2fauth.${SECRET_DOMAIN_INTERNAL}", "guacamole.${SECRET_DOMAIN}"]
       policy: two_factor
-      subject:
-        - "group:Authelia"
+      subject: ["group:Authelia"]
     # Bitwarden Admin Login
-    - domain:
-        - "bitwarden.${SECRET_DOMAIN}"
+    - domain: ["bitwarden.${SECRET_DOMAIN}"]
       policy: two_factor
-      resources:
-        - "^/admin.*$"
-      subject:
-        - "group:Authelia"
+      resources: ["^/admin.*$"]
+      subject: ["group:Authelia"]
     # Standard One Factor Login
-    - domain:
-        - "*.${SECRET_DOMAIN}"
+    - domain: ["*.${SECRET_DOMAIN}"]
       policy: one_factor
-      subject:
-        - "group:Authelia"
+      subject: ["group:Authelia"]
 
 identity_validation:
   reset_password:
