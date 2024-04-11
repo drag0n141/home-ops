@@ -26,17 +26,27 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    provider: cloudflare
+    provider: rfc2136
     env:
-      - name: &name CF_API_EMAIL
+      - name: EXTERNAL_DNS_RFC2136_HOST
+        value: "${BIND_LB_ADDR}"
+      - name: EXTERNAL_DNS_RFC2136_PORT
+        value: "53"
+      - name: EXTERNAL_DNS_RFC2136_ZONE
+        value: "${SECRET_DOMAIN_INT}"
+      - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
+        value: "true"
+      - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
+        value: externaldns
+      - name: &name EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
         valueFrom:
           secretKeyRef:
-            name: &secret external-dns-secret
+            name: external-dns-secret
             key: *name
-      - name: &name CF_API_KEY
+      - name: &name EXTERNAL_DNS_RFC2136_TSIG_SECRET
         valueFrom:
           secretKeyRef:
-            name: *secret
+            name: external-dns-secret
             key: *name
     extraArgs:
       - --ingress-class=traefik-external
@@ -45,10 +55,16 @@ spec:
       - --crd-source-kind=DNSEndpoint
     policy: sync
     sources: ["crd", "ingress"]
-    txtPrefix: k8s.
+    txtPrefix: k8s-utility.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["${SECRET_DOMAIN_INT}"]
     serviceMonitor:
       enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: external-dns-secret
+    resources:
+      requests:
+        cpu: 16m
+        memory: 90M
+      limits:
+        memory: 90M
