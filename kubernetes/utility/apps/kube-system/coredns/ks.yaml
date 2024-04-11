@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/coredns/app
+  path: ./kubernetes/utility/apps/kube-system/coredns/app
   prune: false
   sourceRef:
     kind: GitRepository

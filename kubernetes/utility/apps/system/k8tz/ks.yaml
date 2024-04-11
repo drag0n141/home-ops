@@ -8,7 +8,7 @@ spec:
   targetNamespace: system
   dependsOn:
     - name: cert-manager
-  path: ./kubernetes/main/apps/system/k8tz/app
+  path: ./kubernetes/utility/apps/system/k8tz/app
   prune: true
   sourceRef:
     kind: GitRepository

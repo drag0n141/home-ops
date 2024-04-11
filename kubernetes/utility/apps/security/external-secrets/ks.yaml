@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: security
-  path: ./kubernetes/main/apps/security/external-secrets/app
+  path: ./kubernetes/utility/apps/security/external-secrets/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ spec:
   targetNamespace: security
   dependsOn:
     - name: external-secrets
-  path: ./kubernetes/main/apps/security/external-secrets/stores
+  path: ./kubernetes/utility/apps/security/external-secrets/stores
   prune: true
   sourceRef:
     kind: GitRepository

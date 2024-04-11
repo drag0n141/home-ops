@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: database
-  path: ./kubernetes/main/apps/database/dragonfly/app
+  path: ./kubernetes/utility/apps/database/dragonfly/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ spec:
   targetNamespace: database
   dependsOn:
     - name: dragonfly
-  path: ./kubernetes/main/apps/database/dragonfly/cluster
+  path: ./kubernetes/utility/apps/database/dragonfly/cluster
   prune: true
   sourceRef:
     kind: GitRepository

@@ -8,7 +8,7 @@ spec:
   targetNamespace: networking
   dependsOn:
     - name: cert-manager-issuers
-  path: ./kubernetes/main/apps/networking/traefik/certificates
+  path: ./kubernetes/utility/apps/networking/traefik/certificates
   prune: true
   sourceRef:
     kind: GitRepository
@@ -27,7 +27,7 @@ spec:
   targetNamespace: networking
   dependsOn:
     - name: traefik-certificates
-  path: ./kubernetes/main/apps/networking/traefik/internal
+  path: ./kubernetes/utility/apps/networking/traefik/internal
   prune: true
   sourceRef:
     kind: GitRepository
@@ -45,9 +45,8 @@ metadata:
 spec:
   targetNamespace: networking
   dependsOn:
-    - name: traefik-external
     - name: traefik-internal
-  path: ./kubernetes/main/apps/networking/traefik/addons
+  path: ./kubernetes/utility/apps/networking/traefik/addons
   prune: true
   sourceRef:
     kind: GitRepository

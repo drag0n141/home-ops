@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: dragonfly-cluster
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/networking/blocky/app
+  path: ./kubernetes/utility/apps/networking/blocky/app
   prune: true
   sourceRef:
     kind: GitRepository
