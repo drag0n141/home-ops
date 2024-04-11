@@ -12,9 +12,10 @@ spec:
     solvers:
       - dns01:
           cloudflare:
+            email: "${SECRET_ACME_EMAIL}"
             apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-token
+              key: CLOUDFLARE_API_KEY
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -29,6 +30,7 @@ spec:
     solvers:
       - dns01:
           cloudflare:
+            email: "${SECRET_ACME_EMAIL}"
             apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-token
+              key: CLOUDFLARE_API_KEY

@@ -156,15 +156,10 @@ prometheus:
   enable: true
   path: /metrics
 
-queryLog:
-  type: postgresql
-  target: postgresql://${BLOCKY_POSTGRES_USER}:${BLOCKY_POSTGRES_PASS}@postgres-rw.database.svc.cluster.local:5432/${BLOCKY_POSTGRES_DB}
-  logRetentionDays: 7
-
 redis:
   required: false
   address: dragonfly.database.svc.cluster.local:6379
-  password: ${SECRET_REDIS_PASSWORD}
+  password: "{{ .DRAGONFLY_PASSWORD }}"
   database: 8
 
 bootstrapDns:
