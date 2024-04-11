@@ -48,11 +48,6 @@ spec:
           secretKeyRef:
             name: external-dns-secret
             key: *name
-    extraArgs:
-      - --ingress-class=traefik-external
-      - --cloudflare-proxied
-      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-      - --crd-source-kind=DNSEndpoint
     policy: sync
     sources: ["crd", "ingress"]
     txtPrefix: k8s-utility.
