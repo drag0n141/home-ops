@@ -23,8 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: traefik-external
-      namespace: networking
     - name: traefik-internal
       namespace: networking
   values:
