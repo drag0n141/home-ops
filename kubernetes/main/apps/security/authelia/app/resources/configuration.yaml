@@ -66,43 +66,6 @@ access_control:
     # Rules applied to everyone
     - domain: "authelia.${SECRET_DOMAIN}"
       policy: bypass
-    # Portainer API Bypass
-    - domain: "portainer.${SECRET_DOMAIN_INTERNAL}"
-      policy: bypass
-      resources:
-        - "^/api/.*$"
-    # Nextcloud One Factor Login
-    - domain: "nextcloud.${SECRET_DOMAIN}"
-      policy: one_factor
-      subject:
-        - "group:Nextcloud"
-    # OCIS One Factor Login
-    - domain: "cloud.${SECRET_DOMAIN}"
-      policy: one_factor
-      subject:
-        - "group:Nextcloud"
-    # Portainer Two Factor Login
-    - domain: "portainer.${SECRET_DOMAIN_INTERNAL}"
-      policy: two_factor
-      subject:
-        - "group:Authelia"
-    # 2FAuth Two Factor Login
-    - domain: "2fauth.${SECRET_DOMAIN_INTERNAL}"
-      policy: two_factor
-      subject:
-        - "group:Authelia"
-    # Guacamole Two Factor Login
-    - domain: "guacamole.${SECRET_DOMAIN}"
-      policy: two_factor
-      subject:
-        - "group:Authelia"
-    # Bitwarden Admin Login
-    - domain: "bitwarden.${SECRET_DOMAIN}"
-      policy: two_factor
-      resources:
-        - "^/admin.*$"
-      subject:
-        - "group:Authelia"
     # Bypass Rule for api / trigges
     - domain: "*.${SECRET_DOMAIN}"
       policy: bypass
@@ -119,6 +82,29 @@ access_control:
         - "^/control.*$"
         - "^/meshrelay.*$"
         - "^/wl/.*$"
+    # One Factor Login
+    - domain:
+        - "nextcloud.${SECRET_DOMAIN}"
+        - "cloud.${SECRET_DOMAIN}"
+      policy: one_factor
+      subject:
+        - "group:Nextcloud"
+    # Two Factor Login
+    - domain:
+        - "portainer.${SECRET_DOMAIN_INTERNAL}"
+        - "2fauth.${SECRET_DOMAIN_INTERNAL}"
+        - "guacamole.${SECRET_DOMAIN}"
+      policy: two_factor
+      subject:
+        - "group:Authelia"
+    # Bitwarden Admin Login
+    - domain:
+        - "bitwarden.${SECRET_DOMAIN}"
+      policy: two_factor
+      resources:
+        - "^/admin.*$"
+      subject:
+        - "group:Authelia"
     # Standard One Factor Login
     - domain: "*.${SECRET_DOMAIN}"
       policy: one_factor
