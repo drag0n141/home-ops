@@ -11,13 +11,22 @@
       "additionalBranchPrefix": "main-"
     },
     {
-      "description": ["Separate PRs for nas cluster"],
+      "description": ["Separate PRs for storage cluster"],
       "matchFileNames": [
-        "**/kubernetes/nas/**",
-        "**/ansible/nas/**",
-        "**/terraform/nas/**"
+        "**/kubernetes/storage/**",
+        "**/ansible/storage/**",
+        "**/terraform/storage/**"
       ],
-      "additionalBranchPrefix": "nas-"
+      "additionalBranchPrefix": "storage-"
+    },
+    {
+      "description": ["Separate PRs for utility cluster"],
+      "matchFileNames": [
+        "**/kubernetes/utility/**",
+        "**/ansible/utility/**",
+        "**/terraform/utility/**"
+      ],
+      "additionalBranchPrefix": "utility-"
     }
   ]
 }
