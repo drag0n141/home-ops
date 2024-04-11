@@ -8,6 +8,8 @@ authentication_backend:
     implementation: activedirectory
     timeout: 5s
     start_tls: false
+    tls:
+      skip_verify: false
     base_dn: "{{ .AD_BASE_DN }}"
     additional_users_dn: ou=Benutzer,ou=Home
     users_filter: (&({username_attribute}={input})(objectClass=person))
