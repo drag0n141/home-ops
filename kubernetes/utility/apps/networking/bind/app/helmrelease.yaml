@@ -33,11 +33,8 @@ spec:
             image:
               repository: docker.io/internetsystemsconsortium/bind9
               tag: 9.19
-            command:
-              - "/usr/sbin/named"
-            args:
-              - "-4"
-              - "-g"
+            command: ["/usr/sbin/named"]
+            args: ["-4", "-g"]
             env:
               TZ: ${TIMEZONE}
             probes:
