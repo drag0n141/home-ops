@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: docker.io/internetsystemsconsortium/bind9
-              tag: 9,19
+              tag: 9.19
             command:
               - "/usr/sbin/named"
             args:
@@ -88,6 +88,11 @@ spec:
           - path: /etc/bind/named.conf
             subPath: named.conf
             readOnly: true
+      secret-zones:
+        enabled: true
+        type: secret
+        name: bind-zones-secret
+        globalMounts:
           - path: /etc/bind/zones/db.168.192.in-addr.arpa
             subPath: db.168.192.in-addr.arpa
             readOnly: true
