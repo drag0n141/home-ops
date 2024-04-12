@@ -2,4 +2,5 @@
 type: REDIS
 config:
   addr: dragonfly.database.svc.cluster.local:6379
+  password: "${SECRET_REDIS_PASSWORD}"
   db: 11
