@@ -63,3 +63,14 @@ spec:
         memory: 90M
       limits:
         memory: 90M
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              - op: add
+                path: /spec/template/spec/enableServiceLinks
+                value: false
