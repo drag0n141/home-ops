@@ -97,10 +97,10 @@ spec:
             subPath: db.168.192.in-addr.arpa
             readOnly: true
           - path: /etc/bind/zones/db.${SECRET_DOMAIN_INT}
-            subPath: db.${SECRET_DOMAIN_INT}
+            subPath: db.int
             readOnly: true
           - path: /etc/bind/zones/db.${SECRET_DOMAIN_LAB}
-            subPath: db.${SECRET_DOMAIN_LAB}
+            subPath: db.lab
             readOnly: true
       secret-config:
         type: secret
