@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: docker.io/internetsystemsconsortium/bind9
-              tag: 9.19
+              tag: 9.19@sha256:e878d59217f63bd1b6d198a252c3383fe6b7c32e642c6e4cb75ce2f865303d9d
             command: ["/usr/sbin/named"]
             args: ["-4", "-g"]
             env:
