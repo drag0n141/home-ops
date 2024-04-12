@@ -26,8 +26,6 @@ spec:
   values:
     controllers:
       bind:
-        replicas: 1
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -49,22 +47,12 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
             resources:
               requests:
                 cpu: 5m
                 memory: 256Mi
               limits:
                 memory: 256Mi
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: *app
     service:
       app:
         controller: bind
