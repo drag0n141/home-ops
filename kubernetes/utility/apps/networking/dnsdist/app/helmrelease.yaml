@@ -44,9 +44,6 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
             resources:
               requests:
                 cpu: 5m
