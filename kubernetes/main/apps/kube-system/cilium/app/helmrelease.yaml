@@ -26,10 +26,6 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: true
-    cgroup:
-      autoMount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
     bandwidthManager:
       enabled: true
       bbr: true
@@ -42,6 +38,10 @@ spec:
         podCIDR: false
     bgpControlPlane:
       enabled: true
+    cgroup:
+      autoMount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
     cluster:
       id: 1
       name: main
