@@ -163,7 +163,7 @@ spec:
                   labelSelector:
                     matchLabels:
                       app.kubernetes.io/name: ceph-mds
-                      app.kubernetes.io/part-of: *cephFileSystemName
+                      app.kubernetes.io/part-of: ceph-filesystem
             resources:
               requests:
                 cpu: 100m
