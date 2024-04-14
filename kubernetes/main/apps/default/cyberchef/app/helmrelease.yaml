@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gchq/cyberchef
-              tag: 10.16.0@sha256:8a075a4b78bc65b0e546065bf611bcdc06585ef006ddbd903a8bbb70e501e8e4
+              tag: 10.17.0@sha256:89b9219a35f93db0fd1277f38b020e899b40ca32cf50d3c712e68d6cac18cff7
             env:
               TZ: ${TIMEZONE}
             resources:
