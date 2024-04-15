@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./objectbucketclaim.yaml
+  - ./pushsecret.yaml
 configMapGenerator:
   - name: thanos-cache-configmap
     files:
