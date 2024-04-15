@@ -112,8 +112,12 @@ spec:
           - path: /config
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
       transcode:
         type: emptyDir
+        globalMounts:
+          - path: /transcode
       media:
         type: nfs
         server: ${SECRET_NFS_SERVER}
