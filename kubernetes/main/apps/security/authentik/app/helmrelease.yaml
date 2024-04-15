@@ -35,6 +35,8 @@ spec:
     authentik:
       log_level: info
       email:
+        host: smtp-relay.networking.svc.cluster.local
+        from: authentik@${SECRET_DOMAIN}
         port: 2525
         use_tls: false
       error_reporting:
