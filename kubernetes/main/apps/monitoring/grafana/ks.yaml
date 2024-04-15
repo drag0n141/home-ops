@@ -8,6 +8,7 @@ spec:
   targetNamespace: monitoring
   dependsOn:
     - name: cloudnative-pg-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/monitoring/grafana/app
   prune: true
   sourceRef:

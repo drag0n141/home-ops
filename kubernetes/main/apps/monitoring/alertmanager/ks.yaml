@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/monitoring/alertmanager/app
   prune: true
   sourceRef:

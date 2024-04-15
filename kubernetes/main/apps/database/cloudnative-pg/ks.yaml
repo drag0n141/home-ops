@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: database
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/database/cloudnative-pg/app
   prune: true
   sourceRef:
