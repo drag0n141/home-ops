@@ -8,6 +8,7 @@ spec:
   targetNamespace: monitoring
   dependsOn:
     - name: dragonfly-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/monitoring/thanos/app
   prune: true
   sourceRef:
