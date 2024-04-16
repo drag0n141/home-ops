@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app opnsense-backup
+  name: &app opnsense
 spec:
   interval: 30m
   chart:
@@ -24,13 +24,13 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      opnsense:
         type: cronjob
         cronjob:
           concurrencyPolicy: Forbid
           schedule: "@daily"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/drag0n141/kubernetes-kubectl
               tag: 1.29.3@sha256:d1d6560e38afeda713cc5c474181dcdd29586d2f8bab5df5d8cc0e24e98a39dc
