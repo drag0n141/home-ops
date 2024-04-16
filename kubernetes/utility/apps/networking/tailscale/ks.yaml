@@ -5,11 +5,10 @@ metadata:
   name: &app tailscale
   namespace: flux-system
 spec:
-  targetNamespace: downloads
+  targetNamespace: networking
   dependsOn:
     - name: external-secrets-stores
-    - name: pod-gateway
-  path: ./kubernetes/main/apps/downloads/tailscale/app
+  path: ./kubernetes/utility/apps/networking/tailscale/app
   prune: true
   sourceRef:
     kind: GitRepository

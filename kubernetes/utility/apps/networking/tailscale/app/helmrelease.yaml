@@ -23,9 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    defaultPodOptions:
-      annotations:
-        setGateway: "true"
     controllers:
       tailscale:
         annotations:
