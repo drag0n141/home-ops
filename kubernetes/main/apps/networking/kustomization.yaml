@@ -12,6 +12,7 @@ resources:
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./multus/ks.yaml
+  - ./opnsense/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./traefik/ks.yaml
   - ./unifi-controller/ks.yaml
