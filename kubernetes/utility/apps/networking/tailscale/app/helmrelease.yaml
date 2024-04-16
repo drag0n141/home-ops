@@ -38,7 +38,7 @@ spec:
               SA_NAME: tailscale
               TS_USERSPACE: true
               TS_ACCEPT_DNS: false
-              TS_EXTRA_ARGS: "--advertise-exit-node,--hostname=TAILSCALE-UTILITY"
+              TS_EXTRA_ARGS: "--advertise-exit-node --hostname=tailscale-utility"
             envFrom:
               - secretRef:
                   name: tailscale-secret
