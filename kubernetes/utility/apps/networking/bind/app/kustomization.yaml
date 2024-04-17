@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./secret.sops.yaml
 configMapGenerator:
   - name: bind-configmap
     files:
