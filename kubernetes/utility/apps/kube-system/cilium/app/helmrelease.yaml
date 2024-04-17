@@ -50,7 +50,7 @@ spec:
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
-    devices: vlan254
+    devices: enp+
     endpointRoutes:
       enabled: true
     hubble:
