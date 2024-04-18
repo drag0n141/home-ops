@@ -28,11 +28,6 @@ spec:
     fullnameOverride: *app
     provider: cloudflare
     env:
-      - name: &name CF_API_EMAIL
-        valueFrom:
-          secretKeyRef:
-            name: &secret external-dns-cloudflare-secret
-            key: *name
       - name: &name CF_API_KEY
         valueFrom:
           secretKeyRef:
