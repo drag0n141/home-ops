@@ -16,7 +16,6 @@ spec:
               name: cert-manager-secret
               key: CLOUDFLARE_API_KEY
         selector:
-          dnsZones:
           dnsZones: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_SHORT}"]
 ---
 apiVersion: cert-manager.io/v1
