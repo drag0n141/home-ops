@@ -5,28 +5,28 @@
       "description": ["Separate PRs for main cluster"],
       "matchFileNames": [
         "**/kubernetes/main/**",
-        "**/ansible/main/**",
-        "**/terraform/main/**"
+        "**/ansible/main/**"
       ],
-      "additionalBranchPrefix": "main-"
+      "additionalBranchPrefix": "main-",
+      "commitMessageSuffix": " [main]"
     },
     {
       "description": ["Separate PRs for storage cluster"],
       "matchFileNames": [
         "**/kubernetes/storage/**",
-        "**/ansible/storage/**",
-        "**/terraform/storage/**"
+        "**/ansible/storage/**"
       ],
-      "additionalBranchPrefix": "storage-"
+      "additionalBranchPrefix": "storage-",
+      "commitMessageSuffix": " [storage]"
     },
     {
       "description": ["Separate PRs for utility cluster"],
       "matchFileNames": [
         "**/kubernetes/utility/**",
-        "**/ansible/utility/**",
-        "**/terraform/utility/**"
+        "**/ansible/utility/**"
       ],
-      "additionalBranchPrefix": "utility-"
+      "additionalBranchPrefix": "utility-",
+      "commitMessageSuffix": " [utility]"
     }
   ]
 }
