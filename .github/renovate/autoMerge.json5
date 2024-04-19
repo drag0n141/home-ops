@@ -19,12 +19,13 @@
       "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
-      description: ["Auto merge KPS minors and patches"],
-      matchDatasources: ["helm"],
-      automerge: true,
-      ignoreTests: false,
-      matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: ["kube-prometheus-stack"],
+      "description": ["Auto merge KPS minors and patches"],
+      "matchDatasources": ["helm"],
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["kube-prometheus-stack"],
     }
   ]
 }
