@@ -12,6 +12,6 @@ data:
   # SETTINGS
   DISABLE_REVERSE_GEOCODING: "true"
   ENABLE_MAPBOX: "false"
-  LOG_LEVEL: log
+  LOG_LEVEL: debug
   NODE_ENV: production
   UPLOAD_LOCATION: /usr/src/app/upload
