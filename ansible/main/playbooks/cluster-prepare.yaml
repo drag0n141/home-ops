@@ -75,7 +75,7 @@
             mode: '0644'
             dest: /etc/resolv.conf
             content: |
-              nameserver 192.168.254.1
+              nameserver 192.168.222.1
 
     - name: System Configuration
       notify: Reboot
