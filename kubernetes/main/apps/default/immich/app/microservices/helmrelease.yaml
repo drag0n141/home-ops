@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.102.2@sha256:61d965d477e720679b0746796ca245d8f5a38d10738a38bd8dca187dc5a0a6ac
+              tag: v1.102.3@sha256:bce8c500bfd89f01af056460431c7b20cec16d08b07299fd530824f6d420b656
             args: ["start-microservices.sh"]
             env:
               TZ: ${TIMEZONE}
