@@ -66,6 +66,9 @@ spec:
     globalArguments:
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
+    additionalArguments:
+      - "--entrypoints.web.transport.respondingTimeouts.readTimeout=0"
+      - "--entrypoints.websecure.transport.respondingTimeouts.readTimeout=0"
     ports:
       traefik:
         expose:
