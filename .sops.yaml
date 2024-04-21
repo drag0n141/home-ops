@@ -3,6 +3,13 @@ keys:
   - &user_drag0n141 age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
 
 creation_rules:
+  - path_regex: talos/.+\.secret(\.sops)?\.ya?ml
+    input_type: yaml
+    encrypted_regex: ^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$
+    key_groups:
+      - age:
+          - *user_drag0n141
+          
   - path_regex: kubernetes/.*\.sops\.ya?ml
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
     key_groups:
