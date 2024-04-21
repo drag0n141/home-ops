@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./k8tz/ks.yaml
+  - ./kubelet-csr-approver/ks.yaml
   - ./reflector/ks.yaml
   - ./reloader/ks.yaml
   - ./system-upgrade-controller/ks.yaml
