@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app jellyseerr
+  name: &app overseerr
 spec:
   interval: 30m
   chart:
@@ -29,22 +29,14 @@ spec:
       namespace: storage
   values:
     controllers:
-      jellyseerr:
+      overseerr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: jellyseerr-secret
         containers:
           app:
             image:
-              repository: docker.io/fallenbagel/jellyseerr
-              tag: preview-postgres@sha256:15f9bd26ec3d3e6aa9b0459604a39797e0003dbb5cf7c22b2df835c3aea2c503
+              repository: ghcr.io/sct/overseerr
+              tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
             env:
               TZ: ${TIMEZONE}
               LOG_LEVEL: "info"
@@ -83,7 +75,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: jellyseerr
+        controller: overseerr
         ports:
           http:
             port: *port
@@ -94,7 +86,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "jellyseerr.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "overseerr.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -107,7 +99,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: jellyseerr
+        existingClaim: overseerr
         globalMounts:
           - path: /app/config
       logs:
