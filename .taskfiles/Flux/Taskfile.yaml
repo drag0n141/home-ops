@@ -11,12 +11,12 @@ tasks:
     desc: Verify flux meets the prerequisites
     cmd: flux check --pre
 
-  install:
-    desc: Install Flux into a Kubernetes cluster
+  bootstrap:
+    desc: Bootstrap Flux into a Kubernetes cluster
     summary: |
       Args:
         cluster: Cluster to run command against (required)
-    prompt: Bootstrap Flux into the '{{.cluster}}' cluster... continue?
+    prompt: Bootstrap Flux into the '{{.cluster}}' cluster ... continue?
     cmds:
       # Install essential Prometheus Operator CRDs
       - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
@@ -27,12 +27,13 @@ tasks:
       - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux
       # Install secrets and configmaps
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl --context {{.cluster}} apply --server-side --filename -
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml | kubectl --context {{.cluster}} apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.secret.sops.yaml | kubectl --context {{.cluster}} apply --server-side --filename -
       - kubectl --context {{.cluster}} apply --server-side --filename {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-settings.yaml
       # Install Flux Kustomization resources
       - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/flux/config
     requires:
       vars: ["cluster"]
+    preconditions:
     preconditions:
       - { msg: "Flux appears already installed", sh: "kubectl --context {{.cluster}} get namespace flux-system &>/dev/null && exit 1 || exit 0" }
       - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
