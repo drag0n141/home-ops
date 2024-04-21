@@ -34,7 +34,6 @@ tasks:
     requires:
       vars: ["cluster"]
     preconditions:
-    preconditions:
       - { msg: "Flux appears already installed", sh: "kubectl --context {{.cluster}} get namespace flux-system &>/dev/null && exit 1 || exit 0" }
       - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
       - { msg: "Age private key not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux/age-key.secret.sops.yaml" }
