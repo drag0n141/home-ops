@@ -42,58 +42,39 @@ tasks:
       - { msg: "Unable to decrypt age secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux/age-key.secret.sops.yaml" }
       - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml" }
 
+  apply:
+    desc: Apply a Flux Kustomization resource for a cluster
+    summary: |
+      Args:
+        path: Path under apps containing the Flux Kustomization resource (ks.yaml) (required)
+        ns: Namespace the Flux Kustomization exists in (default: flux-system)
+    cmd: |
+      flux --kubeconfig {{.KUBECONFIG_FILE}} build ks $(basename {{.path}}) \
+          --namespace {{.ns}} \
+          --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
+          --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
+          {{- if contains "not found" .ks }}--dry-run \{{ end }}
+      | \
+      kubectl apply --kubeconfig {{.KUBECONFIG_FILE}} --server-side \
+          --field-manager=kustomize-controller -f -
+    requires:
+      vars: ["path"]
+    vars:
+      ns: '{{.ns | default "flux-system"}}'
+      ks:
+        sh: flux --kubeconfig {{.KUBECONFIG_FILE}} --namespace {{.ns}} get kustomizations $(basename {{.path}}) 2>&1
+    preconditions:
+      - { msg: "Missing kubeconfig", sh: "test -f {{.KUBECONFIG_FILE}}" }
+      - { msg: "Missing Flux Kustomization for app {{.path}}", sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
+
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
-    cmd: flux reconcile -n flux-system kustomization cluster --with-source
+    cmd: flux --kubeconfig {{.KUBECONFIG_FILE}} reconcile --namespace flux-system kustomization cluster --with-source
+    preconditions:
+      - { msg: "Missing kubeconfig", sh: "test -f {{.KUBECONFIG_FILE}}" }
 
   hr-restart:
     desc: Restart all failed Helm Releases
     cmds:
       - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux suspend hr $0 -n $1'
       - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux resume hr $0 -n $1'
-
-  nodes:
-    desc: List all the nodes in your cluster
-    cmd: kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
-
-  pods:
-    desc: List all the pods in your cluster
-    cmd: kubectl get pods {{.CLI_ARGS | default "-A"}}
-
-  kustomizations:
-    desc: List all the kustomizations in your cluster
-    cmd: kubectl get kustomizations {{.CLI_ARGS | default "-A"}}
-
-  helmreleases:
-    desc: List all the helmreleases in your cluster
-    cmd: kubectl get helmreleases {{.CLI_ARGS | default "-A"}}
-
-  helmrepositories:
-    desc: List all the helmrepositories in your cluster
-    cmd: kubectl get helmrepositories {{.CLI_ARGS | default "-A"}}
-
-  gitrepositories:
-    desc: List all the gitrepositories in your cluster
-    cmd: kubectl get gitrepositories {{.CLI_ARGS | default "-A"}}
-
-  certificates:
-    desc: List all the certificates in your cluster
-    cmds:
-      - kubectl get certificates {{.CLI_ARGS | default "-A"}}
-      - kubectl get certificaterequests {{.CLI_ARGS | default "-A"}}
-
-  ingresses:
-    desc: List all the ingresses in your cluster
-    cmd: kubectl get ingress {{.CLI_ARGS | default "-A"}}
-
-  resources:
-    desc: Gather common resources in your cluster, useful when asking for support
-    cmds:
-      - task: nodes
-      - task: kustomizations
-      - task: helmreleases
-      - task: helmrepositories
-      - task: gitrepositories
-      - task: certificates
-      - task: ingresses
-      - task: pods
