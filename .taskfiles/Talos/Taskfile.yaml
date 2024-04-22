@@ -80,7 +80,7 @@ tasks:
       KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
     vars:
       role:
-        sh: talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig -o jsonpath='{.spec.machine.type}'
+        sh: talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig --insecure -o jsonpath='{.spec.machine.type}'
     requires:
       vars: ["cluster", "node"]
     preconditions:
