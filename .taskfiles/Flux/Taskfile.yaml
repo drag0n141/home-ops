@@ -7,10 +7,6 @@ vars:
 
 tasks:
 
-  verify:
-    desc: Verify flux meets the prerequisites
-    cmd: flux check --pre
-
   bootstrap:
     desc: Bootstrap Flux into a Kubernetes cluster
     summary: |
