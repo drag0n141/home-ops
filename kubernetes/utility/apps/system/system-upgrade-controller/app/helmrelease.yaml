@@ -29,8 +29,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/rancher/system-upgrade-controller
-              tag: v0.13.4@sha256:3df6d01b9eb583a78c309ce0b2cfeed98a9af97983e4ea96bf53410dd56c6f45
+              repository: ghcr.io/buroa/system-upgrade-controller
+              tag: v0.14.3@sha256:8f2916ef30fd50648ecb0fa3fba3bf8fff9e0e3529f1bf736c0026f347e87d5a
             env:
               SYSTEM_UPGRADE_CONTROLLER_DEBUG: false
               SYSTEM_UPGRADE_CONTROLLER_THREADS: 2
