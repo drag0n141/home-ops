@@ -70,6 +70,8 @@ tasks:
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
     cmd: flux --context {{.cluster}} reconcile --namespace flux-system kustomization cluster --with-source
+    requires:
+      vars: ["cluster"]
     preconditions:
       - { msg: "Missing kubeconfig", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/kubeconfig" }
 
@@ -78,3 +80,5 @@ tasks:
     cmds:
       - kubectl --context {{.cluster}} get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux --context {{.cluster}} suspend hr $0 -n $1'
       - kubectl --context {{.cluster}} get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux --context {{.cluster}} resume hr $0 -n $1'
+    requires:
+      vars: ["cluster"]
