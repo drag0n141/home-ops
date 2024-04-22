@@ -24,35 +24,10 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-helm-values
   values:
-    autoDirectNodeRoutes: true
-    bandwidthManager:
-      enabled: true
-      bbr: true
-    bpf:
-      masquerade: true
-    bgp:
-      enabled: false
-      announce:
-        loadbalancerIP: true
-        podCIDR: false
-    bgpControlPlane:
-      enabled: true
-    cgroup:
-      autoMount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
-    cluster:
-      id: 1
-      name: main
-    cni:
-      exclusive: false
-    containerRuntime:
-      integration: containerd
-      socketPath: /var/run/k3s/containerd/containerd.sock
-    devices: vlan254
-    endpointRoutes:
-      enabled: true
     hubble:
       enabled: true
       metrics:
@@ -91,24 +66,7 @@ spec:
             - hosts:
                 - "hubble.${SECRET_DOMAIN_INTERNAL}"
               secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    ipam:
-      mode: kubernetes
-    ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
-    k8sServiceHost: 127.0.0.1
-    k8sServicePort: 6444
-    kubeProxyReplacement: true
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    l2announcements:
-      enabled: false
-      leaseDuration: 120s
-      leaseRenewDeadline: 60s
-      leaseRetryPeriod: 1s
-    loadBalancer:
-      algorithm: maglev
-      mode: dsr
-    localRedirectPolicy: true
     operator:
-      rollOutPods: true
       prometheus:
         enabled: true
         serviceMonitor:
@@ -126,23 +84,3 @@ spec:
       enabled: true
       annotations:
         grafana_folder: Cilium
-    rollOutCiliumPods: true
-    routingMode: native
-    securityContext:
-      capabilities:
-        ciliumAgent:
-          - CHOWN
-          - KILL
-          - NET_ADMIN
-          - NET_RAW
-          - IPC_LOCK
-          - SYS_ADMIN
-          - SYS_RESOURCE
-          - DAC_OVERRIDE
-          - FOWNER
-          - SETGID
-          - SETUID
-        cleanCiliumState:
-          - NET_ADMIN
-          - SYS_ADMIN
-          - SYS_RESOURCE
