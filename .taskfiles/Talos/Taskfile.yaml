@@ -73,7 +73,7 @@ tasks:
     cmd: |
       sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.role | replace "controlplane" "controller"}}.secret.sops.yaml | \
           envsubst | \
-              talosctl --context {{.cluster}} apply-config --mode=reboot --nodes {{.node}} --file /dev/stdin
+              talosctl --context {{.cluster}} apply-config --mode=reboot --nodes {{.node}} --insecure --file /dev/stdin
     env:
       TALOS_VERSION: "{{.TALOS_VERSION}}"
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
