@@ -9,6 +9,6 @@ resources:
   - ./blocky/ks.yaml
   - ./dnsdist/ks.yaml
   - ./external-dns/ks.yaml
-  - ./matchbox/ks.yaml
+#   - ./matchbox/ks.yaml
   - ./tailscale/ks.yaml
   - ./traefik/ks.yaml
