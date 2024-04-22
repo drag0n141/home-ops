@@ -1,3 +1,4 @@
 ---
 bypassDnsResolution: true
 providerRegex: ^k8s-.\d{2}$
+replicas: 1
