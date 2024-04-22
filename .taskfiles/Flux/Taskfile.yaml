@@ -71,7 +71,7 @@ tasks:
     desc: Force update Flux to pull in changes from your Git repository
     cmd: flux --context {{.cluster}} reconcile --namespace flux-system kustomization cluster --with-source
     preconditions:
-      - { msg: "Missing kubeconfig", sh: "test -f {{.KUBECONFIG}}" }
+      - { msg: "Missing kubeconfig", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/kubeconfig" }
 
   hr-restart:
     desc: Restart all failed Helm Releases
