@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: tftp-configmap
     files:
-      - default=./resources/default
+      - default.ipxe=./resources/default.ipxe
 generatorOptions:
   disableNameSuffixHash: true
