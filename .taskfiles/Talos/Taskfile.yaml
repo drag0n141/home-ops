@@ -6,7 +6,6 @@ vars:
   K8S_MATCHBOX_DIR: /var/lib/matchbox
   K8S_MATCHBOX_GROUPS_DIR: "{{.K8S_MATCHBOX_DIR}}/groups"
   K8S_MATCHBOX_PROFILES_DIR: "{{.K8S_MATCHBOX_DIR}}/profiles"
-  K8S_MATCHBOX_ASSETS_DIR: "{{.K8S_MATCHBOX_DIR}}/assets/{{.cluster}}"
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   TALOS_VERSION: v1.7.0
   TALOS_SCHEMATIC_ID: d715f723f882b1e1e8063f1b89f237dcc0e3bd000f9f970243af59c8baae0100
@@ -195,6 +194,7 @@ tasks:
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
       KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
     vars:
+      K8S_MATCHBOX_ASSETS_DIR: "{{.K8S_MATCHBOX_DIR}}/assets/{{.cluster}}"
       K8S_MATCHBOX_POD:
         sh: |
           kubectl get --context {{.matchbox_cluster}} pod -n {{.matchbox_namespace}} -l app.kubernetes.io/name=matchbox -o name | awk -F'/' '{print $2}'
