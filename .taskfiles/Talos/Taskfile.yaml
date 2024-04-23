@@ -3,6 +3,10 @@
 version: "3"
 
 vars:
+  K8S_MATCHBOX_DIR: /var/lib/matchbox
+  K8S_MATCHBOX_GROUPS_DIR: "{{.K8S_MATCHBOX_DIR}}/groups"
+  K8S_MATCHBOX_PROFILES_DIR: "{{.K8S_MATCHBOX_DIR}}/profiles"
+  K8S_MATCHBOX_ASSETS_DIR: "{{.K8S_MATCHBOX_DIR}}/assets/{{.cluster}}"
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   TALOS_VERSION: v1.7.0
   TALOS_SCHEMATIC_ID: d715f723f882b1e1e8063f1b89f237dcc0e3bd000f9f970243af59c8baae0100
@@ -167,54 +171,33 @@ tasks:
 
   bootstrap-matchbox:
     desc: Bootstrap required Matchbox configuration for PXE Boot
+    dir: "{{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox"
     summary: |
       Args:
         cluster: Cluster to generate (required)
         matchbox_cluster: Cluster that hosts matchbox (required)
         matchbox_namespace: Namespace where matchbox is deployed (required)
-    vars:
-      K8S_MATCHBOX_DIR: /var/lib/matchbox
-      K8S_MATCHBOX_GROUPS_DIR: "{{.K8S_MATCHBOX_DIR}}/groups"
-      K8S_MATCHBOX_PROFILES_DIR: "{{.K8S_MATCHBOX_DIR}}/profiles"
-      K8S_MATCHBOX_ASSETS_DIR: "{{.K8S_MATCHBOX_DIR}}/assets/talos/{{.cluster}}"
-      K8S_MATCHBOX_POD:
-        sh: |
-          kubectl get --context {{.matchbox_cluster}} pod -n {{.matchbox_namespace}} -l app.kubernetes.io/name=matchbox -o name | awk -F'/' '{print $2}'
-      TALOS_VERSION:
-        sh: |
-          yq -r ".talosVersion" {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
-      TALOS_BASE_URL:
-        sh: |
-          talhelper genurl iso \
-            --env-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talenv.sops.yaml \
-            --config-file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml \
-          | grep "https://" \
-          | head -n 1 \
-          | awk '{split($0,u," "); print u[2]}' \
-          | sed -E 's/\/metal-amd64.iso//'
     cmds:
-      # Prepare folders
       - kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- mkdir -p {{.K8S_MATCHBOX_GROUPS_DIR}}
       - kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- mkdir -p {{.K8S_MATCHBOX_PROFILES_DIR}}
       - kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- mkdir -p {{.K8S_MATCHBOX_ASSETS_DIR}}
-      # Upload Talos to Matchbox
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: |
-          kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- wget -q -O {{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM}} {{.TALOS_BASE_URL}}/{{.ITEM}}
-      # Generate new cluster config
-      - task: generate-clusterconfig
-        vars:
-          cluster: "{{.cluster}}"
-      # Copy generated clusterconfigs to Matchbox
-      - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig/*.yaml -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_ASSETS_DIR}}/
-      # Copy groups to Matchbox
-      - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/groups/*.json -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_GROUPS_DIR}}/
-      # Copy profiles to Matchbox
-      - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/profiles/*.json -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_PROFILES_DIR}}/
-      # Restart the Matchbox container
+          kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- wget -q -O {{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM}} https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}}
+      - for: ["controller.secret.sops.yaml", "worker.secret.sops.yaml"]
+        cmd: |
+          sops -d assets/{{.ITEM}} | \
+              envsubst | kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}}
+      - find ./groups -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_GROUPS_DIR}}/
+      - find ./profiles -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_PROFILES_DIR}}/
       - kubectl delete --context {{.matchbox_cluster}} pod -n {{.matchbox_namespace}} {{.K8S_MATCHBOX_POD}}
+    env:
+      TALOS_VERSION: "{{.TALOS_VERSION}}"
+      TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
+      KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
+    vars:
+      K8S_MATCHBOX_POD:
+        sh: |
+          kubectl get --context {{.matchbox_cluster}} pod -n {{.matchbox_namespace}} -l app.kubernetes.io/name=matchbox -o name | awk -F'/' '{print $2}'
     requires:
-      vars:
-        - cluster
-        - matchbox_cluster
-        - matchbox_namespace
+      vars: ["cluster", "matchbox_cluster", "matchbox_namespace"]

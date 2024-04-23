@@ -2,10 +2,8 @@
   "id": "talos-controller",
   "name": "talos-controller",
   "boot": {
-    "kernel": "/assets/kernel-amd64",
-    "initrd": [
-      "/assets/initramfs-amd64.xz"
-    ],
+    "kernel": "/assets/utility/kernel-amd64",
+    "initrd": ["/assets/utility/initramfs-amd64.xz"],
     "args": [
       "initrd=initramfs-amd64.xz",
       "init_on_alloc=1",
@@ -15,7 +13,7 @@
       "console=ttyS0",
       "printk.devkmsg=on",
       "talos.platform=metal",
-      "talos.config=http://192.168.254.212/assets/controller.yaml"
+      "talos.config=http://192.168.222.245/assets/utility/controller.yaml"
     ]
   }
 }
