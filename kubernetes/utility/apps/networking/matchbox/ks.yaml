@@ -6,6 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   path: ./kubernetes/utility/apps/networking/matchbox/app
   prune: true
   sourceRef:
