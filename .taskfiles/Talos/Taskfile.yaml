@@ -186,7 +186,7 @@ tasks:
         cmd: |
           sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM}} | \
               envsubst > {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}} \
-                  kubectl cp --context {{.matchbox_cluster}} {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM | replace ".secret.sops.yaml" ".yaml"} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{..K8S_MATCHBOX_ASSETS_DIR}}/ \
+                  kubectl cp --context {{.matchbox_cluster}} {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{..K8S_MATCHBOX_ASSETS_DIR}}/ \
                       rm {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}}
       - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/groups -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_GROUPS_DIR}}/
       - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/profiles -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_PROFILES_DIR}}/
