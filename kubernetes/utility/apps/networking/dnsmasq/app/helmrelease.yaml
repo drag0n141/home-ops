@@ -75,10 +75,7 @@ spec:
     service:
       app:
         controller: dnsmasq
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: "${TFTP_LB_ADDR}"
-        externalTrafficPolicy: Cluster
+        type: ClusterIP
         ports:
           dhcp:
             port: 67
