@@ -182,8 +182,7 @@ tasks:
       - kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- mkdir -p {{.K8S_MATCHBOX_ASSETS_DIR}}
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: |
-          curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | \
-              kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
+          kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- wget -q -O {{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM}} https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}}
       - for: ["controller.secret.sops.yaml", "worker.secret.sops.yaml"]
         cmd: |
           sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM}} | \
