@@ -61,6 +61,17 @@ spec:
                 memory: 256M
               limits:
                 memory: 256M
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+              privileged: true
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      hostIPC: false
+      hostNetwork: true
+      hostPID: false
     service:
       app:
         controller: dnsmasq
