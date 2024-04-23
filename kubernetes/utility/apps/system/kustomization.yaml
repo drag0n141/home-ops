@@ -5,6 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./fstrim/ks.yaml
   - ./k8tz/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./reflector/ks.yaml
