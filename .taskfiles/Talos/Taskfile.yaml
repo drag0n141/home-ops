@@ -171,7 +171,6 @@ tasks:
 
   bootstrap-matchbox:
     desc: Bootstrap required Matchbox configuration for PXE Boot
-    dir: "{{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox"
     summary: |
       Args:
         cluster: Cluster to generate (required)
@@ -186,10 +185,10 @@ tasks:
           kubectl exec --context {{.matchbox_cluster}} -n {{.matchbox_namespace}} -c app {{.K8S_MATCHBOX_POD}} -- wget -q -O {{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM}} https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}}
       - for: ["controller.secret.sops.yaml", "worker.secret.sops.yaml"]
         cmd: |
-          sops -d assets/{{.ITEM}} | \
+          sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.ITEM}} | \
               envsubst | kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_ASSETS_DIR}}/{{.ITEM | replace ".secret.sops.yaml" ".yaml"}}
-      - find ./groups -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_GROUPS_DIR}}/
-      - find ./profiles -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_PROFILES_DIR}}/
+      - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/groups -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_GROUPS_DIR}}/
+      - find {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/profiles -type f | xargs -I{} kubectl cp --context {{.matchbox_cluster}} {} -c app {{.matchbox_namespace}}/{{.K8S_MATCHBOX_POD}}:{{.K8S_MATCHBOX_PROFILES_DIR}}/
       - kubectl delete --context {{.matchbox_cluster}} pod -n {{.matchbox_namespace}} {{.K8S_MATCHBOX_POD}}
     env:
       TALOS_VERSION: "{{.TALOS_VERSION}}"
