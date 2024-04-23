@@ -11,4 +11,5 @@ resources:
   - ./external-dns/ks.yaml
   - ./matchbox/ks.yaml
   - ./tailscale/ks.yaml
+  - ./tftp/ks.yaml
   - ./traefik/ks.yaml

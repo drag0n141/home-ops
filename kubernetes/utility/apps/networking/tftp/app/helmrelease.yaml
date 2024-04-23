@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app tftp
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      tftp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/kalaksi/tftpd
+              tag: 1.6@sha256:63a4001db7bd72f26a04ef694f3984014f4fb72c0f15513759ccfa185e7f0a95
+            env:
+              TZ: ${TIMEZONE}
+              TFTPD_BIND_ADDRESS: "0.0.0.0:69"
+              TFTPD_EXTRA_ARGS: "--blocksize 1468"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 256M
+              limits:
+                memory: 256M
+    service:
+      app:
+        controller: tftp
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${TFTP_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          tftp:
+            port: 69
+            protocol: UDP
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: tftp-configmap
+        globalMounts:
+          - path: /tftpboot/pxelinux.cfg/default
+            subPath: default
+            readOnly: true
+      tftpboot:
+        type: emptyDir
+        globalMounts:
+          - path: /tftpboot/boot
