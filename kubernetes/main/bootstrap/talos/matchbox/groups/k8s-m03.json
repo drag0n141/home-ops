@@ -1,7 +1,7 @@
 {
   "id": "k8s-m03",
   "name": "k8s-m03",
-  "profile": "talos-controller",
+  "profile": "talos-main-controller",
   "selector": {
     "mac": "48:21:0b:59:6e:c6"
   }
