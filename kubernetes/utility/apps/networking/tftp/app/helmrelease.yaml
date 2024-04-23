@@ -67,8 +67,8 @@ spec:
         type: configMap
         name: tftp-configmap
         globalMounts:
-          - path: /tftpboot/pxelinux.cfg/default
-            subPath: default
+          - path: /tftpboot/default.ipxe
+            subPath: default.ipxe
             readOnly: true
       tftpboot:
         type: emptyDir
