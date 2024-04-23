@@ -8,8 +8,8 @@ resources:
   - ./bind/ks.yaml
   - ./blocky/ks.yaml
   - ./dnsdist/ks.yaml
+  - ./dnsmasq/ks.yaml
   - ./external-dns/ks.yaml
   - ./matchbox/ks.yaml
   - ./tailscale/ks.yaml
-  - ./tftp/ks.yaml
   - ./traefik/ks.yaml
