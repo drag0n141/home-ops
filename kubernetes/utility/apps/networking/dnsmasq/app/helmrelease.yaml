@@ -62,9 +62,7 @@ spec:
               limits:
                 memory: 256M
             securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
+              capabilities: { add: ["NET_ADMIN"] }
               privileged: true
     defaultPodOptions:
       automountServiceAccountToken: true
