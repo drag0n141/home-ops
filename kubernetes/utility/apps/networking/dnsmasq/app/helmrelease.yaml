@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app tftp
+  name: &app dnsmasq
 spec:
   interval: 30m
   chart:
@@ -25,18 +25,27 @@ spec:
     keepHistory: false
   values:
     controllers:
-      tftp:
+      dnsmasq:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: docker.io/kalaksi/tftpd
-              tag: 1.6@sha256:63a4001db7bd72f26a04ef694f3984014f4fb72c0f15513759ccfa185e7f0a95
+              repository: quay.io/poseidon/dnsmasq
+              tag: v0.5.0
+            args:
+              - -d
+              - -q
+              - --enable-tftp
+              - --tftp-root=/var/lib/tftpboot
+              - --dhcp-userclass=set:ipxe,iPXE
+              - --pxe-service=tag:#ipxe,x86PC,"PXE chainload to iPXE",undionly.kpxe
+              - --pxe-service=tag:ipxe,x86PC,"iPXE",http://10.1.1.11:9080/boot.ipxe
+              - --pxe-service=tag:#ipxe,X86-64_EFI,"PXE chainload to iPXE UEFI",ipxe.efi
+              - --pxe-service=tag:ipxe,X86-64_EFI,"iPXE UEFI",http://10.1.1.11:9080/boot.ipxe
+              - --log-queries
             env:
               TZ: ${TIMEZONE}
-              TFTPD_BIND_ADDRESS: "0.0.0.0:69"
-              TFTPD_EXTRA_ARGS: "--blocksize 1468"
             probes:
               liveness:
                 enabled: false
@@ -52,7 +61,7 @@ spec:
                 memory: 256M
     service:
       app:
-        controller: tftp
+        controller: dnsmasq
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${TFTP_LB_ADDR}"
@@ -61,16 +70,3 @@ spec:
           tftp:
             port: 69
             protocol: UDP
-    persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: tftp-configmap
-        globalMounts:
-          - path: /tftpboot/default.ipxe
-            subPath: default.ipxe
-            readOnly: true
-      tftpboot:
-        type: emptyDir
-        globalMounts:
-          - path: /tftpboot/boot
