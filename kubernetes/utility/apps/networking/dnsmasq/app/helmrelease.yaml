@@ -36,6 +36,7 @@ spec:
             args:
               - -d
               - -q
+              - --dhcp-range=192.168.254.1,proxy,255.255.255.0
               - --enable-tftp
               - --tftp-root=/var/lib/tftpboot
               - --dhcp-userclass=set:ipxe,iPXE
@@ -44,6 +45,7 @@ spec:
               - --pxe-service=tag:#ipxe,X86-64_EFI,"PXE chainload to iPXE UEFI",ipxe.efi
               - --pxe-service=tag:ipxe,X86-64_EFI,"iPXE UEFI",http://192.168.222.245/boot.ipxe
               - --log-queries
+              - --log-dhcp
             env:
               TZ: ${TIMEZONE}
             probes:
@@ -67,6 +69,9 @@ spec:
           io.cilium/lb-ipam-ips: "${TFTP_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
+          dhcp:
+            port: 67
+            protocol: UDP
           tftp:
             port: 69
             protocol: UDP
