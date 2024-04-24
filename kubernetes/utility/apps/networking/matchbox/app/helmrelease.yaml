@@ -28,6 +28,12 @@ spec:
       matchbox:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-folder:
+            image:
+              repository: public.ecr.aws/docker/library/busybox
+              tag: latest@sha256:650fd573e056b679a5110a70aabeb01e26b76e545ec4b9c70a9523f2dfaf18c6
+            command: ["/bin/sh", "-c", "mkdir -p /var/lib/matchbox/{groups,profiles,assets}"]
         containers:
           app:
             image:
