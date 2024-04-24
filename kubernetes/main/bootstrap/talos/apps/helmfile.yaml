@@ -33,5 +33,5 @@ releases:
   - name: spegel
     namespace: system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: v0.0.21
+    version: v0.0.22
     values: ["../../../apps/system/spegel/app/helm-values.yaml"]
