@@ -33,7 +33,7 @@ spec:
             image:
               repository: quay.io/poseidon/matchbox
               tag: v0.11.0
-            args: ["-address=0.0.0.0:9080", "-log-level=debug"]
+            args: ["-address=0.0.0.0:80", "-log-level=debug"]
             env:
               TZ: ${TIMEZONE}
             probes:
@@ -49,19 +49,16 @@ spec:
                 memory: 256M
               limits:
                 memory: 256M
-    defaultPodOptions:
-      automountServiceAccountToken: true
-      enableServiceLinks: false
-      hostIPC: false
-      hostNetwork: true
-      hostPID: false
     service:
       app:
         controller: matchbox
-        type: ClusterIP
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${MATCHBOX_LB_ADDR}"
+        externalTrafficPolicy: Cluster
         ports:
           http:
-            port: 9080
+            port: 80
     persistence:
       matchbox-data:
         storageClass: openebs-hostpath
