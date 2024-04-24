@@ -35,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/meisnate12/plex-meta-manager
-              tag: v1.21.0
+              repository: docker.io/kometateam/kometa
+              tag: v1.21.1@sha256:72f91f7d2a5336c055d223f73cb152ab84461294526fdb75c4ba57c41c624d80
             env:
               TZ: ${TIMEZONE}
               PMM_READ_ONLY_CONFIG: true
