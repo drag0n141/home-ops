@@ -81,14 +81,14 @@ spec:
           - path: /etc/bind/zones/db.${SECRET_DOMAIN_INTERNAL}
             subPath: db.k8s
             readOnly: true
-          - path: /etc/bind/zones/db.168.192.in-addr.arpa
-            subPath: db.168.192.in-addr.arpa
-            readOnly: true
           - path: /etc/bind/zones/db.${SECRET_DOMAIN_INT}
             subPath: db.int
             readOnly: true
           - path: /etc/bind/zones/db.${SECRET_DOMAIN_LAB}
             subPath: db.lab
+            readOnly: true
+          - path: /etc/bind/zones/db.168.192.in-addr.arpa
+            subPath: db.168.192.in-addr.arpa
             readOnly: true
       secret-config:
         type: secret
