@@ -52,7 +52,7 @@ spec:
     sources: ["crd", "ingress"]
     txtPrefix: k8s-utility.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN_INT}"]
+    domainFilters: ["${SECRET_DOMAIN_INTERNAL}"]
     serviceMonitor:
       enabled: true
     podAnnotations:
