@@ -61,10 +61,10 @@ spec:
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
             traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
           hosts:
-            - "hubble-utility.${SECRET_DOMAIN_INT}"
+            - "hubble-utility.${SECRET_DOMAIN_INTERNAL}"
           tls:
             - hosts:
-                - "hubble-utility.${SECRET_DOMAIN_INT}"
+                - "hubble-utility.${SECRET_DOMAIN_INTERNAL}"
               secretName: "${SECRET_DOMAIN/./-}-production-tls"
     operator:
       prometheus:
