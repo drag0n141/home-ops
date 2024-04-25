@@ -24,7 +24,7 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: local-path-provisioner
+    - name: openebs
       namespace: storage
     - name: vector-agent
       namespace: monitoring
