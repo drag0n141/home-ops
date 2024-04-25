@@ -52,6 +52,8 @@ spec:
       bdev_async_discard = true
       osd_class_update_on_start = false
     cephClusterSpec:
+      crashCollector:
+        disable: false
       network:
         provider: host
         connections:
@@ -81,28 +83,17 @@ spec:
             memory: 128Mi
           limits:
             memory: 256Mi
-      crashCollector:
-        disable: false
       dashboard:
         enabled: true
         urlPrefix: /
         ssl: false
         prometheusEndpoint: http://thanos-query-frontend.monitoring.svc.cluster.local:10902
       storage:
-        useAllNodes: false
-        useAllDevices: false
+        useAllNodes: true
+        useAllDevices: true
+        deviceFilter: nvme0n1
         config:
           osdsPerDevice: "1"
-        nodes:
-          - name: "k3s-m01"
-            devices:
-              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB440803"
-          - name: "k3s-m02"
-            devices:
-              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB442304"
-          - name: "k3s-m03"
-            devices:
-              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_2330FB441209"
       placement:
         mgr: &placement
           nodeAffinity:
