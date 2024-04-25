@@ -24,7 +24,7 @@ cni:
   exclusive: false
 containerRuntime:
   integration: containerd
-devices: vlan254
+devices: enp+
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
