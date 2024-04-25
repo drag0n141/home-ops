@@ -70,7 +70,7 @@ spec:
         - --retention.resolution-1h=60d
       persistence:
         enabled: true
-        storageClass: local-hostpath
+        storageClass: openebs-hostpath
         size: 10Gi
     query:
       replicas: 2
@@ -124,7 +124,7 @@ spec:
                     severity: critical
       persistence:
         enabled: true
-        storageClass: local-hostpath
+        storageClass: openebs-hostpath
         size: 10Gi
     storeGateway:
       replicas: 2
@@ -132,6 +132,6 @@ spec:
       extraArgs: ["--index-cache.config=$(THANOS_CACHE_CONFIG)"]
       persistence:
         enabled: true
-        storageClass: local-hostpath
+        storageClass: openebs-hostpath
         size: 10Gi
       podAnnotations: *podAnnotations

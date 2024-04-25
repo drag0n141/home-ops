@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app k8s-gateway
+  name: &app openebs
   namespace: flux-system
 spec:
-  targetNamespace: networking
-  path: ./kubernetes/main/apps/networking/k8s-gateway/app
+  targetNamespace: storage
+  path: ./kubernetes/main/apps/storage/openebs/app
   prune: true
   sourceRef:
     kind: GitRepository
