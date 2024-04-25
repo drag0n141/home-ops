@@ -11,7 +11,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 <div align="center">
 
 [![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.devbu.io%2Fquery%3Fformat%3Dendpoint%26metric%3Dtalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://www.talos.dev/)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdrag0n141%2Fhome-ops%2Fmaster%2Fkubernetes%2Fmain%2Fapps%2Fsystem%2Fsystem-upgrade-controller%2Fks.yaml&query=postBuild.substitute.TALOS_VERSION&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://www.talos.dev/)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdrag0n141%2Fhome-ops%2Fmaster%2Fkubernetes%2Fmain%2Fapps%2Fsystem%2Fsystem-upgrade-controller%2Fks.yaml&query=spec.postBuild.substitute.TALOS_VERSION&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://www.talos.dev/)&nbsp;&nbsp;
 [![Renovate](https://img.shields.io/github/actions/workflow/status/drag0n141/home-ops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/drag0n141/home-ops/actions/workflows/renovate.yaml)
 
 </div>
