@@ -24,7 +24,6 @@ cni:
   exclusive: false
 containerRuntime:
   integration: containerd
-devices: enp86s0
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
