@@ -26,11 +26,18 @@ spec:
     - name: snapshot-controller
       namespace: storage
   values:
+    crds:
+      enabled: true
     csi:
-      cephFSKernelMountOptions: ms_mode=prefer-crc
+      provisioner:
+        image: registry.k8s.io/sig-storage/csi-provisioner:v4.0.1
+      csiAddons:
+        enabled: false
       enableLiveness: true
       serviceMonitor:
         enabled: true
+      kubeletDirPath: /var/lib/kubelet
+      enableCSIHostNetwork: true
     monitoring:
       enabled: true
     resources:
