@@ -6,4 +6,4 @@ resources:
   - ./namespace.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./rook-ceph/ks.yaml
+#   - ./rook-ceph/ks.yaml
