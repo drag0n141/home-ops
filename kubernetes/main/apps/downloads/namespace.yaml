@@ -4,7 +4,6 @@ kind: Namespace
 metadata:
   name: downloads
   annotations:
-    volsync.backube/privileged-movers: "true"
-  labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
     routed-gateway: "true"
+    volsync.backube/privileged-movers: "true"
