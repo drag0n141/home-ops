@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: docker.io/louislam/uptime-kuma
-              tag: 1.23.12
+              tag: 1.23.13
             env:
               TZ: ${TIMEZONE}
             resources:
