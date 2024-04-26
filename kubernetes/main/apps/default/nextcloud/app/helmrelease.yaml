@@ -35,7 +35,7 @@ spec:
       repository: public.ecr.aws/docker/library/nextcloud
       tag: 29.0.0-fpm-alpine
     nginx:
-      enabled: false
+      enabled: true
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
       securityContext:
