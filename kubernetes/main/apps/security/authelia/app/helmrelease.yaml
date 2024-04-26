@@ -87,7 +87,7 @@ spec:
         controller: authelia
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${AUTHELIA_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:

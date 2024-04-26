@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: postgres-vector-lb
   annotations:
-    coredns.io/hostname: "postgres-vector.${SECRET_DOMAIN_INTERNAL}"
+    external-dns.alpha.kubernetes.io/hostname: "postgres-vector.${SECRET_DOMAIN_INTERNAL}"
     io.cilium/lb-ipam-ips: "${POSTGRES_VECTOR_LB_ADDR}"
 spec:
   type: LoadBalancer

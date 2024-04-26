@@ -68,7 +68,7 @@ spec:
         controller: syncthing
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${SYNC_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:

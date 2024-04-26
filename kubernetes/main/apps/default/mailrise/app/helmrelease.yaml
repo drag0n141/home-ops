@@ -54,7 +54,7 @@ spec:
         controller: mailrise
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: "mailrise.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "mailrise.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${MAILRISE_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:

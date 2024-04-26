@@ -65,7 +65,7 @@ spec:
         controller: vector-aggregator
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: "vector.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "vector.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${VECTOR_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
