@@ -39,7 +39,7 @@ spec:
                 cpu: 10m
                 memory: 100Mi
               limits:
-                memory: 400Mi
+                memory: 500Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -82,10 +82,6 @@ spec:
           - path: /usr/app/config/config.json
             subPath: config.json
             readOnly: true
-      config-folder:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/app/config
       tmp:
         type: emptyDir
         globalMounts:
