@@ -12,7 +12,6 @@ spec:
         {
           "type": "ipvlan",
           "master": "enp86s0.150",
-          "mode": "bridge",
           "capabilities": {
             "ips": true
           },
