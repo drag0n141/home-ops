@@ -30,9 +30,10 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 ## 💻 Nodes
 | Node             | Hostname | RAM  | Storage                      | Function          | Operating System |
 |------------------|----------|------|------------------------------|-------------------|------------------|
-| Intel NUC13ANHI5 | K3s-M01  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
-| Intel NUC13ANHI5 | K3s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
-| Intel NUC13ANHI5 | K3s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Debian 12        |
+| Intel NUC13ANHI5 | K8s-M01  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
+| Intel NUC13ANHI5 | K8s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
+| Intel NUC13ANHI5 | K8s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
+| Intel NUC12WSKI5 | K8s-U01  | 16GB | OS-Disk 256GB                | Kuberneter Master | Talos            |
 
 ## 💽 Server
 | Node              | Hostname  | RAM   | Storage                                                       | Function        | Operating System |
@@ -44,10 +45,10 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 
 | Vendor   | Model                        | Function                                                              |
 |----------|------------------------------|-----------------------------------------------------------------------|
-| Mikrotik | CRS317-1G-16S+RM             | Main Rack Switch and 10G SFP+                                        |
+| Mikrotik | CRS317-1G-16S+RM             | Main Rack Switch and 10G SFP+                                         |
 | Mikrotik | CRS326-24G-2S+RM             | Second Rack Switch with RJ45, connected with 10G SFP+                 |
 | Mikrotik | CRS326-24G-2S+RM             | Livingroom Switch for TV and everything else, connected with 10G SFP+ |
-| Topton   | N5105                        | Main pfSense Router                                                   |
+| Topton   | N5105                        | Main OPNSense Router                                                  |
 
 Kubernetes nodes are on their own VLAN which has access to the NAS.
 
