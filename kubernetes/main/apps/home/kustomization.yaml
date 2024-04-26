@@ -10,4 +10,4 @@ resources:
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
   - ./scrypted/ks.yaml
-#   - ./zigbee2mqtt/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
