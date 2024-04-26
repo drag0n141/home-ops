@@ -35,13 +35,7 @@ spec:
       repository: public.ecr.aws/docker/library/nextcloud
       tag: 29.0.0-fpm-alpine
     nginx:
-      enabled: true
-      image:
-        repository: public.ecr.aws/nginx/nginx
-      config:
-        default: true
-      securityContext:
-        runAsGroup: ${APP_GID}
+      enabled: false
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
       securityContext:
@@ -197,26 +191,26 @@ spec:
         secretName: *secret
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
-    startupProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 360
-      successThreshold: 1
     livenessProbe:
       enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      timeoutSeconds: 10
       failureThreshold: 3
       successThreshold: 1
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
+      initialDelaySeconds: 60
+      periodSeconds: 60
       timeoutSeconds: 5
-      failureThreshold: 3
+      failureThreshold: 10
+      successThreshold: 1
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 60
+      periodSeconds: 30
+      timeoutSeconds: 5
+      failureThreshold: 10
       successThreshold: 1
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
