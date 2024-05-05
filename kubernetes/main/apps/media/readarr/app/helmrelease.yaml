@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/readarr-develop
-              tag: 0.3.25@sha256:52619ad8681a33a6d92ad9ccf4d577bdb783a30207f24022f84ef6daae098d1e
+              tag: 0.3.26@sha256:64c4a66a08d741017a8a6d90701156b7e98ff3d785a55d0d12e1d51fe3d414e6
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
