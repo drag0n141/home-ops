@@ -49,7 +49,7 @@ spec:
             name: external-dns-bind-secret
             key: *name
     policy: sync
-    sources: ["ingress", "service"]
+    sources: ["ingress", "service", "traefik-proxy"]
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN_INTERNAL}"]
