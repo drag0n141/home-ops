@@ -38,6 +38,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               NO_AUTOUPDATE: true
+              PORT: 41643
               TS_KUBE_SECRET: tailscale-state
               SA_NAME: tailscale
               TS_USERSPACE: true
