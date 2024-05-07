@@ -23,9 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    defaultPodOptions:
-      annotations:
-        setGateway: "true"
     controllers:
       prowlarr:
         annotations:
@@ -72,6 +69,8 @@ spec:
               limits:
                 memory: 1024Mi
         pod:
+          annotations:
+            setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
