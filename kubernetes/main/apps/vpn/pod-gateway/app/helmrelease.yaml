@@ -80,3 +80,5 @@ spec:
       gatewayDefault: false
       gatewayAnnotation: setGateway
       gatewayLabel: setGateway
+      namespaceSelector:
+        label: "routed-gateway"
