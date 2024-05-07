@@ -23,9 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    defaultPodOptions:
-      annotations:
-        setGateway: "true"
     controllers:
       socks-proxy:
         annotations:
@@ -55,6 +52,8 @@ spec:
               startup:
                 enabled: false
         pod:
+          annotations:
+            setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
