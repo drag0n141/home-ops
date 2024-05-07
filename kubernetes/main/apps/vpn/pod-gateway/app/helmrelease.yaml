@@ -14,14 +14,14 @@ spec:
         kind: HelmRepository
         name: angelnu
         namespace: flux-system
-
   values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/angelnu/pod-gateway
       tag: v1.10.0@sha256:d728eac85f750b37c96a0dafd038561ea4b8035857802be1128ea9b19c61e181
-
     DNS: 172.16.1.1
-
     addons:
       vpn:
         enabled: true
@@ -54,9 +54,7 @@ spec:
             memory: 128M
         securityContext:
           capabilities:
-            add:
-              - NET_ADMIN
-
+            add: ["NET_ADMIN"]
       netshoot:
         enabled: true
         resources:
@@ -65,10 +63,6 @@ spec:
             memory: 10M
           limits:
             memory: 50M
-
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-
     settings:
       NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 192.168.0.0/16
       VPN_BLOCK_OTHER_TRAFFIC: true
@@ -78,10 +72,7 @@ spec:
       DNS_LOCAL_CIDRS: "local ${SECRET_DOMAIN_INTERNAL} ${SECRET_DOMAIN_AD} ${SECRET_DOMAIN_INT} ${SECRET_DOMAIN_EXT} ${SECRET_DOMAIN_LAB} ${SECRET_DOMAIN_GUEST}"
       VXLAN_ID: 43
       VXLAN_IP_NETWORK: 172.16.1
-
-    routed_namespaces:
-      - downloads
-
+    routed_namespaces: ["downloads"]
     webhook:
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
