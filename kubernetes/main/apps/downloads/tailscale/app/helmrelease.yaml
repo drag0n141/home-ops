@@ -24,12 +24,17 @@ spec:
       retries: 3
   values:
     defaultPodOptions:
+      labels:
+        setGateway: "true"
       annotations:
         setGateway: "true"
     controllers:
       tailscale:
         annotations:
           reloader.stakater.com/auto: "true"
+          setGateway: "true"
+        labels:
+          setGateway: "true"
         containers:
           app:
             image:
@@ -55,7 +60,7 @@ spec:
                 memory: 200Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         pod:
           securityContext:
