@@ -51,7 +51,7 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: traefik-internal
-          coredns.io/hostname: "traefik-utility.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "traefik-utility.${SECRET_DOMAIN_INTERNAL}"
         entryPoints: ["web", "websecure"]
         matchRule: Host(`traefik-utility.${SECRET_DOMAIN_INTERNAL}`)
         middlewares:
