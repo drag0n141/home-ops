@@ -17,8 +17,8 @@ spec:
 
   values:
     image:
-      repository: ghcr.io/bjw-s/pod-gateway
-      tag: dev@sha256:946fa5a00709b1ec84d21596f1bb6ca2c8d385fd8f1f5865fed3cb5eca4ff2c3
+      repository: ghcr.io/angelnu/pod-gateway
+      tag: v1.10.0@sha256:d728eac85f750b37c96a0dafd038561ea4b8035857802be1128ea9b19c61e181
 
     DNS: 172.16.1.1
 
@@ -64,7 +64,7 @@ spec:
             cpu: 10m
             memory: 10M
           limits:
-            memory: 65M
+            memory: 50M
 
     podAnnotations:
       reloader.stakater.com/auto: "true"
