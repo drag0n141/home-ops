@@ -48,8 +48,10 @@ spec:
           secretKeyRef:
             name: external-dns-bind-secret
             key: *name
+    extraArgs:
+      - --traefik-disable-legacy
     policy: sync
-    sources: ["ingress", "service"]
+    sources: ["ingress", "service", "traefik-proxy"]
     txtPrefix: k8s-utility.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN_INTERNAL}"]
