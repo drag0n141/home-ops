@@ -35,6 +35,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               NO_AUTOUPDATE: true
+              PORT: 41642
               TS_KUBE_SECRET: tailscale-state
               SA_NAME: tailscale
               TS_USERSPACE: true
@@ -64,6 +65,18 @@ spec:
     serviceAccount:
       create: true
       name: tailscale
+    service:
+      app:
+        controller: tailscale
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "tailscale.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${TAILSCALE_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          tailnet:
+            port: 41642
+            protocol: UDP
     persistence:
       cache:
         type: emptyDir
