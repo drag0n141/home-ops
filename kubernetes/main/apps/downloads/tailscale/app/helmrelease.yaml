@@ -23,18 +23,10 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    defaultPodOptions:
-      labels:
-        setGateway: "true"
-      annotations:
-        setGateway: "true"
     controllers:
       tailscale:
         annotations:
           reloader.stakater.com/auto: "true"
-          setGateway: "true"
-        labels:
-          setGateway: "true"
         containers:
           app:
             image:
@@ -63,6 +55,8 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         pod:
+          annotations:
+            setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
