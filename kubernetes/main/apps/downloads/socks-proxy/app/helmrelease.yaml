@@ -27,9 +27,6 @@ spec:
       socks-proxy:
         annotations:
           reloader.stakater.com/auto: "true"
-          setGateway: "true"
-        labels:
-          setGateway: "true"
         containers:
           app:
             image:
@@ -55,6 +52,8 @@ spec:
               startup:
                 enabled: false
         pod:
+          annotations:
+            setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
