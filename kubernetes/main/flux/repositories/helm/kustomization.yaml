@@ -15,6 +15,7 @@ resources:
   - ./emberstack.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
+  - ./fairwinds.yaml
   - ./grafana.yaml
   - ./intel.yaml
   - ./jetstack.yaml
