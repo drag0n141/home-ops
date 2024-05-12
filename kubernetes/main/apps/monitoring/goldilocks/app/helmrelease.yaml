@@ -34,6 +34,7 @@ spec:
       enabled: true
     dashboard:
       enabled: true
+      replicaCount: 1
       ingress:
         enabled: true
         ingressClassName: traefik-internal
