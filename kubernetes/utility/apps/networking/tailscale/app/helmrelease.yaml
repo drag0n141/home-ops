@@ -41,7 +41,8 @@ spec:
               TS_USERSPACE: true
               TS_ACCEPT_DNS: false
               TS_STATE_DIR: /tmp
-              TS_EXTRA_ARGS: "--advertise-exit-node --hostname=tailscale-utility"
+              TS_HOSTNAME: tailscale-utility
+              TS_EXTRA_ARGS: "--advertise-exit-node"
             envFrom:
               - secretRef:
                   name: tailscale-secret
