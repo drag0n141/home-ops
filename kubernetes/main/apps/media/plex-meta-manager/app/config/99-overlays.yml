@@ -54,7 +54,7 @@ overlays:
       name: 4K
     overlay:
       name: 4K
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-Poster.png
+      url: https://raw.githubusercontent.com/drag0n141/kometa-config/master/overlays/resolution/4K-Poster.png
     plex_search:
       all:
         resolution: '4K'
@@ -66,7 +66,7 @@ overlays:
       name: 4K-HDR
     overlay:
       name: 4K-HDR
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-HDR-Poster.png
+      url: https://raw.githubusercontent.com/drag0n141/kometa-config/master/overlays/resolution/4K-HDR-Poster.png
     plex_search:
       all:
         resolution: '4K'
@@ -78,7 +78,7 @@ overlays:
       name: 4K-Dolby
     overlay:
       name: 4K-Dolby
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-Dolby-Poster.png
+      url: https://raw.githubusercontent.com/drag0n141/kometa-config/master/overlays/resolution/4K-Dolby-Poster.png
     plex_search:
       all:
         resolution: '4K'
@@ -89,7 +89,7 @@ overlays:
       name: 4K-Episode
     overlay:
       name: 4K-Episode
-      url: https://raw.githubusercontent.com/drag0n141/pmm-config/master/overlays/resolution/4K-Episode.png
+      url: https://raw.githubusercontent.com/drag0n141/kometa-config/master/overlays/resolution/4K-Episode.png
       horizontal_offset: 15
       horizontal_align: left
       vertical_offset: 15
