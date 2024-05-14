@@ -11,11 +11,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
-      kind: HelmRelease
-      name: homepage
-      namespace: default
   wait: false
   interval: 30m
   retryInterval: 1m
