@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: prometheus-snmp-exporter
-      version: 5.3.0
+      version: 5.4.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -25,18 +25,10 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: *app
-    extraArgs: ["--config.file=/config/snmp.yaml"]
-    extraConfigmapMounts:
-      - name: &name apc-ups-snmp-configmap
-        mountPath: /config/snmp.yaml
-        subPath: snmp.yaml
-        configMap: *name
-        readOnly: true
-        defaultMode: 420
     serviceMonitor:
       enabled: true
       params:
-        - name: apc-ups-0
+        - name: usv01
           module: ["apcups"]
           target: usv01.${SECRET_DOMAIN_INT}
           auth: ["public_v1"]
