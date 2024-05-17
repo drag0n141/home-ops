@@ -22,7 +22,6 @@ cluster:
   name: utility
 containerRuntime:
   integration: containerd
-devices: enp+
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
