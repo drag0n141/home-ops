@@ -1,8 +1,8 @@
 {
   "id": "k8s-u01",
   "name": "k8s-u01",
-  "profile": "talos-utility-controller",
+  "profile": "k8s-u01",
   "selector": {
-    "mac": "48:21:0b:3d:5a:bf"
+    "mac": "bc:24:11:24:c9:7d"
   }
 }

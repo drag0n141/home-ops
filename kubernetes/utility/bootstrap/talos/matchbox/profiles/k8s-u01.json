@@ -1,0 +1,19 @@
+{
+  "id": "k8s-u01",
+  "name": "k8s-u01",
+  "boot": {
+    "kernel": "/assets/utility/kernel-amd64",
+    "initrd": ["/assets/utility/initramfs-amd64.xz"],
+    "args": [
+      "initrd=initramfs-amd64.xz",
+      "init_on_alloc=1",
+      "slab_nomerge",
+      "pti=on",
+      "console=tty0",
+      "console=ttyS0",
+      "printk.devkmsg=on",
+      "talos.platform=metal",
+      "talos.config=http://192.168.222.245/assets/utility/k8s-u01.yaml"
+    ]
+  }
+}
