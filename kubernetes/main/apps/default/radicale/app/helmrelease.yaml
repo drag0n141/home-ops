@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/radicale
-              tag: 3.1.9@sha256:83e7935c55f07d13983555e53b28ac96e3c85805912a3d830942d8361aa52098
+              tag: 3.2.0@sha256:8ae019143c64e78da677b92621ba3488e264261971732cc16d690cfb5134155a
             env:
               TZ: ${TIMEZONE}
             probes:
