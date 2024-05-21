@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: docker.io/portainer/portainer-ce
-              tag: 2.20.2-alpine
+              tag: 2.20.3-alpine
             env:
               TZ: ${TIMEZONE}
             envFrom:
