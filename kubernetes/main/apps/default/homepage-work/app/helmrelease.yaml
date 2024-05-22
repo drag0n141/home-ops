@@ -34,6 +34,9 @@ spec:
               tag: v0.8.13
             env:
               TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
             resources:
               requests:
                 cpu: 10m
@@ -67,7 +70,7 @@ spec:
     persistence:
       config:
         type: secret
-        name: homepage-work-files
+        name: homepage-work-files-secret
         globalMounts:
           - path: /app/config/bookmarks.yaml
             subPath: bookmarks.yaml
