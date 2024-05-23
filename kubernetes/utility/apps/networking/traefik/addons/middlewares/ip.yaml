@@ -4,7 +4,7 @@ kind: Middleware
 metadata:
   name: traefik-middleware-only-local
 spec:
-  ipWhiteList:
+  ipAllowList:
     sourceRange:
       - 192.168.40.0/24
       - 192.168.140.0/24
@@ -15,7 +15,7 @@ kind: Middleware
 metadata:
   name: traefik-middleware-cloudflare-ips
 spec:
-  ipWhiteList:
+  ipAllowList:
     sourceRange:
       - 173.245.48.0/20
       - 103.21.244.0/22
@@ -45,7 +45,7 @@ kind: Middleware
 metadata:
   name: traefik-middleware-github-hooks-ips
 spec:
-  ipWhiteList:
+  ipAllowList:
     # https://api.github.com/meta
     sourceRange:
       - 192.30.252.0/22
