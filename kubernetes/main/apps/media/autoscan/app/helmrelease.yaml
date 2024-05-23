@@ -49,14 +49,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
     service:
       app:
         controller: autoscan
