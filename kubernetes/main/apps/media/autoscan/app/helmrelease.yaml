@@ -35,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/cloudb0x/autoscan
-              tag: 1.4.0@sha256:4a53ff1925c3362da3ad9c53f3930153c08a0d487ad2ee2a74e05cd8764d9902
+              repository: ghcr.io/drag0n141/autoscan
+              tag: 1.4.0@sha256:b1d5eac696026ec0838b61682989320e0967c1c644eab5554808a9c2ffb4c5c9
             env:
               TZ: ${TIMEZONE}
               AUTOSCAN_VERBOSITY: 0
