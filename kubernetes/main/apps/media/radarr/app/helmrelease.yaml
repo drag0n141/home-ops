@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/radarr
-              tag: 5.6.0@sha256:bd968dad8053b15885cae2275905add40fdb73241137e1e3889ad57c99565fe6
+              tag: 5.6.0@sha256:d4186a6641ff4b77d8e52afbf14309f44755a7bb1ea049f42f1f53f0610e38d7
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
