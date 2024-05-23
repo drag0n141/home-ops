@@ -75,22 +75,23 @@ tasks:
   apply-config:
     desc: Apply Talos configuration to a node
     cmd: |
-      sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.role | replace "controlplane" "controller"}}.secret.sops.yaml | \
+      sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.hostname}}.secret.sops.yaml | \
           envsubst | \
               talosctl --context {{.cluster}} apply-config --mode=reboot --nodes {{.node}} --file /dev/stdin
     env:
       TALOS_VERSION: "{{.TALOS_VERSION}}"
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
+      TALOS_SCHEMATIC_ID_UTILITY: "{{.TALOS_SCHEMATIC_ID_UTILITY}}"
       KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
     vars:
-      role:
-        sh: talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig -o jsonpath='{.spec.machine.type}'
+      mode: '{{.mode | default "no-reboot"}}'
+      hostname:
+        sh: talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig -o jsonpath='{.spec.machine.network.hostname}'
     requires:
       vars: ["cluster", "node"]
     preconditions:
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/controller.secret.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/worker.secret.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.hostname}}.secret.sops.yaml
       - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
 
   upgrade:
@@ -195,6 +196,7 @@ tasks:
     env:
       TALOS_VERSION: "{{.TALOS_VERSION}}"
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
+      TALOS_SCHEMATIC_ID_UTILITY: "{{.TALOS_SCHEMATIC_ID_UTILITY}}"
       KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
     vars:
       K8S_MATCHBOX_ASSETS_DIR: "{{.K8S_MATCHBOX_DIR}}/assets/{{.cluster}}"
@@ -204,5 +206,4 @@ tasks:
     requires:
       vars: ["cluster", "matchbox_cluster", "matchbox_namespace"]
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/controller.secret.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/worker.secret.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.hostname}}.secret.sops.yaml
