@@ -33,7 +33,7 @@ spec:
             image:
               repository: public.ecr.aws/docker/library/busybox
               tag: latest@sha256:5eef5ed34e1e1ff0a4ae850395cbf665c4de6b4b83a32a0bc7bcb998e24e7bbb
-            command: ["/bin/sh", "-c", "mkdir -p /var/lib/matchbox/{groups,profiles,assets}"]
+            command: ["/bin/sh", "-c", "mkdir -p /var/lib/matchbox/groups /var/lib/matchbox/profiles /var/lib/matchbox/assets"]
         containers:
           app:
             image:
