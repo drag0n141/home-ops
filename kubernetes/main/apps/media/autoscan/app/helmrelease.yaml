@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/autoscan
-              tag: 1.4.0@sha256:a9beca08c7945a593dbff3dd97570084570c3c4cfcbea6719b62868221d98bbd
+              tag: 1.4.0@sha256:dedbf9c4b8eb7f2ed1676ec06d0bc614129b837e7408640bb1c207f9f472fba7
             env:
               TZ: ${TIMEZONE}
               AUTOSCAN_VERBOSITY: 0
@@ -82,7 +82,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        type: emptyDir
+        existingClaim: autoscan
         globalMounts:
           - path: /config
       config-file:
