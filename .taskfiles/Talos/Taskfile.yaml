@@ -75,7 +75,7 @@ tasks:
   apply-config:
     desc: Apply Talos configuration to a node
     cmd: |
-      sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.hostname}}.secret.sops.yaml | \
+      sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.node}}.secret.sops.yaml | \
           envsubst | \
               talosctl --context {{.cluster}} apply-config --mode=reboot --nodes {{.node}} --file /dev/stdin
     env:
@@ -83,15 +83,11 @@ tasks:
       TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
       TALOS_SCHEMATIC_ID_UTILITY: "{{.TALOS_SCHEMATIC_ID_UTILITY}}"
       KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
-    vars:
-      mode: '{{.mode | default "no-reboot"}}'
-      hostname:
-        sh: talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig -o jsonpath='{.spec.machine.network.hostname}'
     requires:
       vars: ["cluster", "node"]
     preconditions:
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.hostname}}.secret.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.node}}.secret.sops.yaml
       - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
 
   upgrade:
