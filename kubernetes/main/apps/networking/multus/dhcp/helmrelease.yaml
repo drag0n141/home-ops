@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/cni-plugins
-              tag: 1.5.0@sha256:cbd7e722fc39db82e3e787cdf98210d5312d64ae9e21ddb9d69a477e37de3ec3
+              tag: 1.5.0@sha256:088ad62880bd91e46769dee0b61cfc3649580b468f0709d7416b1fb42839a665
             command:
               - "/plugins/dhcp"
             args:
