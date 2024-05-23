@@ -88,7 +88,6 @@ tasks:
     preconditions:
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.node}}.secret.sops.yaml
-      - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
 
   upgrade:
     desc: Upgrade Talos on a node
