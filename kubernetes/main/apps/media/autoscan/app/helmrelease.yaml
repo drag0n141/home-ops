@@ -82,8 +82,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
-        existingClaim: autoscan
+        type: emptyDir
         globalMounts:
           - path: /config
       config-file:
