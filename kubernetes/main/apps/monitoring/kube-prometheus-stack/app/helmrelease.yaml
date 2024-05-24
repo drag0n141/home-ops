@@ -16,23 +16,25 @@ spec:
         namespace: flux-system
   maxHistory: 2
   install:
+    crds: Skip
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
     remediation:
+      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
+    - name: prometheus-operator-crds
+      namespace: monitoring
     - name: thanos
       namespace: monitoring
     - name: rook-ceph-cluster
       namespace: rook-ceph
   values:
     crds:
-      enabled: true
+      enabled: false
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: false
