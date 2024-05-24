@@ -31,6 +31,9 @@ endpoints:
     group: internal
     url: https://status.${SECRET_DOMAIN_INTERNAL}
     interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
     conditions:
       - "[STATUS] == 404"
     alerts:
