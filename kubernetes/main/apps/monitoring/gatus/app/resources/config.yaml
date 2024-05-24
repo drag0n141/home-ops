@@ -28,17 +28,11 @@ connectivity:
     interval: 1m
 endpoints:
   - name: status
-    group: guarded
-    url: "tls://1.1.1.1:853"
+    group: internal
+    url: https://status.${SECRET_DOMAIN_INTERNAL}
     interval: 1m
-    ui:
-      hide-hostname: true
-      hide-url: true
-    dns:
-      query-name: status.${SECRET_DOMAIN_INTERNAL}
-      query-type: A
     conditions:
-      - "len([BODY]) == 0"
+      - "[STATUS] == 404"
     alerts:
       - type: pushover
   - name: flux-webhook
