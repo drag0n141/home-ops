@@ -35,7 +35,7 @@ endpoints:
       hide-hostname: true
       hide-url: true
     conditions:
-      - "[STATUS] == 404"
+      - "[STATUS] == 200"
     alerts:
       - type: pushover
   - name: flux-webhook
