@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: home
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/home/mosquitto/app
   prune: true
   sourceRef:

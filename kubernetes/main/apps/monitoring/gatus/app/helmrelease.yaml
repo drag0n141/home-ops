@@ -1,0 +1,140 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app gatus
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      gatus:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/drag0n141/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: gatus-secret
+          init-config:
+            dependsOn: init-db
+            image:
+              repository: ghcr.io/kiwigrid/k8s-sidecar
+              tag: 1.27.2@sha256:e3280f62096bee918a605658505baa8878223b483053396f769bd9f15a2876c0
+            env:
+              FOLDER: /config
+              LABEL: gatus.io/enabled
+              NAMESPACE: ALL
+              RESOURCE: both
+              UNIQUE_FILENAMES: true
+              METHOD: WATCH
+            restartPolicy: Always
+            resources: &resources
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+        containers:
+          app:
+            image:
+              repository: ghcr.io/twin/gatus
+              tag: v5.11.0@sha256:eb0374eb55e3ff84ec8f9ea10342ddb623cfba23e5836138896cde01f11cf23d
+            env:
+              TZ: ${TIMEZONE}
+              GATUS_CONFIG_PATH: /config
+              GATUS_DELAY_START_SECONDS: 5
+              WEB_PORT: &port 80
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources: *resources
+        pod:
+          dnsConfig:
+            options:
+              - { name: ndots, value: "1" }
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: gatus
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        serviceName: gatus
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: traefik-external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "status.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    serviceAccount:
+      create: true
+      name: gatus
+    persistence:
+      config:
+        type: emptyDir
+      config-file:
+        type: configMap
+        name: gatus-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
