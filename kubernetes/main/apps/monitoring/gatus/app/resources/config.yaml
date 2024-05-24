@@ -27,14 +27,6 @@ connectivity:
     target: 9.9.9.9:53
     interval: 1m
 endpoints:
-  - name: status
-    group: external
-    url: https://status.${SECRET_DOMAIN}
-    interval: 1m
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: pushover
   - name: flux-webhook
     group: external
     url: https://flux-webhook.${SECRET_DOMAIN}
