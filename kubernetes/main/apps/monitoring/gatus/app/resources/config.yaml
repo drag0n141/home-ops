@@ -24,7 +24,7 @@ alerting:
       success-threshold: 3
 connectivity:
   checker:
-    target: 1.1.1.1:853
+    target: 9.9.9.9:53
     interval: 1m
 endpoints:
   - name: status
