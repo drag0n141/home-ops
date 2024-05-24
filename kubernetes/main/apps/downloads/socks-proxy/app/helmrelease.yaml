@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/socks5
-              tag: 1.4.3@sha256:cbe0629a1d38f8b6f42ccafd369c88f90e06ecea7de3566d2f1140adf2f3909e
+              tag: 1.4.3@sha256:16d0180629f3cb3ef6e5c34a5b6c53d7047b0e5121a5af436d2501e5b3e39ec9
             env:
               TZ: ${TIMEZONE}
             resources:
