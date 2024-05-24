@@ -38,7 +38,7 @@ endpoints:
       query-name: status.${SECRET_DOMAIN_INTERNAL}
       query-type: A
     conditions:
-      - "[STATUS] == 200"
+      - "len([BODY]) == 0"
     alerts:
       - type: pushover
   - name: flux-webhook
