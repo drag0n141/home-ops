@@ -12,8 +12,6 @@ data:
         group: external
         url: "https://${GATUS_SUBDOMAIN:-${APP}}.${SECRET_DOMAIN}${GATUS_PATH:-/}"
         interval: 1m
-        client:
-          dns-resolver: tls://1.1.1.1:853
         conditions:
           - "[STATUS] == ${GATUS_STATUS:-200}"
         alerts:
