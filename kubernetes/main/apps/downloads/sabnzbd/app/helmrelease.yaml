@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/sabnzbd
-              tag: 4.3.1@sha256:8bbd56e1c0c37b633966116898d9825c3fa2f31ca10ad28525bdcbc6456f3cc1
+              tag: 4.3.1@sha256:ebd6df3eb00e95c50f74c262484d31e5a45553e28abad7cf5cadcd84410b6915
             env:
               TZ: ${TIMEZONE}
               SABNZBD__PORT: &port 8080
