@@ -53,13 +53,12 @@ spec:
             port: 3001
     ingress:
       app:
-        className: traefik-external
+        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "uptime.${SECRET_DOMAIN}"
+          - host: &host "uptime.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
