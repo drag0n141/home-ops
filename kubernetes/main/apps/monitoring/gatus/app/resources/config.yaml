@@ -29,7 +29,7 @@ connectivity:
 endpoints:
   - name: status
     group: guarded
-    url: tls://1.1.1.1:835
+    url: "tls://1.1.1.1:853"
     interval: 1m
     ui:
       hide-hostname: true
