@@ -27,13 +27,21 @@ connectivity:
     target: 9.9.9.9:53
     interval: 1m
 endpoints:
-  - name: status
+  - name: gatus
     group: internal
     url: https://status.${SECRET_DOMAIN_INTERNAL}
     interval: 1m
     ui:
       hide-hostname: true
       hide-url: true
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: pushover
+  - name: uptime-kuma
+    group: external
+    url: https://uptime.${SECRET_DOMAIN}
+    interval: 1m
     conditions:
       - "[STATUS] == 200"
     alerts:
