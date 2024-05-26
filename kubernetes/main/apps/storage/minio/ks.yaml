@@ -20,4 +20,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: s3
       VOLSYNC_CAPACITY: 10Gi
