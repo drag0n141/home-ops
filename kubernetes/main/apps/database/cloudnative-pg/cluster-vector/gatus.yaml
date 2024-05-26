@@ -18,4 +18,4 @@ data:
         conditions:
           - "[CONNECTED] == true"
         alerts:
-          - type: pushover
+          - type: gotify
