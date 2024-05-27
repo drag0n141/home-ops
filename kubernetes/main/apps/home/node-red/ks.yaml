@@ -20,4 +20,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: nodered
       VOLSYNC_CAPACITY: 1Gi

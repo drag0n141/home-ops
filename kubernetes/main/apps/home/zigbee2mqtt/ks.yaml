@@ -21,4 +21,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: zigbee
       VOLSYNC_CAPACITY: 1Gi
