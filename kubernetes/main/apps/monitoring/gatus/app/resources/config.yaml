@@ -15,7 +15,7 @@ alerting:
   gotify:
     title: Gatus (Kubernetes)
     server-url: http://gotify.default.svc.cluster.local
-    application-token: $${GOTIFY_TOKEN}
+    token: $${GOTIFY_TOKEN}
     default-alert:
       description: health-check failed
       send-on-resolved: true
