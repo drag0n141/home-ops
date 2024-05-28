@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
-  - ../../../../templates/gatus/external
   - ../../../../templates/volsync
 configMapGenerator:
   - name: obsidian-livesync-configmap
