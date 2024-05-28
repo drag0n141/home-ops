@@ -20,4 +20,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: recipes
       VOLSYNC_CAPACITY: 1Gi

@@ -20,4 +20,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: rss
       VOLSYNC_CAPACITY: 512Mi

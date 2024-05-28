@@ -18,4 +18,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: obsidian
       VOLSYNC_CAPACITY: 1Gi

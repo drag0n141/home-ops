@@ -18,4 +18,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: sync
       VOLSYNC_CAPACITY: 5Gi
