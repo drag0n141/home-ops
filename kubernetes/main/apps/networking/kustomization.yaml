@@ -8,6 +8,7 @@ resources:
   # Flux-Kustomizations
   - ./blocky/ks.yaml
   - ./cloudflared/ks.yaml
+  - ./dnsdist/ks.yaml
   - ./echo-server/ks.yaml
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
