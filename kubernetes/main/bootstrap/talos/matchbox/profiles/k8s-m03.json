@@ -1,6 +1,6 @@
 {
-  "id": "talos-controller",
-  "name": "talos-controller",
+  "id": "k8s-m03",
+  "name": "k8s-m03",
   "boot": {
     "kernel": "/assets/main/kernel-amd64",
     "initrd": ["/assets/main/initramfs-amd64.xz"],
@@ -13,7 +13,7 @@
       "console=ttyS0",
       "printk.devkmsg=on",
       "talos.platform=metal",
-      "talos.config=http://192.168.222.245/assets/main/controller.yaml"
+      "talos.config=http://192.168.222.245/assets/main/k8s-m03.yaml"
     ]
   }
 }
