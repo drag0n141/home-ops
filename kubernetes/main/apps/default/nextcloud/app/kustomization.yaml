@@ -5,5 +5,4 @@ resources:
   - ./helmrelease.yaml
   - ./nfs-pvc.yaml
   - ./secret.sops.yaml
-  - ../../../../templates/gatus/external
   - ../../../../templates/volsync
