@@ -9,3 +9,5 @@ resources:
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./kanidm/ks.yaml
+

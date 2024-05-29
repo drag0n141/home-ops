@@ -1,0 +1,119 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app kanidm
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      kanidm:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/kanidm/server
+              tag: 1.2.1@sha256:e95f0aa219a02d4a2679ca4c14f5dbfe48ae8ee5b4b936de074fcc1480409efb
+            env:
+              TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: kanidm
+        primary: true
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+        ports:
+          http:
+            port: 8443
+      kanidm:
+        controller: kanidm
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "kanidm.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${KANIDM_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          ldap-tcp:
+            port: 636
+            targetPort: 3636
+            protocol: TCP
+          ldap-udp:
+            port: 636
+            targetPort: 3636
+            protocol: UDP
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "kanidm.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        type: configMap
+        name: kanidm-configmap
+        globalMounts:
+          - path: /data/server.toml
+            subPath: server.toml
+            readOnly: true
+      data:
+        existingClaim: kanidm
+        globalMounts:
+          - path: /data
+      tls:
+        type: secret
+        name: "${SECRET_DOMAIN/./-}-production-tls"
+        defaultMode: 0400
+        globalMounts:
+          - subPath: tls.crt
+            path: /tls/fullchain.pem
+            readOnly: true
+          - subPath: tls.key
+            path: /tls/privkey.pem
+            readOnly: true
