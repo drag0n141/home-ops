@@ -60,20 +60,11 @@ spec:
     service:
       app:
         controller: kanidm
-        primary: true
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: https
         ports:
           http:
             port: 8443
-      ldap:
-        controller: kanidm
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "kanidm-ldap.${SECRET_DOMAIN_INTERNAL}"
-          io.cilium/lb-ipam-ips: "${KANIDM_LB_ADDR}"
-        externalTrafficPolicy: Cluster
-        ports:
           ldap-tcp:
             port: 636
             targetPort: 3636
