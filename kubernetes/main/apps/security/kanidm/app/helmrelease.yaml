@@ -103,6 +103,7 @@ spec:
       config:
         type: configMap
         name: kanidm-configmap
+        defaultMode: 0400
         globalMounts:
           - path: /data/server.toml
             subPath: server.toml
