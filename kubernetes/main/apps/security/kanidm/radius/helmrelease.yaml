@@ -1,0 +1,78 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app kanidm-radius
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      kanidm-radius:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/kanidm/radius
+              tag: 1.2.0@sha256:d3dac095bcd9b3515b65c4bbd10ba476306fd9dff73131411e57b7c2f1340a1d
+            env:
+              TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: kanidm-radius
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "kanidm-radius.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${KANIDM_RADIUS_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          radius-tcp:
+            port: 1812
+            protocol: TCP
+          radius-udp:
+            port: 1812
+            protocol: UDP
+    persistence:
+      config:
+        type: secret
+        name: kanidm-radius-secret
+        defaultMode: 0400
+        globalMounts:
+          - path: /data/kanidm
+            subPath: kanidm.conf
+            readOnly: true
