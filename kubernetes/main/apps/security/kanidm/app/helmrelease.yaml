@@ -70,7 +70,7 @@ spec:
         controller: kanidm
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "kanidm.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "kanidm-ldap.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${KANIDM_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
