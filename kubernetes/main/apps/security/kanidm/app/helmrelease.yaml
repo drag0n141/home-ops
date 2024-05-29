@@ -22,6 +22,11 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
   values:
     controllers:
       kanidm:
@@ -61,7 +66,7 @@ spec:
         ports:
           http:
             port: 8443
-      kanidm:
+      ldap:
         controller: kanidm
         type: LoadBalancer
         annotations:
