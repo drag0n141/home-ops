@@ -19,9 +19,13 @@ spec:
           "ipam": {
             "type": "static",
             "routes": [
-              { "dst": "192.168.160.0/24" }
+              { "dst": "192.168.160.0/24", "gw": "192.168.160.1" }
             ]
           }
+        },
+        {
+          "capabilities": { "mac": true },
+          "type": "tuning"
         }
       ]
     }
