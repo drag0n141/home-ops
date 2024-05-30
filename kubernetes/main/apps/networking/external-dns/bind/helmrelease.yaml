@@ -49,6 +49,7 @@ spec:
             name: external-dns-bind-secret
             key: *name
     extraArgs:
+      - --ignore-ingress-tls-spec
       - --traefik-disable-legacy
     policy: sync
     sources: ["ingress", "service", "traefik-proxy"]
