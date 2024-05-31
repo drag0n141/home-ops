@@ -6,3 +6,4 @@ resources:
   - ./external-services
   - ./middlewares
   - ./tls-options
+  - ./tls-store

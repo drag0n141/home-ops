@@ -81,10 +81,6 @@ spec:
       metrics:
         expose:
           default: false
-    tlsStore:
-      default:
-        defaultCertificate:
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     metrics:
       prometheus:
         entryPoint: metrics

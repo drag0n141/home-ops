@@ -2,7 +2,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./error-pages
-  - ./middlewares
-  - ./tls-options
-  - ./tls-store
+  - ./default.yaml
