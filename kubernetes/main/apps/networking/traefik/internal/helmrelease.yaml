@@ -50,19 +50,7 @@ spec:
       name: traefik-internal
     ingressRoute:
       dashboard:
-        enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress-int.${SECRET_DOMAIN_INTERNAL}"
-          kubernetes.io/ingress.class: traefik-internal
-        entryPoints: ["websecure"]
-        matchRule: Host(`traefik-internal.${SECRET_DOMAIN_INTERNAL}`)
-        middlewares:
-          - name: traefik-middleware-chain-authelia
-            namespace: networking
-        tls:
-          hosts:
-            - traefik-internal.${SECRET_DOMAIN_INTERNAL}
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        enabled: false
     globalArguments:
       - "--serversTransport.insecureSkipVerify=true"
       - "--global.sendanonymoususage=false"
