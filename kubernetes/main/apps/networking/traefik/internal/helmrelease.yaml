@@ -108,6 +108,10 @@ spec:
           - TLS_AES_256_GCM_SHA384 # TLS 1.3
           - TLS_CHACHA20_POLY1305_SHA256 # TLS 1.3
         sniStrict: true
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     metrics:
       prometheus:
         entryPoint: metrics
