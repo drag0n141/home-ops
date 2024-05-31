@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ./error-pages
   - ./middlewares
-  - ./tls-options
   - ./tls-store
