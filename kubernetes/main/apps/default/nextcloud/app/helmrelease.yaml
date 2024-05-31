@@ -32,7 +32,7 @@ spec:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     image:
-      repository: public.ecr.aws/docker/library/nextcloud
+      repository: docker.io/nextcloud
       tag: 29.0.1-fpm-alpine
     nginx:
       enabled: true
