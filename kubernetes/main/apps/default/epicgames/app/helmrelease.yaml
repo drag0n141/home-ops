@@ -42,7 +42,7 @@ spec:
                 memory: 2000Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             probes:
               liveness:
