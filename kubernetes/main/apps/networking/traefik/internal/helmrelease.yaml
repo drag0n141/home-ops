@@ -95,6 +95,11 @@ spec:
       metrics:
         expose:
           default: false
+    tlsOptions:
+      default:
+        minVersion: VersionTLS12
+        maxVersion: VersionTLS13
+        sniStrict: true
     metrics:
       prometheus:
         entryPoint: metrics
