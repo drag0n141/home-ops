@@ -5,5 +5,4 @@ resources:
   - ./error-pages
   - ./external-services
   - ./middlewares
-  - ./tls-options
   - ./tls-store
