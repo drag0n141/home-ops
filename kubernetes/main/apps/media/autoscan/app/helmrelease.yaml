@@ -39,6 +39,9 @@ spec:
               tag: 1.4.0@sha256:a6e4052953219a549a41b19164ca88d9b21cdee9d05779b56d6f6d259dc8c5fc
             env:
               TZ: ${TIMEZONE}
+              AUTOSCAN_CONFIG: /config/config.yml
+              AUTOSCAN_DATABASE: /config/autoscan.db
+              AUTOSCAN_LOG: /config/activity.log
               AUTOSCAN_VERBOSITY: 0
             securityContext:
               allowPrivilegeEscalation: false
