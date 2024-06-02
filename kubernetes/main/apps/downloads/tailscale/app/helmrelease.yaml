@@ -35,7 +35,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               NO_AUTOUPDATE: true
-              TS_KUBE_SECRET: ""
+              TS_KUBE_SECRET: tailscale-auth
               SA_NAME: tailscale
               TS_USERSPACE: true
               TS_ACCEPT_DNS: false
