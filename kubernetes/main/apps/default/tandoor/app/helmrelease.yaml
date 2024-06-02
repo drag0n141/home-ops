@@ -96,7 +96,7 @@ spec:
           nginx:
             image:
               repository: ghcr.io/nginxinc/nginx-unprivileged
-              tag: 1.26.0
+              tag: 1.27.0
         pod:
           securityContext:
             runAsUser: 568
