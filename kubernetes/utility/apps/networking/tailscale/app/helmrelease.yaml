@@ -36,7 +36,7 @@ spec:
               TZ: ${TIMEZONE}
               NO_AUTOUPDATE: true
               PORT: 41642
-              TS_KUBE_SECRET: tailscale-state
+              TS_KUBE_SECRET: tailscale-auth
               SA_NAME: tailscale
               TS_USERSPACE: true
               TS_ACCEPT_DNS: false
