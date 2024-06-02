@@ -51,18 +51,16 @@ spec:
                 cpu: 5m
                 memory: 50Mi
               limits:
-                memory: 200Mi
+                memory: 2Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
             runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
     serviceAccount:
       create: true
       name: tailscale
