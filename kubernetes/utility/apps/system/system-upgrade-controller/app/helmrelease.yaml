@@ -57,19 +57,6 @@ spec:
             runAsUser: 65534
             runAsGroup: 65534
             runAsNonRoot: true
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: node-role.kubernetes.io/control-plane
-                        operator: Exists
-          tolerations:
-            - {key: CriticalAddonsOnly, operator: Exists}
-            - {key: node-role.kubernetes.io/master, operator: Exists, effect: NoSchedule}
-            - {key: node-role.kubernetes.io/controlplane, operator: Exists, effect: NoSchedule}
-            - {key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule}
-            - {key: node-role.kubernetes.io/etcd, operator: Exists, effect: NoExecute}
     serviceAccount:
       create: true
       name: system-upgrade
