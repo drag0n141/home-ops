@@ -1,0 +1,106 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app karma
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      karma:
+        replicas: 3
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/prymitive/karma
+              tag: v0.120@sha256:733bff15f2529065f1c1b50b13e4a56a541d3c0615dbc6b4b6a07befbfcc27ff
+            env:
+              TZ: ${TIMEZONE}
+              CONFIG_FILE: /config/config.yaml
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 250Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    service:
+      app:
+        controller: karma
+        ports:
+          http:
+            port: 8080
+    serviceMonitor:
+      app:
+        serviceName: karma
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+        hosts:
+          - host: &host "karma.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /config
+      config-file:
+        type: configMap
+        name: karma-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
