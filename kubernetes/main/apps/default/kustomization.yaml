@@ -8,13 +8,13 @@ resources:
   # Flux-Kustomizations
   - ./app-2fauth/ks.yaml
   - ./atuin/ks.yaml
-  - ./cyberchef/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./freshrss/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./immich/ks.yaml
+  - ./it-tools/ks.yaml
   - ./homepage/ks.yaml
   - ./homepage-work/ks.yaml
   - ./kitchenowl/ks.yaml
