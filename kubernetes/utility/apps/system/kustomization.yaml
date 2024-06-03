@@ -8,6 +8,7 @@ resources:
   - ./fstrim/ks.yaml
   - ./k8tz/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
+  - ./node-feature-discovery/ks.yaml
   - ./reflector/ks.yaml
   - ./reloader/ks.yaml
   - ./system-upgrade-controller/ks.yaml

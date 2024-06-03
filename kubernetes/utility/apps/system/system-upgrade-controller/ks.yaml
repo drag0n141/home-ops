@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: system
+  dependsOn:
+    - name: node-feature-discovery-rules
   path: ./kubernetes/utility/apps/system/system-upgrade-controller/app
   prune: true
   sourceRef:
