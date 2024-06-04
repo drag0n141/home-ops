@@ -9,6 +9,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster-vector
     - name: dragonfly-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/immich/app
   prune: true
   sourceRef:
