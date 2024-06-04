@@ -31,15 +31,16 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/prowlarr
-              tag: 1.18.0@sha256:0244d50d9bbb6423988979a8ddb14c61df680831554f4b489b31735e8aa38736
+              tag: 1.18.0.4543@sha256:0244d50d9bbb6423988979a8ddb14c61df680831554f4b489b31735e8aa38736
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: "0"
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
-              PROWLARR__LOG_LEVEL: info
-              PROWLARR__AUTHENTICATION_METHOD: Forms
-              PROWLARR__THEME: dark
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__PORT: &port 9696
             envFrom:
               - secretRef:
                   name: prowlarr-secret
