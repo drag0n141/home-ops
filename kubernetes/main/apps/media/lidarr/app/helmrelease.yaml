@@ -47,13 +47,13 @@ spec:
               tag: 2.3.3.4204@sha256:f275228e9bd2d23fd2a54d21aae691fa1943fb7b3a30260f6a2f6ba8d4e77ad1
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: "0"
-              LIDARR__AUTHENTICATION_METHOD: External
-              LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              LIDARR__INSTANCE_NAME: Lidarr
-              LIDARR__PORT: &port 8686
-              LIDARR__LOG_LEVEL: info
-              LIDARR__THEME: dark
+              LIDARR__APP__INSTANCENAME: Lidarr
+              LIDARR__APP__THEME: dark
+              LIDARR__AUTH__METHOD: External
+              LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              LIDARR__LOG__DBENABLED: "False"
+              LIDARR__LOG__LEVEL: info
+              LIDARR__SERVER__PORT: &port 8686
             envFrom: *envFrom
             probes:
               liveness: &probes
