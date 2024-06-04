@@ -44,16 +44,16 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/sonarr
-              tag: 4.0.5@sha256:1a457c2269b66bd2f0700d8427c206ffb5ff1bc7038f9deea17f2029b5585ec0
+              tag: 4.0.5.1710@sha256:1a457c2269b66bd2f0700d8427c206ffb5ff1bc7038f9deea17f2029b5585ec0
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: "0"
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 8989
-              SONARR__LOG_LEVEL: info
-              SONARR__THEME: dark
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 8989
             envFrom: *envFrom
             probes:
               liveness: &probes
