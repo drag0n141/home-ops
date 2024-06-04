@@ -34,11 +34,12 @@ spec:
           app:
             image:
               repository: ghcr.io/foxcpp/maddy
-              tag: 0.7.1
+              tag: 0.7.1@sha256:6ab538e2f28baf2324f7cb418c7f9476fd9c7e9fa9b14bc3aecf51a9f6962064
             env:
               TZ: ${TIMEZONE}
-              DEBUG: "false"
-              SMTP_PORT: 465
+              SMTP_RELAY_SMTP_PORT: &port 2525
+              SMTP_RELAY_METRICS_PORT: &metricsPort 8080
+              SMTP_RELAY_SERVER_PORT: 465
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
@@ -78,9 +79,9 @@ spec:
         externalTrafficPolicy: Cluster
         ports:
           http:
-            port: 9749
+            port: *metricsPort
           smtp:
-            port: 2525
+            port: *port
     serviceMonitor:
       app:
         serviceName: smtp-relay
@@ -92,7 +93,6 @@ spec:
             scrapeTimeout: 10s
     persistence:
       config:
-        enabled: true
         type: configMap
         name: smtp-relay-configmap
         globalMounts:
