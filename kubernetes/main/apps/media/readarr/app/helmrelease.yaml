@@ -44,10 +44,9 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/readarr-develop
-              tag: 0.3.27@sha256:8813b428ca366925c4b2e7bb35608276e99ede9491bd4eb1c93ca1ee72fd3ba4
+              tag: 0.3.27.2538@sha256:8813b428ca366925c4b2e7bb35608276e99ede9491bd4eb1c93ca1ee72fd3ba4
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: "0"
               READARR__AUTHENTICATION_METHOD: None
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               READARR__INSTANCE_NAME: Readarr
@@ -113,7 +112,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: readarr
         globalMounts:
           - path: /config
