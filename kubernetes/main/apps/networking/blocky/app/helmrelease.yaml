@@ -35,9 +35,9 @@ spec:
             image:
               repository: ghcr.io/drag0n141/postgres-init
               tag: 16
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
-                  name: blocky-secret
+                  name: blocky-db-secret
         containers:
           app:
             image:
@@ -117,8 +117,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: blocky-configmap
+        type: secret
+        name: blocky-secret
         globalMounts:
           - path: /app/config.yml
             subPath: config.yml
