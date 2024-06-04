@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/netbox/redis
   prune: true
   sourceRef:
@@ -25,6 +27,7 @@ spec:
   targetNamespace: default
   dependsOn:
     - name: cloudnative-pg-cluster
+    - name: external-secrets-stores
     - name: netbox-redis
   path: ./kubernetes/main/apps/default/netbox/app
   prune: true
