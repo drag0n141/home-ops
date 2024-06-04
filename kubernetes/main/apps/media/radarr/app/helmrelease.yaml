@@ -44,16 +44,16 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/radarr
-              tag: 5.6.0@sha256:d4186a6641ff4b77d8e52afbf14309f44755a7bb1ea049f42f1f53f0610e38d7
+              tag: 5.6.0.8846@sha256:d4186a6641ff4b77d8e52afbf14309f44755a7bb1ea049f42f1f53f0610e38d7
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: "0"
-              RADARR__AUTHENTICATION_METHOD: External
-              RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              RADARR__INSTANCE_NAME: Radarr
-              RADARR__PORT: &port 7878
-              RADARR__LOG_LEVEL: info
-              RADARR__THEME: dark
+              RADARR__APP__INSTANCENAME: Radarr
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
+              RADARR__SERVER__PORT: &port 7878
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -112,7 +112,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: radarr
         globalMounts:
           - path: /config

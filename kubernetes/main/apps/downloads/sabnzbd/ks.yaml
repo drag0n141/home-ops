@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: downloads
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/downloads/sabnzbd/app
   prune: true
   sourceRef:

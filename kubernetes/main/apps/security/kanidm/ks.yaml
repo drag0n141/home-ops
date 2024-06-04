@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: security
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/security/kanidm/app
   prune: true
   sourceRef:

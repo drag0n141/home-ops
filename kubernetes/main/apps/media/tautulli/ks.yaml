@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: media
+  dependsOn:
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/media/tautulli/app
   prune: true
   sourceRef:
