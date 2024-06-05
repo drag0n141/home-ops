@@ -69,6 +69,11 @@ spec:
             secretKeyRef:
               name: *secret
               key: OIDC_CLIENT_SECRET
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: REDIS_PASSWORD
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -102,7 +107,7 @@ spec:
             'redis' => [
                  'host' => 'dragonfly.database.svc.cluster.local',
                  'port' => 6379,
-                 'password' => '${SECRET_REDIS_PASSWORD}',
+                 'password' => getenv('REDIS_PASSWORD'),
                  'dbindex' => 10,
             ],
             'default_phone_region' => 'DE',
