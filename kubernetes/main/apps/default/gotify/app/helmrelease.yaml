@@ -47,6 +47,7 @@ spec:
               tag: 2.4.0
             env:
               TZ: ${TIMEZONE}
+              GOTIFY_DATABASE_DIALECT: postgres
             envFrom: *envFrom
             resources:
               requests:
