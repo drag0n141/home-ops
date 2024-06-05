@@ -51,18 +51,19 @@ spec:
               PGID: 1000
               NODE_ENV: production
               APP_UR: https://ferdium.${SECRET_DOMAIN}
+              CONNECT_WITH_FRANZ: false
+              DATA_DIR: "/data"
               DB_CONNECTION: pg
               DB_SSL: false
-              MAIL_CONNECTION: smtp
-              SMTP_HOST: smtp-relay.networking.svc.cluster.local
-              SMTP_PORT: 2525
-              MAIL_SSL: false
               IS_CREATION_ENABLED: false
               IS_REGISTRATION_ENABLED: false
               IS_DASHBOARD_ENABLED: true
-              CONNECT_WITH_FRANZ: false
-              DATA_DIR: "/data"
               JWT_USE_PEM: true
+              MAIL_CONNECTION: smtp
+              MAIL_SENDER: ferdium@${SECRET_DOMAIN}
+              MAIL_SSL: false
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: 2525
             envFrom: *envFrom
             resources:
               requests:
