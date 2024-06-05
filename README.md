@@ -69,7 +69,7 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 | [NextDNS](https://nextdns.io/)                     | DNS server which includes AdBlocking for Traveling                 | ~20€/yr        |
 | [Pushover](https://pushover.net/)                  | Kubernetes Alerts                                                  | 5€ OTP         |
 | [iDrive E2](https://www.idrive.com/s3-storage-e2/) | S3 Offsite Backup                                                  | ~60€/yr        |                                                  
-|                                                    |                                                                    | Total: ~26€/mo |
+|                                                    |                                                                    | Total: ~27€/mo |
 
 ## Stargazers
 
