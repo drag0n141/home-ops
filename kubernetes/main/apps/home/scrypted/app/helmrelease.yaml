@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/koush/scrypted
-              tag: v0.109.0-jammy-full@sha256:7d00b19fc05bba651879dbe810015e7148d3e32ab337d6ce361676fc98bc8caf
+              tag: v0.111.0-jammy-full@sha256:0c7dda3f7333aa24d8c341473981ce003e867ed4f83043541195eca413569a5c
             env:
               TZ: ${TIMEZONE}
             resources:
