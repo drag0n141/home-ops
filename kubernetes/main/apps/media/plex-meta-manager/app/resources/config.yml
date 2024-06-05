@@ -83,7 +83,7 @@ settings:
   - overlays
 plex:
   url: https://plex-ext.${SECRET_DOMAIN_INTERNAL}
-  token: ${PLEX_TOKEN}
+  token: "{{ .PLEX_TOKEN }}"
   timeout: 120
   clean_bundles: false
   empty_trash: false
@@ -91,21 +91,21 @@ plex:
   db_cache:
   verify_ssl: false
 tmdb:
-  apikey: ${TMDB_API_KEY}
+  apikey: "{{ .TMDB_API_KEY }}"
   language: en
   cache_expiration: 60
   region:
 omdb:
-  apikey: ${OMDB_API_KEY}
+  apikey: "{{ .OMDB_API_KEY }}"
   cache_expiration: 60
 trakt:
-  client_id: ${TRAKT_CLIENT_ID}
-  client_secret: ${TRAKT_CLIENT_SECRET}
+  client_id: "{{ .TRAKT_CLIENT_ID }}"
+  client_secret: "{{ .TRAKT_CLIENT_SECRET }}"
   authorization:
-    access_token: ${TRAKT_ACCESS_TOKEN}
+    access_token: "{{ .TRAKT_ACCESS_TOKEN }}"
     token_type: Bearer
     expires_in: 7889238
-    refresh_token: ${TRAKT_REFRESH_TOKEN}
+    refresh_token: "{{ .TRAKT_REFRESH_TOKEN }}"
     scope: public
     created_at: 1714846380
   pin:

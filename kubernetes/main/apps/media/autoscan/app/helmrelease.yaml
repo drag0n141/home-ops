@@ -81,8 +81,8 @@ spec:
         globalMounts:
           - path: /config
       config-file:
-        type: configMap
-        name: autoscan-configmap
+        type: secret
+        name: autoscan-secret
         globalMounts:
           - path: /config/config.yml
             subPath: config.yml

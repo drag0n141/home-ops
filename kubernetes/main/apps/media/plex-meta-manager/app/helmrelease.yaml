@@ -60,17 +60,20 @@ spec:
               capabilities: { drop: ["ALL"] }
     persistence:
       config:
-        enabled: true
         existingClaim: plex-meta-manager
         globalMounts:
           - path: /config
-      config-file:
-        type: configMap
-        name: pmm-configmap
+      config-secret:
+        type: secret
+        name: kometa-secret
         globalMounts:
           - path: /config/config.yml
             subPath: config.yml
             readOnly: true
+      config-file:
+        type: configMap
+        name: kometa-configmap
+        globalMounts:
           - path: /config/1-moviecharts.yml
             subPath: 1-moviecharts.yml
             readOnly: true
