@@ -104,7 +104,7 @@ spec:
           - path: /data
       auth:
         type: secret
-        name: radicale-files
+        name: radicale-secret
         globalMounts:
           - path: /config/users
             subPath: users

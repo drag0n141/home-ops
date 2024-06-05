@@ -49,6 +49,7 @@ spec:
               USERMAP_UID: 1000
               USERMAP_GID: 1000
               PAPERLESS_TIME_ZONE: ${TIMEZONE}
+              PAPERLESS_DBENGINE: postgresql
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
               PAPERLESS_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
