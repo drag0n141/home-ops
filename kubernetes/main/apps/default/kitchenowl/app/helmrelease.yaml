@@ -48,6 +48,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               DB_DRIVER: postgresql
+              FRONT_URL: https://kitchenowl.${SECRET_DOMAIN}
               SMTP_PORT: 2525
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_FROM: kitchenowl@${SECRET_DOMAIN}
@@ -60,7 +61,7 @@ spec:
                 memory: 500Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     service:
       app:
