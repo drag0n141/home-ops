@@ -49,10 +49,13 @@ spec:
               TZ: ${TIMEZONE}
               ASSET_URL: https://2fauth.${SECRET_DOMAIN_INTERNAL}
               APP_URL: https://2fauth.${SECRET_DOMAIN_INTERNAL}
-              TRUSTED_PROXIES: "*"
+              DB_CONNECTION: pgsql
               MAIL_HOST: smtp-relay.networking.svc.cluster.local
               MAIL_PORT: 2525
-              MAIL_FROM_NAME: 2FAuth
+              MAIL_FROM_ADDRESS: 2fauth@${SECRET_DOMAIN}
+              MAIL_FROM_NAME: 2FAut
+              SITE_OWNER: server.2fauth@${SECRET_DOMAIN_SHORT}
+              TRUSTED_PROXIES: "*"
             envFrom: *envFrom
             resources:
               requests:
