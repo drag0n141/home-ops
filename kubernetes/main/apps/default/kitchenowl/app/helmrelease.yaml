@@ -47,8 +47,11 @@ spec:
               tag: v0.5.1@sha256:8b035c19af0012a61b05a91e2c8b8e7be9d3e9b4a8b6c216806c53d2fa0f3067
             env:
               TZ: ${TIMEZONE}
+              COLLECT_METRICS: false
               DB_DRIVER: postgresql
+              EMAIL_MANDATORY: false
               FRONT_URL: https://kitchenowl.${SECRET_DOMAIN}
+              OPEN_REGISTRATION: false
               SMTP_PORT: 2525
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_FROM: kitchenowl@${SECRET_DOMAIN}
@@ -61,7 +64,7 @@ spec:
                 memory: 500Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         pod:
           securityContext:
