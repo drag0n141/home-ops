@@ -43,10 +43,12 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/vikunja/api
-              tag: 0.22.1
+              repository: docker.io/vikunja/vikunja
+              tag: 0.23.0@sha256:c824f99b0b09b7f03a1d77ad6691fbce38edf8d737e73e3242d8b87dd96d21e0
             env:
               TZ: ${TIMEZONE}
+              VIKUNJA_CACHE_ENABLED: 1
+              VIKUNJA_CACHE_TYPE: redis
               VIKUNJA_DATABASE_TYPE: postgres
               VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: "true"
               VIKUNJA_DEFAULTSETTINGS_OVERDUE_TASKS_REMINDERS_ENABLED: "false"
@@ -85,15 +87,7 @@ spec:
         hosts:
           - host: &host "vikunja.${SECRET_DOMAIN}"
             paths:
-              - path: /api/
-                service:
-                  identifier: app
-                  port: http
-              - path: /dav/
-                service:
-                  identifier: app
-                  port: http
-              - path: /.well-known/
+              - path: /
                 service:
                   identifier: app
                   port: http

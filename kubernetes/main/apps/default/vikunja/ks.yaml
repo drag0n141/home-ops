@@ -23,22 +23,3 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 1Gi
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app vikunja-web
-  namespace: flux-system
-spec:
-  targetNamespace: default
-  dependsOn:
-    - name: vikunja
-  path: ./kubernetes/main/apps/default/vikunja/web
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
