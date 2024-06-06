@@ -85,21 +85,18 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         type: configMap
         name: alertmanager-configmap
         globalMounts:
           - path: /etc/alertmanager
             readOnly: true
       secrets:
-        enabled: true
         type: secret
         name: alertmanager-secret
         globalMounts:
           - path: /etc/secrets
             readOnly: true
       data:
-        enabled: true
         existingClaim: alertmanager
         globalMounts:
           - path: /alertmanager

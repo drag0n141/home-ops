@@ -114,7 +114,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: minio
         globalMounts:
           - path: /data

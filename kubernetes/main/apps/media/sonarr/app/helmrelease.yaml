@@ -112,7 +112,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: sonarr
         globalMounts:
           - path: /config

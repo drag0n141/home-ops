@@ -105,7 +105,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        enabled: true
         existingClaim: vikunja
         globalMounts:
           - path: /app/vikunja/files

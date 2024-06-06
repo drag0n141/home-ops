@@ -97,7 +97,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: overseerr
         globalMounts:
           - path: /app/config
