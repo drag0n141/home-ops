@@ -47,6 +47,7 @@ spec:
               tag: 0.22.1
             env:
               TZ: ${TIMEZONE}
+              VIKUNJA_DATABASE_TYPE: postgres
               VIKUNJA_SERVICE_TIMEZONE: ${TIMEZONE}
               VIKUNJA_SERVICE_FRONTENDURL: vikunja.${SECRET_DOMAIN}
               VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: 1
