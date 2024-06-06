@@ -39,7 +39,7 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: ts3-server-secret
+                  name: ts3-secret
         containers:
           app:
             image:

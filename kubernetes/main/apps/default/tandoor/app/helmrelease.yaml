@@ -51,6 +51,7 @@ spec:
               DEBUG: 0
               ALLOWED_HOSTS: "*"
               DB_ENGINE: django.db.backends.postgresql_psycopg2
+              DEFAULT_FROM_EMAIL: recipes@${SECRET_DOMAIN}
               GUNICORN_MEDIA: 0
               REMOTE_USER_AUTH: 0
               FRACTION_PREF_DEFAULT: 0
