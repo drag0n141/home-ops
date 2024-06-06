@@ -34,7 +34,7 @@ spec:
               tag: latest@sha256:1a04e164fce5ca1da99dd6b6664f6ffe1bc67b5e711979bab21411eb404defa4
             env:
               TZ: ${TIMEZONE}
-              BASE_URL: epic.${SECRET_DOMAIN_INTERNAL}
+              BASE_URL: https://epic.${SECRET_DOMAIN_INTERNAL}
               CRON_SCHEDULE: "0 0,6,12,18 * * *"
               EMAIL: ${SECRET_ACME_EMAIL}
               EMAIL_SENDER_ADDRESS: epicgames@${SECRET_DOMAIN}
