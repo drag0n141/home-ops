@@ -34,6 +34,17 @@ spec:
               tag: latest@sha256:1a04e164fce5ca1da99dd6b6664f6ffe1bc67b5e711979bab21411eb404defa4
             env:
               TZ: ${TIMEZONE}
+              BASE_URL: epic.${SECRET_DOMAIN_INTERNAL}
+              CRON_SCHEDULE: "0 0,6,12,18 * * *"
+              EMAIL: ${SECRET_ACME_EMAIL}
+              EMAIL_SENDER_ADDRESS: epicgames@${SECRET_DOMAIN}
+              EMAIL_SENDER_NAME: "Epic Games Captchas"
+              EMAIL_RECIPIENT_ADDRESS: server.epicgames@${SECRET_DOMAIN_SHORT}
+              RUN_ON_STARTUP: "true"
+              SEARCH_STRATEGY: ALL
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: 2525
+              SMTP_SECURE: "false"
             resources:
               requests:
                 cpu: 10m
@@ -75,13 +86,6 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      config:
-        type: configMap
-        name: epicgames-configmap
-        globalMounts:
-          - path: /usr/app/config/config.json
-            subPath: config.json
-            readOnly: true
       app-config:
         type: emptyDir
         globalMounts:
