@@ -106,7 +106,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: plex
         globalMounts:
           - path: /config

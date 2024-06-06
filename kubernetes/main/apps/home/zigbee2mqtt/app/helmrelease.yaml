@@ -130,7 +130,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: zigbee2mqtt
         globalMounts:
           - path: /config

@@ -95,7 +95,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
         existingClaim: home-assistant
         globalMounts:
           - path: /config

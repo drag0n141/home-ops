@@ -84,7 +84,6 @@ spec:
             protocol: UDP
     persistence:
       config:
-        enabled: true
         type: configMap
         name: dnsdist-configmap
         globalMounts:

@@ -91,7 +91,6 @@ spec:
             scrapeTimeout: 10s
     persistence:
       config:
-        enabled: true
         type: secret
         name: blocky-secret
         globalMounts:

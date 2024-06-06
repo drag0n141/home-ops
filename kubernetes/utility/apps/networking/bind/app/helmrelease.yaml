@@ -66,7 +66,6 @@ spec:
             protocol: UDP
     persistence:
       config:
-        enabled: true
         type: configMap
         name: bind-configmap
         globalMounts:
@@ -74,7 +73,6 @@ spec:
             subPath: named.conf
             readOnly: true
       secret-zones:
-        enabled: true
         type: secret
         name: bind-zones-secret
         globalMounts:
