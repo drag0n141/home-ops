@@ -39,7 +39,7 @@ spec:
               tag: 0.22.1
             env:
               TZ: ${TIMEZONE}
-              VIKUNJA_API_URL: http://vikunja.${SECRET_DOMAIN}/api/v1
+              VIKUNJA_API_URL: https://vikunja.${SECRET_DOMAIN}/api/v1
             resources:
               requests:
                 cpu: 5m
