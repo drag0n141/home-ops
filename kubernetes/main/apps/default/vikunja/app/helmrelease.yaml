@@ -50,10 +50,10 @@ spec:
               VIKUNJA_DATABASE_TYPE: postgres
               VIKUNJA_SERVICE_TIMEZONE: ${TIMEZONE}
               VIKUNJA_SERVICE_FRONTENDURL: vikunja.${SECRET_DOMAIN}
-              VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: 1
-              VIKUNJA_SERVICE_ENABLEREGISTRATION: 1
-              VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: 1
-              VIKUNJA_MAILER_ENABLED: 1
+              VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: "true"
+              VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
+              VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: "true"
+              VIKUNJA_MAILER_ENABLED: "true"
               VIKUNJA_MAILER_HOST: smtp-relay.networking.svc.cluster.local
               VIKUNJA_MAILER_PORT: 2525
               VIKUNJA_MAILER_FROMEMAIL: vikunja@${SECRET_DOMAIN}
@@ -64,7 +64,7 @@ spec:
               VIKUNJA_CACHE_TYPE: redis
               VIKUNJA_REDIS_ENABLED: "true"
               VIKUNJA_REDIS_HOST: dragonfly.database.svc.cluster.local:6379
-              VIKUNJA_REDIS_DB: "7"
+              VIKUNJA_REDIS_DB: 7
             envFrom: *envFrom
             resources:
               requests:
