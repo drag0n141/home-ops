@@ -22,22 +22,3 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 1Gi
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app kitchenowl-web
-  namespace: flux-system
-spec:
-  targetNamespace: default
-  dependsOn:
-    - name: kitchenowl
-  path: ./kubernetes/main/apps/default/kitchenowl/web
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
-  wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
