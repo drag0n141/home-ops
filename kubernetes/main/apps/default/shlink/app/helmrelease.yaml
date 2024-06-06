@@ -42,6 +42,7 @@ spec:
               tag: 4.1.1@sha256:e34a3eb2fffaf39a39dc8cd8b97535f11481b6062c90400f7dcc6b4baf4ee870
             env:
               TIMEZONE: ${TIMEZONE}
+              DB_DRIVER: postgres
               DEFAULT_DOMAIN: &host ${SECRET_DOMAIN_SHORT}
               DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
               IS_HTTPS_ENABLED: "true"
