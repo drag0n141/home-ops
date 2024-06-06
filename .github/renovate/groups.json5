@@ -43,16 +43,6 @@
       "separateMinorPatch": true
     },
     {
-      "description": ["Vikunja Group"],
-      "groupName": "Vikunja",
-      "matchPackagePatterns": ["vikunja"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
-    },
-    {
       "description": ["Guacamole Group"],
       "groupName": "Guacamole",
       "matchPackagePatterns": ["guacamole"],
