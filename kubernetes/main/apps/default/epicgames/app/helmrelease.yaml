@@ -41,7 +41,7 @@ spec:
               EMAIL_SENDER_NAME: "Epic Games Captchas"
               EMAIL_RECIPIENT_ADDRESS: server.epicgames@${SECRET_DOMAIN_SHORT}
               RUN_ON_STARTUP: "true"
-              SEARCH_STRATEGY: ALL
+              SEARCH_STRATEGY: all
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: 2525
               SMTP_SECURE: "false"
