@@ -22,11 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   values:
     controllers:
       memos:
@@ -83,8 +78,3 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      data:
-        existingClaim: memos
-        globalMounts:
-          - path: /var/opt/memos
