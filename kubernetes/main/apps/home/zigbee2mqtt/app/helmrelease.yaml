@@ -68,7 +68,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231215081149-if00
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ezsp
             envFrom:
               - secretRef:
@@ -89,10 +89,9 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                smarter-devices/ttyACM0: 1
                 cpu: 10m
               limits:
-                smarter-devices/ttyACM0: 1
+                squat.ai/sonoff: 1
                 memory: 384Mi
         pod:
           nodeSelector:

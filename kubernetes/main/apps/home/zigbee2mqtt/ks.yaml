@@ -8,7 +8,7 @@ spec:
   targetNamespace: home
   dependsOn:
     - name: external-secrets-stores
-    - name: smarter-device-manager
+    - name: generic-device-plugin
   path: ./kubernetes/main/apps/home/zigbee2mqtt/app
   prune: true
   sourceRef:
