@@ -41,9 +41,9 @@ spec:
               - --tftp-root=/var/lib/tftpboot
               - --dhcp-userclass=set:ipxe,iPXE
               - --pxe-service=tag:#ipxe,x86PC,"PXE chainload to iPXE",undionly.kpxe
-              - --pxe-service=tag:ipxe,x86PC,"iPXE",http://192.168.222.245/boot.ipxe
+              - --pxe-service=tag:ipxe,x86PC,"iPXE",http://192.168.254.89:9080/boot.ipxe
               - --pxe-service=tag:#ipxe,X86-64_EFI,"PXE chainload to iPXE UEFI",ipxe.efi
-              - --pxe-service=tag:ipxe,X86-64_EFI,"iPXE UEFI",http://192.168.222.245/boot.ipxe
+              - --pxe-service=tag:ipxe,X86-64_EFI,"iPXE UEFI",http://192.168.254.89:9080/boot.ipxe
               - --log-queries
               - --log-dhcp
             env:
