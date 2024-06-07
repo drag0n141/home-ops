@@ -7,7 +7,6 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./home-assistant/ks.yaml
-  - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
   - ./scrypted/ks.yaml
   - ./zigbee2mqtt/ks.yaml
