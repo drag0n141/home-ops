@@ -51,8 +51,8 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-        pod:
-          priorityClassName: system-node-critical
+    defaultPodOptions:
+      priorityClassName: system-node-critical
     persistence:
       dev:
         type: hostPath
@@ -64,8 +64,6 @@ spec:
         hostPath: /sys
         globalMounts:
           - readOnly: true
-      device-plugin:
+      var-lib-kubelet-device-plugins:
         type: hostPath
         hostPath: /var/lib/kubelet/device-plugins
-        globalMounts:
-          - path: /var/lib/kubelet/device-plugins
