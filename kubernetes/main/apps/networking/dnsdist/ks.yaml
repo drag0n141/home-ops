@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  dependsOn:
+    - name: blocky
   path: ./kubernetes/main/apps/networking/dnsdist/app
   prune: true
   sourceRef:
