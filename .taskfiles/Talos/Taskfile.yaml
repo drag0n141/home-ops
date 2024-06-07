@@ -200,5 +200,3 @@ tasks:
           kubectl get --context {{.matchbox_cluster}} pod -n {{.matchbox_namespace}} -l app.kubernetes.io/name=matchbox -o name | awk -F'/' '{print $2}'
     requires:
       vars: ["cluster", "matchbox_cluster", "matchbox_namespace"]
-    preconditions:
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.hostname}}.secret.sops.yaml
