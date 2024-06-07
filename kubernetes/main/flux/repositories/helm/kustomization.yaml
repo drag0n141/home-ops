@@ -13,6 +13,7 @@ resources:
   - ./democratic-csi.yaml
   - ./descheduler.yaml
   - ./emberstack.yaml
+  - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./fairwinds.yaml
