@@ -23,5 +23,5 @@ spec:
           args: ["unlock", "--remove-all"]
           envFrom:
             - secretRef:
-                name: "${app}-volsync-wasabi"
+                name: "${app}-volsync-idrive"
           resources: {}
