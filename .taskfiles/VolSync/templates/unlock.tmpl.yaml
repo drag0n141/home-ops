@@ -18,7 +18,7 @@ spec:
             - secretRef:
                 name: "${app}-volsync-minio"
           resources: {}
-        - name: wasabi
+        - name: idrive
           image: docker.io/restic/restic:0.16.4
           args: ["unlock", "--remove-all"]
           envFrom:
