@@ -6,8 +6,7 @@ receivers:
         token_file: /etc/secrets/pushover_api_token
         user_key_file: /etc/secrets/pushover_api_userkey
         send_resolved: true
-        priority: |-
-          {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+        priority: 0
         url_title: View in Alert Manager
         title: |-
           [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
