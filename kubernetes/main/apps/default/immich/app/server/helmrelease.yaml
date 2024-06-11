@@ -43,9 +43,9 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.106.1@sha256:b29d17de30931f22719f0ee39dd7bd24e2f6be08e61c13bd881e41ed426087f2
-            args: ["start-server.sh"]
             env:
               TZ: ${TIMEZONE}
+              IMMICH_WORKERS_INCLUDE: api
             envFrom: *envFrom
             probes:
               liveness: &probes
