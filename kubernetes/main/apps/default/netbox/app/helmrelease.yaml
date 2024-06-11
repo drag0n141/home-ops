@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: ghcr.io/netbox-community/netbox
-      tag: v3.7.8
+      tag: v4.0.5
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
@@ -122,8 +122,10 @@ spec:
           secretName: netbox-secret
     updateStrategy:
       type: RollingUpdate
+    housekeeping:
+      enabled: false
     worker:
-      enabled: true
+      enabled: false
       updateStrategy:
         type: RollingUpdate
   valuesFrom:
