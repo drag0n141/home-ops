@@ -41,10 +41,10 @@ spec:
               TZ: ${TIMEZONE}
             resources:
               requests:
-                cpu: 5m
+                cpu: 50m
                 memory: 100Mi
               limits:
-                cpu: 50m
+                cpu: 100m
                 memory: 500Mi
             probes:
               liveness:
