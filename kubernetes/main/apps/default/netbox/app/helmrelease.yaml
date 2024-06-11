@@ -45,8 +45,6 @@ spec:
     shortDateTimeFormat: "j.m.Y H:i"
     storageBackend: storages.backends.s3boto3.S3Boto3Storage
     storageConfig:
-      AWS_ACCESS_KEY_ID: "netbox"
-      AWS_SECRET_ACCESS_KEY: "${SECRET_NETBOX_ACCESS_KEY}"
       AWS_STORAGE_BUCKET_NAME: "netbox"
       AWS_S3_ENDPOINT_URL: "https://s3.${SECRET_DOMAIN_INTERNAL}"
       AWS_S3_REGION_NAME: "us-east-1"
@@ -126,3 +124,12 @@ spec:
       enabled: true
       updateStrategy:
         type: RollingUpdate
+  valuesFrom:
+    - targetPath: storageConfig.AWS_ACCESS_KEY_ID
+      kind: Secret
+      name: netbox-secret
+      valuesKey: AWS_ACCESS_KEY_ID
+    - targetPath: storageConfig.AWS_SECRET_ACCESS_KEY
+      kind: Secret
+      name: netbox-secret
+      valuesKey: AWS_SECRET_ACCESS_KEY
