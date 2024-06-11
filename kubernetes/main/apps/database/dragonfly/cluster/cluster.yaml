@@ -17,6 +17,7 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --default_lua_flags=allow-undeclared-keys
+    - --lock_on_hashtags
     - --requirepass=${SECRET_REDIS_PASSWORD}
   resources:
     requests:
