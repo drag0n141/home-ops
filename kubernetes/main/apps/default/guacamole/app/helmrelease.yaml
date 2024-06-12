@@ -64,8 +64,8 @@ spec:
               - "/bin/sh"
               - "-c"
             args:
-              - "mkdir -p /guacamole/extensions;"
-              - "cp /opt/guacamole/totp/*.jar /guacamole/extensions;"
+              - mkdir -p /guacamole/extensions;
+                cp /opt/guacamole/totp/*.jar /guacamole/extensions;
         containers:
           app:
             image:
