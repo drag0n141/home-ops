@@ -64,8 +64,8 @@ spec:
               - "/bin/sh"
               - "-c"
             args:
-              - "mkdir -p /home/guacamole/.guacamole/extension;"
-              - "cp /opt/guacamole/totp/*.jar /home/guacamole/.guacamole/extensions;"
+              - "mkdir -p /home/extension;"
+              - "cp /opt/guacamole/totp/*.jar /guacamole/extensions;"
         containers:
           app:
             image:
@@ -75,6 +75,7 @@ spec:
               TZ: ${TIMEZONE}
               WEBAPP_CONTEXT: ROOT
               GUACD_HOSTNAME: guacd.default.svc.cluster.local
+              GUACAMOLE_HOME: /guacamole
               GUACD_PORT: "4822"
             envFrom: *envFrom
             resources:
@@ -120,6 +121,6 @@ spec:
         advancedMounts:
           guacamole:
             app:
-              - path: /home/guacamole/.guacamole
+              - path: /guacamole
             04-init-plugin:
-              - path: /home/guacamole/.guacamole
+              - path: /guacamole
