@@ -53,9 +53,13 @@ spec:
         apps:
         - name: nas01
           public_addr: nas01.${SECRET_DOMAIN_TELEPORT}
-          uri: http://unraid01.${SECRET_DOMAIN_AD}
+          uri: http://unraid01.${SECRET_DOMAIN_AD}:88
           insecure_skip_verify: true
         - name: pikvm
           public_addr: pikvm.${SECRET_DOMAIN_TELEPORT}
           uri: http://pikvm.${SECRET_DOMAIN_INT}
+          insecure_skip_verify: true
+        - name: proxmox01
+          public_addr: proxmox01.${SECRET_DOMAIN_TELEPORT}
+          uri: https://proxmox01.${SECRET_DOMAIN_INT}:8006
           insecure_skip_verify: true
