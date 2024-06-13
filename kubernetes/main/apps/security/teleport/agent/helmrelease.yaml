@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     log:
-      level: DEBUG
+      level: INFO
     roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.${SECRET_DOMAIN}:443
