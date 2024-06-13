@@ -54,10 +54,16 @@ spec:
         - name: checkmk
           public_addr: checkmk.${SECRET_DOMAIN_TELEPORT}
           uri: https://checkmk.${SECRET_DOMAIN_INT}/checkmk
+          rewrite:
+            headers:
+              - "Host: checkmk.${SECRET_DOMAIN_TELEPORT}"
           insecure_skip_verify: true
         - name: nas01
           public_addr: nas01.${SECRET_DOMAIN_TELEPORT}
           uri: http://unraid01.${SECRET_DOMAIN_AD}:88
+          rewrite:
+            headers:
+              - "Host: nas01.${SECRET_DOMAIN_TELEPORT}"
           insecure_skip_verify: true
         - name: pikvm
           public_addr: pikvm.${SECRET_DOMAIN_TELEPORT}
