@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app teleport-kube-agent
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: teleport-kube-agent
+      version: 15.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: teleport
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    log:
+      level: DEBUG
+    roles: kube,app,discovery,node,windowsdesktop
+    insecureSkipProxyTLSVerify: true
+    proxyAddr: teleport.${SECRET_DOMAIN}:443
+    joinParams:
+      method: kubernetes
+      tokenName: "kubernetes-token"
+    kubeClusterName: HomeOpsCluster
+    teleportConfig:
+      discovery_service:
+        kubernetes:
+        - types: ["app"]
+          namespaces: [ "default" ]
+          labels:
+            teleport: enabled
+      windows_desktop_service:
+        enabled: yes
+        static_hosts:
+        - name: DC01
+          addr: dc01.${SECRET_DOMAIN_AD}
+          ad: false
+      app_service:
+        enabled: "yes"
+        apps:
+        - name: PiKVM
+          public_addr: pikvm.teleport.${SECRET_DOMAIN}
+          uri: http://192.168.254.10/
+          insecure_skip_verify: true
