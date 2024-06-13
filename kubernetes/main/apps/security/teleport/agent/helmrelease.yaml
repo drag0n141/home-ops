@@ -53,7 +53,7 @@ spec:
         apps:
         - name: checkmk
           public_addr: checkmk.${SECRET_DOMAIN_TELEPORT}
-          uri: https://checkmk.${SECRET_DOMAIN_INT}/checkmk
+          uri: http://checkmk.${SECRET_DOMAIN_INT}/checkmk
           rewrite:
             headers:
               - "Host: checkmk.${SECRET_DOMAIN_TELEPORT}"
