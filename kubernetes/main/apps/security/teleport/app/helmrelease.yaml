@@ -34,11 +34,17 @@ spec:
     validateConfigOnDeploy: true
     enterprise: false
     auth:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: "true"
       teleportConfig:
         auth_service:
           client_idle_timeout: 2h
           client_idle_timeout_message: "Connection closed after 2hours without activity"
     proxy:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: "true"
       teleportConfig:
         proxy_service:
           trust_x_forwarded_for: true
