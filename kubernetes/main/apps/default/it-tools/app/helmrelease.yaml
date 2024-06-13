@@ -43,6 +43,10 @@ spec:
     service:
       app:
         controller: it-tools
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 80
