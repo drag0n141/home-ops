@@ -38,6 +38,10 @@ spec:
         auth_service:
           client_idle_timeout: 2h
           client_idle_timeout_message: "Connection closed after 2hours without activity"
+    proxy:
+      teleportConfig:
+        proxy_service:
+          trust_x_forwarded_for: true
     podSecurityPolicy:
       enabled: true
     log:
