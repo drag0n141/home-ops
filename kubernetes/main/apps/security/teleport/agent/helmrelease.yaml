@@ -25,6 +25,9 @@ spec:
   values:
     log:
       level: INFO
+      output: stderr
+      format: text
+      extraFields: ["timestamp", "level", "component", "caller"]
     roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.${SECRET_DOMAIN}:443
