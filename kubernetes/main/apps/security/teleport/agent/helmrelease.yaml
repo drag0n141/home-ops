@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     log:
-      level: DEBUG
+      level: INFO
       output: stderr
       format: text
       extraFields: ["timestamp", "level", "component", "caller"]
