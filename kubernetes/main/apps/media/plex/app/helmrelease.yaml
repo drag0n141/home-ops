@@ -82,7 +82,10 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${PLEX_LB_ADDR}"
+          teleport.dev/name: *app
           traefik.ingress.kubernetes.io/service.serversscheme: https
+        labels:
+          teleport: enabled
         externalTrafficPolicy: Cluster
         ports:
           http:
