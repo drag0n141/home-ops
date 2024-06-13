@@ -13,6 +13,7 @@ spec:
     - "${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN_INTERNAL}"
+    - "*.${SECRET_DOMAIN_TELEPORT}"
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
