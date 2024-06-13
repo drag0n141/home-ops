@@ -51,7 +51,11 @@ spec:
       app_service:
         enabled: yes
         apps:
+        - name: nas01
+          public_addr: nas01.${SECRET_DOMAIN_TELEPORT}
+          uri: http://unraid01.${SECRET_DOMAIN_AD}
+          insecure_skip_verify: true
         - name: pikvm
           public_addr: pikvm.${SECRET_DOMAIN_TELEPORT}
-          uri: http://192.168.254.10/
+          uri: http://pikvm.${SECRET_DOMAIN_INT}
           insecure_skip_verify: true
