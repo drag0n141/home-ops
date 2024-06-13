@@ -31,7 +31,7 @@ spec:
   targetNamespace: security
   dependsOn:
     - name: teleport
-  path: ./kubernetes/main/apps/security/agent/app
+  path: ./kubernetes/main/apps/security/teleport/agent
   prune: true
   sourceRef:
     kind: GitRepository
