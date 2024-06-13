@@ -41,6 +41,7 @@ spec:
         auth_service:
           client_idle_timeout: 2h
           client_idle_timeout_message: "Connection closed after 2hours without activity"
+          session_recording: "off"
     proxy:
       annotations:
         deployment:
