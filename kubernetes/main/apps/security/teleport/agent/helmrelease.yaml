@@ -45,8 +45,8 @@ spec:
       windows_desktop_service:
         enabled: yes
         static_hosts:
-        - name: dc01
-          addr: dc01.${SECRET_DOMAIN_AD}
+        - name: rdesktop
+          addr: rdesktop.default.svc.cluster.local
           ad: false
       app_service:
         enabled: yes
