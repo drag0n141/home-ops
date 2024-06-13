@@ -1,0 +1,18 @@
+kind: token
+version: v2
+metadata:
+  name: kubernetes-token
+  # set a long expiry time, the default for tokens is only 30 minutes
+  expires: "2050-01-01T00:00:00Z"
+spec:
+  # Use the minimal set of system roles required.
+  roles: [kube,app,discovery,node,windowsdesktop]
+
+  # set the join method allowed for this token
+  join_method: kubernetes
+
+  kubernetes:
+    type: in_cluster
+    allow:
+      # Service account names follow the format "namespace:serviceaccountname".
+      - service_account: "security:teleport-kube-agent"
