@@ -93,6 +93,19 @@
       "separateMinorPatch": true
     },
     {
+      "description": ["Talos Group"],
+      "groupName": "Talos",
+      "matchPackagePatterns": [
+        "siderolabs/talosctl",
+        "siderolabs/installer"
+      ],
+      "matchDatasources": ["docker"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": ["Volsync Group"],
       "groupName": "Volsync",
       "matchPackagePatterns": ["volsync"],
