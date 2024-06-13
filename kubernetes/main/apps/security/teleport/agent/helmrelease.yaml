@@ -51,6 +51,10 @@ spec:
       app_service:
         enabled: yes
         apps:
+        - name: checkmk
+          public_addr: checkmk.${SECRET_DOMAIN_TELEPORT}
+          uri: http://checkmk.${SECRET_DOMAIN_INT}/checkmk
+          insecure_skip_verify: true
         - name: nas01
           public_addr: nas01.${SECRET_DOMAIN_TELEPORT}
           uri: http://unraid01.${SECRET_DOMAIN_AD}:88
