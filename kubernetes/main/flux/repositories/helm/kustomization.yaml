@@ -34,4 +34,5 @@ resources:
   - ./spegel.yaml
   - ./stakater.yaml
   - ./stevehipwell.yaml
+  - ./teleport.yaml
   - ./traefik.yaml

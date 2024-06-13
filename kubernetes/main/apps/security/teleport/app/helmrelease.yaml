@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app teleport
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: teleport-cluster
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: teleport
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
+  values:
+    clusterName: teleport.${SECRET_DOMAIN}
+    chartMode: standalone
+    kubeClusterName: HomeOpsCluster
+    validateConfigOnDeploy: true
+    enterprise: false
+    auth:
+      teleportConfig:
+        auth_service:
+          client_idle_timeout: 2h
+          client_idle_timeout_message: "Connection closed after 2hours without activity"
+    podSecurityPolicy:
+      enabled: true
+    log:
+      level: INFO
+      output: stderr
+      format: text
+      extraFields: ["timestamp", "level", "component", "caller"]
+    ingress:
+      enabled: true
+      suppressAutomaticWildcards: false
+      spec:
+        ingressClassName: traefik-external
+    annotations:
+      ingress:
+        external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      service:
+        traefik.ingress.kubernetes.io/service.serversscheme: https
+    highAvailability:
+      tls:
+        existingSecretName: "${SECRET_DOMAIN/./-}-production-tls"
+    authentication:
+      type: local
+    proxyListenerMode: multiplex
+    persistence:
+      enabled: true
+      existingClaimName: teleport
+    serviceAccount:
+      create: true
+    rbac:
+      create: true
+    service:
+      type: ClusterIP
