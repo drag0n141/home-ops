@@ -33,13 +33,13 @@ spec:
     proxyAddr: teleport.${SECRET_DOMAIN}:443
     joinParams:
       method: kubernetes
-      tokenName: "kubernetes-token"
+      tokenName: kubernetes-token
     kubeClusterName: HomeOpsCluster
     teleportConfig:
       discovery_service:
         kubernetes:
         - types: ["app"]
-          namespaces: [ "default" ]
+          namespaces: ["default"]
           labels:
             teleport: enabled
       windows_desktop_service:
