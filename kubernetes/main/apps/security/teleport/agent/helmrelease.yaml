@@ -39,7 +39,7 @@ spec:
       discovery_service:
         kubernetes:
         - types: ["app"]
-          namespaces: ["default", "media"]
+          namespaces: ["*"]
           labels:
             teleport: enabled
       windows_desktop_service:
