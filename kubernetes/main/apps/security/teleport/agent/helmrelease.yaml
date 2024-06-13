@@ -45,13 +45,13 @@ spec:
       windows_desktop_service:
         enabled: yes
         static_hosts:
-        - name: DC01
+        - name: dc01
           addr: dc01.${SECRET_DOMAIN_AD}
           ad: false
       app_service:
         enabled: yes
         apps:
-        - name: PiKVM
+        - name: pikvm
           public_addr: pikvm.teleport.${SECRET_DOMAIN}
           uri: http://192.168.254.10/
           insecure_skip_verify: true
