@@ -36,6 +36,8 @@ spec:
       tokenName: kubernetes-token
     kubeClusterName: HomeOpsCluster
     teleportConfig:
+      jamf_service:
+        enabled: no
       discovery_service:
         kubernetes:
         - types: ["app"]
