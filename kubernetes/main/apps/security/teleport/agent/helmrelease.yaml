@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     log:
-      level: INFO
+      level: DEBUG
       output: stderr
       format: text
       extraFields: ["timestamp", "level", "component", "caller"]
@@ -36,8 +36,6 @@ spec:
       tokenName: kubernetes-token
     kubeClusterName: HomeOpsCluster
     teleportConfig:
-      jamf_service:
-        enabled: no
       discovery_service:
         kubernetes:
         - types: ["app"]
