@@ -32,6 +32,10 @@ spec:
           module: ["apcups"]
           target: usv01.${SECRET_DOMAIN_INT}
           auth: ["public_v1"]
+        - name: usv02
+          module: ["apcups"]
+          target: usv02.${SECRET_DOMAIN_INT}
+          auth: ["public_v1"]
       path: /snmp
       scrapeTimeout: 10s
       relabelings:
