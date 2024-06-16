@@ -94,10 +94,8 @@ tasks:
         ns: Namespace the PVC is in (default: default)
     cmds:
       - for: { var: app }
-        vars:
-          job: 'volsync-unlock-{{.ITEM}}'
         cmd: |
-          envsubst < <(cat {{.VOLSYNC_TEMPLATES_DIR}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
+          envsubst < <(cat {{.VOLSYNC_TEMPLATES_DIR}}/unlock-namespace.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
           bash {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh volsync-unlock-{{.ITEM}} {{.ns}} {{.cluster}}
           kubectl --context {{.cluster}} -n {{.ns}} wait job/volsync-unlock-{{.ITEM}} --for condition=complete --timeout=1m
           kubectl --context {{.cluster}} -n {{.ns}} logs job/volsync-unlock-{{.ITEM}} --container minio
