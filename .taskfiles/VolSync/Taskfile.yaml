@@ -98,7 +98,7 @@ tasks:
         sh: kubectl get --context {{.cluster}} -n {{.ns}} jobs | grep volsync | awk '{print $1}' | cut -d '-' -f3-
     cmds:
       - for: { var: app }
-        task: :volsync:unlock
+        task: unlock
         vars: *vars
     requires:
       vars: ["cluster"]
