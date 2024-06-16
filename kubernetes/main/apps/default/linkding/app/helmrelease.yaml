@@ -50,7 +50,6 @@ spec:
               LD_DISABLE_BACKGROUND_TASKS: false
               LD_DISABLE_URL_VALIDATION: false
               LD_DB_ENGINE: postgres
-              LD_FAVICON_PROVIDER: "https://t1.gstatic.com/faviconV2?url={url}&client=SOCIAL&type=FAVICON"
               LD_CSRF_TRUSTED_ORIGINS: "https://bookmarks.${SECRET_DOMAIN}"
             envFrom: *envFrom
             resources:
