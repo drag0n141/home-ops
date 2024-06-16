@@ -92,26 +92,14 @@ tasks:
       Args:
         cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
-    cmds:
-      - for: { var: job }
-        cmd: |
-          envsubst < <(cat {{.VOLSYNC_TEMPLATES_DIR}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
-          bash {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh {{.ITEM}} {{.ns}} {{.cluster}}
-          kubectl --context {{.cluster}} -n {{.ns}} wait job/{{.ITEM}} --for condition=complete --timeout=1m
-          kubectl --context {{.cluster}} -n {{.ns}} logs job/{{.ITEM}} --container minio
-          kubectl --context {{.cluster}} -n {{.ns}} logs job/{{.ITEM}} --container idrive
-          kubectl --context {{.cluster}} -n {{.ns}} delete job {{.ITEM}}
-    env: *env
-    requires:
-      vars: ["cluster"]
-    vars:
+    vars: &vars
       ns: '{{.ns | default "default"}}'
-      job:
-        sh: kubectl get --context {{.cluster}} -n {{.ns}} jobs | grep volsync | awk '{print $1}' | cut -d '-' -f3- | sed 's/^/volsync-unlock-/'
-    preconditions:
-      - test -f {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh
-      - test -f {{.VOLSYNC_TEMPLATES_DIR}}/unlock.tmpl.yaml
-    silent: true
+      app:
+        sh: kubectl get --context {{.cluster}} -n {{.ns}} jobs | grep volsync | awk '{print $1}' | cut -d '-' -f3-
+    cmds:
+      - for: { var: app }
+        task: :volsync:unlock
+        vars: *vars
 
   # To run backup jobs in parallel for all replicationsources:
   #   - kubectl get replicationsources --all-namespaces --no-headers | awk '{print $2, $1}' | xargs --max-procs=4 -l bash -c 'task volsync:snapshot app=$0 ns=$1'
