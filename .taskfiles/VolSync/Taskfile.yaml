@@ -92,7 +92,7 @@ tasks:
       Args:
         cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
-    vars: &vars
+    vars:
       ns: '{{.ns | default "default"}}'
       app:
         sh: kubectl get --context {{.cluster}} -n {{.ns}} jobs | grep volsync | awk '{print $1}' | cut -d '-' -f3-
