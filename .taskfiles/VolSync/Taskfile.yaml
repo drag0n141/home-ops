@@ -96,11 +96,11 @@ tasks:
       - envsubst < <(cat {{.VOLSYNC_TEMPLATES_DIR}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
       - for: { var: app }
         cmd: |
-          bash {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh volsync-unlock-{{.app}} {{.ns}} {{.cluster}}
-          kubectl --context {{.cluster}} -n {{.ns}} wait job/volsync-unlock-{{.app}} --for condition=complete --timeout=1m
-          kubectl --context {{.cluster}} -n {{.ns}} logs job/volsync-unlock-{{.app}} --container minio
-          kubectl --context {{.cluster}} -n {{.ns}} logs job/volsync-unlock-{{.app}} --container idrive
-          kubectl --context {{.cluster}} -n {{.ns}} delete job volsync-unlock-{{.app}}
+          bash {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh volsync-unlock-{{.ITEM}} {{.ns}} {{.cluster}}
+          kubectl --context {{.cluster}} -n {{.ns}} wait job/volsync-unlock-{{.ITEM}} --for condition=complete --timeout=1m
+          kubectl --context {{.cluster}} -n {{.ns}} logs job/volsync-unlock-{{.ITEM}} --container minio
+          kubectl --context {{.cluster}} -n {{.ns}} logs job/volsync-unlock-{{.ITEM}} --container idrive
+          kubectl --context {{.cluster}} -n {{.ns}} delete job volsync-unlock-{{.ITEM}}
     env: *env
     requires:
       vars: ["cluster"]
