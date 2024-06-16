@@ -1,0 +1,27 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "${ITEM}"
+  namespace: "${ns}"
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: OnFailure
+      containers:
+        - name: minio
+          image: docker.io/restic/restic:0.16.4
+          args: ["unlock", "--remove-all"]
+          envFrom:
+            - secretRef:
+                name: "${ITEM}-volsync-minio"
+          resources: {}
+        - name: idrive
+          image: docker.io/restic/restic:0.16.4
+          args: ["unlock", "--remove-all"]
+          envFrom:
+            - secretRef:
+                name: "${ITEM}-volsync-idrive"
+          resources: {}
