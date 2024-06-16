@@ -107,7 +107,7 @@ tasks:
     vars:
       ns: '{{.ns | default "default"}}'
       app:
-        sh: kubectl get --context {{.cluster}} -n {{.ns}} jobs | grep volsync | awk '{print $2}' | cut -d '-' -f3-
+        sh: kubectl get --context {{.cluster}} -n {{.ns}} jobs | grep volsync | awk '{print $1}' | cut -d '-' -f3-
     preconditions:
       - test -f {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh
       - test -f {{.VOLSYNC_TEMPLATES_DIR}}/unlock.tmpl.yaml
