@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/kms
-              tag: svn1113@sha256:e757398b3485d21c1f4a6d9a11bc7800f16f39cfa0af6cc2432bc1698b576283
+              tag: svn1113@sha256:885fdcfd89fca0d823b109d712f4f0b8dcf23a9b10e04121441b840d98182b78
             env:
               TZ: ${TIMEZONE}
             securityContext:
