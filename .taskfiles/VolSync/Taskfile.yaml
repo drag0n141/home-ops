@@ -99,7 +99,10 @@ tasks:
     cmds:
       - for: { var: app }
         task: unlock
-        vars: *vars
+        vars:
+          app: "{{.ITEM}}"
+          cluster: "{{.cluster}}"
+          ns: '{{.ns | default "default"}}'
     requires:
       vars: ["cluster"]
 
