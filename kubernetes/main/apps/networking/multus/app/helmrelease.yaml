@@ -31,7 +31,7 @@ spec:
     cni:
       image:
         repository: ghcr.io/drag0n141/cni-plugins
-        tag: 1.5.0@sha256:088ad62880bd91e46769dee0b61cfc3649580b468f0709d7416b1fb42839a665
+        tag: 1.5.1@sha256:062c9e3353465889d3df1772a69eca4a4bad350efb6684b3e75409fec96c5c6f
       paths:
         config: /etc/cni/net.d
         bin: /opt/cni/bin
