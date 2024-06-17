@@ -95,6 +95,10 @@ spec:
     service:
       app:
         controller: gatus
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port
