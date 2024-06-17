@@ -328,12 +328,6 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
-    service:
-      enabled: true
-      annotations:
-        teleport.dev/name: *app
-      labels:
-        teleport: enabled
     ingress:
       enabled: true
       ingressClassName: traefik-internal
