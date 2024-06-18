@@ -39,6 +39,7 @@ spec:
             command: ["/bin/bash", "/app/opnsense-backup.sh"]
             env:
               OPNSENSE_URL: "https://${SECRET_OPNSENSE_SERVER}"
+              S3_BUCKET: opnsense
               S3_URL: "https://minio.${SECRET_DOMAIN_INT}"
             envFrom:
               - secretRef:
