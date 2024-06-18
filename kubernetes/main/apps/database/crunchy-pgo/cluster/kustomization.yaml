@@ -5,4 +5,4 @@ resources:
   - ./cluster.yaml
   - ./externalsecret.yaml
   - ./gatus.yaml
-#  - ./pushsecret.yaml
+  - ./pushsecret.yaml
