@@ -7,5 +7,6 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./cloudnative-pg/ks.yaml
+  - ./crunchy-pgo/ks.yaml
   - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
