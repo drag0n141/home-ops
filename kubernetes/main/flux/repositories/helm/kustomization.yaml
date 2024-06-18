@@ -10,6 +10,8 @@ resources:
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
+  - ./crunchydata.yaml
+  - ./crunchy-userinit.yaml
   - ./democratic-csi.yaml
   - ./descheduler.yaml
   - ./emberstack.yaml
