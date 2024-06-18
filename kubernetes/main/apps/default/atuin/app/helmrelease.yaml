@@ -27,14 +27,6 @@ spec:
       atuin:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: atuin-secret
         containers:
           app:
             image:
@@ -50,7 +42,9 @@ spec:
               ATUIN_METRICS__HOST: 0.0.0.0
               ATUIN_METRICS__PORT: &metricsPort 8080
               ATUIN_TLS__ENABLE: "false"
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: atuin-db-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
