@@ -5,6 +5,10 @@ metadata:
   name: &name postgres
 spec:
   postgresVersion: 16
+  metadata:
+    labels:
+      crunchy-userinit.ramblurr.github.com/enabled: "true"
+      crunchy-userinit.ramblurr.github.com/superuser: "postgres"
   instances:
     - name: postgres
       metadata:
@@ -25,16 +29,29 @@ spec:
             matchLabels:
               postgres-operator.crunchydata.com/cluster: *name
               postgres-operator.crunchydata.com/data: postgres
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        synchronous_commit: "on"
+        pg_hba:
+          - hostssl all all all md5
   users:
     # Superuser
     - name: postgres
-      databases: []
+      databases: ["postgres"]
       options: SUPERUSER
       password: &password
         type: AlphaNumeric
     # Applications
     - name: atuin
-      databases: ["atuin"]
+      databases: ["atuin_db"]
+      password: *password
+    - name: authelia
+      databases: ["authelia_db"]
+      password: *password
+    - name: authentik
+      databases: ["authentik_db"]
       password: *password
   backups:
     pgbackrest:
@@ -99,9 +116,7 @@ spec:
       replicas: *replica
       config:
         global:
-          # Grafana requires session
-          # Ref: https://github.com/grafana/grafana/issues/74260
-          pool_mode: transaction
+          pool_mode: "transaction"
           client_tls_sslmode: prefer
       topologySpreadConstraints:
         - maxSkew: 1
