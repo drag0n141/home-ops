@@ -68,7 +68,7 @@ spec:
         compress-level: "9"
         delta: "y"
         repo1-bundle: "y"
-        repo1-block: "y"´
+        repo1-block: "y"
         repo1-retention-full-type: time
         repo1-retention-full: "14"
         repo1-retention-diff: "30"
