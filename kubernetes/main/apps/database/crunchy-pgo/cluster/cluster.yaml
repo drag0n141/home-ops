@@ -107,16 +107,19 @@ spec:
 #      repo:
 #        name: repo1
 #        s3: *minio
+  service:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: cpgo.${SECRET_DOMAIN_INTERNAL}
+        io.cilium/lb-ipam-ips: "${CPGO_LB_ADDR}"
   proxy:
     pgBouncer:
-      service:
-        metadata:
-          annotations:
-            external-dns.alpha.kubernetes.io/hostname: cpgo.${SECRET_DOMAIN_INTERNAL}
-            io.cilium/lb-ipam-ips: "${CPGO_LB_ADDR}"
-        type: LoadBalancer
       port: 5432
       replicas: *replica
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres-pgbouncer
       config:
         global:
           pool_mode: transaction
