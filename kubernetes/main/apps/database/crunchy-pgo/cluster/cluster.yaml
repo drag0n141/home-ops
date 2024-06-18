@@ -34,6 +34,8 @@ spec:
       synchronous_mode: true
       postgresql:
         synchronous_commit: "on"
+        parameters:
+          max_connections: 500
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
           - hostssl all all all md5
@@ -90,20 +92,20 @@ spec:
         - # Minio
           name: repo1
           s3: &minio
-            bucket: "crunchy-pgo"
-            endpoint: "minio.${SECRET_DOMAIN_INT}"
-            region: "us-east-1"
+            bucket: crunchy-pgo
+            endpoint: minio.${SECRET_DOMAIN_INT}
+            region: us-east-1
           schedules:
             full: "0 1 * * 0"           # Sunday at 1am
             differential: "0 1 * * 1-6" # Mon-Sat at 1am
             incremental: "0 2-23 * * *" # Every hour except 1am
   dataSource:
     pgbackrest:
-      stanza: "db"
+      stanza: db
       configuration: *backupConfig
       global: *backupFlag
       repo:
-        name: "repo1"
+        name: repo1
         s3: *minio
   proxy:
     pgBouncer:
@@ -117,8 +119,10 @@ spec:
       replicas: *replica
       config:
         global:
-          pool_mode: "transaction"
+          pool_mode: transaction
           client_tls_sslmode: prefer
+          default_pool_size: "100"
+          max_client_conn: "500"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
