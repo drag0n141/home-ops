@@ -8,7 +8,7 @@ metadata:
 data:
   config.yaml: |
     endpoints:
-      - name: postgres
+      - name: cpgo
         group: infrastructure
         url: tcp://postgres-pgbouncer.database.svc.cluster.local:5432
         interval: 1m
