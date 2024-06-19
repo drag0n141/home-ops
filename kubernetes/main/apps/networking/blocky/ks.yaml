@@ -7,9 +7,8 @@ metadata:
 spec:
   targetNamespace: networking
   dependsOn:
-    - name: external-secrets-stores
-    - name: cloudnative-pg-cluster
     - name: dragonfly-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/main/apps/networking/blocky/app
   prune: true
   sourceRef:

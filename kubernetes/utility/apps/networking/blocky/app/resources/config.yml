@@ -155,6 +155,9 @@ prometheus:
   enable: true
   path: /metrics
 
+queryLog:
+  type: console
+
 redis:
   required: false
   address: dragonfly.database.svc.cluster.local:6379
