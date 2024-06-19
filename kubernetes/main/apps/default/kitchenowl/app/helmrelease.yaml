@@ -32,14 +32,6 @@ spec:
       kitchenowl:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: kitchenowl-secret
         containers:
           app:
             image:
@@ -55,7 +47,11 @@ spec:
               SMTP_PORT: 2525
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_FROM: kitchenowl@${SECRET_DOMAIN}
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: kitchenowl-secret
+              - secretRef:
+                  name: kitchenowl-db-secret
             resources:
               requests:
                 cpu: 10m

@@ -27,14 +27,6 @@ spec:
       memos:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: memos-secret
         containers:
           app:
             image:
@@ -44,7 +36,9 @@ spec:
               TZ: ${TIMEZONE}
               MEMOS_DRIVER: postgres
               MEMOS_PORT: 5230
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: memos-db-secret
             resources:
               requests:
                 cpu: 5m

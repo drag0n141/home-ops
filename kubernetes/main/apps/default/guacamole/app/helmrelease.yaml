@@ -28,24 +28,19 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          01-init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: guacamole-secret
-          02-init-schema:
+          01-init-schema:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.5
-            envFrom: *envFrom
+            envFrom: &envFrom
+              - secretRef:
+                  name: guacamole-db-secret
             command:
               - "/bin/sh"
               - "-c"
             args:
               - /opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql
-          03-init-migrations:
+          02-init-migrations:
             image:
               repository: ghcr.io/drag0n141/postgres-init
               tag: 16
@@ -54,9 +49,9 @@ spec:
               - "/bin/bash"
               - "-c"
             args:
-              - export PGPASSWORD=$(INIT_POSTGRES_PASS);
-                psql -h $(INIT_POSTGRES_HOST) -d $(INIT_POSTGRES_DBNAME) -U $(INIT_POSTGRES_USER) -a -w -f /migrations/initdb.sql || true;
-          04-init-plugin:
+              - export PGPASSWORD=$(POSTGRESQL_PASSWORD);
+                psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;
+          03-init-plugin:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.5
@@ -112,9 +107,9 @@ spec:
         type: emptyDir
         advancedMounts:
           guacamole:
-            02-init-schema:
+            01-init-schema:
               - path: /migrations
-            03-init-migrations:
+            02-init-migrations:
               - path: /migrations
       plugins:
         type: emptyDir
@@ -122,5 +117,5 @@ spec:
           guacamole:
             app:
               - path: /guacamole
-            04-init-plugin:
+            03-init-plugin:
               - path: /guacamole
