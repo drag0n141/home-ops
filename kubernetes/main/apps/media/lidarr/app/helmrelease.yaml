@@ -32,14 +32,6 @@ spec:
       lidarr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: lidarr-secret
         containers:
           app:
             image:
@@ -53,7 +45,11 @@ spec:
               LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
               LIDARR__LOG__LEVEL: info
               LIDARR__SERVER__PORT: &port 8686
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: lidarr-secret
+              - secretRef:
+                  name: lidarr-db-secret
             probes:
               liveness: &probes
                 enabled: true

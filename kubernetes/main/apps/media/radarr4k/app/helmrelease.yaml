@@ -32,14 +32,6 @@ spec:
       radarr4k:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: radarr4k-secret
         containers:
           app:
             image:
@@ -54,7 +46,11 @@ spec:
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
               RADARR__SERVER__PORT: &port 7878
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: radarr4k-secret
+              - secretRef:
+                  name: radarr4k-db-secret
             probes:
               liveness: &probes
                 enabled: true

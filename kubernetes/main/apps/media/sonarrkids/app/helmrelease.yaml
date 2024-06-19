@@ -32,14 +32,6 @@ spec:
       sonarrkids:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: sonarrkids-secret
         containers:
           app:
             image:
@@ -54,7 +46,11 @@ spec:
               SONARR__LOG__DBENABLED: "False"
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 8989
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: sonarrkids-secret
+              - secretRef:
+                  name: sonarrkids-db-secret
             probes:
               liveness: &probes
                 enabled: true
