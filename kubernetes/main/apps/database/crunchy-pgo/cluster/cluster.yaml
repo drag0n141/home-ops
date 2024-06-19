@@ -125,9 +125,9 @@ spec:
     - name: ts3
       databases: ["ts3_db"]
       password: *password
-    - name: twofauth
-      databases: ["twofauth_db"]
-      password: *password
+#    - name: twofauth
+#      databases: ["twofauth_db"]
+#      password: *password
     - name: vaultwarden
       databases: ["vaultwarden_db"]
       password: *password
