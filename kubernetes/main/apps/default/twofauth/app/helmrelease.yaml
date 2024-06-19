@@ -94,6 +94,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: app-2fauth
+        existingClaim: twofauth
         globalMounts:
           - path: /2fauth

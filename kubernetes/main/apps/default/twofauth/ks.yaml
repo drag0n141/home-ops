@@ -20,6 +20,6 @@ spec:
   timeout: 5m
   postBuild:
     substitute:
-      APP: app-2fauth
+      APP: *app
       GATUS_SUBDOMAIN: 2fauth
       VOLSYNC_CAPACITY: 512Mi
