@@ -47,8 +47,8 @@ spec:
       password: &password
         type: AlphaNumeric
     # Applications
-    - name: app-2fauth
-      databases: ["app-2fauth_db"]
+    - name: app_2fauth
+      databases: ["app_2fauth_db"]
       password: *password
     - name: atuin
       databases: ["atuin_db"]
@@ -96,7 +96,7 @@ spec:
       databases: ["nextcloud_db"]
       password: *password
     - name: outline
-      databases: ["outline_db]
+      databases: ["outline_db"]
       password: *password
     - name: paperless
       databases: ["paperless_db"]
