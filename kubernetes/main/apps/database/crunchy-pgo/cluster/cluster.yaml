@@ -47,9 +47,6 @@ spec:
       password: &password
         type: AlphaNumeric
     # Applications
-    - name: app_2fauth
-      databases: ["app_2fauth_db"]
-      password: *password
     - name: atuin
       databases: ["atuin_db"]
       password: *password
@@ -130,6 +127,9 @@ spec:
       password: *password
     - name: ts3
       databases: ["ts3_db"]
+      password: *password
+    - name: twofauth
+      databases: ["twofauth_db"]
       password: *password
     - name: vaultwarden
       databases: ["vaultwarden_db"]
