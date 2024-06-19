@@ -47,8 +47,8 @@ spec:
       password: &password
         type: AlphaNumeric
     # Applications
-    - name: 2fauth
-      databases: ["2fauth_db"]
+    - name: app-2fauth
+      databases: ["app-2fauth_db"]
       password: *password
     - name: atuin
       databases: ["atuin_db"]
