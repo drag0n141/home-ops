@@ -32,14 +32,6 @@ spec:
       gotify:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: gotify-secret
         containers:
           app:
             image:
@@ -48,7 +40,11 @@ spec:
             env:
               TZ: ${TIMEZONE}
               GOTIFY_DATABASE_DIALECT: postgres
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: gotify-secret
+              - secretRef:
+                  name: gotify-db-secret
             resources:
               requests:
                 cpu: 5m

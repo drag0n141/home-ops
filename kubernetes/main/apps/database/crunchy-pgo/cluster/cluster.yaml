@@ -56,6 +56,9 @@ spec:
     - name: authentik
       databases: ["authentik_db"]
       password: *password
+    - name: gatus
+      databases: ["gatus_db"]
+      password: *password
     - name: gotify
       databases: ["gotify_db"]
       password: *password

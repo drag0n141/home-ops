@@ -29,9 +29,11 @@ spec:
         reloader.stakater.com/auto: "true"
       deploymentStrategy:
         type: RollingUpdate
-      envFrom: &envFrom
+      envFrom:
         - secretRef:
             name: authentik-secret
+        - secretRef:
+            name: authentik-db-secret
     authentik:
       log_level: info
       email:
@@ -42,13 +44,7 @@ spec:
       error_reporting:
         enabled: false
         send_pii: false
-      postgresql:
-        host: "postgres-rw.database.svc.cluster.local"
     server:
-      initContainers:
-        - name: init-db
-          image: ghcr.io/drag0n141/postgres-init:16
-          envFrom: *envFrom
       resources:
         requests:
           cpu: 50m
