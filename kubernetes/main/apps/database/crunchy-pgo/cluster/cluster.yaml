@@ -47,6 +47,9 @@ spec:
       password: &password
         type: AlphaNumeric
     # Applications
+    - name: 2fauth
+      databases: ["2fauth_db"]
+      password: *password
     - name: atuin
       databases: ["atuin_db"]
       password: *password
@@ -56,14 +59,44 @@ spec:
     - name: authentik
       databases: ["authentik_db"]
       password: *password
+    - name: blocky
+      databases: ["blocky_db"]
+      password: *password
+    - name: ferdium
+      databases: ["ferdium_db"]
+      password: *password
+    - name: freshrss
+      databases: ["freshrss_db"]
+      password: *password
     - name: gatus
       databases: ["gatus_db"]
       password: *password
     - name: gotify
       databases: ["gotify_db"]
       password: *password
+    - name: guacamole
+      databases: ["guacamole_db"]
+      password: *password
+    - name: kitchenowl
+      databases: ["kitchenowl_db"]
+      password: *password
     - name: lidarr
       databases: ["lidarr_main", "lidarr_log"]
+      password: *password
+    - name: linkding
+      databases: ["linkding_db"]
+      password: *password
+    - name: memos
+      databases: ["memos_db"]
+      password: *password
+    - name: netbox
+      databases: ["netbox_db"]
+      password: *password
+    - name: nextcloud
+      databases: ["nextcloud_db"]
+      password: *password
+    - name: outline
+      databases: ["outline_db]
       password: *password
     - name: paperless
       databases: ["paperless_db"]
@@ -80,6 +113,12 @@ spec:
     - name: readarr
       databases: ["readarr_cache", "readarr_main", "readarr_log"]
       password: *password
+    - name: recipes
+      databases: ["recipes_db"]
+      password: *password
+    - name: shlink
+      databases: ["shlink_db"]
+      password: *password
     - name: sonarr
       databases: ["sonarr_main"]
       password: *password
@@ -88,6 +127,21 @@ spec:
       password: *password
     - name: sonarrkids
       databases: ["sonarrkids_main"]
+      password: *password
+    - name: ts3
+      databases: ["ts3_db"]
+      password: *password
+    - name: vaultwarden
+      databases: ["vaultwarden_db"]
+      password: *password
+    - name: vikunja
+      databases: ["vikunja_db"]
+      password: *password
+    - name: wiki
+      databases: ["wiki_db"]
+      password: *password
+    - name: zipline
+      databases: ["zipline_db"]
       password: *password
   backups:
     pgbackrest:
