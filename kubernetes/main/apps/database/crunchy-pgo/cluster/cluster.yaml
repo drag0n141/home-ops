@@ -62,6 +62,33 @@ spec:
     - name: gotify
       databases: ["gotify_db"]
       password: *password
+    - name: lidarr
+      databases: ["lidarr_main", "lidarr_log"]
+      password: *password
+    - name: paperless
+      databases: ["paperless_db"]
+      password: *password
+    - name: prowlarr
+      databases: ["prowlarr_main"]
+      password: *password
+    - name: radarr
+      databases: ["radarr_main"]
+      password: *password
+    - name: radarr4k
+      databases: ["radarr4k_main"]
+      password: *password
+    - name: readarr
+      databases: ["readarr_cache", "readarr_main", "readarr_log"]
+      password: *password
+    - name: sonarr
+      databases: ["sonarr_main"]
+      password: *password
+    - name: sonarr4k
+      databases: ["sonarr4k_main"]
+      password: *password
+    - name: sonarrkids
+      databases: ["sonarrkids_main"]
+      password: *password
   backups:
     pgbackrest:
       configuration: &backupConfig
