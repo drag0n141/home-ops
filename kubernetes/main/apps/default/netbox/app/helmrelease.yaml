@@ -65,11 +65,11 @@ spec:
       existingSecretName: "netbox-secret"
       existingSecretKey: "REDIS_PASSWORD"
     externalDatabase:
-      host: postgres-rw.database.svc.cluster.local
+      host: postgres-pgbouncer.database.svc.cluster.local
       port: 5432
       database: netbox_db
       username: netbox
-      existingSecretName: "netbox-secret"
+      existingSecretName: "netbox-db-secret"
       existingSecretKey: "NETBOX_PG_PASS"
     email:
       server: smtp-relay.networking.svc.cluster.local
@@ -114,17 +114,11 @@ spec:
       image:
         repository: docker.io/library/busybox
         tag: 1.36.1
-    extraInitContainers:
-      - image: ghcr.io/drag0n141/postgres-init:16
-        name: init-db
-        securityContext:
-          runAsUser: 999
-        envFrom: &envFrom
-          - secretRef:
-              name: netbox-secret
     extraConfig:
       - secret:
           secretName: netbox-secret
+      - secret:
+          secretName: netbox-db-secret
     updateStrategy:
       type: RollingUpdate
     housekeeping:

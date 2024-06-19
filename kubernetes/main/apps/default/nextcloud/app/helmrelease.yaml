@@ -43,12 +43,6 @@ spec:
         runAsGroup: ${APP_GID}
         runAsNonRoot: true
         readOnlyRootFilesystem: false
-      extraInitContainers:
-        - name: init-db
-          image: ghcr.io/drag0n141/postgres-init:16
-          envFrom:
-            - secretRef: &envFrom
-                name: nextcloud-secret
       datadir: /var/www/data
       extraVolumes:
       - name: nfs-home
@@ -189,11 +183,11 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      host: postgres-rw.database.svc.cluster.local
+      host: postgres-pgbouncer.database.svc.cluster.local
       database: nextcloud_db
       existingSecret:
         enabled: true
-        secretName: *secret
+        secretName: nextcloud-db-secret
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
     livenessProbe:
