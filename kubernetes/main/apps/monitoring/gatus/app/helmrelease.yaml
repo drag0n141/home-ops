@@ -28,7 +28,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
           init-config:
-            dependsOn: init-db
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.27.4@sha256:f6ed71d0f9f1175df8c4b8c674b339a74785384d25fdad21b3c3dc0554109286
