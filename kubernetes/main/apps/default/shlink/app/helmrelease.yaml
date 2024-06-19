@@ -27,14 +27,6 @@ spec:
       shlink:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: shlink-secret
         containers:
           app:
             image:
@@ -50,7 +42,9 @@ spec:
               SHELL_VERBOSITY: 3
               TASK_WORKER_NUM: 4
               WEB_WORKER_NUM: 1
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: shlink-db-secret
             probes:
               liveness: &probes
                 enabled: true
