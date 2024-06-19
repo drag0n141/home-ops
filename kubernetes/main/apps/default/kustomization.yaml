@@ -6,7 +6,6 @@ resources:
   - ./namespace.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./app-2fauth/ks.yaml
   - ./atuin/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
@@ -39,6 +38,7 @@ resources:
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./ts3/ks.yaml
+  - ./twofauth/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./vikunja/ks.yaml
   - ./wiki/ks.yaml
