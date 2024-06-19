@@ -32,14 +32,6 @@ spec:
       readarr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: readarr-secret
         containers:
           app:
             image:
@@ -53,7 +45,11 @@ spec:
               READARR__AUTH__REQUIRED: DisabledForLocalAddresses
               READARR__LOG__LEVEL: info
               READARR__SERVER__PORT: &port 8787
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: readarr-secret
+              - secretRef:
+                  name: readarr-db-secret
             probes:
               liveness: &probes
                 enabled: true
