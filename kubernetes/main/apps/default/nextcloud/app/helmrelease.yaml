@@ -33,7 +33,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/nextcloud
-      tag: 29.0.1-fpm-alpine
+      tag: 29.0.2-fpm-alpine
     nginx:
       enabled: true
     nextcloud:
