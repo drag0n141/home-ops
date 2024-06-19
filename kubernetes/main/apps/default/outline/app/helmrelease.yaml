@@ -30,14 +30,6 @@ spec:
       outline:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: outline-secret
         containers:
           app:
             image:
@@ -68,7 +60,11 @@ spec:
               SMTP_FROM_EMAIL: "outline@${SECRET_DOMAIN}"
               SMTP_SECURE: false
               WEB_CONCURRENCY: 10
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: outline-secret
+              - secretRef:
+                  name: outline-db-secret
             command: ["/bin/sh", "-c", "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled"]
             resources:
               requests:

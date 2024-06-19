@@ -32,14 +32,6 @@ spec:
       ts3:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: ts3-secret
         containers:
           app:
             image:
@@ -51,7 +43,9 @@ spec:
               TS3SERVER_DB_SQLCREATEPATH: create_postgresql
               TS3SERVER_DB_WAITUNTILREADY: 30
               TS3SERVER_LICENSE: accept
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: ts3-db-secret
             resources:
               requests:
                 cpu: 5m
