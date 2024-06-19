@@ -32,14 +32,6 @@ spec:
       vikunja:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: vikunja-secret
         containers:
           main:
             image:
@@ -65,7 +57,11 @@ spec:
               VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: "true"
               VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
               VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: "true"
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: vikunja-secret
+              - secretRef:
+                  name: vikunja-db-secret
             resources:
               requests:
                 cpu: 5m
