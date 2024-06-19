@@ -183,14 +183,14 @@ spec:
             full: "0 1 * * 0"           # Sunday at 1am
             differential: "0 1 * * 1-6" # Mon-Sat at 1am
             incremental: "0 2-23 * * *" # Every hour except 1am
-#  dataSource:
-#    pgbackrest:
-#      stanza: db
-#      configuration: *backupConfig
-#      global: *backupFlag
-#      repo:
-#        name: repo1
-#        s3: *minio
+  dataSource:
+    pgbackrest:
+      stanza: db
+      configuration: *backupConfig
+      global: *backupFlag
+      repo:
+        name: repo1
+        s3: *minio
   service:
     type: LoadBalancer
     metadata:
