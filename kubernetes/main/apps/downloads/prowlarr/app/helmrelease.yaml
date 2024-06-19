@@ -44,6 +44,8 @@ spec:
             envFrom:
               - secretRef:
                   name: prowlarr-secret
+              - secretRef:
+                  name: prowlarr-db-secret
             probes:
               liveness: &probes
                 enabled: true

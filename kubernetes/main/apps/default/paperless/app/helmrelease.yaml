@@ -32,14 +32,6 @@ spec:
       paperless:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: paperless-secret
         containers:
           app:
             image:
@@ -66,7 +58,11 @@ spec:
               PAPERLESS_OCR_SKIP_ARCHIVE_FILE: with_text
               PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
               PAPERLESS_TIKA_ENABLED: "0"
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: paperless-secret
+              - secretRef:
+                  name: paperless-db-secret
             resources:
               requests:
                 cpu: 10m
