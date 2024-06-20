@@ -28,16 +28,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         strategy: RollingUpdate
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: immich-secret
-              - configMapRef:
-                  name: immich-configmap
         containers:
           app:
             image:
@@ -46,7 +36,13 @@ spec:
             env:
               TZ: ${TIMEZONE}
               IMMICH_WORKERS_INCLUDE: api
-            envFrom: *envFrom
+            envFrom:
+              - configMapRef:
+                  name: immich-configmap
+              - secretRef:
+                  name: immich-secret
+              - secretRef:
+                  name: immich-db-secret
             probes:
               liveness: &probes
                 enabled: true

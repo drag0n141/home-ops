@@ -39,10 +39,12 @@ spec:
               TZ: ${TIMEZONE}
               IMMICH_WORKERS_EXCLUDE: api
             envFrom:
-              - secretRef:
-                  name: immich-secret
               - configMapRef:
                   name: immich-configmap
+              - secretRef:
+                  name: immich-secret
+              - secretRef:
+                  name: immich-db-secret
             resources:
               requests:
                 cpu: 10m
