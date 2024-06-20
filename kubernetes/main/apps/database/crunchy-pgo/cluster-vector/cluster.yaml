@@ -60,7 +60,7 @@ spec:
     pgbackrest:
       configuration: &backupConfig
         - secret:
-            name: crunchy-vector-pgo-secret
+            name: crunchy-pgo-vector-secret
       global: &backupFlag
         archive-timeout: "60"
         archive-push-queue-max: 4GiB
