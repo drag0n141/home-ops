@@ -155,14 +155,14 @@ spec:
         repo1-retention-diff: "30"
         repo1-path: "/crunchy-pgo"
         repo1-s3-uri-style: path
-        repo2-bundle: "y"
-        repo2-block: "y"
-        repo2-path: "/crunchy-pgo"
-        repo2-s3-uri-style: "path"
-        repo2-retention-full-type: "time"
-        repo2-retention-full: "7"
-        repo2-retention-diff: "14"
-        repo2-cipher-type: "aes-256-cbc"
+#        repo2-bundle: "y"
+#        repo2-block: "y"
+#        repo2-path: "/crunchy-pgo"
+#        repo2-s3-uri-style: "path"
+#        repo2-retention-full-type: "time"
+#        repo2-retention-full: "7"
+#        repo2-retention-diff: "14"
+#        repo2-cipher-type: "aes-256-cbc"
       manual:
         repoName: repo1
         options: ["--type=full"]
@@ -180,15 +180,15 @@ spec:
             full: "0 1 * * 0"           # Sunday at 1am
             differential: "0 1 * * 1-6" # Mon-Sat at 1am
             incremental: "0 3-23 * * *" # Every hour except 1-2am
-        - # iDrive E2
-          name: repo2
-          s3: &idrive
-            bucket: crunchy-pgo
-            endpoint: l6x1.fra.idrivee2-5.com
-            region: us-east-1
-          schedules:
-            full: "0 2 * * 0"           # Sunday at 2am
-            differential: "0 2 * * 1-6" # Mon-Sat at 2am
+#        - # iDrive E2
+#          name: repo2
+#          s3: &idrive
+#            bucket: crunchy-pgo
+#            endpoint: l6x1.fra.idrivee2-5.com
+#            region: us-east-1
+#          schedules:
+#            full: "0 2 * * 0"           # Sunday at 2am
+#            differential: "0 2 * * 1-6" # Mon-Sat at 2am
   dataSource:
     pgbackrest:
       stanza: db
