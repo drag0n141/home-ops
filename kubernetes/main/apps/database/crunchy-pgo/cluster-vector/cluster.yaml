@@ -40,7 +40,7 @@ spec:
         synchronous_commit: "on"
         parameters:
           max_connections: 500
-          shared_preload_libraries: vector
+          shared_preload_libraries: "vectors.so"
           search_path: '"$user", public, vectors"'
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
