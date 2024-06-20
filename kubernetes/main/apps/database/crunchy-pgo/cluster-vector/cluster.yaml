@@ -5,7 +5,7 @@ metadata:
   name: &name postgres-vector
 spec:
   postgresVersion: 16
-  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:f77474de541cb0a3966c92f19e1de243e4a84bb5c53a91deffe98f371104e1d4
+  image: hcr.io/budimanjojo/cdpgvecto.rs:16-v0.2.1@sha256:f77474de541cb0a3966c92f19e1de243e4a84bb5c53a91deffe98f371104e1d4
   metadata:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
