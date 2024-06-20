@@ -5,10 +5,14 @@ metadata:
   name: &name postgres-vector
 spec:
   postgresVersion: 16
+  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:f77474de541cb0a3966c92f19e1de243e4a84bb5c53a91deffe98f371104e1d4
   metadata:
     labels:
       crunchy-userinit.ramblurr.github.com/enabled: "true"
       crunchy-userinit.ramblurr.github.com/superuser: "postgres"
+  databaseInitSQL:
+    name: postgres-vector-init
+    key: immich_db-init.sql
   instances:
     - name: postgres-vector
       metadata:
@@ -37,6 +41,7 @@ spec:
         parameters:
           max_connections: 500
           shared_preload_libraries: vector
+          search_path: '"$user", public, vectors"'
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
           - hostssl all all all md5
@@ -50,7 +55,6 @@ spec:
     # Applications
     - name: immich
       databases: ["immich_db"]
-      options: SUPERUSER
       password: *password
   backups:
     pgbackrest:
