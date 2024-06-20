@@ -98,7 +98,7 @@ spec:
           schedules:
             full: "0 1 * * 0"           # Sunday at 1am
             differential: "0 1 * * 1-6" # Mon-Sat at 1am
-            incremental: "0 2-23 * * *" # Every hour except 1am
+            incremental: "0 3-23 * * *" # Every hour except 1-2am
         - # iDrive E2
           name: repo2
           s3: &idrive
@@ -106,9 +106,8 @@ spec:
             endpoint: l6x1.fra.idrivee2-5.com
             region: us-east-1
           schedules:
-            full: "0 1 * * 0"           # Sunday at 1am
-            differential: "0 1 * * 1-6" # Mon-Sat at 1am
-            incremental: "0 2-23 * * *" # Every hour except 1am
+            full: "0 2 * * 0"           # Sunday at 2am
+            differential: "0 2 * * 1-6" # Mon-Sat at 2am
 #  dataSource:
 #    pgbackrest:
 #      stanza: db
