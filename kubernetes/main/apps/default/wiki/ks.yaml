@@ -7,7 +7,7 @@ metadata:
 spec:
   targetNamespace: default
   dependsOn:
-    - name: cloudnative-pg-cluster
+    - name: crunchy-pgo-cluster
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/wiki/app
   prune: true
