@@ -1,0 +1,142 @@
+---
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: &name postgres-vector
+spec:
+  postgresVersion: 16
+  metadata:
+    labels:
+      crunchy-userinit.ramblurr.github.com/enabled: "true"
+      crunchy-userinit.ramblurr.github.com/superuser: "postgres"
+  instances:
+    - name: postgres-vector
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres-vector
+      replicas: &replica 3
+      dataVolumeClaimSpec:
+        storageClassName: openebs-hostpath
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
+              postgres-operator.crunchydata.com/data: postgres-vector
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        synchronous_commit: "on"
+        parameters:
+          max_connections: 500
+          shared_preload_libraries: vector
+        pg_hba:
+          - hostnossl all all 10.42.0.0/16 md5
+          - hostssl all all all md5
+  users:
+    # Superuser
+    - name: postgres
+      databases: ["postgres"]
+      options: SUPERUSER
+      password: &password
+        type: AlphaNumeric
+    # Applications
+    - name: immich
+      databases: ["immich_db"]
+      options: SUPERUSER
+      password: *password
+  backups:
+    pgbackrest:
+      configuration: &backupConfig
+        - secret:
+            name: crunchy-vector-pgo-secret
+      global: &backupFlag
+        archive-timeout: "60"
+        archive-push-queue-max: 4GiB
+        compress-type: lz4
+        compress-level: "9"
+        delta: "y"
+        repo1-bundle: "y"
+        repo1-block: "y"
+        repo1-retention-full-type: time
+        repo1-retention-full: "14"
+        repo1-retention-diff: "30"
+        repo1-path: "/crunchy-pgo-vector"
+        repo1-s3-uri-style: path
+        repo2-bundle: "y"
+        repo2-block: "y"
+        repo2-path: "/crunchy-pgo-vector"
+        repo2-s3-uri-style: "path"
+        repo2-retention-full-type: "time"
+        repo2-retention-full: "7"
+        repo2-retention-diff: "14"
+        repo2-cipher-type: "aes-256-cbc"
+      manual:
+        repoName: repo1
+        options: ["--type=full"]
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres-vector-backup
+      repos:
+        - # Minio
+          name: repo1
+          s3: &minio
+            bucket: crunchy-pgo
+            endpoint: minio.${SECRET_DOMAIN_INT}
+            region: us-east-1
+          schedules:
+            full: "0 1 * * 0"           # Sunday at 1am
+            differential: "0 1 * * 1-6" # Mon-Sat at 1am
+            incremental: "0 2-23 * * *" # Every hour except 1am
+        - # iDrive E2
+          name: repo2
+          s3: &idrive
+            bucket: crunchy-pgo
+            endpoint: l6x1.fra.idrivee2-5.com
+            region: us-east-1
+          schedules:
+            full: "0 1 * * 0"           # Sunday at 1am
+            differential: "0 1 * * 1-6" # Mon-Sat at 1am
+            incremental: "0 2-23 * * *" # Every hour except 1am
+#  dataSource:
+#    pgbackrest:
+#      stanza: db
+#      configuration: *backupConfig
+#      global: *backupFlag
+#      repo:
+#        name: repo1
+#        s3: *minio
+  service:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: cpgo-vector.${SECRET_DOMAIN_INTERNAL}
+        io.cilium/lb-ipam-ips: "${CPGO_VECTOR_LB_ADDR}"
+  proxy:
+    pgBouncer:
+      port: 5432
+      replicas: *replica
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres-vector-pgbouncer
+      config:
+        global:
+          pool_mode: transaction
+          client_tls_sslmode: prefer
+          default_pool_size: "100"
+          max_client_conn: "500"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
+              postgres-operator.crunchydata.com/role: pgbouncer-vector
