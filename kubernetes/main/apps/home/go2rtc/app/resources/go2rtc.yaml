@@ -1,0 +1,16 @@
+---
+api:
+  listen: :80
+rtsp:
+  listen: :554
+webrtc:
+  listen: :8555
+  candidates:
+    - 192.168.222.91:8555
+    - stun:8555
+  ice_servers:
+    - urls:
+       - stun:stun.cloudflare.com:3478
+streams:
+  bedroom:
+    - rtsp://{{ .REOLINK_USERNAME }}:{{ .REOLINK_PASSWORD }}@192.168.160.10/h264Preview_01_main

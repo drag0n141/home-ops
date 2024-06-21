@@ -1,0 +1,117 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app go2rtc
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      go2rtc:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/alexxit/go2rtc
+              tag: 1.9.4@sha256:61b8f04efe0f9025739ce0e5e5a5e0748b64c1e4bdb5ae707e9d0966150175e7
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-cam",
+                "namespace": "networking",
+                "ips": ["192.168.160.5/24"],
+                "mac": "b2:74:6d:9f:74:90"
+              }]
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+    service:
+      app:
+        controller: go2rtc
+        primary: true
+        ports:
+          http:
+            port: *port
+      go2rtc:
+        controller: go2rtc
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "go2rtc-streams.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${GO2RTC_LB_ADDR}"
+        externalTrafficPolicy: Cluster
+        ports:
+          rtsp:
+            port: 554
+          webrtc-tcp:
+            port: 8555
+            protocol: TCP
+          webrtc-udp:
+            port: 8555
+            protocol: UDP
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "go2rtc.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        type: secret
+        name: go2rtc-secret
+        globalMounts:
+          - path: /config/go2rtc.yaml
+            subPath: go2rtc.yaml
+            readOnly: true
