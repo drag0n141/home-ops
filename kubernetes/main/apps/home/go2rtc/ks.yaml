@@ -5,7 +5,7 @@ metadata:
   name: &app go2rtc
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
