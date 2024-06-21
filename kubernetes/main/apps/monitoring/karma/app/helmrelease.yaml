@@ -26,8 +26,6 @@ spec:
   values:
     controllers:
       karma:
-        replicas: 2
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
