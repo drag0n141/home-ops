@@ -16,7 +16,7 @@ on:
         description: Helm Repository Name
         required: true
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 jobs:
