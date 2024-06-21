@@ -13,6 +13,4 @@ webrtc:
        - stun:stun.cloudflare.com:3478
 streams:
   bedroom:
-    - rtsp://{{ .REOLINK_USERNAME }}:{{ .REOLINK_PASSWORD }}@192.168.160.10/h264Preview_01_main
-  bedroom-test:
     - http://192.168.160.10/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={{ .REOLINK_USERNAME }}&password={{ .REOLINK_PASSWORD }}
