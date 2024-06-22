@@ -19,21 +19,21 @@ jobs:
       matrix: ${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           fetch-depth: 0
 
       - name: Get Changed Clusters
         id: changed-clusters
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@eaf854ef0c266753e1abec356dcf17d92695b251 # v44
         with:
           files: kubernetes/**
           dir_names: true
@@ -58,7 +58,7 @@ jobs:
       matrix: ${{ steps.extract-images.outputs.images }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
@@ -72,14 +72,14 @@ jobs:
         run: brew install jo yq
 
       - name: Checkout Default Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
       - name: Checkout Pull Request Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           path: pull

@@ -25,14 +25,14 @@ jobs:
     runs-on: ["gha-runner-scale-set"]
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           fetch-depth: 0
@@ -46,7 +46,7 @@ jobs:
 
       - name: Write kubeconfig
         id: kubeconfig
-        uses: timheuer/base64-to-file@v1
+        uses: timheuer/base64-to-file@adaa40c0c581f276132199d4cf60afa07ce60eac # v1
         with:
           encodedString: "${{ secrets.KUBECONFIG }}"
           fileName: kubeconfig
@@ -54,7 +54,7 @@ jobs:
       - if: ${{ github.event.inputs.clusterName == '' && github.event.inputs.helmRepoNamespace == '' && github.event.inputs.helmRepoName == '' }}
         name: Get Changed Files
         id: changed-files
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@eaf854ef0c266753e1abec356dcf17d92695b251 # v44
         with:
           files: kubernetes/**/helmrelease.yaml
           safe_output: false
