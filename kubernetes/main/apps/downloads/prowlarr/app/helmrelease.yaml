@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/prowlarr
-              tag: 1.18.0.4543@sha256:76e271915f671700a508b85e6d8d8077d74cf8c038dc851654565f139dbf9261
+              tag: 1.19.0.4568@sha256:ebe931bad87f2f733ab39088932f7c5190a5d83a1377a00e386b2cb7e1ae08ab
             env:
               TZ: ${TIMEZONE}
               PROWLARR__APP__INSTANCENAME: Prowlarr
