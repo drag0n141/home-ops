@@ -59,9 +59,6 @@ spec:
     - name: ferdium
       databases: ["ferdium_db"]
       password: *password
-    - name: freshrss
-      databases: ["freshrss_db"]
-      password: *password
     - name: gatus
       databases: ["gatus_db"]
       password: *password

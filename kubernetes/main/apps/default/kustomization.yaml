@@ -9,7 +9,6 @@ resources:
   - ./atuin/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
-  - ./freshrss/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./immich/ks.yaml
