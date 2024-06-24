@@ -83,6 +83,9 @@ spec:
     - name: memos
       databases: ["memos_db"]
       password: *password
+    - name: miniflux
+      databases: ["miniflux_db"]
+      password: *password
     - name: netbox
       databases: ["netbox_db"]
       password: *password

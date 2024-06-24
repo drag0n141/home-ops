@@ -22,6 +22,7 @@ resources:
   - ./mailrise/ks.yaml
   - ./memos/ks.yaml
   - ./mind/ks.yaml
+  - ./miniflux/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
   - ./netbox/ks.yaml
   - ./nextcloud/ks.yaml
