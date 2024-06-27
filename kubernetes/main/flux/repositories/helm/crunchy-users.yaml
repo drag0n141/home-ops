@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: crunchy-userinit
+  name: crunchy-user
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://ramblurr.github.io/crunchy-userinit-controller
+  url: oci://ghcr.io/henrywhitaker3/crunchy-users-helm
