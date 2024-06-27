@@ -7,4 +7,4 @@ metadata:
 spec:
   type: oci
   interval: 1h
-  url: oci://ghcr.io/henrywhitaker3/crunchy-users-helm
+  url: oci://ghcr.io/henrywhitaker3
