@@ -7,7 +7,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: crunchy-users
+      chart: crunchy-users-helm
       version: 1.0.5
       sourceRef:
         kind: HelmRepository
