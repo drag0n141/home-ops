@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     controllers:
-      opnsense:
+      crunchy-backup:
         type: cronjob
         cronjob:
           schedule: "@daily"
@@ -72,6 +72,9 @@ spec:
       nas:
         type: nfs
         server: ${SECRET_NFS_SERVER}
-        path: /mnt/user/Backup/database/postgresql
-        globalMounts:
-          - path: /backups
+        path: /mnt/user/Backup
+        advancedMounts:
+          crunchy-backup:
+            app:
+              - subPath: "database/postgresql"
+                path: "/backups"
