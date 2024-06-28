@@ -1,11 +1,15 @@
-domain = "kanidm.${SECRET_DOMAIN_INTERNAL}"
-origin = "https://kanidm.${SECRET_DOMAIN_INTERNAL}"
-tls_chain = "/tls/fullchain.pem"
-tls_key = "/tls/privkey.pem"
-role = "WriteReplica"
-log_level = "info"
+# Bind
 bindaddress = "[::]:8443"
+# LDAP Bind
 ldapbindaddress = "[::]:3636"
+
+# Traefik
 trust_x_forward_for = true
 db_path = "/data/kanidm.db"
-db_fs_type = "other"
+tls_chain = "/tls/fullchain.pem"
+tls_key = "/tls/privkey.pem"
+
+# Common
+log_level = "info"
+domain = "kanidm.${SECRET_DOMAIN_INTERNAL}"
+origin = "https://kanidm.${SECRET_DOMAIN_INTERNAL}"
