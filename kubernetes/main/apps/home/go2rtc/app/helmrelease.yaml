@@ -70,14 +70,18 @@ spec:
     service:
       app:
         controller: go2rtc
+        primary: true
+        ports:
+          http:
+            port: *port
+      go2rtc-service:
+        controller: go2rtc
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "go2rtc-streams.${SECRET_DOMAIN_INTERNAL}"
           io.cilium/lb-ipam-ips: "${GO2RTC_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
-          http:
-            port: *port
           rtsp:
             port: 554
           webrtc-tcp:
