@@ -51,7 +51,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               POSTGRES_DB_FILE: /config/db_list
-              POSTGRES_EXTRA_OPTS: -Z9 --schema=public --blobs
+              POSTGRES_EXTRA_OPTS: "--blobs --clean --create --compress=9"
               BACKUP_DIR: /backups/database/postgresql
               BACKUP_KEEP_DAYS: "7"
               BACKUP_KEEP_WEEKS: "4"
