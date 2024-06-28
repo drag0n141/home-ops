@@ -52,6 +52,7 @@ spec:
               TZ: ${TIMEZONE}
               POSTGRES_DB_FILE: /config/db_list
               POSTGRES_EXTRA_OPTS: -Z9 --schema=public --blobs
+              BACKUP_DIR: /backups/database/postgresql
               BACKUP_KEEP_DAYS: "7"
               BACKUP_KEEP_WEEKS: "4"
               BACKUP_KEEP_MONTHS: "6"
@@ -73,8 +74,5 @@ spec:
         type: nfs
         server: ${SECRET_NFS_SERVER}
         path: /mnt/user/Backup
-        advancedMounts:
-          crunchy-backup:
-            app:
-              - subPath: "database/postgresql"
-                path: "/backups"
+        globalMounts:
+          - path: /backups
