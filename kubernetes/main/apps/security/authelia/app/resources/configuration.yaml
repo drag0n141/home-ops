@@ -86,10 +86,6 @@ access_control:
     - domain: ["nextcloud.${SECRET_DOMAIN}"]
       policy: one_factor
       subject: ["group:Nextcloud"]
-    # Two Factor Login
-    - domain: ["portainer.${SECRET_DOMAIN_INTERNAL}", "2fauth.${SECRET_DOMAIN_INTERNAL}", "guacamole.${SECRET_DOMAIN}"]
-      policy: two_factor
-      subject: ["group:Authelia"]
     # Bitwarden Admin Login
     - domain: ["bitwarden.${SECRET_DOMAIN}"]
       policy: two_factor
@@ -123,15 +119,6 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://grafana.${SECRET_DOMAIN_INTERNAL}/login/generic_oauth"]
-        userinfo_signed_response_alg: none
-      - client_id: portainer
-        client_name: Portainer
-        client_secret: "{{ .PORTAINER_OAUTH_CLIENT_SECRET }}"
-        public: false
-        authorization_policy: two_factor
-        pre_configured_consent_duration: 1y
-        scopes: ["openid", "profile", "groups", "email"]
-        redirect_uris: ["https://portainer.${SECRET_DOMAIN_INTERNAL}/"]
         userinfo_signed_response_alg: none
       - client_id: miniflux
         client_name: Miniflux
