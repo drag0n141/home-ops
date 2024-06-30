@@ -5,7 +5,7 @@ metadata:
   name: &app agones
   namespace: flux-system
 spec:
-  targetNamespace: home
+  targetNamespace: games
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
