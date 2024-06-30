@@ -2,7 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./agones.yaml
   - ./angelnu.yaml
   - ./authentik.yaml
   - ./backube.yaml
@@ -22,6 +21,7 @@ resources:
   - ./fairwinds.yaml
   - ./grafana.yaml
   - ./intel.yaml
+  - ./itzg.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./k8tz.yaml
@@ -34,7 +34,6 @@ resources:
   - ./postfinance.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
-  - ./shulker.yaml
   - ./spegel.yaml
   - ./stakater.yaml
   - ./stevehipwell.yaml

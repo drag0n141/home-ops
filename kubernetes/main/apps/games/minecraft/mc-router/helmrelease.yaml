@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mc-router
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: mc-router
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: itzg
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    services:
+      minecraft:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "mc-router.${SECRET_DOMAIN_INTERNAL}"
+          io.cilium/lb-ipam-ips: "${MINECRAFT_LB_ADDR}"
