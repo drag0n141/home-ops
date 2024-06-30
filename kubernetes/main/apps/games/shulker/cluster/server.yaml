@@ -15,7 +15,7 @@ spec:
         - minecraft-server
       version:
         channel: Paper
-        name: "1.20.6"
+        name: "1.21"
       config:
         serverProperties:
           difficulty: "easy"
