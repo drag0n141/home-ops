@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/readarr-develop
-              tag: 0.3.28.2554@sha256:6a8baf640394a19f324cb921a663d7c66f196328cc9083384cc631e11e49db27
+              tag: 0.3.29.2565@sha256:831f0e13b4704c18b9d7f5555701ca633245c2ca138a13573164e1c078db1738
             env:
               TZ: ${TIMEZONE}
               READARR__APP__INSTANCENAME: Readarr
