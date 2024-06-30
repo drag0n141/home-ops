@@ -1,0 +1,34 @@
+---
+apiVersion: shulkermc.io/v1alpha1
+kind: MinecraftServerFleet
+metadata:
+  name: minecraft-server
+spec:
+  clusterRef:
+    name: minecraft-cluster
+  replicas: 1
+  template:
+    spec:
+      clusterRef:
+        name: minecraft-cluster
+      tags:
+        - minecraft-server
+      version:
+        channel: Paper
+        name: "1.21"
+      config:
+        serverProperties:
+          difficulty: "easy"
+          gamemode: "survival"
+          max-players: "8"
+          white-list: "true"
+      podOverrides:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 2000Mi
+          limits:
+            memory: 4000Mi
+        env:
+          - name: JVM_XX_OPTS
+            value: "-XX:MaxRAMPercentage=75"

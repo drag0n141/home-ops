@@ -1,0 +1,12 @@
+---
+apiVersion: shulkermc.io/v1alpha1
+kind: MinecraftCluster
+metadata:
+  name: minecraft-cluster
+spec:
+  redis:
+    provided:
+      host: dragonfly.database.svc.cluster.local
+      credentialsSecretName: shulker-secret
+      port: 6379
+    type: Provided

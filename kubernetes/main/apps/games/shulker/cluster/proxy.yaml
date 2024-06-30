@@ -1,0 +1,24 @@
+---
+apiVersion: shulkermc.io/v1alpha1
+kind: ProxyFleet
+metadata:
+  name: minecraft-proxy
+spec:
+  clusterRef:
+    name: minecraft-cluster
+  replicas: 1
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: "minecraft.${SECRET_DOMAIN_INTERNAL}"
+      io.cilium/lb-ipam-ips: "${MINECRAFT_LB_ADDR}"
+      service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
+      service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
+  template:
+    spec:
+      version:
+        channel: Velocity
+        name: latest
+      config:
+        proxyProtocol: true
