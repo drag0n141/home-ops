@@ -15,7 +15,7 @@ spec:
         - lobby
       version:
         channel: Paper
-        name: "1.21"
+        name: "1.20.6"
       config:
         serverProperties:
           white-list: "true"
