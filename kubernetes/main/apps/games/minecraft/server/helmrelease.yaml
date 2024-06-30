@@ -40,7 +40,8 @@ spec:
         memory: 8Gi
     extraEnv:
       TZ: ${TIMEZONE}
-      ENABLE_AUTOPAUSE: TRUE # Doesn't work in Kubes
+      ENABLE_AUTOPAUSE: FALSE
+      PAPER_CHANNEL: experimental
     persistence:
       dataDir:
         enabled: true
@@ -52,8 +53,9 @@ spec:
     minecraftServer:
       eula: true
       version: "1.21"
-      type: SPIGOT
+      type: PAPER
       overrideServerProperties: true
+      icon: https://www.freeiconspng.com/uploads/minecraft-server-icon-23.png
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       memory: 8192M
       difficulty: normal
@@ -63,6 +65,7 @@ spec:
       whitelist: "DrAg0n141"
       ops: "DrAg0n141"
       maxBuildHeight: 320
+      maxTickTime: -1
       maxWorldSize: 29999984
       motd: "DrAg0n141 - Minecraft Server"
       worldSaveName: DrAg0n141
