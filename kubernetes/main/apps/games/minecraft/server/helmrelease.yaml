@@ -28,8 +28,8 @@ spec:
     - name: volsync
       namespace: storage
   values:
-     deploymentAnnotations:
-       reloader.stakater.com/auto: "true"
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/itzg/minecraft-server
       tag: stable@sha256:69f655b868cee46474ce56c78c6488fa230518448c2ff12fd6ebd231db27805c
