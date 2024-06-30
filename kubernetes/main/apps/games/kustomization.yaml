@@ -7,3 +7,4 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./agones/ks.yaml
+  - ./shulker/ks.yaml

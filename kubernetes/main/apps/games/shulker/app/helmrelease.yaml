@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app shulker
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: shulker-operator
+      version: 0.8.1
+      sourceRef:
+        kind: HelmRepository
+        name: shulker
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    operator:
+      agones:
+        allocator:
+          host: agones-allocator.games.svc.cluster.local
+          grpcPort: 443
+          mtlsSecretName: allocator-client.default
+      securityContext:
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
