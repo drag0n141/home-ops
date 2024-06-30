@@ -18,25 +18,25 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app shulker-cluster
-  namespace: flux-system
-spec:
-  targetNamespace: games
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: shulker
-  path: ./kubernetes/main/apps/games/shulker/cluster
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
+#kind: Kustomization
+#metadata:
+#  name: &app shulker-cluster
+#  namespace: flux-system
+#spec:
+#  targetNamespace: games
+#  commonMetadata:
+#    labels:
+#      app.kubernetes.io/name: *app
+#  dependsOn:
+#    - name: shulker
+#  path: ./kubernetes/main/apps/games/shulker/cluster
+#  prune: true
+#  sourceRef:
+#    kind: GitRepository
+#    name: home-kubernetes
+#  wait: true
+#  interval: 30m
+#  retryInterval: 1m
+#  timeout: 5m
