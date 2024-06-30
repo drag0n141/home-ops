@@ -51,7 +51,7 @@ spec:
       mc-router.itzg.me/externalServerName: minecraft.${SECRET_DOMAIN_INTERNAL}
     minecraftServer:
       eula: true
-      version: 1.21
+      version: "1.21"
       type: SPIGOT
       overrideServerProperties: true
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
