@@ -48,13 +48,6 @@ spec:
               - --log-dhcp
             env:
               TZ: ${TIMEZONE}
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 5m
