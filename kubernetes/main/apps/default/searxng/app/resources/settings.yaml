@@ -31,7 +31,6 @@ use_default_settings:
       - free software directory
       - z-library
       - lobste.rs
-      - azlyrics
       - openstreetmap
       - npm
       - pypi
@@ -76,8 +75,6 @@ engines:
   - name: google play apps
     disabled: false
   - name: lobste.rs
-    disabled: false
-  - name: azlyrics
     disabled: false
   - name: npm
     disabled: false
