@@ -76,7 +76,6 @@ spec:
               readOnlyRootFilesystem: true
               capabilities:
                 add: ["NET_RAW"]
-                drop: ["ALL"]
             probes:
               liveness: &probe
                 enabled: true
