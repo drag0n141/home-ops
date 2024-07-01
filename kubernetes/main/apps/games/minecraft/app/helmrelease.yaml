@@ -94,6 +94,6 @@ spec:
           enabled: false
   valuesFrom:
   - kind: Secret
-    name: minecraft-server-secret
+    name: minecraft-secret
     valuesKey: RCON_PASSWORD
     targetPath: minecraftServer.rcon.password
