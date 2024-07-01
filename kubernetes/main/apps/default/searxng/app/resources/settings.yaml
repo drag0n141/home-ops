@@ -1,10 +1,111 @@
+use_default_settings:
+  engines:
+    keep_only:
+      - arch linux wiki
+      - google
+      - google images
+      - google news
+      - google videos
+      - google scholar
+      - google play apps
+      - duckduckgo
+      - brave
+      - startpage
+      - gitlab
+      - github
+      - codeberg
+      - sourcehut
+      - bitbucket
+      - apple app store
+      - wikipedia
+      - currency
+      - docker hub
+      - ddg definitions
+      - duckduckgo images
+      - bandcamp
+      - deviantart
+      - tineye
+      - apple maps
+      - fdroid
+      - flickr
+      - free software directory
+      - z-library
+      - lobste.rs
+      - azlyrics
+      - openstreetmap
+      - npm
+      - pypi
+      - lib.rs
+      - nyaa
+      - reddit
+      - sepiasearch
+      - soundcloud
+      - stackoverflow
+      - askubuntu
+      - superuser
+      - searchcode code
+      - unsplash
+      - youtube
+      - wolframalpha
+      - mojeek
+engines:
+  - name: brave
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: apple app store
+    disabled: false
+  - name: ddg definitions
+    disabled: false
+  - name: tineye
+    disabled: false
+  - name: apple maps
+    disabled: false
+  - name: duckduckgo images
+    disabled: false
+  - name: fdroid
+    disabled: false
+  - name: free software directory
+    disabled: false
+  - name: bitbucket
+    disabled: false
+  - name: gitlab
+    disabled: false
+  - name: codeberg
+    disabled: false
+  - name: google play apps
+    disabled: false
+  - name: lobste.rs
+    disabled: false
+  - name: azlyrics
+    disabled: false
+  - name: npm
+    disabled: false
+  - name: nyaa
+    disabled: false
+    categories: videos
+  - name: searchcode code
+    disabled: false
+  - name: mojeek
+    disabled: false
+  - name: lib.rs
+    disabled: false
+  - name: sourcehut
+    disabled: false
 general:
   instance_name: "DrAg0n141 SearxNG"
   enable_metrics: false
 search:
   safe_search: 0
-  default_lang: "en"
+  autocomplete: "duckduckgo"
+  autocomplete_min: 2
+  default_lang: "de"
   max_page: 0
+server:
+  base_url: "https://search.${SECRET_DOMAIN}/"
+  image_proxy: true
+  http_protocol_version: "1.1"
+  method: "GET"
 ui:
   static_use_hash: true
   infinite_scroll: true
