@@ -107,8 +107,6 @@ spec:
           external-dns.alpha.kubernetes.io/target: "mc-router.${SECRET_DOMAIN_INTERNAL}"
           mc-router.itzg.me/externalServerName: minecraft.${SECRET_DOMAIN_INTERNAL}
         ports:
-          http:
-            enabled: false
           minecraft:
             port: 25565
     persistence:
