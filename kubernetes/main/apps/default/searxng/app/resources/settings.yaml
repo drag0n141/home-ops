@@ -96,7 +96,7 @@ search:
   safe_search: 0
   autocomplete: "duckduckgo"
   autocomplete_min: 2
-  default_lang: "de"
+  default_lang: "all"
   max_page: 0
 server:
   base_url: "https://search.${SECRET_DOMAIN}/"
