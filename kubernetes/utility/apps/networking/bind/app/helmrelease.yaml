@@ -37,13 +37,6 @@ spec:
             args: ["-4", "-g"]
             env:
               TZ: ${TIMEZONE}
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 5m
