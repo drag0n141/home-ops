@@ -42,13 +42,6 @@ spec:
             args: ["-address=0.0.0.0:9080", "-log-level=debug"]
             env:
               TZ: ${TIMEZONE}
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 5m
