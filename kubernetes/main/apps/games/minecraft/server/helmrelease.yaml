@@ -38,10 +38,17 @@ spec:
         cpu: 500m
       limits:
         memory: 8Gi
+    securityContext:
+      capabilities:
+        drop: ["ALL"]
+        add: ["NET_RAW"]
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
     extraEnv:
       TZ: ${TIMEZONE}
-      ENABLE_AUTOPAUSE: FALSE
+      ENABLE_AUTOPAUSE: TRUE
       PAPER_CHANNEL: experimental
+      SKIP_SUDO: true
     persistence:
       dataDir:
         enabled: true
