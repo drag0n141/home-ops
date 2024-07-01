@@ -1,0 +1,20 @@
+general:
+  instance_name: "DrAg0n142 SearxNG"
+  enable_metrics: false
+search:
+  safe_search: 0
+  default_lang: "en"
+  max_page: 0
+ui:
+  static_use_hash: true
+  infinite_scroll: true
+  default_theme: "simple"
+  theme_args:
+    simple_style: "dark"
+enabled_plugins:
+  - 'Hash plugin'
+  - 'Search on category select'
+  - 'Self Information'
+  - 'Tracker URL remover'
+  - 'Open Access DOI rewrite'
+  - 'Vim-like hotkeys'
