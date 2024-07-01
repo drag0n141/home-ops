@@ -22,7 +22,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app minecraft-server
+  name: &app minecraft
   namespace: flux-system
 spec:
   targetNamespace: games
@@ -32,7 +32,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
     - name: mc-router
-  path: ./kubernetes/main/apps/games/minecraft/server
+  path: ./kubernetes/main/apps/games/minecraft/app
   prune: true
   sourceRef:
     kind: GitRepository
