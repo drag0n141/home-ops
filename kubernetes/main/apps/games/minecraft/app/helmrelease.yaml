@@ -68,14 +68,12 @@ spec:
       difficulty: normal
       spawnProtection: 0
       gameMode: survival
-      onlineMode: true
       whitelist: "DrAg0n141"
       ops: "DrAg0n141"
       maxBuildHeight: 320
       maxTickTime: -1
       maxWorldSize: 29999984
       motd: "DrAg0n141 - Minecraft Server"
-      worldSaveName: DrAg0n141
       viewDistance: 12
       spigetResources:
       - 36618 #Prom Exporter
