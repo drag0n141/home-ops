@@ -46,7 +46,10 @@ spec:
       allowPrivilegeEscalation: true
     extraEnv:
       TZ: ${TIMEZONE}
+      AUTOPAUSE_TIMEOUT_EST: 600
+      AUTOPAUSE_TIMEOUT_INIT: 300
       ENABLE_AUTOPAUSE: TRUE
+      SERVER_NAME: DrAg0n141-Minecraft
       SKIP_SUDO: true
       PAPER_CHANNEL: experimental
     persistence:
