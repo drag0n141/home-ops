@@ -91,6 +91,9 @@ engines:
     disabled: false
 general:
   instance_name: "DrAg0n141 SearxNG"
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
   enable_metrics: false
 search:
   safe_search: 0
@@ -106,6 +109,7 @@ server:
 ui:
   static_use_hash: true
   infinite_scroll: true
+  query_in_title: true
   default_theme: "simple"
   theme_args:
     simple_style: "dark"
