@@ -47,6 +47,7 @@ spec:
     extraEnv:
       TZ: ${TIMEZONE}
       ENABLE_AUTOPAUSE: TRUE
+      AUTOPAUSE_KNOCK_INTERFACE: eth0
       PAPER_CHANNEL: experimental
       SKIP_SUDO: true
     persistence:
