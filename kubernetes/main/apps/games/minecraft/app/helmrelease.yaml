@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app minecraft
+  name: &app minecraft-server
 spec:
   interval: 30m
   chart:
     spec:
-      chart: app-template
-      version: 3.2.1
+      chart: minecraft
+      version: 4.19.0
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: itzg
         namespace: flux-system
   maxHistory: 2
   install:
@@ -28,94 +28,72 @@ spec:
     - name: volsync
       namespace: storage
   values:
-    controllers:
-      minecraft:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          app:
-            image:
-              repository: ghcr.io/itzg/minecraft-server
-              tag: 2024.6.1@sha256:69f655b868cee46474ce56c78c6488fa230518448c2ff12fd6ebd231db27805c
-            env:
-              TZ: ${TIMEZONE}
-              EULA: true
-              TYPE: PAPER
-              VERSION: "1.21"
-              OVERRIDE_ICON: TRUE
-              ICON: https://www.freeiconspng.com/uploads/minecraft-server-icon-23.png
-              DIFFICULTY: normal
-              MEMORY: 8192M
-              MOTD: "DrAg0n141 - Minecraft Server"
-              MODE: survival
-              SPAWN_PROTECTION: 0
-              ENABLE_WHITELIST: true
-              WHITELIST: "DrAg0n141"
-              OPS: "DrAg0n141"
-              SERVER_NAME: DrAg0n141
-              MAX_BUILD_HEIGHT: 320
-              VIEW_DISTANCE: 12
-              MAX_TICK_TIME: -1
-              MAX_WORLD_SIZE: 29999984
-              ENABLE_AUTOPAUSE: TRUE
-              SKIP_SUDO: true
-              PAPER_CHANNEL: experimental
-              SPIGET_RESOURCES: 36618
-              JVM_XX_OPTS: "-XX:MaxRAMPercentage=75"
-            envFrom:
-              - secretRef:
-                  name: minecraft-secret
-            resources:
-              requests:
-                cpu: 100m
-                memory: 100Mi
-              limits:
-                memory: 8192Mi
-            securityContext:
-              allowPrivilegeEscalation: true
-              readOnlyRootFilesystem: true
-              capabilities:
-                add: ["NET_RAW"]
-                drop: ["ALL"]
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  periodSeconds: 60
-                  exec: &probeexec {command: ["mc-health"]}
-              readiness: *probe
-              startup:
-                <<: *probe
-                spec:
-                  initialDelaySeconds: 30
-                  periodSeconds: 1
-                  failureThreshold: 300
-                  exec: *probeexec
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: Always
-    service:
-      app:
-        controller: minecraft
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "minecraft.${SECRET_DOMAIN_INTERNAL}"
-          external-dns.alpha.kubernetes.io/target: "mc-router.${SECRET_DOMAIN_INTERNAL}"
-          mc-router.itzg.me/externalServerName: minecraft.${SECRET_DOMAIN_INTERNAL}
-        ports:
-          minecraft:
-            port: 25565
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/itzg/minecraft-server
+      tag: 2024.6.1@sha256:69f655b868cee46474ce56c78c6488fa230518448c2ff12fd6ebd231db27805c
+    resources:
+      requests:
+        cpu: 500m
+      limits:
+        memory: 8Gi
+    securityContext:
+      capabilities:
+        add: ["NET_RAW"]
+        drop: ["ALL"]
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: true
+    extraEnv:
+      TZ: ${TIMEZONE}
+      ENABLE_AUTOPAUSE: TRUE
+      SKIP_SUDO: true
+      PAPER_CHANNEL: experimental
     persistence:
-      data:
-        existingClaim: minecraft
-        globalMounts:
-          - path: /data
-      tmp:
-        type: emptyDir
-        medium: Memory
-        globalMounts:
-          - path: /tmp
+      dataDir:
+        enabled: true
+        existingClaim: *app
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: "minecraft.${SECRET_DOMAIN_INTERNAL}"
+      external-dns.alpha.kubernetes.io/target: "mc-router.${SECRET_DOMAIN_INTERNAL}"
+      mc-router.itzg.me/externalServerName: minecraft.${SECRET_DOMAIN_INTERNAL}
+    minecraftServer:
+      eula: true
+      version: "1.21"
+      type: PAPER
+      overrideServerProperties: true
+      icon: https://www.freeiconspng.com/uploads/minecraft-server-icon-23.png
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      memory: 8192M
+      difficulty: normal
+      spawnProtection: 0
+      gameMode: survival
+      onlineMode: true
+      whitelist: "DrAg0n141"
+      ops: "DrAg0n141"
+      maxBuildHeight: 320
+      maxTickTime: -1
+      maxWorldSize: 29999984
+      motd: "DrAg0n141 - Minecraft Server"
+      worldSaveName: DrAg0n141
+      viewDistance: 12
+      spigetResources:
+      - 36618 #Prom Exporter
+      rcon:
+        enabled: true
+      extraPorts:
+      - name: metrics
+        containerPort: 9225
+        protocol: TCP
+        service:
+          enabled: true
+          embedded: false
+          type: ClusterIP
+          port: 9225
+        ingress:
+          enabled: false
+  valuesFrom:
+  - kind: Secret
+    name: minecraft-server-secret
+    valuesKey: RCON_PASSWORD
+    targetPath: minecraftServer.rcon.password
