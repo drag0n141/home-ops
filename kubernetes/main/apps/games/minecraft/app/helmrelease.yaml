@@ -45,6 +45,7 @@ spec:
               ENABLE_AUTOPAUSE: TRUE
               ENABLE_WHITELIST: true
               EULA: true
+              FORCE_GAMEMODE: true
               ICON: https://www.freeiconspng.com/uploads/minecraft-server-icon-23.png
               JVM_XX_OPTS: "-XX:MaxRAMPercentage=75"
               MAX_BUILD_HEIGHT: 320
