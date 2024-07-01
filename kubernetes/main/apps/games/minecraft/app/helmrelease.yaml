@@ -72,10 +72,11 @@ spec:
               limits:
                 memory: 8192Mi
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
               capabilities:
                 add: ["NET_RAW"]
+                drop: ["ALL"]
             probes:
               liveness: &probe
                 enabled: true
