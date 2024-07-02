@@ -40,7 +40,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               BASE_URL: https://change-detection.${SECRET_DOMAIN_INTERNAL}
-              PLAYWRIGHT_DRIVER_URL: ws://localhost:3000
+              PLAYWRIGHT_DRIVER_URL: "ws://localhost:3000?stealth=1&--disable-web-security=true"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
