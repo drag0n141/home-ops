@@ -51,6 +51,7 @@ spec:
               tag: v2.14.0@sha256:f6b160d9dd9e4a6f7b86595be4e2e3c73ce2dcdb67389f8a945fa789c7468dc4
             env:
               TZ: ${TIMEZONE}
+              CONNECTION_TIMEOUT: 300000
     service:
       app:
         controller: change-detection
