@@ -85,3 +85,7 @@ spec:
           change-detection:
             app:
               - path: /datastore
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
