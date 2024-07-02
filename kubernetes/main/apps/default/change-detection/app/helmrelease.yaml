@@ -52,6 +52,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               CONNECTION_TIMEOUT: 300000
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: change-detection
