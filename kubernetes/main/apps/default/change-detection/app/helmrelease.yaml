@@ -54,7 +54,7 @@ spec:
               CONNECTION_TIMEOUT: 300000
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
     service:
       app:
@@ -94,9 +94,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-      home:
-        type: emptyDir
-        advancedMounts:
-          change-detection:
-            browserless:
-              - path: /home/blessuser/.local
