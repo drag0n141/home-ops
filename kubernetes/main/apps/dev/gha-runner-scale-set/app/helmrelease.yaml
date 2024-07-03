@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gha-runner-scale-set
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: gha-runner-scale-set
+      version: 0.9.3
+      sourceRef:
+        kind: HelmRepository
+        name: actions-runner-controller
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: gha-runner-scale-set-controller
+      namespace: dev
+  valuesFrom:
+    - targetPath: githubConfigSecret.github_app_id
+      kind: Secret
+      name: gha-runner-scale-set-controller-secret
+      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
+    - targetPath: githubConfigSecret.github_app_installation_id
+      kind: Secret
+      name: gha-runner-scale-set-controller-secret
+      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
+    - targetPath: githubConfigSecret.github_app_private_key
+      kind: Secret
+      name: gha-runner-scale-set-controller-secret
+      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
+  values:
+    nameOverride: gha-runner-scale-set
+    runnerScaleSetName: gha-runner-scale-set
+    githubConfigUrl: https://github.com/drag0n141/home-ops
+    minRunners: 1
+    maxRunners: 3
+    containerMode:
+      type: dind
+    template:
+      spec:
+        containers:
+          - name: runner
+            image: ghcr.io/onedr0p/actions-runner:2.317.0@sha256:3d4da03fe81a05940d70b953cd289703a6f499d72dc78a4c506667ce17350049
+            command: ["/home/runner/run.sh"]
+    controllerServiceAccount:
+      name: gha-runner-scale-set-controller
+      namespace: dev
