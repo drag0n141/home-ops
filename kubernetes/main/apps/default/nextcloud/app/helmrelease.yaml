@@ -36,6 +36,15 @@ spec:
         runAsGroup: ${APP_GID}
         runAsNonRoot: true
         readOnlyRootFilesystem: false
+      datadir: /var/www/data
+      extraVolumes:
+      - name: nfs-home
+        nfs:
+          server: "${SECRET_NFS_SERVER}"
+          path: "/mnt/user/Home"
+      extraVolumeMounts:
+      - name: nfs-home
+        mountPath: "/mnt/user/Home"
       extraEnv:
         - name: OIDC_CLIENT_ID
           valueFrom:
