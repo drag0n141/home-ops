@@ -31,11 +31,6 @@ spec:
       reloader.stakater.com/auto: "true"
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_GID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
       extraVolumes:
       - name: nfs-home
         nfs:
@@ -163,11 +158,6 @@ spec:
           pm.process_idle_timeout = 10s
     cronjob:
       enabled: true
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_GID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -181,26 +171,11 @@ spec:
         hostKey: POSTGRES_HOST
         databaseKey: POSTGRES_DB
     livenessProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 30
-      timeoutSeconds: 10
-      failureThreshold: 3
-      successThreshold: 1
+      enabled: false
     readinessProbe:
-      enabled: true
-      initialDelaySeconds: 60
-      periodSeconds: 60
-      timeoutSeconds: 5
-      failureThreshold: 10
-      successThreshold: 1
+      enabled: false
     startupProbe:
-      enabled: true
-      initialDelaySeconds: 60
-      periodSeconds: 30
-      timeoutSeconds: 5
-      failureThreshold: 10
-      successThreshold: 1
+      enabled: false
     ingress:
       enabled: true
       className: traefik-external

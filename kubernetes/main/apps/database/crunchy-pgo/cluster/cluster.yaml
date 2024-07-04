@@ -86,9 +86,9 @@ spec:
     - name: netbox
       databases: ["netbox_db"]
       password: *password
-    - name: nextcloud
-      databases: ["nextcloud_db"]
-      password: *password
+#    - name: nextcloud
+#      databases: ["nextcloud_db"]
+#      password: *password
     - name: outline
       databases: ["outline_db"]
       password: *password

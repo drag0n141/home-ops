@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./nfs-pvc.yaml
   - ../../../../templates/volsync
