@@ -15,10 +15,6 @@ metadata:
         },
         {
           "database": "immich_db",
-          "extension": "vectors"
-        },
-        {
-          "database": "immich_db",
           "extension": "earthdistance",
           "cascade": true
         }
