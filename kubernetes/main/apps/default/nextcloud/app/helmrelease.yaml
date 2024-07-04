@@ -198,7 +198,3 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-nfs
-        accessMode: ReadWriteMany
