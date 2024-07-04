@@ -194,3 +194,6 @@ spec:
         - hosts:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      enabled: true
+      existingClaim: nextcloud
