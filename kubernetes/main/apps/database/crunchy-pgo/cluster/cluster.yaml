@@ -7,18 +7,6 @@ metadata:
     crunchy-users.henrywhitaker3.github.com/watch: "true"
   annotations:
     crunchy-users.henrywhitaker3.github.com/superuser: "postgres"
-    crunchy-users.henrywhitaker3.github.com/extensions: |
-      [
-        {
-          "database": "immich_db",
-          "extension": "vector"
-        },
-        {
-          "database": "immich_db",
-          "extension": "earthdistance",
-          "cascade": true
-        }
-      ]
 spec:
   postgresVersion: 16
   instances:
@@ -79,9 +67,6 @@ spec:
       password: *password
     - name: guacamole
       databases: ["guacamole_db"]
-      password: *password
-    - name: immich
-      databases: ["immich_db"]
       password: *password
     - name: kitchenowl
       databases: ["kitchenowl_db"]
