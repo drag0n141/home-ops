@@ -2,18 +2,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_DOMAIN/./-}-production"
+  name: "${SECRET_DOMAIN_SHORT/./-}-production"
 spec:
-  secretName: "${SECRET_DOMAIN/./-}-production-tls"
+  secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "${SECRET_DOMAIN}"
+  commonName: "${SECRET_DOMAIN_SHORT}"
   dnsNames:
-    - "${SECRET_DOMAIN}"
-    - "*.${SECRET_DOMAIN}"
-    - "*.${SECRET_DOMAIN_INTERNAL}"
-    - "*.${SECRET_DOMAIN_TELEPORT}"
+    - "${SECRET_DOMAIN_SHORT}"
+    - "*.${SECRET_DOMAIN_SHORT}"
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
