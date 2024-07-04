@@ -36,7 +36,6 @@ spec:
         runAsGroup: ${APP_GID}
         runAsNonRoot: true
         readOnlyRootFilesystem: false
-      datadir: /var/www/data
       extraVolumes:
       - name: nfs-home
         nfs:
@@ -195,6 +194,3 @@ spec:
         - hosts:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      enabled: true
-      existingClaim: nextcloud
