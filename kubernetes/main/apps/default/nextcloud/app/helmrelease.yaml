@@ -36,15 +36,6 @@ spec:
         runAsGroup: ${APP_GID}
         runAsNonRoot: true
         readOnlyRootFilesystem: false
-      datadir: /var/www/data
-      extraVolumes:
-      - name: nfs-home
-        nfs:
-          server: "${SECRET_NFS_SERVER}"
-          path: "/mnt/user/Home"
-      extraVolumeMounts:
-      - name: nfs-home
-        mountPath: "/mnt/user/Home"
       extraEnv:
         - name: OIDC_CLIENT_ID
           valueFrom:
@@ -165,12 +156,10 @@ spec:
     cronjob:
       enabled: true
       securityContext:
+        runAsUser: ${APP_UID}
         runAsGroup: ${APP_GID}
-    metrics:
-      enabled: false
-      https: true
-      serviceMonitor:
-        enabled: false
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -183,29 +172,6 @@ spec:
         passwordKey: POSTGRES_PASSWORD
         hostKey: POSTGRES_HOST
         databaseKey: POSTGRES_DB
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 30
-      timeoutSeconds: 10
-      failureThreshold: 3
-      successThreshold: 1
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 60
-      periodSeconds: 60
-      timeoutSeconds: 5
-      failureThreshold: 10
-      successThreshold: 1
-    startupProbe:
-      enabled: true
-      initialDelaySeconds: 60
-      periodSeconds: 30
-      timeoutSeconds: 5
-      failureThreshold: 10
-      successThreshold: 1
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
     ingress:
       enabled: true
       className: traefik-external
