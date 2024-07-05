@@ -29,10 +29,6 @@ spec:
   values:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
-    image:
-      flavor: fpm-alpine
-    nginx:
-      enabled: true
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
       extraVolumes:
