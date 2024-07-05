@@ -85,6 +85,7 @@ spec:
             array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
+            'memcache.locking' => '\OC\Memcache\Redis',
             'redis' => [
                  'host' => 'dragonfly.database.svc.cluster.local',
                  'port' => 6379,
