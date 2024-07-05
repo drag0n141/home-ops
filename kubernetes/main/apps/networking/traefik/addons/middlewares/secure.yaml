@@ -46,6 +46,7 @@ spec:
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
+      X-Powered-By: ""
       server: ""
 ---
 apiVersion: traefik.io/v1alpha1
@@ -88,6 +89,7 @@ spec:
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
+      X-Powered-By: ""
       server: ""
 ---
 apiVersion: traefik.io/v1alpha1
@@ -131,6 +133,7 @@ spec:
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
+      X-Powered-By: ""
       server: ""
 ---
 apiVersion: traefik.io/v1alpha1
@@ -182,4 +185,5 @@ spec:
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
+      X-Powered-By: ""
       server: ""
