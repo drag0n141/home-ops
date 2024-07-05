@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tarampampam/error-pages
-              tag: 2.27.0@sha256:40e2631173b1a407c18fe7d1ba8104d995cf9e4780d123eeadfa1d57c68eaf4f
+              tag: 3.0.0@sha256:e8afaef1340bb337f6ad0bb3c12cbc18def024fd1397c1d37410c2da3fd1ff17
             env:
               TZ: ${TIMEZONE}
               TEMPLATE_NAME: l7-dark
