@@ -46,4 +46,5 @@ spec:
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       City: X-GEO-City
+      X-Powered-By: ""
       server: ""
