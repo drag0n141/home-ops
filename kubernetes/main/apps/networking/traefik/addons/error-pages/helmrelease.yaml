@@ -38,10 +38,10 @@ spec:
           app:
             image:
               repository: ghcr.io/tarampampam/error-pages
-              tag: 2.27.0@sha256:40e2631173b1a407c18fe7d1ba8104d995cf9e4780d123eeadfa1d57c68eaf4f
+              tag: 3.0.1@sha256:20a085dd8b5d75fd097c5cf3bc9b97e71c083c53a15dd14ba0f08e5b1477fc17
             env:
               TZ: ${TIMEZONE}
-              TEMPLATE_NAME: l7-dark
+              TEMPLATE_NAME: app-down
             resources:
               requests:
                 cpu: 5m
