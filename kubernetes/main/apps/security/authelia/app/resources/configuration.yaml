@@ -71,17 +71,7 @@ access_control:
       policy: bypass
       resources:
         - "^/api/.*$"
-        - "^/identity/.*$"
-        - "^/triggers/.*$"
-        - "^/rss/*$"
-        - "^/xmltv/*$"
-        - "^/liverel.*$"
-        - "^/meshagents.*$"
-        - "^/meshsettings.*$"
-        - "^/agent.*$"
-        - "^/control.*$"
-        - "^/meshrelay.*$"
-        - "^/wl/.*$"
+        - "^/ping*$"
     # One Factor Login
     - domain: ["nextcloud.${SECRET_DOMAIN}"]
       policy: one_factor
