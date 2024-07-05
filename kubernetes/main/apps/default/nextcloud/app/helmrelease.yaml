@@ -87,7 +87,6 @@ spec:
               2 => '${SERVICE_CIDR}',
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-            'memcache.locking' => '\OC\Memcache\Redis',
             'default_phone_region' => 'DE',
             'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
             'overwriteprotocol' => 'https',
