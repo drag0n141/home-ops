@@ -5,7 +5,6 @@ resources:
   - ./auth.yaml
   - ./chains.yaml
   - ./compress.yaml
-  - ./error-pages.yaml
   - ./ip.yaml
   - ./redirect.yaml
   - ./secure.yaml
