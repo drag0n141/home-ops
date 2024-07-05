@@ -74,8 +74,6 @@ spec:
         smtp:
           port: 2525
           secure: ''
-      defaultConfigs:
-        redis.config.php: false
       configs:
         local.config.php: |-
           <?php
@@ -97,10 +95,6 @@ spec:
             'enable_previews' => false,
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
-          );
-        redis.config.php: |-
-          <?php
-          $CONFIG = array(
             'memcache.distributed' => '\OC\Memcache\Redis',
             'memcache.locking' => '\OC\Memcache\Redis',
             'redis' => array(
