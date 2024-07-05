@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tarampampam/error-pages
-              tag: 3.0.0@sha256:e8afaef1340bb337f6ad0bb3c12cbc18def024fd1397c1d37410c2da3fd1ff17
+              tag: 3.0.1@sha256:20a085dd8b5d75fd097c5cf3bc9b97e71c083c53a15dd14ba0f08e5b1477fc17
             env:
               TZ: ${TIMEZONE}
               TEMPLATE_NAME: app-down
