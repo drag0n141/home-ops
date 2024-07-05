@@ -7,5 +7,4 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
     volsync.backube/privileged-movers: "true"
   labels:
-    goldilocks.fairwinds.com/enabled: "true"
     routed-gateway: "true"

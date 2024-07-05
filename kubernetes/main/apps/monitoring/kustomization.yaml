@@ -8,7 +8,6 @@ resources:
   # Flux-Kustomizations
   - ./alertmanager/ks.yaml
   - ./gatus/ks.yaml
-  - ./goldilocks/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
