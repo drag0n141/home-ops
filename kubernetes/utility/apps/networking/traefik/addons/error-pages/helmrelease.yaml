@@ -39,7 +39,7 @@ spec:
               tag: 3.0.0@sha256:e8afaef1340bb337f6ad0bb3c12cbc18def024fd1397c1d37410c2da3fd1ff17
             env:
               TZ: ${TIMEZONE}
-              TEMPLATE_NAME: l7-dark
+              TEMPLATE_NAME: app-down
             resources:
               requests:
                 cpu: 5m
