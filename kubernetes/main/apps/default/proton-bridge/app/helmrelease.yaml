@@ -46,13 +46,6 @@ spec:
               limits:
                 cpu: 100m
                 memory: 500Mi
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
     service:
       app:
         controller: proton-bridge
