@@ -11,8 +11,6 @@ spec:
     - kind: Rule
       match: HostRegexp(`{host:.+}`)
       priority: 1
-      middlewares:
-        - name: networking-traefik-middleware-error-pages@kubernetescrd
       services:
         - kind: Service
           name: error-pages
