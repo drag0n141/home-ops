@@ -50,10 +50,6 @@ spec:
             secretKeyRef:
               name: *secret
               key: OIDC_CLIENT_SECRET
-        - name: REDIS_HOST
-          value: dragonfly.database.svc.cluster.local
-        - name: REDIS_DATABASE
-          value: "10"
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -73,7 +69,8 @@ spec:
         domain: ${SECRET_DOMAIN}
         smtp:
           port: 2525
-          secure: ''
+          secure: NONE
+          authtype: NONE
       configs:
         local.config.php: |-
           <?php
@@ -88,6 +85,13 @@ spec:
             array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => [
+                 'host' => 'dragonfly.database.svc.cluster.local',
+                 'port' => 6379,
+                 'password' => getenv('REDIS_PASSWORD'),
+                 'dbindex' => 10,
+            ],
             'default_phone_region' => 'DE',
             'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
             'overwriteprotocol' => 'https',
@@ -98,14 +102,6 @@ spec:
             'enable_previews' => false,
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
-            'memcache.distributed' => '\OC\Memcache\Redis',
-            'memcache.locking' => '\OC\Memcache\Redis',
-            'redis' => [
-                 'host' => 'dragonfly.database.svc.cluster.local',
-                 'port' => 6379,
-                 'password' => getenv('REDIS_PASSWORD'),
-                 'dbindex' => 10,
-            ],
           );
         sso.config.php: |-
           <?php
