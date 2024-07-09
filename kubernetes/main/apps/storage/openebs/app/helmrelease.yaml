@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: openebs
-      version: 4.0.1
+      version: 4.1.0
       sourceRef:
         kind: HelmRepository
         name: openebs
@@ -29,12 +29,14 @@ spec:
       localpv:
         image:
           registry: quay.io/
-          repository: openebs/provisioner-localpv
       hostpathClass:
         enabled: true
         name: openebs-hostpath
         isDefaultClass: false
         basePath: /var/openebs/local
+      helperPod:
+        image:
+          registry: quay.io/
     openebs-crds:
       csi:
         volumeSnapshots:
