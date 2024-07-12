@@ -5,9 +5,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./bind/ks.yaml
   - ./blocky/ks.yaml
-  - ./dnsdist/ks.yaml
   - ./dnsmasq/ks.yaml
   - ./external-dns/ks.yaml
   - ./matchbox/ks.yaml
