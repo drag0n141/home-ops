@@ -60,7 +60,7 @@ spec:
           insecure_skip_verify: true
         - name: nas01
           public_addr: nas01.${SECRET_DOMAIN_TELEPORT}
-          uri: http://unraid01.${SECRET_DOMAIN_AD}:88
+          uri: http://nas01.${SECRET_DOMAIN_AD}:88
           rewrite:
             headers:
               - "Host: nas01.${SECRET_DOMAIN_TELEPORT}"
