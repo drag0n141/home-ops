@@ -65,9 +65,9 @@ spec:
             headers:
               - "Host: nas01.${SECRET_DOMAIN_TELEPORT}"
           insecure_skip_verify: true
-        - name: opnsense
-          public_addr: opnsense.${SECRET_DOMAIN_TELEPORT}
-          uri: https://opnsense-int01.${SECRET_DOMAIN_INT}:44300
+        - name: udm-se
+          public_addr: udm.${SECRET_DOMAIN_TELEPORT}
+          uri: https://udm-se.${SECRET_DOMAIN_INT}
           insecure_skip_verify: true
         - name: pikvm
           public_addr: pikvm.${SECRET_DOMAIN_TELEPORT}
