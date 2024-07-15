@@ -48,7 +48,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 | Unifi    | USW Aggregation 8 Port       | Main Rack Switch and 10G SFP+                                         |
 | Mikrotik | CRS326-24G-2S+RM             | Second Rack Switch with RJ45, connected with 10G SFP+                 |
 | Unifi    | USW Pro Max 16               | Livingroom Switch for TV and everything else, connected with 10G SFP+ |
-| Topton   | N5105                        | Main OPNSense Router                                                  |
+| Unifi    | UDM-SE                       | Main Router connected to USW Aggregation with 10G SFP+                |
 
 Kubernetes nodes are on their own VLAN which has access to the NAS.
 
