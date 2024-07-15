@@ -58,12 +58,12 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
       - --traefik-disable-legacy
-      - --annotation-filter=external-dns.alpha.kubernetes.io/exclude-unifi notin (true)
+      - --annotation-filter="external-dns.alpha.kubernetes.io/exclude-unifi notin (true)"
     policy: sync
     sources: ["ingress", "service", "traefik-proxy"]
     txtOwnerId: main
     txtPrefix: k8s.main.
-    domainFilters: ["${SECRET_DOMAIN_INTERNAL}"]
+    domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_INTERNAL}"]
     serviceMonitor:
       enabled: true
     podAnnotations:
