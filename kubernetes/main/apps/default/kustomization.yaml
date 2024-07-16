@@ -10,6 +10,7 @@ resources:
   - ./change-detection/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
+  - ./flatnotes/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./immich/ks.yaml
