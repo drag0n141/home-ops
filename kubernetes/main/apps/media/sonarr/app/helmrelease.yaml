@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/sonarr
-              tag: 4.0.7.1863@sha256:9cb61d732f15e562e6aad86f76f4abb353c0dd2cec5b126702ea74216a0e6278
+              tag: 4.0.8.1874@sha256:9154d5e29cd34c12d2a3bea4079a2e90774eadfdd7711ab1a32a30dad1075662
             env:
               TZ: ${TIMEZONE}
               SONARR__APP__INSTANCENAME: Sonarr
