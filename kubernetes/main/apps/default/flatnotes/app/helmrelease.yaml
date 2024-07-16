@@ -51,7 +51,7 @@ spec:
                 memory: 250Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
         pod:
           securityContext:
