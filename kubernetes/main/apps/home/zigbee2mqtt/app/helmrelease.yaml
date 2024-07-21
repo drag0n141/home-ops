@@ -66,8 +66,8 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231215081149-if00
-              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.150.15:6638
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
@@ -89,11 +89,8 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                squat.ai/sonoff: 1
                 memory: 384Mi
         pod:
-          nodeSelector:
-            zigbee.feature.node.kubernetes.io/sonoff: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
