@@ -36,7 +36,7 @@ spec:
               TZ: ${TIMEZONE}
               MEMOS_DRIVER: postgres
               MEMOS_PORT: 5230
-              MEMOS_PUBLIC: true
+              MEMOS_PUBLIC: false
             envFrom:
               - secretRef:
                   name: memos-db-secret
