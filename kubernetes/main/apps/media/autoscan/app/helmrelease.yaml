@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/autoscan
-              tag: 1.4.0@sha256:1730bbcfa91e741b467c4f62c2c4203ed3dc7b121f8c24fef324ab6cf8faa56f
+              tag: 1.4.0@sha256:d7454313e449c65994a974c944ad42ea3a597d79776196e4e4573d32688bedc1
             env:
               TZ: ${TIMEZONE}
               AUTOSCAN_CONFIG: /config/config.yml
