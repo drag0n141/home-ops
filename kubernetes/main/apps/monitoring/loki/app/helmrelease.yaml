@@ -26,10 +26,6 @@ spec:
   dependsOn:
     - name: openebs
       namespace: storage
-    - name: vector-agent
-      namespace: monitoring
-    - name: vector-aggregator
-      namespace: monitoring
   values:
     deploymentMode: SimpleScalable
     loki:
