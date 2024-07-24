@@ -176,17 +176,6 @@ spec:
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-      blocky:
-        blocky:
-          # renovate: depName="Blocky"
-          gnetId: 14768
-          revision: 4
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
-            - { name: VAR_BLOCKY_URL, value: 'http:\/\/blocky.networking.svc.cluster.local:4000' }
-        blocky-query:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
-          datasource: Blocky
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
