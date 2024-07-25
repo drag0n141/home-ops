@@ -56,26 +56,14 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
     serviceAccount:
       create: true
       name: tailscale
-    service:
-      app:
-        controller: tailscale
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "tailscale.${SECRET_DOMAIN_INTERNAL}"
-          io.cilium/lb-ipam-ips: "${TAILSCALE_LB_ADDR}"
-        externalTrafficPolicy: Cluster
-        ports:
-          tailnet:
-            port: 41642
-            protocol: UDP
     persistence:
       cache:
         type: emptyDir
