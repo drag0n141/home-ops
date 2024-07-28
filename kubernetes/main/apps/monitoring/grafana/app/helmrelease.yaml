@@ -67,14 +67,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-          - name: blocky
-            orgId: 1
-            folder: Blocky
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/blocky
           - name: ceph
             orgId: 1
             folder: Ceph
