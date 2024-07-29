@@ -107,5 +107,5 @@ trakt:
     expires_in: 7889238
     refresh_token: "{{ .TRAKT_REFRESH_TOKEN }}"
     scope: public
-    created_at: 1714846380
+    created_at: "{{ .TRAKT_CREATED_AT }}"
   pin:
