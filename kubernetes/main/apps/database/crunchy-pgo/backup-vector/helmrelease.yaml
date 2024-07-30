@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app crunchy-vector-backup
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      crunchy-backup:
+        type: cronjob
+        cronjob:
+          schedule: "@daily"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/drag0n141/postgres-init
+              tag: 16
+            command: /scripts/list_dbs.sh
+            env:
+              EXCLUDE_DBS: postgres template0 template1
+            envFrom: &envFrom
+              - secretRef:
+                  name: crunchy-vector-backup-secret
+        containers:
+          app:
+            image:
+              repository: docker.io/prodrigestivill/postgres-backup-local
+              tag: 16@sha256:f873bbfb406db633ab879628b11ef8092279639c467a2ea5f5bfa08b776252fb
+            command: ["/bin/bash", "/backup.sh"]
+            env:
+              TZ: ${TIMEZONE}
+              POSTGRES_DB_FILE: /config/db_list
+              POSTGRES_EXTRA_OPTS: "--blobs --clean --create --compress=9"
+              BACKUP_DIR: /backups/database/postgresql-vector
+              BACKUP_KEEP_DAYS: "7"
+              BACKUP_KEEP_WEEKS: "4"
+              BACKUP_KEEP_MONTHS: "6"
+              BACKUP_LATEST_TYPE: none
+            envFrom: *envFrom
+    persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /config
+      script:
+        type: configMap
+        name: crunchy-vector-backup-scripts
+        defaultMode: 0775
+        globalMounts:
+          - path: /scripts/list_dbs.sh
+            subPath: list_dbs.sh
+            readOnly: true
+      nas:
+        type: nfs
+        server: ${SECRET_NFS_SERVER}
+        path: /mnt/user/Backup
+        globalMounts:
+          - path: /backups
