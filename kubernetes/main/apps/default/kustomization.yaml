@@ -33,6 +33,7 @@ resources:
   - ./radicale/ks.yaml
   - ./searxng/ks.yaml
   - ./rdesktop/ks.yaml
+  - ./redlib/ks.yaml
   - ./shlink/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
