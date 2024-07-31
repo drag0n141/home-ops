@@ -128,9 +128,9 @@ spec:
     - name: vaultwarden
       databases: ["vaultwarden_db"]
       password: *password
-#    - name: vouchervault
-#      databases: ["vouchervault_db"]
-#      password: *password
+    - name: vouchervault
+      databases: ["vouchervault_db"]
+      password: *password
     - name: vikunja
       databases: ["vikunja_db"]
       password: *password
