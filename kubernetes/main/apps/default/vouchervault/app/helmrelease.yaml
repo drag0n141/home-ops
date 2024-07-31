@@ -43,7 +43,6 @@ spec:
               DOMAIN: vouchervault.${SECRET_DOMAIN}
               EXPIRY_THRESHOLD_DAYS: 90
               SECURE_COOKIES: True
-              DEBUG: true
             envFrom:
               - secretRef:
                   name: vouchervault-secret
