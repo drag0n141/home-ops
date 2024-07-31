@@ -133,6 +133,15 @@ spec:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: cpgo-vector.${SECRET_DOMAIN_INTERNAL}
         io.cilium/lb-ipam-ips: "${CPGO_VECTOR_LB_ADDR}"
+  monitoring:
+    pgmonitor:
+      exporter:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64M
+          limits:
+            memory: 512M
   proxy:
     pgBouncer:
       port: 5432
