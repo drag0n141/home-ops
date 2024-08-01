@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: docker.io/l4rm4nd/vouchervault
-              tag: 1.4.1@sha256:4f1083f451b18f2b0606318b1ab75ad1ad5621a3cfb12b5bb3eb9dde7dde8b72
+              tag: 1.4.2@sha256:626fbdcd8a2e8c398dc6875eb854d268719fca7d0a1190eedb5413e2e9cfaa6e
             env:
               TZ: ${TIMEZONE}
               DB_ENGINE: postgres
