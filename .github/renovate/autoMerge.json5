@@ -15,7 +15,7 @@
       "automerge": true,
       "automergeType": "branch",
       "ignoreTests": true,
-      "excludePackagePatterns": ["immich", "vector", "zigbee2mqtt", "siderolabs"],
+      "excludePackagePatterns": ["immich", "vector", "zigbee2mqtt", "siderolabs", "multus-cni",
       "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
