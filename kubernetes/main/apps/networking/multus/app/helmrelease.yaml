@@ -92,8 +92,8 @@ spec:
         initContainers:
           cni-plugins-installer:
             image:
-              repository: ghcr.io/drag0n141/cni-plugins
-              tag: 1.5.1@sha256:5ff860f72723088b2a335db1bb99c13280917060478efa69dd17c84100a53a13
+              repository: ghcr.io/angelnu/cni-plugins
+              tag: 1.5.1
             resources:
               requests:
                 cpu: "10m"
