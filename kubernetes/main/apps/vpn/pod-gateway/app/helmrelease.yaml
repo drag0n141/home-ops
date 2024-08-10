@@ -39,7 +39,7 @@ spec:
             value: wg0
           - name: VPN_ENDPOINT_PORT
             value: "51820"
-          - name: FIREWALL
+          - name: FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT
             value: "off"
           - name: DOT
             value: "off"
