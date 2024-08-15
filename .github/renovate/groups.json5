@@ -10,6 +10,7 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
     },
     {
       "description": ["Actions Runner Controller Group"],
