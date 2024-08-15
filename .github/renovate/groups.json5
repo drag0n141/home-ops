@@ -9,8 +9,8 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
-      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
+      "separateMinorPatch": true,
+      "changelogUrl": "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
     },
     {
       "description": ["Actions Runner Controller Group"],
@@ -61,8 +61,8 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
-      sourceUrl: "https://github.com/immich-app/immich",
+      "separateMinorPatch": true,
+      "sourceUrl": "https://github.com/immich-app/immich"
     },
     {
       "description": ["Intel Device Plugins Group"],
