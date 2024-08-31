@@ -32,7 +32,7 @@ spec:
           init-folder:
             image:
               repository: public.ecr.aws/docker/library/busybox
-              tag: latest@sha256:bd8d843413b804c4d49b12c7af234abe2473f74668be86ae59393ff0d795c322
+              tag: latest@sha256:82742949a3709938cbeb9cec79f5eaf3e48b255389f2dcedf2de29ef96fd841c
             command: ["/bin/sh", "-c", "mkdir -p /var/lib/matchbox/groups /var/lib/matchbox/profiles /var/lib/matchbox/assets"]
         containers:
           app:
