@@ -12,7 +12,7 @@ resources:
   - ./ferdium/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
-  - ./immich/ks.yaml
+#  - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./homepage/ks.yaml
   - ./homepage-work/ks.yaml
