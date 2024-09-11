@@ -48,7 +48,7 @@ spec:
           browserless:
             image:
               repository: ghcr.io/browserless/chrome
-              tag: v2.19.0@sha256:dc3742ed7741e69bb1ec9a9c1e74b68c0b16c50c3d4c60d27a8d3f4196301ff6
+              tag: v2.20.0@sha256:ce7b8dbc2f58c01fc7c1f62dc191d30d32c1fe3d2e9c55e87f5456bbb04e8a65
             env:
               TZ: ${TIMEZONE}
               CONNECTION_TIMEOUT: 300000
