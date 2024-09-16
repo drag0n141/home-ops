@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/home-assistant
-              tag: 2024.9.1@sha256:25298c51f2bb54b3753d20224918d6970088f3d40cd8674622057699cc2448ea
+              tag: 2024.9.2@sha256:4eec71a8fab158731435540c918256aee6bcc713f606f4e2b3ac1d26a8477787
             env:
               TZ: ${TIMEZONE}
             securityContext:
