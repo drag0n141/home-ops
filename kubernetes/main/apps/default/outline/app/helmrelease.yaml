@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: docker.io/outlinewiki/outline
-              tag: 0.80.0@sha256:42c03c0b5d6964afd861cf70d904c443d0bc7a7b188adb4a2ef9b0c33edc9099
+              tag: 0.80.1@sha256:21442dd0bc6e7b0acfa6ccd9c60de2cdeac7ff783f81a2c269e2d202a3c95298
             env:
               TZ: ${TIMEZONE}
               URL: "https://outline.${SECRET_DOMAIN_INTERNAL}"
