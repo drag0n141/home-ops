@@ -1,0 +1,14 @@
+---
+devices:
+  - name: conbee
+    groups:
+      - paths:
+          - path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
+  - name: sonoff
+    groups:
+      - paths:
+          - path: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231215081149-if00
+  - name: tun
+    groups:
+      - paths:
+          - path: /dev/net/tun

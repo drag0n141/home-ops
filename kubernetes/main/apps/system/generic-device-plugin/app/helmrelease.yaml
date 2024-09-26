@@ -33,15 +33,8 @@ spec:
               repository: ghcr.io/squat/generic-device-plugin
               tag: latest@sha256:ba6f0b4cf6c858d6ad29ba4d32e4da11638abbc7d96436bf04f582a97b2b8821
             args:
-              - --log-level
-              - info
-              - --device=$(DEVICE_SONOFF)
-            env:
-              DEVICE_SONOFF: |-
-                name: sonoff
-                groups:
-                  - paths:
-                      - path: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231215081149-if00
+              - --log-level=info
+              - --config=/config/config.yaml
             resources:
               requests:
                 cpu: 10m
@@ -54,6 +47,13 @@ spec:
     defaultPodOptions:
       priorityClassName: system-node-critical
     persistence:
+      config:
+        type: configMap
+        name: generic-device-plugin-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
       dev:
         type: hostPath
         hostPath: /dev
