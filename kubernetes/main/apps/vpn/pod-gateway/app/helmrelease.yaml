@@ -37,7 +37,7 @@ spec:
             value: wireguard
           - name: VPN_INTERFACE
             value: wg0
-          - name: VPN_ENDPOINT_PORT
+          - name: WIREGUARD_ENDPOINT_PORT
             value: "51820"
           - name: FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT
             value: "off"
