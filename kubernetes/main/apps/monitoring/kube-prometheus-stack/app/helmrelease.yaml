@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 62.7.0
+      version: 63.0.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -145,11 +145,12 @@ spec:
         replicas: 2
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        scrapeConfigSelectorNilUsesHelmValues: false
+        podMonitorSelector: &selector
+          matchLabels: null
+        probeSelector: *selector
+        ruleSelector: *selector
+        scrapeConfigSelector: *selector
+        serviceMonitorSelector: *selector
         enableAdminAPI: true
         walCompression: true
         enableFeatures:
