@@ -28,4 +28,4 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "mc-router.${SECRET_DOMAIN_INTERNAL}"
-          io.cilium/lb-ipam-ips: "${MINECRAFT_LB_ADDR}"
+          lbipam.cilium.io/ips: "${MINECRAFT_LB_ADDR}"

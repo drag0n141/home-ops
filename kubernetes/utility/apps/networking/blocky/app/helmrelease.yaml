@@ -72,7 +72,7 @@ spec:
         controller: blocky
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${BLOCKY_LB_ADDR}"
+          lbipam.cilium.io/ips: "${BLOCKY_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           dns-tcp:

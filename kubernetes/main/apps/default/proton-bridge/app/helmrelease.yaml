@@ -52,7 +52,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "proton.${SECRET_DOMAIN_INTERNAL}"
-          io.cilium/lb-ipam-ips: "${PROTON_LB_ADDR}"
+          lbipam.cilium.io/ips: "${PROTON_LB_ADDR}"
         externalTrafficPolicy: Cluster
         ports:
           imap:

@@ -81,7 +81,7 @@ spec:
         controller: plex
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${PLEX_LB_ADDR}"
+          lbipam.cilium.io/ips: "${PLEX_LB_ADDR}"
           traefik.ingress.kubernetes.io/service.serversscheme: https
         externalTrafficPolicy: Cluster
         ports:
