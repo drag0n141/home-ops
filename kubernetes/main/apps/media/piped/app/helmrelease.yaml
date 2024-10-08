@@ -145,7 +145,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "piped-api.${SECRET_DOMAIN}"
+          - host: &host-api "piped-api.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -153,7 +153,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - *host-api
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       frontend:
         className: traefik-external
@@ -179,7 +179,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "piped-proxy.${SECRET_DOMAIN}"
+          - host: &host-proxy "piped-proxy.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -187,7 +187,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
+              - *host-proxy
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
