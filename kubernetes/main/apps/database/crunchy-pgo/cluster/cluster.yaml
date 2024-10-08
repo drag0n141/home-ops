@@ -95,6 +95,9 @@ spec:
     - name: paperless
       databases: ["paperless_db"]
       password: *password
+    - name: piped
+      databases: ["piped_db"]
+      password: *password
     - name: prowlarr
       databases: ["prowlarr_main"]
       password: *password
