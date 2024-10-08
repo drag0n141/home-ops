@@ -9,7 +9,7 @@ resources:
   - ./autoscan/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
-  - ./piped/ks.yaml
+#   - ./piped/ks.yaml
   - ./plex-meta-manager/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
