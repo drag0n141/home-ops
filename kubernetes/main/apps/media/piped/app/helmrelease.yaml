@@ -97,6 +97,8 @@ spec:
             image:
               repository: docker.io/1337kavin/piped-proxy
               tag: latest@sha256:9872edd2c47c9c33dfa44c334e4cef4e2c6ec91638eb2dcf6ca36b7b3037fd59
+            command:
+              - /app/piped-proxy
             env:
               TZ: ${TIMEZONE}
             probes:
