@@ -47,6 +47,29 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
+  name: traefik-middleware-chain-piped
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-rate-limit@kubernetescrd
+      - name: networking-traefik-middleware-secure-headers-piped@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-piped-frontend
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-rate-limit@kubernetescrd
+      - name: networking-traefik-middleware-secure-headers-piped@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
+      - name: networking-traefik-middleware-authelia@kubernetescrd
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
   name: traefik-middleware-chain-pterodactyl
 spec:
   chain:
