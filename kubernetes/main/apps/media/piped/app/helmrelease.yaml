@@ -27,7 +27,7 @@ spec:
       backend:
         strategy: RollingUpdate
         annotations:
-          secret.reloader.stakater.com/reload: piped-secret
+          reloader.stakater.com/auto: "true"
         pod:
           securityContext:
             runAsUser: 1000
@@ -37,7 +37,7 @@ spec:
         containers:
           app:
             image:
-              repository: 1337kavin/piped
+              repository: docker.io/1337kavin/piped
               tag: latest@sha256:e9938cdda0745c4986d4add0f255777d3989849b851f290d94a4ab2b21c25384
             probes:
               liveness:
@@ -52,9 +52,7 @@ spec:
                 memory: 2000Mi
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: { drop: ["ALL"] }
               seccompProfile:
                 type: RuntimeDefault
       frontend:
@@ -73,7 +71,7 @@ spec:
             env:
               HTTP_PORT: 8080
               HTTP_WORKERS: 4
-              BACKEND_HOSTNAME: piped-api.hsn.dev
+              BACKEND_HOSTNAME: piped-api.${SECRET_DOMAIN}
             probes:
               liveness:
                 enabled: true
@@ -98,7 +96,7 @@ spec:
         containers:
           app:
             image:
-              repository: 1337kavin/piped-proxy
+              repository: docker.io/1337kavin/piped-proxy
               tag: latest@sha256:9872edd2c47c9c33dfa44c334e4cef4e2c6ec91638eb2dcf6ca36b7b3037fd59
             command:
               - /app/piped-proxy
@@ -115,9 +113,7 @@ spec:
                 memory: 2000Mi
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: { drop: ["ALL"] }
               seccompProfile:
                 type: RuntimeDefault
     service:
