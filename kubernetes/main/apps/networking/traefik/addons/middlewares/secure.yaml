@@ -64,8 +64,8 @@ spec:
     accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
     accessControlAllowHeaders:
+      - "Authorization"
       - "Content-Type"
-      - "Request"
     hostsProxyHeaders:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
