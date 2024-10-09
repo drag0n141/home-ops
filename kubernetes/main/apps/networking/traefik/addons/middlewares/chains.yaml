@@ -51,7 +51,6 @@ metadata:
 spec:
   chain:
     middlewares:
-      - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers-piped@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
 ---
@@ -62,7 +61,6 @@ metadata:
 spec:
   chain:
     middlewares:
-      - name: networking-traefik-middleware-rate-limit@kubernetescrd
       - name: networking-traefik-middleware-secure-headers-piped@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
       - name: networking-traefik-middleware-authelia@kubernetescrd
