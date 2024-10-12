@@ -152,7 +152,8 @@ spec:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app.kubernetes.io/instance: traefik-external
+            app.kubernetes.io/name: traefik
+            app.kubernetes.io/instance: traefik-external-networking
     resources:
       requests:
         cpu: 100m
