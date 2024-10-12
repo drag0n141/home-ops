@@ -147,12 +147,12 @@ spec:
         publishedService:
           enabled: true
     topologySpreadConstraints:
-      - labelSelector:
-          matchLabels:
-            app.kubernetes.io/instance: traefik-external
-        maxSkew: 1
+      - maxSkew: 1
         topologyKey: kubernetes.io/hostname
         whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: traefik-external
     resources:
       requests:
         cpu: 100m
