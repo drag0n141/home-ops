@@ -6,6 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-issuers
   path: ./kubernetes/main/apps/networking/traefik/certificates
@@ -25,6 +28,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-certificates
   path: ./kubernetes/main/apps/networking/traefik/external
@@ -44,6 +50,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-certificates
   path: ./kubernetes/main/apps/networking/traefik/internal
@@ -63,6 +72,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-external
     - name: traefik-internal
