@@ -109,7 +109,6 @@ spec:
         labelSelector:
           matchLabels:
             app.kubernetes.io/instance: traefik-internal
-            app.kubernetes.io/component: controller
     resources:
       requests:
         cpu: 100m
