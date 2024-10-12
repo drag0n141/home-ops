@@ -101,13 +101,12 @@ spec:
         publishedService:
           enabled: true
     topologySpreadConstraints:
-      - maxSkew: 2
+      - maxSkew: 1
         topologyKey: kubernetes.io/hostname
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
             app.kubernetes.io/instance: traefik-internal
-            app.kubernetes.io/component: controller
     resources:
       requests:
         cpu: 100m
