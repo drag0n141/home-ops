@@ -21,7 +21,7 @@ metadata:
       ]
 spec:
   postgresVersion: 16
-  image: ghcr.io/drag0n141/cdpgvector:0.3.0@sha256:4cab64552a0ec989cf3dd49c45e1bfca33863370517cd8dd07d093a661d9da2a
+  image: ghcr.io/drag0n141/cdpgvector:0.3.0@sha256:0c0cdea03433d3e660239f21d0d17a80d5739fd24f58ae83f708cad344c83342
   instances:
     - name: postgres-vector
       metadata:
