@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dani-garcia/vaultwarden
-              tag: 1.32.2
+              tag: 1.32.3
             env:
               TZ: ${TIMEZONE}
               DATA_FOLDER: "/data"
