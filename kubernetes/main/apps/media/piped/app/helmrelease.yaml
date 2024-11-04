@@ -67,7 +67,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/piped-frontend
-              tag: latest@sha256:1253e5df8bb5aebc559cecb012ba4665332a5ed2924c221396f3f39815fad549
+              tag: latest@sha256:0e413986606f39cdc6afa0379feca912d4a4abbdcbe67b408c9fbe19fbabd10f
             env:
               HTTP_PORT: 8080
               HTTP_WORKERS: 4
