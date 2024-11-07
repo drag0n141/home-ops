@@ -13,6 +13,7 @@ resources:
   - ./coredns.yaml
   - ./crunchydata.yaml
   - ./crunchy-users.yaml
+  - ./defguard.yaml
   - ./democratic-csi.yaml
   - ./descheduler.yaml
   - ./emberstack.yaml
