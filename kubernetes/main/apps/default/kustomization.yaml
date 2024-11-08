@@ -8,6 +8,7 @@ resources:
   # Flux-Kustomizations
   - ./atuin/ks.yaml
   - ./change-detection/ks.yaml
+  - ./clipcascade/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./gotify/ks.yaml
