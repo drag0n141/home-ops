@@ -58,7 +58,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &internal "clipcascade.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "clipcascade.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -66,5 +66,5 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *internal
+              - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
