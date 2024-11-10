@@ -8,4 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./crunchy-pgo/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./emqx/ks.yaml
+#  - ./emqx/ks.yaml
