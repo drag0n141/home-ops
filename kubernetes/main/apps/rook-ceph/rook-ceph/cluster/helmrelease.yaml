@@ -60,6 +60,9 @@ spec:
         disable: false
       network:
         provider: host
+        addressRanges:
+          public: ["${NODE_CIDR}"]
+          cluster: ["${THUNDERBOLT_CIDR}"]
         connections:
           requireMsgr2: true
       resources:
