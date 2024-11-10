@@ -60,6 +60,9 @@ spec:
         disable: false
       network:
         provider: host
+        addressRanges:
+          public: ["${NODE_CIDR}"]
+          cluster: ["${THUNDERBOLT_CIDR}"]
         connections:
           requireMsgr2: true
       resources:
@@ -122,7 +125,7 @@ spec:
           volumeBindingMode: Immediate
           parameters:
             imageFormat: "2"
-            imageFeatures: layering
+            imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
