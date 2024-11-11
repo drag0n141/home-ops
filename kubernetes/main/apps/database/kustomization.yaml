@@ -7,5 +7,5 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./crunchy-pgo/ks.yaml
-#  - ./dragonfly/ks.yaml
+  - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
