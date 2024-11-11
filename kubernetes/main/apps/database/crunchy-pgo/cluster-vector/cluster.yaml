@@ -121,7 +121,7 @@ spec:
       jobs:
         ttlSecondsAfterFinished: 60
 #  dataSource:
-#    pgbackrest:
+#    pgbackrest:                        # Restore with Vector does not work
 #      stanza: db
 #      configuration: *backupConfig
 #      global: *backupFlag
