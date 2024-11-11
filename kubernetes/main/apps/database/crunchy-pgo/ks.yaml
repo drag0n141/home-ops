@@ -130,25 +130,25 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
-#---
-#apiVersion: kustomize.toolkit.fluxcd.io/v1
-#kind: Kustomization
-#metadata:
-#  name: &app crunchy-vector-backup
-#  namespace: flux-system
-#spec:
-#  targetNamespace: database
-#  commonMetadata:
-#    labels:
-#      app.kubernetes.io/name: *app
-#  dependsOn:
-#    - name: crunchy-pgo
-#  path: ./kubernetes/main/apps/database/crunchy-pgo/backup-vector
-#  prune: true
-#  sourceRef:
-#    kind: GitRepository
-#    name: home-kubernetes
-#  wait: true
-#  interval: 30m
-#  retryInterval: 1m
-#  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app crunchy-vector-backup
+  namespace: flux-system
+spec:
+  targetNamespace: database
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: crunchy-pgo
+  path: ./kubernetes/main/apps/database/crunchy-pgo/backup-vector
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
