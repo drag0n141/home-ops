@@ -120,14 +120,14 @@ spec:
             differential: "0 2 * * 1-6" # Mon-Sat at 2am
       jobs:
         ttlSecondsAfterFinished: 60
-  dataSource:
-    pgbackrest:
-      stanza: db
-      configuration: *backupConfig
-      global: *backupFlag
-      repo:
-        name: repo1
-        s3: *minio
+#  dataSource:
+#    pgbackrest:                        # Restore with Vector does not work
+#      stanza: db
+#      configuration: *backupConfig
+#      global: *backupFlag
+#      repo:
+#        name: repo1
+#        s3: *minio
   service:
     type: LoadBalancer
     metadata:
