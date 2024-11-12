@@ -113,6 +113,16 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+    },
+    {
+      "description": ["Silence-Operator image and CRD"],
+      "groupName": "Silence-Operator",
+      "matchPackagePatterns": ["silence-operator"],
+      "matchDatasources": ["docker", "github-releases"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
     }
   ]
 }
