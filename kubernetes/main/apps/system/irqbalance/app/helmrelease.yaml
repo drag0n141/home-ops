@@ -23,6 +23,7 @@ spec:
       retries: 3
   values:
     controllers:
+      irqbalance:
         type: daemonset
         containers:
           app:
