@@ -5,8 +5,8 @@ metadata:
   name: &app irqbalance
   namespace: flux-system
 spec:
-  targetNamespace: storage
-  path: ./kubernetes/main/apps/storage/irqbalance/app
+  targetNamespace: system
+  path: ./kubernetes/main/apps/system/irqbalance/app
   prune: true
   sourceRef:
     kind: GitRepository
