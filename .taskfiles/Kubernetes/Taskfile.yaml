@@ -2,6 +2,9 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  KUBERNETES_TEMPLATES_DIR: "{{.ROOT_DIR}}/.taskfiles/Kubernetes/templates"
+
 tasks:
 
   browse-pvc:
@@ -65,3 +68,16 @@ tasks:
       - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Pending -A --ignore-not-found=true
     requires:
       vars: ["cluster"]
+
+  privileged:
+    desc: Run a privileged pod
+    summary: |
+      Args:
+        node: Node to run privileged pod (required)
+    cmd: |
+      kubectl run privileged-{{.node}} -i --rm --image=null \
+        --overrides="$(yq {{.KUBERNETES_TEMPLATES_DIR}}/privileged-pod.tmpl.yaml -o=json | envsubst)"
+    requires:
+      vars: ["node"]
+    preconditions:
+      - test -f {{.KUBERNETES_TEMPLATES_DIR}}/privileged-pod.tmpl.yaml
