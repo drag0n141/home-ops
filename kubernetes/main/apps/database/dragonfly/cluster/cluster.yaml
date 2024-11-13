@@ -28,8 +28,6 @@ spec:
       memory: 128Mi
     limits:
       memory: 512Mi
-  serviceSpec:
-    type: LoadBalancer
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: kubernetes.io/hostname
