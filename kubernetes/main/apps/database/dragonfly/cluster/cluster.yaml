@@ -18,13 +18,18 @@ spec:
     - --cluster_mode=emulated
     - --default_lua_flags=allow-undeclared-keys
     - --lock_on_hashtags
-    - --requirepass=${SECRET_REDIS_PASSWORD}
+  authentication:
+    passwordFromSecret:
+      name: dragonfly-secret
+      key: REDIS_PASSWORD
   resources:
     requests:
       cpu: 100m
       memory: 128Mi
     limits:
       memory: 512Mi
+  serviceSpec:
+    type: LoadBalancer
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: kubernetes.io/hostname
