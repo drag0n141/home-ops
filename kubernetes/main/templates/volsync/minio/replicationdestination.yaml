@@ -16,6 +16,9 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     capacity: "${VOLSYNC_CAPACITY:-1Gi}"
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    enableFileDeletion: true
 #    moverSecurityContext:
 #      runAsUser: ${APP_UID:-568}
 #      runAsGroup: ${APP_GID:-568}
