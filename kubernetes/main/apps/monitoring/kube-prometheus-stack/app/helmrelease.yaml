@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  maxHistory: 2
   install:
     crds: Skip
     remediation:
@@ -27,8 +26,6 @@ spec:
       retries: 3
   dependsOn:
     - name: prometheus-operator-crds
-      namespace: monitoring
-    - name: thanos
       namespace: monitoring
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -67,13 +64,15 @@ spec:
       enabled: false
     kubeScheduler:
       enabled: false
+    kubeStateMetrics:
+      enabled: true
     kubeProxy:
       enabled: false
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
-      prometheus: &prometheus
+      prometheus:
         monitor:
           enabled: true
           relabelings:
@@ -82,8 +81,6 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
-    kubeStateMetrics:
-      enabled: true
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
@@ -91,7 +88,14 @@ spec:
         - deployments=[*]
         - persistentvolumeclaims=[*]
       prometheus:
-        <<: *prometheus
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
     prometheusOperator:
       resources:
         requests:
@@ -127,8 +131,6 @@ spec:
             name: alertmanager
             port: 9093
             apiVersion: v2
-        replicas: 2
-        replicaExternalLabelName: __replica__
         scrapeInterval: 1m
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
@@ -141,15 +143,8 @@ spec:
           - auto-gomaxprocs
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        thanos:
-          image: quay.io/thanos/thanos:v0.36.1@sha256:e542959e1b36d5046083d1b64a7049c356b68a44a173c58b3ae7c0c9ada932d5
-          objectStorageConfig:
-            name: thanos-objstore-config
-            key: config
         retention: 2d
         retentionSize: 15GB
-        externalLabels:
-          cluster: main
         resources:
           requests:
             cpu: 257m
@@ -163,11 +158,6 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
     grafana:
       enabled: false
       forceDeployDashboards: true
