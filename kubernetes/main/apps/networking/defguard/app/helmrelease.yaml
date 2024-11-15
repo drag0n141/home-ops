@@ -65,7 +65,6 @@ spec:
               tag: 1.0.0@sha256:024ce8ed277486f4829df5f9a33d6c9dbb06ba95a0b3d8622de69edefaf9fb80
             env:
               TZ: ${TIMEZONE}
-              DEFGUARD_PROXY_GRPC_PORT: 50052
             probes:
               liveness: &probes-proxy
                 enabled: true
