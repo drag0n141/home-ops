@@ -56,7 +56,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     postgresql:
         enabled: false
-        host: postgres-pgbouncer.database.svc.cluster.local
+        host: postgres-primary.database.svc.cluster.local
         port: 5432
         auth:
           database: defguard_db
