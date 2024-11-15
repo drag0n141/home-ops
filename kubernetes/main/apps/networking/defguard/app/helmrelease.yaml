@@ -102,7 +102,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: h2c
         ports:
-          http:
+          grpc:
             port: 50051
     ingress:
       app:
