@@ -7,11 +7,11 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: defguard
-      version: 0.8.0
+      chart: app-template
+      version: 3.5.1
       sourceRef:
         kind: HelmRepository
-        name: defguard
+        name: bjw-s
         namespace: flux-system
   install:
     remediation:
@@ -22,12 +22,71 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    image:
-      repository: ghcr.io/defguard/defguard
-      tag: 1.0.0@sha256:3bb3fa074a7e87f81e7b512e338b48fae94632855ad59e47eecedfd4da533781
-    existingJwtSecret: defguard-secret
-    publicUrl: "https://defguard.${SECRET_DOMAIN}"
+    controllers:
+      defguard:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/defguard/defguard
+              tag: 1.0.0@sha256:3bb3fa074a7e87f81e7b512e338b48fae94632855ad59e47eecedfd4da533781
+            env:
+              TZ: ${TIMEZONE}
+              DEFGUARD_URL: https://defguard.${SECRET_DOMAIN}
+              DEFGUARD_WEBAUTHN_RP_ID: defguard.${SECRET_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: defguard-secret
+              - secretRef:
+                  name: defguard-db-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/health
+                    port: 8000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+    service:
+      app:
+        controller: defguard
+        primary: true
+        ports:
+          http:
+            port: 8000
+      grpc:
+        controller: defguard
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: h2c
+        ports:
+          grpc:
+            port: 50055
     ingress:
+      app:
+        className: traefik-external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "defguard.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       grpc:
         className: traefik-external
         annotations:
@@ -35,31 +94,15 @@ spec:
           external-dns.alpha.kubernetes.io/exclude-unifi: "true"
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-rate-limit@kubernetescrd"
-        host: &grpc "defguard-grpc.${SECRET_DOMAIN}"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &grpc "defguard-grpc.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: grpc
+                  port: grpc
         tls:
           - hosts:
               - *grpc
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-      web:
-        className: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-rate-limit@kubernetescrd"
-        host: &host "defguard.${SECRET_DOMAIN}"
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    postgresql:
-        enabled: false
-        host: postgres-primary.database.svc.cluster.local
-        port: 5432
-        auth:
-          database: defguard_db
-          username: defguard
-          existingSecret: defguard-db-secret
-          existingSecretPasswordKey: DEFGUARD_DB_PASSWORD
