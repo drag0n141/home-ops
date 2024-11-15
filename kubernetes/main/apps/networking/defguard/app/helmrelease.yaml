@@ -67,7 +67,7 @@ spec:
               TZ: ${TIMEZONE}
               DEFGUARD_PROXY_GRPC_PORT: 50052
             probes:
-              liveness: &probes
+              liveness: &probes-proxy
                 enabled: true
                 custom: true
                 spec:
@@ -78,6 +78,7 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
+              readiness: *probes-proxy
     service:
       app:
         controller: defguard
