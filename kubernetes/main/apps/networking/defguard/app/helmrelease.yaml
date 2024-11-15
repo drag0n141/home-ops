@@ -171,7 +171,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &proxy "enrollment-grpc.${SECRET_DOMAIN}"
+          - host: &proxy-grpc "enrollment-grpc.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -179,5 +179,5 @@ spec:
                   port: grpc
         tls:
           - hosts:
-              - *proxy
+              - *proxy-grpc
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
