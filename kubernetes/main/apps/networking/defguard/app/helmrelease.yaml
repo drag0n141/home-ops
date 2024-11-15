@@ -26,7 +26,7 @@ spec:
       repository: ghcr.io/defguard/defguard
       tag: 1.0.0@sha256:3bb3fa074a7e87f81e7b512e338b48fae94632855ad59e47eecedfd4da533781
     existingJwtSecret: defguard-secret
-    publicUrl: &host defguard.${SECRET_DOMAIN}
+    publicUrl: "https://defguard.${SECRET_DOMAIN}"
     ingress:
       grpc:
         className: traefik-external
@@ -49,7 +49,7 @@ spec:
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-rate-limit@kubernetescrd"
-        host: *host
+        host: &host "defguard.${SECRET_DOMAIN}"
         tls:
           - hosts:
               - *host
