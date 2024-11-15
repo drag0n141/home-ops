@@ -53,7 +53,7 @@ spec:
               capabilities: { drop: ["ALL"] }
     persistence:
       config:
-        existingClaim: plex-meta-manager
+        existingClaim: kometa
         globalMounts:
           - path: /config
       config-secret:
