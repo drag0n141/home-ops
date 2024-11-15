@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gotify/server
-              tag: 2.5.0
+              tag: 2.6.0
             env:
               TZ: ${TIMEZONE}
               GOTIFY_DATABASE_DIALECT: postgres
