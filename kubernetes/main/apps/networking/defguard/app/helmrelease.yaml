@@ -55,7 +55,7 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-      defguard-proxy:
+      proxy:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -94,12 +94,12 @@ spec:
           grpc:
             port: 50055
       proxy:
-        controller: defguard-proxy
+        controller: proxy
         ports:
           http:
             port: 8080
       proxy-grpc:
-        controller: defguard-proxy
+        controller: proxy
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: h2c
         ports:
