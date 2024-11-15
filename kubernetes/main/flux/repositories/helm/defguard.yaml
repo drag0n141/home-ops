@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: defguard
-  namespace: flux-system
-spec:
-  interval: 2h
-  url: https://defguard.github.io/deployment
