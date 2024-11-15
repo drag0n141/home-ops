@@ -59,7 +59,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          proxy:
             image:
               repository: ghcr.io/defguard/defguard-proxy
               tag: 1.0.0@sha256:024ce8ed277486f4829df5f9a33d6c9dbb06ba95a0b3d8622de69edefaf9fb80
