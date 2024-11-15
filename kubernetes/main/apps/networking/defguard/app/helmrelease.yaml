@@ -33,6 +33,8 @@ spec:
               tag: 1.0.0@sha256:3bb3fa074a7e87f81e7b512e338b48fae94632855ad59e47eecedfd4da533781
             env:
               TZ: ${TIMEZONE}
+              DEFGUARD_ENROLLMENT_URL: https://enrollment.${SECRET_DOMAIN}
+              DEFGUARD_PROXY_URL: https://enrollment-grpc.${SECRET_DOMAIN}
               DEFGUARD_URL: https://defguard.${SECRET_DOMAIN}
               DEFGUARD_WEBAUTHN_RP_ID: defguard.${SECRET_DOMAIN}
             envFrom:
@@ -53,6 +55,29 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+      defguard-proxy:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/defguard/defguard-proxy
+              tag: 1.0.0@sha256:024ce8ed277486f4829df5f9a33d6c9dbb06ba95a0b3d8622de69edefaf9fb80
+            env:
+              TZ: ${TIMEZONE}
+              DEFGUARD_PROXY_GRPC_PORT: 50052
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/health
+                    port: 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
     service:
       app:
         controller: defguard
@@ -67,6 +92,18 @@ spec:
         ports:
           grpc:
             port: 50055
+      proxy:
+        controller: defguard-proxy
+        ports:
+          http:
+            port: 8080
+      proxy-grpc:
+        controller: defguard-proxy
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: h2c
+        ports:
+          http:
+            port: 50051
     ingress:
       app:
         className: traefik-external
@@ -105,4 +142,42 @@ spec:
         tls:
           - hosts:
               - *grpc
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      proxy:
+        className: traefik-external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &proxy "enrollment.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: proxy
+                  port: http
+        tls:
+          - hosts:
+              - *proxy
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      proxy-grpc:
+        className: traefik-external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &proxy "enrollment-grpc.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: proxy-grpc
+                  port: grpc
+        tls:
+          - hosts:
+              - *proxy
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
