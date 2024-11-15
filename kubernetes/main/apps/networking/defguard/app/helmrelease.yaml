@@ -90,7 +90,7 @@ spec:
               TZ: ${TIMEZONE}
               DEFGUARD_GATEWAY_NAME: Gateway-K8s
               DEFGUARD_GRPC_URL: https://defguard-grpc.${SECRET_DOMAIN}
-              DEFGUARD_USERSPACE: 1
+              DEFGUARD_USERSPACE: true
             envFrom:
               - secretRef:
                   name: defguard-gateway-secret
