@@ -7,10 +7,10 @@ resources:
   - ./notifications.yaml
   # Flux-Kustomizations
   - ./autoscan/ks.yaml
+  - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
   - ./piped/ks.yaml
-  - ./plex-meta-manager/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./radarr4k/ks.yaml
