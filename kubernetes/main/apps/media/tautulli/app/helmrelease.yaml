@@ -63,8 +63,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-              limits:
-                memory: 3Gi
+                memory: 512Mi
           jbops:
             image:
               repository: registry.k8s.io/git-sync/git-sync
