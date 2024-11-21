@@ -11,7 +11,7 @@ vars:
   TALOS_SCHEMATIC_ID: 6ac28b6917cb52b1c31f4590cc552560e7a03c5adce7ec449b0205d81bb797aa
   TALOS_SCHEMATIC_ID_UTILITY: e3fab82b561b5e559cdf1c0b1e5950c0e52700b9208a2cfaa5b18454796f3a7e
   # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-  KUBERNETES_VERSION: v1.31.2
+  KUBERNETES_VERSION: v1.31.3
   TALOS_SCRIPTS_DIR: "{{.ROOT_DIR}}/.taskfiles/Talos/scripts"
 
 tasks:
