@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: docker.io/vikunja/vikunja
-              tag: 0.24.4@sha256:c93c58841215592c51a40fa978da25efadd1fff2460b42443c344132f322eef1
+              tag: 0.24.5@sha256:66db5bf13f2863a4dbfe34f29c37d5bbf78b9ed15cb729bbe713fb472431c738
             env:
               TZ: ${TIMEZONE}
               VIKUNJA_CACHE_ENABLED: 1
