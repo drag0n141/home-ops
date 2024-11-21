@@ -62,7 +62,7 @@ spec:
           proxy:
             image:
               repository: ghcr.io/defguard/defguard-proxy
-              tag: 1.1.0@sha256:5de9dc4f902e8a1612e1c44b02961fa1f2a102c331df898c29e99fb105114669
+              tag: 1.1.1@sha256:66e68d8f36b905e6498fd0f57c5968d817234a695c2a3c36440500a6b52170da
             env:
               TZ: ${TIMEZONE}
             probes:
