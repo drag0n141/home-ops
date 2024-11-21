@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/defguard/defguard
-              tag: 1.1.0@sha256:65308d481f879640565b92397591a0eec4917e4136dcd4c2d580fd5e4027906c
+              tag: 1.1.1@sha256:91b0570e3fd03e5a91f95938432f4c52b574a0fbbc2ff2671fbe2a4377fdcc48
             env:
               TZ: ${TIMEZONE}
               DEFGUARD_ENROLLMENT_URL: https://enrollment.${SECRET_DOMAIN}
