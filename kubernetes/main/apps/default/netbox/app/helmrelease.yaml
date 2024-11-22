@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: ghcr.io/netbox-community/netbox
-      tag: v4.1.6
+      tag: v4.1.7
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
