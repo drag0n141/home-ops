@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: docker.io/tombursch/kitchenowl-backend
-              tag: v0.5.2@sha256:154650a4da2b8c999c26bc801dc9d9fab1649c21ec37e3417cd6e8e96a33fff9
+              tag: v0.6.1@sha256:d9c79099963a934070465b3c0204c824a99a30b48f96bd735463c5c3daf9e0da
             env:
               TZ: ${TIMEZONE}
               COLLECT_METRICS: false
