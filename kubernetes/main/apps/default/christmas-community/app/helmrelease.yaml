@@ -40,6 +40,8 @@ spec:
               TZ: ${TIMEZONE}
               LANGUAGE: de-de
               PORT: &port 8081
+              SITE_TITLE: Wunschlisten
+              SHORT_TITLE: Wunschlisten
               SMILE: false
               UPDATE_CHECK: false
             envFrom:
