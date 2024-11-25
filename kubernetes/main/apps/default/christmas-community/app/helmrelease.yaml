@@ -28,7 +28,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      ferdium:
+      christmas-community:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
