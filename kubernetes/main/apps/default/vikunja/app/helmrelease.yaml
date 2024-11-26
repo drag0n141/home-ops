@@ -38,23 +38,24 @@ spec:
               tag: 0.24.5@sha256:1fb8454c9c04f3a86d16f9c8b9fa6cdbf685b6e6e3ff1da1d7ff3374bdbe46ad
             env:
               TZ: ${TIMEZONE}
+              VIKUNJA_AUTH_LOCAL: false
               VIKUNJA_DATABASE_TYPE: postgres
-              VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: "true"
-              VIKUNJA_DEFAULTSETTINGS_OVERDUE_TASKS_REMINDERS_ENABLED: "false"
+              VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: true
+              VIKUNJA_DEFAULTSETTINGS_OVERDUE_TASKS_REMINDERS_ENABLED: false
               VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
-              VIKUNJA_MAILER_ENABLED: "true"
+              VIKUNJA_MAILER_ENABLED: true
               VIKUNJA_MAILER_HOST: smtp-relay.networking.svc.cluster.local
               VIKUNJA_MAILER_PORT: 2525
               VIKUNJA_MAILER_FROMEMAIL: vikunja@${SECRET_DOMAIN}
-              VIKUNJA_REDIS_ENABLED: "true"
+              VIKUNJA_REDIS_ENABLED: true
               VIKUNJA_REDIS_HOST: dragonfly.database.svc.cluster.local:6379
               VIKUNJA_REDIS_DB: 7
-              VIKUNJA_KEYVALUE_TYPE: "redis"
+              VIKUNJA_KEYVALUE_TYPE: redis
               VIKUNJA_SERVICE_PUBLICURL: https://vikunja.${SECRET_DOMAIN}
               VIKUNJA_SERVICE_TIMEZONE: ${TIMEZONE}
-              VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: "true"
-              VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
-              VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: "true"
+              VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: true
+              VIKUNJA_SERVICE_ENABLEREGISTRATION: false
+              VIKUNJA_SERVICE_ENABLEEMAILREMINDERS: true
             envFrom:
               - secretRef:
                   name: vikunja-secret
