@@ -166,7 +166,7 @@ identity_providers:
         scopes:  ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://paperless.${SECRET_DOMAIN_INTERNAL}/accounts/oidc/authelia/login/callback/"]
         userinfo_signed_response_alg: none
-        token_endpoint_auth_method: client_secret_post
+        token_endpoint_auth_method: client_secret_basic
       - client_id: tandoor
         client_name: Tandoor
         client_secret: "{{ .TANDOOR_OAUTH_CLIENT_SECRET }}"
@@ -176,4 +176,4 @@ identity_providers:
         scopes:  ["openid", "profile", "email"]
         redirect_uris: ["https://recipes.${SECRET_DOMAIN}/accounts/oidc/authelia/login/callback/"]
         userinfo_signed_response_alg: none
-        token_endpoint_auth_method: client_secret_post
+        token_endpoint_auth_method: client_secret_basic
