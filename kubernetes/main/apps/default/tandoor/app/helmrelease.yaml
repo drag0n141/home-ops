@@ -38,19 +38,19 @@ spec:
               tag: 1.5.23@sha256:be2e5c805f0c722664757203fbfd9ac0f7efb26f96706dd7fc6d90f9594589d4
             env:
               TZ: ${TIMEZONE}
-              DEBUG: 0
               ALLOWED_HOSTS: "*"
-              DB_ENGINE: django.db.backends.postgresql_psycopg2
-              DEFAULT_FROM_EMAIL: recipes@${SECRET_DOMAIN}
-              GUNICORN_MEDIA: 0
-              REMOTE_USER_AUTH: 0
-              FRACTION_PREF_DEFAULT: 0
               COMMENT_PREF_DEFAULT: 1
-              SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
-              TANDOOR_PORT: &tandoorPort 8000
-              ENABLE_SIGNUP: 0
+              DB_ENGINE: django.db.backends.postgresql_psycopg2
+              DEBUG: 0
+              DEFAULT_FROM_EMAIL: recipes@${SECRET_DOMAIN}
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               EMAIL_PORT: 2525
+              ENABLE_SIGNUP: 0
+              FRACTION_PREF_DEFAULT: 0
+              GUNICORN_MEDIA: 0
+              SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
+              SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
+              TANDOOR_PORT: &tandoorPort 8000
             envFrom:
               - secretRef:
                   name: tandoor-secret
