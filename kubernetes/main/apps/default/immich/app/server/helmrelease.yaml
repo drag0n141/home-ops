@@ -36,6 +36,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               IMMICH_WORKERS_INCLUDE: api
+              IMMICH_METRICS_INCLUDE: all
             envFrom:
               - configMapRef:
                   name: immich-configmap
@@ -50,14 +51,23 @@ spec:
                 spec:
                   httpGet:
                     path: /server-info/ping
-                    port: 2283
+                    port: &port 2283
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 5
               readiness: *probes
               startup:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/server/ping
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 5
+                  successThreshold: 1
+                  timeoutSeconds: 1
             resources:
               requests:
                 cpu: 10m
@@ -80,7 +90,18 @@ spec:
         controller: immich
         ports:
           http:
-            port: 2283
+            port: *port
+          metrics:
+            port: 8081
+    serviceMonitor:
+      app:
+        serviceName: immich
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       app:
         className: traefik-external
