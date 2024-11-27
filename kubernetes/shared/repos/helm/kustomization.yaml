@@ -40,4 +40,5 @@ resources:
   - ./stakater.yaml
   - ./stevehipwell.yaml
   - ./teleport.yaml
+  - ./totmicro.yaml
   - ./traefik.yaml
