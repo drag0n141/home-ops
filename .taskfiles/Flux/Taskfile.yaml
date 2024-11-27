@@ -14,7 +14,7 @@ tasks:
       - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux
       # Install secrets and configmaps
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl --context {{.cluster}} apply --server-side --filename -
-      - sops --decrypt {{.KUBERNETES_DIR}}/shared/vars/cluster-secrets.sops.yaml | kubectl --context {{.cluster}} apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml | kubectl --context {{.cluster}} apply --server-side --filename -
       - kubectl --context {{.cluster}} apply --server-side --filename {{.KUBERNETES_DIR}}/shared/vars/cluster-settings.yaml
       # Install Flux Kustomization resources
       - kubectl --context {{.cluster}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/flux/config
@@ -25,7 +25,7 @@ tasks:
       - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
       - { msg: "Age private key not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux/age-key.secret.sops.yaml" }
       - { msg: "Cluster settings not found", sh: "test -f {{.KUBERNETES_DIR}}/shared/vars/cluster-settings.yaml" }
-      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/shared/vars/cluster-secrets.sops.yaml" }
+      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml" }
       - { msg: "Unable to decrypt age secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/flux/age-key.secret.sops.yaml" }
       - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/shared/flux/vars/cluster-secrets.sops.yaml" }
 

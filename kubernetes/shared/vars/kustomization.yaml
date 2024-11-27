@@ -4,4 +4,3 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - ./cluster-settings.yaml
-  - ./cluster-secrets.sops.yaml
