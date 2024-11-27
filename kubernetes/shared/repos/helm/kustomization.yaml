@@ -1,6 +1,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: flux-system
 resources:
   - ./actions-runner-controller.yaml
   - ./airflow.yaml
@@ -27,7 +28,6 @@ resources:
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./k8tz.yaml
-  - ./kube-vip.yaml
   - ./metrics-server.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
