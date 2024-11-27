@@ -24,6 +24,8 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: *app
+    image:
+      registry: quay.io
     config:
       devices:
         - /dev/sda
