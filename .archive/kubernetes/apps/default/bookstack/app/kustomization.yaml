@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
-  - ../../../../shared/templates/volsync
-  - ../../../../shared/templates/mariadb
+  - ../../../../../shared/templates/volsync
+  - ../../../../../shared/templates/mariadb

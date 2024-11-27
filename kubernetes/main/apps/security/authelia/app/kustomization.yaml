@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../shared/templates/gatus/external
+  - ../../../../../shared/templates/gatus/external
 configMapGenerator:
   - name: authelia-configmap
     files:
