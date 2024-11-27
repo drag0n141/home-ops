@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/volsync
+  - ../../../../shared/templates/volsync
 configMapGenerator:
   - name: autoscan-configmap
     files:

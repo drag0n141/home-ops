@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
-  - ../../../../templates/volsync
+  - ../../../../shared/templates/volsync

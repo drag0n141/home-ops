@@ -5,4 +5,4 @@ resources:
   - ./preference.yaml
   - ./type.yaml
   - ./vm.yaml
-  - ../../../../templates/volsync
+  - ../../../../shared/templates/volsync

@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/external
-  - ../../../../templates/volsync
+  - ../../../../shared/templates/gatus/external
+  - ../../../../shared/templates/volsync
 configMapGenerator:
   - name: radicale-configmap
     files:

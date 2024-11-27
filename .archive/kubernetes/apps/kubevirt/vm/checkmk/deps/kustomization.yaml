@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./preference.yaml
   - ./type.yaml
-  - ../../../../templates/volsync
+  - ../../../../shared/templates/volsync
