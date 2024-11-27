@@ -29,6 +29,18 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substituteFrom:
+      - name: cluster-settings
+        kind: ConfigMap
+        optional: false
+      - name: cluster-secrets
+        kind: Secret
+        optional: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -54,6 +66,12 @@ spec:
       - name: cluster-settings
         kind: ConfigMap
         optional: false
+      - name: cluster-settings-utility
+        kind: ConfigMap
+        optional: true
       - name: cluster-secrets
         kind: Secret
         optional: false
+      - name: cluster-secrets-utility
+        kind: Secret
+        optional: true

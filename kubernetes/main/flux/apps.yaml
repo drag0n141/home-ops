@@ -20,9 +20,15 @@ spec:
       - name: cluster-settings
         kind: ConfigMap
         optional: false
+      - name: cluster-settings-main
+        kind: ConfigMap
+        optional: true
       - name: cluster-secrets
         kind: Secret
         optional: false
+      - name: cluster-secrets-main
+        kind: Secret
+        optional: true
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -39,9 +45,15 @@ spec:
               - name: cluster-settings
                 kind: ConfigMap
                 optional: false
+              - name: cluster-settings-main
+                kind: ConfigMap
+                optional: true
               - name: cluster-secrets
                 kind: Secret
                 optional: false
+              - name: cluster-secrets-main
+                kind: Secret
+                optional: true
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
