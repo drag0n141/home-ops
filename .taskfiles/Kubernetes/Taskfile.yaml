@@ -18,6 +18,8 @@ tasks:
     cmd: kubectl browse-pvc --context {{.cluster}} --namespace {{.ns}} {{.claim}}
     requires:
       vars: ["cluster", "claim"]
+    preconditions:
+      - which kubectl
 
   drain:
     desc: Drain a node
@@ -28,46 +30,39 @@ tasks:
     cmd: kubectl --context {{.cluster}} drain {{.node}} --ignore-daemonsets --delete-local-data --force
     requires:
       vars: ["cluster", "node"]
-      
-  delete-evicted-pods:
-    desc: Deletes pods with Evicted phase
-    summary: |
-      Args:
-        cluster: Cluster to run command against (required)
-    cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Evicted -A --ignore-not-found=true
-    requires:
-      vars: ["cluster"]
+    preconditions:
+      - which kubectl
 
-  delete-failed-pods:
-    desc: Deletes pods with Failed phase
+  cleanse-pods:
+    desc: Cleanse pods with a Failed/Pending/Succeeded phase
     summary: |
       Args:
         cluster: Cluster to run command against (required)
     cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
+      - for:
+          matrix:
+            PHASE: [Failed, Pending, Succeeded]
+        cmd: kubectl delete pods --context {{.cluster}} --all-namespaces --field-selector status.phase={{.ITEM.PHASE}} --ignore-not-found=true
     requires:
       vars: ["cluster"]
+    preconditions:
+      - which kubectl
 
-  delete-succeeded-pods:
-    desc: Deletes pods with Succeeded phase
+  sync-secrets:
+    desc: Sync all ExternalSecrets
     summary: |
       Args:
         cluster: Cluster to run command against (required)
     cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
+      - for: { var: SECRETS, split: "\n" }
+        cmd: kubectl --context {{.cluster}} --namespace {{splitList "," .ITEM | first}} annotate externalsecret {{splitList "," .ITEM | last}} force-sync="{{now | unixEpoch}}" --overwrite
+    vars:
+      SECRETS:
+        sh: kubectl --context {{.cluster}} get externalsecret --all-namespaces --no-headers --output=jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
     requires:
       vars: ["cluster"]
-
-  delete-pending-pods:
-    desc: Deletes pods with Pending phase
-    summary: |
-      Args:
-        cluster: Cluster to run command against (required)
-    cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Pending -A --ignore-not-found=true
-    requires:
-      vars: ["cluster"]
+    preconditions:
+      - which kubectl
 
   privileged:
     desc: Run a privileged pod
@@ -80,4 +75,5 @@ tasks:
     requires:
       vars: ["node"]
     preconditions:
+      - which kubectl
       - test -f {{.KUBERNETES_TEMPLATES_DIR}}/privileged-pod.tmpl.yaml
