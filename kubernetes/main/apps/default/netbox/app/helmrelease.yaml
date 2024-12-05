@@ -14,6 +14,8 @@ spec:
         name: bootc
         namespace: flux-system
   values:
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/netbox-community/netbox
       tag: v4.1.7
@@ -69,7 +71,7 @@ spec:
       port: 5432
       database: netbox_db
       username: netbox
-      existingSecretName: "netbox-db-secret"
+      existingSecretName: "netbox-secret"
       existingSecretKey: "NETBOX_PG_PASS"
     email:
       server: smtp-relay.networking.svc.cluster.local
@@ -118,8 +120,6 @@ spec:
     extraConfig:
       - secret:
           secretName: netbox-secret
-      - secret:
-          secretName: netbox-db-secret
     updateStrategy:
       type: RollingUpdate
     housekeeping:

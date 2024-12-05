@@ -32,8 +32,6 @@ spec:
       envFrom:
         - secretRef:
             name: authentik-secret
-        - secretRef:
-            name: authentik-db-secret
     authentik:
       log_level: info
       email:

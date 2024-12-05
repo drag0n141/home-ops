@@ -40,8 +40,6 @@ spec:
             envFrom:
               - secretRef:
                   name: defguard-secret
-              - secretRef:
-                  name: defguard-db-secret
             probes:
               liveness: &probes
                 enabled: true

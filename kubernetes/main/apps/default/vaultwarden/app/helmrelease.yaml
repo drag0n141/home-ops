@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -51,8 +50,6 @@ spec:
             envFrom:
               - secretRef:
                   name: vaultwarden-secret
-              - secretRef:
-                  name: vaultwarden-db-secret
             resources:
               requests:
                 cpu: 10m

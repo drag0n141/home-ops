@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -37,7 +36,7 @@ spec:
               DB_TYPE: postgres
             envFrom:
               - secretRef:
-                  name: wiki-db-secret
+                  name: wiki-secret
             resources:
               requests:
                 cpu: 5m

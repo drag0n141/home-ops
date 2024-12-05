@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -43,8 +42,6 @@ spec:
             envFrom:
               - secretRef:
                   name: gotify-secret
-              - secretRef:
-                  name: gotify-db-secret
             resources:
               requests:
                 cpu: 5m

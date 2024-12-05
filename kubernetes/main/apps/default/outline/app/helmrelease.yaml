@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -35,6 +34,7 @@ spec:
             image:
               repository: docker.io/outlinewiki/outline
               tag: 0.81.1@sha256:e539971b59b2523ab54bf792105d1cff6432974a37e18211c175cd053d7feb62
+            command: ["/bin/sh", "-c", "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled"]
             env:
               TZ: ${TIMEZONE}
               URL: "https://outline.${SECRET_DOMAIN_INTERNAL}"
@@ -63,9 +63,6 @@ spec:
             envFrom:
               - secretRef:
                   name: outline-secret
-              - secretRef:
-                  name: outline-db-secret
-            command: ["/bin/sh", "-c", "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled"]
             resources:
               requests:
                 cpu: 10m

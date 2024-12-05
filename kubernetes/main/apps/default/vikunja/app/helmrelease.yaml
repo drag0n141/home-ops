@@ -59,8 +59,6 @@ spec:
             envFrom:
               - secretRef:
                   name: vikunja-secret
-              - secretRef:
-                  name: vikunja-db-secret
             resources:
               requests:
                 cpu: 50m

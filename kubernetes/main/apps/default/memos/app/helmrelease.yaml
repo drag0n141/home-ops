@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -39,7 +38,7 @@ spec:
               MEMOS_PUBLIC: false
             envFrom:
               - secretRef:
-                  name: memos-db-secret
+                  name: memos-secret
             resources:
               requests:
                 cpu: 5m
