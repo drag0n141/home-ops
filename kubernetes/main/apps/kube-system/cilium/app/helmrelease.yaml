@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-  maxHistory: 2
   install:
     createNamespace: true
     remediation:
@@ -67,21 +66,3 @@ spec:
             - hosts:
                 - "hubble.${SECRET_DOMAIN_INTERNAL}"
               secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    operator:
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-      dashboards:
-        enabled: true
-        annotations:
-          grafana_folder: Cilium
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-    dashboards:
-      enabled: true
-      annotations:
-        grafana_folder: Cilium

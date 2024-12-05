@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: postfinance
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -25,8 +24,3 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: kubelet-csr-approver-helm-values
-  values:
-    metrics:
-      enable: true
-      serviceMonitor:
-        enabled: true

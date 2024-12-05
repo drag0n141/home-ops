@@ -13,7 +13,6 @@ spec:
         kind: HelmRepository
         name: spegel
         namespace: flux-system
-  maxHistory: 2
   install:
     remediation:
       retries: 3
@@ -25,6 +24,3 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: spegel-helm-values
-  values:
-    serviceMonitor:
-      enabled: true
