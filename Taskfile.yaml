@@ -22,7 +22,7 @@ includes:
   kubernetes: .taskfiles/kubernetes
   op: .taskfiles/onepassword
   sops: .taskfiles/sops
-  talos: .taskfiles/Talos/Taskfile.yaml
+  talos: .taskfiles/talos
   volsync: .taskfiles/volsync
 
 tasks:
