@@ -20,6 +20,8 @@ tasks:
               EDITOR="vim -es +'norm Go' +':wq'" sops --ignore-mac "${file}"
           fi
       done
+    preconditions:
+      - which vim
 
   age-keygen:
     desc: Initialize Age Key for Sops
@@ -27,26 +29,11 @@ tasks:
     status:
       - test -f "{{.SOPS_AGE_FILE}}"
 
-  encrypt:
-    desc: Encrypt all Kubernetes SOPS secrets that are not already encrypted
-    cmds:
-      - for: { var: file }
-        task: .encrypt-file
-        vars:
-          file: "{{.ITEM}}"
-    vars:
-      file:
-        sh: find "{{.KUBERNETES_DIR}}" -type f -name "*.sops.*" -exec grep -L "ENC\[AES256_GCM" {} \;
-
   .encrypt-file:
     internal: true
-    cmd: sops --encrypt --in-place {{.file}}
+    cmd: sops --encrypt --in-place {{.FILE}}
     requires:
-      vars: ["file"]
+      vars: [FILE]
     preconditions:
       - { msg: "Missing Sops config file", sh: "test -f {{.SOPS_CONFIG_FILE}}" }
-      - { msg: "Missing Sops Age key file", sh: "test -f {{.SOPS_AGE_FILE}}" }
-
-  .reset:
-    internal: true
-    cmd: rm -rf {{.SOPS_CONFIG_FILE}}
+      - { msg: "Missing Sops Age key file", sh: "test -f {{.AGE_FILE}}" }
