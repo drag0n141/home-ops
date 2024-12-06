@@ -1,20 +1,26 @@
 ---
 version: "3"
 
+set: [pipefail]
+shopt: [globstar]
+
 vars:
-  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  CLUSTER: '{{.CLUSTER | default "main"}}'
+  CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
 
 env:
-  KUBECONFIG: "{{.ROOT_DIR}}/kubernetes/main/kubeconfig:{{.ROOT_DIR}}/kubernetes/utility/kubeconfig"
-  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
+  GOPATH: '{{.ROOT_DIR}}/.go'
+  KUBECONFIG: '{{.CLUSTER_DIR}}/kubeconfig'
+  MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
+  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
+  TALOSCONFIG: '{{.CLUSTER_DIR}}/talosconfig'
+  VIRTUAL_ENV: '{{.ROOT_DIR}}/.venv'
 
 includes:
-  bootstrap: .taskfiles/Bootstrap/Taskfile.yaml
+  bootstrap: .taskfiles/bootstrap
   external-secrets: .taskfiles/externalsecrets
-  flux: .taskfiles/Flux/Taskfile.yaml
   kubernetes: .taskfiles/kubernetes
   op: .taskfiles/onepassword
-  rook: .taskfiles/Rook/Taskfile.yaml
   sops: .taskfiles/sops
   talos: .taskfiles/Talos/Taskfile.yaml
   volsync: .taskfiles/volsync

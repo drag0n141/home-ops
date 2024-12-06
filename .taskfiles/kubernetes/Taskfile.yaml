@@ -25,6 +25,24 @@ tasks:
     preconditions:
       - test -f {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml
 
+  reconcile:
+    desc: Force update Flux [CLUSTER=main]
+    cmd: flux reconcile --namespace flux-system kustomization cluster --with-source
+    requires:
+      vars: [CLUSTER]
+    preconditions:
+      - which kubectl
+
+  hr-restart:
+    desc: Restart all failed Helm Releases [CLUSTER=main]
+    cmds:
+      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux suspend hr $0 -n $1'
+      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux resume hr $0 -n $1'
+    requires:
+      vars: [CLUSTER]
+    preconditions:
+      - which kubectl
+
   browse-pvc:
     desc: Mount a PVC to an temp container [CLUSTER=main] [NS=default] [CLAIM=required]
     interactive: true
