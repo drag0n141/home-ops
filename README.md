@@ -27,12 +27,16 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 | [sops](https://github.com/mozilla/sops)                            | Encrypts kubernetes secrets with Age                                     |
 
 
-## 💻 Nodes
+## 💻 Main Cluster
 | Node             | Hostname | RAM  | Storage                      | Function          | Operating System |
 |------------------|----------|------|------------------------------|-------------------|------------------|
 | Intel NUC13ANHI5 | K8s-M01  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
 | Intel NUC13ANHI5 | K8s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
 | Intel NUC13ANHI5 | K8s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
+
+## 💻 Utility Cluster
+| Node             | Hostname | RAM  | Storage                      | Function          | Operating System |
+|------------------|----------|------|------------------------------|-------------------|------------------|
 | Intel NUC12WSKI5 | K8s-U01  | 16GB | OS-Disk 256GB                | Kuberneter Master | Talos            |
 
 ## 💽 Server
