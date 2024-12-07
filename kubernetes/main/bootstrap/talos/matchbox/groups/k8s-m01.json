@@ -1,8 +1,0 @@
-{
-  "id": "k8s-m01",
-  "name": "k8s-m01",
-  "profile": "k8s-m01",
-  "selector": {
-    "mac": "48:21:0b:59:6e:be"
-  }
-}

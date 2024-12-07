@@ -14,42 +14,42 @@ vars:
 tasks:
 
   apply-node:
-    desc: Apply Talos config to a node [CLUSTER=main] [IP=required]
+    desc: Apply Talos config to a node [CLUSTER=main] [NODE=required]
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
       - task: down
-      - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/talos/{{.IP}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.IP}} apply-config --mode={{.MODE}} --file /dev/stdin
-      - talosctl --nodes {{.IP}} health --wait-timeout=10m --server=false
+      - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/talos/{{.NODE}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.NODE}} apply-config --mode={{.MODE}} --file /dev/stdin
+      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
       - task: up
     vars:
       MODE: '{{.MODE | default "auto"}}'
     requires:
-      vars: [CLUSTER, IP]
+      vars: [CLUSTER, NODE]
     preconditions:
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - test -f {{.CLUSTER_DIR}}/talos/{{.IP}}.sops.yaml.j2
+      - test -f {{.CLUSTER_DIR}}/talos/{{.NODE}}.sops.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli sops talosctl
 
   upgrade-node:
-    desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]
+    desc: Upgrade Talos on a single node [CLUSTER=main] [NODE=required]
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
       - task: down
-      - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/{{.TALOS_SCHEMATIC_ID}}:$TALOS_VERSION" --timeout=10m
-      - talosctl --nodes {{.IP}} health --wait-timeout=10m --server=false
+      - talosctl --nodes {{.NODE}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/{{.TALOS_SCHEMATIC_ID}}:$TALOS_VERSION" --timeout=10m
+      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
       - task: up
     vars:
       TALOS_SCHEMATIC_ID:
-        sh: kubectl get nodes --output json | jq --raw-output '.items[] | select(.status.addresses[] | select(.type == "InternalIP" and .address == "{{.IP}}")) | .metadata.annotations."extensions.talos.dev/schematic"'
+        sh: kubectl get nodes --output json | jq --raw-output '.items[] | select(.status.addresses[] | select(.type == "InternalNODE" and .address == "{{.NODE}}")) | .metadata.annotations."extensions.talos.dev/schematic"'
       TALOS_SECUREBOOT:
-        sh: talosctl --nodes {{.IP}} get securitystate --output=jsonpath='{.spec.secureBoot}'
+        sh: talosctl --nodes {{.NODE}} get securitystate --output=jsonpath='{.spec.secureBoot}'
     requires:
-      vars: [CLUSTER, IP]
+      vars: [CLUSTER, NODE]
     preconditions:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/talos/releases/tag/$TALOS_VERSION
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
@@ -76,16 +76,16 @@ tasks:
       - which talosctl
 
   reboot-node:
-    desc: Reboot Talos on a single node [CLUSTER=main] [IP=required]
+    desc: Reboot Talos on a single node [CLUSTER=main] [NODE=required]
     cmds:
       - task: down
-      - talosctl --nodes {{.IP}} reboot
-      - talosctl --nodes {{.IP}} health --wait-timeout=10m --server=false
+      - talosctl --nodes {{.NODE}} reboot
+      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
       - task: up
     requires:
-      vars: [CLUSTER, IP]
+      vars: [CLUSTER, NODE]
     preconditions:
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
@@ -94,9 +94,9 @@ tasks:
   shutdown-cluster:
     desc: Shutdown Talos across the whole cluster [CLUSTER=main]
     prompt: Shutdown the Talos cluster '{{.CLUSTER}}' ... continue?
-    cmd: talosctl shutdown --nodes {{.IPS}} --force
+    cmd: talosctl shutdown --nodes {{.NODES}} --force
     vars:
-      IPS:
+      NODES:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     requires:
       vars: [CLUSTER]
@@ -107,22 +107,22 @@ tasks:
       - which jq talosctl
 
   reset-node:
-    desc: Reset Talos on a single node [CLUSTER=main] [IP=required]
-    prompt: Reset Talos node '{{.IP}}' on the '{{.CLUSTER}}' cluster ... continue?
-    cmd: talosctl reset --nodes {{.IP}} --graceful=false
+    desc: Reset Talos on a single node [CLUSTER=main] [NODE=required]
+    prompt: Reset Talos node '{{.NODE}}' on the '{{.CLUSTER}}' cluster ... continue?
+    cmd: talosctl reset --nodes {{.NODE}} --graceful=false
     requires:
-      vars: [CLUSTER, IP]
+      vars: [CLUSTER, NODE]
     preconditions:
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/talosconfig
 
   reset-cluster:
     desc: Reset Talos across the whole cluster [CLUSTER=main]
     prompt: Reset the Talos cluster '{{.CLUSTER}}' ... continue?
-    cmd: talosctl reset --nodes {{.IPS}} --graceful=false
+    cmd: talosctl reset --nodes {{.NODES}} --graceful=false
     vars:
-      IPS:
+      NODES:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     requires:
       vars: [CLUSTER]
@@ -158,33 +158,5 @@ tasks:
     cmds:
       - until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done
       - until kubectl wait jobs --all --all-namespaces --for=condition=complete --timeout=5m &>/dev/null; do sleep 5; done
-    preconditions:
-      - which kubectl
-
-  bootstrap-matchbox:
-    desc: Bootstrap required Matchbox configuration for PXE Boot [CLUSTER=main] [MATCHBOX_CLUSTER=utility] [MATCHBOX_NAMESPACE=networking]
-    cmds:
-      - kubectl exec --context {{.MATCHBOX_CLUSTER}} -n {{.MATCHBOX_NAMESPACE}} -c app {{.MATCHBOX_POD}} -- mkdir -p {{.MATCHBOX_GROUPS_DIR}}
-      - kubectl exec --context {{.MATCHBOX_CLUSTER}} -n {{.MATCHBOX_NAMESPACE}} -c app {{.MATCHBOX_POD}} -- mkdir -p {{.MATCHBOX_PROFILES_DIR}}
-      - kubectl exec --context {{.MATCHBOX_CLUSTER}} -n {{.MATCHBOX_NAMESPACE}} -c app {{.MATCHBOX_POD}} -- mkdir -p {{.MATCHBOX_ASSETS_DIR}}
-      - for: ["kernel-amd64", "initramfs-amd64.xz"]
-        cmd: |
-          kubectl exec --context {{.MATCHBOX_CLUSTER}} -n {{.MATCHBOX_NAMESPACE}} -c app {{.MATCHBOX_POD}} -- wget -q -O {{.MATCHBOX_ASSETS_DIR}}/{{.ITEM}} https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}}
-      - find {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/assets -type f | xargs -I{} sh -c "sops -d {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/assets/\$(basename {}) | envsubst > {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/assets/\$(basename {} | sed 's/\.secret\.sops//')"
-#      - find {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/assets -type f -not -name "*.secret.sops.yaml" | xargs -I{} sh -c "kubectl cp --context {{.MATCHBOX_CLUSTER}} {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/assets/\$(basename {}) -c app {{.MATCHBOX_NAMESPACE}}/{{.MATCHBOX_POD}}:{{.MATCHBOX_ASSETS_DIR}}/" | find {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/assets -type f -not -name "*.secret.sops.yaml" -delete 
-      - find {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/groups -type f | xargs -I{} kubectl cp --context {{.MATCHBOX_CLUSTER}} {} -c app {{.MATCHBOX_NAMESPACE}}/{{.MATCHBOX_POD}}:{{.MATCHBOX_GROUPS_DIR}}/
-      - find {{.CLUSTER_DIR}}/bootstrap/talos/matchbox/profiles -type f | xargs -I{} kubectl cp --context {{.MATCHBOX_CLUSTER}} {} -c app {{.MATCHBOX_NAMESPACE}}/{{.MATCHBOX_POD}}:{{.MATCHBOX_PROFILES_DIR}}/
-      - kubectl delete --context {{.MATCHBOX_CLUSTER}} pod -n {{.MATCHBOX_NAMESPACE}} {{.MATCHBOX_POD}}
-    vars:
-      MATCHBOX_CLUSTER: '{{.MATCHBOX_CLUSTER | default "utility"}}'
-      MATCHBOX_NAMESPACE: '{{.MATCHBOX_NAMESPACE | default "networking"}}'
-      MATCHBOX_ASSETS_DIR: "{{.MATCHBOX_DIR}}/assets/{{.CLUSTER}}"
-      MATCHBOX_POD:
-        sh: kubectl get --context {{.MATCHBOX_CLUSTER}} pod -n {{.MATCHBOX_NAMESPACE}} -l app.kubernetes.io/name=matchbox -o name | awk -F'/' '{print $2}'
-    env:
-      TALOS_VERSION: "{{.TALOS_VERSION}}"
-      KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
-    requires:
-      vars: [CLUSTER]
     preconditions:
       - which kubectl
