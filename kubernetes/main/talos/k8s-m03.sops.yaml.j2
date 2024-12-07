@@ -1,21 +1,270 @@
-{
-	"data": "version: v1alpha1\ndebug: false\npersist: true\nmachine:\n    type: controlplane\n    token: gdz5rb.i9p2wwxnes73m8s7\n    ca:\n        crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJQakNCOGFBREFnRUNBaEJtYkphNmVGU2hYU2I1M2xKR2F6S3lNQVVHQXl0bGNEQVFNUTR3REFZRFZRUUsKRXdWMFlXeHZjekFlRncweU5EQTBNakV4TVRBeE1UVmFGdzB6TkRBME1Ua3hNVEF4TVRWYU1CQXhEakFNQmdOVgpCQW9UQlhSaGJHOXpNQ293QlFZREsyVndBeUVBUXhSZmQya3lBT0lTS1I4OWVNNk9LMm1CNzF0OWc0SDZKdForCkNjVDVxQ1NqWVRCZk1BNEdBMVVkRHdFQi93UUVBd0lDaERBZEJnTlZIU1VFRmpBVUJnZ3JCZ0VGQlFjREFRWUkKS3dZQkJRVUhBd0l3RHdZRFZSMFRBUUgvQkFVd0F3RUIvekFkQmdOVkhRNEVGZ1FVTjFlbENnUHhRMGpFU2FnSgpSbVIwUzNLVzUvWXdCUVlESzJWd0EwRUFkOXFrUE1tSEkyMHdURDVNOFdlQmsyTkJsWk0yL0pMWGtxMkJZSm5NCkZ5bEtVeFpqMG5YUGRPakFpZFNNY3ZZYlM0aDJiczU1Rm5kUWxPenJCUUJYQ0E9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\n        key: LS0tLS1CRUdJTiBFRDI1NTE5IFBSSVZBVEUgS0VZLS0tLS0KTUM0Q0FRQXdCUVlESzJWd0JDSUVJSml5WUYzU2xyenRXU3orZGlCU2hLZ0RkK09GaWFwVzZGR2RqYWw5cVJPawotLS0tLUVORCBFRDI1NTE5IFBSSVZBVEUgS0VZLS0tLS0K\n    certSANs:\n        - 127.0.0.1\n        - 192.168.254.250\n    kubelet:\n        image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}\n        extraArgs:\n            rotate-server-certificates: \"true\"\n        extraConfig:\n            maxPods: 150\n        extraMounts:\n            - destination: /var/openebs/local\n              type: bind\n              source: /var/openebs/local\n              options:\n                - bind\n                - rshared\n                - rw\n        defaultRuntimeSeccompProfileEnabled: true\n        nodeIP:\n            validSubnets:\n                - 192.168.254.0/24\n        disableManifestsDirectory: true\n    network:\n        hostname: k8s-m03\n        interfaces:\n            - interface: bond0\n              bond:\n                mode: active-backup\n                deviceSelectors:\n                    - hardwareAddr: 48:21:0b:59:*\n                      driver: igc\n              dhcp: false\n              addresses:\n                - 192.168.254.83/24\n              routes:\n                - network: 0.0.0.0/0\n                  gateway: 192.168.254.1\n              vip:\n                ip: 192.168.254.250\n              vlans:\n                - vlanId: 150\n                  mtu: 1500\n                  dhcp: false\n                  addresses:\n                    - 192.168.150.83/24\n            - deviceSelector:\n                # k8s-m01\n                busPath: 0-1.0\n              dhcp: false\n              mtu: 65520\n              addresses:\n                - 169.254.255.103/32\n              routes:\n                - network: 169.254.255.101/32\n                  metric: 2048\n            - deviceSelector:\n                # k8s-m02\n                busPath: 1-1.0\n              dhcp: false\n              mtu: 65520\n              addresses:\n                - 169.254.255.103/32\n              routes:\n                - network: 169.254.255.102/32\n                  metric: 2048\n        disableSearchDomain: true\n        nameservers:\n            - 192.168.254.1\n    install:\n        diskSelector:\n            model: TS512GMTS430S\n        extraKernelArgs:\n            - intel_iommu=on\n            - iommu=pt\n            - mitigations=off\n            - pcie_ports=native\n        image: factory.talos.dev/installer/de3b865124c5616da8084826167f8c0b0fbc9b905b146290db797024e84097fc:${TALOS_VERSION}\n        # siderolabs/i915-ucode\n        # siderolabs/intel-ucode\n        # siderolabs/mei\n        # siderolabs/thunderbolt\n        wipe: false\n    files:\n        - op: create\n          path: /etc/cri/conf.d/20-customization.part\n          content: |\n            [plugins.\"io.containerd.grpc.v1.cri\"]\n              enable_unprivileged_ports = true\n              enable_unprivileged_icmp = true\n            [plugins.\"io.containerd.grpc.v1.cri\".containerd]\n              discard_unpacked_layers = false\n            [plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc]\n              discard_unpacked_layers = false\n        - op: overwrite\n          path: /etc/nfsmount.conf\n          permissions: 420\n          content: |\n            [ NFSMount_Global_Options ]\n            nfsvers=4.2\n            hard=True\n            nconnect=16\n            noatime=True\n    time:\n        disabled: false\n        servers:\n            - time.cloudflare.com\n    sysctls:\n        fs.inotify.max_user_instances: 8192\n        fs.inotify.max_user_watches: 1048576\n        net.core.rmem_max: 67108864\n        net.core.wmem_max: 67108864\n        vm.nr_hugepages: 1024\n    sysfs:\n        devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1\n        devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu8.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu9.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu10.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu11.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu12.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu13.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu14.cpufreq.energy_performance_preference: balance_performance\n        devices.system.cpu.cpu15.cpufreq.energy_performance_preference: balance_performance\n    features:\n        rbac: true\n        stableHostname: true\n        kubernetesTalosAPIAccess:\n            enabled: true\n            allowedRoles:\n                - os:admin\n            allowedKubernetesNamespaces:\n                - system\n        apidCheckExtKeyUsage: true\n        diskQuotaSupport: true\n        kubePrism:\n            enabled: true\n            port: 7445\n        hostDNS:\n            enabled: true\n            resolveMemberNames: true\n            forwardKubeDNSToHost: false\n    udev:\n        rules:\n            # Thunderbolt\n            - ACTION==\"add\", SUBSYSTEM==\"thunderbolt\", ATTR{authorized}==\"0\", ATTR{authorized}=\"1\"\n            # Intel GPU\n            - SUBSYSTEM==\"drm\", KERNEL==\"renderD*\", GROUP=\"44\", MODE=\"0660\"\n            # SONOFF Zigbee 3.0 USB Dongle Plus V2\n            - SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"1a86\", ATTRS{idProduct}==\"55d4\", GROUP=\"20\", MODE=\"0660\"\n    kernel:\n        modules:\n            - name: thunderbolt\n            - name: thunderbolt_net\n    nodeLabels:\n        topology.kubernetes.io/region: main\n        topology.kubernetes.io/zone: m\ncluster:\n    id: _d4K4YvV7f9rCLo_Khtsfo1jmGKsh5kmshwqpyeoaFw=\n    secret: 5Br8JvpYWOhEGPb5qr80PTWvBUUln+6J6s4Yl8Hp3nw=\n    controlPlane:\n        endpoint: https://192.168.254.250:6443\n    clusterName: main\n    network:\n        cni:\n            name: none\n        dnsDomain: cluster.local\n        podSubnets:\n            - 10.42.0.0/16\n        serviceSubnets:\n            - 10.43.0.0/16\n    coreDNS:\n        disabled: true\n    token: rnusvv.f5bsbgtv7eul66j5\n    secretboxEncryptionSecret: Saov2YTVvJ+qm9DRwGPVUC2d8bkxj6jLYoND+FgKLbQ=\n    ca:\n        crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJpRENDQVMrZ0F3SUJBZ0lRV2YwM1JCTWFabnJJcmpLRUZFTGEyekFLQmdncWhrak9QUVFEQWpBVk1STXcKRVFZRFZRUUtFd3ByZFdKbGNtNWxkR1Z6TUI0WERUSTBNRFF5TVRFeE1ERXhOVm9YRFRNME1EUXhPVEV4TURFeApOVm93RlRFVE1CRUdBMVVFQ2hNS2EzVmlaWEp1WlhSbGN6QlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VICkEwSUFCTXhUZXZRWUNkN25vak10N1M3aUI3cmJyaGVrK3FYNHVZcUkyMzIwbjNTeHVVVk1nN0JvS3ZNVVRma2cKbEhVL3JlVWFwMnVUYmk4ZFUya3dISlpBSGRTallUQmZNQTRHQTFVZER3RUIvd1FFQXdJQ2hEQWRCZ05WSFNVRQpGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFCkZnUVVUampkREdxTmhGdG5ScytUS3NsUzFPd3gwWU13Q2dZSUtvWkl6ajBFQXdJRFJ3QXdSQUlnUHBDdEQ1czgKbUcwd2xJbmVwUk5iZWNBZFdCL0FYWHRMSTN3L0FHMGZiYU1DSUhLVTA0a3FBTEZVWEdFWTNRbkpKNFp3YnUxUwowV3pQKzN5VUk2Y3NFVTFYCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K\n        key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSU1taGFaL1g4S0NMcll0NnhtNVhwM3YwUHV0RXN3WmRqaWh6RFRmUUo1U2xvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFekZONjlCZ0ozdWVpTXkzdEx1SUh1dHV1RjZUNnBmaTVpb2piZmJTZmRMRzVSVXlEc0dncQo4eFJOK1NDVWRUK3Q1UnFuYTVOdUx4MVRhVEFjbGtBZDFBPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=\n    aggregatorCA:\n        crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJYakNDQVFXZ0F3SUJBZ0lRRm5uRXdjVDdaQkgwaDk4SlNqTHQvekFLQmdncWhrak9QUVFEQWpBQU1CNFgKRFRJME1EUXlNVEV4TURFeE5Wb1hEVE0wTURReE9URXhNREV4TlZvd0FEQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxRwpTTTQ5QXdFSEEwSUFCQVJ4em5Hc1p4SU5IYTIyZTBzKzFHR3BGeVNXQ2R6SzlvaS9vWTRia2JNYjhIY2NqcWZQCi9rbXg4T1Z3WEhEbmxSY1h2clhvZDFRMUJqOE1hL1dUUGYyallUQmZNQTRHQTFVZER3RUIvd1FFQXdJQ2hEQWQKQmdOVkhTVUVGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZApCZ05WSFE0RUZnUVU0Ujd6RExzVzgwVjd6TTNDcFJhaDhJSzUzVTR3Q2dZSUtvWkl6ajBFQXdJRFJ3QXdSQUlnClM0c3lLVjRraE5rcmlZMXJySCtqV0dPOEZBSXh2TjZGRTdlYmEwMzdZblVDSUZGR2VuQ2h6L0F3KzhRNXJ5angKWnlnOFRodElsWU1JeUhnejhCQ2RqdkQ4Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K\n        key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUt5dGUwdEdHNVFSeHFaRm1xWDBhL2NueXI0SC80ZUVzL0d2bU9JVFJoT2hvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFQkhIT2NheG5FZzBkcmJaN1N6N1VZYWtYSkpZSjNNcjJpTCtoamh1UnN4dndkeHlPcDgvKwpTYkh3NVhCY2NPZVZGeGUrdGVoM1ZEVUdQd3hyOVpNOS9RPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=\n    serviceAccount:\n        key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSVBpeitrbURqV0NZZzhsVWljSm5oVUVUVEVqQ201NlAzK3FsR1ErNWptRGlvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFS2g0ZWZBNXNFb3ZXOUlwTllacXU0L204NGNvTUdlVGxCSzNDQVhoS1grbUJwS2VDUTJlSApOanZReUs5Vk1GZ2lEVUhqRFBFbEl2bjBJN2JnV2ZXNTFRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=\n    apiServer:\n        image: registry.k8s.io/kube-apiserver:${KUBERNETES_VERSION}\n        certSANs:\n            - 127.0.0.1\n            - 192.168.254.250\n        disablePodSecurityPolicy: true\n        auditPolicy:\n            apiVersion: audit.k8s.io/v1\n            kind: Policy\n            rules:\n                - level: Metadata\n    controllerManager:\n        image: registry.k8s.io/kube-controller-manager:${KUBERNETES_VERSION}\n        extraArgs:\n            bind-address: 0.0.0.0\n    proxy:\n        disabled: true\n        image: registry.k8s.io/kube-proxy:${KUBERNETES_VERSION}\n    scheduler:\n        image: registry.k8s.io/kube-scheduler:${KUBERNETES_VERSION}\n        extraArgs:\n            bind-address: 0.0.0.0\n        config:\n            apiVersion: kubescheduler.config.k8s.io/v1\n            kind: KubeSchedulerConfiguration\n            profiles:\n                - schedulerName: default-scheduler\n                  pluginConfig:\n                    - name: PodTopologySpread\n                      args:\n                        defaultingType: List\n                        defaultConstraints:\n                            - maxSkew: 1\n                              topologyKey: kubernetes.io/hostname\n                              whenUnsatisfiable: ScheduleAnyway\n    discovery:\n        enabled: true\n        registries:\n            kubernetes:\n                disabled: false\n            service:\n                disabled: true\n    etcd:\n        ca:\n            crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJmekNDQVNTZ0F3SUJBZ0lSQUtvNXM4QzB3QkZRaFpET29yYXpzM0F3Q2dZSUtvWkl6ajBFQXdJd0R6RU4KTUFzR0ExVUVDaE1FWlhSalpEQWVGdzB5TkRBME1qRXhNVEF4TVRWYUZ3MHpOREEwTVRreE1UQXhNVFZhTUE4eApEVEFMQmdOVkJBb1RCR1YwWTJRd1dUQVRCZ2NxaGtqT1BRSUJCZ2dxaGtqT1BRTUJCd05DQUFRWXBYV2JYQURwCnh4alZ4M3NvMHRlVzdPNnFGRXg2bGxWL1grZzltN2RFblhYV3BUQzB1VC8va3ZRc2NUNWpWb2t5UHlUa05EeWsKQU1kR3JIWUFUcXVObzJFd1h6QU9CZ05WSFE4QkFmOEVCQU1DQW9Rd0hRWURWUjBsQkJZd0ZBWUlLd1lCQlFVSApBd0VHQ0NzR0FRVUZCd01DTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkUwZmZWU21kU2RXCjU5QlpJWllwYnRhVFRQa2RNQW9HQ0NxR1NNNDlCQU1DQTBrQU1FWUNJUUNQaXM5Tkg2MEF1eHhsamZxM1NyMmgKTGwzeHdQOVp2RFlpNDN5T2NHbWd3d0loQU8rUnMvYVZkc05NaUV3cjJFMDdVRWI4ckdrS2Voc2c2cXhDdHZELwpYR1JNCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K\n            key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUh3Y2IrT2JSZEE5QUFFc2E3b3Y3Nys5OFRnelhoMmt3WFNjVTFBU1l5bDRvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFR0tWMW0xd0E2Y2NZMWNkN0tOTFhsdXp1cWhSTWVwWlZmMS9vUFp1M1JKMTExcVV3dExrLwovNUwwTEhFK1kxYUpNajhrNURROHBBREhScXgyQUU2cmpRPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=\n        extraArgs:\n            listen-metrics-urls: http://0.0.0.0:2381\n        advertisedSubnets:\n            - 192.168.254.0/24\n    allowSchedulingOnMasters: true\n\n",
-	"sops": {
-		"kms": null,
-		"gcp_kms": null,
-		"azure_kv": null,
-		"hc_vault": null,
-		"age": [
-			{
-				"recipient": "age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj",
-				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWNmtCZEVYNGRMcFBmM29h\nV2JocHBtU2hrdFpnMVp6dTY0RktNakUxd0IwClR0cFVMcjNRVXZoVnNONElqNWJN\nRjdJTy84WU5VRWs2T2dPYXh1YTMyaE0KLS0tIDFMTmwyc2pPTWxPODVtQWRXMi9M\nNjBLTDdEUjU5L1hFRGh4Sk9MV3VzTGcKs9lsYK82pPftm7Im1dJuj3TMqr35QiEZ\nfcIVaoVM/ru9L/HvRQfzRJd95EYW/MUIb1WTPKTLMJEqf23aTIrKQA==\n-----END AGE ENCRYPTED FILE-----\n"
-			}
-		],
-		"lastmodified": "2024-12-07T10:23:27Z",
-		"mac": "ENC[AES256_GCM,data:nr6NvHTL6wwCoRLIR8lKqliJVgyE9+hzRHIexb0nucQVmV03fhUAnVRvPCKLTii00rTI6Lj4F3il23gORTH5g5mh3n7U7KlO3wOOg36FBmfkVxq40bkFe8DyB/RWyjv4qOOoeTrEGlPsXPvuA1UNfrj6bgQ5LjDwokSUQG+IVAs=,iv:3xyOvLO9xxtU69AZHvcJx7u8w4Vj76H43CT73cfXVYM=,tag:FEmbtWGMfD2yqIz6py1lyg==,type:str]",
-		"pgp": null,
-		"encrypted_regex": "^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$",
-		"mac_only_encrypted": true,
-		"version": "3.9.2"
-	}
-}
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  type: controlplane
+  token: ENC[AES256_GCM,data:8f9K5bUzFuLEsgA+8Kr7hfAsI/aMwgs=,iv:01NUy3lXqpiUJ/UChiBoHYsNob4IW+05W8lOcXm2QK4=,tag:E5ajbOqjIYj7tR7odCd+FQ==,type:str]
+  ca:
+    crt: ENC[AES256_GCM,data:TN8ONNA4Qei9SHRElZEmAdhEioxjMPD4KnkAUaqWRZ34Uzxy76tibIzdk268SB191XLRcw8Vu5fB2NRPncvjtqAXuGHlYuC6LM4gQpptAcRp3VeDWnj1gZf/Ij38BTJBVgRmPyx1yCrlUsO/WK+RUAb3eCWpZcwjYLquNDfVsomEfha0YoMNZgi6FrE9NtWvP3dWCY6cieVs2AL1g674z+VAf11EIiwRw874qlUeesNXfelrYNBRppx6fqlrl/HxseuvrkXkqCfIgZTo/gC391IQWZxlic+ojZ6Rt/k5ExD4yJVz10tyKDQiYdQD1a+73/h4oPs4cpftWN8lbQL4nV8VKD9tPHB7AOo/a7BGBsx4ZlB8Sr8T1XuDgxZxvOIDrMyLVwMLkjXz2KCLLAKywLwByK9s6EkhUqb5IRvtevmeNJ7G9n5s8Qftp16w5dzBdoBDZ9wNW7CoK8HJSBpFA6EeRYmUCb8O9oaZP6ebwK6z8Io/ikEOC+m5lyvjShPs99CYhCAtE6B1l0hSLFhUmB1229nW0EZOQzprRDBA4wBafJzbBfW+6U92ai9VbT9L0kugOWslGinbflLpYCEQv8hWlyDvX9xiA9eIUu7Tr3szQUmAVlAWflZUHZF0vfiO79hCntGhI9lyWSHhdVubLW2nz1P9HYeNoy0nGf4OmgptArarh50PqGCuZ93/0R8tFWp75Pvhj/dT6ybHVKEf+8p5xaEEf3HF+JHoLke517RWVU+OfftJy2eqVaiv04IETVg/Ad79fu02KTeZEReNSPR3hAPKc5szAyhMMrbAzQYOPKUnKPXjSOHaXm7noRCZPmHCziwJZpo7xoG29+z32wUutnS0GNB6+clsYjMhEr+DF2l2,iv:10DxNS0FkjQvsdxd+aYH4XH8E3fpD9HITTSor20lW5A=,tag:v1/8MY2sxOvZg7nGvZcF0w==,type:str]
+    key: ENC[AES256_GCM,data:I2lKwOSZLZ3g426StoylS0OSC1w8/wW3QbEUoKqJrc6X3N7jlRZ/TNSZUmNC5pe07/9Y47K7CRLtJz7qMWjzS0Ys23dUaF1+lQeVZ90zOi23syvw5bR0HZ9AtRyoRTJW/evt1/HDySbJE4KIhWhbvxfD8t4/EPTK7qEh3Spmw757XGR7nC6pPhwTjs8QodUyfWzKShuaGbnHnmsvIKk5w1jAS/c7ca+Vibl9taR7iNqy15Hv,iv:aOG7ROcnepNC4HLp6waiRPTgIjQLEPbueY0sDyFYzbM=,tag:pN76xJZmjv7B/PAkBstHlQ==,type:str]
+  certSANs:
+    - 127.0.0.1
+    - 192.168.254.250
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}
+    extraArgs:
+      rotate-server-certificates: "true"
+    extraConfig:
+      maxPods: 150
+    extraMounts:
+      - destination: /var/openebs/local
+        type: bind
+        source: /var/openebs/local
+        options:
+          - bind
+          - rshared
+          - rw
+    defaultRuntimeSeccompProfileEnabled: true
+    nodeIP:
+      validSubnets:
+        - 192.168.254.0/24
+    disableManifestsDirectory: true
+  network:
+    hostname: k8s-m03
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 48:21:0b:59:*
+              driver: igc
+        dhcp: false
+        addresses:
+          - 192.168.254.83/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.254.1
+        vip:
+          ip: 192.168.254.250
+        vlans:
+          - vlanId: 150
+            mtu: 1500
+            dhcp: false
+            addresses:
+              - 192.168.150.83/24
+      - deviceSelector:
+          # k8s-m01
+          busPath: 0-1.0
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.103/32
+        routes:
+          - network: 169.254.255.101/32
+            metric: 2048
+      - deviceSelector:
+          # k8s-m02
+          busPath: 1-1.0
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.103/32
+        routes:
+          - network: 169.254.255.102/32
+            metric: 2048
+    disableSearchDomain: true
+    nameservers:
+      - 192.168.254.1
+  install:
+    diskSelector:
+      model: TS512GMTS430S
+    extraKernelArgs:
+      - intel_iommu=on
+      - iommu=pt
+      - mitigations=off
+      - pcie_ports=native
+    image: factory.talos.dev/installer/de3b865124c5616da8084826167f8c0b0fbc9b905b146290db797024e84097fc:${TALOS_VERSION}
+    # siderolabs/i915-ucode
+    # siderolabs/intel-ucode
+    # siderolabs/mei
+    # siderolabs/thunderbolt
+    wipe: false
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.grpc.v1.cri"]
+          enable_unprivileged_ports = true
+          enable_unprivileged_icmp = true
+        [plugins."io.containerd.grpc.v1.cri".containerd]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 420
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        nconnect=16
+        noatime=True
+  time:
+    disabled: false
+    servers:
+      - time.cloudflare.com
+  sysctls:
+    fs.inotify.max_user_instances: 8192
+    fs.inotify.max_user_watches: 1048576
+    net.core.rmem_max: 67108864
+    net.core.wmem_max: 67108864
+    vm.nr_hugepages: 1024
+  sysfs:
+    devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
+    devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu8.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu9.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu10.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu11.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu12.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu13.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu14.cpufreq.energy_performance_preference: balance_performance
+    devices.system.cpu.cpu15.cpufreq.energy_performance_preference: balance_performance
+  features:
+    rbac: true
+    stableHostname: true
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - system
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      resolveMemberNames: true
+      forwardKubeDNSToHost: false
+  udev:
+    rules:
+      # Thunderbolt
+      - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+      # Intel GPU
+      - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+      # SONOFF Zigbee 3.0 USB Dongle Plus V2
+      - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d4", GROUP="20", MODE="0660"
+  kernel:
+    modules:
+      - name: thunderbolt
+      - name: thunderbolt_net
+  nodeLabels:
+    topology.kubernetes.io/region: main
+    topology.kubernetes.io/zone: m
+cluster:
+  id: ENC[AES256_GCM,data:2lhqb7LKoz0x/yAC+3lDsKGMWYNY56vdyjo080UWQunLDsnFy8sE3g+0odI=,iv:HrS935GrrjSJXKaB20kSFpeh4Y4YG1Y6+5AQen9f5fw=,tag:pImA/RZ8eCG+Omatmf/Kxg==,type:str]
+  secret: ENC[AES256_GCM,data:YBeFfRIPB5QlpbBEEU+1sbxAA2uBzcsQStEbqrq3VzL6xoPxoFIxyW12Dr0=,iv:AlLV6qeUGWIcrP+G/nZHO4d1VEsyyuCAqwQbSsRbqxI=,tag:Uc7OHA1JCs8QPgpiBAkU1w==,type:str]
+  controlPlane:
+    endpoint: https://192.168.254.250:6443
+  clusterName: main
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.42.0.0/16
+    serviceSubnets:
+      - 10.43.0.0/16
+  coreDNS:
+    disabled: true
+  token: ENC[AES256_GCM,data:b6bUbMyAn+W9HrYM2OjHnUpSjFgx8Ks=,iv:zyfUzed9rPULAPI1fyuRo6htd2WCU3ORlrRLvCOhNK4=,tag:qwrSotnm9bROFl4XSpjYjA==,type:str]
+  secretboxEncryptionSecret: ENC[AES256_GCM,data:RgMortXXYFFZXz6Uzhh65agT2ClzpwTjc+BCTKdDtRrsPccOjgGEc2l+cXQ=,iv:GHtyiwFy2j5Czq4mBn/K+pIJx/AMbqNbjqMWm6TI0as=,tag:/pznEmt8GDwW1MpFSoabXw==,type:str]
+  ca:
+    crt: ENC[AES256_GCM,data:Ml40LEJNKL9FDvJMhxkyNWmaJ+nW86P0W9hfI5ExqjGuSTL3lYSAm8QmMfWNXVwmENFpmoeQsRjZEqzdc+XXmvsauNvAuVV17tPvppxAgi2GnWUPqVgHawFWknNZgbYKgbGezvdLNs0DoMDc7oYS7OZQQg1qF0I+mLCAbXsc0HbNC+PiAYpyiBK5sG7VgUPM/I+URxk5cmFPoK4FfNFI5/eaVsKpgVM0DIPcMncRzuk5zPVYRSHWWy4r/rFPoOuOu+lHUr96dhfzNS9Uu+mI+Lb5AELVh2l1dGfQDZ6e+MSAz5sb+8eLtHDsm1304wQH7MC2mGrNi64I+QeRotyu2OgV4Ka8j6tZWhKmKrkqri2JYtf6YsdtUb42GNV6NDvUJqkXiCFaFBd2AFIJm3klWzFXaa1FBLF2O6vi8/PudGB4ujjNt0f7m7W40aZIr8a7eFTkgpEomLdvAxnc+oelhQz1Y1jyQcSieOL3gkP1afqLIlLMWwySTB6DKtdTI2ZbgLRxnuxMEwUm7RlwsVy/i4x6OSIy4NVLvX1UDg7BUo060u83xmVCBu6qVFsU8u2IIMVxK0n+TdZyt6csxbfWktjgFCh9Z1HklB38izpkIRVUC0JkcXdVbRVjscRzy63ZyYc0b/Fm+QXqfJS15L4m0pa7Gvk7p3moV0uIKXQCQUmCKlSZ4h/1mi9WmQYsmh8ILimMKXw7JmLOb3fn9aMV2u4lNCf2x+a0Fbgc1Q7ypemIKK4PBQta5Q84QWlFGBvNBNr02xqe4+kZBpy0ODyBr9HzA1TvKN8wr2ar3Z9/ANtDO6t8LpFZ1DT49iCpfnxKcT0ep7a2BCN9l4zI6U9QcZefiWZp82by6obLNrbpGxuz35WMoOw0xfGAExqbg8EnEcs0Cv5odQruIqCf55Bjl2LAq5guKPXvF6oq+SJWOfb2NWrI8qzaCjA5BZuKzuoHLZ9v1By76273lTxiX3wdOmg4GCtmd4T+42EedODAX3l2xwDtzRvbaSYvo0KK9FW5xO7rKyXSFy4HvE4Ja4xEUw5u3hk=,iv:zIPBQ3BX/Y0M8Z8Kpe0nvNfDRM9HWBN2D1fHp3dsEOE=,tag:UpQtIJv0varLfbVt7zMyqg==,type:str]
+    key: ENC[AES256_GCM,data:10TpgqZl0FxVy3AnOp0WboAX9a0RRVl3B/a9S7XzHo1a+pnN52XsSrDshGtm0zHLmZfLsNueAEOq9uzvqeTB6IHeD3lRRIc/1KxJif98CvXpTpJ2de6Q6PoTxqVmoy/zgZqN/CcfuNT377rFanTojpcIK5RMzdPQJSrGyR8Sv8Na2XHoJfYYrXYVJx5G1f7djgFAkFFcigg3fgTWpYaXwpvDMrLj5FuzvrgOG5q181BRFQpjGpITmKZz2gGXKzqb30aYKJNML+KIDsrJx8tEX06y+j4/AkXdADXRKGJTGx7klXdzOmyKwFVCkbMqN+DxY03XH2Sw+DgM/pLSaL3EZg8wXKjinOBN/FZvFSxTobivgF1JfL1ece844p4EhaARsWA6LjwjJibuTCTSKvKGBA==,iv:5cSNMYdd9T6LVewyLfrA0NqB4ybbEsE+r44C2khUSms=,tag:kxP2zmYb2mR/h+PF0eSxzw==,type:str]
+  aggregatorCA:
+    crt: ENC[AES256_GCM,data:4S20gJg2ymj6qW+OmWdmTmGv7Rqe8jCDClk1u9maqaorJrOQGFuLUK7JhXHo6EJDbvorfb8BG2eA8J6jiZX/v1VvM/Fnm2GOVA+Xf8n2we4DZhYM3nVI/0Zj8UVO+a3rTB3KIf2OkTi6wqsfxtyeg86R/339IMyT7DvzkFn1gJ9JWM7K6wqvTAf7JWSKtUORijdNeqO7fReMR6u636Mz7MSKt9WZlT+ewKGceNJKaYgn5S2n/KakRCimWBJrFi0KE/1bNtJ3VOsbSa1fGKy3UriPGMDfzrNjH3Tzu01D5wmwMSybQLJ8R1CLWVoZjnSdHP6n2QTj92zhupZ7L4ZHDF6CDHKEpAGajdYzVdS4Sxvly8UYLvwxG52ijJEd46zhG+ZjTrCpPjpVLpCRWYjnHwKnT6mKj/kKptSvD7SqScdGjHjXCht0DIaSfICT2hQ7KbnVYC/eA4OcJOlu3+NE2ixQCvkH/7FHIZ6JQZGJoXvrj/d3So2VlK6dhz9hXFWti93JTfLPWu9w508Z7i6iKVjFFBHC+xzc5ZrmoeqP6OjrSnVH5ywFV3kPZggghMAGU8SQHwjKW+oYQ5T++A3UyPtCc4MLxBH1i9RTMvwitu+0FraLnXAe7DloXi5ahdA9wpGIL8gp72EfOm7znikcHLdo/sbQMPM2yZyWOEfudlQLF7JvXa/o4QgxsK4Ge7i4tILaWIM6dw6oSNagLkFe4ybgxOYyzJ2bdUATUI7jfGcEKFjtHGTVQirOwsLC7d6c+m2QcLHoBFz3+CLE8qy1vCOSchEmHfXoJ/1PiWSsIW67u/RoNxzxox2I1Bgd5umYikFyjTFDomBDOMZkM2HE3AtsyhPXR21luJ4G6Y0iuYEext17YfPPWzhgGgueKzwnhNOvfB5Jt6g5uTAvKEkSTK5N/ZENd7bzPRgXleqqc0XGUILu9ob5mg==,iv:5rAdluDrJSOwX3nnDz09BJln1GEEKwERZ8RgmYQ1i2c=,tag:Ng4+++uyU/c/UnWjuZpT7Q==,type:str]
+    key: ENC[AES256_GCM,data:N3nXg9DcPPJ6rPsOE35uONx3TwZSjgvxuw/XGr0UU3QdgYakQ9i92Z+A4fyRCeOXjDe47Gu6r/3FZ35TZh8zqyTiOjBH7WlcYBaaSGs+1OC4Yv1xHUedRxWoVO4/UC/xxyCYwsaRAB1aIIG7KW5cvsG2+OC+5a2Hah4vTQareSOPe+oF44GhWQcu+5NmS+89aXITmk3ylZfn0VHRDBEBrIzU+ztC8KDcradj/OiquZOLnzp42+S2FxGeCi6IC3BVwredfdqYydujrQtUX/h2pJNUpBoQbJXfKCCtQ+XeeR9XIHvM0rQBw049ZjOi8e501cW/TNw7FPRN3OvL+tHvH+YazLQnsJfmAowIfYvuzWQ58bG+MBHU7sx6Bi4Fk1aVrxGIuWY1GkaSGaCNZWtM0w==,iv:hvMrqkyi7dLX1r02/d2RIFpxam7BLI0Kx0vTANIwo1s=,tag:HwGL85JPwcybIRiGRMelFA==,type:str]
+  serviceAccount:
+    key: ENC[AES256_GCM,data:5GjywJzGJi5qe/+YCSQbkELwy3DZJUtmlE8YN908mUMxRPZ7DQWhfX+f9VFQvG/Vxc4lzLF782yZlNAqf6qrm2orGGv2fnKFao+CAvZ3+wgcs2gBoFYReiwRMEwmMkUmEA9FPngNjTmOi/Rcnid1dEuKuQCaHmVl3ocTPtFdRIL/h0w4rF0EKsioV2f1HTkvpi0xuzd18IkB2b0dtsjQX3lHBIuQ3zT+Ts8TygdzkdPwaywsI1KeWh+o8H6by5zdFrCoAu7FnFOAhi/IuV1lzZ0qlyPTlOtkcc1QgSScma2yvhMRxt3+YjwsI8X/KzIu0KfFfSm16/KhTEx19h+f7fNFXC0zLA78s+iolh0uE0q/rhfu4XsORVMFmsmLEuLoQf2ceAC3PiPumNJuFfq2hQ==,iv:1EqMO98Y0+MuP5WBIX0WhliISyZbz2du7wXyUUJSB5s=,tag:5aYQAD4eRthzVdhTEbJS3w==,type:str]
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:${KUBERNETES_VERSION}
+    certSANs:
+      - 127.0.0.1
+      - 192.168.254.250
+    disablePodSecurityPolicy: true
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:${KUBERNETES_VERSION}
+    extraArgs:
+      bind-address: 0.0.0.0
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:${KUBERNETES_VERSION}
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:${KUBERNETES_VERSION}
+    extraArgs:
+      bind-address: 0.0.0.0
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: false
+      service:
+        disabled: true
+  etcd:
+    ca:
+      crt: ENC[AES256_GCM,data:A15C410He49kWX/sBq2KCW3YStplH+smd2QqBTDur5xTfjVjXTMm+Cg0R9R8EJkeuFQmo7FXDkYGBy+CrOT7iSGfD4/C6cGqloySdIkj3H04f7SzAl4CeyDk9NnSpSy1SkF1BHreZYp0UASLx5/Pn1sC5NclC9EYp4/oNydOeCvJ/nQljC1nwxQIZhZhXeHxbStt1lxrVuE0DPSBhW/PBe3ph5pjXbdGSxe+QtimF1LyqWRz0rE1n+WIJWKpjO84qDbQGqqp20F7w/59Vq79+HDRzp4XB9109mZ53+tlXaxJSeWCbt8IL1ebYIrECOd+B8Cgbc2shMdlKs+v7NaHbZWLLxIh+A0Xa6QECLyTMFk0jNhVkoO9mMovczav9rqDYnkd4rVd97TYScU9ZV+NCET7a5VSwbC8v3yHbPZOfZKCxlr/cJXOJlNrlsHwN64vdhZo3xOOMnYt9o5J9DH+k77wyxfN7dmWXqdAVixnuc/7ATm2eka+mTXfrnpaSFMuenWg1dX3S5MkZ3NTOvRHAqkaQHuBctUKcH832wKdR/7YkS1988K9R9dKCwhCIDprW39pzRvH7DXMZVT8p0D8xMgiW/MCuVZ9Q6fZHzmM7KdTnN0mky+D1qKjj5pf24rKW0ut5sJr4qZ/z3XZnsiyWrG3zkNDi6KgioEt3NkLmsCuBg0TwvhwfG4qKKGFIODPd/+UrfqV9qV+aZlmyb48u9PV1m1bkXE3nQ0TBrP3VDlTorGIvJGwjiHBEv1U47lGt6LD+hwd+I9gDpWrJcGEDtr0uBUuuD/BclV3KHuNf/EuNCWPV5lQPqifxMDtuZGV3Wf42stmDoOeB/0vv0yOCt9a3X/MJYDX/Nfk5pKZLSxhzmAvaenL2Ip/nef9yF6VWk7I5NKL1beOUUrg7ygeQtYU5LuBdUMDPAW6TeFvKsp3ABFvn8pJQYAU4JSh6zJZkHmCxgoXmxatml/r8AINeD/v0K/wGpSOjz9BhLlBtGJH8QG2Dnedypd/Ai4w9TMvCj5hrg==,iv:GPjCBNjTGfi2VR8WrB37Kl3zpyctsnB3TN/H4Sq5sZI=,tag:isNWgfYKxJbUceyi22VGtg==,type:str]
+      key: ENC[AES256_GCM,data:lbMBRctsARMwlx3O/2oKm5WjCAXsRuUHVpCeELqTl3Lk4KQTpYnPJfXa0Stm/TUgyqMPu5glIcPgxNFKA6ViQwMX337ZNCqSYWWwJg/lqqohkAwUrIoSUtmnBIexS3Uxx+VWlNF8zoKR85J3+8pLtd7LcQ2H0R+Y85LcTbWoN1Y5RdvIAAomX0nSZ66HVgnXlCZN0ESeomD213dfmlm6i9q8cedf09yKs3GrNkCLbLq+397yxFlXM3NpkeDnNqI0kNCdhSQ/0tIguwrGTzijywM2k8iGsOwzTRdunLow6NklmUoPziLO30ZDYPh4MdXRv+wG/Cg8KJiL1+qEfXNUZhIEANDr4+BVOxUcWng3/aqqHhWvij5rl4wqN53mfWPDaoyCwdBSczejeCQAkhQAwQ==,iv:FsMzlII8z9MAZ/6E8Jh5QkynBzDMt9QQEIfvFN0qEq8=,tag:yc/7T/MjFVkoZWLpuJFjnQ==,type:str]
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+    advertisedSubnets:
+      - 192.168.254.0/24
+  allowSchedulingOnMasters: true
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWNmtCZEVYNGRMcFBmM29h
+        V2JocHBtU2hrdFpnMVp6dTY0RktNakUxd0IwClR0cFVMcjNRVXZoVnNONElqNWJN
+        RjdJTy84WU5VRWs2T2dPYXh1YTMyaE0KLS0tIDFMTmwyc2pPTWxPODVtQWRXMi9M
+        NjBLTDdEUjU5L1hFRGh4Sk9MV3VzTGcKs9lsYK82pPftm7Im1dJuj3TMqr35QiEZ
+        fcIVaoVM/ru9L/HvRQfzRJd95EYW/MUIb1WTPKTLMJEqf23aTIrKQA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2024-12-07T11:05:51Z"
+  mac: ENC[AES256_GCM,data:ImHJ2bfsKbYZm6UqydwNK4gDF+Ih7uTiTFHrKGkaC63LatEtxglPvD+r0vD17alQPBOFCMlOWxwhD5suwlXDjyANNt3lICpKJv8OgzeDGGJ/wcR896cmBrXYmjgYFvYkrJ66YaRZ6Bflfk8emAORH6JY2QGG2Y0ykHxNCEZdzcw=,iv:N4SrGulyK06H4TdZ8t6INBst95QVB1qclkgNLNXAVwQ=,tag:b3q4rHvL5+eDO7AIM+vipQ==,type:str]
+  pgp: []
+  encrypted_regex: ^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$
+  mac_only_encrypted: true
+  version: 3.9.2
