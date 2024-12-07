@@ -6,3 +6,11 @@ resources:
   - ./helmrelease.yaml
   - ../../../../../shared/templates/gatus/internal
   - ../../../../../shared/templates/volsync
+configMapGenerator:
+  - name: sonarr-configmap
+    files:
+      - refresh-series.sh=./resources/refresh-series.sh
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

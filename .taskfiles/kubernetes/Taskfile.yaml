@@ -3,7 +3,7 @@
 version: "3"
 
 vars:
-  KUBERNETES_TEMPLATES_DIR: "{{.ROOT_DIR}}/.taskfiles/kubernetes/resources"
+  KUBERNETES_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/kubernetes/resources"
 
 tasks:
 
@@ -77,10 +77,10 @@ tasks:
   privileged:
     desc: Run a privileged pod [CLUSTER=main] [NODE=required]
     cmd: |
-      kubectl run privileged-{{.node}} -i --rm --image=null \
-        --overrides="$(yq {{.KUBERNETES_TEMPLATES_DIR}}/privileged-pod.tmpl.yaml -o=json | envsubst)"
+      kubectl run privileged-{{.NODE}} -i --rm --image=null \
+        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml -o=json | envsubst)"
     requires:
       vars: [CLUSTER, NODE]
     preconditions:
       - which kubectl
-      - test -f {{.KUBERNETES_TEMPLATES_DIR}}/privileged-pod.tmpl.yaml
+      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml

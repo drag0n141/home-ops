@@ -109,6 +109,14 @@ spec:
         existingClaim: sonarr
         globalMounts:
           - path: /config
+      scripts:
+        type: configMap
+        name: sonarr-configmap
+        defaultMode: 0775
+        globalMounts:
+          - path: /scripts/refresh-series.sh
+            subPath: refresh-series.sh
+            readOnly: true
       media:
         type: nfs
         server: ${SECRET_NFS_SERVER}
