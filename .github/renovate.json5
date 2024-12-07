@@ -29,19 +29,17 @@
   "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
   "flux": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)kubernetes/.+\\.ya?ml$"
     ]
   },
   "helm-values": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)kubernetes/.+\\.ya?ml$"
     ]
   },
   "kubernetes": {
     "fileMatch": [
-      "(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$",
-      "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)kubernetes/.+\\.ya?ml$"
     ]
   }
 }

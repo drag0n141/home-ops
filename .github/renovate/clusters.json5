@@ -11,15 +11,6 @@
       "commitMessageSuffix": " [main]"
     },
     {
-      "description": ["Separate PRs for storage cluster"],
-      "matchFileNames": [
-        "**/kubernetes/storage/**",
-        "**/ansible/storage/**"
-      ],
-      "additionalBranchPrefix": "storage-",
-      "commitMessageSuffix": " [storage]"
-    },
-    {
       "description": ["Separate PRs for utility cluster"],
       "matchFileNames": [
         "**/kubernetes/utility/**",
