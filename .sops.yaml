@@ -4,12 +4,13 @@ keys:
 
 creation_rules:
   - path_regex: kubernetes/.+\.sops\.yaml.j2
+    input_type: yaml
     encrypted_regex: ^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$
     mac_only_encrypted: true
     key_groups:
       - age:
           - *user_drag0n141
-          
+
   - path_regex: kubernetes/.*\.sops\.ya?ml
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
     key_groups:
