@@ -16,15 +16,15 @@ creation_rules:
       - age:
           - *user_drag0n141
 
-  - path_regex: kubernetes/.*\.sops\.(env|ini|json|toml|conf)
-    key_groups:
-      - age:
-          - *user_drag0n141
-
-  - path_regex: .*\.sops\.ya?ml$
-    key_groups:
-      - age:
-          - *user_drag0n141
+#  - path_regex: kubernetes/.*\.sops\.(env|ini|json|toml|conf)
+#    key_groups:
+#      - age:
+#          - *user_drag0n141
+#
+#  - path_regex: .*\.sops\.ya?ml$
+#    key_groups:
+#      - age:
+#          - *user_drag0n141
 
 stores:
   yaml:
