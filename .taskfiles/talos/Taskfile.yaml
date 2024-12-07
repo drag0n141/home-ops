@@ -2,15 +2,6 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-vars:
-  MATCHBOX_DIR: /var/lib/matchbox
-  MATCHBOX_GROUPS_DIR: "{{.MATCHBOX_DIR}}/groups"
-  MATCHBOX_PROFILES_DIR: "{{.MATCHBOX_DIR}}/profiles"
-  # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-  TALOS_VERSION: v1.8.3
-  # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-  KUBERNETES_VERSION: v1.31.3
-
 tasks:
 
   apply-node:
