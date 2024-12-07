@@ -21,7 +21,6 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 
 | Tool                                                               | Purpose                                                                  |
 |--------------------------------------------------------------------|--------------------------------------------------------------------------|
-| [ansible](https://www.ansible.com)                                 | Preparing Debian for Kubernetes and installing K3s                       |
 | [flux](https://toolkit.fluxcd.io/)                                 | Operator that manages the kubernetes cluster based on the Git repository |
 | [go-task](https://github.com/go-task/task)                         | A task runner / simpler Make alternative written in Go                   |
 | [sops](https://github.com/mozilla/sops)                            | Encrypts kubernetes secrets with Age                                     |
