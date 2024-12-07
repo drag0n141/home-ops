@@ -11,7 +11,7 @@ machine:
     - 127.0.0.1
     - 192.168.254.250
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       rotate-server-certificates: "true"
     extraConfig:
@@ -83,7 +83,7 @@ machine:
       - iommu=pt
       - mitigations=off
       - pcie_ports=native
-    image: factory.talos.dev/installer/de3b865124c5616da8084826167f8c0b0fbc9b905b146290db797024e84097fc:${TALOS_VERSION}
+    image: factory.talos.dev/installer/de3b865124c5616da8084826167f8c0b0fbc9b905b146290db797024e84097fc:{{ ENV.TALOS_VERSION }}
     # siderolabs/i915-ucode
     # siderolabs/intel-ucode
     # siderolabs/mei
@@ -118,7 +118,6 @@ machine:
     fs.inotify.max_user_watches: 1048576
     net.core.rmem_max: 67108864
     net.core.wmem_max: 67108864
-    vm.nr_hugepages: 1024
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
     devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance
@@ -197,7 +196,7 @@ cluster:
   serviceAccount:
     key: ENC[AES256_GCM,data:5GjywJzGJi5qe/+YCSQbkELwy3DZJUtmlE8YN908mUMxRPZ7DQWhfX+f9VFQvG/Vxc4lzLF782yZlNAqf6qrm2orGGv2fnKFao+CAvZ3+wgcs2gBoFYReiwRMEwmMkUmEA9FPngNjTmOi/Rcnid1dEuKuQCaHmVl3ocTPtFdRIL/h0w4rF0EKsioV2f1HTkvpi0xuzd18IkB2b0dtsjQX3lHBIuQ3zT+Ts8TygdzkdPwaywsI1KeWh+o8H6by5zdFrCoAu7FnFOAhi/IuV1lzZ0qlyPTlOtkcc1QgSScma2yvhMRxt3+YjwsI8X/KzIu0KfFfSm16/KhTEx19h+f7fNFXC0zLA78s+iolh0uE0q/rhfu4XsORVMFmsmLEuLoQf2ceAC3PiPumNJuFfq2hQ==,iv:1EqMO98Y0+MuP5WBIX0WhliISyZbz2du7wXyUUJSB5s=,tag:5aYQAD4eRthzVdhTEbJS3w==,type:str]
   apiServer:
-    image: registry.k8s.io/kube-apiserver:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     certSANs:
       - 127.0.0.1
       - 192.168.254.250
@@ -208,14 +207,14 @@ cluster:
       rules:
         - level: Metadata
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   scheduler:
-    image: registry.k8s.io/kube-scheduler:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
     config:

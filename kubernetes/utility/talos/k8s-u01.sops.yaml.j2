@@ -11,7 +11,7 @@ machine:
     - 127.0.0.1
     - 192.168.254.89
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       rotate-server-certificates: "true"
     extraConfig:
@@ -49,7 +49,7 @@ machine:
       model: QEMU HARDDISK
     extraKernelArgs:
       - mitigations=off
-    image: factory.talos.dev/installer/e3fab82b561b5e559cdf1c0b1e5950c0e52700b9208a2cfaa5b18454796f3a7e:${TALOS_VERSION}
+    image: factory.talos.dev/installer/e3fab82b561b5e559cdf1c0b1e5950c0e52700b9208a2cfaa5b18454796f3a7e:{{ ENV.TALOS_VERSION }}
     # siderolabs/intel-ucode
     # siderolabs/qemu-guest-agent
     wipe: false
@@ -82,7 +82,6 @@ machine:
     fs.inotify.max_user_watches: 1048576
     net.core.rmem_max: 67108864
     net.core.wmem_max: 67108864
-    vm.nr_hugepages: 1024
   features:
     rbac: true
     stableHostname: true
@@ -131,7 +130,7 @@ cluster:
   serviceAccount:
     key: ENC[AES256_GCM,data:pmwIdQc/5U/WBPatZZh1aM7AUWttj7PhrhYBhoHpJrtOYDm59kk7Y7MF/lGpNn2HzQTe6nQgLwOWPvSOXrn5hxwJTwZkm45YV4WPzA43x4icJ8OLeoRbapzvEbxd9Cn/ykU7VuoiRp8nHsC7S0D78PqjYJj6JNfJZ5NoxSDa6zm/zL4w5SMAiOXpM5swD/to+BRPmgBsurcimT6q4TGVZkNFYt0BJedj56hkobkpuePsOMa5Ii+PtUwZ8A1PQnI2Nbs+pMwP1F4NAqWYjBnOD2OdAYt+G7o2jmmBSJzKUT/KQdMyVxYvE/+E7ugLxTUSNO3JXKmLoyrDEX6wIwc3dNmHhlDIx4rAqwNkM8f0auVYfWYUqj1XGthacyEWvOcCWaoDDHrphxTGngImqWiAIw==,iv:kopvHFHNDv+fSDPru6SuRj0GmH1f3PNXbW/OOBmVvoQ=,tag:ZbAEwswOrxzJ0iVtg070Bg==,type:str]
   apiServer:
-    image: registry.k8s.io/kube-apiserver:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     certSANs:
       - 127.0.0.1
       - 192.168.254.89
@@ -142,14 +141,14 @@ cluster:
       rules:
         - level: Metadata
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   scheduler:
-    image: registry.k8s.io/kube-scheduler:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
   discovery:

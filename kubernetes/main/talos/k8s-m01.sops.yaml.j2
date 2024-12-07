@@ -11,7 +11,7 @@ machine:
     - 127.0.0.1
     - 192.168.254.250
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:${KUBERNETES_VERSION}
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       rotate-server-certificates: "true"
     extraConfig:
@@ -83,7 +83,7 @@ machine:
       - iommu=pt
       - mitigations=off
       - pcie_ports=native
-    image: factory.talos.dev/installer/de3b865124c5616da8084826167f8c0b0fbc9b905b146290db797024e84097fc:${TALOS_VERSION}
+    image: factory.talos.dev/installer/de3b865124c5616da8084826167f8c0b0fbc9b905b146290db797024e84097fc:{{ ENV.TALOS_VERSION }}
     # siderolabs/i915-ucode
     # siderolabs/intel-ucode
     # siderolabs/mei
@@ -196,7 +196,7 @@ cluster:
   serviceAccount:
     key: ENC[AES256_GCM,data:lCGTuSiIEXXemKhQWPk3eQnSEDnTAiHvb5NMAdojPfcNsDCEM+kB+J1fncSNz+12aDj0BPjecZKCUAobWaNatzqMGVRqXLPyNVxbUtH3rVsqIxV2dd9kp66g7TsKur4CxCcwcea+fZ7tBX6afpthaVHsVhgHGN3sbqSJZ8pZMpX5i8ji/PJiWGYnPO2eyWVmrbnjMEvvc7ddCBdx3LsjwXDNO6DpfBYi3W0H9UbtUgPpQE+r2EjkKKS8J5eqmJXRu1aovAinOYCFHqZNfeu3up5aOLMVH3nw4d2ptNdooVbHzgXmURAr+o34nsbEBLw6wiTUH0gT2VDe98w2uJadhC+mx5chd3HZk4s0Upo3eM0l+ktkC98GYXbdVaOlYU50ppGvTmlaqyD/lCK7PkDvjQ==,iv:YhTiS2lPbVOlP88UnmOfJQrFKPZ7h3j2GFRqdrOJYoQ=,tag:LFfHBAl2YA5BrDShKnbMSA==,type:str]
   apiServer:
-    image: registry.k8s.io/kube-apiserver:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     certSANs:
       - 127.0.0.1
       - 192.168.254.250
@@ -207,14 +207,14 @@ cluster:
       rules:
         - level: Metadata
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   scheduler:
-    image: registry.k8s.io/kube-scheduler:${KUBERNETES_VERSION}
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
     config:
