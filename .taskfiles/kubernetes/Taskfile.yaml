@@ -56,7 +56,7 @@ tasks:
 
   drain:
     desc: Drain a node [CLUSTER=main] [NODE=required]
-    cmd: kubectl drain {{.NODE}} --ignore-daemonsets --delete-local-data --force
+    cmd: kubectl drain {{.NODE}} --ignore-daemonsets --force
     requires:
       vars: [CLUSTER, NODE]
     preconditions:
