@@ -49,7 +49,7 @@ machine:
       model: QEMU HARDDISK
     extraKernelArgs:
       - mitigations=off
-    image: factory.talos.dev/installer/e3fab82b561b5e559cdf1c0b1e5950c0e52700b9208a2cfaa5b18454796f3a7e:{{ ENV.TALOS_VERSION }}
+    image: factory.talos.dev/installer/{{ ENV.TALOS_SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
     # siderolabs/intel-ucode
     # siderolabs/qemu-guest-agent
     wipe: false
