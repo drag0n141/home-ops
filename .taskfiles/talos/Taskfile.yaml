@@ -2,6 +2,12 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  TALOSCONFIG: '{{.CLUSTER_DIR}}/talosconfig'
+
+env:
+  TALOSCONFIG: '{{.TALOSCONFIG}}'
+
 tasks:
 
   apply-node:
