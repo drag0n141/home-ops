@@ -103,4 +103,4 @@ tasks:
     preconditions:
       - ping -c1 192.168.254.2
       - test -f {{.CLUSTER_DIR}}/cluster.env
-      - which minijinja-cli sops
+      - which ls minijinja-cli sops

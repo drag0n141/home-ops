@@ -28,12 +28,10 @@ tasks:
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
       - task: down
-      - talosctl --nodes {{.NODE}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/{{.TALOS_SCHEMATIC_ID}}:$TALOS_VERSION" --timeout=10m
+      - talosctl --nodes {{.NODE}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
       - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
       - task: up
     vars:
-      TALOS_SCHEMATIC_ID:
-        sh: talosctl --nodes {{.NODE}} get nodeannotationspecs --output json | jq --raw-output '.spec | select(.key == "extensions.talos.dev/schematic") | .value'
       TALOS_SECUREBOOT:
         sh: talosctl --nodes {{.NODE}} get securitystate --output=jsonpath='{.spec.secureBoot}'
     requires:
