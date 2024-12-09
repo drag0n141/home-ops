@@ -50,7 +50,6 @@ machine:
     extraKernelArgs:
       - mitigations=off
     image: factory.talos.dev/installer/{{ ENV.TALOS_SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
-    # siderolabs/intel-ucode
     # siderolabs/qemu-guest-agent
     wipe: false
   files:
