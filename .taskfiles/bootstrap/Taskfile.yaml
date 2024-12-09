@@ -84,14 +84,12 @@ tasks:
     desc: Sync required Matchbox config to PXEBoot machine [CLUSTER=main]
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
-      - for: ['kernel-amd64', 'initramfs-amd64.xz']
-        cmd: curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/assets/{{.ITEM}}
       - for: { var: ASSETS }
-        cmd: sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/assets/{{base .ITEM | replace ".sops.yaml.j2" ".yaml"}}"
+        cmd: sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/assets/{{base .ITEM | replace ".sops.yaml.j2" ".yaml"}}"
       - for: { var: GROUPS }
-        cmd: minijinja-cli {{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/groups/{{base .ITEM | replace ".json.j2" ".json"}}
+        cmd: minijinja-cli {{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/groups/{{base .ITEM | replace ".json.j2" ".json"}}
       - for: { var: PROFILES }
-        cmd: minijinja-cli {{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/profiles/{{base .ITEM | replace ".json.j2" ".json"}}
+        cmd: minijinja-cli {{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/profiles/{{base .ITEM | replace ".json.j2" ".json"}}
       - ssh -l root 192.168.254.2 "docker restart matchbox"
     vars:
       ASSETS:

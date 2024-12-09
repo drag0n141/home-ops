@@ -1,0 +1,19 @@
+{
+  "id": "k8s-m02",
+  "name": "k8s-m02",
+  "boot": {
+    "kernel": "https://factory.talos.dev/image/{{ ENV.TALOS_SCHEMATIC_ID }}/{{ ENV.TALOS_VERSION }}/kernel-amd64",
+    "initrd": ["https://factory.talos.dev/image/{{ ENV.TALOS_SCHEMATIC_ID }}/{{ ENV.TALOS_VERSION }}/initramfs-amd64.xz"],
+    "args": [
+      "initrd=initramfs-amd64.xz",
+      "init_on_alloc=1",
+      "slab_nomerge",
+      "pti=on",
+      "console=tty0",
+      "console=ttyS0",
+      "printk.devkmsg=on",
+      "talos.platform=metal",
+      "talos.config=http://192.168.254.2:9080/assets/k8s-m02.yaml"
+    ]
+  }
+}
