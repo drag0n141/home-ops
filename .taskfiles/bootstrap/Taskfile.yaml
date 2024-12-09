@@ -79,3 +79,30 @@ tasks:
     preconditions:
       - op user get --me
       - which curl flux kubectl ls op
+
+  matchbox:
+    desc: Sync required Matchbox config to PXEBoot machine [CLUSTER=main]
+    dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
+    cmds:
+      - for: ['kernel-amd64', 'initramfs-amd64.xz']
+        cmd: curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/assets/{{.ITEM}}
+      - for: { var: ASSETS }
+        cmd: sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/assets/{{base .ITEM | replace ".sops.yaml.j2" ".yaml"}}"
+      - for: { var: GROUPS }
+        cmd: minijinja-cli {{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/groups/{{base .ITEM | replace ".json.j2" ".json"}}
+      - for: { var: PROFILES }
+        cmd: minijinja-cli {{.ITEM}} | curl -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/data/config/profiles/{{base .ITEM | replace ".json.j2" ".json"}}
+      - ssh -l root 192.168.254.2 "docker restart matchbox"
+    vars:
+      ASSETS:
+        sh: ls {{.CLUSTER_DIR}}/talos/*.yaml.j2
+      GROUPS:
+        sh: ls {{.CLUSTER_DIR}}/bootstrap/matchbox/groups/*.json.j2
+      PROFILES:
+        sh: ls {{.CLUSTER_DIR}}/bootstrap/matchbox/profiles/*.json.j2
+    requires:
+      vars: [CLUSTER]
+    preconditions:
+      - ping -c1 192.168.254.2
+      - test -f {{.CLUSTER_DIR}}/cluster.env
+      - which minijinja-cli sops

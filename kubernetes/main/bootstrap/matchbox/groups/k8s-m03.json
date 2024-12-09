@@ -1,0 +1,8 @@
+{
+  "id": "k8s-m03",
+  "name": "k8s-m03",
+  "profile": "k8s-m03",
+  "selector": {
+    "mac": "48:21:0b:59:6e:c6"
+  }
+}
