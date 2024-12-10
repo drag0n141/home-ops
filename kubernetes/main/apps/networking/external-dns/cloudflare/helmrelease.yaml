@@ -41,6 +41,7 @@ spec:
       - --events
       - --ignore-ingress-tls-spec
       - --ingress-class=traefik-external
+    triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "ingress"]
     txtPrefix: k8s.

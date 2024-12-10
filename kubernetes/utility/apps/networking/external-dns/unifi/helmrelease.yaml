@@ -59,6 +59,7 @@ spec:
       - --ignore-ingress-tls-spec
       - --traefik-disable-legacy
       - --annotation-filter=external-dns.alpha.kubernetes.io/exclude-unifi notin (true)
+    triggerLoopOnEvent: true
     policy: sync
     sources: ["ingress", "service", "traefik-proxy"]
     txtOwnerId: utility
