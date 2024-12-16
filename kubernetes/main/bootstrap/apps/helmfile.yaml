@@ -45,6 +45,6 @@ releases:
   - name: spegel
     namespace: system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: v0.0.27
+    version: v0.0.28
     values: ["../../../apps/system/spegel/app/helm-values.yaml"]
     needs: ["monitoring/prometheus-operator-crds", "kube-system/cilium", "kube-system/coredns", "system/kubelet-csr-approver"]
