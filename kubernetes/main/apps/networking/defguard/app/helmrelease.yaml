@@ -83,7 +83,7 @@ spec:
           proxy:
             image:
               repository: ghcr.io/defguard/gateway
-              tag: 1.1.0@sha256:63ed4a56947c080aa4279461643964765589d3c8d07506664a6c925a8acc031d
+              tag: 1.1.1@sha256:07604359f354d58765e4dd0318498b5dc33dc1634925786bd8389874ccf43bfd
             env:
               TZ: ${TIMEZONE}
               DEFGUARD_GATEWAY_NAME: Gateway-K8s
