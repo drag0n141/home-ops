@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/radarr
-              tag: 5.16.3.9541@sha256:8249c4bba3203911ca7065ae4f6fde1f8d558458e995da1d36641e7bacee9e8a
+              tag: 5.16.3.9541@sha256:677a508989798bfc18eede4c86b16d6efcc1f6e24b73b9eee869c6fc206ad185
             env:
               TZ: ${TIMEZONE}
               RADARR__APP__INSTANCENAME: Radarr
