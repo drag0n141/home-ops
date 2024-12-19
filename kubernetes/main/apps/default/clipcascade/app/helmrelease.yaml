@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: docker.io/sathvikrao/clipcascade
-              tag: 0.2.0@sha256:3363c732514ac4d8c8fcb6c5b0bc476cdb47846d1639fcf3686b434b5cbfd363
+              tag: 0.3.0@sha256:d578201ec32f07d68a2c425fa537fec95ee26f4bd6ca2f17671dd65ffe7c4773
             env:
               TZ: ${TIMEZONE}
               CC_MAX_MESSAGE_SIZE: 10
