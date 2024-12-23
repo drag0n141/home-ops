@@ -7,9 +7,7 @@ machine:
   ca:
     crt: ENC[AES256_GCM,data:9SEfdCcBmNAeTkut14XttfER10Hf8fywemk2OL1rPOxWjFZ5w4NrNHk6aSlSHZTzRe56jkHj6EM9nVwirNlBGd5u3yCPVMhxsGWR4b+/2JE+faAbTiKB+Q3HAMsVnhvUBCQBnK6B1r73YPuXA+qfvSUwe8wcEET5pbz3kfx8rMHEhdnfAGNwzI1babpwu5B2yn9oB67n00vY3bQZORX5oxs1sZaklu1B9R/l6IF2E84JhwF2FcXUtaICN222nJB8WL/aTEnuyFWWtQfFvbCeHvlW2kVZ03w1LP6S9KIZaD1GBrdH8ruBPIlPJSsWOQCPk0o79JWtcOS4kV/ngyFdqKOXHeOkQMmUhujrZcm4meIEdhnwfwTqCg8pHSOgDS0wCKhTch4XDcmmz8S7wR3PrBGZl+k52w0bQ95zL4l+YxYAJPGsg90csq+IoDNZc7lW0xaRKgxT3MdMUJfmL8sCv1IVmwgkeO/jumhU9abVpJxU3qwpstDl7o0cCc9tPNi4jqAUjHkGiANQIUPI5JRF2zGImki76zijjbUUpo7i0irqXG04aWZDRAEQ0meYM9xe5T4fPNPYtESkKVlu2poEUWZJnqhq0f9QCa3jE7jXPSBWFeqjVNlykg8+DGi7MBlwQorZLY99ujkpRp8QE8eWqAk8h1meKB/HEHnKrbDhttiGP0K79goM1QiFmQnGYgllwd20F2irAU2CtADPv5OqtadSv4ZvkX2VJqjm/ajjmH9Kt3xNTLU8e1UvGHEF2BrkuT45339105rtSnveK7xLGeohao86RsZv3coohINIX0z7O7puGi85yzXVNayXfOzSR07gJuMpk3cKJDLVI+QJfSPUKYWMAsuTnu6YnmWhUoYUcyn5,iv:rXxWNFfZYC42QSTw3gqRiTKtLO+/GmJ6nOkjHCSTGpk=,tag:85n9Ak5ZCPJNmmB5DcDtdg==,type:str]
     key: ENC[AES256_GCM,data:b+kODayurxIzFV329wT69ysba+c2i5xzTKU3nlmN1+kNmxZ6daRelj9dRw+dadBJUzYjHMT2rwt7MQTWu90cUbOTmaS0VvfSduCzUQ+3EZ6ytJEpFxrpKGDZiH0oM6Y/yAAVXJfQ1rcSaFlnE93iMaGy70H+KQWPjEU564xiMqUheY7Q9RFuFYzc+mZpuskBpMNVyzU79dBmECDmMaE++V8VwoS6hxvv4X0DE/KEW9t8yv0g,iv:URjDlFL2g2qZxBWPDqDkCkxIkT1e3KMJno+e1EvR+tQ=,tag:1eodgdv3wr8ww/nNZESRzg==,type:str]
-  certSANs:
-    - 127.0.0.1
-    - 192.168.254.89
+  certSANs: ["127.0.0.1", "192.168.254.89"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
@@ -20,14 +18,10 @@ machine:
       - destination: /var/openebs/local
         type: bind
         source: /var/openebs/local
-        options:
-          - bind
-          - rshared
-          - rw
+       options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
-      validSubnets:
-        - 192.168.254.0/24
+      validSubnets: ["192.168.254.0/24"]
     disableManifestsDirectory: true
   network:
     hostname: k8s-u01
@@ -36,19 +30,21 @@ machine:
           hardwareAddr: bc:24:11:24:*
           driver: virtio_net
         dhcp: false
-        addresses:
-          - 192.168.254.89/24
+        addresses: ["192.168.254.89/24"]
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.254.1
     disableSearchDomain: true
-    nameservers:
-      - 192.168.254.1
+    nameservers: ["192.168.254.1"]
   install:
     diskSelector:
       model: QEMU HARDDISK
     extraKernelArgs:
+      - apparmor=0
+      - init_on_alloc=0
+      - init_on_free=0
       - mitigations=off
+      - security=none
     image: factory.talos.dev/installer/{{ ENV.TALOS_SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
     # siderolabs/qemu-guest-agent
     wipe: false
@@ -56,12 +52,7 @@ machine:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |
-        [plugins."io.containerd.grpc.v1.cri"]
-          enable_unprivileged_ports = true
-          enable_unprivileged_icmp = true
-        [plugins."io.containerd.grpc.v1.cri".containerd]
-          discard_unpacked_layers = false
-        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+        [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
     - op: overwrite
       path: /etc/nfsmount.conf
@@ -74,11 +65,11 @@ machine:
         noatime=True
   time:
     disabled: false
-    servers:
-      - time.cloudflare.com
+    servers: ["time.cloudflare.com"]
   sysctls:
-    fs.inotify.max_user_instances: 8192
     fs.inotify.max_user_watches: 1048576
+    fs.inotify.max_user_instances: 8192
+    net.ipv4.tcp_fastopen: 3
     net.core.rmem_max: 67108864
     net.core.wmem_max: 67108864
   features:
@@ -86,17 +77,15 @@ machine:
     stableHostname: true
     kubernetesTalosAPIAccess:
       enabled: true
-      allowedRoles:
-        - os:admin
-      allowedKubernetesNamespaces:
-        - system
+      allowedRoles: ["os:admin"]
+      allowedKubernetesNamespaces: ["kube-system"]
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
       enabled: true
       port: 7445
     hostDNS:
-      enabled: false
+      enabled: true
       resolveMemberNames: true
       forwardKubeDNSToHost: false
   nodeLabels:
@@ -112,10 +101,8 @@ cluster:
     cni:
       name: none
     dnsDomain: cluster.local
-    podSubnets:
-      - 10.42.0.0/16
-    serviceSubnets:
-      - 10.43.0.0/16
+    podSubnets: ["10.42.0.0/16"]
+    serviceSubnets: ["10.43.0.0/16"]
   coreDNS:
     disabled: true
   token: ENC[AES256_GCM,data:e+P/tA5+WCAMFPiDHVrfnnZtLdZ7IZ4=,iv:R8HZxTvfOJ0y4Udqne2ecjNGQPmErY6HMwWmhyDrbbQ=,tag:07fLwJlkCu1nra9UblyEeA==,type:str]
@@ -130,9 +117,9 @@ cluster:
     key: ENC[AES256_GCM,data:pmwIdQc/5U/WBPatZZh1aM7AUWttj7PhrhYBhoHpJrtOYDm59kk7Y7MF/lGpNn2HzQTe6nQgLwOWPvSOXrn5hxwJTwZkm45YV4WPzA43x4icJ8OLeoRbapzvEbxd9Cn/ykU7VuoiRp8nHsC7S0D78PqjYJj6JNfJZ5NoxSDa6zm/zL4w5SMAiOXpM5swD/to+BRPmgBsurcimT6q4TGVZkNFYt0BJedj56hkobkpuePsOMa5Ii+PtUwZ8A1PQnI2Nbs+pMwP1F4NAqWYjBnOD2OdAYt+G7o2jmmBSJzKUT/KQdMyVxYvE/+E7ugLxTUSNO3JXKmLoyrDEX6wIwc3dNmHhlDIx4rAqwNkM8f0auVYfWYUqj1XGthacyEWvOcCWaoDDHrphxTGngImqWiAIw==,iv:kopvHFHNDv+fSDPru6SuRj0GmH1f3PNXbW/OOBmVvoQ=,tag:ZbAEwswOrxzJ0iVtg070Bg==,type:str]
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
-    certSANs:
-      - 127.0.0.1
-      - 192.168.254.89
+    extraArgs:
+      feature-gates: AuthorizeNodeWithSelectors=false
+    certSANs: ["127.0.0.1", "192.168.254.89"]
     disablePodSecurityPolicy: true
     auditPolicy:
       apiVersion: audit.k8s.io/v1
@@ -145,7 +132,6 @@ cluster:
       bind-address: 0.0.0.0
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   scheduler:
     image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
@@ -163,8 +149,7 @@ cluster:
       key: ENC[AES256_GCM,data:L5WmKusyJRm9TbW9e3ArJi80mASkp1y/F2Ce6/2p80AGLK+i94+cDSptCWcqe6OBkjpmmTZxu0sZcOxYHNuEPjtXdHziPdoW+FL7w6eYT2mQMnroY/qTivjBlJ5jwqhwanqpj35eiUvcKhuZllWFSunne8VEeDeSwhjDHPmkyJKhnMdWTDlvTkhIZFO/0N7u/ql+/LuUxW2uMwZnF3m0iG30TRUUYEaGRosUGCzvx4uBrDcJ4GC418rT4+5Pa8TlmJ5M19lGLjfKURfrYSvxZ94YyrsVJVM2Udw77KitJCxH4un+WE+kX4IGJK4jZ4jD5Iyb9ALysWRf50wu/1G0ByTDJpn9S08Ux5SV+8eol5E0or3J3w3tWTOYFYNrJaaSKvBJt7/uVlDuyEvD2LZelA==,iv:ZENZjB1IYRVK+vtjaxzOHJFdcMHEvPIdC0d5VTdhL3Y=,tag:HwCmK3+LKNEoJNGKh7bHdQ==,type:str]
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-    advertisedSubnets:
-      - 192.168.254.0/24
+    advertisedSubnets: ["192.168.254.0/24"]
   allowSchedulingOnMasters: true
 sops:
   kms: []
