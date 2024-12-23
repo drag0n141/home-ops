@@ -22,11 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: rook-ceph-operator
-      namespace: rook-ceph
-    - name: snapshot-controller
-      namespace: storage
   values:
     monitoring:
       enabled: true
@@ -56,8 +51,26 @@ spec:
       [mon]
       mon_data_avail_warn = 20
     cephClusterSpec:
+      cephVersion:
+        image: quay.io/ceph/ceph:v19.2.0
       crashCollector:
         disable: false
+      csi:
+        readAffinity:
+          enabled: true
+      dashboard:
+        enabled: true
+        urlPrefix: /
+        ssl: false
+        prometheusEndpoint: http://prometheus-operated.monitoring.svc.cluster.local:9090
+      mgr:
+        modules:
+          - name: insights
+            enabled: true
+          - name: pg_autoscaler
+            enabled: true
+          - name: rook
+            enabled: true
       network:
         provider: host
         addressRanges:
@@ -65,36 +78,6 @@ spec:
           cluster: ["${THUNDERBOLT_CIDR}"]
         connections:
           requireMsgr2: true
-      resources:
-        mgr:
-          requests:
-            cpu: 100m
-            memory: 512Mi
-          limits:
-            memory: 2Gi
-        mon:
-          requests:
-            cpu: 50m
-            memory: 512Mi
-          limits:
-            memory: 1Gi
-        osd:
-          requests:
-            cpu: 500m
-            memory: 2Gi
-          limits:
-            memory: 6Gi
-        mgr-sidecar:
-          requests:
-            cpu: 50m
-            memory: 128Mi
-          limits:
-            memory: 256Mi
-      dashboard:
-        enabled: true
-        urlPrefix: /
-        ssl: false
-        prometheusEndpoint: http://prometheus-operated.monitoring.svc.cluster.local:9090
       storage:
         useAllNodes: true
         useAllDevices: true
@@ -123,6 +106,7 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: Immediate
+          mountOptions: ["discard"]
           parameters:
             imageFormat: "2"
             imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
@@ -192,17 +176,18 @@ spec:
     cephObjectStores:
       - name: ceph-objectstore
         spec:
-          metadataPool:
-            failureDomain: host
-            replicated:
-              size: 3
           dataPool:
             failureDomain: host
             erasureCoded:
               dataChunks: 2
               codingChunks: 1
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 3
           preservePoolsOnDelete: true
           gateway:
+            hostNetwork: false
             port: 80
             resources:
               requests:

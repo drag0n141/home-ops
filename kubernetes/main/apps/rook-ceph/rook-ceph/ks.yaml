@@ -6,8 +6,12 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+    - name: snapshot-controller
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/app
   prune: false
   sourceRef:
@@ -25,8 +29,12 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+    - name: rook-ceph
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/cluster
   prune: false
   sourceRef:
