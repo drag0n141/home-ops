@@ -6,6 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cilium
   path: ./kubernetes/main/apps/networking/multus/app
   prune: true
   sourceRef:
@@ -23,6 +28,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: multus
   path: ./kubernetes/main/apps/networking/multus/networks
