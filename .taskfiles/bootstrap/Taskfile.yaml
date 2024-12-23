@@ -85,7 +85,7 @@ tasks:
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
-        cmd: curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/assets/{{.CLUSTER}}/{{.ITEM}}
+        cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC_ID/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/assets/{{.CLUSTER}}/{{.ITEM}}
       - for: { var: ASSETS }
         cmd: sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/assets/{{.CLUSTER}}/{{base .ITEM | replace ".sops.yaml.j2" ".yaml"}}"
       - for: { var: GROUPS }
