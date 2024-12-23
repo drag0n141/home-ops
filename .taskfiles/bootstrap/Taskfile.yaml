@@ -84,6 +84,8 @@ tasks:
     desc: Sync required Matchbox config to PXEBoot machine [CLUSTER=main]
     dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
+      - ssh -l root 192.168.254.2 "sudo mkdir -p mnt/user/appdata/matchbox/{groups,profiles,assets}"
+      - ssh -l root 192.168.254.2 "sudo mkdir -p mnt/user/appdata/matchbox/assets/{{.CLUSTER}}"
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC_ID/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/user/appdata/matchbox/assets/{{.CLUSTER}}/{{.ITEM}}
       - for: { var: ASSETS }
