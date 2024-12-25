@@ -30,8 +30,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/frooodle/s-pdf
-              tag: 0.18.1
+              repository: ghcr.io/stirling-tools/s-pdf
+              tag: 0.36.5@sha256:d03441da7f63d19b4af5e9f30770938dd4ea2697a31cd2151016049c82624b75
             env:
               TZ: ${TIMEZONE}
               SYSTEM_DEFAULTLOCALE: de_DE
