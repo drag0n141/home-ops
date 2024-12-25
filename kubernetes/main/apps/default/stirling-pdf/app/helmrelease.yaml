@@ -65,3 +65,12 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /logs
+      tessdata:
+        type: emptyDir
+        globalMounts:
+          - path: /usr/share/tessdata
