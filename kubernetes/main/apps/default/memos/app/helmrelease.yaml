@@ -34,7 +34,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               MEMOS_DRIVER: postgres
-              MEMOS_PORT: 5230
+              MEMOS_PORT: &port 5230
               MEMOS_PUBLIC: false
             envFrom:
               - secretRef:
@@ -45,6 +45,19 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 150Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
