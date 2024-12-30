@@ -37,12 +37,10 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - health
-      - --server=false
   upgrade:
     <<: *prepare
     args:
       - --nodes=$(NODE_IP)
       - upgrade
-      - --image=factory.talos.dev/installer/d715f723f882b1e1e8063f1b89f237dcc0e3bd000f9f970243af59c8baae0100:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
-      - --preserve=true
+      - --image=factory.talos.dev/installer-secureboot/${TALOS_SCHEMATIC_ID}:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --wait=false
