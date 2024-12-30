@@ -25,19 +25,6 @@ spec:
       existingSecret: "netbox-secret"
     admins:
       - ["drag0n141", "server.netbox@${SECRET_DOMAIN_SHORT}"]
-    logging:
-      disable_existing_loggers: false
-      handlers:
-        console:
-          class: logging.StreamHandler
-      loggers:
-        netbox.authentication.*:
-          handlers:
-            - console
-          level: DEBUG
-      version: 1
-    remoteAuth:
-      enabled: false
     loginRequired: true
     timeZone: ${TIMEZONE}
     dateFormat: "j. F, Y"
@@ -79,8 +66,6 @@ spec:
       port: 2525
       from: netbox@${SECRET_DOMAIN}
     persistence:
-      enabled: false
-    reportsPersistence:
       enabled: false
     readinessProbe:
       enabled: true
