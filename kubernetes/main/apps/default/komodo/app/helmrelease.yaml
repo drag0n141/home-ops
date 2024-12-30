@@ -34,8 +34,11 @@ spec:
             env:
               TZ: ${TIMEZONE}
               KOMODO_DISABLE_USER_REGISTRATION: false
-              KOMODO_FIRST_SERVER: https://nas01.${SECRET_DOMAIN_AD}:8120
+              # KOMODO_FIRST_SERVER: https://nas01.${SECRET_DOMAIN_AD}:8120
               KOMODO_HOST: komodo.${SECRET_DOMAIN_INTERNAL}
+            envFrom:
+              - secretRef:
+                  name: komodo-secret
             resources:
               requests:
                 cpu: 10m
