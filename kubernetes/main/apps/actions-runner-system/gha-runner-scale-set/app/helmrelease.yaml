@@ -47,10 +47,25 @@ spec:
       type: dind
     template:
       spec:
+        automountServiceAccountToken: true
         containers:
           - name: runner
             image: ghcr.io/drag0n141/actions-runner:2.321.0@sha256:ccdec9084dc8ff162946a6a44f45985bc7b8f283d0baca312bb7256c590e9b80
             command: ["/home/runner/run.sh"]
+            env:
+              - name: NODE_IP
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+            volumeMounts:
+              - mountPath: /var/run/secrets/talos.dev
+                name: talos
+                readOnly: true
+        serviceAccountName: actions-runner
+        volumes:
+          - name: talos
+            secret:
+              secretName: actions-runner
     controllerServiceAccount:
       name: gha-runner-scale-set-controller
       namespace: dev

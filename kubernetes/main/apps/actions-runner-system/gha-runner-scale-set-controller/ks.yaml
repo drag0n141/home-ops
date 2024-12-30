@@ -5,13 +5,13 @@ metadata:
   name: &app gha-runner-scale-set-controller
   namespace: flux-system
 spec:
-  targetNamespace: dev
+  targetNamespace: actions-runner-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/dev/gha-runner-scale-set-controller/app
+  path: ./kubernetes/main/apps/actions-runner-system/gha-runner-scale-set-controller/app
   prune: true
   sourceRef:
     kind: GitRepository
