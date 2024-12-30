@@ -101,8 +101,9 @@ machine:
     disabled: false
     servers: ["time.cloudflare.com"]
   sysctls:
-    fs.inotify.max_user_instances: 8192
     fs.inotify.max_user_watches: 1048576
+    fs.inotify.max_user_instances: 8192
+    net.ipv4.tcp_fastopen: 3
     net.core.rmem_max: 67108864
     net.core.wmem_max: 67108864
   sysfs:
