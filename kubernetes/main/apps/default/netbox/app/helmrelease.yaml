@@ -117,14 +117,10 @@ spec:
     extraConfig:
       - secret:
           secretName: netbox-secret
-    updateStrategy:
-      type: RollingUpdate
     housekeeping:
       enabled: false
     worker:
       enabled: false
-      updateStrategy:
-        type: RollingUpdate
   valuesFrom:
     - targetPath: storageConfig.AWS_ACCESS_KEY_ID
       kind: Secret
