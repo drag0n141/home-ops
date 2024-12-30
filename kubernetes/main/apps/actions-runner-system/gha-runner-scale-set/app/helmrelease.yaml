@@ -23,7 +23,7 @@ spec:
       retries: 3
   dependsOn:
     - name: gha-runner-scale-set-controller
-      namespace: dev
+      namespace: actions-runner-system
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret
@@ -68,4 +68,4 @@ spec:
               secretName: actions-runner
     controllerServiceAccount:
       name: gha-runner-scale-set-controller
-      namespace: dev
+      namespace: actions-runner-system
