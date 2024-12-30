@@ -62,6 +62,9 @@ spec:
     - name: ferdium
       databases: ["ferdium_db"]
       password: *password
+    - name: ferretdb
+      databases: ["ferretdb_db"]
+      password: *password
     - name: gatus
       databases: ["gatus_db"]
       password: *password
