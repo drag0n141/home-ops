@@ -9,7 +9,6 @@ resources:
   - ./authentik.yaml
   - ./backube.yaml
   - ./bjw-s.yaml
-  - ./bootc.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
@@ -29,6 +28,7 @@ resources:
   - ./k8s-gateway.yaml
   - ./k8tz.yaml
   - ./metrics-server.yaml
+  - ./netbox.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
   - ./openebs.yaml

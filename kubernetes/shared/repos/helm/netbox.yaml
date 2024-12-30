@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: bootc
+  name: netbox 
   namespace: flux-system
 spec:
   interval: 2h
-  url: https://charts.boo.tc
+  url: https://charts.netbox.oss.netboxlabs.com/
