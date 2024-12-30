@@ -26,9 +26,12 @@ machine:
   network:
     hostname: k8s-u01
     interfaces:
-      - deviceSelector:
-          hardwareAddr: bc:24:11:24:*
-          driver: virtio_net
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: bc:24:11:24:*
+              driver: virtio_net
         dhcp: false
         addresses: ["192.168.254.89/24"]
         routes:
