@@ -34,6 +34,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               KOMODO_DATABASE_ADDRESS: komodo-db.default.svc.cluster.local:27017
+              KOMODO_DISABLE_CONFIRM_DIALOG: true
               KOMODO_DISABLE_USER_REGISTRATION: true
               KOMODO_HOST: komodo.${SECRET_DOMAIN_INTERNAL}
               KOMODO_LOCAL_AUTH: true
