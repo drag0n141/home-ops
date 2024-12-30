@@ -76,5 +76,14 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 
 ## Stargazers
 
-[![Star History Chart](https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date)](https://star-history.com/#drag0n141/home-ops&Date)
- 
+<div align="center">
+
+<a href="https://star-history.com/#buroa/k8s-gitops&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date" />
+  </picture>
+</a>
+
+</div>
