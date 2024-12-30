@@ -7,9 +7,7 @@ machine:
   ca:
     crt: ENC[AES256_GCM,data:TN8ONNA4Qei9SHRElZEmAdhEioxjMPD4KnkAUaqWRZ34Uzxy76tibIzdk268SB191XLRcw8Vu5fB2NRPncvjtqAXuGHlYuC6LM4gQpptAcRp3VeDWnj1gZf/Ij38BTJBVgRmPyx1yCrlUsO/WK+RUAb3eCWpZcwjYLquNDfVsomEfha0YoMNZgi6FrE9NtWvP3dWCY6cieVs2AL1g674z+VAf11EIiwRw874qlUeesNXfelrYNBRppx6fqlrl/HxseuvrkXkqCfIgZTo/gC391IQWZxlic+ojZ6Rt/k5ExD4yJVz10tyKDQiYdQD1a+73/h4oPs4cpftWN8lbQL4nV8VKD9tPHB7AOo/a7BGBsx4ZlB8Sr8T1XuDgxZxvOIDrMyLVwMLkjXz2KCLLAKywLwByK9s6EkhUqb5IRvtevmeNJ7G9n5s8Qftp16w5dzBdoBDZ9wNW7CoK8HJSBpFA6EeRYmUCb8O9oaZP6ebwK6z8Io/ikEOC+m5lyvjShPs99CYhCAtE6B1l0hSLFhUmB1229nW0EZOQzprRDBA4wBafJzbBfW+6U92ai9VbT9L0kugOWslGinbflLpYCEQv8hWlyDvX9xiA9eIUu7Tr3szQUmAVlAWflZUHZF0vfiO79hCntGhI9lyWSHhdVubLW2nz1P9HYeNoy0nGf4OmgptArarh50PqGCuZ93/0R8tFWp75Pvhj/dT6ybHVKEf+8p5xaEEf3HF+JHoLke517RWVU+OfftJy2eqVaiv04IETVg/Ad79fu02KTeZEReNSPR3hAPKc5szAyhMMrbAzQYOPKUnKPXjSOHaXm7noRCZPmHCziwJZpo7xoG29+z32wUutnS0GNB6+clsYjMhEr+DF2l2,iv:10DxNS0FkjQvsdxd+aYH4XH8E3fpD9HITTSor20lW5A=,tag:v1/8MY2sxOvZg7nGvZcF0w==,type:str]
     key: ENC[AES256_GCM,data:I2lKwOSZLZ3g426StoylS0OSC1w8/wW3QbEUoKqJrc6X3N7jlRZ/TNSZUmNC5pe07/9Y47K7CRLtJz7qMWjzS0Ys23dUaF1+lQeVZ90zOi23syvw5bR0HZ9AtRyoRTJW/evt1/HDySbJE4KIhWhbvxfD8t4/EPTK7qEh3Spmw757XGR7nC6pPhwTjs8QodUyfWzKShuaGbnHnmsvIKk5w1jAS/c7ca+Vibl9taR7iNqy15Hv,iv:aOG7ROcnepNC4HLp6waiRPTgIjQLEPbueY0sDyFYzbM=,tag:pN76xJZmjv7B/PAkBstHlQ==,type:str]
-  certSANs:
-    - 127.0.0.1
-    - 192.168.254.250
+  certSANs: ["127.0.0.1", "192.168.254.250"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
@@ -20,14 +18,10 @@ machine:
       - destination: /var/openebs/local
         type: bind
         source: /var/openebs/local
-        options:
-          - bind
-          - rshared
-          - rw
+        options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
-      validSubnets:
-        - 192.168.254.0/24
+      validSubnets: ["192.168.254.0/24"]
     disableManifestsDirectory: true
   network:
     hostname: k8s-m03
@@ -39,8 +33,7 @@ machine:
             - hardwareAddr: 48:21:0b:59:*
               driver: igc
         dhcp: false
-        addresses:
-          - 192.168.254.83/24
+        addresses: ["192.168.254.83/24"]
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.254.1
@@ -50,15 +43,13 @@ machine:
           - vlanId: 150
             mtu: 1500
             dhcp: false
-            addresses:
-              - 192.168.150.83/24
+            addresses: ["192.168.150.83/24"]
       - deviceSelector:
           # k8s-m01
           busPath: 0-1.0
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.103/32
+        addresses: ["169.254.255.103/32"]
         routes:
           - network: 169.254.255.101/32
             metric: 2048
@@ -67,24 +58,26 @@ machine:
           busPath: 1-1.0
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.103/32
+        addresses: ["169.254.255.103/32"]
         routes:
           - network: 169.254.255.102/32
             metric: 2048
     disableSearchDomain: true
-    nameservers:
-      - 192.168.254.1
+    nameservers: ["192.168.254.1"]
   install:
     diskSelector:
       model: TS512GMTS430S
     extraKernelArgs:
+      - apparmor=0
+      - init_on_alloc=0
+      - init_on_free=0
       - intel_iommu=on
       - iommu=pt
       - mitigations=off
       - pcie_ports=native
+      - security=none
     image: factory.talos.dev/installer/{{ ENV.TALOS_SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
-    # siderolabs/i915-ucode
+    # siderolabs/i915
     # siderolabs/intel-ucode
     # siderolabs/mei
     # siderolabs/thunderbolt
@@ -93,16 +86,11 @@ machine:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |
-        [plugins."io.containerd.grpc.v1.cri"]
-          enable_unprivileged_ports = true
-          enable_unprivileged_icmp = true
-        [plugins."io.containerd.grpc.v1.cri".containerd]
-          discard_unpacked_layers = false
-        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+        [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
     - op: overwrite
       path: /etc/nfsmount.conf
-      permissions: 420
+      permissions: 0o644
       content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.2
@@ -111,8 +99,7 @@ machine:
         noatime=True
   time:
     disabled: false
-    servers:
-      - time.cloudflare.com
+    servers: ["time.cloudflare.com"]
   sysctls:
     fs.inotify.max_user_instances: 8192
     fs.inotify.max_user_watches: 1048576
@@ -177,10 +164,8 @@ cluster:
     cni:
       name: none
     dnsDomain: cluster.local
-    podSubnets:
-      - 10.42.0.0/16
-    serviceSubnets:
-      - 10.43.0.0/16
+    podSubnets: ["10.42.0.0/16"]
+    serviceSubnets: ["10.43.0.0/16"]
   coreDNS:
     disabled: true
   token: ENC[AES256_GCM,data:b6bUbMyAn+W9HrYM2OjHnUpSjFgx8Ks=,iv:zyfUzed9rPULAPI1fyuRo6htd2WCU3ORlrRLvCOhNK4=,tag:qwrSotnm9bROFl4XSpjYjA==,type:str]
@@ -195,9 +180,9 @@ cluster:
     key: ENC[AES256_GCM,data:5GjywJzGJi5qe/+YCSQbkELwy3DZJUtmlE8YN908mUMxRPZ7DQWhfX+f9VFQvG/Vxc4lzLF782yZlNAqf6qrm2orGGv2fnKFao+CAvZ3+wgcs2gBoFYReiwRMEwmMkUmEA9FPngNjTmOi/Rcnid1dEuKuQCaHmVl3ocTPtFdRIL/h0w4rF0EKsioV2f1HTkvpi0xuzd18IkB2b0dtsjQX3lHBIuQ3zT+Ts8TygdzkdPwaywsI1KeWh+o8H6by5zdFrCoAu7FnFOAhi/IuV1lzZ0qlyPTlOtkcc1QgSScma2yvhMRxt3+YjwsI8X/KzIu0KfFfSm16/KhTEx19h+f7fNFXC0zLA78s+iolh0uE0q/rhfu4XsORVMFmsmLEuLoQf2ceAC3PiPumNJuFfq2hQ==,iv:1EqMO98Y0+MuP5WBIX0WhliISyZbz2du7wXyUUJSB5s=,tag:5aYQAD4eRthzVdhTEbJS3w==,type:str]
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
-    certSANs:
-      - 127.0.0.1
-      - 192.168.254.250
+    extraArgs:
+      feature-gates: AuthorizeNodeWithSelectors=false
+    certSANs: ["127.0.0.1", "192.168.254.250"]
     disablePodSecurityPolicy: true
     auditPolicy:
       apiVersion: audit.k8s.io/v1
@@ -210,7 +195,6 @@ cluster:
       bind-address: 0.0.0.0
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   scheduler:
     image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
@@ -220,6 +204,10 @@ cluster:
       kind: KubeSchedulerConfiguration
       profiles:
         - schedulerName: default-scheduler
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
           pluginConfig:
             - name: PodTopologySpread
               args:
@@ -241,8 +229,7 @@ cluster:
       key: ENC[AES256_GCM,data:lbMBRctsARMwlx3O/2oKm5WjCAXsRuUHVpCeELqTl3Lk4KQTpYnPJfXa0Stm/TUgyqMPu5glIcPgxNFKA6ViQwMX337ZNCqSYWWwJg/lqqohkAwUrIoSUtmnBIexS3Uxx+VWlNF8zoKR85J3+8pLtd7LcQ2H0R+Y85LcTbWoN1Y5RdvIAAomX0nSZ66HVgnXlCZN0ESeomD213dfmlm6i9q8cedf09yKs3GrNkCLbLq+397yxFlXM3NpkeDnNqI0kNCdhSQ/0tIguwrGTzijywM2k8iGsOwzTRdunLow6NklmUoPziLO30ZDYPh4MdXRv+wG/Cg8KJiL1+qEfXNUZhIEANDr4+BVOxUcWng3/aqqHhWvij5rl4wqN53mfWPDaoyCwdBSczejeCQAkhQAwQ==,iv:FsMzlII8z9MAZ/6E8Jh5QkynBzDMt9QQEIfvFN0qEq8=,tag:yc/7T/MjFVkoZWLpuJFjnQ==,type:str]
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-    advertisedSubnets:
-      - 192.168.254.0/24
+    advertisedSubnets: ["192.168.254.0/24"]
   allowSchedulingOnMasters: true
 sops:
   kms: []
