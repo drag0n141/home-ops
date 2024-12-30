@@ -9,4 +9,3 @@ resources:
   - ./crunchy-pgo/ks.yaml
   - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
-  - ./ferretdb/ks.yaml

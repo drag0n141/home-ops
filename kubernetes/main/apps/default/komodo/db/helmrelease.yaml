@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ferretdb
+  name: &app komodo-db
 spec:
   interval: 30m
   chart:
@@ -23,7 +23,7 @@ spec:
       retries: 3
   values:
     controllers:
-      ferretdb:
+      komodo-db:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -35,7 +35,7 @@ spec:
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
-                  name: ferretdb-secret
+                  name: komodo-db-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -73,7 +73,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: ferretdb
+        controller: komodo-db
         ports:
           mongo:
             port: 27017

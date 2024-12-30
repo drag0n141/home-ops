@@ -62,9 +62,6 @@ spec:
     - name: ferdium
       databases: ["ferdium_db"]
       password: *password
-    - name: ferretdb
-      databases: ["ferretdb_db"]
-      password: *password
     - name: gatus
       databases: ["gatus_db"]
       password: *password
@@ -76,6 +73,9 @@ spec:
       password: *password
     - name: kitchenowl
       databases: ["kitchenowl_db"]
+      password: *password
+    - name: komodo
+      databases: ["komodo_db"]
       password: *password
     - name: lidarr
       databases: ["lidarr_main", "lidarr_log"]
