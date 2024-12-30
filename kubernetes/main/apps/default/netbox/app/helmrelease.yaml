@@ -22,7 +22,6 @@ spec:
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
-      existingSecret: "netbox-secret"
     admins:
       - ["drag0n141", "server.netbox@${SECRET_DOMAIN_SHORT}"]
     logging:
