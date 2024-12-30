@@ -30,16 +30,28 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/corentinth/it-tools
-              tag: 2024.5.13-a0bc346@sha256:c191615f23eb6a18b8faca4dba15fc11caefea250ce3a8e29d249757544092eb
+              repository: ghcr.io/bjw-s-labs/it-tools
+              tag: 2024.5.13@sha256:cfb2c5685b0d9e2facd656158e7d7a6c8817dcda3f2d1dd3c7c93bd5f6e2a097
             env:
               TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
                 memory: 50Mi
               limits:
                 memory: 250Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: it-tools
