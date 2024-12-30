@@ -33,6 +33,7 @@ spec:
               tag: 1.16.12@sha256:d0a201fdf7113b7a47fe925e0a8a9c337f632980a27f151729030f05e99e22c0
             env:
               TZ: ${TIMEZONE}
+              KOMODO_DATABASE_ADDRESS: komodo-db.default.svc.cluster.local:27017
               KOMODO_DISABLE_USER_REGISTRATION: false
               # KOMODO_FIRST_SERVER: https://nas01.${SECRET_DOMAIN_AD}:8120
               KOMODO_HOST: komodo.${SECRET_DOMAIN_INTERNAL}

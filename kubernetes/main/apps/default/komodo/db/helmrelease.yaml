@@ -33,9 +33,7 @@ spec:
               tag: 1.24.0@sha256:e4e442895ae2aaf8284db3d012c8d0e1c84d6f353d16678a0d3edf6d7e81d624
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: komodo-db-secret
+              FERRETDB_HANDLER: sqlite
             probes:
               liveness: &probes
                 enabled: true
@@ -79,6 +77,8 @@ spec:
             port: 27017
     persistence:
       state:
-        type: emptyDir
+        existingClaim: komodo-db
+        globalMounts:
+          - path: /state
       tmp:
         type: emptyDir
