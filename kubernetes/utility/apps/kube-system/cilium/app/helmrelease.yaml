@@ -22,8 +22,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
   valuesFrom:
     - kind: ConfigMap
       name: cilium-helm-values
@@ -32,19 +30,19 @@ spec:
       enabled: true
       metrics:
         enabled:
-          - dns:query;ignoreAAAA
+          - dns:query
           - drop
           - tcp
           - flow
           - port-distribution
           - icmp
           - http
-        serviceMonitor:
-          enabled: true
         dashboards:
           enabled: true
           annotations:
             grafana_folder: Cilium
+        serviceMonitor:
+          enabled: true
       relay:
         enabled: true
         rollOutPods: true
@@ -67,21 +65,3 @@ spec:
             - hosts:
                 - "hubble-utility.${SECRET_DOMAIN_INTERNAL}"
               secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    operator:
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-      dashboards:
-        enabled: true
-        annotations:
-          grafana_folder: Cilium
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-    dashboards:
-      enabled: true
-      annotations:
-        grafana_folder: Cilium
