@@ -114,10 +114,6 @@ spec:
         - hosts:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    init:
-      image:
-        repository: docker.io/library/busybox
-        tag: 1.37.0
     extraConfig:
       - secret:
           secretName: netbox-secret
