@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app atuin
+  name: &app morphos
 spec:
   interval: 30m
   chart:
@@ -23,27 +23,29 @@ spec:
       retries: 3
   values:
     controllers:
-      atuin:
+      morphos:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/atuinsh/atuin
-              tag: 18.4.0@sha256:8c6fa0aea944bf2a39665c9c69df1c2c0f9c05207bda5b942d450142285e3ee1
-            args: ["server", "start"]
+              repository: ghcr.io/danvergara/morphos-server
+              tag: 0.6.0@sha256:3d6f64ef386cbb6a7c5d55526e1a69da2d3661a1996d757897e92bf4369088f5
             env:
               TZ: ${TIMEZONE}
-              ATUIN_HOST: 0.0.0.0
-              ATUIN_PORT: &port 8888
-              ATUIN_OPEN_REGISTRATION: "true"
-              ATUIN_METRICS__ENABLE: "true"
-              ATUIN_METRICS__HOST: 0.0.0.0
-              ATUIN_METRICS__PORT: &metricsPort 8080
-              ATUIN_TLS__ENABLE: "false"
-            envFrom:
-              - secretRef:
-                  name: atuin-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -51,8 +53,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
+                memory: 100Mi
               limits:
-                memory: 256Mi
+                memory: 2Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -63,30 +66,23 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: atuin
+        controller: morphos
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port
-          metrics:
-            port: *metricsPort
-    serviceMonitor:
-      app:
-        serviceName: atuin
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     ingress:
       app:
         className: traefik-internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
         hosts:
-          - host: &host "atuin.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "morphos.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -96,6 +92,3 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    persistence:
-      config:
-        type: emptyDir
