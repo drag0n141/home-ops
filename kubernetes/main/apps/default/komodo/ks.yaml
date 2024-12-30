@@ -2,17 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app ferretdb
+  name: &app komodo
   namespace: flux-system
 spec:
-  targetNamespace: database
+  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo-cluster
-    - name: external-secrets-stores
-  path: ./kubernetes/main/apps/database/ferretdb/app
+    - name: ferretdb
+  path: ./kubernetes/main/apps/default/komodo/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,3 +20,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
