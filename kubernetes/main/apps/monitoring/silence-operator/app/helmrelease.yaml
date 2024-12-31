@@ -27,7 +27,7 @@ spec:
         kind: Silence
         metadata:
           name: ceph-node-nfsmount-diskspace-warning
-          namespace: observability
+          namespace: monitoring
         spec:
           matchers:
             - name: alertname
@@ -40,7 +40,7 @@ spec:
         kind: Silence
         metadata:
           name: ceph-node-local-diskspace-warning
-          namespace: observability
+          namespace: monitoring
         spec:
           matchers:
             - name: alertname
