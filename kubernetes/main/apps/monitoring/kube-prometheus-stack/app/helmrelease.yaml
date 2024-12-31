@@ -18,6 +18,9 @@ spec:
     crds: Skip
   upgrade:
     crds: Skip
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: monitoring
   values:
     crds:
       enabled: false

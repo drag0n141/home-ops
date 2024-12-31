@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: kube-prometheus-stack-crds
     - name: rook-ceph-cluster
   path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/app
   prune: true
