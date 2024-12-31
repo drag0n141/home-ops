@@ -13,6 +13,11 @@ spec:
         kind: HelmRepository
         name: wiremind
         namespace: flux-system
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
+    - name: silence-operator-crds
+      namespace: monitoring
   values:
     image:
       name: quay.io/giantswarm/silence-operator

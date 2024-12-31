@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: kube-prometheus-stack
-    - name: silence-operator-crds
   path: ./kubernetes/main/apps/monitoring/silence-operator/app
   prune: true
   sourceRef:
