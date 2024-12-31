@@ -16,19 +16,8 @@ spec:
         namespace: flux-system
   install:
     crds: Skip
-    remediation:
-      retries: 3
   upgrade:
-    cleanupOnFail: true
     crds: Skip
-    remediation:
-      strategy: rollback
-      retries: 3
-  dependsOn:
-    - name: prometheus-operator-crds
-      namespace: monitoring
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     crds:
       enabled: false
