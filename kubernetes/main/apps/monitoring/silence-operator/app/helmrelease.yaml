@@ -19,7 +19,8 @@ spec:
     operator:
       config:
         alertmanager:
-          address: http://alertmanager.monitoring.svc.cluster.local:9093
+          service:
+            address: http://alertmanager.monitoring.svc.cluster.local:9093
     rbac:
       create: true
     extraDeploy:
