@@ -6,6 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: prometheus-operator-crds
   path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
@@ -23,10 +28,33 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
   path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/addons
   prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app prometheus-operator-crds
+  namespace: flux-system
+spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/crds
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

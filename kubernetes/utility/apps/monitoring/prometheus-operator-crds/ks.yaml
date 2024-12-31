@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app prometheus-operator-crds
+  name: &app kube-prometheus-stack-crds
   namespace: flux-system
 spec:
   targetNamespace: monitoring
-  path: ./kubernetes/utility/apps/monitoring/prometheus-operator-crds/app
+  path: ./kubernetes/utility/apps/monitoring/kube-prometheus-stack/crds
   prune: false
   sourceRef:
     kind: GitRepository

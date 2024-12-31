@@ -42,3 +42,4 @@ resources:
   - ./teleport.yaml
   - ./totmicro.yaml
   - ./traefik.yaml
+  - ./wiremind.yaml
