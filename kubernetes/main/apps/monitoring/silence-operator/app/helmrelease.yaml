@@ -55,3 +55,16 @@ spec:
             - name: device
               value: /dev/sd.*
               isRegex: true
+      - apiVersion: monitoring.giantswarm.io/v1alpha1
+        kind: Silence
+        metadata:
+          name: nas01-node-disk-io-saturation
+          namespace: monitoring
+        spec:
+          matchers:
+            - name: alertname
+              value: NodeDiskIOSaturation
+              isRegex: false
+            - name: instance
+              value: nas01-server.${SECRET_DOMAIN_INT}:9100
+              isRegex: false
