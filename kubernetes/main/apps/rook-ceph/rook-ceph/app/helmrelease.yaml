@@ -14,17 +14,6 @@ spec:
         kind: HelmRepository
         name: rook-ceph
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
-  dependsOn:
-    - name: snapshot-controller
-      namespace: storage
   values:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
