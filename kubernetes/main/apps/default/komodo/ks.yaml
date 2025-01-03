@@ -10,9 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
-    - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/komodo/db
   prune: true
   sourceRef:
@@ -38,8 +38,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: komodo-db
     - name: external-secrets-stores
+    - name: komodo-db
   path: ./kubernetes/main/apps/default/komodo/app
   prune: true
   sourceRef:
