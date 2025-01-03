@@ -9,19 +9,11 @@ spec:
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.15.7
+      version: v1.16.1
       sourceRef:
         kind: HelmRepository
         name: rook-ceph
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     monitoring:
       enabled: true
@@ -51,8 +43,6 @@ spec:
       [mon]
       mon_data_avail_warn = 20
     cephClusterSpec:
-      cephVersion:
-        image: quay.io/ceph/ceph:v19.2.0
       crashCollector:
         disable: false
       csi:
