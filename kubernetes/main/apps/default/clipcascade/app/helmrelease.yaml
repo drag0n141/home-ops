@@ -26,7 +26,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               CC_ALLOWED_ORIGINS: https://clipcascade.${SECRET_DOMAIN_INTERNAL}
-              CC_MAX_MESSAGE_SIZE_IN_MiB: 10
+              CC_MAX_MESSAGE_SIZE_IN_MiB: 5
             envFrom:
               - secretRef:
                   name: clipcascade-secret
@@ -35,7 +35,7 @@ spec:
                 cpu: 10m
                 memory: 100Mi
               limits:
-                memory: 250Mi
+                memory: 500Mi
     service:
       app:
         controller: clipcascade
