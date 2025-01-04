@@ -13,14 +13,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     controllers:
       clipcascade:
@@ -33,7 +25,8 @@ spec:
               tag: 0.5.0@sha256:09367b14026f954ebd67dd683decc5051bb1e8c0dbc737020add84d46eb163aa
             env:
               TZ: ${TIMEZONE}
-              CC_MAX_MESSAGE_SIZE: 10
+              CC_ALLOWED_ORIGINS: https://clipcascade.${SECRET_DOMAIN_INTERNAL}
+              CC_MAX_MESSAGE_SIZE_IN_MiB: 10
             envFrom:
               - secretRef:
                   name: clipcascade-secret
@@ -67,3 +60,8 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        existingClaim: clipcascade
+        globalMounts:
+          - path: /database
