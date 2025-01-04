@@ -13,24 +13,16 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     fullnameOverride: *app
-    image:
-      registry: quay.io
     config:
       devices:
         - /dev/sda
         - /dev/nvme0n1
     serviceMonitor:
       enabled: true
+      relabelings:
+        - action: labeldrop
+          regex: (pod)
     prometheusRules:
       enabled: false
