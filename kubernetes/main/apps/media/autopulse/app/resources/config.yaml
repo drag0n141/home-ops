@@ -1,0 +1,36 @@
+---
+app:
+  hostname: 0.0.0.0
+  port: 2875
+
+auth:
+  username: "{{ .AUTOPULSE_USERNAME }}"
+  password: "{{ .AUTOPULSE_PASSWORD }}"
+
+opts:
+  check_path: true
+  max_retries: 5
+  default_timer_wait: 30
+  cleanup_days: 7
+
+triggers:
+  lidarr:
+    type: lidarr
+  manual:
+    type: manual
+  radarr:
+    type: radarr
+  radarr4k:
+    type: radarr
+  sonarr:
+    type: sonarr
+  sonarr4k:
+    type: sonarr
+  sonarrkids:
+    type: sonarr
+
+targets:
+  plex:
+    type: plex
+    url: http://plex.media.svc.cluster.local:32400
+    token: "{{ .PLEX_TOKEN }}"

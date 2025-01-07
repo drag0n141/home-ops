@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app autopulse
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      autopulse:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/danonline/autopulse
+              tag: v1.2.3@sha256:f2a22808e32a37703896844296a4fd73d91c2c8094613a471ac939008d215bec
+            env:
+              TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: autopulse-db-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    service:
+      app:
+        controller: autopulse
+        ports:
+          http:
+            port: 2875
+    persistence:
+      config:
+        type: secret
+        name: autopulse-secret
+        globalMounts:
+          - path: /app/config.yaml
+            subPath: config.yaml
+            readOnly: true
+      media:
+        type: nfs
+        server: ${SECRET_NFS_SERVER}
+        path: /mnt/user/media
+        globalMounts:
+          - path: /mnt/user/media
+            readOnly: true

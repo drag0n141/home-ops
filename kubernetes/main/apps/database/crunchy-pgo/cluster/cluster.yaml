@@ -56,6 +56,9 @@ spec:
     - name: authentik
       databases: ["authentik_db"]
       password: *password
+    - name: autopulse
+      databases: ["autopulse_db"]
+      password: *password
     - name: defguard
       databases: ["defguard_db"]
       password: *password

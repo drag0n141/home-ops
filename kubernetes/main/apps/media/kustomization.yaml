@@ -6,7 +6,7 @@ resources:
   - ./namespace.yaml
   - ./notifications.yaml
   # Flux-Kustomizations
-  - ./autoscan/ks.yaml
+  - ./autopulse/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
