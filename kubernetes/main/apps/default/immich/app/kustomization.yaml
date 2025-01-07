@@ -4,7 +4,5 @@ kind: Kustomization
 resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
-  - ./machine-learning
-  - ./microservices
-  - ./server
+  - ./helmrelease.yaml
   - ../../../../../shared/templates/gatus/external
