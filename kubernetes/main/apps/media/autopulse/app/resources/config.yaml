@@ -7,6 +7,9 @@ auth:
   username: "{{ .AUTOPULSE_USERNAME }}"
   password: "{{ .AUTOPULSE_PASSWORD }}"
 
+anchors:
+  - /mnt/user/media/.anchors/local.anchor
+
 opts:
   check_path: true
   max_retries: 5
