@@ -15,14 +15,7 @@ spec:
         namespace: flux-system
   values:
     fullnameOverride: *app
-    config:
-      devices:
-        - /dev/sda
-        - /dev/nvme0n1
     serviceMonitor:
       enabled: true
-      relabelings:
-        - action: labeldrop
-          regex: (pod)
     prometheusRules:
       enabled: false
