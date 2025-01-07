@@ -30,7 +30,7 @@ spec:
                   name: autopulse-db-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -44,6 +44,10 @@ spec:
           http:
             port: 2875
     persistence:
+      app:
+        type: emptyDir
+        globalMounts:
+          - path: /app
       config:
         type: secret
         name: autopulse-secret
