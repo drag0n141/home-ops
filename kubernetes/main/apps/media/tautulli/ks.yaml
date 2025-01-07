@@ -41,7 +41,7 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
-  path: ./kubernetes/main/apps/media/tautulli/142
+  path: ./kubernetes/main/apps/media/tautulli/app-142
   prune: true
   sourceRef:
     kind: GitRepository
