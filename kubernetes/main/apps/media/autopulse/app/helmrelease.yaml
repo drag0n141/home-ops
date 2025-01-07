@@ -26,9 +26,6 @@ spec:
             command: ["/bin/autopulse"]
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: autopulse-db-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

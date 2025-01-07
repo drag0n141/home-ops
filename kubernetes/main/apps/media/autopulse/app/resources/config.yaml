@@ -2,6 +2,7 @@
 app:
   hostname: 0.0.0.0
   port: 2875
+  database_url: postgres://{{ index . "user" }}:{{ index . "password" }}@{{ index . "host" }}:{{ index . "port" }}/{{ index . "dbname" }}
 
 auth:
   username: "{{ .AUTOPULSE_USERNAME }}"
