@@ -6,9 +6,14 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
     - name: plex
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/main/apps/media/autoscan/app
   prune: true
   sourceRef:

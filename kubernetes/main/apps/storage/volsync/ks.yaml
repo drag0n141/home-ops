@@ -6,6 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: storage
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: snapshot-controller
   path: ./kubernetes/main/apps/storage/volsync/app
   prune: true
   sourceRef:

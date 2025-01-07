@@ -6,10 +6,15 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: dragonfly-cluster
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/main/apps/default/vikunja/app
   prune: true
   sourceRef:

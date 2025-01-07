@@ -13,15 +13,6 @@ spec:
         kind: HelmRepository
         name: k8tz
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     namespace: system
     replicaCount: 1

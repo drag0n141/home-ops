@@ -6,8 +6,13 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: security
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/main/apps/security/teleport/app
   prune: true
   sourceRef:
@@ -29,6 +34,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: security
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: teleport
   path: ./kubernetes/main/apps/security/teleport/agent

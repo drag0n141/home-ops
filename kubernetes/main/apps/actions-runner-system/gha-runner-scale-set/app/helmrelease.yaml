@@ -13,17 +13,6 @@ spec:
         kind: HelmRepository
         name: actions-runner-controller
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
-  dependsOn:
-    - name: gha-runner-scale-set-controller
-      namespace: actions-runner-system
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret

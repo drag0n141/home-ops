@@ -6,8 +6,13 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: home
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/main/apps/home/node-red/app
   prune: true
   sourceRef:

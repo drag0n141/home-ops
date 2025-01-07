@@ -32,6 +32,8 @@ spec:
   dependsOn:
     - name: external-secrets-stores
     - name: mc-router
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/main/apps/games/minecraft/app
   prune: true
   sourceRef:

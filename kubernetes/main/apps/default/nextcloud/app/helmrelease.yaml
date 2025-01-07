@@ -13,18 +13,6 @@ spec:
         kind: HelmRepository
         name: nextcloud
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   values:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"

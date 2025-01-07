@@ -6,8 +6,12 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
+    - name: openebs
   path: ./kubernetes/main/apps/monitoring/loki/app
   prune: true
   sourceRef:

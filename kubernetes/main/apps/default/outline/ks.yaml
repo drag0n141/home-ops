@@ -6,10 +6,13 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: dragonfly-cluster
     - name: external-secrets-stores
+    - name: minio
   path: ./kubernetes/main/apps/default/outline/app
   prune: true
   sourceRef:

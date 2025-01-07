@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: openebs
   path: ./kubernetes/main/apps/database/crunchy-pgo/app
   prune: true
   sourceRef:

@@ -6,6 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: database
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/database/dragonfly/app
   prune: true
   sourceRef:
@@ -23,6 +26,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: database
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: dragonfly
   path: ./kubernetes/main/apps/database/dragonfly/cluster

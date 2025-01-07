@@ -13,14 +13,6 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   valuesFrom:
     - kind: ConfigMap
       name: cilium-helm-values

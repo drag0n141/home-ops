@@ -6,6 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: node-feature-discovery
   path: ./kubernetes/main/apps/system/intel-device-plugin/app
   prune: true
   sourceRef:
@@ -23,6 +28,11 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: intel-device-plugin
   path: ./kubernetes/main/apps/system/intel-device-plugin/gpu
   prune: true
   sourceRef:

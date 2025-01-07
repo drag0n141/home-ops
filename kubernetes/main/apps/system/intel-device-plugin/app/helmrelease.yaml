@@ -13,18 +13,6 @@ spec:
         kind: HelmRepository
         name: intel
         namespace: flux-system
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  dependsOn:
-    - name: node-feature-discovery
-      namespace: system
   values:
     controllerExtraArgs: |
       - --devices=gpu

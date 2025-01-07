@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: gha-runner-scale-set-controller
   path: ./kubernetes/main/apps/actions-runner-system/gha-runner-scale-set/app
   prune: true
   sourceRef:

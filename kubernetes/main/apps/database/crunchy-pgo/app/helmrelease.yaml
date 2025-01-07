@@ -13,20 +13,10 @@ spec:
         kind: HelmRepository
         name: crunchydata
         namespace: flux-system
-  maxHistory: 2
   install:
     crds: CreateReplace
-    remediation:
-      retries: 3
   upgrade:
-    cleanupOnFail: true
     crds: CreateReplace
-    remediation:
-      strategy: rollback
-      retries: 3
-  dependsOn:
-    - name: openebs
-      namespace: storage
   values:
     install:
       clusterLabels:

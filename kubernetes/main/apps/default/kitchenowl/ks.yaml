@@ -6,9 +6,14 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/main/apps/default/kitchenowl/app
   prune: true
   sourceRef:
@@ -30,6 +35,9 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: kitchenowl
   path: ./kubernetes/main/apps/default/kitchenowl/web
