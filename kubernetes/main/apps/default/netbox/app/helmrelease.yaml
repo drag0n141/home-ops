@@ -18,7 +18,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/netbox-community/netbox
-      tag: v4.2.0
+      tag: v4.2.1
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
