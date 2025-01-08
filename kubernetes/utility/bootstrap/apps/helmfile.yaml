@@ -50,6 +50,6 @@ releases:
   - name: kubelet-csr-approver
     namespace: system
     chart: postfinance/kubelet-csr-approver
-    version: 1.2.4
+    version: 1.2.5
     values: ["../../apps/system/kubelet-csr-approver/app/helm-values.yaml"]
     needs: ["kube-system/coredns"]
