@@ -2,13 +2,13 @@
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeeringPolicy
 metadata:
-  name: bgp-loadbalancer-ip-main
+  name: l3-policy
 spec:
   nodeSelector:
     matchLabels:
-      kubernetes.io/os: "linux"
+      kubernetes.io/os: linux
   virtualRouters:
-    - localASN: 65000
+    - localASN: 65002
       exportPodCIDR: false
       serviceSelector:
         matchExpressions:
@@ -18,4 +18,4 @@ spec:
               - will-match-and-announce-all-services
       neighbors:
         - peerAddress: ${BGP_ROUTER}
-          peerASN: 65207
+          peerASN: 65000
