@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/syncthing/syncthing
-              tag: 1.29.0@sha256:13f36e0ad356be38b0bb9ff74d40ae33b048c294af2002c33a71123125afbb7e
+              tag: 1.29.1@sha256:89ecddcef11a13bba8bce8be10b5d7e1a13951c2c61f0cca02c4f9a779e81d58
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
