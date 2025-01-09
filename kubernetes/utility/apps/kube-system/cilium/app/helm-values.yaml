@@ -46,7 +46,6 @@ kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 l2announcements:
   enabled: false
 loadBalancer:
-  acceleration: best-effort
   algorithm: maglev
   mode: dsr
 localRedirectPolicy: true
@@ -78,6 +77,8 @@ securityContext:
       - IPC_LOCK
       - SYS_ADMIN
       - SYS_RESOURCE
+      - PERFMON
+      - BPF
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
