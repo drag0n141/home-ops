@@ -39,7 +39,7 @@ spec:
               - run
               - "$(SECRET_CLOUDFLARE_TUNNEL_ID)"
             probes:
-              liveness:
+              liveness: &probe
                 enabled: true
                 custom: true
                 spec:
