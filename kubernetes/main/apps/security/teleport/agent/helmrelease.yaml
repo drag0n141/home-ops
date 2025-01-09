@@ -15,10 +15,7 @@ spec:
         namespace: flux-system
   values:
     log:
-      level: INFO
-      output: stderr
-      format: text
-      extraFields: ["timestamp", "level", "component", "caller"]
+      level: DEBUG
     roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.${SECRET_DOMAIN}:443
