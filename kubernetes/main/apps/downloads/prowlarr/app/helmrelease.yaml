@@ -60,15 +60,16 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 1024Mi
-        pod:
-          annotations:
-            setGateway: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+      annotations:
+        setGateway: "true"
     service:
       app:
         controller: prowlarr
