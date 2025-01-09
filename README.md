@@ -69,10 +69,9 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 | [GitHub](https://github.com/)                      | Hosting this repository and continuous integration/deployments     | Free           |
 | [Migadu](https://migadu.com/)                      | Email hosting for Kubernetes Mails                                 | ~20€/yr        |
 | [ProtonMail](https://proton.me/)                   | Email hosting and VPN                                              | ~90€/yr        |
-| [NextDNS](https://nextdns.io/)                     | DNS server which includes AdBlocking for Traveling                 | ~20€/yr        |
 | [Pushover](https://pushover.net/)                  | Kubernetes Alerts                                                  | 5€ OTP         |
 | [iDrive E2](https://www.idrive.com/s3-storage-e2/) | S3 Offsite Backup                                                  | ~60€/yr        |                                                  
-|                                                    |                                                                    | Total: ~27€/mo |
+|                                                    |                                                                    | Total: ~25€/mo |
 
 ## Stargazers
 
