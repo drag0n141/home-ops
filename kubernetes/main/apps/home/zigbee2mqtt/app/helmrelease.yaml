@@ -81,7 +81,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: zigbee2mqtt
+        controller: *app
         ports:
           http:
             port: *port

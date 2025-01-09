@@ -86,13 +86,13 @@ spec:
                   name: defguard-gateway-secret
     service:
       app:
-        controller: defguard
+        controller: *app
         primary: true
         ports:
           http:
             port: 8000
       grpc:
-        controller: defguard
+        controller: *app
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: h2c
         ports:

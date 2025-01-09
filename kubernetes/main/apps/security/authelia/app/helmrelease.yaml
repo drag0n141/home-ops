@@ -61,22 +61,22 @@ spec:
                 memory: 32Mi
               limits:
                 memory: 128Mi
-        pod:
-          enableServiceLinks: false
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: *app
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
     service:
       app:
-        controller: authelia
+        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
@@ -89,7 +89,7 @@ spec:
             port: 8080
     serviceMonitor:
       app:
-        serviceName: authelia
+        serviceName: *app
         endpoints:
           - port: metrics
             scheme: http

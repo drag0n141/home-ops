@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: onepassword-connect
+  name: &app onepassword-connect
 spec:
   interval: 30m
   chart:
@@ -27,7 +27,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               XDG_DATA_HOME: /config
-              OP_HTTP_PORT: 80
+              OP_HTTP_PORT: &apiPort 80
               OP_BUS_PORT: 11220
               OP_BUS_PEERS: localhost:11221
               OP_SESSION:
@@ -42,7 +42,7 @@ spec:
                 spec:
                   httpGet:
                     path: /heartbeat
-                    port: 80
+                    port: *apiPort
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
@@ -52,7 +52,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: 80
+                    port: *apiPort
                   initialDelaySeconds: 15
             securityContext:
               allowPrivilegeEscalation: false
@@ -71,7 +71,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               XDG_DATA_HOME: /config
-              OP_HTTP_PORT: 8081
+              OP_HTTP_PORT: &syncPort 8081
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
               OP_SESSION:
@@ -86,7 +86,7 @@ spec:
                 spec:
                   httpGet:
                     path: /heartbeat
-                    port: 8081
+                    port: *syncPort
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
@@ -96,7 +96,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: 8081
+                    port: *syncPort
                   initialDelaySeconds: 15
             securityContext:
               allowPrivilegeEscalation: false
@@ -108,13 +108,14 @@ spec:
                 memory: 256M
               limits:
                 memory: 256M
-        pod:
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
-            runAsNonRoot: true
-            fsGroup: 999
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: onepassword-connect

@@ -37,16 +37,17 @@ spec:
                 cpu: 5m
               limits:
                 memory: 512Mi
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: node-red
+        controller: *app
         ports:
           http:
             port: 1880
@@ -70,7 +71,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: node-red
+        existingClaim: *app
         globalMounts:
           - path: /data
       settings:

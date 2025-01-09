@@ -35,12 +35,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
-        pod:
-          annotations:
-            setGateway: "true"
+    defaultPodOptions:
+      annotations:
+        setGateway: "true"
     service:
       app:
-        controller: socks-proxy
+        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "socks.${SECRET_DOMAIN_INTERNAL}"

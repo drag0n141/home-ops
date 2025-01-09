@@ -34,24 +34,25 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "networking",
-                "ips": ["192.168.150.5/24"],
-                "mac": "7e:ae:c7:bb:d6:ce"
-              }]
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-iot",
+            "namespace": "networking",
+            "ips": ["192.168.150.5/24"],
+            "mac": "7e:ae:c7:bb:d6:ce"
+          }]
     service:
       app:
-        controller: home-assistant
+        controller: *app
         ports:
           http:
             port: 8123
@@ -75,7 +76,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: home-assistant
+        existingClaim: *app
         globalMounts:
           - path: /config
       tmp:

@@ -45,20 +45,21 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 65534
-            runAsGroup: 65534
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: go2rtc
+        controller: *app
         primary: true
         ports:
           http:
             port: *port
       go2rtc-service:
-        controller: go2rtc
+        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "go2rtc-streams.${SECRET_DOMAIN_INTERNAL}"
