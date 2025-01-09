@@ -44,15 +44,17 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 256Mi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: christmas-community
+        controller: *app
         ports:
           http:
             port: *port
@@ -76,6 +78,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: christmas-community
+        existingClaim: *app
         globalMounts:
           - path: /data
