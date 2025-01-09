@@ -78,7 +78,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
+        controller: immich
         ports:
           http:
             port: *port
@@ -86,7 +86,7 @@ spec:
             port: 8081
     serviceMonitor:
       app:
-        serviceName: *app
+        serviceName: immich
         endpoints:
           - port: metrics
             scheme: http
