@@ -66,18 +66,18 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
+        runAsUser: 1000
+        runAsGroup: 1000
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: miniflux
+        controller: *app
         ports:
           http:
             port: 8080
     serviceMonitor:
       app:
-        serviceName: miniflux
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http

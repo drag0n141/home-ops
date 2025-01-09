@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/syncthing/syncthing
-              tag: 1.29.0
+              tag: 1.29.0@sha256:13f36e0ad356be38b0bb9ff74d40ae33b048c294af2002c33a71123125afbb7e
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
@@ -37,21 +37,23 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: syncthing
+        controller: *app
         primary: true
         ports:
           http:
             port: 8384
       sync:
-        controller: syncthing
+        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"

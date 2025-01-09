@@ -45,7 +45,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: it-tools
+        controller: *app
         annotations:
           teleport.dev/name: *app
         labels:
@@ -71,3 +71,8 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

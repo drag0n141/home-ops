@@ -22,26 +22,34 @@ spec:
           app:
             image:
               repository: ghcr.io/shlinkio/shlink-web-client
-              tag: 4.3.0
+              tag: 4.3.0@sha256:4a84d58508d0a327e6c383a0b57f624dd9a4f1a6e24f3cb538dec18dbaa9f7a1
             env:
               TIMEZONE: ${TIMEZONE}
               SHLINK_SERVER_URL: https://${SECRET_DOMAIN_SHORT}
             envFrom:
               - secretRef:
                   name: shlink-web-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
                 memory: 50M
               limits:
                 memory: 100M
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: shlink-web
+        controller: *app
         ports:
           http:
             port: 8080

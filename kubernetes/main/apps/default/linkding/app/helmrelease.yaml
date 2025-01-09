@@ -32,15 +32,27 @@ spec:
             envFrom:
               - secretRef:
                   name: linkding-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
                 memory: 64Mi
               limits:
                 memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: linkding
+        controller: *app
         ports:
           http:
             port: 9090
@@ -67,3 +79,7 @@ spec:
         existingClaim: linkding
         globalMounts:
           - path: /etc/linkding/data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
