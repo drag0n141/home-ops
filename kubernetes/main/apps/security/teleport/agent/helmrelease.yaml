@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   values:
     log:
-      level: DEBUG
+      level: INFO
     roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.${SECRET_DOMAIN}:443
