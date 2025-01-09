@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/mendhak/http-https-echo
-              tag: 35
+              tag: 35@sha256:440ca6b810bc04606aac700e461caca5543eaa882c4e0af96a33424d05a23592
             env:
               HTTP_PORT: &port 8080
               LOG_WITHOUT_NEWLINE: true
@@ -45,27 +45,26 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-              seccompProfile:
-                type: RuntimeDefault
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 64Mi
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            runAsNonRoot: true
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: echo-server
+        controller: *app
         ports:
           http:
             port: *port
     serviceMonitor:
       app:
-        serviceName: echo-server
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http
