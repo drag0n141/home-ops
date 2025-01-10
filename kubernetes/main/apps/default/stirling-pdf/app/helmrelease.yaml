@@ -26,6 +26,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               SYSTEM_DEFAULTLOCALE: de_DE
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
