@@ -45,6 +45,10 @@ spec:
             envFrom:
               - secretRef:
                   name: ferdium-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
