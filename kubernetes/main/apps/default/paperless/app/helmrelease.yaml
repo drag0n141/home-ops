@@ -51,6 +51,9 @@ spec:
             envFrom:
               - secretRef:
                   name: paperless-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
