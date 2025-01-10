@@ -75,4 +75,4 @@ spec:
       cache:
         type: emptyDir
         globalMounts:
-          - path: /root/.npm/_cacache
+          - path: /home/node/.npm
