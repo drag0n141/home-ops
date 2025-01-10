@@ -23,11 +23,7 @@ spec:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-12-18T13-15-44Z@sha256:1dce27c494a16bae114774f1cec295493f3613142713130c2d22dd5696be6ad3
-            args:
-              - server
-              - /data
-              - --console-address
-              - :9001
+            args: ["server", "/data", "--console-address", ":9001"]
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN_INTERNAL},https://s3.${SECRET_DOMAIN_INTERNAL}
               MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_INTERNAL}
@@ -62,6 +58,8 @@ spec:
               requests:
                 cpu: 5m
                 memory: 100Mi
+              limits:
+                memory: 1000Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
