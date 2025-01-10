@@ -19,12 +19,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           app:
             image:
@@ -35,55 +29,46 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              seccompProfile: { type: RuntimeDefault }
             resources:
               requests:
                 cpu: 10m
                 memory: 500Mi
               limits:
                 memory: 2000Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
-              seccompProfile:
-                type: RuntimeDefault
       frontend:
         strategy: RollingUpdate
-        pod:
-          securityContext:
-            runAsUser: 101
-            runAsGroup: 101
-            fsGroup: 101
-            fsGroupChangePolicy: "OnRootMismatch"
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/piped-frontend
-              tag: latest@sha256:b541bd1ebd6325bef5a42286b6ef83a95cdd2e64fb438ed766d5b8d4f2312d52
+              tag: 2025.1.9@sha256:b541bd1ebd6325bef5a42286b6ef83a95cdd2e64fb438ed766d5b8d4f2312d52
             env:
-              HTTP_PORT: 8080
-              HTTP_WORKERS: 4
               BACKEND_HOSTNAME: piped-api.${SECRET_DOMAIN}
             probes:
               liveness:
                 enabled: true
               readiness:
                 enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
                 memory: 32Mi
               limits:
                 memory: 256Mi
-            securityContext:
-              allowPrivilegeEscalation: false
       ytproxy:
         strategy: RollingUpdate
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -96,17 +81,22 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              seccompProfile: { type: RuntimeDefault }
             resources:
               requests:
                 cpu: 10m
                 memory: 500Mi
               limits:
                 memory: 2000Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
-              seccompProfile:
-                type: RuntimeDefault
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
     service:
       backend:
         controller: backend
