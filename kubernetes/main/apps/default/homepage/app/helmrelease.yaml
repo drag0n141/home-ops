@@ -90,6 +90,10 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config
+      homepage-config:
         type: secret
         name: homepage-files-secret
         globalMounts:

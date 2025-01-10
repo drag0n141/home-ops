@@ -43,8 +43,10 @@ spec:
               tag: v2.24.2@sha256:8fec79e0ce4023e1ac1d292469a933a2e172c891146eef89302c6dfad112fd6b
             env:
               TZ: ${TIMEZONE}
-              CONNECTION_TIMEOUT: 300000
+              TIMEOUT: 60000
             securityContext:
+              runAsUser: 999
+              runAsGroup: 999
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
