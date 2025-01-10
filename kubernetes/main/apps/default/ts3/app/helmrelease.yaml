@@ -34,7 +34,7 @@ spec:
                   name: ts3-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities:
                 add: ["CHOWN"]
                 drop: ["ALL"]
