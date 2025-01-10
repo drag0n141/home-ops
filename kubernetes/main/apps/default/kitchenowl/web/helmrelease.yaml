@@ -29,7 +29,7 @@ spec:
               FRONT_URL: https://kitchenowl.${SECRET_DOMAIN}
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
