@@ -34,7 +34,7 @@ spec:
                 memory: 500Mi
     service:
       app:
-        controller: proton-bridge
+        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "proton.${SECRET_DOMAIN_INTERNAL}"
@@ -49,6 +49,6 @@ spec:
             protocol: TCP
     persistence:
       config:
-        existingClaim: proton-bridge
+        existingClaim: *app
         globalMounts:
           - path: /root

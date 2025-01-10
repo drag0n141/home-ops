@@ -32,14 +32,14 @@ spec:
               - |
                 nsenter --mount=/host/proc/$(pidof /usr/local/bin/kubelet)/ns/mnt --net=/host/proc/$(pidof /usr/local/bin/kubelet)/ns/net -- sh -c "cat /proc/self/mountinfo | grep -v kubelet | grep -v tmpfs | grep -v overlay > /tmp/fs.txt"
                 nsenter --mount=/host/proc/$(pidof /usr/local/bin/kubelet)/ns/mnt --net=/host/proc/$(pidof /usr/local/bin/kubelet)/ns/net -- sh -c "fstrim -v --quiet-unsupported -I /tmp/fs.txt"
+            securityContext:
+              privileged: true
             resources:
               requests:
                 cpu: 25m
                 memory: 128Mi
               limits:
                 memory: 128Mi
-            securityContext:
-              privileged: true
     defaultPodOptions:
       hostNetwork: true
       hostPID: true

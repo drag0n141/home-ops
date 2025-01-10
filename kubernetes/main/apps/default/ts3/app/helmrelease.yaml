@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/teamspeak
-              tag: 3.13.7
+              tag: 3.13.7@sha256:12b89d83f86068c0e9486afc10335db26297b87c7029022bdcaaaa479e9127c0
             env:
               TZ: ${TIMEZONE}
               TS3SERVER_DB_PLUGIN: ts3db_postgresql
@@ -32,6 +32,10 @@ spec:
             envFrom:
               - secretRef:
                   name: ts3-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
