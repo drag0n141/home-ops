@@ -36,6 +36,9 @@ spec:
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: 2525
               SMTP_SECURE: "false"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
