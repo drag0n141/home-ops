@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ferdium/ferdium-server
-              tag: 2.0.10
+              tag: 2.0.10@sha256:2af65f3a79302b60a0f5079d6796388fa3b4840d3344968b69000c76f99fe46f
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
