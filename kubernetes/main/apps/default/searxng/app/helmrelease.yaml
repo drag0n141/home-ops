@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/searxng/searxng
-              tag: 2024.6.30-39aaac40d@sha256:149477f50e9fd7a90bd1455009b332433d65a9beeb0e0a6f9a4bdc11a860c0b6
+              tag: 2025.1.6-e35292618@sha256:4a116b0e254154426d831da0851251de54dfda099cb17a597eaa2d973bc79af6
             env:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
@@ -46,10 +46,8 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                add: ["CHOWN", "SETGID" ,"SETUID", "DAC_OVERRIDE"]
-                drop: ["ALL"]
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -59,9 +57,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 977
-        runAsGroup: 977
-        fsGroup: 977
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     service:
@@ -99,7 +97,11 @@ spec:
           - path: /etc/searxng/limiter.toml
             subPath: limiter.toml
             readOnly: true
-      tmp:
+      cache:
         type: emptyDir
         globalMounts:
           - path: /etc/searxng
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
