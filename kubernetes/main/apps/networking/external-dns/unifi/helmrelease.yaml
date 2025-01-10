@@ -55,6 +55,7 @@ spec:
     sources: ["ingress", "service", "traefik-proxy"]
     txtOwnerId: main
     txtPrefix: k8s.main.
+    excludeDomains: ["ipv4.${SECRET_DOMAIN}"]
     domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_INTERNAL}"]
     serviceMonitor:
       enabled: true
