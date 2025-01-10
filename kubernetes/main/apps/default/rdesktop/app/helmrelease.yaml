@@ -27,6 +27,10 @@ spec:
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
