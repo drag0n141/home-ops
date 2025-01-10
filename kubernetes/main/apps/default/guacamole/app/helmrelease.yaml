@@ -23,29 +23,24 @@ spec:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
+            command: ["/bin/sh", "-c"]
+            args: ["/opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql"]
             envFrom: &envFrom
               - secretRef:
                   name: guacamole-secret
-            command: ["/bin/sh", "-c"]
-            args:
-              - /opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql
           02-init-migrations:
             image:
               repository: ghcr.io/drag0n141/postgres-init
               tag: 16
-            envFrom: *envFrom
             command: ["/bin/sh", "-c"]
-            args:
-              - export PGPASSWORD=$(POSTGRESQL_PASSWORD);
-                psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;
+            args: ["export PGPASSWORD=$(POSTGRESQL_PASSWORD); psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;"]
+            envFrom: *envFrom
           03-init-plugin:
             image:
               repository: docker.io/guacamole/guacamole
               tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
             command: ["/bin/sh", "-c"]
-            args:
-              - mkdir -p /guacamole/extensions;
-                cp /opt/guacamole/totp/*.jar /guacamole/extensions;
+            args: ["mkdir -p /guacamole/extensions; cp /opt/guacamole/totp/*.jar /guacamole/extensions;"]
         containers:
           app:
             image:
@@ -69,10 +64,10 @@ spec:
                 memory: 750Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     service:
