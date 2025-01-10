@@ -34,7 +34,7 @@ spec:
                   name: ts3-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 add: ["CHOWN"]
                 drop: ["ALL"]
@@ -79,3 +79,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /var/ts3server/logs
+      var:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run/ts3server/
