@@ -28,8 +28,7 @@ spec:
               SYSTEM_DEFAULTLOCALE: de_DE
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
