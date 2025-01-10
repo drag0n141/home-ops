@@ -77,3 +77,7 @@ spec:
         existingClaim: clipcascade
         globalMounts:
           - path: /database
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
