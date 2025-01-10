@@ -62,6 +62,14 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 750Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: outline
@@ -86,3 +94,12 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /home/nodejs/.cache/
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
