@@ -22,7 +22,7 @@ spec:
           01-init-schema:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.5
+              tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
             envFrom: &envFrom
               - secretRef:
                   name: guacamole-secret
@@ -45,7 +45,7 @@ spec:
           03-init-plugin:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.5
+              tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
             command:
               - "/bin/sh"
               - "-c"
@@ -56,7 +56,7 @@ spec:
           app:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.5
+              tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
             env:
               TZ: ${TIMEZONE}
               WEBAPP_CONTEXT: ROOT
@@ -64,6 +64,10 @@ spec:
               GUACAMOLE_HOME: /guacamole
               GUACD_PORT: "4822"
             envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 250m
