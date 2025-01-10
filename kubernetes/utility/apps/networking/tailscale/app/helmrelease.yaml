@@ -37,16 +37,16 @@ spec:
             envFrom:
               - secretRef:
                   name: tailscale-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
                 memory: 50Mi
               limits:
                 memory: 200Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -57,7 +57,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     serviceAccount:
       create: true
-      name: tailscale
+      name: *app
     persistence:
       cache:
         type: emptyDir
