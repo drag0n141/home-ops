@@ -27,12 +27,15 @@ spec:
               TZ: ${TIMEZONE}
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://192.168.1.1
-              UP_UNIFI_DEFAULT_VERIFY_SSL: false
-              UP_UNIFI_DEFAULT_USER: unifipoller
               UP_INFLUXDB_DISABLE: true
             envFrom:
               - secretRef:
                   name: unpoller-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -51,13 +54,13 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: unpoller
+        controller: *app
         ports:
           http:
             port: 9130
     serviceMonitor:
       app:
-        serviceName: unpoller
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http
