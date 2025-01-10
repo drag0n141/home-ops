@@ -30,9 +30,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities:
-                add: ["CHOWN"]
-                drop: ["ALL"]
             resources:
               requests:
                 cpu: 5m
