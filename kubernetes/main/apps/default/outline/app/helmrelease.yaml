@@ -98,7 +98,7 @@ spec:
       cache:
         type: emptyDir
         globalMounts:
-          - path: /home/node/.cache/yarn
+          - path: /home/node
       tmp:
         type: emptyDir
         globalMounts:
