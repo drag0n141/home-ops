@@ -15,10 +15,7 @@ spec:
         namespace: flux-system
   values:
     clusterName: teleport.${SECRET_DOMAIN}
-    chartMode: standalone
     kubeClusterName: HomeOpsCluster
-    validateConfigOnDeploy: true
-    enterprise: false
     auth:
       annotations:
         deployment:
@@ -35,16 +32,10 @@ spec:
       teleportConfig:
         proxy_service:
           trust_x_forwarded_for: true
-    podSecurityPolicy:
-      enabled: true
     log:
       level: INFO
-      output: stderr
-      format: text
-      extraFields: ["timestamp", "level", "component", "caller"]
     ingress:
       enabled: true
-      suppressAutomaticWildcards: false
       spec:
         ingressClassName: traefik-external
     annotations:
@@ -59,15 +50,9 @@ spec:
     highAvailability:
       tls:
         existingSecretName: "${SECRET_DOMAIN/./-}-production-tls"
-    authentication:
-      type: local
     proxyListenerMode: multiplex
     persistence:
       enabled: true
       existingClaimName: teleport
-    serviceAccount:
-      create: true
-    rbac:
-      create: true
     service:
       type: ClusterIP
