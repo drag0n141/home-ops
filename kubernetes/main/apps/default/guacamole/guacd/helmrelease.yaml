@@ -49,3 +49,12 @@ spec:
         ports:
           http:
             port: 4822
+    persistence:
+      guacd:
+        type: emptyDir
+        globalMounts:
+          - path: /home/guacd
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /home/tausch
