@@ -29,22 +29,57 @@ spec:
             ports:
               - name: http
                 containerPort: 9093
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             probes:
-              liveness:
-                enabled: true
               readiness:
                 enabled: true
+                custom: true
+                spec: &ready
+                  httpGet:
+                    path: "/-/ready"
+                    port: http
+                    scheme: HTTP
+                  initialDelaySeconds: 3
+                  periodSeconds: 5
+                  timeoutSeconds: 3
+                  successThreshold: 1
+                  failureThreshold: 10
               startup:
                 enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                  <<: *ready
+                  periodSeconds: 1
+                  failureThreshold: 60
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: "/-/healthy"
+                    port: http
+                    scheme: HTTP
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  successThreshold: 1
+                  failureThreshold: 10
             resources:
               requests:
                 cpu: 11m
                 memory: 50Mi
               limits:
                 memory: 100Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: alertmanager
