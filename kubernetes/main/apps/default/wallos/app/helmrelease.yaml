@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ellite/wallos
-              tag: 2.43.1@sha256:b71316f5acc7819abc1dd3e59009332166098620b5e8417e41307fc858e0be39
+              tag: 2.44.0@sha256:b45e15061de8ab7622924976a8889673e050246b09f79fd0c917f24fa3b030df
             env:
               TZ: ${TIMEZONE}
             securityContext:
