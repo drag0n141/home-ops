@@ -11,6 +11,7 @@ resources:
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
+  - ./controlplaneio.yaml
   - ./coredns.yaml
   - ./crunchydata.yaml
   - ./crunchy-users.yaml

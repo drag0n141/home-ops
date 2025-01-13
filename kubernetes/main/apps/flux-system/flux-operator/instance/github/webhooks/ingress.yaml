@@ -2,8 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: flux-webhook
-  namespace: flux-system
+  name: webhook-receiver
   annotations:
     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
