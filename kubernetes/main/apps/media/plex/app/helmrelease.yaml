@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/plex
-              tag: 1.41.3.9314-a0bfb8370@sha256:2425533fc6154251e7d1a0e15dc6ff4cee69a8cf07364e4b9396af4dbbec4cd9
+              tag: 1.41.3.9314-a0bfb8370@sha256:24858a2e492d06003841e6eb6cd3ef938af1fc9bf2c83071dcec832e62ad7074
             env:
               TZ: ${TIMEZONE}
               PLEX_ADVERTISE_URL: https://${PLEX_LB_ADDR}:32400
