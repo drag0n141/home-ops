@@ -34,6 +34,7 @@ spec:
         enabled: yes
         ldap:
           addr: dc01.${SECRET_DOMAIN_AD}:636
+          domain: ${SECRET_DOMAIN_AD}
         static_hosts:
         - name: dc01
           addr: dc01.${SECRET_DOMAIN_AD}
