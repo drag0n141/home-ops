@@ -35,6 +35,7 @@ spec:
         ldap:
           addr: dc01.${SECRET_DOMAIN_AD}:636
           domain: ${SECRET_DOMAIN_AD}
+          username: svc-teleport
         static_hosts:
         - name: dc01
           addr: dc01.${SECRET_DOMAIN_AD}
