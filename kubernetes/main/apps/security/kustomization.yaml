@@ -4,18 +4,9 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
   - ./external-secrets/ks.yaml
   - ./onepassword-connect/ks.yaml
   - ./teleport/ks.yaml
-transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: security
-    unsetOnly: true

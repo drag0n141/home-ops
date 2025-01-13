@@ -4,14 +4,5 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./pod-gateway/ks.yaml
-transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: vpn
-    unsetOnly: true
