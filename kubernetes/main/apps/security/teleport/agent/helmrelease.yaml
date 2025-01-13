@@ -39,10 +39,6 @@ spec:
           username: svc-teleport
         discovery:
           base_dn: '*'
-        static_hosts:
-        - name: dc01
-          addr: dc01.${SECRET_DOMAIN_AD}
-          ad: true
       app_service:
         enabled: yes
         apps:
