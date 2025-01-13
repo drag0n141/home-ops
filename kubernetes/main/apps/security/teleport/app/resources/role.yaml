@@ -1,7 +1,7 @@
 kind: role
 version: v5
 metadata:
-  name: developer
+  name: windows
 spec:
   options:
     record_session:
