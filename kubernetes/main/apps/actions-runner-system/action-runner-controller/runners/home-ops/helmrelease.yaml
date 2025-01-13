@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: gha-runner-scale-set
+  name: &name home-ops-runner
 spec:
   interval: 30m
   chart:
@@ -16,32 +16,42 @@ spec:
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret
-      name: gha-runner-scale-set-controller-secret
+      name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
     - targetPath: githubConfigSecret.github_app_installation_id
       kind: Secret
-      name: gha-runner-scale-set-controller-secret
+      name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
     - targetPath: githubConfigSecret.github_app_private_key
       kind: Secret
-      name: gha-runner-scale-set-controller-secret
+      name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
   values:
-    nameOverride: gha-runner-scale-set
-    runnerScaleSetName: gha-runner-scale-set
+    nameOverride: *name
+    runnerScaleSetName: *name
     githubConfigUrl: https://github.com/drag0n141/home-ops
     minRunners: 1
     maxRunners: 3
     containerMode:
-      type: dind
+      type: kubernetes
+      kubernetesModeWorkVolumeClaim:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: openebs-hostpath
+        resources:
+          requests:
+            storage: 25Gi
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner-system
     template:
       spec:
-        automountServiceAccountToken: true
         containers:
           - name: runner
             image: ghcr.io/drag0n141/actions-runner:2.321.0@sha256:c8eff4eec3ee2bce952df46c55d2bdad81c5e7c62bb89927b429bc6204ac59e6
             command: ["/home/runner/run.sh"]
             env:
+              - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+                value: "false"
               - name: NODE_IP
                 valueFrom:
                   fieldRef:
@@ -50,11 +60,8 @@ spec:
               - mountPath: /var/run/secrets/talos.dev
                 name: talos
                 readOnly: true
-        serviceAccountName: actions-runner
+        serviceAccountName: *name
         volumes:
           - name: talos
             secret:
-              secretName: actions-runner
-    controllerServiceAccount:
-      name: gha-runner-scale-set-controller
-      namespace: actions-runner-system
+              secretName: *name

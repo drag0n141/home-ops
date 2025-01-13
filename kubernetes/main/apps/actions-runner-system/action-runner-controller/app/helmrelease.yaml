@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app gha-runner-scale-set-controller
+  name: &app actions-runner-controller
 spec:
   interval: 30m
   chart:
@@ -19,3 +19,4 @@ spec:
     crds: CreateReplace
   values:
     fullnameOverride: *app
+    replicaCount: 1
