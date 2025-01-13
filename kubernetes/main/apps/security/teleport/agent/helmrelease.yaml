@@ -33,7 +33,7 @@ spec:
       windows_desktop_service:
         enabled: yes
         ldap:
-        - addr: dc01.${SECRET_DOMAIN_AD}:636
+          addr: dc01.${SECRET_DOMAIN_AD}:636
       app_service:
         enabled: yes
         apps:
