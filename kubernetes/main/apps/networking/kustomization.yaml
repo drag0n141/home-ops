@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./blocky/ks.yaml
   - ./cloudflared/ks.yaml
@@ -12,3 +13,11 @@ resources:
   - ./multus/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./traefik/ks.yaml
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: networking
+    unsetOnly: true

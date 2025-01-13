@@ -4,7 +4,16 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./crunchy-pgo/ks.yaml
   - ./dragonfly/ks.yaml
   - ./emqx/ks.yaml
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: database
+    unsetOnly: true
