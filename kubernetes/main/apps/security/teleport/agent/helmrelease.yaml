@@ -32,10 +32,8 @@ spec:
             teleport: enabled
       windows_desktop_service:
         enabled: yes
-        static_hosts:
-        - name: rdesktop
-          addr: rdesktop.default.svc.cluster.local
-          ad: false
+        ldap:
+        - addr: dc01.${SECRET_DOMAIN_AD}:636
       app_service:
         enabled: yes
         apps:
