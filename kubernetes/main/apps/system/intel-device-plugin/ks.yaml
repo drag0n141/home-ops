@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: node-feature-discovery
   path: ./kubernetes/main/apps/system/intel-device-plugin/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: intel-device-plugin
   path: ./kubernetes/main/apps/system/intel-device-plugin/gpu
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: gha-runner-scale-set-controller
   path: ./kubernetes/main/apps/actions-runner-system/gha-runner-scale-set/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

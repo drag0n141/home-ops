@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: pod-gateway
   path: ./kubernetes/main/apps/downloads/socks-proxy/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

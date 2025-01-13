@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: cert-manager-issuers
   path: ./kubernetes/main/apps/networking/traefik/certificates
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: traefik-certificates
   path: ./kubernetes/main/apps/networking/traefik/external
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -56,7 +56,7 @@ spec:
   dependsOn:
     - name: traefik-certificates
   path: ./kubernetes/main/apps/networking/traefik/internal
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -79,7 +79,7 @@ spec:
     - name: traefik-external
     - name: traefik-internal
   path: ./kubernetes/main/apps/networking/traefik/addons
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

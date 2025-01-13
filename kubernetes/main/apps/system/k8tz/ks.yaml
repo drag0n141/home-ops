@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: cert-manager
   path: ./kubernetes/main/apps/system/k8tz/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

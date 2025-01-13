@@ -13,7 +13,7 @@ spec:
     - name: cert-manager-issuers
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/vpn/pod-gateway/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
