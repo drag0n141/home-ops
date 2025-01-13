@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/danonline/autopulse
-              tag: latest@sha256:7276515f5f51ea847430873c5405f3a000371932ca39820d2d184b50a4754982 # TODO: change back to version
+              tag: latest@sha256:95a74ddea5e6a72b586446af4118f37c03dcae2d8f324215d7ae29dc626aee21 # TODO: change back to version
             command: ["/bin/autopulse"]
             env:
               TZ: ${TIMEZONE}
