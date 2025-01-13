@@ -4,9 +4,17 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./notifications.yaml
+  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./prowlarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./socks-proxy/ks.yaml
   - ./tailscale/ks.yaml
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: downloads
+    unsetOnly: true

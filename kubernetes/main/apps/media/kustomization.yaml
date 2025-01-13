@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./notifications.yaml
+  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./autopulse/ks.yaml
   - ./ersatztv/ks.yaml
@@ -17,3 +17,11 @@ resources:
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: media
+    unsetOnly: true
