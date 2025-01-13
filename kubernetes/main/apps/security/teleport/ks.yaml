@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/security/teleport/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -40,7 +40,7 @@ spec:
   dependsOn:
     - name: teleport
   path: ./kubernetes/main/apps/security/teleport/agent
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

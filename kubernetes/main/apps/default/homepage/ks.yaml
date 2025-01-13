@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/homepage/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/homepage/work
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -15,7 +15,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/media/sonarr/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -45,7 +45,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/media/sonarr/app-4k
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -75,7 +75,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/media/sonarr/app-kids
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

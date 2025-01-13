@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: openebs
   path: ./kubernetes/main/apps/database/crunchy-pgo/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -35,7 +35,7 @@ spec:
     - name: crunchy-pgo
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/database/crunchy-pgo/cluster
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -58,7 +58,7 @@ spec:
     - name: crunchy-pgo
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/database/crunchy-pgo/cluster-vector
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -80,7 +80,7 @@ spec:
   dependsOn:
     - name: external-secrets
   path: ./kubernetes/main/apps/database/crunchy-pgo/secrets
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -102,7 +102,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo
   path: ./kubernetes/main/apps/database/crunchy-pgo/users
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -124,7 +124,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo
   path: ./kubernetes/main/apps/database/crunchy-pgo/backup
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -146,7 +146,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo
   path: ./kubernetes/main/apps/database/crunchy-pgo/backup-vector
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

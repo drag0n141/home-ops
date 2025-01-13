@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/default/guacamole/guacd
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
     - name: external-secrets-stores
     - name: guacd
   path: ./kubernetes/main/apps/default/guacamole/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

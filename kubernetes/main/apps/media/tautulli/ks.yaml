@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/media/tautulli/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -42,7 +42,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/media/tautulli/app-142
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

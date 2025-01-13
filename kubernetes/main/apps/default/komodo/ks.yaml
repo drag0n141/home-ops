@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/default/komodo/db
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -41,7 +41,7 @@ spec:
     - name: external-secrets-stores
     - name: komodo-db
   path: ./kubernetes/main/apps/default/komodo/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: pod-gateway
   path: ./kubernetes/main/apps/downloads/socks-proxy/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -14,7 +14,7 @@ spec:
     - name: external-secrets-stores
     - name: traefik-external
   path: ./kubernetes/main/apps/networking/cloudflared/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

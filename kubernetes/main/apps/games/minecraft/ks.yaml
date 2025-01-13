@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/games/minecraft/mc-router
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -35,7 +35,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/main/apps/games/minecraft/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

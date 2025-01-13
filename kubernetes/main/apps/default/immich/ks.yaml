@@ -14,7 +14,7 @@ spec:
     - name: dragonfly-cluster
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/immich/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -40,7 +40,7 @@ spec:
   dependsOn:
     - name: immich
   path: ./kubernetes/main/apps/default/immich/machine-learning
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -62,7 +62,7 @@ spec:
   dependsOn:
     - name: immich
   path: ./kubernetes/main/apps/default/immich/microservices
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

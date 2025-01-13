@@ -13,7 +13,7 @@ spec:
     - name: crunchy-pgo-cluster
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/wiki/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
