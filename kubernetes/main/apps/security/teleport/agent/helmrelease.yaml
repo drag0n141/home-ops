@@ -37,6 +37,8 @@ spec:
           insecure_skip_verify: true
           domain: ${SECRET_DOMAIN_AD}
           username: svc-teleport
+        discovery:
+          base_dn: '*'
         static_hosts:
         - name: dc01
           addr: dc01.${SECRET_DOMAIN_AD}
