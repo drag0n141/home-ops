@@ -35,7 +35,6 @@ releases:
     values: ["../../apps/kube-system/coredns/app/helm-values.yaml"]
     needs: ["kube-system/cilium"]
 
-
   - name: kubelet-csr-approver
     namespace: system
     chart: postfinance/kubelet-csr-approver
