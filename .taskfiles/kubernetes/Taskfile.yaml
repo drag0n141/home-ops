@@ -27,7 +27,7 @@ tasks:
 
   reconcile:
     desc: Force update Flux [CLUSTER=main]
-    cmd: flux reconcile --namespace flux-system kustomization cluster --with-source
+    cmd: flux reconcile --namespace flux-system kustomization cluster-meta --with-source
     requires:
       vars: [CLUSTER]
     preconditions:
