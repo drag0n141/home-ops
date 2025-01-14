@@ -47,7 +47,7 @@ releases:
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.13.0
     values: ["../../apps/flux-system/flux-operator/app/helm-values.yaml"]
-    needs: ["kube-system/wipe-rook"]
+    needs: ["system/kubelet-csr-approver"]
 
   - name: flux-instance
     namespace: flux-system
