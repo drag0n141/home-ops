@@ -30,9 +30,9 @@ controllers:
         args:
           - |
             apk add --no-cache findutils nvme-cli;
-            DISK="/dev/nvme0n1"
+            DISK=$(find /dev/disk/by-id/ -iname "*{{ requiredEnv "ROOK_DISK" }}*" -not -name "*_[0-9]" -not -name "*-part[0-9]");
             echo "=== Wiping $DISK ===";
-            nvme format --lbaf=1 $DISK --force;
+            nvme format --lbaf=0 $DISK --force;
             nvme format --block-size=4096 $DISK --force;
         securityContext:
           privileged: true
@@ -45,7 +45,7 @@ defaultPodOptions:
       whenUnsatisfiable: DoNotSchedule
       labelSelector:
         matchLabels:
-          app.kubernetes.io/name: wipe-disk-job
+          app.kubernetes.io/name: wipe-rook
 persistence:
   host-var:
     type: hostPath

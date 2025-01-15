@@ -39,6 +39,7 @@ tasks:
     env:
       NODE_COUNT:
         sh: talosctl config info --output json | jq --raw-output '.nodes | length'
+      ROOK_DISK: nvme-WD_BLACK_SN850X_4000GB
       VAULT: kubernetes
     requires:
       vars: [CLUSTER]
