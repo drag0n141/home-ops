@@ -32,7 +32,7 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/drag0n141/actions-runner:2.321.0@sha256:c8eff4eec3ee2bce952df46c55d2bdad81c5e7c62bb89927b429bc6204ac59e6
+            image: ghcr.io/drag0n141/actions-runner:2.321.0@sha256:00d2296344007728e78a18d5489c76fb3d6c7f367c917f2f06f49fc79a4754af
             command: ["/home/runner/run.sh"]
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
