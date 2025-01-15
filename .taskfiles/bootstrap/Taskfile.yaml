@@ -30,16 +30,18 @@ tasks:
       - which ls minijinja-cli sops talosctl
 
   apps:
-    desc: Bootstrap Apps [CLUSTER=main]
+    desc: Bootstrap Apps [CLUSTER=main] [ROOK_DISK=nvme-WD_BLACK_SN850X_4000GB]
     cmds:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op run --env-file {{.CLUSTER_DIR}}/bootstrap/apps/.secrets.env --no-masking -- minijinja-cli {{.CLUSTER_DIR}}/bootstrap/apps/templates/resources.yaml.j2 | kubectl apply --server-side --filename -
       - helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - '{{if eq .CLUSTER "main"}}helmfile --quiet --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml destroy --selector name=wipe-rook{{end}}'
+    vars:
+      ROOK_DISK: '{{.ROOK_DISK | default "nvme-WD_BLACK_SN850X_4000GB"}}'
     env:
       NODE_COUNT:
         sh: talosctl config info --output json | jq --raw-output '.nodes | length'
-      ROOK_DISK: nvme-WD_BLACK_SN850X_4000GB
+      ROOK_DISK: '{{.ROOK_DISK}}'
       VAULT: kubernetes
     requires:
       vars: [CLUSTER]
