@@ -14,8 +14,6 @@ spec:
         name: actions-runner-controller
         namespace: flux-system
   values:
-    nameOverride: *name
-    runnerScaleSetName: *name
     githubConfigUrl: https://github.com/drag0n141/home-ops
     minRunners: 1
     maxRunners: 3
