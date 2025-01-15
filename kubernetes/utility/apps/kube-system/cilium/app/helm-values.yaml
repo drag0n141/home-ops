@@ -3,6 +3,11 @@ autoDirectNodeRoutes: true
 bandwidthManager:
   enabled: true
   bbr: true
+bpf:
+  datapathMode: netkit
+  masquerade: true
+  preallocateMaps: true
+  tproxy: true
 bgp:
   enabled: false
   announce:
@@ -10,11 +15,6 @@ bgp:
     podCIDR: false
 bgpControlPlane:
   enabled: true
-bpf:
-  datapathMode: netkit
-  masquerade: true
-  preallocateMaps: true
-  tproxy: true
 cgroup:
   automount:
     enabled: false
