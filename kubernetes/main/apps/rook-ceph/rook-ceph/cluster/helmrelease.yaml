@@ -71,7 +71,7 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: true
-        deviceFilter: nvme0n1
+        deviceFilter: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_.*
         config:
           osdsPerDevice: "1"
       placement:
