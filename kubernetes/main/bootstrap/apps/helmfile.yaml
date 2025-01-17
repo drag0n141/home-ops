@@ -45,7 +45,7 @@ releases:
   - name: spegel
     namespace: system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: v0.0.29
+    version: v0.0.30
     values: ["../../apps/system/spegel/app/helm-values.yaml"]
     needs: ["system/kubelet-csr-approver"]
 
