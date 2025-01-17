@@ -18,7 +18,7 @@ tasks:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
       TALOS_NODES:
-        sh: ls {{.CLUSTER_DIR}}/talos/*.j2
+        sh: ls {{.CLUSTER_DIR}}/bootstrap/talos/*.j2
     requires:
       vars: [CLUSTER]
     preconditions:

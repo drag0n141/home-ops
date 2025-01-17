@@ -9,7 +9,7 @@ tasks:
     dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
-      - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/talos/{{.NODE}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.NODE}} apply-config --mode={{.MODE}} --file /dev/stdin
+      - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/bootstrap/talos/{{.NODE}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.NODE}} apply-config --mode={{.MODE}} --file /dev/stdin
       - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
       - task: up
     vars:
@@ -19,7 +19,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.NODE}} get machineconfig
       - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
-      - test -f {{.CLUSTER_DIR}}/talos/{{.NODE}}.sops.yaml.j2
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/{{.NODE}}.sops.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli sops talosctl
 
