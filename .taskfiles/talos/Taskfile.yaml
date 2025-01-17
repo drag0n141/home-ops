@@ -6,7 +6,7 @@ tasks:
 
   apply-node:
     desc: Apply Talos config to a node [CLUSTER=main] [NODE=required]
-    dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
+    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
       - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/talos/{{.NODE}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.NODE}} apply-config --mode={{.MODE}} --file /dev/stdin
@@ -18,14 +18,14 @@ tasks:
       vars: [CLUSTER, NODE]
     preconditions:
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.CLUSTER_DIR}}/cluster.env
+      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talos/{{.NODE}}.sops.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli sops talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [CLUSTER=main] [NODE=required]
-    dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
+    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
       - talosctl --nodes {{.NODE}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
@@ -40,13 +40,13 @@ tasks:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/talos/releases/tag/$TALOS_VERSION
       - talosctl --nodes {{.NODE}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/cluster.env
+      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which jq kubectl talosctl
 
   upgrade-k8s:
     desc: Upgrade Kubernetes across the whole cluster [CLUSTER=main] [VERSION=required]
-    dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
+    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
       - talosctl --nodes {{.TALOS_CONTROLLER}} upgrade-k8s --to $KUBERNETES_VERSION
@@ -60,7 +60,7 @@ tasks:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/$KUBERNETES_VERSION
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/cluster.env
+      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which jq talosctl
 
@@ -78,7 +78,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.NODE}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/cluster.env
+      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which talosctl
 
