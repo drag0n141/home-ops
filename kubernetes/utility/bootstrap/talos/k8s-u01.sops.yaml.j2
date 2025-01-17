@@ -121,7 +121,8 @@ cluster:
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
-      feature-gates: AuthorizeNodeWithSelectors=false
+      runtime-config: admissionregistration.k8s.io/v1alpha1=true
+      feature-gates: MutatingAdmissionPolicy=true
     certSANs: ["127.0.0.1", "192.168.254.89"]
     disablePodSecurityPolicy: true
     auditPolicy:
