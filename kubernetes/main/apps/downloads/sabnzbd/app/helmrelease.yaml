@@ -101,13 +101,13 @@ spec:
           - path: /tmp
       media:
         type: nfs
-        server: ${SECRET_NFS_SERVER}
+        server: nas01-server.${SECRET_DOMAIN_INT}
         path: /mnt/user/media
         globalMounts:
           - path: /mnt/user/media
       nzb:
         type: nfs
-        server: ${SECRET_NFS_SERVER}
+        server: nas01-server.${SECRET_DOMAIN_INT}
         path: /mnt/user/nzb
         globalMounts:
           - path: /nzb

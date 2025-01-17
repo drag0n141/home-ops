@@ -27,7 +27,7 @@ spec:
               TZ: ${TIMEZONE}
               BASE_URL: https://epic.${SECRET_DOMAIN_INTERNAL}
               CRON_SCHEDULE: "0 0,6,12,18 * * *"
-              EMAIL: ${SECRET_ACME_EMAIL}
+              EMAIL: games.epicgames@${SECRET_DOMAIN_SHORT}
               EMAIL_SENDER_ADDRESS: epicgames@${SECRET_DOMAIN}
               EMAIL_SENDER_NAME: "Epic Games Captchas"
               EMAIL_RECIPIENT_ADDRESS: server.epicgames@${SECRET_DOMAIN_SHORT}

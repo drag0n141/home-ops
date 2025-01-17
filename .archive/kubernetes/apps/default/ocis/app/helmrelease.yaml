@@ -112,7 +112,7 @@ spec:
     persistence:
       storage-users:
         type: nfs
-        server: &nfsServer ${SECRET_NFS_SERVER}
+        server: &nfsServer nas01-server.${SECRET_DOMAIN_INT}
         path: /mnt/user/Home
         globalMounts:
           - path: /data

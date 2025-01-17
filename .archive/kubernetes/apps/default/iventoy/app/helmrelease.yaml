@@ -104,7 +104,7 @@ spec:
                 subPath: log
       iso:
         type: nfs
-        server: ${SECRET_NFS_SERVER}
+        server: nas01-server.${SECRET_DOMAIN_INT}
         path: /mnt/user/ISO/template/iso
         globalMounts:
           - path: /app/iso

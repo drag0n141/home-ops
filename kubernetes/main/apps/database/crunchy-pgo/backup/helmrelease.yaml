@@ -76,7 +76,7 @@ spec:
             readOnly: true
       nas:
         type: nfs
-        server: ${SECRET_NFS_SERVER}
+        server: nas01-server.${SECRET_DOMAIN_INT}
         path: /mnt/user/Backup
         globalMounts:
           - path: /backups

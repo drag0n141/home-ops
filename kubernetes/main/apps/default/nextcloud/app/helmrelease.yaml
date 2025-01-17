@@ -21,7 +21,7 @@ spec:
       extraVolumes:
       - name: nfs-home
         nfs:
-          server: "${SECRET_NFS_SERVER}"
+          server: "nas01-server.${SECRET_DOMAIN_INT}"
           path: "/mnt/user/Home"
       extraVolumeMounts:
       - name: nfs-home
