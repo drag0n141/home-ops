@@ -22,7 +22,7 @@ spec:
       type: LoadBalancer
       annotations:
         external-dns.alpha.kubernetes.io/hostname: "utility.${SECRET_DOMAIN_INTERNAL}"
-        lbipam.cilium.io/ips: "${TRAEFIK_UTILITY_ADDR}"
+        lbipam.cilium.io/ips: 192.168.222.211
       spec:
         externalTrafficPolicy: Cluster
     env:

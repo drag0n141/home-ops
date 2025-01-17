@@ -12,7 +12,7 @@ spec:
     externalTrafficPolicy: Cluster
     annotations:
       external-dns.alpha.kubernetes.io/hostname: "minecraft.${SECRET_DOMAIN_INTERNAL}"
-      io.cilium/lb-ipam-ips: "${MINECRAFT_LB_ADDR}"
+      io.cilium/lb-ipam-ips: 192.168.222.160
       service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
       service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
   template:

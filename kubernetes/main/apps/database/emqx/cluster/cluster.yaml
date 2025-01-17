@@ -47,6 +47,6 @@ spec:
   listenersServiceTemplate:
     metadata:
       annotations:
-        lbipam.cilium.io/ips: "${EMQX_LB_ADDR}"
+        lbipam.cilium.io/ips: 192.168.222.86
     spec:
       type: LoadBalancer

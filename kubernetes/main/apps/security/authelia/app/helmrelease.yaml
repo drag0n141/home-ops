@@ -80,7 +80,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: "${AUTHELIA_LB_ADDR}"
+          lbipam.cilium.io/ips: 192.168.222.90
         externalTrafficPolicy: Cluster
         ports:
           http:

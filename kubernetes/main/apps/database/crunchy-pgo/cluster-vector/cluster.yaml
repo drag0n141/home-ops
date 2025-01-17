@@ -133,7 +133,7 @@ spec:
     metadata:
       annotations:
         external-dns.alpha.kubernetes.io/hostname: cpgo-vector.${SECRET_DOMAIN_INTERNAL}
-        lbipam.cilium.io/ips: "${CPGO_VECTOR_LB_ADDR}"
+        lbipam.cilium.io/ips: 192.168.222.105
   monitoring:
     pgmonitor:
       exporter:

@@ -25,7 +25,7 @@ spec:
               tag: 1.41.3.9314-a0bfb8370@sha256:24858a2e492d06003841e6eb6cd3ef938af1fc9bf2c83071dcec832e62ad7074
             env:
               TZ: ${TIMEZONE}
-              PLEX_ADVERTISE_URL: https://${PLEX_LB_ADDR}:32400
+              PLEX_ADVERTISE_URL: https://192.168.222.85:32400
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24,192.168.140.0/24
             probes:
               liveness: &probes
@@ -71,7 +71,7 @@ spec:
         controller: plex
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: "${PLEX_LB_ADDR}"
+          lbipam.cilium.io/ips: 192.168.222.85
           traefik.ingress.kubernetes.io/service.serversscheme: https
         externalTrafficPolicy: Cluster
         ports:

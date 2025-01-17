@@ -58,7 +58,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: "${TS3_LB_ADDR}"
+          lbipam.cilium.io/ips: 192.168.222.80
         externalTrafficPolicy: Cluster
         ports:
           voice:
