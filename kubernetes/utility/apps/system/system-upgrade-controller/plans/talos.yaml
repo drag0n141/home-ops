@@ -37,7 +37,6 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - health
-      - --server=false
   upgrade:
     <<: *prepare
     args:
