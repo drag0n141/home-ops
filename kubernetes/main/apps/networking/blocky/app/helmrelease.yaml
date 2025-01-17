@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/0xerr0r/blocky
-              tag: v0.25@sha256:f0e3cfa46eb9e22eb5ac5488d0c0275d9578d6de33a5d18947ddb650f65b0335
+              tag: v0.25@sha256:347f8c6addc1775ef74b83dfc609c28436a67f812ef0ee7e2602569dc0e56cd1
             env:
               TZ: ${TIMEZONE}
             securityContext:
