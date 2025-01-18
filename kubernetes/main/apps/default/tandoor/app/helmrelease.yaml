@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
-              tag: 1.5.28@sha256:ea8a01fc05bf64d56a6da36f823858bc3443f1b69482c4360f1a56b2672e0384
+              tag: 1.5.29@sha256:6a007435d1c5c9e3213fd98fd3b80db0ad708e56470ec4f1050d264adcf1e803
             env:
               TZ: ${TIMEZONE}
               ALLOWED_HOSTS: "*"
