@@ -31,7 +31,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: mc-router
     - name: rook-ceph-cluster
     - name: volsync

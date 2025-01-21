@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: dragonfly-cluster
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: rook-ceph-cluster
     - name: volsync
   components:

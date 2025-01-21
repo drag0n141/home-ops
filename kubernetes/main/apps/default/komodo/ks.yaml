@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: rook-ceph-cluster
     - name: volsync
   components:
@@ -41,7 +41,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: komodo-db
   components:
     - ../../../../../shared/components/gatus/internal

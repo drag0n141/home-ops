@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: minio
   path: ./kubernetes/main/apps/default/zipline/app
   prune: true

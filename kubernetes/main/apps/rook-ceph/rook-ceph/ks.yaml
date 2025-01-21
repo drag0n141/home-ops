@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: snapshot-controller
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/app
   prune: false
@@ -34,7 +34,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: rook-ceph
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/cluster
   prune: false

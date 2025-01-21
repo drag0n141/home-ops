@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-issuers
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/vpn/pod-gateway/app
   prune: true
   sourceRef:

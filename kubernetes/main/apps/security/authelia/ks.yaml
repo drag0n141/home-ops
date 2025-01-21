@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: dragonfly-cluster
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/security/authelia/app
   prune: true
   sourceRef:

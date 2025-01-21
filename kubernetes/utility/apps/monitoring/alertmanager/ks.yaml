@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: openebs
   path: ./kubernetes/utility/apps/monitoring/alertmanager/app
   prune: true

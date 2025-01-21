@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/default/homepage/app
   decryption:
     provider: sops
@@ -37,7 +37,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/default/homepage/work
   decryption:
     provider: sops

@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: dragonfly-cluster
-    - name: external-secrets-stores
+    - name: onepassword-store
   components:
     - ../../../../../shared/components/gatus/internal
   path: ./kubernetes/main/apps/default/netbox/app
