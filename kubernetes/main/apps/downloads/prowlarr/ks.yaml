@@ -15,7 +15,6 @@ spec:
     - name: pod-gateway
   components:
     - ../../../../../shared/components/gatus/internal
-    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/downloads/prowlarr/app
   prune: true
   sourceRef:
