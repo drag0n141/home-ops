@@ -1,0 +1,20 @@
+---
+replicaCount: 1
+certManager:
+  enabled: true
+configMaps:
+  - create: true
+    name: cluster-settings
+    data:
+      CLUSTER: utility
+      TIMEZONE: Europe/Berlin
+      CLUSTER_CIDR: "10.42.0.0/16"
+      SERVICE_CIDR: "10.43.0.0/16"
+      VPN_CIDR: "192.168.40.0/24"
+      ADMIN_CIDR: "192.168.140.0/24"
+      LAB_CIDR: "192.168.200.0/24"
+      BGP_CIDR: "192.168.222.0/24"
+      NODE_CIDR: "192.168.254.0/24"
+      THUNDERBOLT_CIDR: "169.254.255.0/24"
+podDisruptionBudget:
+  enabled: false
