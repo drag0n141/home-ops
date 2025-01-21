@@ -14,7 +14,6 @@ spec:
     - name: external-secrets-stores
   components:
     - ../../../../../shared/components/gatus/internal
-    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/default/atuin/app
   prune: true
   sourceRef:
