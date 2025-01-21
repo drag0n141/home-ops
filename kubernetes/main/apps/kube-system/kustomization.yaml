@@ -4,11 +4,12 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./metrics-server/ks.yaml
+components:
+  - ../../../shared/components/alerts/flux
 transformers:
   - |-
     apiVersion: builtin

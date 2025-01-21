@@ -15,6 +15,9 @@ spec:
     - name: multus-networks
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/gatus/internal
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/home/home-assistant/app
   prune: true
   sourceRef:

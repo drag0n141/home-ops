@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./autopulse/ks.yaml
   - ./ersatztv/ks.yaml
@@ -17,6 +16,8 @@ resources:
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+components:
+  - ../../../shared/components/alerts/flux
 transformers:
   - |-
     apiVersion: builtin

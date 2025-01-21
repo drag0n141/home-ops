@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./gatus.yaml
   - ./helmrelease.yaml
-  - ../../../../../shared/templates/volsync

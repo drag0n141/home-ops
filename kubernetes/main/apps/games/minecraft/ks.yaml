@@ -35,6 +35,8 @@ spec:
     - name: mc-router
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/games/minecraft/app
   prune: true
   sourceRef:

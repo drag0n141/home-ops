@@ -14,6 +14,9 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/gatus/external
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/default/tandoor/app
   prune: true
   sourceRef:

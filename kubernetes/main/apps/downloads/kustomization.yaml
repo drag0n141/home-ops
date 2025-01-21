@@ -4,12 +4,13 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./prowlarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./socks-proxy/ks.yaml
   - ./tailscale/ks.yaml
+components:
+  - ../../../shared/components/alerts/flux
 transformers:
   - |-
     apiVersion: builtin

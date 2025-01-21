@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./alertmanager/ks.yaml
   - ./gatus/ks.yaml
@@ -17,6 +16,8 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./unpoller/ks.yaml
+components:
+  - ../../../shared/components/alerts/flux
 transformers:
   - |-
     apiVersion: builtin

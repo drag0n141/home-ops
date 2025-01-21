@@ -13,6 +13,9 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/gatus/internal
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/media/tautulli/app
   prune: true
   sourceRef:
@@ -42,6 +45,9 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/gatus/internal
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/media/tautulli/app-142
   prune: true
   sourceRef:

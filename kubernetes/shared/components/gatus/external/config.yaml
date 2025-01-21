@@ -1,0 +1,9 @@
+endpoints:
+  - name: "${APP}"
+    group: external
+    url: "https://${GATUS_SUBDOMAIN:-${APP}}.${GATUS_DOMAIN:-${SECRET_DOMAIN}}${GATUS_PATH:-/}"
+    interval: 1m
+    conditions:
+      - "[STATUS] == ${GATUS_STATUS:-200}"
+    alerts:
+      - type: gotify

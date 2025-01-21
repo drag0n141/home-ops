@@ -14,6 +14,9 @@ spec:
     - name: intel-device-plugin-gpu
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/gatus/internal
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/media/ersatztv/app
   prune: true
   sourceRef:

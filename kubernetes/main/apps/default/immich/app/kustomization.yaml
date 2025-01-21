@@ -5,4 +5,4 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../../shared/templates/gatus/external
+

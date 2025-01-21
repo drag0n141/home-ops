@@ -13,6 +13,8 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
+  components:
+    - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/default/komodo/db
   prune: true
   sourceRef:
@@ -41,6 +43,8 @@ spec:
   dependsOn:
     - name: external-secrets-stores
     - name: komodo-db
+  components:
+    - ../../../../../shared/components/gatus/internal
   path: ./kubernetes/main/apps/default/komodo/app
   prune: true
   sourceRef:

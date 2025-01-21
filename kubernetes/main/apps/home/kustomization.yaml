@@ -4,12 +4,13 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./node-red/ks.yaml
   - ./zigbee2mqtt/ks.yaml
+components:
+  - ../../../shared/components/alerts/flux
 transformers:
   - |-
     apiVersion: builtin

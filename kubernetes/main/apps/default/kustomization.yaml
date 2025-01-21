@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ../../../shared/templates/alerts
   # Flux-Kustomizations
   - ./atuin/ks.yaml
   - ./change-detection/ks.yaml
@@ -46,6 +45,8 @@ resources:
   - ./wallos/ks.yaml
   - ./wiki/ks.yaml
   - ./zipline/ks.yaml
+components:
+  - ../../../shared/components/alerts/flux
 transformers:
   - |-
     apiVersion: builtin

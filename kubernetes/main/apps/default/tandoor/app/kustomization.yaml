@@ -4,8 +4,6 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../../shared/templates/gatus/external
-  - ../../../../../shared/templates/volsync
 configMapGenerator:
   - name: tandoor-configmap
     files:

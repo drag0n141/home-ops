@@ -14,6 +14,8 @@ spec:
     - name: dragonfly-cluster
     - name: external-secrets-stores
     - name: minio
+  components:
+    - ../../../../../shared/components/gatus/internal
   path: ./kubernetes/main/apps/default/outline/app
   prune: true
   sourceRef:
