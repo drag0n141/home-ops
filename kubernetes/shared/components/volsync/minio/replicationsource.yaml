@@ -17,9 +17,9 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     moverSecurityContext:
-      runAsUser: ${APP_UID:-568}
-      runAsGroup: ${APP_GID:-568}
-      fsGroup: ${APP_GID:-568}
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}
     pruneIntervalDays: 7
     retain:
       daily: 7
