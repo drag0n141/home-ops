@@ -64,7 +64,7 @@ spec:
     substituteFrom:
       - name: cluster-settings
         kind: ConfigMap
-        optional: false
+        optional: true
       - name: cluster-settings-utility
         kind: ConfigMap
         optional: true
@@ -89,7 +89,7 @@ spec:
             substituteFrom:
               - name: cluster-settings
                 kind: ConfigMap
-                optional: false
+                optional: true
               - name: cluster-settings-utility
                 kind: ConfigMap
                 optional: true
