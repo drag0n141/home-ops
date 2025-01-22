@@ -19,7 +19,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/components/gatus/external
     - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/default/kitchenowl/app
   prune: true
@@ -49,6 +48,8 @@ spec:
   dependsOn:
     - name: kitchenowl
       namespace: default
+  components:
+    - ../../../../../shared/components/gatus/external
   path: ./kubernetes/main/apps/default/kitchenowl/web
   prune: true
   sourceRef:
@@ -59,3 +60,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_SUBDOMAIN: kitchenowl
