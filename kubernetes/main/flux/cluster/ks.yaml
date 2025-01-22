@@ -30,10 +30,6 @@ spec:
     namespace: flux-system
   wait: true
   interval: 30m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
