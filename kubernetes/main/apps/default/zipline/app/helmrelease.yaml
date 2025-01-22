@@ -95,6 +95,10 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
     persistence:
       tmp:
         type: emptyDir
