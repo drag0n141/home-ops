@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
+    - name: onepassword-store
+      namespace: security
   path: ./kubernetes/main/apps/flux-system/kustomize-mutating-webhook/app
   prune: true
   sourceRef:
