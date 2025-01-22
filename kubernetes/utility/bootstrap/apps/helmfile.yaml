@@ -54,7 +54,7 @@ releases:
   - name: kustomize-mutating-webhook
     namespace: flux-system
     chart: fluxcd-kustomize-mutating-webhook/kustomize-mutating-webhook
-    version: 0.2.4
+    version: 0.3.0
     values: ["../../apps/flux-system/kustomize-mutating-webhook/app/helm-values.yaml"]
     needs: ["cert-manager/cert-manager"]
 
