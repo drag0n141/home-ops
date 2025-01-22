@@ -57,7 +57,7 @@ spec:
     secretRef:
       name: sops-age
   patches:
-    - # Add Sops decryption to child Kustomizations
+    - # Add Sops decryption and substitution to child Kustomizations
       patch: |
         - op: add
           path: /spec/decryption
@@ -65,6 +65,13 @@ spec:
             provider: sops
             secretRef:
               name: sops-age
+          - op: add
+            path: /spec/postBuild
+            value:
+              substituteFrom:
+              - name: cluster-secrets
+                kind: Secret
+                optional: false
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
