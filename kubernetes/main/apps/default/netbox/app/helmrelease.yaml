@@ -97,7 +97,8 @@ spec:
       tls:
         - hosts:
             - *host
-        extraConfig:
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    extraConfig:
       - secret:
           secretName: netbox-secret
     housekeeping:

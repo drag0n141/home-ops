@@ -329,7 +329,8 @@ spec:
       tls:
         - hosts:
             - *host
-        persistence:
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
       enabled: false
     testFramework:
       enabled: false

@@ -57,6 +57,7 @@ spec:
         tls:
           - hosts:
               - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       prometheusSpec:
         alertingEndpoints:
           - namespace: monitoring

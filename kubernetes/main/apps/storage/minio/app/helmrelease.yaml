@@ -109,6 +109,7 @@ spec:
           - hosts:
               - *host
               - *s3Host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
         existingClaim: minio

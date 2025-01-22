@@ -94,6 +94,7 @@ spec:
         tls:
           - hosts:
               - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
         existingClaim: plex
