@@ -47,6 +47,7 @@ resources:
   - ./zipline/ks.yaml
 components:
   - ../../../shared/components/alerts
+  - ../../../shared/components/sops
 transformers:
   - |-
     apiVersion: builtin
