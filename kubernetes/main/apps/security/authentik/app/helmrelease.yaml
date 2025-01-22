@@ -51,14 +51,14 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-        - auth.${SECRET_DOMAIN}
+        - &host auth.${SECRET_DOMAIN}
         pathType: "Prefix"
         paths:
           - "/"
         tls:
         - hosts:
-          - auth.${SECRET_DOMAIN}
-        worker:
+          - *host
+    worker:
       replicas: 1
       resources:
         requests:

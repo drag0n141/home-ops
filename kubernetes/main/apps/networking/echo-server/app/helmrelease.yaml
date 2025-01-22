@@ -104,4 +104,3 @@ spec:
         tls:
           - hosts:
               - *internal
-

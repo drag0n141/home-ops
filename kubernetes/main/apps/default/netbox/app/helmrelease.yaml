@@ -97,7 +97,7 @@ spec:
       tls:
         - hosts:
             - *host
-        extraConfig:
+    extraConfig:
       - secret:
           secretName: netbox-secret
     housekeeping:

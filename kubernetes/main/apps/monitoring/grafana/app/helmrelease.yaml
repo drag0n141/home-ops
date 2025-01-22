@@ -329,7 +329,7 @@ spec:
       tls:
         - hosts:
             - *host
-        persistence:
+    persistence:
       enabled: false
     testFramework:
       enabled: false

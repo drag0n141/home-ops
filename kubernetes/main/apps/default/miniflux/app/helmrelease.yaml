@@ -101,4 +101,3 @@ spec:
         tls:
           - hosts:
               - *host
-

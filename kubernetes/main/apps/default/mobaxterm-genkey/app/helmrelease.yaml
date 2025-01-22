@@ -64,4 +64,3 @@ spec:
         tls:
           - hosts:
               - *host
-
