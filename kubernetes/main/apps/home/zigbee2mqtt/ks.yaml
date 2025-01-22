@@ -19,7 +19,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/components/gatus/internal
     - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/home/zigbee2mqtt/app
   prune: true

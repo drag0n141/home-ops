@@ -17,7 +17,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/components/gatus/internal
     - ../../../../../shared/components/volsync
   path: ./kubernetes/main/apps/media/kometa/app
   prune: true
