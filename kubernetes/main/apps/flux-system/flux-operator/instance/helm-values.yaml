@@ -32,7 +32,7 @@ instance:
           group: kustomize.toolkit.fluxcd.io
           kind: Kustomization
       - # Add substitution to 'flux-system' Kustomization
-        patch: |-
+        patch: |
           - op: add
             path: /spec/postBuild
             value:
