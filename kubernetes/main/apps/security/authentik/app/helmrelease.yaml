@@ -58,8 +58,7 @@ spec:
         tls:
         - hosts:
           - auth.${SECRET_DOMAIN}
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    worker:
+        worker:
       replicas: 1
       resources:
         requests:

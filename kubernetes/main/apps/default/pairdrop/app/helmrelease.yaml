@@ -73,7 +73,6 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         className: traefik-internal
         annotations:
@@ -90,7 +89,6 @@ spec:
         tls:
           - hosts:
               - *internal
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       cache:
         type: emptyDir

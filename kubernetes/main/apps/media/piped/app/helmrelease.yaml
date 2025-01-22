@@ -130,7 +130,6 @@ spec:
         tls:
           - hosts:
               - *host-api
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       frontend:
         className: traefik-external
         annotations:
@@ -147,7 +146,6 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       ytproxy:
         className: traefik-external
         annotations:
@@ -164,7 +162,6 @@ spec:
         tls:
           - hosts:
               - *host-proxy
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
         type: secret
