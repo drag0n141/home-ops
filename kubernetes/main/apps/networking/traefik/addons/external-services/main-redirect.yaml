@@ -20,6 +20,9 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
+  tls:
+    - hosts:
+        - *host
 ---
 apiVersion: v1
 kind: Service

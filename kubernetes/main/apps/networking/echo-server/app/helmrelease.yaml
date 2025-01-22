@@ -85,6 +85,10 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       internal:
         className: traefik-internal
         annotations:
@@ -98,4 +102,7 @@ spec:
                 service:
                   identifier: app
                   port: http
-
+        tls:
+          - hosts:
+              - *internal
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"

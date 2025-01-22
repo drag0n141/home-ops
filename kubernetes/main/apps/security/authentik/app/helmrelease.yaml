@@ -55,6 +55,10 @@ spec:
         pathType: "Prefix"
         paths:
           - "/"
+        tls:
+        - hosts:
+          - auth.${SECRET_DOMAIN}
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     worker:
       replicas: 1
       resources:

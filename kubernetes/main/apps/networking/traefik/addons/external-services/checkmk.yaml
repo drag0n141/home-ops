@@ -20,6 +20,9 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
+  tls:
+    - hosts:
+        - "checkmk.${SECRET_DOMAIN_INTERNAL}"
 ---
 apiVersion: v1
 kind: Service
