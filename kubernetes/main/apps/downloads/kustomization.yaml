@@ -18,7 +18,8 @@ patches:
         path: /metadata/name
         value: downloads
       - op: add
-        path: /metadata/labels/routed-gateway
-        value: "true"
+        path: /metadata/labels
+        value:
+          routed-gateway: "true"
     target:
       kind: Namespace

@@ -20,7 +20,8 @@ patches:
         path: /metadata/name
         value: system
       - op: add
-        path: /metadata/labels/k8tz.io~1controller-namespace
-        value: "true"
+        path: /metadata/labels
+        value:
+          k8tz.io/controller-namespace: "true"
     target:
       kind: Namespace
