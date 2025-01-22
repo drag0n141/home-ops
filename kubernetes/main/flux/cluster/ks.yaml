@@ -5,7 +5,7 @@ metadata:
   name: cluster-meta
   namespace: flux-system
 spec:
-  targetNamespace: *namespace
+  targetNamespace: flux-system
   path: ./kubernetes/main/flux/meta
   prune: true
   sourceRef:
@@ -21,7 +21,7 @@ metadata:
   name: cluster-shared
   namespace: flux-system
 spec:
-  targetNamespace: *namespace
+  targetNamespace: flux-system
   path: ./kubernetes/shared
   prune: true
   sourceRef:
