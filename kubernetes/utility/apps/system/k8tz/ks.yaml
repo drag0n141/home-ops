@@ -3,14 +3,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app k8tz
-  namespace: flux-system
+  namespace: &namespace system
 spec:
-  targetNamespace: system
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager
+      namespace: cert-manager
   path: ./kubernetes/utility/apps/system/k8tz/app
   prune: true
   sourceRef:

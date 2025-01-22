@@ -3,15 +3,17 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app alertmanager
-  namespace: flux-system
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword-store
+      namespace: security
     - name: openebs
+      namespace: storage
   path: ./kubernetes/utility/apps/monitoring/alertmanager/app
   prune: true
   sourceRef:
