@@ -56,20 +56,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  postBuild:
-    substituteFrom:
-      - name: cluster-settings
-        kind: ConfigMap
-        optional: true
-      - name: cluster-settings-main
-        kind: ConfigMap
-        optional: true
-      - name: cluster-secrets
-        kind: Secret
-        optional: false
-      - name: cluster-secrets-main
-        kind: Secret
-        optional: true
   patches:
     - # Add Sops decryption to child Kustomizations
       patch: |
@@ -82,32 +68,3 @@ spec:
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
-    - # Add substitution to Kustomizations without label
-      patch: |-
-        apiVersion: kustomize.toolkit.fluxcd.io/v1
-        kind: Kustomization
-        metadata:
-          name: not-used
-        spec:
-          decryption:
-            provider: sops
-            secretRef:
-              name: sops-age
-          postBuild:
-            substituteFrom:
-              - name: cluster-settings
-                kind: ConfigMap
-                optional: true
-              - name: cluster-settings-main
-                kind: ConfigMap
-                optional: true
-              - name: cluster-secrets
-                kind: Secret
-                optional: false
-              - name: cluster-secrets-main
-                kind: Secret
-                optional: true
-      target:
-        group: kustomize.toolkit.fluxcd.io
-        kind: Kustomization
-        labelSelector: substitution.flux.home.arpa/disabled notin (true)
