@@ -22,7 +22,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -50,7 +50,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -74,7 +74,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 5m
