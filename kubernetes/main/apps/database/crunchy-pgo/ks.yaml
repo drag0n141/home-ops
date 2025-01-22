@@ -3,14 +3,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-pgo
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: openebs
+      namespace: storage
   path: ./kubernetes/main/apps/database/crunchy-pgo/app
   prune: true
   sourceRef:
@@ -26,15 +27,17 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-pgo-cluster
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo
+      namespace: database
     - name: onepassword-store
+      namespace: security
   path: ./kubernetes/main/apps/database/crunchy-pgo/cluster
   prune: true
   sourceRef:
@@ -50,15 +53,17 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-pgo-cluster-vector
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo
+      namespace: database
     - name: onepassword-store
+      namespace: security
   path: ./kubernetes/main/apps/database/crunchy-pgo/cluster-vector
   prune: true
   sourceRef:
@@ -74,14 +79,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-pgo-store
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo
+      namespace: database
   path: ./kubernetes/main/apps/database/crunchy-pgo/store
   prune: true
   sourceRef:
@@ -97,14 +103,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-pgo-users
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo
+      namespace: database
   path: ./kubernetes/main/apps/database/crunchy-pgo/users
   prune: true
   sourceRef:
@@ -120,14 +127,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-backup
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo
+      namespace: database
   path: ./kubernetes/main/apps/database/crunchy-pgo/backup
   prune: true
   sourceRef:
@@ -143,14 +151,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crunchy-vector-backup
-  namespace: flux-system
+  namespace: &namespace database
 spec:
-  targetNamespace: database
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo
+      namespace: database
   path: ./kubernetes/main/apps/database/crunchy-pgo/backup-vector
   prune: true
   sourceRef:

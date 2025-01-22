@@ -3,17 +3,21 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app plex
-  namespace: flux-system
+  namespace: &namespace media
 spec:
-  targetNamespace: media
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword-store
+      namespace: security
     - name: intel-device-plugin-gpu
+      namespace: system
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: storage
   components:
     - ../../../../../shared/components/gatus/internal
     - ../../../../../shared/components/volsync

@@ -3,16 +3,19 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app prowlarr
-  namespace: flux-system
+  namespace: &namespace downloads
 spec:
-  targetNamespace: downloads
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
+      namespace: database
     - name: onepassword-store
+      namespace: security
     - name: pod-gateway
+      namespace: vpn
   components:
     - ../../../../../shared/components/gatus/internal
   path: ./kubernetes/main/apps/downloads/prowlarr/app

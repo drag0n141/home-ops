@@ -3,17 +3,21 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app outline
-  namespace: flux-system
+  namespace: &namespace default
 spec:
-  targetNamespace: default
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
+      namespace: database
     - name: dragonfly-cluster
+      namespace: database
     - name: onepassword-store
+      namespace: security
     - name: minio
+      namespace: storage
   components:
     - ../../../../../shared/components/gatus/internal
   path: ./kubernetes/main/apps/default/outline/app

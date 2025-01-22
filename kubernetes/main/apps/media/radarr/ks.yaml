@@ -5,15 +5,19 @@ metadata:
   name: &app radarr
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
+      namespace: database
     - name: onepassword-store
+      namespace: security
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: storage
   components:
     - ../../../../../shared/components/gatus/internal
     - ../../../../../shared/components/volsync
@@ -39,15 +43,19 @@ metadata:
   name: &app radarr4k
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
+      namespace: database
     - name: onepassword-store
+      namespace: security
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: storage
   components:
     - ../../../../../shared/components/gatus/internal
     - ../../../../../shared/components/volsync

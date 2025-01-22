@@ -3,16 +3,19 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app autopulse
-  namespace: flux-system
+  namespace: &namespace media
 spec:
-  targetNamespace: media
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: crunchy-pgo-cluster
+      namespace: database
     - name: onepassword-store
+      namespace: security
     - name: plex
+      namespace: media
   path: ./kubernetes/main/apps/media/autopulse/app
   prune: true
   sourceRef:

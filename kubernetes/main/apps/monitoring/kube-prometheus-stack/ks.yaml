@@ -3,14 +3,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app kube-prometheus-stack
-  namespace: flux-system
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph-cluster
+      namespace: rook-ceph
   path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
@@ -26,14 +27,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app kube-prometheus-stack-addons
-  namespace: flux-system
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
+      namespace: monitoring
   path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/addons
   prune: true
   sourceRef:
@@ -49,9 +51,9 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app kube-prometheus-stack-crds
-  namespace: flux-system
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

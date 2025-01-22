@@ -3,17 +3,21 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app zigbee2mqtt
-  namespace: flux-system
+  namespace: &namespace home
 spec:
-  targetNamespace: home
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: emqx-cluster
+      namespace: database
     - name: onepassword-store
+      namespace: security
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: storage
   components:
     - ../../../../../shared/components/gatus/internal
     - ../../../../../shared/components/volsync

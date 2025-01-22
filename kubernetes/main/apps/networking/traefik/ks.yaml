@@ -3,14 +3,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app traefik-certificates
-  namespace: flux-system
+  namespace: &namespace networking
 spec:
-  targetNamespace: networking
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-issuers
+      namespace: cert-manager
   path: ./kubernetes/main/apps/networking/traefik/certificates
   prune: true
   sourceRef:
@@ -26,14 +27,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app traefik-external
-  namespace: flux-system
+  namespace: &namespace networking
 spec:
-  targetNamespace: networking
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-certificates
+      namespace: networking
   path: ./kubernetes/main/apps/networking/traefik/external
   prune: true
   sourceRef:
@@ -49,14 +51,15 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app traefik-internal
-  namespace: flux-system
+  namespace: &namespace networking
 spec:
-  targetNamespace: networking
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-certificates
+      namespace: networking
   path: ./kubernetes/main/apps/networking/traefik/internal
   prune: true
   sourceRef:
@@ -72,15 +75,17 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app traefik-addons
-  namespace: flux-system
+  namespace: &namespace networking
 spec:
-  targetNamespace: networking
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-external
+      namespace: networking
     - name: traefik-internal
+      namespace: networking
   path: ./kubernetes/main/apps/networking/traefik/addons
   prune: true
   sourceRef:
