@@ -70,3 +70,4 @@ spec:
         tls:
           - hosts:
               - *host
+

@@ -185,6 +185,6 @@ spec:
       tls:
         - hosts:
             - *host
-    persistence:
+        persistence:
       enabled: true
       existingClaim: nextcloud
