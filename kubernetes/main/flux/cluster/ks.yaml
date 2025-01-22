@@ -78,6 +78,5 @@ spec:
               kind: Secret
               optional: false
       target:
-        group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
         name: flux-system
