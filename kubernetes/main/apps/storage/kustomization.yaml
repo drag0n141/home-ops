@@ -10,7 +10,7 @@ resources:
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
 transformers:
   - |-
     apiVersion: builtin

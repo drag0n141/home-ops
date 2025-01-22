@@ -8,7 +8,8 @@ resources:
   - ./flux-operator/ks.yaml
   - ./kustomize-mutating-webhook/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
+  - ../../../shared/components/sops
 transformers:
   - |-
     apiVersion: builtin

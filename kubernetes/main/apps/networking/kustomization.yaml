@@ -13,7 +13,7 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./traefik/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
 transformers:
   - |-
     apiVersion: builtin

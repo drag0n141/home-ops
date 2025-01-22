@@ -4,6 +4,7 @@ certManager:
 configMaps:
   - create: true
     name: cluster-settings
+    optional: false
     data:
       CLUSTER: main
       TIMEZONE: Europe/Berlin
@@ -15,3 +16,6 @@ configMaps:
       BGP_CIDR: "192.168.222.0/24"
       NODE_CIDR: "192.168.254.0/24"
       THUNDERBOLT_CIDR: "169.254.255.0/24"
+secrets:
+  - name: cluster-secrets
+    optional: false

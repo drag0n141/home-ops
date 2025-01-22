@@ -11,7 +11,7 @@ resources:
   - ./onepassword/ks.yaml
   - ./teleport/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
 transformers:
   - |-
     apiVersion: builtin

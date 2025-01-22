@@ -7,3 +7,5 @@ resources:
   # Flux-Kustomizations
   - ./flux-operator/ks.yaml
   - ./kustomize-mutating-webhook/ks.yaml
+components:
+  - ../../../shared/components/sops

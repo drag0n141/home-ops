@@ -46,7 +46,7 @@ resources:
   - ./wiki/ks.yaml
   - ./zipline/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
 transformers:
   - |-
     apiVersion: builtin

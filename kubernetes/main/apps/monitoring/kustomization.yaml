@@ -17,7 +17,7 @@ resources:
   - ./snmp-exporter/ks.yaml
   - ./unpoller/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
 transformers:
   - |-
     apiVersion: builtin

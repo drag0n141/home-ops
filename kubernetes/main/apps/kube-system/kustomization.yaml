@@ -9,7 +9,7 @@ resources:
   - ./coredns/ks.yaml
   - ./metrics-server/ks.yaml
 components:
-  - ../../../shared/components/alerts/flux
+  - ../../../shared/components/alerts
 transformers:
   - |-
     apiVersion: builtin
