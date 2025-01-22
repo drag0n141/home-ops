@@ -127,10 +127,6 @@ spec:
                 service:
                   identifier: backend
                   port: http
-        tls:
-          - hosts:
-              - *host-api
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       frontend:
         className: traefik-external
         annotations:
@@ -144,10 +140,6 @@ spec:
                 service:
                   identifier: frontend
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       ytproxy:
         className: traefik-external
         annotations:
@@ -161,10 +153,6 @@ spec:
                 service:
                   identifier: ytproxy
                   port: http
-        tls:
-          - hosts:
-              - *host-proxy
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
         type: secret

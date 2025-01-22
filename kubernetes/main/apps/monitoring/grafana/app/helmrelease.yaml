@@ -326,10 +326,6 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
       hosts:
         - &host "grafana.${SECRET_DOMAIN_INTERNAL}"
-      tls:
-        - hosts:
-            - *host
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       enabled: false
     testFramework:

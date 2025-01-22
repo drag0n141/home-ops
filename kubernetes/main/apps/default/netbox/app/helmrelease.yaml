@@ -94,10 +94,6 @@ spec:
                   name: netbox
                   port:
                     number: 80
-      tls:
-        - hosts:
-            - *host
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     extraConfig:
       - secret:
           secretName: netbox-secret

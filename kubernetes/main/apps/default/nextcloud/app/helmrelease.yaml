@@ -182,10 +182,6 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
       path: /
       pathType: Prefix
-      tls:
-        - hosts:
-            - *host
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       enabled: true
       existingClaim: nextcloud

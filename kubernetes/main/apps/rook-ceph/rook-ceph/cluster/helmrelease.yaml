@@ -28,10 +28,6 @@ spec:
         host:
           name: "rook.${SECRET_DOMAIN_INTERNAL}"
           path: /
-        tls:
-          - hosts:
-              - "rook.${SECRET_DOMAIN_INTERNAL}"
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     toolbox:
       enabled: true
     configOverride: |

@@ -54,10 +54,6 @@ spec:
         pathType: Prefix
         hosts:
           - &host "prometheus.${SECRET_DOMAIN_INTERNAL}"
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
       prometheusSpec:
         alertingEndpoints:
           - namespace: monitoring

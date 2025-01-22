@@ -20,7 +20,3 @@ spec:
                 name: emqx-dashboard
                 port:
                   number: 18083
-  tls:
-    - hosts:
-        - *host
-      secretName: "${SECRET_DOMAIN/./-}-production-tls"
