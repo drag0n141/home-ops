@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword-store
+      namespace: security
   path: ./kubernetes/main/apps/actions-runner-system/actions-runner-controller/app
   prune: true
   sourceRef:
