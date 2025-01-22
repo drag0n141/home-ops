@@ -42,11 +42,18 @@ releases:
     values: ["../../apps/system/kubelet-csr-approver/app/helm-values.yaml"]
     needs: ["kube-system/coredns"]
 
-  - name: spegel
-    namespace: system
-    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: v0.0.30
-    values: ["../../apps/system/spegel/app/helm-values.yaml"]
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.16.3
+    values: ["../../apps/cert-manager/cert-manager/app/helm-values.yaml"]
+    needs: ["system/kubelet-csr-approver"]
+
+  - name: external-secrets
+    namespace: security
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.13.0
+    values: ["../../apps/security/external-secrets/app/helm-values.yaml"]
     needs: ["system/kubelet-csr-approver"]
 
   - name: wipe-rook
@@ -54,7 +61,7 @@ releases:
     chart: oci://ghcr.io/bjw-s/helm/app-template
     version: 3.6.1
     values: ["./templates/wipe-rook.yaml.gotmpl"]
-    needs: ["system/spegel"]
+    needs: ["system/kubelet-csr-approver"]
 
   - name: flux-operator
     namespace: flux-system

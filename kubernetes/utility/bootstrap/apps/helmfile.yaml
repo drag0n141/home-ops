@@ -42,6 +42,20 @@ releases:
     values: ["../../apps/system/kubelet-csr-approver/app/helm-values.yaml"]
     needs: ["kube-system/coredns"]
 
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.16.3
+    values: ["../../apps/cert-manager/cert-manager/app/helm-values.yaml"]
+    needs: ["system/kubelet-csr-approver"]
+
+  - name: external-secrets
+    namespace: security
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.13.0
+    values: ["../../apps/security/external-secrets/app/helm-values.yaml"]
+    needs: ["system/kubelet-csr-approver"]
+
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
