@@ -10,6 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
     - name: node-feature-discovery
       namespace: system
   path: ./kubernetes/main/apps/system/intel-device-plugin/app
