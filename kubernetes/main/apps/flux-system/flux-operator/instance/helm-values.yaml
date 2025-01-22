@@ -31,18 +31,6 @@ instance:
         target:
           group: kustomize.toolkit.fluxcd.io
           kind: Kustomization
-      - # Add substitution to 'flux-system' Kustomization
-        patch: |
-          - op: add
-            path: /spec/postBuild
-            value:
-              substituteFrom:
-              - name: cluster-secrets
-                kind: Secret
-                optional: false
-        target:
-          group: kustomize.toolkit.fluxcd.io
-          kind: Kustomization
       - # Increase the number of workers
         patch: |
           - op: add

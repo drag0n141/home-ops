@@ -68,15 +68,3 @@ spec:
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
-    - # Add substitution to 'flux-system' Kustomization
-      patch: |
-        - op: add
-          path: /spec/postBuild
-          value:
-            substituteFrom:
-            - name: cluster-secrets
-              kind: Secret
-              optional: false
-      target:
-        kind: Kustomization
-        name: flux-system
