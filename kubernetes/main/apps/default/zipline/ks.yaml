@@ -16,6 +16,8 @@ spec:
       namespace: security
     - name: minio
       namespace: storage
+  components:
+    - ../../../../../shared/components/gatus/external
   path: ./kubernetes/main/apps/default/zipline/app
   prune: true
   sourceRef:
@@ -29,5 +31,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_DOMAIN: ${SECRET_DOMAIN_SHORT}
+      GATUS_DOMAIN: "${SECRET_DOMAIN_SHORT}"
       GATUS_SUBDOMAIN: zl
