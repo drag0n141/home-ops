@@ -31,5 +31,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_DOMAIN: "${SECRET_DOMAIN_SHORT}"
+      GATUS_DOMAIN: ${SECRET_DOMAIN_SHORT}
       GATUS_SUBDOMAIN: zl
