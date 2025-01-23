@@ -3,7 +3,7 @@
 <properties>
 
     <entry key='database.driver'>org.postgresql.Driver</entry>
-    <entry key='database.url'>jdbc:postgresql://{{ index . "pgbouncer-host" }}:{{ index . "pgbouncer-port" }}/{{ index . "dbname" }}</entry>
+    <entry key='database.url'>jdbc:postgresql://{{ index . "host" }}:{{ index . "port" }}/{{ index . "dbname" }}</entry>
     <entry key='database.user'>{{ index . "user" }}</entry>
     <entry key='database.password'>{{ index . "password" }}</entry>
 
