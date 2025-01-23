@@ -134,6 +134,9 @@ spec:
     - name: sonarrkids
       databases: ["sonarrkids_main"]
       password: *password
+    - name: traccar
+      databases: ["traccar_db"]
+      password: *password
     - name: ts3
       databases: ["ts3_db"]
       password: *password

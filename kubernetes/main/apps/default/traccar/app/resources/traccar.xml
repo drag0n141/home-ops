@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+<properties>
+
+    <entry key='database.driver'>org.postgresql.Driver</entry>
+    <entry key='database.url'>jdbc:postgresql://{{ index . "pgbouncer-host" }}:{{ index . "pgbouncer-port" }}/{{ index . "dbname" }}</entry>
+    <entry key='database.user'>{{ index . "user" }}</entry>
+    <entry key='database.password'>{{ index . "password" }}</entry>
+
+</properties>
