@@ -52,6 +52,11 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-secrets
+        optional: true
   patches:
     - # Add Sops decryption to child Kustomizations
       patch: |
