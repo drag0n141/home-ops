@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: "${VOLSYNC_CLAIM:-${APP}}"
   trigger:
-    schedule: "25 * * * *"
+    schedule: "25 */3 * * *"
   restic:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     repository: "${APP}-volsync-minio"
