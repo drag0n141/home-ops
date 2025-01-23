@@ -14,6 +14,8 @@ spec:
       namespace: database
     - name: onepassword-store
       namespace: security
+  components:
+    - ../../../../../shared/components/gatus/external
   path: ./kubernetes/main/apps/default/traccar/app
   prune: true
   sourceRef:
@@ -24,3 +26,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
