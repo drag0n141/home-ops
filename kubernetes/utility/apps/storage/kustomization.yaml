@@ -5,7 +5,6 @@ namespace: storage
 resources:
   - ./openebs/ks.yaml
 components:
-  - ../../../shared/components/sops
   - ../../../shared/components/namespace
 patches:
   - # Add the name to the namespace

@@ -57,15 +57,3 @@ spec:
       - kind: Secret
         name: cluster-secrets
         optional: true
-  patches:
-    - # Add Sops decryption to child Kustomizations
-      patch: |
-        - op: add
-          path: /spec/decryption
-          value:
-            provider: sops
-            secretRef:
-              name: sops-age
-      target:
-        group: kustomize.toolkit.fluxcd.io
-        kind: Kustomization

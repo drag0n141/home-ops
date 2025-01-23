@@ -8,7 +8,6 @@ resources:
   - ./emqx/ks.yaml
 components:
   - ../../../shared/components/alerts
-  - ../../../shared/components/sops
   - ../../../shared/components/namespace
 patches:
   - # Add the name to the namespace

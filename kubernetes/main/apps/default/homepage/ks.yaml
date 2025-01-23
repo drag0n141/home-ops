@@ -22,6 +22,10 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 3m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -46,3 +50,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 3m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

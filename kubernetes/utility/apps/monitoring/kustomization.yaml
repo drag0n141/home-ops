@@ -7,7 +7,6 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
 #  - ./silence-operator/ks.yaml
 components:
-  - ../../../shared/components/sops
   - ../../../shared/components/namespace
 patches:
   - # Add the name to the namespace
