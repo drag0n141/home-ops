@@ -31,8 +31,8 @@ spec:
       APP: *app
       GATUS_DOMAIN: ${SECRET_DOMAIN_SHORT}
       GATUS_PATH: /rest/health
-      GATUS_ROOTDOMAIN: ""
-      GATUS_SUBDOMAIN: ""
+      GATUS_ROOTDOMAIN: ''
+      GATUS_SUBDOMAIN: ''
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
