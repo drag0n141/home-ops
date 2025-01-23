@@ -133,10 +133,10 @@ clientLookup:
 conditional:
   fallbackUpstream: false
   mapping:
-    ${SECRET_DOMAIN_INTERNAL}: tcp+udp:192.168.254.1
-    ${SECRET_DOMAIN_INT}: tcp+udp:192.168.254.1
-    ${SECRET_DOMAIN_LAB}: tcp+udp:192.168.254.1
-    ${SECRET_DOMAIN_AD}: tcp+udp:192.168.254.31
+    {{ .DOMAIN_INTERNAL }}: tcp+udp:192.168.254.1
+    {{ .DOMAIN_INT }}: tcp+udp:192.168.254.1
+    {{ .DOMAIN_LAB }}: tcp+udp:192.168.254.1
+    {{ .DOMAIN_AD }}: tcp+udp:192.168.254.31
 
 connectIPVersion: v4
 

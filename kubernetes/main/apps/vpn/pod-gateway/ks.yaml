@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: cert-manager-issuers
       namespace: cert-manager
+    - name: kustomize-mutating-webhook
+      namespace: flux-system
     - name: onepassword-store
       namespace: security
   path: ./kubernetes/main/apps/vpn/pod-gateway/app

@@ -82,6 +82,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: kustomize-mutating-webhook
+      namespace: flux-system
     - name: traefik-external
       namespace: networking
     - name: traefik-internal
