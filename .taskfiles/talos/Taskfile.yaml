@@ -10,7 +10,7 @@ tasks:
     cmds:
       - task: down
       - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/bootstrap/talos/{{.NODE}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.NODE}} apply-config --mode={{.MODE}} --file /dev/stdin
-      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
+      - talosctl --nodes {{.NODE}} health
       - task: up
     vars:
       MODE: '{{.MODE | default "auto"}}'
@@ -29,7 +29,7 @@ tasks:
     cmds:
       - task: down
       - talosctl --nodes {{.NODE}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
-      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
+      - talosctl --nodes {{.NODE}} health
       - task: up
     vars:
       TALOS_SECUREBOOT:
@@ -69,7 +69,7 @@ tasks:
     cmds:
       - task: down
       - talosctl --nodes {{.NODE}} reboot --mode={{.MODE}}
-      - talosctl --nodes {{.NODE}} health --wait-timeout=10m --server=false
+      - talosctl --nodes {{.NODE}} health
       - task: up
     vars:
       MODE: '{{.MODE | default "default"}}'
