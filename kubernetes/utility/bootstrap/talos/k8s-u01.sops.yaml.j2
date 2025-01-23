@@ -140,13 +140,6 @@ cluster:
     image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
-  discovery:
-    enabled: true
-    registries:
-      kubernetes:
-        disabled: false
-      service:
-        disabled: true
   etcd:
     ca:
       crt: ENC[AES256_GCM,data:rJ2YxZciOn1CbcMyq2tzySoM7K/9x+WOzlnoSrJadtVjsVZObf356ss8o1fM9BjQk2m4lQGk7pypv8rRKqqzuGEYeFhm6TIgxqct1xUdoolN+PHYL3agAj+iqRCndn0myI7Op5+GrmtcAAGa9rZv7zUtevrzcLx3M1g61gxnNhsIJSd6yTtejRtdgdp6Uq+NjN9N7erVR4+r/NbDn3skeW0YUczGPdjXIdcZTrPUMofJRRAOCTJLrRAaWgQcJm6wHKhX1M3Mr0MxpUePlIXFP2ti7W/77wmSij0EjK/z5ajKC55tUj091RvYr5zbx8ry8cGW4QFMynjBZUBWVAVeO5dBjc7HI1ogyd3CORfu9y5apYyZt84XARNKWClhbdnZu8hvnhPH+7TaTFpLVGEnFOAbgEcJ+TAZYd8MHkqV+q+OetFPfBRmpvMIhmpqAY/xuoVLXadJld0oiAUSkwvgKRkRNknjRo+Qjv4Wf5+AjkBJ++Nzff5GSO8DAAB7qqP60kSdBOfBpXdi4V9tFOVh13zu+PgyQBYGSiefPOlzYMsaVrLDPvJi0FBzLp0Rnny1R57y4rpjxaz3Ti/ObPNJHYHFlySdyz1poiPNeYptGSfBrj2QN6PoKxqxY2x1HHdgA+dH8pdnf3Yw4eK9ohVXPe+jNB0QwapJO6v/LRI3Q7Nr/zZqjWFHA0nqZDVre4ODvQ7STuDKWhZ7Ec+u7L1Emw2MXr02E9K2tjuU1OSkaweAO7gafv/3avntBX30SeCEQr2hGCHtBRyeemru80bNPsZabXWHedyvdrAuBcDN0IQ4qZInCjkIwuVvOOPG4LdNXI5xctQwGkkfY+9KFAzamu1yG/xpJIcvVbdAEWiiXkviQnBwCxpWTIpk9l8TjWMW97qFJeX7FlRTNlDmcWx2cfixiWG/UoSv6TfgUjTkp26z9nOqEK7wn4FRReF3bTiOa09bXPcYNraHxfGl/sOipxSd1LdxPKNDqZSs6A7/ZFURkqCyzgyJr/NKgXmUkOwC,iv:LxgqA/akwqeG4JAMmCTosUEFhsq37y7yEvda06m9goA=,tag:zgXRWYkE514uH5LTa9VWzg==,type:str]
