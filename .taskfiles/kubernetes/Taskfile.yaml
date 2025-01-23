@@ -27,11 +27,11 @@ tasks:
 
   reconcile:
     desc: Force update Flux [CLUSTER=main]
-    cmd: flux reconcile --namespace flux-system kustomization cluster-meta --with-source
+    cmd: flux reconcile -n flux-system kustomization cluster-apps cluster-meta cluster-shared --with-source
     requires:
       vars: [CLUSTER]
     preconditions:
-      - which kubectl
+      - which flux
 
   hr-restart:
     desc: Restart all failed Helm Releases [CLUSTER=main]
@@ -46,7 +46,7 @@ tasks:
   browse-pvc:
     desc: Mount a PVC to an temp container [CLUSTER=main] [NS=default] [CLAIM=required]
     interactive: true
-    cmd: kubectl browse-pvc --namespace {{.NS}} --image docker.io/library/alpine:latest {{.CLAIM}}
+    cmd: kubectl browse-pvc --namespace {{.NS}} {{.CLAIM}}
     vars:
       NS: '{{.NS | default "default"}}'
     requires:
@@ -73,6 +73,18 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - which kubectl
+
+  ks-*:
+    desc: Suspend or resume Kustomizations [CLUSTER=main]
+    cmds:
+      - kubectl get ns -o jsonpath='{.items[*].metadata.name}' | xargs -n1 flux {{.STATE}} ks --all --namespace
+    vars:
+      STATE: '{{index .MATCH 0}}'
+    requires:
+      vars: [CLUSTER]
+    preconditions:
+      - '[[ "{{.STATE}}" == "suspend" || "{{.STATE}}" == "resume" ]]'
+      - which flux kubectl
 
   privileged:
     desc: Run a privileged pod [CLUSTER=main] [NODE=required]
