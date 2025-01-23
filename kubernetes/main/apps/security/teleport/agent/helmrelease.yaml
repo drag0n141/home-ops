@@ -68,3 +68,15 @@ spec:
           public_addr: proxmox01.${SECRET_DOMAIN_TELEPORT}
           uri: https://proxmox01.${SECRET_DOMAIN_INT}:8006
           insecure_skip_verify: true
+        - name: prx01
+          public_addr: prx01.${SECRET_DOMAIN_TELEPORT}
+          uri: https://prx01.${SECRET_DOMAIN_INT}:8006
+          insecure_skip_verify: true
+        - name: prx02
+          public_addr: prx02.${SECRET_DOMAIN_TELEPORT}
+          uri: https://prx02.${SECRET_DOMAIN_INT}:8006
+          insecure_skip_verify: true
+        - name: prx03
+          public_addr: prx03.${SECRET_DOMAIN_TELEPORT}
+          uri: https://prx03.${SECRET_DOMAIN_INT}:8006
+          insecure_skip_verify: true
