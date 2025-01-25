@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/wingysam/christmas-community
-              tag: 1.39.0@sha256:bef829636ece69077c9946755264473ccd19e45fc9867261309abd0a2df88c15
+              tag: 1.39.1@sha256:dec565fe132e9bd3ceaf7dafca95e70b6c53b980164ddd4200ac02ccc7c87655
             env:
               TZ: ${TIMEZONE}
               LANGUAGE: de-de
