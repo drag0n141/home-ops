@@ -16,8 +16,6 @@ spec:
   values:
     controllers:
       ersatztv:
-        labels:
-          nfsMount: "true"
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -90,10 +88,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /transcode
-      media:
-        type: nfs
-        server: nas01-server.${SECRET_DOMAIN_INT}
-        path: /mnt/user/media
-        globalMounts:
-          - path: /mnt/user/media
-            readOnly: true
