@@ -23,7 +23,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/drag0n141/cni-plugins
-              tag: 1.6.2@sha256:0e6d87acaf9e6dc58811de011ac8c2f11dc681efdc77484f94c7a13454901bc0
+              tag: 1.6.2@sha256:110db6cf27d5be16da63a725f37e57d665997609fa1e15b1b9e5db2ef8b14b54
         containers:
           multus:
             image:
