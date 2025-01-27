@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/sonarr
-              tag: 4.0.12.2823@sha256:3cd5773e10e0b80a6ae3705a64016d4fdad39c3b049eff8e5c449a11f0e2f419
+              tag: 4.0.12.2823@sha256:8bdad5fb2cc47a41466dff5095009088817f810562295fd22bcaedfca9bfccfc
             env:
               TZ: ${TIMEZONE}
               SONARR__APP__INSTANCENAME: Sonarrkids
