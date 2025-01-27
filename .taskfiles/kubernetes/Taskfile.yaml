@@ -97,11 +97,14 @@ tasks:
       - which kubectl
       - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml
 
-  scale-nfs:
+  scale-*:
     desc: Scale down Apps that are using a NFS Mount [CLUSTER=main]
     cmds: 
       - kubectl get deployments --all-namespaces -l nfsMount=true -o custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name" --no-headers | awk '{print "kubectl scale --replicas 0 deployment/"$2" -n "$1}' | sh
+    vars:
+      SCALE: '{{index .MATCH 0}}'
     requires:
       vars: [CLUSTER]
     preconditions:
+      - '[[ "{{.SCALE}}" == "0" || "{{.SCALE}}" == "1" ]]'
       - which kubectl
