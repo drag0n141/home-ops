@@ -16,6 +16,8 @@ spec:
   values:
     controllers:
       immich-microservices:
+        labels:
+          nfsMount: "true"
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

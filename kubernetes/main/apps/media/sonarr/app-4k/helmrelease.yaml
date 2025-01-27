@@ -16,6 +16,8 @@ spec:
   values:
     controllers:
       sonarr4k:
+        labels:
+          nfsMount: "true"
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

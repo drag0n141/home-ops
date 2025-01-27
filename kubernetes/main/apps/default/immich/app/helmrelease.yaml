@@ -16,6 +16,8 @@ spec:
   values:
     controllers:
       immich:
+        labels:
+          nfsMount: "true"
         annotations:
           reloader.stakater.com/auto: "true"
         strategy: RollingUpdate
