@@ -32,6 +32,7 @@ spec:
             teleport: enabled
       windows_desktop_service:
         enabled: yes
+        show_desktop_wallpaper: true
         ldap:
           addr: dc01.${SECRET_DOMAIN_AD}:636
           insecure_skip_verify: true
