@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app immich
+  name: &app immich-server
   namespace: &namespace default
 spec:
   targetNamespace: *namespace
