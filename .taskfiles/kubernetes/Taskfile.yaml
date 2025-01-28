@@ -102,7 +102,7 @@ tasks:
     cmds:
       - kubectl get deployments --all-namespaces -l nfsMount=true --no-headers | awk '{print $2, $1}' | xargs -L1 bash -c 'flux {{.STATE}} kustomization $0 -n $1'
       - kubectl get deployments --all-namespaces -l nfsMount=true --no-headers | awk '{print $2, $1}' | xargs -L1 bash -c 'flux {{.STATE}} helmrelease $0 -n $1'
-      - kubectl get deployments --all-namespaces -l nfsMount=true --no-headers | awk '{print $2, $1}' | xargs -L1 bash -c 'kubectl scale --replicas {{if eq .STATE "suspend"}}0{{else}}1{{end}} deployment $0 -n $1}'
+      - kubectl get deployments --all-namespaces -l nfsMount=true --no-headers | awk '{print $2, $1}' | xargs -L1 bash -c 'kubectl scale --replicas {{if eq .STATE "suspend"}}0{{else}}1{{end}} deployment $0 -n $1'
     vars:
       STATE: '{{index .MATCH 0}}'
     requires:
