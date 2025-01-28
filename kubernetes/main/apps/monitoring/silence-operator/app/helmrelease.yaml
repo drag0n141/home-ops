@@ -66,5 +66,5 @@ spec:
               value: NodeDiskIOSaturation
               isRegex: false
             - name: instance
-              value: nas01-server.${SECRET_DOMAIN_INT}:9100
+              value: nas01.${SECRET_DOMAIN_INT}:9100
               isRegex: false
