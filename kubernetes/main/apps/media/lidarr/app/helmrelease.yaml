@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/lidarr
-              tag: 2.8.2.4493@sha256:3ddde523440bccf46911ee01cbd71c488cdc1c894379b7406712ac5efbbd62a4
+              tag: 2.8.2.4493@sha256:89d997f18ed7af3ffafa64413853702eb33f4e3bb4a55bccd5544934ac4a35be
             env:
               TZ: ${TIMEZONE}
               LIDARR__APP__INSTANCENAME: Lidarr
