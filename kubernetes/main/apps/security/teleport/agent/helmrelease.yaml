@@ -52,11 +52,10 @@ spec:
           insecure_skip_verify: true
         - name: nas01
           public_addr: nas01.${SECRET_DOMAIN_TELEPORT}
-          uri: http://nas01.${SECRET_DOMAIN_AD}:88
-          rewrite:
-            headers:
-              - "Host: nas01.${SECRET_DOMAIN_TELEPORT}"
-          insecure_skip_verify: true
+          uri: http://nas01.${SECRET_DOMAIN_INT}:88
+        - name: nas02
+          public_addr: nas02.${SECRET_DOMAIN_TELEPORT}
+          uri: http://nas02.${SECRET_DOMAIN_INT}
         - name: udm-se
           public_addr: udm.${SECRET_DOMAIN_TELEPORT}
           uri: https://udm-se.${SECRET_DOMAIN_INT}
