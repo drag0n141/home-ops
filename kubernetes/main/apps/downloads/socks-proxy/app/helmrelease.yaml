@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/socks5
-              tag: 1.4.3@sha256:1437af905f73a688201e2376bca4966f2dd624dba649408a2dc147aa087dd3f8
+              tag: 1.4.3@sha256:8365dc2102df60874863acecf0484e8a7a6e19cc272fde4547aa3c5a1f3b6057
             env:
               TZ: ${TIMEZONE}
             resources:
