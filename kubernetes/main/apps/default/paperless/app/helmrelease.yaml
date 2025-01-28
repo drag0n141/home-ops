@@ -106,7 +106,7 @@ spec:
                 path: "/usr/src/paperless/media"
       nas:
         type: nfs
-        server: nas01-server.${SECRET_DOMAIN_INT}
-        path: /mnt/user/paperless
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/paperless
         globalMounts:
           - path: /data/nas

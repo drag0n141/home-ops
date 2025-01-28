@@ -99,7 +99,7 @@ spec:
           - path: /config
       media:
         type: nfs
-        server: nas01-server.${SECRET_DOMAIN_INT}
-        path: /mnt/user/media
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/media
         globalMounts:
-          - path: /mnt/user/media
+          - path: /mnt/data/media

@@ -23,11 +23,11 @@ spec:
       extraVolumes:
       - name: nfs-home
         nfs:
-          server: "nas01-server.${SECRET_DOMAIN_INT}"
-          path: "/mnt/user/Home"
+          server: "nas01.${SECRET_DOMAIN_INT}"
+          path: "/mnt/data/home"
       extraVolumeMounts:
       - name: nfs-home
-        mountPath: "/mnt/user/Home"
+        mountPath: "/mnt/data/home"
       extraEnv:
         - name: OIDC_CLIENT_ID
           valueFrom:

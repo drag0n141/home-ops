@@ -119,7 +119,7 @@ spec:
     persistence:
       library:
         type: nfs
-        server: nas01-server.${SECRET_DOMAIN_INT}
-        path: /mnt/user/photos
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/photos
         globalMounts:
           - path: /usr/src/app/upload
