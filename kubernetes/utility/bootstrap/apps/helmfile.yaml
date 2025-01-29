@@ -61,14 +61,14 @@ releases:
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.13.0
     values: ["../../apps/security/external-secrets/app/helm-values.yaml"]
-    needs: ["system/kubelet-csr-approver"]
+    needs: ["cert-manager/cert-manager"]
 
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.13.0
     values: ["../../apps/flux-system/flux-operator/app/helm-values.yaml"]
-    needs: ["system/kubelet-csr-approver"]
+    needs: ["security/external-secrets"]
 
   - name: flux-instance
     namespace: flux-system
