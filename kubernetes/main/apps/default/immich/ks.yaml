@@ -42,7 +42,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: immich
+    - name: immich-server
       namespace: default
   path: ./kubernetes/main/apps/default/immich/machine-learning
   prune: true
@@ -66,7 +66,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: immich
+    - name: immich-server
       namespace: default
   path: ./kubernetes/main/apps/default/immich/microservices
   prune: true
