@@ -57,24 +57,9 @@ spec:
             headers:
               - "Host: nas01.${SECRET_DOMAIN_TELEPORT}"
           insecure_skip_verify: true
-        - name: nas02
-          public_addr: nas02.${SECRET_DOMAIN_TELEPORT}
-          uri: http://nas02.${SECRET_DOMAIN_INT}
-          rewrite:
-            headers:
-              - "Host: nas02.${SECRET_DOMAIN_TELEPORT}"
-          insecure_skip_verify: true
-        - name: udm-se
-          public_addr: udm.${SECRET_DOMAIN_TELEPORT}
-          uri: https://udm-se.${SECRET_DOMAIN_INT}
-          insecure_skip_verify: true
         - name: pikvm
           public_addr: pikvm.${SECRET_DOMAIN_TELEPORT}
           uri: http://pikvm.${SECRET_DOMAIN_INT}
-          insecure_skip_verify: true
-        - name: proxmox01
-          public_addr: proxmox01.${SECRET_DOMAIN_TELEPORT}
-          uri: https://proxmox01.${SECRET_DOMAIN_INT}:8006
           insecure_skip_verify: true
         - name: prx01
           public_addr: prx01.${SECRET_DOMAIN_TELEPORT}
