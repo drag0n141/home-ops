@@ -1,0 +1,10 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: github
+spec:
+  type: github
+  address: https://github.com/drag0n141/home-ops
+  secretRef:
+    name: github-token-secret
