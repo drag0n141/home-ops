@@ -4,7 +4,7 @@ authentication_backend:
     disable: true
   refresh_interval: 1m
   ldap:
-    address: ldaps://dc02.{{ .DOMAIN_AD }}
+    address: ldaps://ldap-lb.security.svc.cluster.local
     implementation: activedirectory
     timeout: 5s
     start_tls: false
