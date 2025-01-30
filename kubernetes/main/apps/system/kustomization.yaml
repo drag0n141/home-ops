@@ -19,11 +19,8 @@ components:
   - ../../../shared/components/alerts
   - ../../../shared/components/namespace
 patches:
-  - # Add the name to the namespace
+  - # Add the labels to the namespace
     patch: |
-      - op: add
-        path: /metadata/name
-        value: system
       - op: add
         path: /metadata/labels
         value:

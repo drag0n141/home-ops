@@ -7,11 +7,3 @@ resources:
   - ./onepassword/ks.yaml
 components:
   - ../../../shared/components/namespace
-patches:
-  - # Add the name to the namespace
-    patch: |
-      - op: add
-        path: /metadata/name
-        value: security
-    target:
-      kind: Namespace
