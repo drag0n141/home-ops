@@ -8,56 +8,53 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.5.0
+      version: 3.6.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      ldap-lb:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: public.ecr.aws/docker/library/haproxy
-              tag: 2.9.4-alpine@sha256:a94fdb1ad868c000f5eeaacb74421e993938cad6628e16e58b45a9b4c5deec45
+              tag: 3.1.2-alpine@sha256:1dbf50f791f09f0c392a18b8278baeee9a4bedeefa13b7ccf7c95e5cca95ea2f
             env:
               TZ: ${TIMEZONE}
-        pod:
-          securityContext:
-            runAsUser: 99
-            runAsGroup: 99
-            fsGroup: 99
-            fsGroupChangePolicy: OnRootMismatch
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 100Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 99
+        runAsGroup: 99
+        fsGroup: 99
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
-      main:
-        type: LoadBalancer
-        annotations:
-          coredns.io/hostname: "ldaplb.${SECRET_DOMAIN_INTERNAL}"
-          io.cilium/lb-ipam-ips: "${LDAP_LB_ADDR}"
-        externalTrafficPolicy: Cluster
+      app:
+        controller: ldap-lb
         ports:
           http:
             port: 8080
           ldaps:
             port: 636
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: ldap-lb
         endpoints:
           - port: http
             scheme: http
@@ -66,7 +63,6 @@ spec:
             scrapeTimeout: 10s
     persistence:
       config:
-        enabled: true
         type: configMap
         name: ldap-lb-configmap
         globalMounts:

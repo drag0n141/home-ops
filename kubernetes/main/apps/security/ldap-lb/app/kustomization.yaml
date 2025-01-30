@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: ldap-lb-configmap
     files:
-      - ./config/haproxy.cfg
+      - ./resources/haproxy.cfg
 generatorOptions:
   disableNameSuffixHash: true

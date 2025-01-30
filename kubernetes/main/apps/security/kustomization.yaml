@@ -6,6 +6,7 @@ resources:
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./ldap-lb/ks.yaml
   - ./onepassword/ks.yaml
   - ./teleport/ks.yaml
 components:
