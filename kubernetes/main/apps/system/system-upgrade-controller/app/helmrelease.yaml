@@ -29,7 +29,7 @@ spec:
               SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: 99
               SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: IfNotPresent
               SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: registry.k8s.io/kubectl:v1.32.1
-              SYSTEM_UPGRADE_JOB_POD_REPLACEMENT_POLICY: Failed # Required for Talos
+              SYSTEM_UPGRADE_JOB_POD_REPLACEMENT_POLICY: Failed
               SYSTEM_UPGRADE_JOB_PRIVILEGED: true
               SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: 900
               SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
@@ -43,23 +43,25 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         seccompProfile: { type: RuntimeDefault }
       tolerations:
-        - key: CriticalAddonsOnly
-          operator: Exists
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
-        - key: node-role.kubernetes.io/master
-          operator: Exists
-          effect: NoSchedule
     serviceAccount:
-      create: true
       name: system-upgrade
+      create: true
     persistence:
       etc-ssl:
         type: hostPath
