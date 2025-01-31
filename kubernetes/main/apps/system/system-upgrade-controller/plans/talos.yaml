@@ -23,7 +23,7 @@ spec:
       - --nodes=$(NODE)
       - health
   upgrade:
-    image: ghcr.io/jfroy/tnu:0.2.1
+    image: ghcr.io/jfroy/tnu:0.3.0
     envs: *envs
     args:
       - --node=$(NODE)
