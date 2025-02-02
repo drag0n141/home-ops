@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/sathvikrao/clipcascade
-              tag: 0.5.0@sha256:09367b14026f954ebd67dd683decc5051bb1e8c0dbc737020add84d46eb163aa
+              tag: 0.6.0@sha256:baa383753df140bd33668e1f96f3598e4f06a4f096175deda4465f0c41bde9e3
             env:
               TZ: ${TIMEZONE}
               CC_ALLOWED_ORIGINS: https://clipcascade.${SECRET_DOMAIN_INTERNAL}
