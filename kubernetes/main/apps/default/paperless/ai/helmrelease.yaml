@@ -38,7 +38,7 @@ spec:
                   name: paperless-ai-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -84,10 +84,6 @@ spec:
         existingClaim: paperless-ai
         globalMounts:
           - path: /app/data
-      home:
-        type: emptyDir
-        globalMounts:
-          - path: /home/node/.pm2
       logs:
         type: emptyDir
         globalMounts:
