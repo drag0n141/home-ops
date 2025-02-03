@@ -36,6 +36,10 @@ spec:
             envFrom:
               - secretRef:
                   name: paperless-ai-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -80,6 +84,14 @@ spec:
         existingClaim: paperless-ai
         globalMounts:
           - path: /app/data
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /app/public/images
+      home:
+        type: emptyDir
+        globalMounts:
+          - path: /home/node/.pm2
       logs:
         type: emptyDir
         globalMounts:
