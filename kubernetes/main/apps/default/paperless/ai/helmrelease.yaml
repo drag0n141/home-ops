@@ -36,8 +36,6 @@ spec:
             envFrom:
               - secretRef:
                   name: paperless-ai-secret
-            securityContext:
-              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
