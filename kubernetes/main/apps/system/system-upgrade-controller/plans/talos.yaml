@@ -12,19 +12,19 @@ spec:
     - name: system-upgrade
       path: /var/run/secrets/talos.dev
       ignoreUpdates: true
-  prepare: &prepare
-    image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
-    envs: &envs
+  nodeSelector:
+    matchExpressions:
+      - key: kubernetes.io/os
+        operator: In
+        values: ["linux"]
+  upgrade:
+    image: ghcr.io/jfroy/tnu:0.3.0
+    envs:
       - name: NODE
         valueFrom:
           fieldRef:
             fieldPath: spec.nodeName
     args:
-      - --nodes=$(NODE)
-      - health
-  upgrade:
-    image: ghcr.io/jfroy/tnu:0.3.0
-    envs: *envs
-    args:
       - --node=$(NODE)
       - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --powercycle
