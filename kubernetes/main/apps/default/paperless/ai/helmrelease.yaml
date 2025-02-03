@@ -27,12 +27,12 @@ spec:
               TZ: ${TIMEZONE}
               ACTIVATE_TAGGING: no
               ACTIVATE_TITLE: no
-              ADD_AI_PROCESSED_TAG: yes
-              AI_PROCESSED_TAG_NAME: ai-processed
               AI_PROVIDER: openai
               OPENAI_MODEL: gpt-4o
               PAPERLESS_API_URL: http://paperless.default.svc.cluster.local:8000/api
+              PROCESS_PREDEFINED_DOCUMENTS: yes
               SCAN_INTERVAL: "*/30 * * * *"
+              TAGS: AI
             envFrom:
               - secretRef:
                   name: paperless-ai-secret
