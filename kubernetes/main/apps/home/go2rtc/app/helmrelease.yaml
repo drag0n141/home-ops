@@ -44,13 +44,17 @@ spec:
               requests:
                 cpu: 10m
               limits:
+                gpu.intel.com/i915: 1
                 memory: 512Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        supplementalGroups: [44]
         seccompProfile: { type: RuntimeDefault }
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: *app
