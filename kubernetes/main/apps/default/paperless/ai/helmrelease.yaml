@@ -25,7 +25,7 @@ spec:
               tag: 2.4.5@sha256:c7e8919e55613c0b4a065516c434e0fbf78ac788c914518196df6807802975b1
             env:
               TZ: ${TIMEZONE}
-              ADD_AI_PROCESSED_TAG: no
+              ACTIVATE_TAGGING: no
               AI_PROVIDER: openai
               OPENAI_MODEL: gpt-4o
               PAPERLESS_API_URL: http://paperless.default.svc.cluster.local:8000/api
