@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: external-dns-cloudflare
       namespace: networking
-    - name: kustomize-mutating-webhook
-      namespace: flux-system
     - name: onepassword-store
       namespace: security
     - name: traefik-external

@@ -10,8 +10,6 @@ helmDefaults:
 repositories:
   - name: cilium
     url: https://helm.cilium.io
-  - name: fluxcd-kustomize-mutating-webhook
-    url: https://xunholy.github.io/fluxcd-kustomize-mutating-webhook
   - name: postfinance
     url: https://postfinance.github.io/kubelet-csr-approver
 
@@ -48,13 +46,6 @@ releases:
     version: v1.16.3
     values: ["../../apps/cert-manager/cert-manager/app/helm-values.yaml"]
     needs: ["system/kubelet-csr-approver"]
-
-  - name: kustomize-mutating-webhook
-    namespace: flux-system
-    chart: fluxcd-kustomize-mutating-webhook/kustomize-mutating-webhook
-    version: 0.4.0
-    values: ["../../apps/flux-system/kustomize-mutating-webhook/app/helm-values.yaml"]
-    needs: ["cert-manager/cert-manager"]
 
   - name: external-secrets
     namespace: security
