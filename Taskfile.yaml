@@ -7,6 +7,7 @@ shopt: [globstar]
 vars:
   CLUSTER: '{{.CLUSTER | default "main"}}'
   CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
+  SHARED_DIR: '{{.ROOT_DIR}}/kubernetes/shared'
 
 env:
   GOPATH: '{{.ROOT_DIR}}/.go'
