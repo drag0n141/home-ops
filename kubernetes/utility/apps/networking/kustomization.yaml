@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./blocky/ks.yaml
+  - ./cloudflare-ddns/ks.yaml
   - ./external-dns/ks.yaml
   - ./traefik/ks.yaml
 components:
