@@ -55,10 +55,10 @@ spec:
   postBuild:
     substituteFrom:
       - kind: ConfigMap
-        name: cluster-settings
+        name: cluster-settings-shared
         optional: false
       - kind: Secret
-        name: cluster-secrets
+        name: cluster-secrets-shared
         optional: false
   patches:
     - patch: |-
