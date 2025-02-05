@@ -6,3 +6,5 @@ resources:
   - ./cert-manager/ks.yaml
 components:
   - ../../../shared/components/namespace
+  - ../../../shared/components/sops
+  - ../../../shared/components/substitutions

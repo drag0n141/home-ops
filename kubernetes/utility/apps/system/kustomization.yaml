@@ -12,6 +12,8 @@ resources:
   - ./system-upgrade-controller/ks.yaml
 components:
   - ../../../shared/components/namespace
+  - ../../../shared/components/sops
+  - ../../../shared/components/substitutions
 patches:
   - # Add the labels to the namespace
     patch: |

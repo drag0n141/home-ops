@@ -54,6 +54,31 @@ spec:
       name: sops-age
   postBuild:
     substituteFrom:
+      - kind: ConfigMap
+        name: cluster-settings
+        optional: false
       - kind: Secret
         name: cluster-secrets
-        optional: true
+        optional: false
+  patches:
+    - patch: |-
+        apiVersion: kustomize.toolkit.fluxcd.io/v1
+        kind: Kustomization
+        metadata:
+          name: not-used
+        spec:
+          decryption:
+            provider: sops
+            secretRef:
+              name: sops-age
+          postBuild:
+            substituteFrom:
+              - kind: ConfigMap
+                name: cluster-settings-shared
+                optional: false
+              - kind: Secret
+                name: cluster-secrets-shared
+                optional: false
+      target:
+        group: kustomize.toolkit.fluxcd.io
+        kind: Kustomization

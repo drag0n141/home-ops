@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cluster-settings
+  name: cluster-settings-shared
 data:
   TIMEZONE: "Europe/Berlin"
   # CIDR

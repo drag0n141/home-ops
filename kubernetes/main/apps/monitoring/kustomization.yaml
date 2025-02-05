@@ -17,3 +17,5 @@ resources:
 components:
   - ../../../shared/components/alerts
   - ../../../shared/components/namespace
+  - ../../../shared/components/sops
+  - ../../../shared/components/substitutions

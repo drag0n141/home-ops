@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - ./flux-operator/ks.yaml
-  - ./kustomize-mutating-webhook/ks.yaml
 components:
-  - ../../../shared/components/sops
   - ../../../shared/components/namespace
+  - ../../../shared/components/sops
+  - ../../../shared/components/substitutions

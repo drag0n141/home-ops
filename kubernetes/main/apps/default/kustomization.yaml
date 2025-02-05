@@ -45,5 +45,6 @@ resources:
   - ./zipline/ks.yaml
 components:
   - ../../../shared/components/alerts
-  - ../../../shared/components/sops
   - ../../../shared/components/namespace
+  - ../../../shared/components/sops
+  - ../../../shared/components/substitutions
