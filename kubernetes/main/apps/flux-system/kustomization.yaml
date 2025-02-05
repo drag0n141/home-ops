@@ -5,7 +5,7 @@ namespace: flux-system
 resources:
   - ./flux-operator/ks.yaml
 components:
-  - ../../../shared/components/alerts
-  - ../../../shared/components/namespace
-  - ../../../shared/components/sops
-  - ../../../shared/components/substitutions
+  - ../../../shared/meta/components/alerts
+  - ../../../shared/meta/components/namespace
+  - ../../../shared/meta/components/sops
+  - ../../../shared/meta/components/substitutions

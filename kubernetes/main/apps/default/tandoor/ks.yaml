@@ -19,8 +19,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/components/gatus/external
-    - ../../../../../shared/components/volsync
+    - ../../../../../shared/meta/components/gatus/external
+    - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/default/tandoor/app
   prune: true
   sourceRef:

@@ -22,7 +22,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: flux-system
-  path: ./kubernetes/shared
+  path: ./kubernetes/shared/meta
   prune: true
   sourceRef:
     kind: GitRepository

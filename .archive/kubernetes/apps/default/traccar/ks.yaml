@@ -15,7 +15,7 @@ spec:
     - name: onepassword-store
       namespace: security
   components:
-    - ../../../../../shared/components/gatus/external
+    - ../../../../../shared/meta/components/gatus/external
   path: ./kubernetes/main/apps/default/traccar/app
   prune: true
   sourceRef:

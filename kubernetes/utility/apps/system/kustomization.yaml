@@ -11,9 +11,9 @@ resources:
   - ./reloader/ks.yaml
   - ./system-upgrade-controller/ks.yaml
 components:
-  - ../../../shared/components/namespace
-  - ../../../shared/components/sops
-  - ../../../shared/components/substitutions
+  - ../../../shared/meta/components/namespace
+  - ../../../shared/meta/components/sops
+  - ../../../shared/meta/components/substitutions
 patches:
   - # Add the labels to the namespace
     patch: |

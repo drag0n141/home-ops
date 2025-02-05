@@ -19,8 +19,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/components/gatus/internal
-    - ../../../../../shared/components/volsync
+    - ../../../../../shared/meta/components/gatus/internal
+    - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/media/plex/app
   prune: true
   sourceRef:

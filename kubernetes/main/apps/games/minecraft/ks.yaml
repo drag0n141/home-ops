@@ -40,7 +40,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/components/volsync
+    - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/games/minecraft/app
   prune: true
   sourceRef:
