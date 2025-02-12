@@ -1,0 +1,25 @@
+services:
+  twitch-live:
+    image: 'ghcr.io/drag0n141/docker-twitch-live:latest'
+    hostname: 'twitch-live'
+    container_name: 'twitch-live'
+    restart: always
+    volumes:
+      - '/mnt/nvme/appdata/twitch-live:/config:rw'
+      - '/mnt/data/media/twitch:/mnt/downloads/twitch:rw'
+    environment:
+      - 'PUID=1000'
+      - 'PGID=1000'
+      - 'TZ=${TZ}'
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+
+networks:
+  internal:
+    external: true
