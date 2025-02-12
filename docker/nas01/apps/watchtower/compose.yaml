@@ -8,6 +8,7 @@ services:
       - '/mnt/nvme/appdata/watchtower:/config:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     environment:
+      - 'TZ=${TZ}'
       - 'DOCKER_CONFIG=/config'
       - 'WATCHTOWER_CLEANUP=true'
       - 'WATCHTOWER_REMOVE_VOLUMES=true'
@@ -15,6 +16,8 @@ services:
       - 'WATCHTOWER_NO_STARTUP_MESSAGE=true'
       - 'WATCHTOWER_SCHEDULE=0 0 5 * * *'
       - 'WATCHTOWER_NOTIFICATIONS=gotify'
+      - 'WATCHTOWER_NOTIFICATION_GOTIFY_URL=https://gotify.${DOMAIN_INTERNAL}'
+      - 'WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN=${GOTIFY_TOKEN_WATCHTOWER}'
       - 'WATCHTOWER_NOTIFICATIONS_HOSTNAME=NAS01'
       - 'WATCHTOWER_LABEL_ENABLE=true'
       - 'WATCHTOWER_ROLLING_RESTART=false'
