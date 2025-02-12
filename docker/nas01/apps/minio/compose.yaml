@@ -5,7 +5,7 @@ services:
     container_name: 'minio'
     restart: always
     cap_drop:
-      - ALL
+      - 'ALL'
     command: server /data --console-address ":9001"
     read_only: true
     volumes:
