@@ -1,0 +1,44 @@
+services:
+  minio:
+    image: 'quay.io/minio/minio:RELEASE.2025-02-07T23-21-09Z'
+    hostname: 'minio'
+    container_name: 'minio'
+    restart: always
+    command: server /data --console-address ":9001"
+    volumes:
+      - '/mnt/data/minio:/data:rw'
+    environment:
+      - 'TZ=${TZ}'
+      - 'MINIO_ROOT_USER=${MINIO_ROOT_USER}'
+      - 'MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}'
+      - 'MINIO_BROWSER_REDIRECT_URL=https://console-minio.${DOMAIN_INT}'
+      - 'MINIO_UPDATE=off'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.minio-rtr.entrypoints=https'
+      - 'traefik.http.routers.minio-rtr.rule=Host(`console-minio.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.minio-rtr.tls=true'
+      - 'traefik.http.routers.minio-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.minio-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.minio-rtr.service=minio-svc'
+      - 'traefik.http.services.minio-svc.loadbalancer.server.port=9001'
+      - 'traefik.http.routers.minio-api-rtr.entrypoints=https'
+      - 'traefik.http.routers.minio-api-rtr.rule=Host(`minio.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.minio-api-rtr.tls=true'
+      - 'traefik.http.routers.minio-api-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.minio-api-rtr.middlewares=chain-minio@file'
+      - 'traefik.http.routers.minio-api-rtr.service=minio-api-svc'
+      - 'traefik.http.services.minio-api-svc.loadbalancer.server.port=9000'
+    deploy:
+      resources:
+        limits:
+          memory: 8192M
+
+networks:
+  traefik:
+    external: true
