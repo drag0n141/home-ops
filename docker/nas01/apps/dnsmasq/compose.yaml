@@ -32,6 +32,8 @@ services:
         published: 69
         protocol: udp
         mode: host
+    tmpfs:
+      - '/var/lib/misc'
     environment:
       - 'TZ=${TZ}'
     read_only: true
