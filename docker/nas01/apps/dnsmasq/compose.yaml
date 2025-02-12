@@ -1,0 +1,54 @@
+services:
+  dnsmasq:
+    image: 'quay.io/poseidon/dnsmasq:v0.5.0'
+    hostname: 'dnsmasq'
+    container_name: 'dnsmasq'
+    restart: always
+    cap_add:
+      - 'NET_BIND_SERVICE'
+      - 'NET_ADMIN'
+      - 'NET_RAW'
+    command:
+      - '-d'
+      - '-q'
+      - '--dhcp-range=192.168.254.1,proxy,255.255.255.0'
+      - '--enable-tftp'
+      - '--tftp-root=/var/lib/tftpboot'
+      - '--dhcp-userclass=set:ipxe,iPXE'
+      - '--pxe-service=tag:#ipxe,x86PC,"PXE chainload to iPXE",undionly.kpxe'
+      - '--pxe-service=tag:ipxe,x86PC,"iPXE",http://192.168.254.2:9080/boot.ipxe'
+      - '--pxe-service=tag:#ipxe,X86-64_EFI,"PXE chainload to iPXE UEFI",ipxe.efi'
+      - '--pxe-service=tag:ipxe,X86-64_EFI,"iPXE UEFI",http://192.168.254.2:9080/boot.ipxe'
+      - '--log-queries'
+      - '--log-dhcp'
+    ports:
+      - target: 67
+        published: 67
+        protocol: udp
+        mode: host
+      - target: 69
+        published: 69
+        protocol: udp
+        mode: host
+    environment:
+      - 'TZ=${TZ}'
+    networks:
+      server_lan:
+        ipv4_address: 192.168.254.87
+    security_opt:
+      - 'apparmor:unconfined'
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+networks:
+  server_lan:
+    driver: ipvlan
+    driver_opts:
+      parent: enp5s0f1
+    ipam:
+      config:
+        - subnet: 192.168.254.0/24
+          gateway: 192.168.254.1
