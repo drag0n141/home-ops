@@ -1,0 +1,35 @@
+services:
+  watchtower:
+    image: 'ghcr.io/containrrr/watchtower:1.7.1'
+    hostname: 'watchtower'
+    container_name: 'watchtower'
+    restart: always
+    volumes:
+      - '/mnt/nvme/appdata/watchtower:/config:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      - 'DOCKER_CONFIG=/config'
+      - 'WATCHTOWER_CLEANUP=true'
+      - 'WATCHTOWER_REMOVE_VOLUMES=true'
+      - 'WATCHTOWER_INCLUDE_STOPPED=false'
+      - 'WATCHTOWER_NO_STARTUP_MESSAGE=true'
+      - 'WATCHTOWER_SCHEDULE=0 0 5 * * *'
+      - 'WATCHTOWER_NOTIFICATIONS=gotify'
+      - 'WATCHTOWER_NOTIFICATIONS_HOSTNAME=NAS01'
+      - 'WATCHTOWER_LABEL_ENABLE=true'
+      - 'WATCHTOWER_ROLLING_RESTART=false'
+      - 'WATCHTOWER_TIMEOUT=30s'
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'com.centurylinklabs.watchtower.enable=true'
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
+networks:
+  internal:
+    external: true
