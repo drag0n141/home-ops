@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: 'docker.io/traefik:v3.3'
+    image: 'docker.io/traefik:v3.3.3'
     hostname: 'traefik'
     container_name: 'traefik'
     restart: always
@@ -36,7 +36,7 @@ services:
       - '--certificatesresolvers.mydnschallenge.acme.dnschallenge.provider=cloudflare'
       - '--certificatesresolvers.mydnschallenge.acme.storage=/certs/acme.json'
       - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53'
-      - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.delayBeforeCheck=60'
+      - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.propagation.delayBeforeChecks=60'
       - '--entrypoints.http.http.redirections.entryPoint.to=https'
       - '--entrypoints.http.http.redirections.entryPoint.scheme=https'
       - '--serverstransport.insecureskipverify=true'
