@@ -27,6 +27,11 @@
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
+  "docker": {
+    "fileMatch": [
+      "(^|/)docker/.+\\.ya?ml$"
+    ]
+  },
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml$"
