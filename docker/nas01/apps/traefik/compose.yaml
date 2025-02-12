@@ -5,7 +5,7 @@ services:
     container_name: 'traefik'
     restart: always
     cap_drop:
-      - ALL
+      - 'ALL'
     command:
       - '--api=true'
       - '--api.dashboard=true'

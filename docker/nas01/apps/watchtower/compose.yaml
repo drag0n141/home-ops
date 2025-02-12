@@ -5,7 +5,7 @@ services:
     container_name: 'watchtower'
     restart: always
     cap_drop:
-      - ALL
+      - 'ALL'
     read_only: true
     volumes:
       - '/mnt/nvme/appdata/watchtower:/config:ro'

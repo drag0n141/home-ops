@@ -4,11 +4,14 @@ services:
     hostname: 'matchbox'
     container_name: 'matchbox'
     restart: always
+    cap_drop:
+      - 'ALL'
     command:
       - '-address=0.0.0.0:9080'
       - '-log-level=debug'
     ports:
       - '9080:9080'
+    read_only: true
     volumes:
       - '/mnt/nvme/appdata/matchbox:/var/lib/matchbox:rw'
     environment:
