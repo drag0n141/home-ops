@@ -42,6 +42,7 @@ services:
       - '80:80'
       - '443:443/tcp'
       - '443:443/udp'
+    read_only: true
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - '/mnt/nvme/appdata/traefik/certs:/certs:rw'

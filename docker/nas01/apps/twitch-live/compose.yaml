@@ -7,6 +7,8 @@ services:
     volumes:
       - '/mnt/nvme/appdata/twitch-live:/config:rw'
       - '/mnt/data/media/twitch:/mnt/downloads/twitch:rw'
+    tmpfs:
+      - '/tmp'
     environment:
       - 'PUID=1000'
       - 'PGID=1000'
