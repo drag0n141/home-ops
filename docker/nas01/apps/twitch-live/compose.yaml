@@ -1,6 +1,6 @@
 services:
   twitch-live:
-    image: 'ghcr.io/drag0n141/docker-twitch-live:latest'
+    image: 'ghcr.io/drag0n141/docker-twitch-live:7.1.2'
     hostname: 'twitch-live'
     container_name: 'twitch-live'
     restart: always
