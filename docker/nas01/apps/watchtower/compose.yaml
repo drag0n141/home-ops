@@ -4,6 +4,9 @@ services:
     hostname: 'watchtower'
     container_name: 'watchtower'
     restart: always
+    cap_drop:
+      - ALL
+    read_only: true
     volumes:
       - '/mnt/nvme/appdata/watchtower:/config:ro'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
