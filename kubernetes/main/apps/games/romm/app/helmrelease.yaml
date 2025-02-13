@@ -106,4 +106,3 @@ spec:
         path: /mnt/data/roms
         globalMounts:
           - path: /romm/library
-            readOnly: true
