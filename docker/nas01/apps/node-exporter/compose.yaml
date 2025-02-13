@@ -1,0 +1,22 @@
+services:
+  node-exporter:
+    image: 'quay.io/prometheus/node-exporter:v1.8.2'
+    hostname: 'node-exporter'
+    container_name: 'node-exporter'
+    restart: always
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    network_mode: host
+    volumes:
+      - '/:/host:ro,rslave'
+    environment:
+      - 'TZ=${TZ}'
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 512M

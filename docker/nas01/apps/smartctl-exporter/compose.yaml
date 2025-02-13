@@ -1,0 +1,23 @@
+services:
+  smartctl-exporter:
+    image: 'docker.io/prometheuscommunity/smartctl-exporter:v0.13.0'
+    hostname: 'smartctl-exporter'
+    container_name: 'smartctl-exporter'
+    restart: always
+    privileged: true
+    ports:
+      - '9633:9633'
+    environment:
+      - 'TZ=${TZ}'
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+networks:
+  internal:
+    external: true
