@@ -122,6 +122,9 @@ spec:
     - name: recipes
       databases: ["recipes_db"]
       password: *password
+    - name: romm
+      databases: ["romm_db"]
+      password: *password
     - name: shlink
       databases: ["shlink_db"]
       password: *password
