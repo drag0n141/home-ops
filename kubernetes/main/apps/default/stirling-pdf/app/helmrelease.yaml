@@ -45,7 +45,11 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: stirling-pdf
+        controller: *app
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 8080
