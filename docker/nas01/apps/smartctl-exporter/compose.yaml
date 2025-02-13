@@ -5,6 +5,7 @@ services:
     container_name: 'smartctl-exporter'
     restart: always
     privileged: true
+    user: root
     ports:
       - '9633:9633'
     environment:
