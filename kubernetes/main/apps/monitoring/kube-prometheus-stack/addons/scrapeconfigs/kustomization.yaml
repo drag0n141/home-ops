@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./node-exporter.yaml
   - ./pikvm.yaml
+  - ./smartctl-exporter.yaml

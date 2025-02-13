@@ -2,12 +2,12 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: &name pikvm
+  name: &name smartctl-exporter
 spec:
   staticConfigs:
     - targets:
-        - pikvm.${SECRET_DOMAIN_INT}
-  metricsPath: /api/export/prometheus/metrics
+        - nas01.${SECRET_DOMAIN_INT}:9633
+  metricsPath: /metrics
   relabelings:
     - action: replace
       targetLabel: job

@@ -6,6 +6,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
+        - nas01.${SECRET_DOMAIN_INT}:9100
         - pikvm.${SECRET_DOMAIN_INT}:9100
         - prx01.${SECRET_DOMAIN_INT}:9100
         - prx02.${SECRET_DOMAIN_INT}:9100
