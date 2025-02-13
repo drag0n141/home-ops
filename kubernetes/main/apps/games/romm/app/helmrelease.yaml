@@ -86,7 +86,7 @@ spec:
       data:
         existingClaim: *app
         advancedMounts:
-          ferdium:
+          romm:
             app:
               - subPath: "resources"
                 path: "/romm/resources"
