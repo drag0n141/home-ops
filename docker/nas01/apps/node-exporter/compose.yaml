@@ -12,8 +12,6 @@ services:
       - '/:/host:ro,rslave'
     environment:
       - 'TZ=${TZ}'
-    networks:
-      - internal
     security_opt:
       - 'no-new-privileges:true'
     deploy:
