@@ -26,6 +26,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               FORCE_SSL: docuseal.${SECRET_DOMAIN_INTERNAL}
+              SMTP_ADDRESS: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: 2525
+              SMTP_FROM: docuseal@${SECRET_DOMAIN}
+              SMTP_ENABLE_STARTTLS_AUTO: false
             envFrom:
               - secretRef:
                   name: docuseal-secret
