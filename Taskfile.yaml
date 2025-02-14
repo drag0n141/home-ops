@@ -25,6 +25,7 @@ includes:
   sops: .taskfiles/sops
   talos: .taskfiles/talos
   volsync: .taskfiles/volsync
+  workstation: .taskfiles/workstation
 
 tasks:
 
