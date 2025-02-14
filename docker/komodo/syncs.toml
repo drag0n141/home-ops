@@ -1,5 +1,5 @@
 [[resource_sync]]
-name = "stacks"
+name = "home-ops"
 [resource_sync.config]
 repo = "drag0n141/home-ops"
 branch = "master"

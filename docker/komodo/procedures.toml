@@ -5,12 +5,5 @@ name = "update_sync"
 name = "Update Sync"
 enabled = true
 executions = [
-  { execution.type = "RunSync", execution.params.sync = "stacks", enabled = true }
-]
-
-[[procedure.config.stage]]
-name = "Commit Sync"
-enabled = true
-executions = [
-  { execution.type = "CommitSync", execution.params.sync = "stacks", enabled = true }
+  { execution.type = "RunSync", execution.params.sync = "home-ops", enabled = true }
 ]
