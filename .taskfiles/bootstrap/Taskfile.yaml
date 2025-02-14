@@ -29,11 +29,8 @@ tasks:
   apps:
     desc: Bootstrap Apps [CLUSTER=main] [ROOK_DISK=WD_BLACK_SN850X]
     cmds:
-      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - op run --env-file {{.SHARED_DIR}}/bootstrap/apps/.secrets.env --no-masking -- minijinja-cli {{.SHARED_DIR}}/bootstrap/apps/templates/resources.yaml.j2 | kubectl apply --server-side --filename -
-      - kubectl --namespace flux-system apply --server-side --filename {{.SHARED_DIR}}/components/substitutions/cluster-settings.yaml
+      - bash {{.SHARED_DIR}}/bootstrap/apps/resources/prepare.sh
       - helmfile --quiet --file {{.SHARED_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff --kube-context {{.CLUSTER}}
-      - helmfile --quiet --file {{.SHARED_DIR}}/bootstrap/apps/helmfile.yaml destroy --selector name=wipe-rook --kube-context {{.CLUSTER}} || true
     vars:
       ROOK_DISK: '{{.ROOK_DISK | default "WD_BLACK_SN850X"}}'
     env:
@@ -48,10 +45,9 @@ tasks:
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/bootstrap/talosconfig
       - test -f {{.SHARED_DIR}}/bootstrap/apps/helmfile.yaml
-      - test -f {{.SHARED_DIR}}/bootstrap/apps/templates/resources.yaml.j2
-      - test -f {{.SHARED_DIR}}/bootstrap/apps/templates/wipe-rook.yaml.gotmpl
+      - test -f {{.SHARED_DIR}}/bootstrap/apps/resources/prepare.sh
       - test -f {{.SHARED_DIR}}/components/substitutions/cluster-settings.yaml
-      - which curl jq helmfile kubectl op talosctl
+      - which gum jq helmfile kubectl kustomize op talosctl yq
 
   matchbox:
     desc: Sync required Matchbox config to PXEBoot machine [CLUSTER=main]
