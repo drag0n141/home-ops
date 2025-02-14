@@ -22,11 +22,13 @@ spec:
           app:
             image:
               repository: ghcr.io/ferretdb/ferretdb
-              tag: 1.24.0@sha256:e4e442895ae2aaf8284db3d012c8d0e1c84d6f353d16678a0d3edf6d7e81d624
+              tag: 2.0.0-rc.1@sha256:bbaa467ffb36939ddb779086d2bc9468d8b81fa6ad5512a282226ee2d9aa8093
             env:
               TZ: ${TIMEZONE}
-              FERRETDB_HANDLER: sqlite
               FERRETDB_LISTEN_ADDR: 0.0.0.0:27017
+            envFrom:
+              - secretRef:
+                  name: komodo-db-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -63,7 +65,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: komodo-db
+        controller: *app
         ports:
           mongo:
             port: 27017
@@ -71,8 +73,10 @@ spec:
             appProtocol: mongodb
     persistence:
       state:
-        existingClaim: komodo-db
+        type: emptyDir
         globalMounts:
           - path: /state
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
