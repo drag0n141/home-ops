@@ -80,3 +80,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /repo-cache
+      action:
+        type: emptyDir
+        globalMounts:
+          - path: /action-cache
