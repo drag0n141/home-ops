@@ -26,6 +26,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               FERRETDB_HANDLER: sqlite
+              FERRETDB_LISTEN_ADDR: 0.0.0.0:27017
             probes:
               liveness: &probes
                 enabled: true
@@ -60,13 +61,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: komodo-db
         ports:
           mongo:
             port: 27017
+            protocol: TCP
+            appProtocol: mongodb
     persistence:
       state:
         existingClaim: komodo-db
