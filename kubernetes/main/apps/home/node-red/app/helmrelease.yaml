@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/nodered/node-red
-              tag: 4.0.8@sha256:94926616c16e016e2468c2c83a8d9040ffdef1999e54a2b36e54986d37de2f7f
+              tag: 4.0.9@sha256:5178f4f5a51c871f7e0140f005dbbcac59c7bdd64002e737c36d6de0d579f6a1
             env:
               TZ: ${TIMEZONE}
             envFrom:
