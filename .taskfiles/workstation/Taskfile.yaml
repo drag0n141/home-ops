@@ -10,7 +10,7 @@ tasks:
   linux:
     desc: Set up Linux
     cmds:
-      - curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+      - curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
     preconditions:
       - which curl
 
