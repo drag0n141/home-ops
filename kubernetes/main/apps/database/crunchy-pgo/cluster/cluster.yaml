@@ -62,9 +62,6 @@ spec:
     - name: defguard
       databases: ["defguard_db"]
       password: *password
-    - name: docuseal
-      databases: ["docuseal_db"]
-      password: *password
     - name: ferdium
       databases: ["ferdium_db"]
       password: *password
