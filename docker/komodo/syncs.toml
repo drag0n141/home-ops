@@ -1,0 +1,7 @@
+[[resource_sync]]
+name = "stacks"
+[resource_sync.config]
+repo = "drag0n141/home-ops"
+branch = "master"
+git_account = "drag0n141"
+resource_path = ["docker/komodo/"]
