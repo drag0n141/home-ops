@@ -75,3 +75,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data/docuseal
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
