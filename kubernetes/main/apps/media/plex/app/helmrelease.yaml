@@ -108,6 +108,8 @@ spec:
           - path: /tmp
       transcode:
         type: emptyDir
+        medium: Memory
+        sizeLimit: 10Gi
         globalMounts:
           - path: /transcode
       media:
