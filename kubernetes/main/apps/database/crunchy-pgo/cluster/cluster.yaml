@@ -62,6 +62,9 @@ spec:
     - name: defguard
       databases: ["defguard_db"]
       password: *password
+    - name: docuseal
+      databases: ["docuseal_db"]
+      password: *password
     - name: ferdium
       databases: ["ferdium_db"]
       password: *password
@@ -76,9 +79,6 @@ spec:
       password: *password
     - name: kitchenowl
       databases: ["kitchenowl_db"]
-      password: *password
-    - name: komodo
-      databases: ["komodo_db"]
       password: *password
     - name: lidarr
       databases: ["lidarr_main", "lidarr_log"]
