@@ -10,7 +10,9 @@ tasks:
   linux:
     desc: Set up Linux
     cmds:
-      - curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+      - touch /.dockerenv
+      - NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - rm /.dockerenv
     preconditions:
       - which curl
 
