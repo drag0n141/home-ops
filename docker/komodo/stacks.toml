@@ -1,0 +1,124 @@
+[[stack]]
+name = "dnsmasq"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/dnsmasq"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "matchbox"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/matchbox"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "minio"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/minio"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "node-exporter"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/node-exporter"
+webhook_enabled = false
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "periphery"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/peripherey"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "smartctl-exporter"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/smartctl-exporter"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "traefik"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/traefik"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "twitch-live"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/twitch-live"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "watchtower"
+[stack.config]
+server = "nas01"
+destroy_before_deploy = true
+files_on_host = true
+run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/watchtower"
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
