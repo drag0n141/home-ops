@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/shenxn/protonmail-bridge
-              tag: 3.16.0-1@sha256:40fdfffb8bb07e74144f9e9b43ab9e7de4a71aecf4328a1412d2631109039bce
+              tag: 3.16.0-1@sha256:2ba2677f1280d2b3c4d3ed812fb52f34568ffe2f82d474210d97d21fa429d4d9
             env:
               TZ: ${TIMEZONE}
             securityContext:
