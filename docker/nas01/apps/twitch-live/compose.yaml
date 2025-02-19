@@ -4,8 +4,6 @@ services:
     hostname: 'twitch-live'
     container_name: 'twitch-live'
     restart: always
-    cap_drop:
-      - 'ALL'
     volumes:
       - '/mnt/nvme/appdata/twitch-live:/config:rw'
       - '/mnt/data/media/twitch:/mnt/downloads/twitch:rw'
