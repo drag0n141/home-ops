@@ -125,7 +125,7 @@ spec:
             type: loki
             uid: loki
             access: proxy
-            url: http://loki-gateway.monitoring.svc.cluster.local:80
+            url: http://loki-headless.observability.svc.cluster.local:3100
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
