@@ -108,6 +108,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "twitch-live"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/twitch-live"
