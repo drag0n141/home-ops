@@ -2,6 +2,7 @@
 name = "dnsmasq"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/dnsmasq"
@@ -16,6 +17,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "matchbox"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/matchbox"
@@ -30,6 +32,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "minio"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/minio"
@@ -44,6 +47,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "node-exporter"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/node-exporter"
@@ -59,6 +63,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "periphery"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/periphery"
@@ -73,6 +78,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "smartctl-exporter"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/smartctl-exporter"
@@ -87,6 +93,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "traefik"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/traefik"
@@ -115,6 +122,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 name = "watchtower"
 [stack.config]
 server = "nas01"
+poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops/docker/nas01/apps/watchtower"
