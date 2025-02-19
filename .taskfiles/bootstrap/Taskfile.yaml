@@ -29,25 +29,38 @@ tasks:
   apps:
     desc: Bootstrap Apps [CLUSTER=main] [ROOK_DISK=WD_BLACK_SN850X]
     cmds:
-      - bash {{.SHARED_DIR}}/bootstrap/apps/resources/prepare.sh
-      - helmfile --quiet --file {{.SHARED_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff --kube-context {{.CLUSTER}}
+      - kubectl config set-cluster {{.CLUSTER}} --server https://{{.RANDOM_CONTROLLER}}:6443
+      - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - for: { var: BLOCK_DEVICES }
+        cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
+      - op inject --in-file {{.SHARED_DIR}}/bootstrap/resources/secrets.yaml.tpl | kubectl apply --server-side --filename -
+      - kubectl --namespace flux-system apply --server-side --filename {{.SHARED_DIR}}/components/substitutions/cluster-settings.yaml
+      - helmfile --file {{.SHARED_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff --kube-context {{.CLUSTER}}
     vars:
-      ROOK_DISK: '{{.ROOK_DISK | default "WD_BLACK_SN850X"}}'
+      BLOCK_DEVICES_RAW:
+        sh: |-
+          talosctl get disks --output json | jq --slurp --compact-output '
+            map(select(.spec.model == "{{.ROOK_DISK | default "WD_BLACK_SN850X"}}"))
+              | group_by(.node)
+              | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
+              | add'
+      BLOCK_DEVICES:
+        ref: fromJson .BLOCK_DEVICES_RAW
+      RANDOM_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
-      NODE_COUNT:
-        sh: talosctl config info --output json | jq --raw-output '.nodes | length'
-      ROOK_DISK: '{{.ROOK_DISK}}'
       VAULT: kubernetes
     requires:
-      vars: [CLUSTER]
+      vars: [CLUSTER, ROOK_DISK]
     preconditions:
       - op user get --me
       - talosctl config info
       - test -f {{.CLUSTER_DIR}}/bootstrap/talosconfig
-      - test -f {{.SHARED_DIR}}/bootstrap/apps/helmfile.yaml
-      - test -f {{.SHARED_DIR}}/bootstrap/apps/resources/prepare.sh
+      - test -f {{.SHARED_DIR}}/bootstrap/helmfile.yaml
+      - test -f {{.SHARED_DIR}}/bootstrap/resources/secrets.yaml.tpl
       - test -f {{.SHARED_DIR}}/components/substitutions/cluster-settings.yaml
-      - which gum jq helmfile kubectl kustomize op talosctl yq
+      - which helmfile jq kubectl op talosctl
 
   matchbox:
     desc: Sync required Matchbox config to PXEBoot machine [CLUSTER=main]

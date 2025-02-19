@@ -169,6 +169,14 @@ cluster:
     serviceSubnets: ["10.43.0.0/16"]
   coreDNS:
     disabled: true
+  extraManifests:
+    {% for crd in [
+        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents",
+        "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"
+    ] %}
+    - # renovate: datasource=docker depName=ghcr.io/prometheus-operator/prometheus-operator
+      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ ENV.PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
+    {% endfor %}
   token: ENC[AES256_GCM,data:b6bUbMyAn+W9HrYM2OjHnUpSjFgx8Ks=,iv:zyfUzed9rPULAPI1fyuRo6htd2WCU3ORlrRLvCOhNK4=,tag:qwrSotnm9bROFl4XSpjYjA==,type:str]
   secretboxEncryptionSecret: ENC[AES256_GCM,data:RgMortXXYFFZXz6Uzhh65agT2ClzpwTjc+BCTKdDtRrsPccOjgGEc2l+cXQ=,iv:GHtyiwFy2j5Czq4mBn/K+pIJx/AMbqNbjqMWm6TI0as=,tag:/pznEmt8GDwW1MpFSoabXw==,type:str]
   ca:
