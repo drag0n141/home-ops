@@ -58,12 +58,12 @@ spec:
       - apiVersion: monitoring.giantswarm.io/v1alpha1
         kind: Silence
         metadata:
-          name: nas01-node-disk-io-saturation
+          name: nas01-node-memory-high-utilization
           namespace: monitoring
         spec:
           matchers:
             - name: alertname
-              value: NodeDiskIOSaturation
+              value: NodeMemoryHighUtilization
               isRegex: false
             - name: instance
               value: nas01.${SECRET_DOMAIN_INT}:9100
