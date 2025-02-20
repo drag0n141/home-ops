@@ -26,10 +26,9 @@ spec:
               IRQBALANCE_BANNED_CPULIST: 8-15 # 8-15 are E-cores on Intel i5-1340P
             resources:
               requests:
-                cpu: 25m
-                memory: 128Mi
+                cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 32Mi
             securityContext:
               privileged: true
     defaultPodOptions:
