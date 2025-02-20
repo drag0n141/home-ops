@@ -8,6 +8,12 @@ configMapGenerator:
   - name: sonarr-configmap
     files:
       - refresh-series.sh=./resources/refresh-series.sh
+  - name: sonarr-loki-rules
+    files:
+      - sonarr.yaml=./lokirule.yaml
+    options:
+      labels:
+        loki_rule: "true"
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
