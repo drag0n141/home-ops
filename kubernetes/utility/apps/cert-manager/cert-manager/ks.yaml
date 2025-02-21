@@ -35,6 +35,11 @@ spec:
       namespace: cert-manager
     - name: onepassword-store
       namespace: security
+  healthCheckExprs:
+    - apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   path: ./kubernetes/utility/apps/cert-manager/cert-manager/issuers
   prune: true
   sourceRef:
