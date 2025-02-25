@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ferretdb/ferretdb
-              tag: 1.24.0@sha256:e4e442895ae2aaf8284db3d012c8d0e1c84d6f353d16678a0d3edf6d7e81d624
+              tag: 2.0.0@sha256:6808ccc6bb8df8738e276488639c6b23baed5d60d1c9f0413e503c1f7d0c7d9c
             env:
               TZ: ${TIMEZONE}
               FERRETDB_HANDLER: sqlite
