@@ -1,0 +1,110 @@
+---
+name: Pre-pull Images
+
+on:
+  pull_request:
+    branches: ["master"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-job:
+    name: Pre-pull Images Pre-Job
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Get Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: kubernetes/main/**
+
+  extract-images:
+    name: Extract Images
+    needs: pre-job
+    runs-on: ubuntu-latest
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
+    strategy:
+      matrix:
+        branches: ["default", "pull"]
+      fail-fast: false
+    outputs:
+      default: ${{ steps.extract-images.outputs.default }}
+      pull: ${{ steps.extract-images.outputs.pull }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: "${{ matrix.branches == 'default' && github.event.repository.default_branch || '' }}"
+
+      - name: Gather Images
+        uses: docker://ghcr.io/allenporter/flux-local:v7.0.0
+        with:
+          args: >-
+            get cluster
+            --all-namespaces
+            --path /github/workspace/kubernetes/flux/cluster
+            --enable-images
+            --output yaml
+            --output-file images.yaml
+
+      - name: Extract Images
+        id: extract-images
+        run: |
+          images=$(yq --indent=0 --output-format=json \
+              '[.. | .images? | select(. != null)] | flatten | sort | unique' images.yaml \
+          )
+          echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
+
+  compare-images:
+    needs: ["pre-job", "extract-images"]
+    name: Compare Images
+    runs-on: ubuntu-latest
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
+    outputs:
+      images: ${{ steps.compare-images.outputs.images }}
+    steps:
+      - name: Compare Images
+        id: compare-images
+        run: |
+          images=$(jq --compact-output --null-input \
+              --argjson f1 '${{ needs.extract-images.outputs.default }}' \
+              --argjson f2 '${{ needs.extract-images.outputs.pull }}' \
+              '$f2 - $f1' \
+          )
+          echo "images=${images}" >> $GITHUB_OUTPUT
+
+  pre-pull-images:
+    needs: ["pre-job", "compare-images"]
+    name: Pre-pull Images
+    runs-on: k8s-gitops-runner
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' && needs.compare-images.outputs.images != '[]' }}
+    strategy:
+      matrix:
+        images: ${{ fromJSON(needs.compare-images.outputs.images) }}
+      max-parallel: 4
+      fail-fast: false
+    steps:
+      - name: Install talosctl
+        run: curl -fsSL https://talos.dev/install | sh
+
+      - name: Pre-pull Image
+        run: talosctl --nodes $NODE image pull ${{ matrix.images }}
+
+  pre-pull-images-status:
+    needs: ["pre-pull-images"]
+    name: Pre-pull Images Success
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+      - name: All jobs passed or skipped
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
