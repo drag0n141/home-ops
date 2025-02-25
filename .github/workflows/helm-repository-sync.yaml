@@ -31,6 +31,9 @@ jobs:
     runs-on: home-ops-runner
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install flux
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
