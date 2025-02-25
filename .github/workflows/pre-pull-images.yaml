@@ -48,7 +48,7 @@ jobs:
           args: >-
             get cluster
             --all-namespaces
-            --path /github/workspace/kubernetes/flux/cluster
+            --path /github/workspace/kubernetes/main/flux/cluster
             --enable-images
             --output yaml
             --output-file images.yaml
