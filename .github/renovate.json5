@@ -25,7 +25,7 @@
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
-  "docker": {
+  "docker-compose": {
     "fileMatch": [
       "(^|/)docker/.+\\.ya?ml$"
     ]
