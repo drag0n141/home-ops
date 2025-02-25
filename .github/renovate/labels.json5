@@ -26,20 +26,12 @@
       "addLabels": ["renovate/helm"]
     },
     {
-      "matchDatasources": ["galaxy", "galaxy-collection"],
-      "addLabels": ["renovate/ansible"]
-    },
-    {
-      "matchDatasources": ["github-releases", "github-tags"],
+      "matchDatasources": ["github-releases"],
       "addLabels": ["renovate/github-release"]
     },
     {
       "matchManagers": ["github-actions"],
       "addLabels": ["renovate/github-action"]
-    },
-    {
-      "matchDatasources": ["pypi"],
-      "addLabels": ["renovate/pip"]
     }
   ]
 }
