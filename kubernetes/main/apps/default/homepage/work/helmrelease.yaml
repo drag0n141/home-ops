@@ -43,7 +43,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: homepage
@@ -94,4 +93,7 @@ spec:
             readOnly: true
           - path: /app/config/services.yaml
             subPath: services.yaml
+            readOnly: true
+          - path: /app/config/custom.css
+            subPath: custom.css
             readOnly: true
