@@ -26,7 +26,7 @@ spec:
         storageClassName: openebs-hostpath
         resources:
           requests:
-            storage: 5Gi
+            storage: 20Gi
     controllerServiceAccount:
       name: actions-runner-controller
       namespace: actions-runner-system
@@ -39,7 +39,7 @@ spec:
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: "false"
-              - name: NODE_IP
+              - name: NODE
                 valueFrom:
                   fieldRef:
                     fieldPath: status.hostIP
