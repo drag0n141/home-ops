@@ -82,7 +82,7 @@ jobs:
   pre-pull-images:
     needs: ["pre-job", "compare-images"]
     name: Pre-pull Images
-    runs-on: k8s-gitops-runner
+    runs-on: home-ops-runner
     if: ${{ needs.pre-job.outputs.any_changed == 'true' && needs.compare-images.outputs.images != '[]' }}
     strategy:
       matrix:
