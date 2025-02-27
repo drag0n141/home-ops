@@ -13,7 +13,7 @@ spec:
     - name: cert-manager
       namespace: cert-manager
     - name: node-feature-discovery
-      namespace: system
+      namespace: *namespace
   path: ./kubernetes/main/apps/system/intel-device-plugin/app
   prune: true
   sourceRef:
@@ -37,7 +37,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: intel-device-plugin
-      namespace: system
+      namespace: *namespace
   path: ./kubernetes/main/apps/system/intel-device-plugin/gpu
   prune: true
   sourceRef:
