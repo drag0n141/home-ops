@@ -38,6 +38,7 @@ spec:
           insecure_skip_verify: true
           domain: ${SECRET_DOMAIN_AD}
           username: svc-teleport
+          sid: S-1-5-21-2393014043-1219914493-3909707514-17103
         discovery:
           base_dn: '*'
       app_service:
