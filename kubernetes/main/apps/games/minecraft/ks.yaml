@@ -31,7 +31,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
     - name: mc-router
       namespace: games

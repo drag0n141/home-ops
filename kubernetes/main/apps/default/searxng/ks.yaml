@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   path: ./kubernetes/main/apps/default/searxng/app
   prune: true

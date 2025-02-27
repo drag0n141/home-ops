@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
       namespace: database
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
     - name: guacd
       namespace: default

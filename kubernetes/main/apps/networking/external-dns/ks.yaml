@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   path: ./kubernetes/main/apps/networking/external-dns/unifi
   prune: true
@@ -34,7 +34,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   path: ./kubernetes/main/apps/networking/external-dns/cloudflare
   prune: true

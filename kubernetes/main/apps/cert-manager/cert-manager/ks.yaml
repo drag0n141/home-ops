@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1

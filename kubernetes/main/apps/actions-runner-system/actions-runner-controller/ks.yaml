@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: actions-runner-controller
       namespace: actions-runner-system
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
     - name: openebs
       namespace: storage

@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo
       namespace: database
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   path: ./kubernetes/main/apps/database/crunchy-pgo/cluster
   prune: true
@@ -62,7 +62,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo
       namespace: database
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   path: ./kubernetes/main/apps/database/crunchy-pgo/cluster-vector
   prune: true

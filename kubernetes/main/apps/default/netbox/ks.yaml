@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword-store
+    - name: onepassword
       namespace: security
   components:
     - ../../../../../shared/meta/components/gatus/internal
