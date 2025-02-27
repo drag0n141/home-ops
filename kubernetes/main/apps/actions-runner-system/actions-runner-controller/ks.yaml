@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: onepassword-store
-      namespace: security
   path: ./kubernetes/main/apps/actions-runner-system/actions-runner-controller/app
   prune: true
   sourceRef:
@@ -36,6 +33,8 @@ spec:
   dependsOn:
     - name: actions-runner-controller
       namespace: actions-runner-system
+    - name: onepassword-store
+      namespace: security
     - name: openebs
       namespace: storage
   path: ./kubernetes/main/apps/actions-runner-system/actions-runner-controller/runners
