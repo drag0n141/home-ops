@@ -42,10 +42,30 @@ spec:
             envFrom:
               - secretRef:
                   name: ganymede-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 4000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                add: ["CHOWN"]
+                drop: ["ALL"]
             resources:
               requests:
                 cpu: 100m
@@ -63,7 +83,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 4000
+            port: *port
     ingress:
       app:
         className: traefik-internal
