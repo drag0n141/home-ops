@@ -65,6 +65,9 @@ spec:
     - name: ferdium
       databases: ["ferdium_db"]
       password: *password
+    - name: ganymede
+      databases: ["ganymede_db"]
+      password: *password
     - name: gatus
       databases: ["gatus_db"]
       password: *password
@@ -101,9 +104,6 @@ spec:
     - name: paperless
       databases: ["paperless_db"]
       password: *password
-    - name: piped
-      databases: ["piped_db"]
-      password: *password
     - name: prowlarr
       databases: ["prowlarr_main"]
       password: *password
@@ -139,9 +139,6 @@ spec:
       password: *password
     - name: vaultwarden
       databases: ["vaultwarden_db"]
-      password: *password
-    - name: vouchervault
-      databases: ["vouchervault_db"]
       password: *password
     - name: vikunja
       databases: ["vikunja_db"]

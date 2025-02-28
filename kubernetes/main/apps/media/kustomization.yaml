@@ -8,7 +8,6 @@ resources:
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
-  - ./piped/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
