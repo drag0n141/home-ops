@@ -1,0 +1,103 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ganymede
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      ganymede:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zibbp/ganymede
+              tag: 4.0.4@sha256:4654c1aafb98e53a619d24e2ea3b31d231242d7f7753a780931799ac7f6c2d2a
+            env:
+              TZ: ${TIMEZONE}
+              VIDEOS_DIR: /data/videos
+              TEMP_DIR: /data/temp
+              LOGS_DIR: /data/logs
+              CONFIG_DIR: /data/config
+              SHOW_SSO_LOGIN_BUTTON: false
+              FORCE_SSO_AUTH: false
+              REQUIRE_LOGIN: true
+              MAX_CHAT_DOWNLOAD_EXECUTIONS: 3
+              MAX_CHAT_RENDER_EXECUTIONS: 2
+              MAX_VIDEO_DOWNLOAD_EXECUTIONS: 2
+              MAX_VIDEO_CONVERT_EXECUTIONS: 3
+              MAX_VIDEO_SPRITE_THUMBNAIL_EXECUTIONS: 5
+            envFrom:
+              - secretRef:
+                  name: ganymede-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 8Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 4000
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "ganymede.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /data/config
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /data/logs
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /data/temp
+      media:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/media/twitch
+        globalMounts:
+          - path: /data/videos

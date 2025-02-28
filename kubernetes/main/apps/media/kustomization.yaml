@@ -5,6 +5,7 @@ namespace: media
 resources:
   - ./autopulse/ks.yaml
   - ./ersatztv/ks.yaml
+  - ./ganymede/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./overseerr/ks.yaml
