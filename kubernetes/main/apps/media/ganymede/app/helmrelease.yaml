@@ -27,6 +27,8 @@ spec:
               tag: 4.0.4@sha256:4654c1aafb98e53a619d24e2ea3b31d231242d7f7753a780931799ac7f6c2d2a
             env:
               TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
               VIDEOS_DIR: /data/videos
               TEMP_DIR: /data/temp
               LOGS_DIR: /data/logs
