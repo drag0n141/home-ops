@@ -2,21 +2,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: snmp-exporter-apc-ups-rules
+  name: snmp-exporter
 spec:
   groups:
-    - name: snmp-exporter-apc-ups.rules
+    - name: snmp-exporter.rules
       rules:
         - alert: UPSOnBattery
-          annotations:
-            summary: ZPM {{$labels.instance}} is running on batteries
-              and has less than 20 minutes of battery left
           expr: |
-            (
-              upsAdvBatteryRunTimeRemaining/60/100 <= 20
-            and
-              upsBasicBatteryTimeOnBattery > 0
-            )
-          for: 1m
+            (upsAdvBatteryRunTimeRemaining/60/100 <= 20 and upsBasicBatteryTimeOnBattery > 0)
+          annotations:
+            summary: >-
+              ZPM {{ $labels.instance }} is running on battery power and has less than {{ $value }} minutes of runtime remaining
+          for: 5m
           labels:
             severity: critical
