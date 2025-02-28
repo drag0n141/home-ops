@@ -4,4 +4,4 @@ name = "home-ops"
 repo = "drag0n141/home-ops"
 branch = "master"
 git_account = "drag0n141"
-resource_path = ["./docker/komodo/"]
+resource_path = ["docker/komodo/"]
