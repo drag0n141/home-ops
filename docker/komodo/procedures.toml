@@ -1,4 +1,23 @@
 [[procedure]]
+name = "update_stacks"
+
+[[procedure.config.stage]]
+name = "Pull Repo"
+enabled = true
+executions = [
+  { execution.type = "PullRepo", execution.params.repo = "home-ops", enabled = true }
+]
+
+[[procedure.config.stage]]
+name = "Deploy if changed"
+enabled = true
+executions = [
+  { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "^(?!.*\b(?:twitch|periphery)\b).+$", enabled = true }
+]
+
+##
+
+[[procedure]]
 name = "update_sync"
 
 [[procedure.config.stage]]
