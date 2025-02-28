@@ -25,7 +25,8 @@ spec:
               tag: 0.43.1@sha256:254d4a6e7b5ea11d1558ed7b8c38d22fabe37e1ea0cc58e05440746aaf18a343
             env:
               TZ: ${TIMEZONE}
-              SYSTEM_DEFAULTLOCALE: de_DE
+              APP_LOCALE: de-DE
+              SYSTEM_ENABLEANALYTICS: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
