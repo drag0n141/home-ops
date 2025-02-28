@@ -1,7 +1,0 @@
-[[repo]]
-name = "home-ops"
-[repo.config]
-server = "nas01"
-git_account = "drag0n141"
-repo = "drag0n141/home-ops"
-branch = "master"
