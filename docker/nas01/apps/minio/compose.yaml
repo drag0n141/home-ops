@@ -1,6 +1,6 @@
 services:
   minio:
-    image: 'quay.io/minio/minio:RELEASE.2025-02-18T16-25-55Z'
+    image: 'quay.io/minio/minio:RELEASE.2025-02-28T09-55-16Z'
     hostname: 'minio'
     container_name: 'minio'
     restart: always
