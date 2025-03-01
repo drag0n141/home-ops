@@ -120,39 +120,3 @@ pre_deploy.command = """
 export VAULT=[[VAULT]]
 OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
 """
-
-##
-
-[[stack]]
-name = "twitch-live"
-[stack.config]
-server = "nas01"
-poll_for_updates = true
-destroy_before_deploy = true
-run_directory = "./docker/nas01/apps/twitch-live"
-git_account = "drag0n141"
-repo = "drag0n141/home-ops"
-branch = "master"
-webhook_enabled = false
-pre_deploy.command = """
-export VAULT=[[VAULT]]
-OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
-"""
-
-##
-
-[[stack]]
-name = "watchtower"
-[stack.config]
-server = "nas01"
-poll_for_updates = true
-destroy_before_deploy = true
-run_directory = "./docker/nas01/apps/watchtower"
-git_account = "drag0n141"
-repo = "drag0n141/home-ops"
-branch = "master"
-webhook_enabled = false
-pre_deploy.command = """
-export VAULT=[[VAULT]]
-OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
-"""
