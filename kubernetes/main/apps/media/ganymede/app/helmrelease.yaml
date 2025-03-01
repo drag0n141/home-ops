@@ -110,10 +110,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /data/logs
-      temp:
-        type: emptyDir
-        globalMounts:
-          - path: /data/temp
       tmp:
         type: emptyDir
         globalMounts:
@@ -121,6 +117,11 @@ spec:
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
-        path: /mnt/data/media/twitch
-        globalMounts:
-          - path: /data/videos
+        path: /mnt/data/media
+        advancedMounts:
+          ganymede:
+            app:
+              - path: /data/videos
+                subPath: twitch
+              - path: /data/temp
+                subPath: twitch-temp
