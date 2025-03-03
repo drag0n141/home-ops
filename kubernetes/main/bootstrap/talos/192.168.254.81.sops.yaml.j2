@@ -108,22 +108,6 @@ machine:
     net.core.wmem_max: 67108864
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
-    devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu8.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu9.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu10.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu11.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu12.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu13.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu14.cpufreq.energy_performance_preference: balance_performance
-    devices.system.cpu.cpu15.cpufreq.energy_performance_preference: balance_performance
   features:
     rbac: true
     stableHostname: true
@@ -170,12 +154,9 @@ cluster:
   coreDNS:
     disabled: true
   extraManifests:
-    {% for crd in [
-        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents",
-        "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"
-    ] %}
-    - # renovate: datasource=docker depName=ghcr.io/prometheus-operator/prometheus-operator
-      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ ENV.PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
+    {% for crd in ["alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"] %}
+    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.1/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
     {% endfor %}
   token: ENC[AES256_GCM,data:TKyEE5lQbwHIk32wf50BW0WWqiVsjLo=,iv:Or0n1PzcL92BM8hG5Z4AZRGl7H/4uzCO50yGqU8tRQM=,tag:/2OTErcZsSLqJ4bzDS+nGQ==,type:str]
   secretboxEncryptionSecret: ENC[AES256_GCM,data:GxEFdNqqthuAvgwYKmywa/r0VubOsY3gDQskQ/HF2345QX75slMHnKAQ9cc=,iv:aJWP+vmYkeZ9B4J6Ly6EFWOYF5PssTCkkmGih0Tqs+w=,tag:B2h/+MAnEFy7z4r52nsnOA==,type:str]

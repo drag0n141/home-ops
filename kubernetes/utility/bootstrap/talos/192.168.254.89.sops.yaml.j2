@@ -109,12 +109,9 @@ cluster:
   coreDNS:
     disabled: true
   extraManifests:
-    {% for crd in [
-        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents",
-        "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"
-    ] %}
-    - # renovate: datasource=docker depName=ghcr.io/prometheus-operator/prometheus-operator
-      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ ENV.PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
+    {% for crd in ["alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"] %}
+    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.1/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
     {% endfor %}
   token: ENC[AES256_GCM,data:e+P/tA5+WCAMFPiDHVrfnnZtLdZ7IZ4=,iv:R8HZxTvfOJ0y4Udqne2ecjNGQPmErY6HMwWmhyDrbbQ=,tag:07fLwJlkCu1nra9UblyEeA==,type:str]
   secretboxEncryptionSecret: ENC[AES256_GCM,data:FAkFLWvwaEOv5XUXoVsajy+5jdJ6eG99Qz4gmAG3LpdzDiMpl0lqmPQeT2g=,iv:Kzy7Tf1JqrQiuSp46yES2s7Nug4hi+Claw+nPsibQrw=,tag:kmnWsaBJn51gD1Afqmjr6w==,type:str]
