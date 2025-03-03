@@ -32,5 +32,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_PATH: /login
       VOLSYNC_CAPACITY: 1Gi
