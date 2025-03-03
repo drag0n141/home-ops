@@ -27,6 +27,7 @@ spec:
               TZ: ${TIMEZONE}
               APPRISE_DEFAULT_THEME: dark
               APPRISE_WORKER_COUNT: 4
+              IPV4_ONLY: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
