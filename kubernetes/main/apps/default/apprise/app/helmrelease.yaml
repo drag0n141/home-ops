@@ -26,6 +26,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               APPRISE_DEFAULT_THEME: dark
+              APPRISE_WORKER_COUNT: 4
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
