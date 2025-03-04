@@ -27,7 +27,7 @@ tasks:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
       TALOS_NODES:
-        sh: ls {{.CLUSTER_DIR}}/bootstrap/talos/*.j2
+        sh: ls {{.TALOS_DIR}}/*.j2
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -87,7 +87,7 @@ tasks:
       - ssh -l root 192.168.254.2 "docker restart matchbox"
     vars:
       ASSETS:
-        sh: ls {{.CLUSTER_DIR}}/bootstrap/talos/*.yaml.j2
+        sh: ls {{.TALOS_DIR}}/*.yaml.j2
       GROUPS:
         sh: ls {{.CLUSTER_DIR}}/bootstrap/matchbox/groups/*.json.j2
       PROFILES:
