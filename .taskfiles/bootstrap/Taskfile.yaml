@@ -71,7 +71,7 @@ tasks:
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC_ID/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.CLUSTER}}/{{.ITEM}}
       - for: { var: ASSETS }
-        cmd: sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.CLUSTER}}/{{base .ITEM | replace ".sops.yaml.j2" ".yaml"}}"
+        cmd: minijinja-cli {{.ITEM}} | op inject | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.CLUSTER}}/{{base .ITEM | replace ".yaml.j2" ".yaml"}}"
       - for: { var: GROUPS }
         cmd: minijinja-cli {{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/groups/{{base .ITEM | replace ".json.j2" ".json"}}
       - for: { var: PROFILES }
@@ -87,5 +87,6 @@ tasks:
     requires:
       vars: [CLUSTER]
     preconditions:
+      - op user get --me
       - ping -c1 192.168.254.2
-      - which ls minijinja-cli sops
+      - which ls minijinja-cli op

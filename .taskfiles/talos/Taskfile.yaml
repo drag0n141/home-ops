@@ -9,7 +9,7 @@ tasks:
     dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
-      - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.IP}} apply-config --mode={{.MODE}} --file /dev/stdin
+      - minijinja-cli {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config --mode={{.MODE}} --file /dev/stdin
       - talosctl --nodes {{.IP}} health
       - task: up
     vars:
@@ -17,11 +17,12 @@ tasks:
     requires:
       vars: [CLUSTER, IP]
     preconditions:
+      - op user get --me
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.sops.yaml.j2
+      - test -f {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
-      - which minijinja-cli sops talosctl
+      - which minijinja-cli op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]

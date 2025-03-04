@@ -1,0 +1,239 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  type: controlplane
+  token: op://Kubernetes/talos/MACHINE_TOKEN
+  ca:
+    crt: op://Kubernetes/talos/MACHINE_CA_CRT
+    key: op://Kubernetes/talos/MACHINE_CA_KEY
+  certSANs: ["127.0.0.1", "192.168.254.250"]
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      rotate-server-certificates: "true"
+    extraConfig:
+      maxPods: 150
+      serializeImagePulls: false
+    extraMounts:
+      - destination: /var/openebs/local
+        type: bind
+        source: /var/openebs/local
+        options: ["bind", "rshared", "rw"]
+    defaultRuntimeSeccompProfileEnabled: true
+    nodeIP:
+      validSubnets: ["192.168.254.0/24"]
+    disableManifestsDirectory: true
+  network:
+    hostname: k8s-m03
+    interfaces:
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: 48:21:0b:59:*
+              driver: igc
+        dhcp: false
+        addresses: ["192.168.254.83/24"]
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.254.1
+        vip:
+          ip: 192.168.254.250
+        vlans:
+          - vlanId: 150
+            mtu: 1500
+            dhcp: false
+            addresses: ["192.168.150.83/24"]
+      - deviceSelector:
+          # k8s-m01
+          busPath: 0-1.0
+        dhcp: false
+        mtu: 65520
+        addresses: ["169.254.255.103/32"]
+        routes:
+          - network: 169.254.255.101/32
+            metric: 2048
+      - deviceSelector:
+          # k8s-m02
+          busPath: 1-1.0
+        dhcp: false
+        mtu: 65520
+        addresses: ["169.254.255.103/32"]
+        routes:
+          - network: 169.254.255.102/32
+            metric: 2048
+    disableSearchDomain: true
+    nameservers: ["192.168.254.1"]
+  install:
+    diskSelector:
+      model: TS512GMTS430S
+    extraKernelArgs:
+      - apparmor=0
+      - init_on_alloc=0
+      - init_on_free=0
+      - intel_iommu=on
+      - iommu=pt
+      - mitigations=off
+      - pcie_ports=native
+      - security=none
+    image: factory.talos.dev/installer/{{ ENV.TALOS_SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
+    # siderolabs/i915
+    # siderolabs/intel-ucode
+    # siderolabs/mei
+    # siderolabs/thunderbolt
+    wipe: false
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        nconnect=16
+        noatime=True
+  time:
+    disabled: false
+    servers: ["time.cloudflare.com"]
+  sysctls:
+    fs.inotify.max_user_watches: 1048576
+    fs.inotify.max_user_instances: 8192
+    net.ipv4.tcp_fastopen: 3
+    net.core.rmem_max: 67108864
+    net.core.wmem_max: 67108864
+  sysfs:
+    devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
+  features:
+    rbac: true
+    stableHostname: true
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles: ["os:admin"]
+      allowedKubernetesNamespaces: ["actions-runner-system", "system"]
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      resolveMemberNames: true
+      forwardKubeDNSToHost: false
+  udev:
+    rules:
+      # Thunderbolt
+      - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+      # Intel GPU
+      - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+      # SONOFF Zigbee 3.0 USB Dongle Plus V2
+      - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d4", GROUP="20", MODE="0660"
+  kernel:
+    modules:
+      - name: thunderbolt
+      - name: thunderbolt_net
+  nodeLabels:
+    topology.kubernetes.io/region: main
+    topology.kubernetes.io/zone: m
+cluster:
+  id: op://Kubernetes/talos/CLUSTER_ID
+  secret: op://Kubernetes/talos/CLUSTER_ID
+  controlPlane:
+    endpoint: https://192.168.254.250:6443
+  clusterName: main
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets: ["10.42.0.0/16"]
+    serviceSubnets: ["10.43.0.0/16"]
+  coreDNS:
+    disabled: true
+  extraManifests:
+    {% for crd in ["alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"] %}
+    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.1/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
+    {% endfor %}
+  token: op://Kubernetes/talos/CLUSTER_TOKEN
+  secretboxEncryptionSecret: op://Kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  ca:
+    crt: op://Kubernetes/talos/CLUSTER_CA_CRT
+    key: op://Kubernetes/talos/CLUSTER_CA_KEY
+  aggregatorCA:
+    crt: op://Kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://Kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
+  serviceAccount:
+    key: op://Kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      runtime-config: admissionregistration.k8s.io/v1alpha1=true
+      feature-gates: MutatingAdmissionPolicy=true
+    certSANs: ["127.0.0.1", "192.168.254.250"]
+    disablePodSecurityPolicy: true
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      bind-address: 0.0.0.0
+  proxy:
+    disabled: true
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      bind-address: 0.0.0.0
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+  etcd:
+    ca:
+      crt: op://Kubernetes/talos/CLUSTER_ETCD_CA_CRT
+      key: op://Kubernetes/talos/CLUSTER_ETCD_CA_KEY
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+    advertisedSubnets: ["192.168.254.0/24"]
+  allowSchedulingOnControlPlanes: true
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age12j7f9ytucevfgfazw9h9rlaprtkv90kzunjkrsx90zsllnfhqemqhv6nrj
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWNmtCZEVYNGRMcFBmM29h
+        V2JocHBtU2hrdFpnMVp6dTY0RktNakUxd0IwClR0cFVMcjNRVXZoVnNONElqNWJN
+        RjdJTy84WU5VRWs2T2dPYXh1YTMyaE0KLS0tIDFMTmwyc2pPTWxPODVtQWRXMi9M
+        NjBLTDdEUjU5L1hFRGh4Sk9MV3VzTGcKs9lsYK82pPftm7Im1dJuj3TMqr35QiEZ
+        fcIVaoVM/ru9L/HvRQfzRJd95EYW/MUIb1WTPKTLMJEqf23aTIrKQA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2024-12-07T11:05:51Z"
+  mac: ENC[AES256_GCM,data:ImHJ2bfsKbYZm6UqydwNK4gDF+Ih7uTiTFHrKGkaC63LatEtxglPvD+r0vD17alQPBOFCMlOWxwhD5suwlXDjyANNt3lICpKJv8OgzeDGGJ/wcR896cmBrXYmjgYFvYkrJ66YaRZ6Bflfk8emAORH6JY2QGG2Y0ykHxNCEZdzcw=,iv:N4SrGulyK06H4TdZ8t6INBst95QVB1qclkgNLNXAVwQ=,tag:b3q4rHvL5+eDO7AIM+vipQ==,type:str]
+  pgp: []
+  encrypted_regex: ^(token|crt|key|id|secret|secretboxEncryptionSecret|ca)$
+  mac_only_encrypted: true
+  version: 3.9.2
