@@ -1,32 +1,41 @@
 ---
-# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
+
+vars:
+  SYSTEM_UPGRADE_KS: '{{.CLUSTER_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
+
+env:
+  KUBERNETES_VERSION:
+    sh: yq '.spec.postBuild.substitute.KUBERNETES_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
+  TALOS_VERSION:
+    sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
+  TALOS_SCHEMATIC_ID:
+    sh: yq '.spec.postBuild.substitute.TALOS_SCHEMATIC_ID | select(.)' {{.SYSTEM_UPGRADE_KS}}
 
 tasks:
 
   apply-node:
     desc: Apply Talos config to a node [CLUSTER=main] [IP=required]
-    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
-      - minijinja-cli {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config --mode={{.MODE}} --file /dev/stdin
+      - minijinja-cli {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} --mode={{.MODE}} --file /dev/stdin
       - talosctl --nodes {{.IP}} health
       - task: up
     vars:
       MODE: '{{.MODE | default "auto"}}'
+      INSECURE:
+        sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null && echo false || echo true
     requires:
       vars: [CLUSTER, IP]
     preconditions:
       - op user get --me
       - talosctl --nodes {{.IP}} get machineconfig
-      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/bootstrap/talos/{{.IP}}.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]
-    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
       - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer{{if eq .TALOS_SECUREBOOT "true"}}-secureboot{{end}}/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
@@ -41,13 +50,11 @@ tasks:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/talos/releases/tag/$TALOS_VERSION
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which jq kubectl talosctl
 
   upgrade-k8s:
     desc: Upgrade Kubernetes across the whole cluster [CLUSTER=main] [VERSION=required]
-    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - task: down
       - talosctl --nodes {{.TALOS_CONTROLLER}} upgrade-k8s --to $KUBERNETES_VERSION
@@ -61,7 +68,6 @@ tasks:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/$KUBERNETES_VERSION
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which jq talosctl
 
@@ -79,7 +85,6 @@ tasks:
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/bootstrap/.cluster.env
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which talosctl
 

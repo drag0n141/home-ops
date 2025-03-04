@@ -1,12 +1,21 @@
 ---
-# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
+
+vars:
+  SYSTEM_UPGRADE_KS: '{{.CLUSTER_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
+
+env:
+  KUBERNETES_VERSION:
+    sh: yq '.spec.postBuild.substitute.KUBERNETES_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
+  TALOS_VERSION:
+    sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
+  TALOS_SCHEMATIC_ID:
+    sh: yq '.spec.postBuild.substitute.TALOS_SCHEMATIC_ID | select(.)' {{.SYSTEM_UPGRADE_KS}}
 
 tasks:
 
   talos:
     desc: Bootstrap Talos [CLUSTER=main]
-    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - for: { var: TALOS_NODES }
         cmd: >
@@ -64,7 +73,6 @@ tasks:
 
   matchbox:
     desc: Sync required Matchbox config to PXEBoot machine [CLUSTER=main]
-    dotenv: ['{{.CLUSTER_DIR}}/bootstrap/.cluster.env']
     cmds:
       - ssh -l root 192.168.254.2 "sudo mkdir -p /mnt/nvme/appdata/matchbox/{groups,profiles,assets}"
       - ssh -l root 192.168.254.2 "sudo mkdir -p /mnt/nvme/appdata/matchbox/assets/{{.CLUSTER}}"
