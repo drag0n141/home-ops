@@ -36,7 +36,7 @@ releases:
     atomic: true
     chart: cilium/cilium
     version: 1.17.1
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/kube-system/cilium/app/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/kube-system/cilium/app/helm/values.yamll']
     hooks:
       - events: ["postsync"]
         command: kubectl
@@ -53,7 +53,7 @@ releases:
     atomic: true
     chart: coredns/coredns
     version: 1.39.1
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/kube-system/coredns/app/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/kube-system/coredns/app/helm/values.yaml']
     needs: ['kube-system/cilium']
 
   - name: kubelet-csr-approver
@@ -61,7 +61,7 @@ releases:
     atomic: true
     chart: postfinance/kubelet-csr-approver
     version: 1.2.6
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/system/kubelet-csr-approver/app/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/system/kubelet-csr-approver/app/helm/values.yaml']
     needs: ['kube-system/coredns']
 
   - name: spegel
@@ -76,7 +76,7 @@ releases:
     namespace: cert-manager
     chart: jetstack/cert-manager
     version: v1.16.3
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/cert-manager/cert-manager/app/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/cert-manager/cert-manager/app/helm/values.yaml']
     needs: ['system/spegel']
 
   - name: external-secrets
@@ -84,7 +84,7 @@ releases:
     atomic: true
     chart: external-secrets/external-secrets
     version: 0.14.3
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/security/external-secrets/app/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/security/external-secrets/app/helm/values.yaml']
     needs: ['cert-manager/cert-manager']
 
   - name: flux-operator
@@ -92,7 +92,7 @@ releases:
     atomic: true
     chart: controlplaneio/flux-operator
     version: 0.17.0
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/flux-system/flux-operator/app/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/flux-system/flux-operator/app/helm/values.yaml']
     needs: ['kube-system/wipe-rook']
 
   - name: flux-instance
@@ -101,5 +101,5 @@ releases:
     chart: controlplaneio/flux-operator
     version: 0.17.0
     wait: false
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/flux-system/flux-operator/instance/helm-values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/flux-system/flux-operator/instance/helm/values.yaml']
     needs: ['flux-system/flux-operator']

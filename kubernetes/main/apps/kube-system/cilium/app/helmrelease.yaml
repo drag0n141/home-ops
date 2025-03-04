@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
-      name: cilium-helm-values
+      name: cilium-values
   values:
     operator:
       tolerations: []

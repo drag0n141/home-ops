@@ -15,4 +15,4 @@ spec:
         namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
-      name: cert-manager-helm-values
+      name: cert-manager-values

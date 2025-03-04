@@ -15,4 +15,4 @@ spec:
         namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
-      name: coredns-helm-values
+      name: coredns-values

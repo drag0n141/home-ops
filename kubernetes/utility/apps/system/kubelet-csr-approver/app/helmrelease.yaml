@@ -15,4 +15,4 @@ spec:
         namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
-      name: kubelet-csr-approver-helm-value
+      name: kubelet-csr-approver-value

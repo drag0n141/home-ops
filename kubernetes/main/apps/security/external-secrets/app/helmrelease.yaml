@@ -15,4 +15,4 @@ spec:
         namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
-      name: external-secrets-helm-values
+      name: external-secrets-values
