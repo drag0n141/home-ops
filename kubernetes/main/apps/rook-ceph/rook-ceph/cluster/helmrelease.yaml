@@ -44,7 +44,7 @@ spec:
         mgr:
           mgr/crash/warn_recent_interval: "7200" # 2h
         mon:
-          mon/data/avail_warn: "20" # 20%
+          mon_data_avail_warn: "20" # 20%
       crashCollector:
         disable: false
       csi:
