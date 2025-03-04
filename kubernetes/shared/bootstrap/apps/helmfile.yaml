@@ -101,5 +101,5 @@ releases:
     chart: controlplaneio/flux-operator
     version: 0.17.0
     wait: false
-    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/flux-system/flux-operator/instance/helm/values.yaml']
+    values: ['{{ requiredEnv "CLUSTER_DIR" }}/apps/flux-system/flux-instance/app/helm/values.yaml']
     needs: ['flux-system/flux-operator']
