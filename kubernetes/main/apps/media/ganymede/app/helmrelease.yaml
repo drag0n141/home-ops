@@ -80,6 +80,10 @@ spec:
     service:
       app:
         controller: *app
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port
