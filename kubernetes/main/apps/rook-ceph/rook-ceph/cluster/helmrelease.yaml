@@ -34,15 +34,17 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     toolbox:
       enabled: true
-    configOverride: |
-      [global]
-      bdev_enable_discard = true
-      bdev_async_discard = true
-      osd_class_update_on_start = false
-
-      [mon]
-      mon_data_avail_warn = 20
     cephClusterSpec:
+      cephConfig:
+        global:
+          bdev_enable_discard: "true" # quote
+          bdev_async_discard_threads: "1" # quote
+          osd_class_update_on_start: "false" # quote
+          device_failure_prediction_mode: local # requires mgr module
+        mgr:
+          mgr/crash/warn_recent_interval: "7200" # 2h
+        mon:
+          mon/data/avail_warn: "20" # 20%
       crashCollector:
         disable: false
       csi:
