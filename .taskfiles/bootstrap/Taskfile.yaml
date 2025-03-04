@@ -2,7 +2,7 @@
 version: '3'
 
 vars:
-  SYSTEM_UPGRADE_KS: '{{.CLUSTER_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
+  SYSTEM_UPGRADE_KS: '{{.KUBERNETES_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
 
 env:
   KUBERNETES_VERSION:
@@ -22,7 +22,7 @@ tasks:
           sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {}"
           | talosctl --nodes {{base .ITEM | replace ".sops.yaml.j2" ""}} apply-config --insecure --file /dev/stdin
       - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
+      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.KUBERNETES_DIR}}
     vars:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
@@ -32,7 +32,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which ls minijinja-cli sops talosctl
 
   apps:
@@ -65,7 +65,7 @@ tasks:
     preconditions:
       - op user get --me
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/bootstrap/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/talosconfig
       - test -f {{.SHARED_DIR}}/bootstrap/helmfile.yaml
       - test -f {{.SHARED_DIR}}/bootstrap/resources/secrets.yaml.tpl
       - test -f {{.SHARED_DIR}}/components/substitutions/cluster-settings.yaml
@@ -89,9 +89,9 @@ tasks:
       ASSETS:
         sh: ls {{.TALOS_DIR}}/*.yaml.j2
       GROUPS:
-        sh: ls {{.CLUSTER_DIR}}/bootstrap/matchbox/groups/*.json.j2
+        sh: ls {{.KUBERNETES_DIR}}/bootstrap/matchbox/groups/*.json.j2
       PROFILES:
-        sh: ls {{.CLUSTER_DIR}}/bootstrap/matchbox/profiles/*.json.j2
+        sh: ls {{.KUBERNETES_DIR}}/bootstrap/matchbox/profiles/*.json.j2
     requires:
       vars: [CLUSTER]
     preconditions:

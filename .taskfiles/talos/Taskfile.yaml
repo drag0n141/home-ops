@@ -2,7 +2,7 @@
 version: "3"
 
 vars:
-  SYSTEM_UPGRADE_KS: '{{.CLUSTER_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
+  SYSTEM_UPGRADE_KS: '{{.KUBERNETES_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
 
 env:
   KUBERNETES_VERSION:
@@ -31,7 +31,7 @@ tasks:
       - op user get --me
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.TALOS_DIR}}/{{.IP}}.yaml.j2
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which minijinja-cli op talosctl
 
   upgrade-node:
@@ -50,7 +50,7 @@ tasks:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/talos/releases/tag/$TALOS_VERSION
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq kubectl talosctl
 
   upgrade-k8s:
@@ -68,7 +68,7 @@ tasks:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/$KUBERNETES_VERSION
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
   reboot-node:
@@ -85,7 +85,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which talosctl
 
   shutdown-cluster:
@@ -99,7 +99,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq kubectl talosctl
 
   reset-node:
@@ -111,7 +111,7 @@ tasks:
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
 
   reset-cluster:
     desc: Reset Talos across the whole cluster [CLUSTER=main]
@@ -124,12 +124,12 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
   kubeconfig:
     desc: Generate the kubeconfig for a Talos cluster [CLUSTER=main]
-    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
+    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.KUBERNETES_DIR}}
     vars:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json --context {{.CLUSTER}} | jq --raw-output '.endpoints[]' | shuf -n 1
@@ -137,7 +137,7 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
   apply-cluster:

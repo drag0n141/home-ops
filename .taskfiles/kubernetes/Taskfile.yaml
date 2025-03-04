@@ -10,8 +10,8 @@ tasks:
     desc: Apply a Flux Kustomization resource for a cluster [CLUSTER=main] [PATH=required] [NS=flux-system]
     cmd: >
       flux build --namespace {{.NS}} ks {{base .PATH}}
-      --kustomization-file {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml
-      --path {{.CLUSTER_DIR}}/apps/{{.PATH}}
+      --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.PATH}}/ks.yaml
+      --path {{.KUBERNETES_DIR}}/apps/{{.PATH}}
       {{- if contains "not found" .KS }}--dry-run \{{ end }}
       | yq 'with(select(.apiVersion == "kustomize.toolkit.fluxcd.io/v1" and .kind == "Kustomization"); .metadata.namespace = "{{.NS}}")' -
       | kubectl apply --server-side --field-manager=kustomize-controller --filename -
@@ -22,7 +22,7 @@ tasks:
       KS:
         sh: flux --namespace {{.NS}} get kustomizations {{base .PATH}} 2>&1
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/apps/{{.PATH}}/ks.yaml
+      - test -f {{.KUBERNETES_DIR}}/apps/{{.PATH}}/ks.yaml
 
   reconcile:
     desc: Force update Flux [CLUSTER=main]
