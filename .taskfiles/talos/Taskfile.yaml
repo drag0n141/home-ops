@@ -53,7 +53,7 @@ tasks:
       - task: up
     vars:
       TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --raw-output '.endpoints[]' | shuf -n 1
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -88,7 +88,7 @@ tasks:
     cmd: talosctl shutdown --nodes {{.IP_ADDRS}} --force
     vars:
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --join-output '[.nodes[]] | join(",")'
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -113,7 +113,7 @@ tasks:
     cmd: talosctl reset --nodes {{.IP_ADDRS}} --graceful=false
     vars:
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --join-output '[.nodes[]] | join(",")'
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -126,7 +126,7 @@ tasks:
     cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
     vars:
       TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --raw-output '.endpoints[]' | shuf -n 1
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -146,7 +146,7 @@ tasks:
     vars:
       MODE: '{{.MODE | default "auto"}}'
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --join-output '[.nodes[]] | join(" ")' 
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -162,7 +162,7 @@ tasks:
           CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --join-output '[.nodes[]] | join(" ")'
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -179,7 +179,7 @@ tasks:
           CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --join-output '[.nodes[]] | join(" ")'
     requires:
       vars: [CLUSTER]
     preconditions:
