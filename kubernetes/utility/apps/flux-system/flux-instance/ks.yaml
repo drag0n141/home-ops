@@ -2,14 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app flux-operator
+  name: &app flux-instance
   namespace: &namespace flux-system
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/flux-system/flux-operator/app
+  dependsOn:
+    - name: flux-operator
+      namespace: *namespace
+  path: ./kubernetes/utility/apps/flux-system/flux-instance/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -18,3 +21,7 @@ spec:
   wait: false
   interval: 30m
   timeout: 5m
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret

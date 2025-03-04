@@ -15,7 +15,7 @@ spec:
     - name: snapshot-controller
       namespace: storage
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -55,7 +55,7 @@ spec:
       failed: status.ceph.health == 'HEALTH_ERR'
       current: status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']
   path: ./kubernetes/main/apps/rook-ceph/rook-ceph/cluster
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
