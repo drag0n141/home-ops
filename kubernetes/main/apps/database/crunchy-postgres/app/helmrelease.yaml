@@ -18,6 +18,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    monitoring: true
     install:
       clusterLabels:
         app.kubernetes.io/name: pgo
