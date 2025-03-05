@@ -26,6 +26,15 @@
       "ignoreTests": true,
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": ["kube-prometheus-stack"],
+    },
+    {
+      "description": ["Auto merge netbox minors and patches"],
+      "matchDatasources": ["helm"],
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["netbox"],
     }
   ]
 }
