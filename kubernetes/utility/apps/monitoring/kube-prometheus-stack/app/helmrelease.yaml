@@ -14,9 +14,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: monitoring
   values:
     crds:
       enabled: true

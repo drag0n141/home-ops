@@ -11,11 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-dns-cloudflare
-      namespace: networking
+      namespace: *namespace
     - name: onepassword
       namespace: security
     - name: traefik-external
-      namespace: networking
+      namespace: *namespace
   path: ./kubernetes/main/apps/networking/cloudflared/app
   prune: true
   sourceRef:

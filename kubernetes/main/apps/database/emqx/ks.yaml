@@ -39,7 +39,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: emqx
-      namespace: database
+      namespace: *namespace
   healthCheckExprs:
     - apiVersion: apps.emqx.io/v2beta1
       kind: EMQX

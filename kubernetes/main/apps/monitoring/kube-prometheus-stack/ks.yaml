@@ -35,7 +35,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
-      namespace: monitoring
+      namespace: *namespace
   path: ./kubernetes/main/apps/monitoring/kube-prometheus-stack/addons
   prune: true
   sourceRef:

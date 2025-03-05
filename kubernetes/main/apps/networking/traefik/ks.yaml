@@ -59,9 +59,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: traefik-external
-      namespace: networking
+      namespace: *namespace
     - name: traefik-internal
-      namespace: networking
+      namespace: *namespace
   path: ./kubernetes/main/apps/networking/traefik/addons
   prune: true
   sourceRef:

@@ -46,7 +46,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: teleport
-      namespace: security
+      namespace: *namespace
   path: ./kubernetes/main/apps/security/teleport/agent
   prune: true
   sourceRef:

@@ -13,9 +13,6 @@ spec:
         kind: HelmRepository
         name: controlplaneio
         namespace: flux-system
-  dependsOn:
-    - name: flux-operator
-      namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
       name: flux-instance-values

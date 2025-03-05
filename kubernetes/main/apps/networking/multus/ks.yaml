@@ -35,7 +35,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: multus
-      namespace: networking
+      namespace: *namespace
   path: ./kubernetes/main/apps/networking/multus/networks
   prune: true
   sourceRef:

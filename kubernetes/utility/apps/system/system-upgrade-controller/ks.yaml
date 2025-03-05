@@ -32,7 +32,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: system-upgrade-controller
-      namespace: system
+      namespace: *namespace
   path: ./kubernetes/utility/apps/system/system-upgrade-controller/plans
   prune: true
   sourceRef:

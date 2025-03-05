@@ -34,7 +34,7 @@ spec:
     - name: onepassword
       namespace: security
     - name: mc-router
-      namespace: games
+      namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

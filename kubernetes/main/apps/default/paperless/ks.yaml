@@ -51,6 +51,8 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: security
+    - name: paperless
+      namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

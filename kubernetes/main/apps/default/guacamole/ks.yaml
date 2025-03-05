@@ -36,7 +36,7 @@ spec:
     - name: onepassword
       namespace: security
     - name: guacd
-      namespace: default
+      namespace: *namespace
   path: ./kubernetes/main/apps/default/guacamole/app
   prune: true
   sourceRef:
