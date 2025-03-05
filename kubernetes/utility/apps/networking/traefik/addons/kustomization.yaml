@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./middlewares
   - ./tls-options
-  - ./tls-store

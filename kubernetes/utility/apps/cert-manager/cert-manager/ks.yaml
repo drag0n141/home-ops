@@ -9,13 +9,21 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: onepassword
+      namespace: security
+  healthCheckExprs:
+    - apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   path: ./kubernetes/utility/apps/cert-manager/cert-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -23,7 +31,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cert-manager-issuers
+  name: &app cert-manager-tls
   namespace: &namespace cert-manager
 spec:
   targetNamespace: *namespace
@@ -32,15 +40,13 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager
-      namespace: cert-manager
-    - name: onepassword
-      namespace: security
+      namespace: *namespace
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
-      kind: ClusterIssuer
+      kind: Certificate
       failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
-  path: ./kubernetes/utility/apps/cert-manager/cert-manager/issuers
+  path: ./kubernetes/utility/apps/cert-manager/cert-manager/tls
   prune: true
   sourceRef:
     kind: GitRepository
