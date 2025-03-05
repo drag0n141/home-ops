@@ -4,45 +4,33 @@ name: Flux Local
 on:
   pull_request:
     branches: ["master"]
+    paths: ["kubernetes/main/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  pre-job:
-    name: Flux Local Pre-Job
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-    outputs:
-      any_changed: ${{ steps.changed-files.outputs.any_changed }}
-    steps:
-      - name: Get Changed Files
-        id: changed-files
-        uses: tj-actions/changed-files@dcc7a0cba800f454d79fff4b993e8c3555bcc0a8 # v45
-        with:
-          files: kubernetes/main/**
-
   test:
-    needs: pre-job
     name: Flux Local Test
     runs-on: ubuntu-latest
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Run flux-local test
         uses: docker://ghcr.io/allenporter/flux-local:v7.2.0
         with:
-          args: test --enable-helm --all-namespaces --path /github/workspace/kubernetes/main/flux/cluster -v
+          args: >-
+            test
+            --all-namespaces
+            --enable-helm
+            --path /github/workspace/kubernetes/main/flux/cluster
+            --verbose
 
   diff:
-    needs: pre-job
     name: Flux Local Diff
     runs-on: ubuntu-latest
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     permissions:
       pull-requests: write
     strategy:
@@ -51,12 +39,12 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout Pull Request Branch
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
         with:
           path: pull
 
       - name: Checkout Default Branch
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
         with:
           ref: "${{ github.event.repository.default_branch }}"
           path: default
@@ -93,7 +81,7 @@ jobs:
 
       - name: Generate Token
         if: ${{ steps.diff.outputs.diff != '' }}
-        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1
+        uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
@@ -101,7 +89,7 @@ jobs:
 
       - name: Add Comment
         if: ${{ steps.diff.outputs.diff != '' }}
-        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2
+        uses: mshick/add-pr-comment@v2
         with:
           repo-token: "${{ steps.app-token.outputs.token }}"
           message-id: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
@@ -110,17 +98,3 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
-
-  flux-local-status:
-    needs: ["test", "diff"]
-    name: Flux Local Success
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    steps:
-      - name: Any jobs failed?
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
-
-      - name: All jobs passed or skipped
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
