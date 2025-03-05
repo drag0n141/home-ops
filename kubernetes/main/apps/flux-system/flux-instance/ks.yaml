@@ -13,7 +13,7 @@ spec:
     - name: flux-operator
       namespace: *namespace
     - name: onepassword
-      namespace: external-secrets
+      namespace: security
   path: ./kubernetes/main/apps/flux-system/flux-instance/app
   prune: true
   sourceRef:
