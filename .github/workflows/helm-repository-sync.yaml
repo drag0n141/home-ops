@@ -4,56 +4,53 @@ name: Helm Repository Sync
 on:
   pull_request:
     branches: ["master"]
+    paths: ["kubernetes/**/helmrelease.yaml"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  pre-job:
-    name: Helm Repository Sync Pre-Job
+  extract-helm-repositories:
+    name: Extract Helm Repositories
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
     outputs:
-      any_changed: ${{ steps.changed-files.outputs.any_changed }}
-      all_changed_and_modified_files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
-    steps:
-      - name: Get Changed Files
-        id: changed-files
-        uses: tj-actions/changed-files@dcc7a0cba800f454d79fff4b993e8c3555bcc0a8 # v45
-        with:
-          files: kubernetes/main/**/helmrelease.yaml
-
-  helm-repository-sync:
-    needs: pre-job
-    name: Helm Repository Sync
-    runs-on: home-ops-runner
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
+      repositories: ${{ steps.extract-helm-repositories.outputs.repositories }}
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
+      - name: Get Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: kubernetes/**/helmrelease.yaml
+
+      - name: Extract Helm Repositories
+        id: extract-helm-repositories
+        env:
+          FILTER: '[.spec.chart.spec.sourceRef] | unique | .[] | ["\(.namespace)/\(.name)"]'
+        run: |
+          repositories=$(yq --indent 0 --output-format json eval-all "${FILTER}" \
+              ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+          )
+          echo "repositories=${repositories}" >> $GITHUB_OUTPUT
+
+  helm-repository-sync:
+    needs: extract-helm-repositories
+    name: Helm Repository Sync
+    runs-on: k8s-gitops-runner
+    if: ${{ needs.extract-helm-repositories.outputs.repositories != '[]' }}
+    strategy:
+      matrix:
+        repositories: ${{ fromJSON(needs.extract-helm-repositories.outputs.repositories) }}
+      max-parallel: 4
+      fail-fast: false
+    steps:
       - name: Install flux
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
       - name: Sync Helm Repository
-        env:
-          FILTER: '[.spec.chart.spec.sourceRef] | unique | .[] | "\(.namespace) \(.name)"'
         run: |
-          yq eval-all "${FILTER}" ${{ needs.pre-job.outputs.all_changed_and_modified_files }} \
-            | xargs -l -r bash -c 'flux --namespace $0 reconcile source helm $1'
-
-  helm-repository-sync-status:
-    needs: helm-repository-sync
-    name: Helm Repository Sync Success
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    steps:
-      - name: Any jobs failed?
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
-
-      - name: All jobs passed or skipped
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
+          IFS='/' read -r namespace repository <<< "${{ matrix.repositories }}"
+          flux --namespace ${namespace} reconcile source helm ${repository}
