@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app crunchy-pgo
+  name: &app crunchy-postgres-operator
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
@@ -12,7 +12,12 @@ spec:
   dependsOn:
     - name: openebs
       namespace: storage
-  path: ./kubernetes/main/apps/database/crunchy-pgo/app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
+  path: ./kubernetes/main/apps/database/crunchy-postgres/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -34,11 +39,16 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo
-      namespace: database
+    - name: crunchy-postgres-operator
+      namespace: *namespace
     - name: onepassword
       namespace: security
-  path: ./kubernetes/main/apps/database/crunchy-pgo/cluster
+  healthCheckExprs:
+    - apiVersion: postgres-operator.crunchydata.com/v1beta1
+      kind: PostgresCluster
+      failed: status.conditions.filter(e, e.type == 'ProxyAvailable').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'ProxyAvailable').all(e, e.status == 'True')
+  path: ./kubernetes/main/apps/database/crunchy-postgres/cluster
   prune: true
   sourceRef:
     kind: GitRepository
@@ -60,11 +70,16 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo
-      namespace: database
+    - name: crunchy-postgres-operator
+      namespace: *namespace
     - name: onepassword
       namespace: security
-  path: ./kubernetes/main/apps/database/crunchy-pgo/cluster-vector
+  healthCheckExprs:
+    - apiVersion: postgres-operator.crunchydata.com/v1beta1
+      kind: PostgresCluster
+      failed: status.conditions.filter(e, e.type == 'ProxyAvailable').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'ProxyAvailable').all(e, e.status == 'True')
+  path: ./kubernetes/main/apps/database/crunchy-postgres/cluster-vector
   prune: true
   sourceRef:
     kind: GitRepository
@@ -78,7 +93,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app crunchy-pgo-store
+  name: &app crunchy-postgres-store
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
@@ -86,9 +101,14 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo
-      namespace: database
-  path: ./kubernetes/main/apps/database/crunchy-pgo/store
+    - name: crunchy-postgres-operator
+      namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: external-secrets.io/v1beta1
+      kind: ClusterSecretStore
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
+  path: ./kubernetes/main/apps/database/crunchy-postgres/store
   prune: true
   sourceRef:
     kind: GitRepository
@@ -102,7 +122,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app crunchy-pgo-users
+  name: &app crunchy-postgres-users
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
@@ -110,15 +130,15 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo
-      namespace: database
-  path: ./kubernetes/main/apps/database/crunchy-pgo/users
+    - name: crunchy-postgres-operator
+      namespace: *namespace
+  path: ./kubernetes/main/apps/database/crunchy-postgres/users
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -134,9 +154,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo
-      namespace: database
-  path: ./kubernetes/main/apps/database/crunchy-pgo/backup
+    - name: crunchy-postgres-operator
+      namespace: *namespace
+  path: ./kubernetes/main/apps/database/crunchy-postgres/backup
   prune: true
   sourceRef:
     kind: GitRepository
@@ -158,9 +178,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo
-      namespace: database
-  path: ./kubernetes/main/apps/database/crunchy-pgo/backup-vector
+    - name: crunchy-postgres-operator
+      namespace: *namespace
+  path: ./kubernetes/main/apps/database/crunchy-postgres/backup-vector
   prune: true
   sourceRef:
     kind: GitRepository
