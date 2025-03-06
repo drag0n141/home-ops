@@ -3,9 +3,9 @@ services:
     image: 'ghcr.io/drag0n141/periphery:1.16.12'
     hostname: 'periphery'
     container_name: 'periphery'
-    restart: always
+    restart: 'always'
     ports:
-      - '8120:8120'
+      - '192.168.251.2:8120:8120'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - '/proc:/proc:rw'
