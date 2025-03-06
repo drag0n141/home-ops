@@ -23,7 +23,7 @@ jobs:
       pull: ${{ steps.extract.outputs.pull }}
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
         with:
           ref: "${{ matrix.branches == 'default' && github.event.repository.default_branch || '' }}"
 
@@ -33,7 +33,7 @@ jobs:
           args: >-
             get cluster
             --all-namespaces
-            --path /github/workspace/kubernetes/main/flux/cluster
+            --path /github/workspace/kubernetes/flux/cluster
             --enable-images
             --only-images
             --output json
@@ -43,16 +43,16 @@ jobs:
         id: extract
         run: echo "${{ matrix.branches }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
 
-  compare:
+  diff:
     needs: extract
-    name: Compare Images
+    name: Diff Images
     runs-on: ubuntu-latest
     if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
     outputs:
-      images: ${{ steps.compare.outputs.images }}
+      images: ${{ steps.diff.outputs.images }}
     steps:
-      - name: Compare Images
-        id: compare
+      - name: Diff Images
+        id: diff
         run: |
           images=$(jq --compact-output --null-input \
               --argjson f1 '${{ needs.extract.outputs.default }}' \
@@ -62,18 +62,18 @@ jobs:
           echo "images=${images}" >> $GITHUB_OUTPUT
 
   pull:
-    needs: compare
+    needs: diff
     name: Pull Images
     runs-on: home-ops-runner
-    if: ${{ needs.compare.outputs.images != '[]' }}
+    if: ${{ needs.diff.outputs.images != '[]' }}
     strategy:
       matrix:
-        images: ${{ fromJSON(needs.compare.outputs.images) }}
+        images: ${{ fromJSON(needs.diff.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:
       - name: Install talosctl
         run: curl -fsSL https://talos.dev/install | sh
 
-      - name: Pre-pull Image
+      - name: Pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.images }}
