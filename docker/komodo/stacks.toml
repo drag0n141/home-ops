@@ -120,3 +120,75 @@ pre_deploy.command = """
 export VAULT=[[VAULT]]
 OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
 """
+
+##
+
+[[stack]]
+name = "traefik-ext01"
+[stack.config]
+server = "ext01"
+poll_for_updates = true
+destroy_before_deploy = true
+run_directory = "./docker/ext01/apps/traefik"
+git_account = "drag0n141"
+repo = "drag0n141/home-ops"
+branch = "master"
+webhook_enabled = false
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "tailscale"
+[stack.config]
+server = "ext01"
+poll_for_updates = true
+destroy_before_deploy = true
+run_directory = "./docker/ext01/apps/tailscale"
+git_account = "drag0n141"
+repo = "drag0n141/home-ops"
+branch = "master"
+webhook_enabled = false
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "uptime-kuma"
+[stack.config]
+server = "ext01"
+poll_for_updates = true
+destroy_before_deploy = true
+run_directory = "./docker/ext01/apps/uptime-kuma"
+git_account = "drag0n141"
+repo = "drag0n141/home-ops"
+branch = "master"
+webhook_enabled = false
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
+
+##
+
+[[stack]]
+name = "periphery"
+[stack.config]
+server = "ext01"
+poll_for_updates = true
+destroy_before_deploy = true
+run_directory = "./docker/ext01/apps/periphery"
+git_account = "drag0n141"
+repo = "drag0n141/home-ops"
+branch = "master"
+webhook_enabled = false
+pre_deploy.command = """
+export VAULT=[[VAULT]]
+OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
+"""
