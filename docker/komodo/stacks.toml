@@ -178,7 +178,7 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 ##
 
 [[stack]]
-name = "periphery"
+name = "periphery-ext01"
 [stack.config]
 server = "ext01"
 poll_for_updates = true
