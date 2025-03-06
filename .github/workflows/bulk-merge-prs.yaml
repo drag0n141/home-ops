@@ -1,6 +1,5 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: "Bulk Merge PRs"
+name: Bulk Merge PRs
 
 on:
   workflow_dispatch:
@@ -15,7 +14,7 @@ on:
         required: false
 
 jobs:
-  bulk-merge-prs:
+  merge:
     name: Bulk Merge PRs
     runs-on: ubuntu-latest
     steps:
