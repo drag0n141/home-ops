@@ -4,8 +4,6 @@ services:
     hostname: 'uptime-kuma'
     container_name: 'uptime-kuma'
     restart: 'always'
-    cap_drop:
-      - 'ALL'
     read_only: true
     volumes:
       - '/opt/appdata/uptime-kuma:/app/data:rw'
