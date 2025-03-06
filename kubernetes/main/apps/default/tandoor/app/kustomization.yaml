@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: tandoor-configmap
     files:
-      - ./config/nginx-config
+      - ./resources/nginx-config
 generatorOptions:
   disableNameSuffixHash: true

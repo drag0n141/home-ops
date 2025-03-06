@@ -26,6 +26,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               APPRISE_DEFAULT_THEME: dark
+              APPRISE_STATEFUL_MODE: simple
               APPRISE_WORKER_COUNT: 4
               IPV4_ONLY: true
             securityContext:
@@ -78,6 +79,13 @@ spec:
                 path: "/config"
               - subPath: "plugin"
                 path: "/plugin"
+      config-apprise:
+        type: secret
+        name: apprise-secret
+        globalMounts:
+          - path: /config/apprise.yml
+            subPath: apprise.yml
+            readOnly: true
       attach:
         type: emptyDir
         globalMounts:

@@ -1,0 +1,4 @@
+version: 1
+
+urls:
+  - gotify://gotify.default.svc.cluster.local/{{ .GOTIFY_TOKEN_STREAMLINK }}

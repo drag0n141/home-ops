@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: node-red-configmap
     files:
-      - ./config/settings.js
+      - ./resources/settings.js
 generatorOptions:
   disableNameSuffixHash: true
