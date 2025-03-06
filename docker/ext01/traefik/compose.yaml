@@ -1,0 +1,76 @@
+services:
+  traefik:
+    image: 'docker.io/traefik:v3.3.4'
+    hostname: 'traefik'
+    container_name: 'traefik'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    command:
+      - '--api=true'
+      - '--api.dashboard=true'
+      - '--api.insecure=false'
+      - '--entryPoints.ping.address=localhost:8082'
+      - '--ping.entryPoint=ping'
+      - '--log=true'
+      - '--log.level=INFO'
+      - '--accessLog=true'
+      - '--accessLog.filePath=/logs/access.log'
+      - '--accessLog.bufferingSize=100'
+      - '--global.sendAnonymousUsage=false'
+      - '--global.checkNewVersion=true'
+      - '--providers.docker=true'
+      - '--providers.docker.endpoint=unix:///var/run/docker.sock'
+      - '--providers.docker.exposedbydefault=false'
+      - '--providers.docker.network=traefik'
+      - '--providers.file.directory=/rules'
+      - '--providers.file.watch=true'
+      - '--entrypoints.http.address=:80'
+      - '--entrypoints.https.address=:443'
+      - '--entrypoints.https.http3'
+      - '--entrypoints.https.http3.advertisedPort=443'
+      - '--entrypoints.https.forwardedHeaders.trustedIPs=103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,104.16.0.0/13,104.24.0.0/14,108.162.192.0/18,131.0.72.0/22,141.101.64.0/18,162.158.0.0/15,172.64.0.0/13,173.245.48.0/20,188.114.96.0/20,190.93.240.0/20,197.234.240.0/22,198.41.128.0/17'
+      - '--entrypoints.https.http.tls.domains[0].main=*.${DOMAIN}'
+      - '--entrypoints.https.http.tls.certresolver=mydnschallenge'
+      - '--certificatesresolvers.mydnschallenge.acme.dnschallenge=true'
+      - '--certificatesresolvers.mydnschallenge.acme.dnschallenge.provider=cloudflare'
+      - '--certificatesresolvers.mydnschallenge.acme.storage=/certs/acme.json'
+      - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53'
+      - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.propagation.delayBeforeChecks=60'
+      - '--entrypoints.http.http.redirections.entryPoint.to=https'
+      - '--entrypoints.http.http.redirections.entryPoint.scheme=https'
+      - '--serverstransport.insecureskipverify=true'
+    ports:
+      - '80:80'
+      - '443:443/tcp'
+      - '443:443/udp'
+    read_only: true
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/opt/appdata/traefik/certs:/certs:rw'
+      - '/opt/appdata/traefik/logs:/logs:rw'
+      - '/opt/appdata/traefik/rules:/rules:rw'
+    environment:
+      - 'CF_API_EMAIL=${CLOUDFLARE_EMAIL}'
+      - 'CF_DNS_API_TOKEN=${CLOUDFLARE_TRAEFIK_API_TOKEN}'
+      - 'TZ=${TZ}'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.traefik-rtr.entrypoints=https'
+      - 'traefik.http.routers.traefik-rtr.rule=Host(`traefik-ext01.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.traefik-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.traefik-rtr.middlewares=chain-internal-authelia@file'
+      - 'traefik.http.routers.traefik-rtr.service=api@internal'
+      - 'traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.${DOMAIN_INT}'
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+
+networks:
+  traefik:
+    external: true

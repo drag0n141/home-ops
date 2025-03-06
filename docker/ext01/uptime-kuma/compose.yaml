@@ -1,0 +1,36 @@
+services:
+  uptime-kuma:
+    image: 'docker.io/louislam/uptime-kuma:1.23.16-alpine'
+    hostname: 'uptime-kuma'
+    container_name: 'uptime-kuma'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    read_only: true
+    volumes:
+      - '/opt/appdata/uptime-kuma:/app/data:rw'
+    environment:
+      - 'TZ=${TZ}'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.uptime-kuma-rtr.entrypoints=https'
+      - 'traefik.http.routers.uptime-kuma-rtr.rule=Host(`uptime.${DOMAIN}`)'
+      - 'traefik.http.routers.uptime-kuma-rtr.tls=true'
+      - 'traefik.http.routers.uptime-kuma-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.uptime-kuma-rtr.middlewares=chain-no-auth@file'
+      - 'traefik.http.routers.uptime-kuma-rtr.service=uptime-kuma-svc'
+      - 'traefik.http.routers.uptime-kuma-rtr.tls.domains[0].sans=*.${DOMAIN}'
+      - 'traefik.http.services.uptime-kuma-svc.loadbalancer.server.port=3001'
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
+networks:
+  traefik:
+    external: true

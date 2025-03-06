@@ -1,0 +1,32 @@
+services:
+  tailscale:
+    image: 'ghcr.io/tailscale/tailscale:v1.80.3'
+    hostname: 'tailscale'
+    container_name: 'tailscale'
+    restart: 'always'
+    cap_add:
+      - 'CAP_NET_ADMIN'
+      - 'CAP_SYS_MODULE'
+    read_only: true
+    volumes:
+      - '/dev/net/tun:/dev/net/tun:rw'
+      - '/opt/appdata/tailscale:/var/lib/tailscale:rw'
+    tmpfs:
+      - '/.cache'
+      - '/tmp'
+    environment:
+      - 'TZ=${TZ}'
+      - 'NO_AUTOUPDATE=true'
+      - 'PORT=41644'
+      - 'TS_HOSTNAME=Tailscale-EXT01'
+      - 'TS_ACCEPT_DNS=false'
+      - 'TS_AUTHKEY=${TS_AUTHKEY}'
+      - 'TS_ROUTES=192.168.251.2/32'
+      - 'TS_STATE_DIR=/var/lib/tailscale'
+    network_mode: 'host'
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
