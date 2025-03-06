@@ -3,7 +3,7 @@ services:
     image: 'docker.io/prometheuscommunity/smartctl-exporter:v0.13.0'
     hostname: 'smartctl-exporter'
     container_name: 'smartctl-exporter'
-    restart: always
+    restart: 'always'
     privileged: true
     user: root
     ports:
@@ -21,4 +21,9 @@ services:
 
 networks:
   internal:
-    external: true
+    name: internal
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1

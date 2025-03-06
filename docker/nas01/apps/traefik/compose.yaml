@@ -3,7 +3,7 @@ services:
     image: 'docker.io/traefik:v3.3.4'
     hostname: 'traefik'
     container_name: 'traefik'
-    restart: always
+    restart: 'always'
     cap_drop:
       - 'ALL'
     command:
@@ -73,4 +73,9 @@ services:
 
 networks:
   traefik:
-    external: true
+    name: traefik
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1

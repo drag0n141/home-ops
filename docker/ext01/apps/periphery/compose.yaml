@@ -19,4 +19,9 @@ services:
 
 networks:
   internal:
-    external: true
+    name: internal
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1

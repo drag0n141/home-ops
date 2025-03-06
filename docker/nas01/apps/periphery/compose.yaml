@@ -3,7 +3,7 @@ services:
     image: 'ghcr.io/drag0n141/periphery:1.16.12'
     hostname: 'periphery'
     container_name: 'periphery'
-    restart: always
+    restart: 'always'
     ports:
       - '8120:8120'
     volumes:
@@ -19,4 +19,9 @@ services:
 
 networks:
   internal:
-    external: true
+    name: internal
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1

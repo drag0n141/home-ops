@@ -3,7 +3,7 @@ services:
     image: 'quay.io/poseidon/matchbox:v0.11.0'
     hostname: 'matchbox'
     container_name: 'matchbox'
-    restart: always
+    restart: 'always'
     cap_drop:
       - 'ALL'
     command:
@@ -27,4 +27,9 @@ services:
 
 networks:
   internal:
-    external: true
+    name: internal
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1

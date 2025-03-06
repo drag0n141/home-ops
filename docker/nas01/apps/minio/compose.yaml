@@ -3,7 +3,7 @@ services:
     image: 'quay.io/minio/minio:RELEASE.2025-02-28T09-55-16Z'
     hostname: 'minio'
     container_name: 'minio'
-    restart: always
+    restart: 'always'
     cap_drop:
       - 'ALL'
     command: server /data --console-address ":9001"
@@ -44,4 +44,9 @@ services:
 
 networks:
   traefik:
-    external: true
+    name: traefik
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
