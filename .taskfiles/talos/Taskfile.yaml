@@ -175,13 +175,29 @@ tasks:
       - which jq talosctl
 
   reboot-cluster:
-    desc: Reboot Talos on a single node [CLUSTER=main] [MODE=default]
+    desc: Reboot the whole Talos cluster [CLUSTER=main] [MODE=default]
     cmds:
       - for: { var: IP_ADDRS }
         task: reboot-node
         vars:
           IP: '{{.ITEM}}'
           MODE: '{{.MODE}}'
+          CLUSTER: '{{.CLUSTER}}'
+    vars:
+      IP_ADDRS:
+        sh: talosctl config info --output json --context {{.CLUSTER}} | jq --join-output '[.nodes[]] | join(" ")'
+    requires:
+      vars: [CLUSTER]
+    preconditions:
+      - which jq talosctl
+
+  defrag:
+    desc: Defrag ETCD database accross the whole cluster [CLUSTER=main]
+    cmds:
+      - for: { var: IP_ADDRS }
+        cmd: talosctl etcd defrag --nodes {{.IP}} --context {{.CLUSTER}}
+        vars:
+          IP: '{{.ITEM}}'
           CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
