@@ -140,6 +140,17 @@ tasks:
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
+  defrag:
+    desc: Defrag ETCD database on an single node [CLUSTER=main] [IP=required]
+    cmd: talosctl etcd defrag --nodes {{.IP}}
+    requires:
+      vars: [CLUSTER, IP]
+    preconditions:
+      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl config info
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
+      - which talosctl
+
   apply-cluster:
     desc: Apply Talos config across the whole cluster [CLUSTER=main] [MODE=default]
     cmds:
@@ -191,11 +202,11 @@ tasks:
     preconditions:
       - which jq talosctl
 
-  defrag:
+  defrag-cluster:
     desc: Defrag ETCD database accross the whole cluster [CLUSTER=main]
     cmds:
       - for: { var: IP_ADDRS }
-        cmd: talosctl etcd defrag --nodes {{.IP}}
+        task: defrag
         vars:
           IP: '{{.ITEM}}'
           CLUSTER: '{{.CLUSTER}}'
