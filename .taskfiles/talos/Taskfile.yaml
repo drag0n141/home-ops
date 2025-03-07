@@ -48,8 +48,8 @@ tasks:
       vars: [CLUSTER, IP]
     preconditions:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/talos/releases/tag/$TALOS_VERSION
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.IP}} get machineconfig
-      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq kubectl talosctl
 
@@ -66,8 +66,8 @@ tasks:
       vars: [CLUSTER]
     preconditions:
       - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/$KUBERNETES_VERSION
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
-      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
@@ -83,8 +83,8 @@ tasks:
     requires:
       vars: [CLUSTER, IP]
     preconditions:
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.IP}} get machineconfig
-      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which talosctl
 
@@ -98,7 +98,7 @@ tasks:
     requires:
       vars: [CLUSTER]
     preconditions:
-      - talosctl config info
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq kubectl talosctl
 
@@ -109,8 +109,8 @@ tasks:
     requires:
       vars: [CLUSTER, IP]
     preconditions:
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.IP}} get machineconfig
-      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
 
   reset-cluster:
@@ -123,7 +123,7 @@ tasks:
     requires:
       vars: [CLUSTER]
     preconditions:
-      - talosctl config info
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
@@ -136,7 +136,7 @@ tasks:
     requires:
       vars: [CLUSTER]
     preconditions:
-      - talosctl config info
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
@@ -146,8 +146,8 @@ tasks:
     requires:
       vars: [CLUSTER, IP]
     preconditions:
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.IP}} get machineconfig
-      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which talosctl
 
