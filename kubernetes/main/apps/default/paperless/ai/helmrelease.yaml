@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: docker.io/clusterzx/paperless-ai
-              tag: 2.7.1@sha256:865b20aeda01e9618965047aa97d103590a2a6d8d4d3c82edfab4a119564d2a7
+              tag: 2.7.4@sha256:0d63c056744a1c6975ffc5c68129fef26c80d68c1fd152b2a3dfd74880a18ca2
             env:
               TZ: ${TIMEZONE}
               ACTIVATE_TAGGING: no
