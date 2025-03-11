@@ -112,7 +112,7 @@ cluster:
   extraManifests:
     {% for crd in ["alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"] %}
     - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.1/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
+      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.81.0/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
     {% endfor %}
   token: op://Kubernetes/talos_utility/CLUSTER_TOKEN
   secretboxEncryptionSecret: op://Kubernetes/talos_utility/CLUSTER_SECRETBOXENCRYPTIONSECRET
