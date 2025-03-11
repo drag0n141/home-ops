@@ -5,20 +5,8 @@ helmDefaults:
   waitForJobs: true
 
 repositories:
-  - name: controlplaneio
-    url: ghcr.io/controlplaneio-fluxcd/charts
-    oci: true
-
-  - name: coredns
-    url: ghcr.io/coredns/charts
-    oci: true
-
   - name: cilium
     url: https://helm.cilium.io
-
-  - name: external-secrets
-    url: ghcr.io/external-secrets/charts
-    oci: true
 
   - name: jetstack
     url: https://charts.jetstack.io
@@ -26,14 +14,9 @@ repositories:
   - name: postfinance
     url: https://postfinance.github.io/kubelet-csr-approver
 
-  - name: spegel
-    url: ghcr.io/spegel-org/helm-charts
-    oci: true
-
 releases:
   - name: cilium
     namespace: kube-system
-    atomic: true
     chart: cilium/cilium
     version: 1.17.1
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/helm/values.yamll']
@@ -47,18 +30,17 @@ releases:
           - --field-manager=kustomize-controller
           - --kustomize
           - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/config'
+        showlogs: true
 
   - name: coredns
     namespace:  kube-system
-    atomic: true
-    chart: coredns/coredns
+    chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.39.1
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/coredns/app/helm/values.yaml']
     needs: ['kube-system/cilium']
 
   - name: kubelet-csr-approver
     namespace: system
-    atomic: true
     chart: postfinance/kubelet-csr-approver
     version: 1.2.6
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/system/kubelet-csr-approver/app/helm/values.yaml']
@@ -66,8 +48,7 @@ releases:
 
   - name: spegel
     namespace: kube-system
-    atomic: true
-    chart: spegel/spegel
+    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.30
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/system/spegel/app/helm/values.yaml']
     needs: ['system/kubelet-csr-approver']
@@ -81,25 +62,21 @@ releases:
 
   - name: external-secrets
     namespace: security
-    atomic: true
-    chart: external-secrets/external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.14.4
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/app/helm/values.yaml']
     needs: ['cert-manager/cert-manager']
 
   - name: flux-operator
     namespace: flux-system
-    atomic: true
-    chart: controlplaneio/flux-operator
+    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.17.0
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-operator/app/helm/values.yaml']
     needs: ['kube-system/wipe-rook']
 
   - name: flux-instance
     namespace: flux-system
-    atomic: true
-    chart: controlplaneio/flux-operator
+    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.17.0
-    wait: false
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-instance/app/helm/values.yaml']
     needs: ['flux-system/flux-operator']
