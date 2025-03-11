@@ -20,6 +20,10 @@ machine:
         type: bind
         source: /var/openebs/local
         options: ["bind", "rshared", "rw"]
+      - destination: /var/mnt/extra
+        type: bind
+        source: /var/mnt/extra
+        options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.254.0/24"]
@@ -83,6 +87,10 @@ machine:
     # siderolabs/mei
     # siderolabs/thunderbolt
     wipe: false
+  disks:
+    - device: /dev/disk/by-id/ata-SAMSUNG_MZ7LH1T9HMLT-00005_S455NA0N104655
+      partitions:
+        - mountpoint: /var/mnt/extra
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
