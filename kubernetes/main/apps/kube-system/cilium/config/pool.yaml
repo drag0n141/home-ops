@@ -6,4 +6,4 @@ metadata:
 spec:
   allowFirstLastIPs: "No"
   blocks:
-    - cidr: ${BGP_CIDR}
+    - cidr: 192.168.222.0/24
