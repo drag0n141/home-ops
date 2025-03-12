@@ -51,6 +51,9 @@ tasks:
         sh: talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
       VAULT: kubernetes
+      CLUSTER: '{{.CLUSTER}}'
+      KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
+      SHARED_DIR: '{{.SHARED_DIR}}'
     requires:
       vars: [CLUSTER, ROOK_DISK]
     preconditions:
