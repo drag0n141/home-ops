@@ -40,7 +40,7 @@ tasks:
     vars:
       BLOCK_DEVICES_RAW:
         sh: |-
-          talosctl get disks --output json | jq --slurp --compact-output '
+          talosctl get disks --talosconfig {{.KUBERNETES_DIR}}/talosconfig --output json | jq --slurp --compact-output '
             map(select(.spec.model == "{{.ROOK_DISK | default "WD_BLACK_SN850X"}}"))
               | group_by(.node)
               | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
