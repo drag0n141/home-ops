@@ -38,15 +38,15 @@ tasks:
       - kubectl --namespace flux-system apply --server-side --filename {{.SHARED_DIR}}/meta/components/substitutions/cluster-settings.yaml
       - helmfile --file {{.SHARED_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff --kube-context {{.CLUSTER}}
     vars:
-      BLOCK_DEVICES_RAW:
-        sh: |-
-          talosctl get disks --talosconfig {{.KUBERNETES_DIR}}/talosconfig --output json | jq --slurp --compact-output '
-            map(select(.spec.model == "{{.ROOK_DISK | default "WD_BLACK_SN850X"}}"))
-              | group_by(.node)
-              | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
-              | add'
+      BLOCK_DEVICES_FILTER: |-
+        map(select(.spec.model == "{{.ROOK_DISK}}"))
+          | group_by(.node)
+          | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
+          | add
+      BLOCK_DEVICES_RESPONSE:
+        sh: talosctl get disks --output json | jq --compact-output --slurp '{{.BLOCK_DEVICES_FILTER}}'
       BLOCK_DEVICES:
-        ref: fromJson .BLOCK_DEVICES_RAW
+        ref: fromJson .BLOCK_DEVICES_RESPONSE
       RANDOM_CONTROLLER:
         sh: talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
