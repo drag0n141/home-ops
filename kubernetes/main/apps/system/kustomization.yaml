@@ -9,7 +9,6 @@ resources:
   - ./intel-device-plugin/ks.yaml
   - ./irqbalance/ks.yaml
   - ./k8tz/ks.yaml
-  - ./kubelet-csr-approver/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./reflector/ks.yaml
   - ./reloader/ks.yaml

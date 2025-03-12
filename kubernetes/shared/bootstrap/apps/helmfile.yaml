@@ -11,9 +11,6 @@ repositories:
   - name: jetstack
     url: https://charts.jetstack.io
 
-  - name: postfinance
-    url: https://postfinance.github.io/kubelet-csr-approver
-
 releases:
   - name: cilium
     namespace: kube-system
@@ -39,19 +36,12 @@ releases:
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/coredns/app/helm/values.yaml']
     needs: ['kube-system/cilium']
 
-  - name: kubelet-csr-approver
-    namespace: system
-    chart: postfinance/kubelet-csr-approver
-    version: 1.2.6
-    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/system/kubelet-csr-approver/app/helm/values.yaml']
-    needs: ['kube-system/coredns']
-
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.30
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/system/spegel/app/helm/values.yaml']
-    needs: ['system/kubelet-csr-approver']
+    needs: ['kube-system/coredns']
 
   - name: cert-manager
     namespace: cert-manager

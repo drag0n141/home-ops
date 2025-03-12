@@ -10,8 +10,6 @@ machine:
   certSANs: ["127.0.0.1", "192.168.254.250"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
-    extraArgs:
-      rotate-server-certificates: "true"
     extraConfig:
       maxPods: 150
       serializeImagePulls: false

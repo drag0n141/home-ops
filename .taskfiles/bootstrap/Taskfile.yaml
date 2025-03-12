@@ -21,7 +21,7 @@ tasks:
       - until talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
     vars:
       RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
