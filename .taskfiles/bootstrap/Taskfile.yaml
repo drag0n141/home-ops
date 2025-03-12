@@ -57,7 +57,7 @@ tasks:
     preconditions:
       - op user get --me
       - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/talosconfig
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - test -f {{.SHARED_DIR}}/bootstrap/helmfile.yaml
       - test -f {{.SHARED_DIR}}/bootstrap/resources/secrets.yaml.tpl
       - test -f {{.SHARED_DIR}}/components/substitutions/cluster-settings.yaml
