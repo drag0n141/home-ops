@@ -49,14 +49,14 @@ tasks:
       BLOCK_DEVICES:
         ref: fromJson .BLOCK_DEVICES_RAW
       RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
       VAULT: kubernetes
     requires:
       vars: [CLUSTER, ROOK_DISK]
     preconditions:
       - op user get --me
-      - talosctl config info
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - test -f {{.KUBERNETES_DIR}}/bootstrap/talosconfig
       - test -f {{.SHARED_DIR}}/bootstrap/helmfile.yaml
       - test -f {{.SHARED_DIR}}/bootstrap/resources/secrets.yaml.tpl
