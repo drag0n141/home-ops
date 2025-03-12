@@ -28,7 +28,7 @@ tasks:
       - which jq talosctl
 
   apps:
-    desc: Bootstrap Apps [CLUSTER=main] [ROOK_DISK=WD_BLACK_SN850X]
+    desc: Bootstrap Apps [CLUSTER=main] [ROOK_DISK=WD_BLACK SN850X]
     cmds:
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
