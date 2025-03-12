@@ -12,6 +12,10 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+    - name: traefik-external
+      namespace: *namespace
+    - name: traefik-internal
+      namespace: *namespace
   path: ./kubernetes/main/apps/networking/external-dns/unifi
   prune: true
   sourceRef:
