@@ -69,7 +69,7 @@ spec:
           requireMsgr2: true
       storage:
         useAllNodes: true
-        useAllDevices: true
+        useAllDevices: false
         deviceFilter: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_.*
         config:
           osdsPerDevice: "1"
