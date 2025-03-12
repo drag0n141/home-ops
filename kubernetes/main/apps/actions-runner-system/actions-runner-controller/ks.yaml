@@ -38,7 +38,7 @@ spec:
     - name: actions-runner-controller
       namespace: *namespace
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: openebs
       namespace: storage
   path: ./kubernetes/main/apps/actions-runner-system/actions-runner-controller/runners

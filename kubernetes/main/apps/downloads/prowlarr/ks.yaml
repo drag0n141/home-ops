@@ -13,7 +13,7 @@ spec:
     - name: crunchy-pgo-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: pod-gateway
       namespace: vpn
   components:

@@ -32,7 +32,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: mc-router
       namespace: *namespace
     - name: rook-ceph-cluster

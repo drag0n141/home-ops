@@ -42,7 +42,7 @@ spec:
     - name: crunchy-postgres-operator
       namespace: *namespace
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
   healthCheckExprs:
     - apiVersion: postgres-operator.crunchydata.com/v1beta1
       kind: PostgresCluster
@@ -73,7 +73,7 @@ spec:
     - name: crunchy-postgres-operator
       namespace: *namespace
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
   healthCheckExprs:
     - apiVersion: postgres-operator.crunchydata.com/v1beta1
       kind: PostgresCluster

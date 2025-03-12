@@ -15,7 +15,7 @@ spec:
     - name: dragonfly-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
@@ -50,7 +50,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: paperless
       namespace: *namespace
     - name: rook-ceph-cluster

@@ -15,7 +15,7 @@ spec:
     - name: dragonfly-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
   path: ./kubernetes/main/apps/security/authelia/app
   prune: true
   sourceRef:

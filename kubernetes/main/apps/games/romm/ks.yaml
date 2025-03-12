@@ -15,7 +15,7 @@ spec:
     - name: dragonfly-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

@@ -13,7 +13,7 @@ spec:
     - name: crunchy-pgo-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
   components:
     - ../../../../../shared/meta/components/gatus/internal
   path: ./kubernetes/main/apps/default/atuin/app

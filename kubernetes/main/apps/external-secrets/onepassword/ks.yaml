@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app onepassword
-  namespace: &namespace security
+  namespace: &namespace external-secrets
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -22,7 +22,7 @@ spec:
       kind: ClusterSecretStore
       failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
-  path: ./kubernetes/main/apps/security/onepassword/app
+  path: ./kubernetes/main/apps/external-secrets/onepassword/app
   prune: true
   sourceRef:
     kind: GitRepository

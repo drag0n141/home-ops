@@ -13,7 +13,7 @@ spec:
     - name: crunchy-pgo-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
@@ -51,7 +51,7 @@ spec:
     - name: crunchy-pgo-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
@@ -89,7 +89,7 @@ spec:
     - name: crunchy-pgo-cluster
       namespace: database
     - name: onepassword
-      namespace: security
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
