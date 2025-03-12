@@ -37,7 +37,7 @@ releases:
     needs: ['kube-system/cilium']
 
   - name: spegel
-    namespace: kube-system
+    namespace: system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.30
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/system/spegel/app/helm/values.yaml']
