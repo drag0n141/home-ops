@@ -29,7 +29,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: cluster-secrets
+  name: cluster-secrets-shared
   namespace: flux-system
 stringData:
   SECRET_DOMAIN: op://Kubernetes/domains/DOMAIN
