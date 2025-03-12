@@ -16,10 +16,6 @@ machine:
       maxPods: 150
       serializeImagePulls: false
     extraMounts:
-      - destination: /var/openebs/local
-        type: bind
-        source: /var/openebs/local
-        options: ["bind", "rshared", "rw"]
       - destination: /var/mnt/extra
         type: bind
         source: /var/mnt/extra
