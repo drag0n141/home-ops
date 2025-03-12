@@ -15,25 +15,17 @@ env:
 tasks:
 
   talos:
-    desc: Bootstrap Talos [CLUSTER=main]
+    desc: Bootstrap Talos
+    prompt: Bootstrap Talos ...?
     cmds:
-      - for: { var: TALOS_NODES }
-        cmd: >
-          sops exec-file --input-type yaml --output-type yaml {{.ITEM}} "minijinja-cli {}"
-          | talosctl --nodes {{base .ITEM | replace ".sops.yaml.j2" ""}} apply-config --insecure --file /dev/stdin
-      - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.KUBERNETES_DIR}}
+      - until talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
     vars:
-      TALOS_CONTROLLER:
+      RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
-      TALOS_NODES:
-        sh: ls {{.TALOS_DIR}}/*.j2
-    requires:
-      vars: [CLUSTER]
     preconditions:
       - talosctl config info
-      - test -f {{.KUBERNETES_DIR}}/talosconfig
-      - which ls minijinja-cli sops talosctl
+      - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
+      - which jq talosctl
 
   apps:
     desc: Bootstrap Apps [CLUSTER=main] [ROOK_DISK=WD_BLACK_SN850X]
