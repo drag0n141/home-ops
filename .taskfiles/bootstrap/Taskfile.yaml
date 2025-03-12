@@ -23,7 +23,7 @@ tasks:
       RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - talosctl config info
+      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which jq talosctl
 
