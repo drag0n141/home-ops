@@ -33,6 +33,10 @@ spec:
               MODEL: MFC-L2710DN
               IPADDRESS: 192.168.1.31
               HOST_IPADDRESS: &ip 192.168.222.84
+              WEBSERVER: true
+              DISABLE_GUI_SCANTOEMAIL: true
+              DISABLE_GUI_SCANTOIMAGE: true
+              DISABLE_GUI_SCANTOOCR: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -52,6 +56,12 @@ spec:
     service:
       app:
         controller: *app
+        primary: true
+        ports:
+          http:
+            port: 80
+      scan:
+        controller: *app
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: *ip
@@ -66,6 +76,24 @@ spec:
           snmp:
             port: 161
             protocol: UDP
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+        hosts:
+          - host: &host "scan.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       nas:
         type: nfs
