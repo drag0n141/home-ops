@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app paperless-scan
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      paperless-scan:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/philippmundhenk/brotherscannerdocker
+              tag: v1.1.1@sha256:d60f5ca09119e87f24a926b07d07cb0ee4ac1c555a7e210758796fd913bd0495
+            env:
+              UID: 1000
+              GID: 1000
+              TZ: ${TIMEZONE}
+              NAME: Scanner
+              MODEL: MFC-L2710DN
+              IPADDRESS: 192.168.1.31
+              HOST_IPADDRESS: &ip 192.168.222.84
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: *app
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: *ip
+        externalTrafficPolicy: Cluster
+        ports:
+          scan-udp:
+            port: 54925
+            protocol: UDP
+          scan:
+            port: 54921
+            protocol: TCP
+          snmp:
+            port: 161
+            protocol: UDP
+    persistence:
+      nas:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/paperless/consume
+        globalMounts:
+          - path: /scans
