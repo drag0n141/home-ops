@@ -42,6 +42,8 @@ spec:
       namespace: *namespace
     - name: volsync
       namespace: storage
+  components:
+    - ../../../../../shared/meta/components/gatus/internal
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -65,3 +67,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 15m
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_SUBDOMAIN: rook
