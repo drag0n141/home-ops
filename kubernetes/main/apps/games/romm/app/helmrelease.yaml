@@ -31,6 +31,7 @@ spec:
               ENABLE_SCHEDULED_RESCAN: true
               SCHEDULED_RESCAN_CRON: "0 3 * * *"
               ROMM_DB_DRIVER: postgresql
+              ROMM_PORT: &port 8080
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_PORT: 6379
               REDIS_DB: 11
@@ -63,7 +64,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 8080
+            port: *port
     ingress:
       app:
         className: traefik-internal
