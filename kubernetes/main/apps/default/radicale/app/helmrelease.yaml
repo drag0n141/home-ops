@@ -52,7 +52,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: radicale
@@ -61,13 +60,13 @@ spec:
             port: 5232
     ingress:
       app:
-        className: traefik-external
+        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "radicale.${SECRET_DOMAIN}"
+          - host: &host "radicale.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
