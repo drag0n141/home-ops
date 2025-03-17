@@ -78,15 +78,6 @@ spec:
             securityContext:
               capabilities:
                 add: ["NET_ADMIN"]
-        pod:
-          dnsPolicy: None
-          dnsConfig:
-            nameservers:
-              - 10.43.0.10
-            searches: ["default.svc.cluster.local", "svc.cluster.local", "cluster.local"]
-            options:
-              - name: ndots
-                value: "5"
       webhook:
         annotations:
           reloader.stakater.com/auto: "true"
@@ -168,7 +159,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: pod-gateway
+        name: pod-gateway-configmap
         advancedMounts:
           pod-gateway:
             routes:
