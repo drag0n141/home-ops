@@ -93,7 +93,6 @@ spec:
               - --configmapName=pod-gateway-configmap
               - --setGatewayLabel=setGateway
               - --setGatewayAnnotation=setGateway
-              - --setGatewayDefault
               # Static
               - --tls-cert-file-path=/tls/tls.crt
               - --tls-key-file-path=/tls/tls.key
