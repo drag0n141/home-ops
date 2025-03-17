@@ -79,7 +79,6 @@ spec:
               capabilities:
                 add: ["NET_ADMIN"]
         pod:
-          dnsPolicy: None
           dnsConfig:
             options:
               - name: ndots
