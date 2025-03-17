@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/bjw-s-labs/it-tools
-              tag: 2024.10.22@sha256:78a4e26d990543242144e0ab639210f43512ad233c59aa03e66a1f4bfb567b55
+              tag: 2024.10.22@sha256:75cbecf0092c306ba86d7342d8488fd8c86564bda27644921618debb6215c4e1
             env:
               TZ: ${TIMEZONE}
             securityContext:
