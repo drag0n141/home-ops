@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pod-gateway-configmap
-  namespace: vpn
+  namespace: downloads
   labels:
     app.kubernetes.io/instance: pod-gateway
     app.kubernetes.io/name: pod-gateway
