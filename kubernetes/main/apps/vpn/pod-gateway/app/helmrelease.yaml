@@ -95,9 +95,9 @@ spec:
               - --webhook-listen-address=:8080
               - --gateway=pod-gateway.vpn.svc.cluster.local
               - --DNS=172.16.0.1
-              - --configmapName=pod-gateway
-              - --setGatewayLabel=setGateway
-              - --setGatewayAnnotation=setGateway
+              - --configmapName=pod-gateway-configmap
+              - --setGatewayLabel=routed-gateway
+              - --setGatewayAnnotation=routed-gateway
               - --setGatewayDefault
               # Static
               - --tls-cert-file-path=/tls/tls.crt
