@@ -14,3 +14,12 @@ components:
   - ../../../shared/meta/components/repos
   - ../../../shared/meta/components/sops
   - ../../../shared/meta/components/substitutions
+patches:
+   - # Add the labels to the namespace
+     patch: |
+       - op: add
+         path: /metadata/labels
+         value:
+           routed-gateway: "true"
+     target:
+       kind: Namespace
