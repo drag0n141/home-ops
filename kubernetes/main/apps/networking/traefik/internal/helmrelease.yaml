@@ -11,8 +11,6 @@ spec:
   ref:
     tag: 34.4.1
   url: oci://ghcr.io/traefik/helm/traefik
-  verify:
-    provider: cosign
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
