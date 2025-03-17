@@ -1,18 +1,28 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: authentik
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 2025.2.1
+  url: oci://ghcr.io/goauthentik/helm-charts/authentik
+  verify:
+    provider: cosign
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app authentik
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: authentik
-      version: 2025.2.1
-      sourceRef:
-        kind: HelmRepository
-        name: authentik
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: authentik
   values:
     global:
       podAnnotations:
