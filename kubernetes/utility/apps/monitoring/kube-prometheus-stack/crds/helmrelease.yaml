@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: kube-prometheus-stack-crds
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: prometheus-operator-crds

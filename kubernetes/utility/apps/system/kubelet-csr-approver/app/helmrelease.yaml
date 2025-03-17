@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: kubelet-csr-approver
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: kubelet-csr-approver
