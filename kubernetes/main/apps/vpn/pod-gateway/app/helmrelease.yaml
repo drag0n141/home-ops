@@ -78,6 +78,12 @@ spec:
             securityContext:
               capabilities:
                 add: ["NET_ADMIN"]
+        pod:
+          dnsPolicy: None
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "5"
       webhook:
         annotations:
           reloader.stakater.com/auto: "true"
