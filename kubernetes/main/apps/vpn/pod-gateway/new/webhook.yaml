@@ -22,7 +22,7 @@ webhooks:
     clientConfig:
       service:
         namespace: "vpn"
-        name: pod-gateway-pod-gateway-webhook
+        name: pod-gateway-webhook
         path: /wh/mutating/setgateway
         port: 8080
     admissionReviewVersions: ["v1", "v1beta1"]

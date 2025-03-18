@@ -1,0 +1,174 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app pod-gateway
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      pod-gateway:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          routes:
+            image:
+              repository: ghcr.io/angelnu/pod-gateway
+              tag: v1.11.1
+            command:
+              - /bin/gateway_init.sh
+            securityContext:
+              privileged: true
+        containers:
+          pod-gateway:
+            image:
+              repository: ghcr.io/angelnu/pod-gateway
+              tag: v1.11.1
+            command:
+              - /bin/gateway_sidecar.sh
+            ports:
+              - name: vxlan
+                containerPort: 4789
+                protocol: UDP
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
+          netshoot:
+            image:
+              repository: ghcr.io/nicolaka/netshoot
+              tag: v0.13
+            command:
+              - /bin/sh
+              - -c
+              - sleep infinity
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10M
+              limits:
+                memory: 50M
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.0
+            env:
+              TZ: ${TIMEZONE}
+              VPN_SERVICE_PROVIDER: custom
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              WIREGUARD_ENDPOINT_PORT: 51820
+              FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT: off
+              DOT: off
+            envFrom:
+              - secretRef:
+                  name: pod-gateway-secret
+            resources:
+              requests:
+                cpu: 15m
+                memory: 64Mi
+              limits:
+                squat.ai/tun: 1
+                memory: 128Mi
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
+      webhook:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          webhook:
+            image:
+              repository: ghcr.io/angelnu/gateway-admision-controller
+              tag: v3.10.0
+            args:
+              - --webhook-listen-address=:8080
+              - --gateway=pod-gateway.vpn.svc.cluster.local
+              - --DNS=172.16.1.1
+              - --configmapName=pod-gateway-configmap
+              - --setGatewayLabel=setGateway
+              - --setGatewayAnnotation=setGateway
+              # Static
+              - --tls-cert-file-path=/tls/tls.crt
+              - --tls-key-file-path=/tls/tls.key
+              - --DNSPolicy=None
+              # Init container
+              - --initImage=ghcr.io/angelnu/pod-gateway:v1.11.1
+              - --initImagePullPol=IfNotPresent
+              - --initCmd=/bin/client_init.sh
+              - --initMountPoint=/config
+              # Sidecar container
+              - --sidecarImage=ghcr.io/angelnu/pod-gateway:v1.11.1
+              - --sidecarImagePullPol=IfNotPresent
+              - --sidecarCmd=/bin/client_sidecar.sh
+              - --sidecarMountPoint=/config
+            ports:
+              - name: http
+                containerPort: 8080
+            probes:
+              readiness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /wh/health
+                    port: 8080
+                    scheme: HTTPS
+                  initialDelaySeconds: 1
+                  timeoutSeconds: 10
+                  periodSeconds: 10
+                  successThreshold: 1
+                  failureThreshold: 5
+              liveness: *probe
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /wh/health
+                    port: 8080
+                    scheme: HTTPS
+                  timeoutSeconds: 1
+                  periodSeconds: 1
+                  successThreshold: 1
+                  failureThreshold: 30
+    service:
+      pod-gateway:
+        controller: pod-gateway
+        type: ClusterIP
+        clusterIP: None
+        ports:
+          vxlan:
+            protocol: UDP
+            port: 4789
+      webhook:
+        controller: webhook
+        ports:
+          http:
+            protocol: TCP
+            port: 8080
+    persistence:
+      config:
+        type: configMap
+        name: pod-gateway-configmap
+        advancedMounts:
+          pod-gateway:
+            routes:
+              - path: /config
+                readOnly: true
+            pod-gateway:
+              - path: /config
+                readOnly: true
+      certificates:
+        type: secret
+        name: pod-gateway-webhook-tls
+        advancedMounts:
+          webhook:
+            webhook:
+              - path: /tls
+                readOnly: true
