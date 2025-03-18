@@ -23,6 +23,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: teleport-kube-agent
+  install:
+    disableHooks: true
+  upgrade:
+    disableHooks: true
   values:
     log:
       level: INFO
