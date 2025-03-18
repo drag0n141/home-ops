@@ -2,86 +2,166 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: pod-gateway
+  name: &app pod-gateway
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: pod-gateway
-      version: 6.5.1
-      interval: 1h
-      sourceRef:
-        kind: HelmRepository
-        name: angelnu
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/angelnu/pod-gateway
-      tag: v1.11.1@sha256:0617304f085bc98529f0c5cd0c40c63bb019380a026a277c812bd13f78b4bc5d
-    DNS: 172.16.1.1
-    addons:
-      vpn:
-        enabled: true
-        type: gluetun
-        gluetun:
-          image:
-            repository: ghcr.io/qdm12/gluetun
-            tag: v3.40.0
-        env:
-          - name: VPN_SERVICE_PROVIDER
-            value: custom
-          - name: VPN_TYPE
-            value: wireguard
-          - name: VPN_INTERFACE
-            value: wg0
-          - name: WIREGUARD_ENDPOINT_PORT
-            value: "51820"
-          - name: FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT
-            value: "off"
-          - name: DOT
-            value: "off"
-        envFrom:
-          - secretRef:
-              name: pod-gateway-secret
-        resources:
-          requests:
-            cpu: 10m
-            memory: 128M
-          limits:
-            squat.ai/tun: 1
-            memory: 128M
-        securityContext:
-          capabilities:
-            add: ["NET_ADMIN"]
-        networkPolicy:
-          enabled: false
-      netshoot:
-        enabled: true
-        resources:
-          requests:
-            cpu: 10m
-            memory: 10M
-          limits:
-            memory: 50M
-    settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 192.168.0.0/16
-      VPN_BLOCK_OTHER_TRAFFIC: true
-      VPN_INTERFACE: wg0
-      VPN_LOCAL_CIDRS: 10.0.0.0/8 192.168.0.0/16
-      VPN_TRAFFIC_PORT: "51820"
-      DNS_LOCAL_CIDRS: "local ${SECRET_DOMAIN_INTERNAL} ${SECRET_DOMAIN_AD} ${SECRET_DOMAIN_INT} ${SECRET_DOMAIN_EXT} ${SECRET_DOMAIN_LAB} ${SECRET_DOMAIN_GUEST}"
-      VXLAN_ID: 43
-      VXLAN_IP_NETWORK: 172.16.1
-    routed_namespaces: ["downloads"]
-    webhook:
-      image:
-        repository: ghcr.io/angelnu/gateway-admision-controller
-        tag: v3.10.0@sha256:a8ed630613de277244dfe203cd11d05905d7eeba8d8c41e399b02ee9a847b2f5
-      gatewayDefault: false
-      gatewayAnnotation: setGateway
-      gatewayLabel: setGateway
-      namespaceSelector:
-        label: "routed-gateway"
+    controllers:
+      pod-gateway:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          routes:
+            image:
+              repository: ghcr.io/angelnu/pod-gateway
+              tag: v1.11.1@sha256:0617304f085bc98529f0c5cd0c40c63bb019380a026a277c812bd13f78b4bc5d
+            command:
+              - /bin/gateway_init.sh
+            securityContext:
+              privileged: true
+        containers:
+          pod-gateway:
+            image:
+              repository: ghcr.io/angelnu/pod-gateway
+              tag: v1.11.1@sha256:0617304f085bc98529f0c5cd0c40c63bb019380a026a277c812bd13f78b4bc5d
+            command:
+              - /bin/gateway_sidecar.sh
+            securityContext:
+              capabilities:
+                add: ["NET_RAW", "NET_ADMIN"]
+          netshoot:
+            image:
+              repository: ghcr.io/nicolaka/netshoot
+              tag: v0.13@sha256:a20c2531bf35436ed3766cd6cfe89d352b050ccc4d7005ce6400adf97503da1b
+            command:
+              - /bin/sh
+              - -c
+              - sleep infinity
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10M
+              limits:
+                memory: 50M
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
+            env:
+              TZ: ${TIMEZONE}
+              VPN_SERVICE_PROVIDER: custom
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              WIREGUARD_ENDPOINT_PORT: 51820
+              FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT: off
+              DOT: off
+            envFrom:
+              - secretRef:
+                  name: pod-gateway-secret
+            resources:
+              requests:
+                cpu: 15m
+                memory: 64Mi
+              limits:
+                squat.ai/tun: 1
+                memory: 128Mi
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
+      webhook:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          webhook:
+            image:
+              repository: ghcr.io/angelnu/gateway-admision-controller
+              tag: v3.10.0@sha256:a8ed630613de277244dfe203cd11d05905d7eeba8d8c41e399b02ee9a847b2f5
+            args:
+              - --webhook-listen-address=:8080
+              - --gateway=pod-gateway.vpn.svc.cluster.local
+              - --DNS=172.16.1.1
+              - --configmapName=pod-gateway-configmap
+              - --setGatewayLabel=setGateway
+              - --setGatewayAnnotation=setGateway
+              # Static
+              - --tls-cert-file-path=/tls/tls.crt
+              - --tls-key-file-path=/tls/tls.key
+              - --DNSPolicy=None
+              # Init container
+              - --initImage=ghcr.io/angelnu/pod-gateway:v1.11.1
+              - --initImagePullPol=IfNotPresent
+              - --initCmd=/bin/client_init.sh
+              - --initMountPoint=/config
+              # Sidecar container
+              - --sidecarImage=ghcr.io/angelnu/pod-gateway:v1.11.1
+              - --sidecarImagePullPol=IfNotPresent
+              - --sidecarCmd=/bin/client_sidecar.sh
+              - --sidecarMountPoint=/config
+            probes:
+              readiness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /wh/health
+                    port: 8080
+                    scheme: HTTPS
+                  initialDelaySeconds: 1
+                  timeoutSeconds: 10
+                  periodSeconds: 10
+                  successThreshold: 1
+                  failureThreshold: 5
+              liveness: *probe
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /wh/health
+                    port: 8080
+                    scheme: HTTPS
+                  timeoutSeconds: 1
+                  periodSeconds: 1
+                  successThreshold: 1
+                  failureThreshold: 30
+    service:
+      pod-gateway:
+        controller: pod-gateway
+        type: ClusterIP
+        clusterIP: None
+        ports:
+          http:
+            protocol: UDP
+            port: 4789
+      webhook:
+        controller: webhook
+        ports:
+          http:
+            protocol: TCP
+            port: 8080
+    persistence:
+      config:
+        type: configMap
+        name: pod-gateway-configmap
+        advancedMounts:
+          pod-gateway:
+            routes:
+              - path: /config
+                readOnly: true
+            pod-gateway:
+              - path: /config
+                readOnly: true
+      certificates:
+        type: secret
+        name: pod-gateway-webhook-tls
+        advancedMounts:
+          webhook:
+            webhook:
+              - path: /tls
+                readOnly: true
