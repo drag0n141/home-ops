@@ -146,7 +146,7 @@ spec:
           vxlan:
             protocol: UDP
             port: 4789
-      webhook:
+      pod-gateway-webhook:
         controller: webhook
         ports:
           http:
