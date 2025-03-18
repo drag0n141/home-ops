@@ -9,7 +9,7 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: "vpn/pod-gateway-webhook-tls"
 webhooks:
-  - name: pod-gateway
+  - name: pod-gateway.svc.cluster.local
     clientConfig:
       service:
         name: pod-gateway-webhook
