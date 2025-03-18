@@ -19,7 +19,7 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
-  path: ./kubernetes/main/apps/vpn/pod-gateway/app
+  path: ./kubernetes/main/apps/vpn/pod-gateway/old
   prune: true
   sourceRef:
     kind: GitRepository
