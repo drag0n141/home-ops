@@ -149,11 +149,13 @@ spec:
           vxlan:
             protocol: UDP
             port: 4789
+            targetPort: vxlan
       webhook:
         controller: webhook
         ports:
           http:
             port: 443
+            targetPort: http
     persistence:
       config:
         type: configMap
