@@ -23,6 +23,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: teleport-cluster
+  install:
+    disableHooks: true
+  upgrade:
+    disableHooks: true
   values:
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster
