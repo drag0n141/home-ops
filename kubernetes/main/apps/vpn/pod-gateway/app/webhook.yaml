@@ -15,7 +15,6 @@ webhooks:
         name: pod-gateway-webhook
         namespace: vpn
         path: "/wh/mutating/setgateway"
-        port: 8080
     rules:
       - apiGroups: [""]
         apiVersions: ["v1"]
