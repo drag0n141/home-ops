@@ -29,6 +29,10 @@ spec:
               tag: v1.11.1@sha256:0617304f085bc98529f0c5cd0c40c63bb019380a026a277c812bd13f78b4bc5d
             command:
               - /bin/gateway_sidecar.sh
+            ports:
+              - name: vxlan
+                containerPort: 4789
+                protocol: UDP
             securityContext:
               capabilities:
                 add: ["NET_RAW", "NET_ADMIN"]
@@ -104,6 +108,10 @@ spec:
               - --sidecarImagePullPol=IfNotPresent
               - --sidecarCmd=/bin/client_sidecar.sh
               - --sidecarMountPoint=/config
+            ports:
+              - name: http
+                containerPort: 8080
+                protocol: TCP
             probes:
               readiness: &probe
                 enabled: true
