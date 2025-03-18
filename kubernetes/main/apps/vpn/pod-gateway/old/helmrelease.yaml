@@ -74,7 +74,6 @@ spec:
       VPN_TRAFFIC_PORT: "51820"
       DNS_LOCAL_CIDRS: "local ${SECRET_DOMAIN_INTERNAL} ${SECRET_DOMAIN_AD} ${SECRET_DOMAIN_INT}"
       VXLAN_ID: 43
-      VXLAN_PORT: 4789
       VXLAN_IP_NETWORK: 172.16.1
     routed_namespaces: ["downloads"]
     webhook:
