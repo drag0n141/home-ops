@@ -30,7 +30,6 @@ resources:
   - ./outline/ks.yaml
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
-  - ./radicale/ks.yaml
   - ./searxng/ks.yaml
   - ./rdesktop/ks.yaml
   - ./shlink/ks.yaml

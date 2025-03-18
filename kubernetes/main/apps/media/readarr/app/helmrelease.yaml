@@ -18,7 +18,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/readarr-develop
+              repository: ghcr.io/home-operations/readarr
               tag: 0.4.12@sha256:126f98cd6b459d48ac0286249a4f7e499697a7bdfddfae8784afb11aa83e6b93
             env:
               TZ: ${TIMEZONE}
