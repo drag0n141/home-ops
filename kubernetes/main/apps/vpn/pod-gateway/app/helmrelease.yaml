@@ -78,7 +78,7 @@ spec:
             securityContext:
               capabilities:
                 add: ["NET_ADMIN"]
-      webhook:
+      pod-gateway-webhook:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -147,7 +147,7 @@ spec:
             protocol: UDP
             port: 4789
       pod-gateway-webhook:
-        controller: webhook
+        controller: pod-gateway-webhook
         ports:
           http:
             protocol: TCP
