@@ -168,7 +168,7 @@ spec:
         type: secret
         name: pod-gateway-webhook-tls
         advancedMounts:
-          webhook:
+          pod-gateway-webhook:
             webhook:
               - path: /tls
                 readOnly: true
