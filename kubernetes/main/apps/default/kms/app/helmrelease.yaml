@@ -16,8 +16,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/kms
-              tag: svn1113@sha256:bb88f76d20c8f8ff5d8897dfe61276dfe34dfeb38359d6297225af29cca0e1c4
+              repository: docker.io/11notes/kms
+              tag: stable@sha256:f6776fa377b5bc55d969ede3fd1941a6beee8895ccafbc0effdad61817f13afc
             env:
               TZ: ${TIMEZONE}
             securityContext:
@@ -29,13 +29,14 @@ spec:
                 cpu: 10m
                 memory: 128Mi
               limits:
-                memory: 512Mi
+                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        seccompProfile: { type: RuntimeDefault }
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: *app
@@ -47,3 +48,8 @@ spec:
         ports:
           kms:
             port: 1688
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /kms/var
