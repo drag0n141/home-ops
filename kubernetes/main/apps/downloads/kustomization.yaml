@@ -10,7 +10,7 @@ resources:
 components:
   - ../../../shared/meta/components/alerts
   - ../../../shared/meta/components/namespace
-  - ../../../shared/meta/components/pod-gateway
+#   - ../../../shared/meta/components/pod-gateway
   - ../../../shared/meta/components/repos
   - ../../../shared/meta/components/sops
   - ../../../shared/meta/components/substitutions
