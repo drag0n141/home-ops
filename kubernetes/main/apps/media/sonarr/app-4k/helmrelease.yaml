@@ -18,8 +18,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/sonarr
-              tag: 4.0.14.2939@sha256:dee6bdcdd84f99b14bd47b992a4e65866bb931a9cb15cf5e93b09ac21b1f21a5
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.14.2939@sha256:0169c421055790ef8bd9b5c2807663bb487f56daf1f602a20612a0257c491462
             env:
               TZ: ${TIMEZONE}
               SONARR__APP__INSTANCENAME: Sonarr4k

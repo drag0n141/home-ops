@@ -16,8 +16,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/home-assistant
-              tag: 2025.3.3@sha256:7052ff5f5817ddfa3b11cc1d09b7a385900fcbd8a02f6c3ece49ecbc273df8e5
+              repository: ghcr.io/home-operations/home-assistant
+              tag: 2025.3.3@sha256:6a0f0a8f7eaebaf4751ddc0e90c4b931121adf4ac6f4e869d648d4cb996b7f70
             env:
               TZ: ${TIMEZONE}
             securityContext:

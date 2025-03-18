@@ -25,8 +25,8 @@ spec:
                   name: guacamole-secret
           02-init-migrations:
             image:
-              repository: ghcr.io/drag0n141/postgres-init
-              tag: 16
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17
             command: ["/bin/sh", "-c"]
             args: ["export PGPASSWORD=$(POSTGRESQL_PASSWORD); psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;"]
             envFrom: *envFrom

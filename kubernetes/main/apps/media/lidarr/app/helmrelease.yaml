@@ -18,8 +18,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/lidarr
-              tag: 2.9.6.4552@sha256:121080101a78695bbb3c58ebdd368897f5f6675e1776d8627e482130ecc41f28
+              repository: ghcr.io/home-operations/lidarr
+              tag: 2.10.1.4589@sha256:40f9658538aa43bb926290d06cc8453c79466de8a621ee0d3fe17816348763ab
             env:
               TZ: ${TIMEZONE}
               LIDARR__APP__INSTANCENAME: Lidarr

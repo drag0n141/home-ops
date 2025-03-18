@@ -18,8 +18,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/readarr-develop
-              tag: 0.4.12.2753@sha256:02549962d391164f8ce69c12a26d19fadd90ae360219429281f1ad8bfe436aa2
+              repository: ghcr.io/home-operations/readarr-develop
+              tag: 0.4.12@sha256:126f98cd6b459d48ac0286249a4f7e499697a7bdfddfae8784afb11aa83e6b93
             env:
               TZ: ${TIMEZONE}
               READARR__APP__INSTANCENAME: Readarr

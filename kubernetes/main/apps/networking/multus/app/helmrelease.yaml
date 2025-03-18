@@ -17,8 +17,8 @@ spec:
         initContainers:
           cni-plugins:
             image:
-              repository: ghcr.io/drag0n141/cni-plugins
-              tag: 1.6.2@sha256:110db6cf27d5be16da63a725f37e57d665997609fa1e15b1b9e5db2ef8b14b54
+              repository: ghcr.io/home-operations/cni-plugins
+              tag: 1.6.2@sha256:cc5aca198391ecda438c4fe435fa648fb513dee92144a99a69bde344b1dffcdc
         containers:
           multus:
             image:
