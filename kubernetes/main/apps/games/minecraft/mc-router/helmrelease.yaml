@@ -10,7 +10,7 @@ spec:
     operation: copy
   ref:
     tag: 1.2.4
-  url: oci://ghcr.io/onedr0p/charts-mirror/mc-router
+  url: oci://ghcr.io/home-operations/charts-mirror/mc-router
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
