@@ -16,10 +16,11 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/socks5
-              tag: 1.4.3@sha256:c799436e58985076f5da04ac961a56fcb7f99b62dd85679238abc2803443eb0f
+              repository: docker.io/serjs/go-socks5-proxy
+              tag: latest@sha256:aad36c623f16850d7cea0171d1aa79d706129191db9e270b6dfd7db6b552c734
             env:
               TZ: ${TIMEZONE}
+              PROXY_PORT: 1080
             resources:
               requests:
                 cpu: 10m
@@ -33,6 +34,10 @@ spec:
     defaultPodOptions:
       annotations:
         setGateway: "true"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
     service:
       app:
         controller: *app
