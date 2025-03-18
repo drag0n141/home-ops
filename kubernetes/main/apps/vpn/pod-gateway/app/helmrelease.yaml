@@ -110,7 +110,7 @@ spec:
               - --sidecarMountPoint=/config
             ports:
               - name: http
-                containerPort: 8080
+                containerPort: 443
                 protocol: TCP
             probes:
               readiness: &probe
