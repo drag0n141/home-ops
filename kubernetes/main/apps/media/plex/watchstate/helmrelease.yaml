@@ -21,13 +21,6 @@ spec:
             env:
               WS_TZ: ${TIMEZONE}
               WS_API_AUTO: true
-              WS_CRON_BACKUP: true
-              WS_CRON_IMPORT: true
-              WS_CRON_IMPORT_AT: "0 4 * * *"
-              WS_LOGGER_FILE_ENABLE: false
-            envFrom:
-              - secretRef:
-                  name: watchstate-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -36,7 +29,7 @@ spec:
                 cpu: 10m
                 memory: 128Mi
               limits:
-                memory: 5Gi
+                memory: 4Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -73,6 +66,13 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+      env:
+        type: secret
+        name: watchstate-secret
+        globalMounts:
+          - path: /config/.env
+            subPath: .env
+            readOnly: true
       tmp:
         type: emptyDir
         globalMounts:

@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: watchstate-configmap
+    files:
+      - .env=./resources/.env
+generatorOptions:
+  disableNameSuffixHash: true
