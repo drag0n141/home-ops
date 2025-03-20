@@ -1,13 +1,12 @@
 cache:
   path: $PTS_CACHE_DIR/trakt_cache
 
-libraries:
-  - Filme
-  - Filme-Kids
-  - Filme-Anime
-  - Serien
-  - Serien-Kids
-  - Serien-Anime
+excluded-libraries:
+  - Filme-4K
+  - Filme-3D
+  - Filme-O-Ton
+  - Serien-4K
+  - Serien-O-Ton
 
 config:
   dotenv_override: true
