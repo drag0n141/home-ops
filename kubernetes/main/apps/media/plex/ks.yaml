@@ -56,7 +56,7 @@ spec:
       namespace: storage
   components:
     - ../../../../../shared/meta/components/volsync
-  path: ./kubernetes/main/apps/media/plex/plex-trakt-sync
+  path: ./kubernetes/main/apps/media/plex/trakt-sync
   prune: true
   sourceRef:
     kind: GitRepository
