@@ -70,7 +70,7 @@ spec:
         type: secret
         name: watchstate-secret
         globalMounts:
-          - path: /config/.env
+          - path: /config/config/.env
             subPath: .env
             readOnly: true
       tmp:
