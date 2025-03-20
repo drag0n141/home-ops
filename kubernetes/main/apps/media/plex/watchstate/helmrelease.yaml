@@ -19,15 +19,18 @@ spec:
               repository: ghcr.io/arabcoders/watchstate
               tag: latest@sha256:ef042b48ed5579bf4639be7a7bebf74a86c2e1170b44ebaf162857053eeff202
             env:
-              TZ: ${TIMEZONE}
+              WS_TZ: ${TIMEZONE}
               WS_API_AUTO: true
+              WS_CRON_BACKUP: true
+              WS_CRON_IMPORT: true
+              WS_CRON_IMPORT_AT: "0 4 * * *"
+              WS_LOGGER_FILE_ENABLE: false
             envFrom:
               - secretRef:
                   name: watchstate-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
