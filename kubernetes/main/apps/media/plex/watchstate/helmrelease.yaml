@@ -20,6 +20,10 @@ spec:
               tag: latest@sha256:ef042b48ed5579bf4639be7a7bebf74a86c2e1170b44ebaf162857053eeff202
             env:
               TZ: ${TIMEZONE}
+              WS_API_AUTO: true
+            envFrom:
+              - secretRef:
+                  name: watchstate-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
