@@ -20,7 +20,7 @@ spec:
               tag: latest@sha256:ef042b48ed5579bf4639be7a7bebf74a86c2e1170b44ebaf162857053eeff202
             env:
               WS_TZ: ${TIMEZONE}
-              WS_API_AUTO: true
+              WS_API_AUTO: false
               DISABLE_CACHE: 1
             securityContext:
               allowPrivilegeEscalation: false
@@ -50,7 +50,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
           - host: &host "watchstate.${SECRET_DOMAIN_INTERNAL}"
             paths:
