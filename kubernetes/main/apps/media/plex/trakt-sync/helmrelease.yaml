@@ -18,7 +18,7 @@ spec:
             image:
               repository: ghcr.io/taxel/plextraktsync
               tag: 0.34.5@sha256:1b60e68be2961fd838aea4ffff998525f18c7d5f99345293204c43f40764d7e9
-            args: ["sync"]
+            args: ["watch"]
             env:
               TZ: ${TIMEZONE}
               PLEX_BASEURL: https://plex-ext.${SECRET_DOMAIN_INTERNAL}
