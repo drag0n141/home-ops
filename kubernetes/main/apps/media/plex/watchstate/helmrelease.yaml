@@ -21,6 +21,7 @@ spec:
             env:
               WS_TZ: ${TIMEZONE}
               WS_API_AUTO: true
+              DISABLE_CACHE: 1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
