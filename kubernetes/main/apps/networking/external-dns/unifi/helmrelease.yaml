@@ -9,7 +9,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.15.2
+    tag: 1.16.0
   url: oci://ghcr.io/home-operations/charts-mirror/external-dns
   verify:
     provider: cosign
@@ -72,14 +72,3 @@ spec:
         memory: 90M
       limits:
         memory: 90M
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Deployment
-              name: *app
-            patch: |
-              - op: add
-                path: /spec/template/spec/enableServiceLinks
-                value: false
