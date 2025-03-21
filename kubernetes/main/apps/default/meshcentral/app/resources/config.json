@@ -1,5 +1,6 @@
 {
   "settings": {
+    "cert": "meshcentral.${SECRET_DOMAIN}",
     "port": 8080,
     "AliasPort": 443,
     "TLSOffload": true
