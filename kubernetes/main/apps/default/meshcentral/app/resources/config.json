@@ -1,8 +1,13 @@
 {
   "settings": {
+    "SelfUpdate": false,
+    "AllowFraming": false,
+    "WebRTC": false,
     "cert": "meshcentral.${SECRET_DOMAIN}",
     "port": 8080,
     "AliasPort": 443,
+    "RedirPort": 800,
+    "_redirAliasPort": 80,
     "TLSOffload": true
   },
   "domains": {
@@ -12,7 +17,8 @@
       "meshQuota": 248576,
       "newAccounts": 0,
       "allowedOrigin": [ "meshcentral.${SECRET_DOMAIN}" ],
-      "certUrl": "https://meshcentral.${SECRET_DOMAIN}"
+      "certUrl": "https://meshcentral.${SECRET_DOMAIN}",
+      "agentConfig": ["webSocketMaskOverride=1"]
     }
   }
 }
