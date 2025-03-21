@@ -3,9 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
-#  - ./alertmanager/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-#  - ./silence-operator/ks.yaml
 components:
   - ../../../shared/meta/components/namespace
   - ../../../shared/meta/components/sops
