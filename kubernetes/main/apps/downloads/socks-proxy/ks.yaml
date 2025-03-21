@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: pod-gateway
+    - name: pod-gateway-webhook
       namespace: vpn
   path: ./kubernetes/main/apps/downloads/socks-proxy/app
   prune: true
