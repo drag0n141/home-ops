@@ -21,6 +21,7 @@ resources:
   - ./linkding/ks.yaml
   - ./mailrise/ks.yaml
   - ./memos/ks.yaml
+  - ./meshcentral/ks.yaml
   - ./mind/ks.yaml
   - ./miniflux/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
