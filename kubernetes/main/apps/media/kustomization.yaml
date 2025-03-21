@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: media
 resources:
   - ./autopulse/ks.yaml
-  - ./calibre-web/ks.yaml
+#   - ./calibre-web/ks.yaml
   - ./ersatztv/ks.yaml
   - ./ganymede/ks.yaml
   - ./kometa/ks.yaml
