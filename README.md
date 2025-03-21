@@ -38,10 +38,17 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 |------------------|----------|------|------------------------------|-------------------|------------------|
 | Intel NUC12WSKI5 | K8s-U01  | 16GB | OS-Disk 256GB                | Kuberneter Master | Talos            |
 
+## 💽 Proxmox Cluster
+| Node             | Hostname | RAM  | Storage                      | Function | Operating System |
+|------------------|----------|------|------------------------------|----------|------------------|
+| Intel NUC13ANHI5 | PRX01    | 64GB | OS-Disk 256GB, Ceph-Disk 2TB | VM Host  | Proxmox 8.3      |
+| Intel NUC13ANHI5 | PRX02    | 64GB | OS-Disk 256GB, Ceph-Disk 2TB | VM Host  | Proxmox 8.3      |
+| Intel NUC13ANHI5 | PRX03    | 64GB | OS-Disk 256GB, Ceph-Disk 2TB | VM Host  | Proxmox 8.3      |
+
 ## 💽 Server
 | Node              | Hostname  | RAM   | Storage                                                       | Function        | Operating System |
 |-------------------|-----------|-------|---------------------------------------------------------------|-----------------|------------------|
-| Self-Build Server | Proxmox01 | 64GB  | 6 x 20TB HDD (data), 2 x 1TB NVME (cache), 2 x 1TB NVME (vms) | VM Host and NAS | Proxmox 8.2      |
+| Self-Build Server | NAS01     | 64GB  | 6 x 20TB HDD (data), 2 x 1TB NVME (system)                    | NAS             | TrueNas Scale    |
 | Self-Build Server | Proxmox02 | 256GB | 5 x 8TB HDD (data), 2 x 1TB SSD (vms)                         | Backup Server   | Proxmox 8.2      |
 
 ## 🌐 Network
