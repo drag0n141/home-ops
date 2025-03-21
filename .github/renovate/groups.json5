@@ -1,106 +1,106 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
     {
-      "description": ["1Password Connect Group"],
-      "groupName": "1Password Connnect",
-      "matchPackagePatterns": ["1password/connect"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["1Password Connect Group"],
+      groupName: "1Password Connnect",
+      matchPackagePatterns: ["1password/connect"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "changelogUrl": "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
+      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
     },
     {
-      "description": ["Actions Runner Controller Group"],
-      "groupName": "Actions Runner Controller",
-      "matchPackagePatterns": ["gha-runner-scale-set"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      description: ["Actions Runner Controller Group"],
+      groupName: "Actions Runner Controller",
+      matchPackagePatterns: ["gha-runner-scale-set"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
+      separateMinorPatch: true
     },
     {
-      "description": ["Dragonfly Operator Group"],
-      "groupName": "Dragonfly Operator",
-      "matchPackagePatterns": ["dragonfly(?:db)?.operator"],
-      "matchDatasources": ["docker", "github-releases"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Dragonfly Operator Group"],
+      groupName: "Dragonfly Operator",
+      matchPackagePatterns: ["dragonfly(?:db)?.operator"],
+      matchDatasources: ["docker", "github-releases"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
     {
-      "description": ["Flux Operator Group"],
-      "groupName": "Flux Operator",
-      "matchPackagePatterns": ["flux-operator", "flux-instance"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Flux Operator Group"],
+      groupName: "Flux Operator",
+      matchPackagePatterns: ["flux-operator", "flux-instance"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       }
     },
     {
-      "description": ["Guacamole Group"],
-      "groupName": "Guacamole",
-      "matchPackagePatterns": ["guacamole"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Guacamole Group"],
+      groupName: "Guacamole",
+      matchPackagePatterns: ["guacamole"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
     {
-      "description": ["Immich Group"],
-      "groupName": "Immich",
-      "matchPackagePatterns": ["immich"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Immich Group"],
+      groupName: "Immich",
+      matchPackagePatterns: ["immich"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "sourceUrl": "https://github.com/immich-app/immich"
+      sourceUrl: "https://github.com/immich-app/immich"
     },
     {
-      "description": ["Intel Device Plugins Group"],
-      "groupName": "Intel-Device-Plugins",
-      "matchPackagePatterns": ["intel-device-plugins"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
-      },
-    },
-    {
-      "description": ["Kitchenowl Group"],
-      "groupName": "Kitchenowl",
-      "matchPackagePatterns": ["kitchenowl"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Intel Device Plugins Group"],
+      groupName: "Intel-Device-Plugins",
+      matchPackagePatterns: ["intel-device-plugins"],
+      matchDatasources: ["docker"],
+      group": {
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
     {
-      "description": ["Rook-Ceph Group"],
-      "groupName": "Rook-Ceph",
-      "matchPackagePatterns": ["rook.ceph"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Kitchenowl Group"],
+      groupName: "Kitchenowl",
+      matchPackagePatterns: ["kitchenowl"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
     {
-      "description": ["Talos Group"],
-      "groupName": "Talos",
+      description: ["Rook-Ceph Group"],
+      groupName: "Rook-Ceph",
+      matchPackagePatterns: ["rook.ceph"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: ["Talos Group"],
+      groupName: "Talos",
       matchPackagePatterns: ["siderolabs/talosctl", "siderolabs/installer"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
     {
-      "description": ["Teleport Group"],
-      "groupName": "Teleport",
-      "matchPackagePatterns": ["teleport"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group",
+      description: ["Teleport Group"],
+      groupName: "Teleport",
+      matchPackagePatterns: ["teleport"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
     }
   ]

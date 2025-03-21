@@ -1,40 +1,31 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
     {
-      "description": ["Auto merge Github Actions"],
-      "matchManagers": ["github-actions"],
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreTests": true,
-      "matchUpdateTypes": ["minor", "patch", "digest"]
+      description: "Auto-merge Github Actions",
+      matchManagers: ["github-actions"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+      matchUpdateTypes: ["minor", "patch", "digest"]
     },
     {
-      "description": ["Auto merge Container"],
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreTests": true,
-      "excludePackagePatterns": ["cdpgvector", "dragonfly", "ganymede", "immich", "pgo", "siderolabs", "zigbee2mqtt"],
-      "matchUpdateTypes": ["patch", "digest"]
+      description: "Auto-merge Containers",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+      excludePackagePatterns: ["cdpgvector", "dragonfly", "ganymede", "immich", "pgo", "siderolabs", "zigbee2mqtt"],
+      matchUpdateTypes: ["patch", "digest"]
     },
     {
-      "description": ["Auto merge KPS minors and patches"],
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreTests": true,
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["kube-prometheus-stack"],
-    },
-    {
-      "description": ["Auto merge netbox minors and patches"],
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreTests": true,
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["netbox"],
+      description: "Auto-merge OCI Charts",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: false,
+      matchPackagePatterns: ["kube-prometheus-stack", "netbox"],
+      matchUpdateTypes: ["minor", "patch"],
     }
   ]
 }

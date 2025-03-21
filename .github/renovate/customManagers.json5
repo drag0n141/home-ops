@@ -1,8 +1,8 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "customManagers": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
     {
-      "customType": "regex",
+      customType: "regex",
       description: ["Process annotated dependencies"],
       fileMatch: ["(^|/).+\\.ya?ml(?:\\.j2)?$"],
       matchStrings: [
@@ -16,11 +16,11 @@
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
     {
-      "customType": "regex",
-      "description": ["Process any imageName keys in YAML files (cloudnative-pg)"],
-      "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"],
-      "matchStrings": ["imageName: (?<depName>[^\\s:]+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:\\S+)?)"],
-      "datasourceTemplate": "docker"
+      customType: "regex",
+      description: ["Process any imageName keys in YAML files (cloudnative-pg)"],
+      fileMatch: ["(^|/)kubernetes/.+\\.ya?ml$"],
+      matchStrings: ["imageName: (?<depName>[^\\s:]+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:\\S+)?)"],
+      datasourceTemplate: "docker"
     }
   ]
 }
