@@ -113,9 +113,6 @@ spec:
     - name: radarr4k
       databases: ["radarr4k_main"]
       password: *password
-    - name: readarr
-      databases: ["readarr_cache", "readarr_main", "readarr_log"]
-      password: *password
     - name: recipes
       databases: ["recipes_db"]
       password: *password
