@@ -15,7 +15,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/gatus/internal
     - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/media/calibre-web/app
   prune: true
@@ -42,8 +41,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../../shared/meta/components/gatus/internal
   path: ./kubernetes/main/apps/media/calibre-web/downloader
   prune: true
   sourceRef:
@@ -54,6 +51,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
