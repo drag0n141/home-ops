@@ -140,6 +140,7 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://nextcloud.{{ .DOMAIN }}/apps/oidc_login/oidc"]
         userinfo_signed_response_alg: none
+        claims_policy: legacy_claims
       - client_id: nodered
         client_name: Node-RED
         client_secret: "{{ .NODE_RED_OAUTH_CLIENT_SECRET }}"
@@ -180,6 +181,7 @@ identity_providers:
         redirect_uris: ["https://romm.{{ .DOMAIN_INTERNAL }}/api/oauth/openid"]
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic
+        claims_policy: legacy_claims
       - client_id: tandoor
         client_name: Tandoor
         client_secret: "{{ .TANDOOR_OAUTH_CLIENT_SECRET }}"
