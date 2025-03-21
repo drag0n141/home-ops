@@ -10,6 +10,7 @@
       "localSessionRecording": false,
       "meshQuota": 248576,
       "newAccounts": 0,
+      "allowedOrigin": [ "meshcentral.${SECRET_DOMAIN}" ],
       "certUrl": "https://meshcentral.${SECRET_DOMAIN}"
     }
   }
