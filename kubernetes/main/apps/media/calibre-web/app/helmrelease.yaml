@@ -80,5 +80,7 @@ spec:
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/media
         globalMounts:
-          - path: /mnt/data/media
-            readOnly: true
+          - path: /calibre-library
+            subPath: books
+          - path: /cwa-book-ingest
+            subPath: nzb/books
