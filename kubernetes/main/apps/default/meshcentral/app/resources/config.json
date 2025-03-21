@@ -1,12 +1,16 @@
 {
   "settings": {
-    "port": 8080
+    "port": 8080,
+    "AliasPort": 443,
+    "TLSOffload": true
   },
   "domains": {
     "": {
       "userQuota": 1048576,
+      "localSessionRecording": false,
       "meshQuota": 248576,
-      "newAccounts": 0
+      "newAccounts": 0,
+      "certUrl": "https://meshcentral.${SECRET_DOMAIN}"
     }
   }
 }

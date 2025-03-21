@@ -43,8 +43,6 @@ spec:
     service:
       app:
         controller: *app
-        annotations:
-          traefik.ingress.kubernetes.io/service.serversscheme: https
         ports:
           http:
             port: 8080
