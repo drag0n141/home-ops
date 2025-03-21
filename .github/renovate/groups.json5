@@ -63,7 +63,7 @@
       groupName: "Intel-Device-Plugins",
       matchPackagePatterns: ["intel-device-plugins"],
       matchDatasources: ["docker"],
-      group": {
+      group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
     },
