@@ -35,6 +35,8 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
+    - name: pod-gateway
+      namespace: *namespace
   path: ./kubernetes/main/apps/vpn/pod-gateway/webhook
   prune: true
   sourceRef:
