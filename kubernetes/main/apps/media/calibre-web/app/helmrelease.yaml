@@ -71,6 +71,9 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+            subPath: config
+          - path: /calibre-library
+            subPath: books
       cache:
         type: emptyDir
         globalMounts:
@@ -80,7 +83,5 @@ spec:
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/media
         globalMounts:
-          - path: /calibre-library
-            subPath: books
           - path: /cwa-book-ingest
             subPath: nzb/books
