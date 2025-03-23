@@ -9,7 +9,7 @@ spec:
       rules:
         - alert: SmartDeviceHighTemperature
           expr: |
-            smartctl_device_temperature{temperature_type="current"} > 65
+            smartctl_device_temperature{temperature_type="current"} > 70
           for: 5m
           annotations:
             summary: >-
