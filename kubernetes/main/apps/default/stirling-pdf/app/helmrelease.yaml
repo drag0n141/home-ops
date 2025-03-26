@@ -22,9 +22,21 @@ spec:
               TZ: ${TIMEZONE}
               APP_LOCALE: de-DE
               SYSTEM_ENABLEANALYTICS: false
+            probes:
+              liveness: &probe
+                enabled: true
+                type: HTTP
+                path: /api/v1/info/status
+              readiness: *probe
+              startup:
+                <<: *probe
+                spec:
+                  failureThreshold: 90
+                  periodSeconds: 5
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -33,12 +45,11 @@ spec:
                 memory: 512M
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: *app
@@ -72,6 +83,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /logs
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
       tessdata:
         type: emptyDir
         globalMounts:
