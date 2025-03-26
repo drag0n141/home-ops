@@ -79,6 +79,10 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /configs
       logs:
         type: emptyDir
         globalMounts:
