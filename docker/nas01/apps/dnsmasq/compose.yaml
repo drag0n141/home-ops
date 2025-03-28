@@ -50,8 +50,6 @@ services:
 
 networks:
   server_lan:
-    name: server_lan
-    external: true
     driver: ipvlan
     driver_opts:
       parent: enp5s0f1
