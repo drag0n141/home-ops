@@ -45,6 +45,7 @@ services:
 networks:
   traefik:
     name: traefik
+    external: true
     driver: bridge
     ipam:
      config:
