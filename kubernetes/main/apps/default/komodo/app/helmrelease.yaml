@@ -16,8 +16,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/mbecker20/komodo
-              tag: 1.16.12@sha256:d0a201fdf7113b7a47fe925e0a8a9c337f632980a27f151729030f05e99e22c0
+              repository: ghcr.io/moghtech/komodo-core
+              tag: 1.17.0@sha256:49074c9c3984f244772c282a7cf07fa3940e4e96952b9b3b7fa4444d9adde0f7
             env:
               TZ: ${TIMEZONE}
               KOMODO_DATABASE_ADDRESS: komodo-db.default.svc.cluster.local:27017
