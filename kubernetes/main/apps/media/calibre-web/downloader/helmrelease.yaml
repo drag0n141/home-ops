@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/calibrain/calibre-web-automated-book-downloader
-              tag: latest@sha256:a402ebf7fbcf755630549093524966d061bd4c7521b3bdcf046c55b79030f575
+              tag: latest@sha256:12691808e34fc9e8269ffa414ff486f9efed8c445d3bd35789dab1e9f221776a
             command: ["python", "-m", "app"]
             env:
               TZ: ${TIMEZONE}
