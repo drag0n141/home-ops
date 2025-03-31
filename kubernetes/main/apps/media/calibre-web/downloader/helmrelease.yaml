@@ -26,8 +26,6 @@ spec:
               FLASK_PORT: 8084
               INGEST_DIR: /mnt/data/media/nzb/books
               BOOK_LANGUAGE: de
-              USE_CF_BYPASS: true
-              CLOUDFLARE_PROXY_URL: http://localhost:8000
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -51,18 +49,6 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 2Gi
-          bypass:
-            image:
-              repository: ghcr.io/sarperavci/cloudflarebypassforscraping
-              tag: latest@sha256:b6aa9426a60e19db720486d549e0d8e9f38869a959c75c53f480ae830ba6dedb
-            env:
-              TZ: ${TIMEZONE}
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
