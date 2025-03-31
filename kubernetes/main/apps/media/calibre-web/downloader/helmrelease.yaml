@@ -26,6 +26,7 @@ spec:
               FLASK_PORT: 8084
               INGEST_DIR: /mnt/data/media/nzb/books
               BOOK_LANGUAGE: de
+              USE_CF_BYPASS: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
