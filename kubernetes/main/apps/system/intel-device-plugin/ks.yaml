@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
-    - name: node-feature-discovery
-      namespace: *namespace
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

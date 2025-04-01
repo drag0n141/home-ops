@@ -47,8 +47,6 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         supplementalGroups: [44]
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
     service:
       app:
         controller: *app
