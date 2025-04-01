@@ -28,5 +28,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    controllerExtraArgs: |
-      - --devices=gpu
+    manager:
+      devices:
+        gpu: true
