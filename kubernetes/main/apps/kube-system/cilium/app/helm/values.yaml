@@ -1,8 +1,8 @@
 ---
 autoDirectNodeRoutes: true
 bandwidthManager:
-  enabled: true
   bbr: true
+  enabled: true
 bpf:
   datapathMode: netkit
   masquerade: true
@@ -13,6 +13,7 @@ bgp:
   announce:
     loadbalancerIP: true
     podCIDR: false
+bpfClockProbe: true
 bgpControlPlane:
   enabled: true
 cgroup:
@@ -20,8 +21,8 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 cluster:
-  id: 2
-  name: utility
+  id: 1
+  name: main
 cni:
   exclusive: false
 dashboards:
@@ -29,7 +30,6 @@ dashboards:
   annotations:
     grafana_folder: Cilium
 devices: bond+
-enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
 envoy:
