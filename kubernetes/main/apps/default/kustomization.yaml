@@ -7,7 +7,6 @@ resources:
   - ./atuin/ks.yaml
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
-  - ./clipcascade/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./gotify/ks.yaml
