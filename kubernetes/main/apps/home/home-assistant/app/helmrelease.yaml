@@ -36,7 +36,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
