@@ -19,7 +19,7 @@ spec:
               service:
                 name: plex-ext
                 port:
-                  number: 80
+                  name: http
   tls:
     - hosts:
         - *host
@@ -38,6 +38,4 @@ spec:
   externalName: ${SECRET_PLEX_SERVER}
   ports:
     - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 8443
+      port: 8443
