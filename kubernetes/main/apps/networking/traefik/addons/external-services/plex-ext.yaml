@@ -30,6 +30,7 @@ metadata:
   name: plex-ext
   annotations:
     teleport.dev/name: plex
+    traefik.ingress.kubernetes.io/service.serversscheme: https
   labels:
     teleport: enabled
 spec:
