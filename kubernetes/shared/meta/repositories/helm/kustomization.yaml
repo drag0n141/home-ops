@@ -36,7 +36,6 @@ resources:
   - ./rook-ceph.yaml
   - ./spegel.yaml
   - ./stakater.yaml
-  - ./teleport.yaml
   - ./totmicro.yaml
   - ./traefik.yaml
   - ./wiremind.yaml
