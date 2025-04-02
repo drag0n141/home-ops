@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: docker.io/danonline/autopulse
-              tag: v1.3.0@sha256:afee4802fd985e2202c6a82af86785a1064d3e2b426c9d2aa1487b905cba0502
+              tag: v1.3.1@sha256:70af68330a3820c7af2150b4dc21ec27a7eece7029bfdf6a7c1f8768a5358758
             command: ["/bin/autopulse"]
             env:
               TZ: ${TIMEZONE}
