@@ -12,7 +12,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: teleport
-        namespace: flux-system
   values:
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster
