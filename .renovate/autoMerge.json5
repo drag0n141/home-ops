@@ -16,7 +16,7 @@
       automerge: true,
       automergeType: "pr",
       ignoreTests: false,
-      matchPackageNames: ["/drag0n141/cdpgvector", "/dragonflydb/", "/zibbp/", "/immich-app/", "/siderolabs/", "/koenkk/"],
+      excludePackageNames: ["/drag0n141/cdpgvector", "/dragonflydb/", "/zibbp/", "/immich-app/", "/siderolabs/", "/koenkk/"],
       excludePackageFile: ["**/ocirepository.yaml"],
       matchUpdateTypes: ["minor", "patch", "digest"],
     },
