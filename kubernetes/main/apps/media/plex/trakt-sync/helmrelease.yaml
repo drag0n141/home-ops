@@ -21,8 +21,6 @@ spec:
             args: ["watch"]
             env:
               TZ: ${TIMEZONE}
-              PLEX_BASEURL: https://plex-ext.${SECRET_DOMAIN_INTERNAL}
-              PLEX_LOCALURL: https://plex-ext.${SECRET_DOMAIN_INTERNAL}
             envFrom:
               - secretRef:
                   name: plex-trakt-sync-secret

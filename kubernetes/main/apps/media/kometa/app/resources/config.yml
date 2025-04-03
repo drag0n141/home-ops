@@ -82,7 +82,7 @@ settings:
   - collections
   - overlays
 plex:
-  url: https://plex-ext.${SECRET_DOMAIN_INTERNAL}
+  url: "{{ .PLEX_URL }}"
   token: "{{ .PLEX_TOKEN }}"
   timeout: 120
   clean_bundles: false
