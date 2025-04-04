@@ -88,8 +88,7 @@ plex:
   clean_bundles: false
   empty_trash: false
   optimize: false
-  db_cache:
-  verify_ssl: false
+  db_cache: 1024
 tmdb:
   apikey: "{{ .TMDB_API_KEY }}"
   language: en
