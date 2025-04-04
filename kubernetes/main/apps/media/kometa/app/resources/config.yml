@@ -103,7 +103,7 @@ trakt:
   authorization:
     access_token: "{{ .TRAKT_ACCESS_TOKEN }}"
     token_type: Bearer
-    expires_in: 7889238
+    expires_in: 86400
     refresh_token: "{{ .TRAKT_REFRESH_TOKEN }}"
     scope: public
     created_at: "{{ .TRAKT_CREATED_AT }}"
