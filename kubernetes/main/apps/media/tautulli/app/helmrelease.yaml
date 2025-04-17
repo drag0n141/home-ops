@@ -16,12 +16,11 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/tautulli/tautulli
-              tag: v2.15.2@sha256:0003dd1f2c6d8cd1ce3013ff94f62b17530b3573439de6b52aefa3a10e724f9e
-            command: ["/usr/local/bin/python", "Tautulli.py"]
-            args: ["--config", "/config/config.ini","--datadir", "/config","--port", "80"]
+              repository: ghcr.io/home-operations/tautulli
+              tag: 2.15.2@sha256:882f5b2a89e3da25716af3f3a293bf93a0111056548e37a55c918cf7789bbb78
             env:
               TZ: ${TIMEZONE}
+              TAUTULLI__PORT: &port 8181
             probes:
               liveness: &probes
                 enabled: true
@@ -29,14 +28,12 @@ spec:
                 spec:
                   httpGet:
                     path: /status
-                    port: &port 80
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
