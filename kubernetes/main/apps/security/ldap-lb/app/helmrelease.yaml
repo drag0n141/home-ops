@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/haproxy
-              tag: 3.1.6-alpine@sha256:ad990d28b472c679d0045a2e84a3d98199d43e223fbab650b8cda1cbcc03bd1f
+              tag: 3.1.7-alpine@sha256:2a1c60f595f112ba002db2244d9fe1dee6835794fdbeaf9e427ddf489da903fe
             env:
               TZ: ${TIMEZONE}
             securityContext:
