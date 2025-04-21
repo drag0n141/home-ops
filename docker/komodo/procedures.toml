@@ -4,10 +4,17 @@ config.schedule = "0 0 4 * * *"
 config.schedule_format = "Cron"
 
 [[procedure.config.stage]]
+name = "Update Repos"
+enabled = true
+executions = [
+  { execution.type = "BatchCloneRepo", execution.params.pattern = "*", enabled = true }
+]
+
+[[procedure.config.stage]]
 name = "Deploy if changed"
 enabled = true
 executions = [
-  { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "^(?!.*periphery).*$", enabled = true }
+  { execution.type = "RunAction", execution.params.action = "update_stacks", enabled = true }
 ]
 
 ##
