@@ -2,37 +2,53 @@
 name = "update_stacks"
 [action.config]
 file_contents = """
-const stacks_with_update = (
-  await komodo.read("ListStacks", {
-    query: { specific: { update_available: true } },
-  })
-)
-  .filter((stack) => stack.name != "periphery")
-  .map((stack) => stack.name);
+// add values to each filter to NOT re-deploy if stack contains X
+const REPOS = [];
+const SERVER_IDS = [];
+const TAGS = [];
+const STACKS = ['periphery'];
+const SERVICES = ['periphery'];
+const IMAGES = [];
 
-if (stacks_with_update.length > 0) {
-  console.log("Updating stacks", stacks_with_update.join(", "));
-  await komodo.execute("BatchDeployStack", {
-    pattern: stacks_with_update.join(", "),
-  });
-} else {
-  console.log("No stacks to update");
+const intersect = (a: Array<any>, b: Array<any>) => {
+    const setA = new Set(a);
+    const setB = new Set(b);
+    const intersection = new Set([...setA].filter(x => setB.has(x)));
+    return Array.from(intersection);
 }
 
-const deployments_with_update = (
-  await komodo.read("ListDeployments", {
-    query: { specific: { update_available: true } },
-  })
-)
-  .filter((deployment) => deployment.name != "periphery")
-  .map((deployment) => deployment.name);
+const stacks = await komodo.read('ListStacks', {});
 
-if (deployments_with_update.length > 0) {
-  console.log("Updating deployments", deployments_with_update.join(", "));
-  await komodo.execute("BatchDeploy", {
-    pattern: deployments_with_update.join(", "),
-  });
-} else {
-  console.log("No deployments to update");
-}
+const candidates = stacks.filter(x => {
+  if(REPOS.length > 0 && REPOS.some(x => x.info.repo.includes(x))) {
+      return false;
+  }
+  if(SERVER_IDS.length > 0 && SERVER_IDS.includes(x.info.server_id)) {
+    return false;
+  }
+  if(TAGS.length > 0 && intersect(TAGS, x.tags).length > 0) {
+    return false;
+  }
+  if(STACKS.length > 0 && STACKS.some(y => x.name.includes(y))) {
+    return false;
+  }
+  if(SERVICES.length > 0) {
+    const s = x.info.services.map(x => x.service);
+    if(s.some(x => SERVICES.some(y => x.includes(y)))) {
+      return false;
+    }
+  }
+  if(IMAGES.length > 0) {
+    const s = x.info.services.map(x => x.image);
+    if(s.some(x => IMAGES.includes(y => y.includes(s)))) {
+      return false;
+    }
+  }
+  return true;
+});
+
+console.log(`Redeploying if changed:
+${candidates.map(x => x.name).join('\n')}`);
+
+await komodo.execute('BatchDeployStackIfChanged', {pattern: candidates.map(x => x.id).join(',')});
 """
