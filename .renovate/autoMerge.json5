@@ -17,7 +17,7 @@
       automergeType: "pr",
       ignoreTests: false,
       excludePackageNames: ["/drag0n141/cdpgvector", "/dragonflydb/", "/zibbp/", "/immich-app/", "/siderolabs/", "/koenkk/"],
-      excludePackageFiles: ["**/ocirepository.yaml"],
+      matchPackagePatterns: ["^(?!.*ocirepository\\.yaml).*$"],
       matchUpdateTypes: ["minor", "patch", "digest"],
     },
     {
@@ -27,7 +27,7 @@
       automergeType: "pr",
       ignoreTests: false,
       matchPackageNames: ["/kube-prometheus-stack/", "/netbox-chart/"],
-      matchPackageFiles: ["**/ocirepository.yaml"],
+      matchPackagePatterns: [".*/ocirepository\\.yaml$"],
       matchUpdateTypes: ["minor", "patch"],
     }
   ]
