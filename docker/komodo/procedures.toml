@@ -1,11 +1,13 @@
 [[procedure]]
 name = "update_stacks"
+config.schedule = "0 0 4 * * *"
+config.schedule_format = "Cron"
 
 [[procedure.config.stage]]
 name = "Deploy if changed"
 enabled = true
 executions = [
-  { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "^(?!.*\b(?:twitch|periphery)\b).+$", enabled = true }
+  { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "^(?!.*periphery).*$", enabled = true }
 ]
 
 ##
