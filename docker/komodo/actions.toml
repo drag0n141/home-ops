@@ -1,0 +1,38 @@
+[[action]]
+name = "update_stacks"
+[action.config]
+file_contents = """
+const stacks_with_update = (
+  await komodo.read("ListStacks", {
+    query: { specific: { update_available: true } },
+  })
+)
+  .filter((stack) => stack.name != "periphery")
+  .map((stack) => stack.name);
+
+if (stacks_with_update.length > 0) {
+  console.log("Updating stacks", stacks_with_update.join(", "));
+  await komodo.execute("BatchDeployStack", {
+    pattern: stacks_with_update.join(", "),
+  });
+} else {
+  console.log("No stacks to update");
+}
+
+const deployments_with_update = (
+  await komodo.read("ListDeployments", {
+    query: { specific: { update_available: true } },
+  })
+)
+  .filter((deployment) => deployment.name != "periphery")
+  .map((deployment) => deployment.name);
+
+if (deployments_with_update.length > 0) {
+  console.log("Updating deployments", deployments_with_update.join(", "));
+  await komodo.execute("BatchDeploy", {
+    pattern: deployments_with_update.join(", "),
+  });
+} else {
+  console.log("No deployments to update");
+}
+"""
