@@ -3,8 +3,6 @@ apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
   name: exit-node
-  labels:
-    kyverno.io/vpn: "true"
 spec:
   exitNode: true
   hostname: tailscale-k8s-vpn
