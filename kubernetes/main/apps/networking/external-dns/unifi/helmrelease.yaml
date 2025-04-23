@@ -8,10 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: external-dns-unifi
-  install:
-    disableSchemaValidation: true
-  upgrade:
-    disableSchemaValidation: true
   values:
     fullnameOverride: *app
     provider:
