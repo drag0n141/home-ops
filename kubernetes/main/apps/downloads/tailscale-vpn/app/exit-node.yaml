@@ -1,0 +1,11 @@
+---
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: exit-node
+spec:
+  statefulSet:
+    annotations:
+      setGateway: "true"
+  exitNode: true
+  hostname: tailscale-k8s-vpn
