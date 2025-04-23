@@ -23,4 +23,8 @@ spec:
         - action: replace
           # fix value, don't modify
           sourceLabels: ['pod']
-          targetLabel: "instance"
+          targetLabel: instance
+        - action: replace
+          # for dashboards
+          replacement: emqx
+          targetLabel: job
