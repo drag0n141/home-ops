@@ -6,7 +6,6 @@ resources:
   - ./prowlarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./socks-proxy/ks.yaml
-  - ./tailscale/ks.yaml
 components:
   - ../../../shared/meta/components/alerts
   - ../../../shared/meta/components/namespace

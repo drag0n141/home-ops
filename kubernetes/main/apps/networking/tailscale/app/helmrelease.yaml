@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app tailscale-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: tailscale-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    oauthSecretVolume:
+      secret:
+        secretName: &secret tailscale-operator-secret
+    operatorConfig:
+      podAnnotations:
+        secret.reloader.stakater.com/reload: *secret
