@@ -4,8 +4,7 @@ kind: Connector
 metadata:
   name: exit-node
 spec:
-  statefulSet:
-    annotations:
-      setGateway: "true"
+  annotations:
+    setGateway: "true"
   exitNode: true
   hostname: tailscale-k8s-vpn
