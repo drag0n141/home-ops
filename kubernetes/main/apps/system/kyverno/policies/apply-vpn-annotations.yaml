@@ -1,0 +1,29 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: apply-vpn-annotations
+  annotations:
+    policies.kyverno.io/title: Apply VPN Annotations
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Apply additional annotations to Pods for Gateway VPN.
+spec:
+  rules:
+    - name: gateway
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              selector:
+                matchLabels:
+                  kyverno.io/vpn: true
+      mutate:
+        patchStrategicMerge:
+          spec:
+            template:
+              metadata:
+                annotations:
+                  +(setGateway): "true"
+                labels:
+                  +(setGateway): "true"
