@@ -5,4 +5,4 @@ metadata:
   name: exit-node
 spec:
   exitNode: true
-  hostname: tailscale k8s-vpn
+  hostname: tailscale-k8s-vpn
