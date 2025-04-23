@@ -14,7 +14,7 @@ spec:
       namespace: vpn
     - name: tailscale
       namespace: networking
-  path: ./kubernetes/main/apps/downloads/tailscale/app
+  path: ./kubernetes/main/apps/downloads/tailscale-vpn/app
   prune: true
   sourceRef:
     kind: GitRepository
