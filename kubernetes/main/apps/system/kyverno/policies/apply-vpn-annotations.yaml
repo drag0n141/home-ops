@@ -15,9 +15,10 @@ spec:
         any:
           - resources:
               kinds: ["Pod"]
+              namespaces: ["networking"]
               selector:
                 matchLabels:
-                  kyverno.io/vpn: true
+                  tailscale.com/parent-resource: exit-node
       mutate:
         patchStrategicMerge:
           spec:
