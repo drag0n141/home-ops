@@ -18,3 +18,4 @@ spec:
       - 192.168.222.0/24
       - 192.168.254.0/24
   hostname: tailscale-k8s
+  exitNode: true
