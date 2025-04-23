@@ -32,7 +32,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CAPACITY: 20Gi
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -67,4 +67,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CAPACITY: 20Gi
