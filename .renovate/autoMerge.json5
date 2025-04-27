@@ -11,14 +11,13 @@
       minimumReleaseAge: "3 days",
     },
     {
-      description: "Auto-merge Containers",
+      description: "Auto-merge trusted container digests",
       matchDatasources: ["docker"],
       automerge: true,
       automergeType: "pr",
+      matchUpdateTypes: ["digest"],
+      matchPackageNames: ["/home-operations/"],
       ignoreTests: false,
-      excludePackageNames: ["/drag0n141/cdpgvector", "/dragonflydb/", "/zibbp/", "/immich-app/", "/siderolabs/", "/koenkk/"],
-      matchPackageFiles: ["!**/ocirepository.yaml"],
-      matchUpdateTypes: ["minor", "patch", "digest"],
     },
     {
       description: "Auto-merge OCI Charts",
@@ -27,7 +26,6 @@
       automergeType: "pr",
       ignoreTests: false,
       matchPackageNames: ["/kube-prometheus-stack/", "/netbox-chart/"],
-      matchPackageFiles: ["**/ocirepository.yaml"],
       matchUpdateTypes: ["minor", "patch"],
     }
   ]
