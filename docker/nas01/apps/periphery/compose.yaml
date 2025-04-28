@@ -1,6 +1,6 @@
 services:
   periphery:
-    image: 'ghcr.io/drag0n141/periphery:1.17.3'
+    image: 'ghcr.io/drag0n141/periphery:1.17.4'
     hostname: 'periphery'
     container_name: 'periphery'
     restart: 'always'
