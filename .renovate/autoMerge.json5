@@ -11,13 +11,13 @@
       minimumReleaseAge: "3 days",
     },
     {
-      description: "Auto-merge trusted container digests",
+      description: "Auto-merge Containers",
       matchDatasources: ["docker"],
       automerge: true,
       automergeType: "pr",
-      matchUpdateTypes: ["digest"],
-      matchPackageNames: ["/home-operations/"],
       ignoreTests: false,
+      excludePackageNames: ["/drag0n141/cdpgvector", "/dragonflydb/", "/zibbp/", "/immich-app/", "/siderolabs/", "/koenkk/"],
+      matchUpdateTypes: ["digest", "patch"],
     },
     {
       description: "Auto-merge OCI Charts",
