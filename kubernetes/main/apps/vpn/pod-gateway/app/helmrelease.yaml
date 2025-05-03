@@ -17,7 +17,7 @@ spec:
           routes:
             image:
               repository: ghcr.io/angelnu/pod-gateway
-              tag: v1.11.1@sha256:0617304f085bc98529f0c5cd0c40c63bb019380a026a277c812bd13f78b4bc5d
+              tag: v1.13.0@sha256:a5b032e15f7570493977b330a5a86dcffebb807d35685ad803e47afb62d105f2
             command:
               - /bin/gateway_init.sh
             securityContext:
@@ -26,7 +26,7 @@ spec:
           gateway:
             image:
               repository: ghcr.io/angelnu/pod-gateway
-              tag: v1.11.1@sha256:0617304f085bc98529f0c5cd0c40c63bb019380a026a277c812bd13f78b4bc5d
+              tag: v1.13.0@sha256:a5b032e15f7570493977b330a5a86dcffebb807d35685ad803e47afb62d105f2
             command:
               - /bin/gateway_sidecar.sh
             securityContext:
