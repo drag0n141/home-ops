@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/arabcoders/watchstate
-              tag: latest@sha256:4b221b06d14928f3f1bbca7a0b65a49dbeb38f8910e32835ef62386904134590
+              tag: latest@sha256:43354bf945838ee144021f475f68c8b4afe36bee838fdd20d6cea092a906818d
             env:
               WS_TZ: ${TIMEZONE}
               WS_API_AUTO: true
