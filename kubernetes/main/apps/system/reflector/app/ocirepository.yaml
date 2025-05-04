@@ -9,7 +9,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 9.0.344
-  url: oci://ghcr.io/home-operations/charts-mirror/reflector
-  verify:
-    provider: cosign
+    tag: 9.1.4
+  url: oci://ghcr.io/emberstack/helm-charts/reflector
