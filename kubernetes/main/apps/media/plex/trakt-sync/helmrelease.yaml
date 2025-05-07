@@ -13,6 +13,12 @@ spec:
       plex-trakt-sync:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          delete-old:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.21.3
+            command: ["/bin/sh", "-c", "rm /app/config/servers.yml"]
         containers:
           app:
             image:
