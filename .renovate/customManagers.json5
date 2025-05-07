@@ -1,9 +1,9 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  packageRules: [
+  customManagers: [
     {
       customType: "regex",
-      description: ["Process annotated dependencies"],
+      description: "Process annotated dependencies",
       fileMatch: ["(^|/).+\\.ya?ml(?:\\.j2)?$"],
       matchStrings: [
         // # renovate: datasource=github-releases depName=kubernetes/kubernetes
