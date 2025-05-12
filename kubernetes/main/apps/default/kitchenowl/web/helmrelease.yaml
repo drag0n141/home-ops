@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/tombursch/kitchenowl-web
-              tag: v0.6.14@sha256:64b33100c38f3a4556dbbb3e105d09f8e78c1b1ca4da140bdf4f7a550dc54d4f
+              tag: v0.6.15@sha256:8c1c6cc369e1c148baf6bba069550a510917942b32c9c5e858a14d90cd154fb3
             env:
               TZ: ${TIMEZONE}
               BACK_URL: "kitchenowl.default.svc.cluster.local:5000"
