@@ -60,7 +60,6 @@ spec:
               VPN_INTERFACE: wg0
               SERVER_COUNTRIES: germany
               OWNED_ONLY: yes
-              WIREGUARD_ENDPOINT_PORT: 51820
               FIREWALL_ENABLED_DISABLING_IT_SHOOTS_YOU_IN_YOUR_FOOT: off
               DOT: off
             envFrom:
