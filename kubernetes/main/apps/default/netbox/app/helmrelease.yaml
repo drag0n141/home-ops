@@ -24,23 +24,25 @@ spec:
     shortTimeFormat: "H:i:s"
     dateTimeFormat: "j. F, Y g:i a"
     shortDateTimeFormat: "j.m.Y H:i"
-    storageBackend: storages.backends.s3boto3.S3Boto3Storage
-    storageConfig:
-      AWS_STORAGE_BUCKET_NAME: "netbox"
-      AWS_S3_ENDPOINT_URL: "https://s3.${SECRET_DOMAIN_INTERNAL}"
-      AWS_S3_REGION_NAME: "us-east-1"
+    storages:
+      default:
+        BACKEND: "storages.backends.s3.S3Storage"
+        OPTIONS:
+          AWS_STORAGE_BUCKET_NAME: "netbox"
+          AWS_S3_ENDPOINT_URL: "https://s3.${SECRET_DOMAIN_INTERNAL}"
+          AWS_S3_REGION_NAME: "us-east-1"
     existingSecret: netbox-secret
     metricsEnabled: true
     postgresql:
       enabled: false
-    redis:
+    valkey:
       enabled: false
-    tasksRedis:
+    tasksDatabase:
       host: dragonfly.database.svc.cluster.local
       database: 3
       existingSecretName: "netbox-secret"
       existingSecretKey: "REDIS_PASSWORD"
-    cachingRedis:
+    cachingDatabase:
       host: dragonfly.database.svc.cluster.local
       database: 4
       existingSecretName: "netbox-secret"
@@ -98,11 +100,11 @@ spec:
     worker:
       enabled: false
   valuesFrom:
-    - targetPath: storageConfig.AWS_ACCESS_KEY_ID
+    - targetPath: storages.default.OPTIONS.AWS_ACCESS_KEY_ID
       kind: Secret
       name: netbox-secret
       valuesKey: AWS_ACCESS_KEY_ID
-    - targetPath: storageConfig.AWS_SECRET_ACCESS_KEY
+    - targetPath: storages.default.OPTIONS.AWS_SECRET_ACCESS_KEY
       kind: Secret
       name: netbox-secret
       valuesKey: AWS_SECRET_ACCESS_KEY
