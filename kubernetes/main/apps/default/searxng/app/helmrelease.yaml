@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/searxng/searxng
-              tag: 2025.5.13-c303da5@sha256:13d1e4f5b87fe9baef137a906983d42565e0e0cde2738386dbe4c7a194639b7d
+              tag: 2025.5.14-c73b469@sha256:ebdb7979cb337300ae4fb22e7aedb60b66f2e5974372930a754d179a07c724b0
             env:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
