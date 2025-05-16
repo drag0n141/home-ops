@@ -17,7 +17,7 @@
       automergeType: "pr",
       ignoreTests: false,
       excludePackageNames: ["/drag0n141/cdpgvector", "/dragonflydb/", "/zibbp/", "/immich-app/", "/siderolabs/", "/koenkk/"],
-      matchUpdateTypes: ["digest", "patch"],
+      matchUpdateTypes: ["digest"],
     },
     {
       description: "Auto-merge OCI Charts",
