@@ -14,6 +14,8 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: storage
+  components:
+    - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/monitoring/uptime-kuma/app
   prune: true
   sourceRef:
