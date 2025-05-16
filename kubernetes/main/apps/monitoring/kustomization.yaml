@@ -14,6 +14,7 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./unpoller/ks.yaml
+  - ./uptime-kuma/ks.yaml
 components:
   - ../../../shared/meta/components/alerts
   - ../../../shared/meta/components/namespace
