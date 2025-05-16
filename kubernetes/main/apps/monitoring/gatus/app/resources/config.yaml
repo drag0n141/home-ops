@@ -59,14 +59,6 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: gotify
-  - name: uptime-kuma
-    group: external
-    url: https://uptime.${SECRET_DOMAIN}
-    interval: 1m
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: gotify
   - name: flux-webhook
     group: external
     url: https://flux-webhook.${SECRET_DOMAIN}
