@@ -35,7 +35,7 @@ tasks:
       - which minijinja-cli op talosctl
 
   upgrade-node:
-    desc: Upgrade Talos on a single node [IP=required]
+    desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]
     cmds:
       - task: down
       - talosctl --nodes {{.IP}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
@@ -48,7 +48,7 @@ tasks:
           talosctl --nodes {{.IP}} get machineconfig --output=jsonpath='{.spec}' \
             | yq '.machine.install.image | select(. != null)'
     requires:
-      vars: [NODE]
+      vars: [CLUSTER, IP]
     preconditions:
       - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.IP}} get machineconfig
