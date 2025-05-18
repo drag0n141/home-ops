@@ -38,21 +38,14 @@ tasks:
     desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]
     cmds:
       - task: down
-      - talosctl --nodes {{.IP}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
+      - talosctl --nodes {{.IP}} upgrade -image="factory.talos.dev/installer/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
       - task: up
-    vars:
-      MACHINE_TYPE:
-        sh: talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}'
-      TALOS_IMAGE:
-        sh: |-
-          talosctl --nodes {{.IP}} get machineconfig --output=jsonpath='{.spec}' \
-            | yq '.machine.install.image | select(. != null)'
     requires:
       vars: [CLUSTER, IP]
     preconditions:
       - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
       - talosctl --nodes {{.IP}} get machineconfig
-      - which minijinja-cli talosctl yq
+      - which talosctl
 
   upgrade-k8s:
     desc: Upgrade Kubernetes across the whole cluster [CLUSTER=main] [VERSION=required]
