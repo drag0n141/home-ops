@@ -48,21 +48,13 @@ tasks:
       - which talosctl
 
   upgrade-k8s:
-    desc: Upgrade Kubernetes across the whole cluster [CLUSTER=main] [VERSION=required]
-    cmds:
-      - task: down
-      - talosctl --nodes {{.TALOS_CONTROLLER}} upgrade-k8s --to $KUBERNETES_VERSION
-      - task: up
+    desc: Upgrade Kubernetes across the whole cluster
+    cmd: talosctl --nodes {{.NODE}} upgrade-k8s --to $KUBERNETES_VERSION
     vars:
-      TALOS_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
-    requires:
-      vars: [CLUSTER]
+      NODE:
+        sh: talosctl config info --output json | jq --exit-status --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - curl -fsSL -o /dev/null --fail https://github.com/siderolabs/kubelet/releases/tag/$KUBERNETES_VERSION
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
-      - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
-      - test -f {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - which jq talosctl
 
   reboot-node:
