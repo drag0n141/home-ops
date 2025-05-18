@@ -33,7 +33,7 @@ resources:
   - ./searxng/ks.yaml
   - ./rdesktop/ks.yaml
   - ./shlink/ks.yaml
-  - ./stirling-pdf/ks.yaml
+#   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./ts3/ks.yaml
