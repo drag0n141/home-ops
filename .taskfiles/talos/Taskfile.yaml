@@ -38,7 +38,7 @@ tasks:
     desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]
     cmds:
       - task: down
-      - talosctl --nodes {{.IP}} upgrade -image="factory.talos.dev/installer/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
+      - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
       - task: up
     requires:
       vars: [CLUSTER, IP]
