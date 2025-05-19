@@ -30,4 +30,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: uptime
       VOLSYNC_CAPACITY: 1Gi
