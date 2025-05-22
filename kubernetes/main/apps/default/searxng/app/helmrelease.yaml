@@ -32,9 +32,9 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /stats
+                    path: /healthz
                     port: 8080
-                  initialDelaySeconds: 0
+                  initialDelaySeconds: 15
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
@@ -52,9 +52,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 977
+        runAsGroup: 977
+        fsGroup: 977
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
