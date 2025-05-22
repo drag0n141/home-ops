@@ -11,5 +11,3 @@ spec:
   ref:
     tag: 6.30.0
   url: oci://ghcr.io/grafana/helm-charts/loki
-  verify:
-    provider: cosign
