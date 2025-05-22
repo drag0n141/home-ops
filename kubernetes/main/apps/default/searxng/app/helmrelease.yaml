@@ -18,11 +18,16 @@ spec:
             image:
               repository: ghcr.io/searxng/searxng
               tag: 2025.5.21-502017b@sha256:20f7d47d22774941f65e8e1ca745059f5b632e9bf7c14dd8dea2b0209c35dada
+            command:
+              - /usr/local/searxng/venv/bin/uwsgi
+              - --master
+              - /usr/local/searxng/.template/uwsgi.ini
             env:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_PORT: 8080
+              UWSGI_WORKERS: "1"
             envFrom:
               - secretRef:
                   name: searxng-secret
