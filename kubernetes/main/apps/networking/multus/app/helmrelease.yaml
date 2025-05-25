@@ -39,6 +39,29 @@ spec:
           identifier: multus
     defaultPodOptions:
       hostNetwork: true
+    rbac:
+      roles:
+        multus:
+          type: ClusterRole
+          rules:
+            - apiGroups: ["k8s.cni.cncf.io"]
+              resources: ["*"]
+              verbs: ["*"]
+            - apiGroups: [""]
+              resources: ["pods", "pods/status"]
+              verbs: ["get", "update"]
+            - apiGroups: ["", "events.k8s.io"]
+              resources: ["events"]
+              verbs: ["create", "patch", "update"]
+      bindings:
+        multus:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: multus
+          subjects:
+            - identifier: multus
+    serviceAccount:
+      multus: {}
     persistence:
       etc-cni-net-d:
         type: hostPath
@@ -50,40 +73,3 @@ spec:
         hostPath: /opt/cni/bin
         globalMounts:
           - path: /host/opt/cni/bin
-    rbac:
-      roles:
-        multus:
-          type: ClusterRole
-          rules:
-            - apiGroups:
-                - "k8s.cni.cncf.io"
-              resources:
-                - "*"
-              verbs:
-                - "*"
-            - apiGroups:
-                - ""
-              resources:
-                - "pods"
-                - "pods/status"
-              verbs:
-                - "get"
-                - "update"
-            - apiGroups:
-                - ""
-                - "events.k8s.io"
-              resources:
-                - "events"
-              verbs:
-                - "create"
-                - "patch"
-                - "update"
-      bindings:
-        multus:
-          type: ClusterRoleBinding
-          roleRef:
-            identifier: multus
-          subjects:
-            - identifier: multus
-    serviceAccount:
-      multus: {}
