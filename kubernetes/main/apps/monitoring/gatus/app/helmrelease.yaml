@@ -62,6 +62,8 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources: *resources
+        serviceAccount:
+          identifier: gatus
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -107,8 +109,7 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     serviceAccount:
-      create: true
-      name: gatus
+      gatus: {}
     persistence:
       config:
         type: emptyDir
