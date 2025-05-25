@@ -9,52 +9,10 @@ spec:
     kind: OCIRepository
     name: silence-operator
   values:
+    alertmanagerAddress: http://alertmanager.monitoring.svc.cluster.local:9093
     image:
-      name: quay.io/giantswarm/silence-operator
-    operator:
-      config:
-        alertmanager:
-          service:
-            address: http://alertmanager.monitoring.svc.cluster.local:9093
-    rbac:
-      create: true
-    extraDeploy:
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: ceph-node-nfsmount-diskspace-warning
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: CephNodeDiskspaceWarning
-              isRegex: false
-            - name: mountpoint
-              value: /etc/nfsmount.conf
-              isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: ceph-node-local-diskspace-warning
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: CephNodeDiskspaceWarning
-              isRegex: false
-            - name: device
-              value: /dev/sd.*
-              isRegex: true
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: nas01-node-memory-high-utilization
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: NodeMemoryHighUtilization
-              isRegex: false
-            - name: instance
-              value: nas01.${SECRET_DOMAIN_INT}:9100
-              isRegex: false
+      registry: quay.io
+      # TODO: Enable on next Flux release and remove name & tag
+      # REF: https://github.com/fluxcd/helm-controller/pull/1212
+      name: giantswarm/silence-operator
+      tag: 0.16.1
