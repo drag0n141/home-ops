@@ -11,5 +11,3 @@ spec:
   ref:
     tag: 2.2.29
   url: oci://ghcr.io/home-operations/charts-mirror/emqx-operator
-  verify:
-    provider: cosign

@@ -11,5 +11,3 @@ spec:
   ref:
     tag: 0.18.0
   url: oci://ghcr.io/home-operations/charts-mirror/k8tz
-  verify:
-    provider: cosign

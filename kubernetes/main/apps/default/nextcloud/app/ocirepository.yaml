@@ -11,5 +11,3 @@ spec:
   ref:
     tag: 6.6.10
   url: oci://ghcr.io/home-operations/charts-mirror/nextcloud
-  verify:
-    provider: cosign

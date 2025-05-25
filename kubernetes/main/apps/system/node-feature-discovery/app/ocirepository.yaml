@@ -11,5 +11,3 @@ spec:
   ref:
     tag: 0.17.3
   url: oci://ghcr.io/home-operations/charts-mirror/node-feature-discovery
-  verify:
-    provider: cosign
