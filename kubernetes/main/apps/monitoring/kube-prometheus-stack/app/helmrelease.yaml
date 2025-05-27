@@ -40,6 +40,15 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       prometheusSpec:
+        image:
+          registry: docker.io
+          repository: prompp/prompp
+          tag: 2.53.2-0.2.5
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 64535
+          runAsGroup: 64535
+          fsGroup: 64535
         alertingEndpoints:
           - namespace: monitoring
             name: alertmanager
@@ -51,13 +60,7 @@ spec:
         ruleSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
-        enableAdminAPI: true
-        walCompression: true
-        enableFeatures:
-          - auto-gomaxprocs
-          - memory-snapshot-on-shutdown
-          - new-service-discovery-manager
-        retention: 2d
+        retention: 7d
         retentionSize: 15GB
         resources:
           requests:
