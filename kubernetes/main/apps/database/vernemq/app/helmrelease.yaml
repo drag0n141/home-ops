@@ -113,7 +113,7 @@ spec:
               verbs: ["get"]
       bindings:
         vernemq:
-          type: ClusterRoleBinding
+          type: RoleBinding
           roleRef:
             identifier: vernemq
           subjects:
