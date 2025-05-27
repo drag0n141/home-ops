@@ -106,6 +106,7 @@ spec:
         homepage:
           type: ClusterRoleBinding
           roleRef:
+            kind: ClusterRole
             identifier: homepage
           subjects:
             - identifier: homepage
