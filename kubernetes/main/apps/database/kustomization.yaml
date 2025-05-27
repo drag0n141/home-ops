@@ -5,7 +5,7 @@ namespace: database
 resources:
   - ./crunchy-postgres/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./emqx/ks.yaml
+  - ./vernemq/ks.yaml
 components:
   - ../../../shared/meta/components/alerts
   - ../../../shared/meta/components/namespace

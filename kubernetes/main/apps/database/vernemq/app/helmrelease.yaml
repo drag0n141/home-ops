@@ -1,0 +1,136 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app vernemq
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      vernemq:
+        type: statefulset
+        strategy: RollingUpdate
+        replicas: 2
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/vernemq/vernemq
+              tag: 2.0.1-alpine@sha256:5f2ffe9ec73c4910f9c32197414bd72d0a6b31035334ff14748185797312b47f
+            env:
+              MY_POD_NAME:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
+              DOCKER_VERNEMQ_ACCEPT_EULA: "yes"
+              DOCKER_VERNEMQ_DISCOVERY_KUBERNETES: 1
+              DOCKER_VERNEMQ_KUBERNETES_LABEL_SELECTOR: "app.kubernetes.io/name=vernemq"
+              DOCKER_VERNEMQ_LEVELDB__MAXIMUM_MEMORY: '10485760' # in bytes
+              DOCKER_VERNEMQ_LEVELDB__WRITE_BUFFER_SIZE_MIN: '1048576'
+              DOCKER_VERNEMQ_LEVELDB__WRITE_BUFFER_SIZE_MAX: '2097152'
+              # allow clients to failover when pods are restarting
+              DOCKER_VERNEMQ_ALLOW_REGISTER_DURING_NETSPLIT: 'on'
+              DOCKER_VERNEMQ_ALLOW_PUBLISH_DURING_NETSPLIT: 'on'
+              DOCKER_VERNEMQ_ALLOW_SUBSCRIBE_DURING_NETSPLIT: 'on'
+              DOCKER_VERNEMQ_ALLOW_UNSUBSCRIBE_DURING_NETSPLIT: 'on'
+            envFrom:
+              - secretRef:
+                  name: vernemq-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/ping
+                    port: 8888
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              readiness: *probes
+              startup:
+                <<: *probes
+                spec:
+                  exec:
+                    command:
+                      # vernemq immediately reports healthy, even before retained messages are replicated
+                      # so we need to make sure all nodes have the same num_replicated on startup
+                      # see https://github.com/vernemq/docker-vernemq/issues/255
+                      - /bin/sh
+                      - -c
+                      - >-
+                        curl -s localhost:8888/status.json |
+                        jq -e '.[0] | [to_entries.[].value.num_retained] | .[0] as $x | all(.[]; . == $x)'
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 20m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+        serviceAccount:
+          identifier: vernemq
+        pod:
+          securityContext:
+            runAsUser: 10000
+            runAsNonRoot: true
+    service:
+      app:
+        type: LoadBalancer
+        sessionAffinity: ClientIP
+        ports:
+          mqtt:
+            port: 1883
+          ws:
+            port: 8080
+      headless:
+        forceRename: *app # TODO: Fix this when app-template 4.1.0 is released
+        publishNotReadyAddresses: true
+        clusterIP: None
+        ports:
+          mqtt:
+            port: 1883
+          ws:
+            port: 8080
+    rbac:
+      roles:
+        vernemq:
+          type: Role
+          rules:
+            - apiGroups: [""]
+              resources: ["pods"]
+              verbs: ["get", "list"]
+            - apiGroups: ["apps"]
+              resources: ["statefulsets"]
+              verbs: ["get"]
+      bindings:
+        vernemq:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: vernemq
+          subjects:
+            - identifier: vernemq
+    serviceAccount:
+      vernemq: {}
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /vernemq/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          vernemq:
+            app:
+              - path: /vernemq/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
