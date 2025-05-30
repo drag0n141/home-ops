@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/searxng/searxng
-              tag: 2025.5.29-dbe6a6f@sha256:9629291b99961e541af2279e26737b8c68d94e2a2be6ef9b52631ffade181107
+              tag: 2025.5.30-b991688@sha256:d66c40c1f315d764bc3cc0106b4143176c649d8e011eacb6c31e42f0cfeb2eb7
             command:
               - /usr/local/searxng/venv/bin/uwsgi
               - --master
