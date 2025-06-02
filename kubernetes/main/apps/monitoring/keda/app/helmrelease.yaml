@@ -1,0 +1,12 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app keda
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: keda
+  values:
+    enableServiceLinks: false
