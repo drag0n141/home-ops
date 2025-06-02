@@ -18,6 +18,7 @@ spec:
       namespace: storage
   components:
     - ../../../../../shared/meta/components/gatus/internal
+    - ../../../../../shared/meta/components/keda
     - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/media/ganymede/app
   prune: true

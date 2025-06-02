@@ -16,6 +16,8 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
+  components:
+    - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/default/immich/app
   prune: true
   sourceRef:
@@ -44,6 +46,8 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: *namespace
+  components:
+    - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/default/immich/machine-learning
   prune: true
   sourceRef:
@@ -68,6 +72,8 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: *namespace
+  components:
+    - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/default/immich/microservices
   prune: true
   sourceRef:

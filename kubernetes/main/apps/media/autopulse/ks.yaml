@@ -16,6 +16,8 @@ spec:
       namespace: external-secrets
     - name: plex
       namespace: media
+  components:
+    - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/media/autopulse/app
   prune: true
   sourceRef:

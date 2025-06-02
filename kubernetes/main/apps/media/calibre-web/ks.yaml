@@ -15,6 +15,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
+    - ../../../../../shared/meta/components/keda
     - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/media/calibre-web/app
   prune: true
