@@ -36,7 +36,7 @@ tasks:
         cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
       - op inject --in-file {{.SHARED_DIR}}/bootstrap/resources/secrets.yaml.tpl | kubectl apply --server-side --filename -
       - kubectl --namespace flux-system apply --server-side --filename {{.SHARED_DIR}}/meta/components/substitutions/cluster-settings.yaml
-      - helmfile --file {{.SHARED_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff --kube-context {{.CLUSTER}}
+      - helmfile --file {{.SHARED_DIR}}/bootstrap/helmfile.yaml sync --hide-notes --kube-context {{.CLUSTER}}
     vars:
       BLOCK_DEVICES_FILTER: |-
         map(select(.spec.model == "{{.ROOK_DISK}}"))
