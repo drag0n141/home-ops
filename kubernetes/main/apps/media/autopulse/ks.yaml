@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
       namespace: database
+    - name: keda
+      namespace: system
     - name: onepassword
       namespace: external-secrets
     - name: plex

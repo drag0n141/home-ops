@@ -14,6 +14,8 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
+    - name: keda
+      namespace: system
     - name: onepassword
       namespace: external-secrets
   components:
@@ -46,6 +48,8 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: *namespace
+    - name: keda
+      namespace: system
   components:
     - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/default/immich/machine-learning
@@ -75,6 +79,8 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: *namespace
+    - name: keda
+      namespace: system
   components:
     - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/default/immich/microservices

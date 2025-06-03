@@ -10,6 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: keda
+      namespace: system
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

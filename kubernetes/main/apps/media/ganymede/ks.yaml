@@ -10,6 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: keda
+      namespace: system
     - name: onepassword
       namespace: external-secrets
     - name: rook-ceph-cluster
