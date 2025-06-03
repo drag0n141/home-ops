@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/usememos/memos
-              tag: 0.24.4@sha256:c1518ccbeb1c54e54734ad2ca918c16b964e1b6aa2ccebdbac617ed827a80345
+              tag: 0.24.4@sha256:e14a6242dc08206ea56c3e741809f7adf0547126540dd64454b6162a62c8ad0c
             env:
               TZ: ${TIMEZONE}
               MEMOS_DRIVER: postgres
