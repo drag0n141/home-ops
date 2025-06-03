@@ -18,3 +18,16 @@ spec:
         - usv01.${SECRET_DOMAIN_INT}
         - usv02.${SECRET_DOMAIN_INT}
         - zigbee01.${SECRET_DOMAIN_INT}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: nfs
+spec:
+  module: tcp_connect
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - nas01.${SECRET_DOMAIN_INT}:2049
