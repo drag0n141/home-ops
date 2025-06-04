@@ -93,8 +93,6 @@ spec:
       namespace: system
     - name: paperless
       namespace: *namespace
-  components:
-    - ../../../../../shared/meta/components/keda
   path: ./kubernetes/main/apps/default/paperless/scan
   prune: true
   sourceRef:
