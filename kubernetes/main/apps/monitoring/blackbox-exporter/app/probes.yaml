@@ -17,6 +17,7 @@ spec:
         - prx03.${SECRET_DOMAIN_INT}
         - usv01.${SECRET_DOMAIN_INT}
         - usv02.${SECRET_DOMAIN_INT}
+        - brother-mfc.${SECRET_DOMAIN_INT}
         - zigbee01.${SECRET_DOMAIN_INT}
 ---
 apiVersion: monitoring.coreos.com/v1

@@ -1,0 +1,22 @@
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: paperless-scan-scaler
+spec:
+  advanced:
+    restoreToOriginalReplicaCount: true
+  cooldownPeriod: 0
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: paperless-scan
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
+        query: probe_success{instance=~"brother-mfc.${SECRET_DOMAIN_INT}"}
+        threshold: "1"
+        ignoreNullValues: "0"
