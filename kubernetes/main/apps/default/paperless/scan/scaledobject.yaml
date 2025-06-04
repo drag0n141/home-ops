@@ -17,12 +17,12 @@ spec:
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
-        query: max_over_time(probe_success{instance="nas01.${SECRET_DOMAIN_INT}:2049",job="probe/monitoring/tcp-endpoints"}[2m])
+        query: probe_success{instance=~"nas01.${SECRET_DOMAIN_INT}:2049"}
         threshold: "1"
         ignoreNullValues: "0"
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
-        query: max_over_time(probe_success{instance="brother-mfc.${SECRET_DOMAIN_INT}",job="probe/monitoring/icmp"}[2m])
+        query: probe_success{instance=~"brother-mfc.${SECRET_DOMAIN_INT}"}
         threshold: "1"
         ignoreNullValues: "0"
