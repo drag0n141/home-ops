@@ -6,7 +6,7 @@ metadata:
 spec:
   advanced:
     restoreToOriginalReplicaCount: true
-  cooldownPeriod: 0
+  cooldownPeriod: 15
   minReplicaCount: 0
   maxReplicaCount: 1
   scaleTargetRef:
@@ -17,6 +17,6 @@ spec:
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
-        query: probe_success{instance=~"zigbee01.${SECRET_DOMAIN_INT}"}
+        query: max_over_time(probe_success{instance="zigbee01.${SECRET_DOMAIN_INT}",job="probe/monitoring/icmp"}[2m])
         threshold: "1"
         ignoreNullValues: "0"

@@ -11,6 +11,7 @@ spec:
   values:
     controllers:
       paperless-scan:
+        replicas: 0
         labels:
           nfsMount: "true"
         annotations:
