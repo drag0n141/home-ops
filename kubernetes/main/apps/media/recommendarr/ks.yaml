@@ -16,6 +16,9 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: storage
+  components:
+    - ../../../../../shared/meta/components/gatus/internal
+    - ../../../../../shared/meta/components/volsync
   path: ./kubernetes/main/apps/media/recommendarr/app
   prune: true
   sourceRef:
