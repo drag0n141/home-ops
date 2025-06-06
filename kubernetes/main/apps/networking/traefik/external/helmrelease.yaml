@@ -35,10 +35,10 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
-    globalArguments:
-      - "--serversTransport.insecureSkipVerify=true"
-      - "--global.sendanonymoususage=false"
+    global:
+      sendAnonymousUsage: false
     additionalArguments:
+      - "--serversTransport.insecureSkipVerify=true"
       - "--entrypoints.web.transport.respondingTimeouts.readTimeout=0"
       - "--entrypoints.websecure.transport.respondingTimeouts.readTimeout=0"
     ports:
