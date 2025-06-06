@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 35.4.0
+      version: 36.0.0
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -40,10 +40,10 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
-    globalArguments:
-      - "--serversTransport.insecureSkipVerify=true"
-      - "--global.sendanonymoususage=false"
+    global:
+      sendAnonymousUsage: false
     additionalArguments:
+      - "--serversTransport.insecureSkipVerify=true"
       - "--entrypoints.web.transport.respondingTimeouts.readTimeout=0"
       - "--entrypoints.websecure.transport.respondingTimeouts.readTimeout=0"
     ports:
