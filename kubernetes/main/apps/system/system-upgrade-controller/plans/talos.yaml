@@ -18,7 +18,12 @@ spec:
         operator: Exists
   upgrade:
     image: ghcr.io/jfroy/tnu:0.4.3
+    envs:
+      - name: NODE_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
     args:
-      - --node=$(SYSTEM_UPGRADE_NODE_NAME)
+      - --node=$(NODE_IP)
       - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --powercycle
