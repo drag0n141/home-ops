@@ -3,7 +3,7 @@
   packageRules: [
     {
       matchDatasources: ["docker"],
-      matchPackagePatterns: ["postgresql"],
+      matchPackagePatterns: ["cdpgvectorchord", "postgresql", "postgres-backup-local"],
       allowedVersions: "<=16"
     }
   ]
