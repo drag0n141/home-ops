@@ -23,13 +23,6 @@ area/taskfile:
       - any-glob-to-any-file:
           - ".taskfiles/**/*"
           - "Taskfile.yaml"
-# Cluster
-cluster/main:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/main/**/*
-cluster/utility:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/utility/**/*
 # Docker
 docker/ext01:
   - changed-files:

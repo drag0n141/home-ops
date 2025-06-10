@@ -12,7 +12,6 @@
     ":timezone(Europe/Berlin)",
     "github>drag0n141/home-ops//.renovate/allowedVersions.json5",
     "github>drag0n141/home-ops//.renovate/autoMerge.json5",
-    "github>drag0n141/home-ops//.renovate/clusters.json5",
     "github>drag0n141/home-ops//.renovate/customManagers.json5",
     "github>drag0n141/home-ops//.renovate/grafanaDashboards.json5",
     "github>drag0n141/home-ops//.renovate/groups.json5",

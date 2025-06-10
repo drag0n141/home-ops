@@ -1,8 +1,0 @@
----
-replicas: 1
-bypassDnsResolution: true
-providerRegex: ^k8s-.\d{2}$
-metrics:
-  enable: true
-  serviceMonitor:
-    enabled: true
