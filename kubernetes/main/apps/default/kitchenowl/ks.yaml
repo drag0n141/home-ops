@@ -19,7 +19,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/default/kitchenowl/app
   prune: true
   sourceRef:
@@ -49,7 +49,7 @@ spec:
     - name: kitchenowl
       namespace: *namespace
   components:
-    - ../../../../../shared/meta/components/gatus/external
+    - ../../../../components/gatus/external
   path: ./kubernetes/main/apps/default/kitchenowl/web
   prune: true
   sourceRef:

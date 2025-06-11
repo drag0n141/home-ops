@@ -17,8 +17,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/gatus/external
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/gatus/external
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/security/teleport/app
   prune: true
   sourceRef:

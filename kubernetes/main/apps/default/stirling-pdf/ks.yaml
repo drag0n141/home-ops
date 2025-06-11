@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/default/stirling-pdf/app
   prune: true
   sourceRef:

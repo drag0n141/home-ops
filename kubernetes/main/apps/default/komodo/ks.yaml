@@ -17,7 +17,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/default/komodo/db
   prune: true
   sourceRef:
@@ -49,7 +49,7 @@ spec:
     - name: komodo-db
       namespace: *namespace
   components:
-    - ../../../../../shared/meta/components/gatus/internal
+    - ../../../../components/gatus/internal
   path: ./kubernetes/main/apps/default/komodo/app
   prune: true
   sourceRef:

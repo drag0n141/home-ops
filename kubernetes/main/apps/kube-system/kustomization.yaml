@@ -7,8 +7,8 @@ resources:
   - ./coredns/ks.yaml
   - ./metrics-server/ks.yaml
 components:
-  - ../../../shared/meta/components/alerts
-  - ../../../shared/meta/components/namespace
-  - ../../../shared/meta/components/repos
-  - ../../../shared/meta/components/sops
-  - ../../../shared/meta/components/substitutions
+  - ../../components/alerts
+  - ../../components/namespace
+  - ../../components/repos
+  - ../../components/sops
+  - ../../components/substitutions

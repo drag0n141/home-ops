@@ -17,7 +17,7 @@ spec:
     - name: minio
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/gatus/external
+    - ../../../../components/gatus/external
   path: ./kubernetes/main/apps/default/zipline/app
   prune: true
   sourceRef:

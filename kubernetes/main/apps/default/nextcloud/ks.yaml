@@ -23,8 +23,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/keda
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/keda
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/default/nextcloud/app
   prune: true
   sourceRef:

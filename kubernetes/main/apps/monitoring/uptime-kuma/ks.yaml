@@ -15,8 +15,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/gatus/external
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/gatus/external
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/monitoring/uptime-kuma/app
   prune: true
   sourceRef:

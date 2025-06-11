@@ -19,7 +19,7 @@ spec:
     - name: plex
       namespace: media
   components:
-    - ../../../../../shared/meta/components/keda
+    - ../../../../components/keda
   path: ./kubernetes/main/apps/media/autopulse/app
   prune: true
   sourceRef:

@@ -21,7 +21,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/home/zigbee2mqtt/app
   prune: true
   sourceRef:

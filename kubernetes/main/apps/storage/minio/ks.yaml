@@ -22,8 +22,8 @@ spec:
       name: *app
       namespace: *namespace
   components:
-    - ../../../../../shared/meta/components/gatus/internal
-    - ../../../../../shared/meta/components/volsync
+    - ../../../../components/gatus/internal
+    - ../../../../components/volsync
   path: ./kubernetes/main/apps/storage/minio/app
   prune: true
   sourceRef:
