@@ -41,6 +41,19 @@ spec:
 apiVersion: monitoring.giantswarm.io/v1alpha1
 kind: Silence
 metadata:
+  name: blackbox-probe-printer
+spec:
+  matchers:
+    - name: alertname
+      value: BlackboxProbeFailed
+      isRegex: false
+    - name: instance
+      value: brother-mfc.${SECRET_DOMAIN_INT}
+      isRegex: false
+---
+apiVersion: monitoring.giantswarm.io/v1alpha1
+kind: Silence
+metadata:
   name: keda-hpa-maxed-out
 spec:
   matchers:
