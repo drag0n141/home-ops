@@ -63,7 +63,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: searxng
         ports:
           http:
             port: 8080

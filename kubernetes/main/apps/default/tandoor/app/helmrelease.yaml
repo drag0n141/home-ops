@@ -81,7 +81,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
         ports:
           http:
             port: 8080
@@ -105,7 +104,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: tandoor
+        existingClaim: *app
         advancedMounts:
           tandoor:
             app:

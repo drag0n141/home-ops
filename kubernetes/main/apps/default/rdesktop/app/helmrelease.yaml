@@ -40,13 +40,12 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: rdesktop
         ports:
           rdp:
             port: 3389
             protocol: TCP
     persistence:
       data:
-        existingClaim: rdesktop
+        existingClaim: *app
         globalMounts:
           - path: /config

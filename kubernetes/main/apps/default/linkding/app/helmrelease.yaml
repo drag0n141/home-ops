@@ -46,7 +46,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
         ports:
           http:
             port: 9090
@@ -70,7 +69,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: linkding
+        existingClaim: *app
         globalMounts:
           - path: /etc/linkding/data
       tmp:

@@ -50,13 +50,13 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: kitchenowl
+
         ports:
           http:
             port: 5000
     persistence:
       data:
-        existingClaim: kitchenowl
+        existingClaim: *app
         globalMounts:
           - path: /data
       tmp:

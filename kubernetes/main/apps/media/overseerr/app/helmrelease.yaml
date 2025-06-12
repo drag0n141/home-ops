@@ -55,7 +55,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: overseerr
         ports:
           http:
             port: *port
@@ -79,7 +78,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: overseerr
+        existingClaim: *app
         globalMounts:
           - path: /app/config
       logs:

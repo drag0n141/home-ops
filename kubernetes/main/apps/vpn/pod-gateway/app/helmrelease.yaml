@@ -77,7 +77,6 @@ spec:
                 add: ["NET_ADMIN"]
     service:
       app:
-        controller: *app
         type: ClusterIP
         clusterIP: None
         ports:

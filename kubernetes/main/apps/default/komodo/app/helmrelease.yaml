@@ -47,7 +47,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: komodo
         annotations:
           teleport.dev/name: *app
         labels:

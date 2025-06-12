@@ -39,7 +39,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: guacd
         ports:
           http:
             port: 4822

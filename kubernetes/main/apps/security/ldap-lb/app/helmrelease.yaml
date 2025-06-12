@@ -40,7 +40,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: ldap-lb
         ports:
           http:
             port: 8080
@@ -48,7 +47,6 @@ spec:
             port: 636
     serviceMonitor:
       app:
-        serviceName: ldap-lb
         endpoints:
           - port: http
             scheme: http

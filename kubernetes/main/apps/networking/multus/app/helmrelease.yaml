@@ -35,8 +35,6 @@ spec:
                 memory: 64Mi
             securityContext:
               privileged: true
-        serviceAccount:
-          identifier: multus
     defaultPodOptions:
       hostNetwork: true
     rbac:

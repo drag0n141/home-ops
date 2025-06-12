@@ -39,7 +39,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: mind
         ports:
           http:
             port: 8080
@@ -63,6 +62,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: mind
+        existingClaim: *app
         globalMounts:
           - path: /app/db

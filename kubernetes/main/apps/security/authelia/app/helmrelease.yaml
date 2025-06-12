@@ -70,12 +70,10 @@ spec:
               app.kubernetes.io/name: *app
     service:
       app:
-        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "authelia.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.90
-        externalTrafficPolicy: Cluster
         ports:
           http:
             port: *port
@@ -83,7 +81,6 @@ spec:
             port: 8080
     serviceMonitor:
       app:
-        serviceName: *app
         endpoints:
           - port: metrics
             scheme: http

@@ -73,7 +73,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
         ports:
           http:
             port: *port
@@ -97,7 +96,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: vikunja
+        existingClaim: *app
         globalMounts:
           - path: /app/vikunja/files
       vikunja-config:

@@ -51,7 +51,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: vaultwarden
         ports:
           http:
             port: 80
@@ -92,6 +91,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: vaultwarden
+        existingClaim: *app
         globalMounts:
           - path: /data

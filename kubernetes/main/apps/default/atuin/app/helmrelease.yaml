@@ -49,7 +49,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: atuin
         ports:
           http:
             port: *port
@@ -57,7 +56,6 @@ spec:
             port: *metricsPort
     serviceMonitor:
       app:
-        serviceName: atuin
         endpoints:
           - port: metrics
             scheme: http

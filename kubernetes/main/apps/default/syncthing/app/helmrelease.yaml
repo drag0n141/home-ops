@@ -41,18 +41,16 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
+        forceRename: *app
         primary: true
         ports:
           http:
             port: 8384
       sync:
-        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.120
-        externalTrafficPolicy: Cluster
         ports:
           discovery:
             port: 21027

@@ -64,7 +64,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: sabnzbd
         ports:
           http:
             port: *port
@@ -88,7 +87,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: sabnzbd
+        existingClaim: *app
         globalMounts:
           - path: /config
       tmp:

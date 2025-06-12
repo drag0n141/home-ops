@@ -41,7 +41,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: autopulse
         ports:
           http:
             port: 2875

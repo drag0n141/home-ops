@@ -50,7 +50,6 @@ spec:
         runAsGroup: 1000
     service:
       app:
-        controller: *app
         annotations:
           teleport.dev/name: *app
         labels:

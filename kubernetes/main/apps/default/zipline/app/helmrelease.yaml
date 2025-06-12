@@ -73,7 +73,6 @@ spec:
         runAsGroup: 1000
     service:
       app:
-        controller: outline
         ports:
           http:
             port: 3000

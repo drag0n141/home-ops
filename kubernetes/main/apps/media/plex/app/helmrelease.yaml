@@ -62,12 +62,10 @@ spec:
         supplementalGroups: [44]
     service:
       app:
-        controller: plex
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 192.168.222.85
           traefik.ingress.kubernetes.io/service.serversscheme: https
-        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 32400
@@ -91,7 +89,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: plex
+        existingClaim: *app
         globalMounts:
           - path: /config
       tmp:

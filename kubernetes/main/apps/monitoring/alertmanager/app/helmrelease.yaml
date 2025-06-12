@@ -76,7 +76,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: alertmanager
         ports:
           http:
             port: 9093
@@ -112,6 +111,6 @@ spec:
           - path: /etc/secrets
             readOnly: true
       data:
-        existingClaim: alertmanager
+        existingClaim: *app
         globalMounts:
           - path: /alertmanager

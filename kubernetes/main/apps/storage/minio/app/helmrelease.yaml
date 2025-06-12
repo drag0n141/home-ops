@@ -64,7 +64,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: minio
         ports:
           http:
             port: 9001
@@ -72,7 +71,6 @@ spec:
             port: 9000
     serviceMonitor:
       app:
-        serviceName: minio
         endpoints:
           - port: s3
             scheme: http
@@ -106,6 +104,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: minio
+        existingClaim: *app
         globalMounts:
           - path: /data

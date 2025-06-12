@@ -51,17 +51,15 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
+        forceRename: *app
         primary: true
         ports:
           http:
             port: 80
       scan:
-        controller: *app
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: *ip
-        externalTrafficPolicy: Cluster
         ports:
           scan-udp:
             port: 54925

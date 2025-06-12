@@ -48,18 +48,16 @@ spec:
               app.kubernetes.io/name: *app
     service:
       app:
-        controller: *app
+        forceRename: *app
         primary: true
         ports:
           http:
             port: 4000
       dns:
-        controller: blocky
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.254
-        externalTrafficPolicy: Cluster
         ports:
           dns-tcp:
             port: 53

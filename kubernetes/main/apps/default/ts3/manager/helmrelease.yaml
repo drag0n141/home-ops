@@ -43,7 +43,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: ts3-manager
         ports:
           http:
             port: 8080

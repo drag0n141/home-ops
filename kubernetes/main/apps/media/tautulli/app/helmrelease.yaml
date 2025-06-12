@@ -66,7 +66,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: tautulli
         ports:
           http:
             port: *port
@@ -90,7 +89,7 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: tautulli
+        existingClaim: *app
         globalMounts:
           - path: /config
       cache:

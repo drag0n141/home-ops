@@ -48,12 +48,10 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: ts3
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.80
-        externalTrafficPolicy: Cluster
         ports:
           voice:
             port: 9987
@@ -66,7 +64,7 @@ spec:
             protocol: TCP
     persistence:
       data:
-        existingClaim: ts3-server
+        existingClaim: *app
         globalMounts:
           - path: /var/ts3server
       logs:

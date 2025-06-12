@@ -39,7 +39,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
         annotations:
           teleport.dev/name: *app
         labels:

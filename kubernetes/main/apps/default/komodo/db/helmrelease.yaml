@@ -57,13 +57,12 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: komodo-db
         ports:
           mongo:
             port: 27017
     persistence:
       state:
-        existingClaim: komodo-db
+        existingClaim: *app
         globalMounts:
           - path: /state
       tmp:

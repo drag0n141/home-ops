@@ -40,7 +40,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: kitchenowl-web
         ports:
           http:
             port: 80
