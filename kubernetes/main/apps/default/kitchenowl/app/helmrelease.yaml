@@ -50,7 +50,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-
         ports:
           http:
             port: 5000
