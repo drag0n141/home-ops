@@ -78,22 +78,6 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 ##
 
 [[stack]]
-name = "periphery-ext01"
-[stack.config]
-server = "ext01"
-poll_for_updates = true
-destroy_before_deploy = true
-files_on_host = true
-run_directory = "/etc/komodo/repos/home-ops-ext01/docker/ext01/apps/periphery"
-webhook_enabled = false
-pre_deploy.command = """
-export VAULT=[[VAULT]]
-OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
-"""
-
-##
-
-[[stack]]
 name = "smartctl-exporter"
 [stack.config]
 server = "nas01"
@@ -110,22 +94,6 @@ OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env 
 ##
 
 [[stack]]
-name = "tailscale"
-[stack.config]
-server = "ext01"
-poll_for_updates = true
-destroy_before_deploy = true
-files_on_host = true
-run_directory = "/etc/komodo/repos/home-ops-ext01/docker/ext01/apps/tailscale"
-webhook_enabled = false
-pre_deploy.command = """
-export VAULT=[[VAULT]]
-OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
-"""
-
-##
-
-[[stack]]
 name = "traefik"
 [stack.config]
 server = "nas01"
@@ -133,38 +101,6 @@ poll_for_updates = true
 destroy_before_deploy = true
 files_on_host = true
 run_directory = "/etc/komodo/repos/home-ops-nas01/docker/nas01/apps/traefik"
-webhook_enabled = false
-pre_deploy.command = """
-export VAULT=[[VAULT]]
-OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
-"""
-
-##
-
-[[stack]]
-name = "traefik-ext01"
-[stack.config]
-server = "ext01"
-poll_for_updates = true
-destroy_before_deploy = true
-files_on_host = true
-run_directory = "/etc/komodo/repos/home-ops-ext01/docker/ext01/apps/traefik"
-webhook_enabled = false
-pre_deploy.command = """
-export VAULT=[[VAULT]]
-OP_SERVICE_ACCOUNT_TOKEN=[[OP_SERVICE_ACCOUNT_TOKEN]] op inject -i .secrets.env -o .env --force
-"""
-
-##
-
-[[stack]]
-name = "uptime-kuma"
-[stack.config]
-server = "ext01"
-poll_for_updates = true
-destroy_before_deploy = true
-files_on_host = true
-run_directory = "/etc/komodo/repos/home-ops-ext01/docker/ext01/apps/uptime-kuma"
 webhook_enabled = false
 pre_deploy.command = """
 export VAULT=[[VAULT]]

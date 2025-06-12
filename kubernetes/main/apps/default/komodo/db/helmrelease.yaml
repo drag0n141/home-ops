@@ -16,29 +16,13 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/ferretdb/ferretdb
-              tag: 1.24.2@sha256:78497e6209865382781ff4d113ae61353f34c5cf2b49359dbd960748437c9c46
+              repository: docker.io/library/mongo
+              tag: 8.0.10@sha256:98028cf281bb5d49ace5e1ddbd4509e8f1382fe80ef1cf101eeefdc106d76cd4
             env:
               TZ: ${TIMEZONE}
-              FERRETDB_HANDLER: sqlite
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /debug/livez/
-                    port: &healthPort 8088
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness:
-                <<: *probes
-                spec:
-                  httpGet:
-                    path: /debug/readyz
-                    port: *healthPort
+            envFrom:
+              - secretRef:
+                  name: komodo-db-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -47,7 +31,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 512Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -64,6 +48,6 @@ spec:
       state:
         existingClaim: *app
         globalMounts:
-          - path: /state
+          - path: /data/db
       tmp:
         type: emptyDir
