@@ -2,25 +2,21 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-vector
+  name: postgres17
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.2-v0.2.1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5@sha256:87513c339cad291f54ee5ae819c1bf4bb728b30bf1b48d4d944c19fa4adaf382
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 10Gi
+    size: 15Gi
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
   postgresql:
-    shared_preload_libraries: ["vectors.so"]
     parameters:
       max_connections: "400"
-      shared_buffers: 256MB
-  nodeMaintenanceWindow:
-    inProgress: false
-    reusePVC: true
+      shared_buffers: 512MB
   resources:
     requests:
       cpu: 500m
@@ -28,9 +24,6 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
-    podMonitorMetricRelabelings:
-      - { sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace }
-      - { regex: cluster, action: labeldrop }
   backup:
     retentionPolicy: 30d
     barmanObjectStore: &barmanObjectStore
@@ -41,7 +34,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://minio.${SECRET_DOMAIN_INT}
-      serverName: &currentCluster postgres-vector-v3
+      serverName: &currentCluster postgres17-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -49,11 +42,26 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: aws-secret-access-key
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres-vector-v2
   externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *previousCluster
+#    - name: &previousCluster postgres17-v1
+#      barmanObjectStore:
+#        <<: *barmanObjectStore
+#        serverName: *previousCluster
+    - name: &crunchyCluster postgres16-crunchy
+      connectionParameters:
+        host: postgres-primary.database.svc.cluster.local
+        user: postgres
+        dbname: postgres
+      password:
+        name: postgres-pguser-postgres
+        key: password
+  bootstrap:
+    initdb:
+      import:
+        type: monolith
+        databases: ["*"]
+        roles: ["*"]
+        source:
+          externalCluster: *crunchyCluster
+#    recovery:
+#      source: *previousCluster

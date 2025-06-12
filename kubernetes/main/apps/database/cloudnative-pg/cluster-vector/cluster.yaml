@@ -2,10 +2,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: postgres17-vector
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.3-4
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0@sha256:2b397c7080ae712d407e925cc087ad7061dee7fbeb7ec6f55c6bc8482ef6b4f2
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
@@ -14,12 +14,10 @@ spec:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
   postgresql:
+    shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "400"
-      shared_buffers: 256MB
-  nodeMaintenanceWindow:
-    inProgress: false
-    reusePVC: true
+      shared_buffers: 512MB
   resources:
     requests:
       cpu: 500m
@@ -27,9 +25,6 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
-    podMonitorMetricRelabelings:
-      - { sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace }
-      - { regex: cluster, action: labeldrop }
   backup:
     retentionPolicy: 30d
     barmanObjectStore: &barmanObjectStore
@@ -40,7 +35,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://minio.${SECRET_DOMAIN_INT}
-      serverName: &currentCluster postgres16-v3
+      serverName: &currentCluster postgres17-vector-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -48,11 +43,11 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: aws-secret-access-key
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres16-v2
-  externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *previousCluster
+#  externalClusters:
+#    - name: &previousCluster postgres-vector-v1
+#      barmanObjectStore:
+#        <<: *barmanObjectStore
+#        serverName: *previousCluster
+#  bootstrap:
+#    recovery:
+#      source: *previousCluster 
