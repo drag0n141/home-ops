@@ -55,7 +55,7 @@ spec:
           discovery:
             port: 21027
             protocol: UDP
-          listen:
+          listen-tcp:
             port: 22000
             protocol: TCP
           listen-udp:
@@ -83,6 +83,6 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: syncthing
+        existingClaim: *app
         globalMounts:
           - path: /var/syncthing
