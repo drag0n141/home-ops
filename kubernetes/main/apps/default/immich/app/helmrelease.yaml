@@ -81,6 +81,7 @@ spec:
             port: 8081
     serviceMonitor:
       app:
+        serviceName: *app
         endpoints:
           - port: metrics
             scheme: http
