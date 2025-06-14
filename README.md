@@ -70,10 +70,10 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 | [Newshosting](https://www.newshosting.com/)        | Usenet Access                                                      | ~20€/yr        |
 | [GitHub](https://github.com/)                      | Hosting this repository and continuous integration/deployments     | Free           |
 | [Migadu](https://migadu.com/)                      | Email hosting for Kubernetes Mails                                 | ~20€/yr        |
-| [ProtonMail](https://proton.me/)                   | Email hosting and VPN                                              | ~90€/yr        |
+| [Mullvad](https://mullvad.net/)                    | VPN                                                                | ~60€/yr        |
 | [Pushover](https://pushover.net/)                  | Kubernetes Alerts                                                  | 5€ OTP         |
-| [iDrive E2](https://www.idrive.com/s3-storage-e2/) | S3 Offsite Backup                                                  | ~60€/yr        |                                                  
-|                                                    |                                                                    | Total: ~25€/mo |
+| [iDrive E2](https://www.idrive.com/s3-storage-e2/) | S3 Offsite Backup                                                  | ~90€/yr        |                                                  
+|                                                    |                                                                    | Total: ~26€/mo |
 
 ## Stargazers
 
