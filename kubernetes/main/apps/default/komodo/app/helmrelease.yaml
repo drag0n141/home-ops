@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/moghtech/komodo-core
-              tag: 1.18.3@sha256:4da00a325d93cf06bcaddd1062969643bc65cb81536d9f61d981f2b160017908
+              tag: 1.18.3@sha256:4d8690fd9c7a75445fd04fac492c81b8c3d2a0ebb35bd40aa1c9e75ea43d7f20
             env:
               TZ: ${TIMEZONE}
               KOMODO_DATABASE_ADDRESS: komodo-db.default.svc.cluster.local:27017
