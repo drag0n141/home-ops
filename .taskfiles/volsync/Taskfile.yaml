@@ -6,12 +6,7 @@ vars:
 
 tasks:
   list:
-    desc: List snapshots for an application [CLUSTER=main] [NS=default] [APP=required]
-    summary: |
-      Args:
-        CLUSTER: Cluster to run command against (required)
-        NS: Namespace the PVC is in (default: default)
-        APP: Application to list snapshots for (required)
+    desc: List snapshots for an application [NS=default] [APP=required]
     cmds:
       - minijinja-cli --env {{.VOLSYNC_RESOURCES_DIR}}/list.yaml.j2 | kubectl apply -f -
       - kubectl -n {{.NS}} wait job/list-{{.APP}} --for condition=complete --timeout=1m
@@ -24,39 +19,35 @@ tasks:
       NS: '{{.NS}}'
       APP: '{{.APP}}'
     requires:
-      vars: [CLUSTER, APP]
+      vars: [APP]
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/list.yaml.j2
 
   state-*:
-    desc: Suspend or resume Volsync [CLUSTER=main]
+    desc: Suspend or resume Volsync
     cmds:
       - flux --namespace storage {{.STATE}} kustomization volsync
       - flux --namespace storage {{.STATE}} helmrelease volsync
       - kubectl --namespace storage scale deployment volsync --replicas {{if eq .STATE "suspend"}}0{{else}}1{{end}}
     vars:
       STATE: '{{index .MATCH 0}}'
-    requires:
-      vars: [CLUSTER]
     preconditions:
       - '[[ "{{.STATE}}" == "suspend" || "{{.STATE}}" == "resume" ]]'
       - which flux kubectl
 
   unlock:
-    desc: Unlock all restic source repos [CLUSTER=main]
+    desc: Unlock all restic source repos 
     cmds:
       - for: { var: SOURCES, split: "\n" }
         cmd: kubectl --namespace {{splitList "," .ITEM | first}} patch --field-manager=flux-client-side-apply replicationsources {{splitList "," .ITEM | last}} --type merge --patch "{\"spec\":{\"restic\":{\"unlock\":\"{{now | unixEpoch}}\"}}}"
     vars:
       SOURCES:
         sh: kubectl get replicationsources --all-namespaces --no-headers --output=jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
-    requires:
-      vars: [CLUSTER]
     preconditions:
       - which kubectl
 
   snapshot:
-    desc: Snapshot an app [CLUSTER=main] [NS=default] [APP=required]
+    desc: Snapshot an app [NS=default] [APP=required]
     cmds:
       - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
       - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
@@ -65,13 +56,13 @@ tasks:
       NS: '{{.NS | default "default"}}'
       JOB: volsync-src-{{.APP}}
     requires:
-      vars: [CLUSTER, APP]
+      vars: [APP]
     preconditions:
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
       - which kubectl
 
   restore:
-    desc: Restore an app [CLUSTER=main] [NS=default] [APP=required] [PREVIOUS=required]
+    desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required]
     cmds:
       # Suspend
       - flux --namespace {{.NS}} suspend kustomization {{.APP}}
@@ -107,13 +98,13 @@ tasks:
       PGID:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     requires:
-      vars: [CLUSTER, APP, PREVIOUS]
+      vars: [APP, PREVIOUS]
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2
       - which flux kubectl minijinja-cli
 
   unlock-local:
-    desc: Unlock a restic source repo from local machine [CLUSTER=main] [NS=default] [APP=required]
+    desc: Unlock a restic source repo from local machine [NS=default] [APP=required]
     cmds:
       - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2 | kubectl apply --server-side --filename -
       - until kubectl --namespace {{.NS}} get job/volsync-unlock-{{.APP}} &>/dev/null; do sleep 5; done
@@ -126,7 +117,7 @@ tasks:
       NS: '{{.NS}}'
       APP: '{{.APP}}'
     requires:
-      vars: [CLUSTER, APP]
+      vars: [APP]
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2
       - which kubectl minijinja-cli stern

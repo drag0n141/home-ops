@@ -9,7 +9,6 @@ tasks:
       - op item edit kubernetes KUBECONFIG[text]="$(kubectl config view --flatten)" &>/dev/null
       - op item edit kubernetes KUBECONFIG_BASE64[text]="$(kubectl config view --flatten | base64 -w 0)" &>/dev/null
       - task: push-main
-      - task: push-utility
     preconditions:
       - which op
 
@@ -22,15 +21,6 @@ tasks:
     preconditions:
       - which op
 
-  push-utility:
-    desc: Push Utility kubeconfig to OnePassword
-    cmds:
-      - op item edit kubernetes KUBECONFIG_UTILITY[text]="$(cat {{.ROOT_DIR}}/kubernetes/utility/kubeconfig)" &>/dev/null
-      - op item edit kubernetes TALOSCONFIG_UTILITY[text]="$(cat {{.ROOT_DIR}}/kubernetes/utility/talosconfig)" &>/dev/null
-      - op item edit kubernetes TALOSCONFIG_UTILITY_BASE64[text]="$(cat {{.ROOT_DIR}}/kubernetes/utility/talos/talosconfig | base64 -w 0)" &>/dev/null
-    preconditions:
-      - which op
-
   pull:
     desc: Pull Kubeconfig from OnePassword
     cmds:
@@ -39,8 +29,6 @@ tasks:
       - mkdir -p ~/.talos
       - op item get kubernetes --fields label=KUBECONFIG_MAIN | tr -d '"' > {{.ROOT_DIR}}/kubernetes/main/kubeconfig # Main kubeconfig
       - op item get kubernetes --fields label=TALOSCONFIG_MAIN | tr -d '"' > {{.ROOT_DIR}}/kubernetes/main/talosconfig # Main talosconfig
-      - op item get kubernetes --fields label=KUBECONFIG_UTILITY | tr -d '"' > {{.ROOT_DIR}}/kubernetes/utility/kubeconfig # Utility kubeconfig
-      - op item get kubernetes --fields label=TALOSCONFIG_UTILITY | tr -d '"' > {{.ROOT_DIR}}/kubernetes/utility/talosconfig # Utility talosconfig
       - op item get kubernetes --fields label=KUBECONFIG | tr -d '"' > ~/.kube/config # Flat kubeconfig
       ## Note: The last `talosconfig` merged becomes the default context
       ## We pull the second talosconfig, and merge the main into it, so main is default

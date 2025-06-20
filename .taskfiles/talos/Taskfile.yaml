@@ -15,7 +15,7 @@ env:
 tasks:
 
   apply-node:
-    desc: Apply Talos config to a node [CLUSTER=main] [IP=required]
+    desc: Apply Talos config to a node [IP=required]
     cmds:
       - task: down
       - minijinja-cli {{.TALOS_DIR}}/{{.IP}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} --mode={{.MODE}} --file /dev/stdin
@@ -26,7 +26,7 @@ tasks:
       INSECURE:
         sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null && echo false || echo true
     requires:
-      vars: [CLUSTER, IP]
+      vars: [IP]
     preconditions:
       - op user get --me
       - talosctl --nodes {{.IP}} get machineconfig
@@ -35,15 +35,15 @@ tasks:
       - which minijinja-cli op talosctl
 
   upgrade-node:
-    desc: Upgrade Talos on a single node [CLUSTER=main] [IP=required]
+    desc: Upgrade Talos on a single node [IP=required]
     cmds:
       - task: down
       - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
       - task: up
     requires:
-      vars: [CLUSTER, IP]
+      vars: [IP]
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info 
       - talosctl --nodes {{.IP}} get machineconfig
       - which talosctl
 
@@ -58,7 +58,7 @@ tasks:
       - which jq talosctl
 
   reboot-node:
-    desc: Reboot Talos on a single node [CLUSTER=main] [IP=required] [MODE=default]
+    desc: Reboot Talos on a single node [IP=required] [MODE=default]
     cmds:
       - task: down
       - talosctl --nodes {{.IP}} reboot --mode={{.MODE}}
@@ -67,112 +67,100 @@ tasks:
     vars:
       MODE: '{{.MODE | default "default"}}'
     requires:
-      vars: [CLUSTER, IP]
+      vars: [IP]
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which talosctl
 
   shutdown-cluster:
-    desc: Shutdown Talos across the whole cluster [CLUSTER=main]
-    prompt: Shutdown the Talos cluster '{{.CLUSTER}}' ... continue?
+    desc: Shutdown Talos across the whole cluster
+    prompt: Shutdown the Talos cluster ... continue?
     cmd: talosctl shutdown --nodes {{.IP_ADDRS}} --force
     vars:
       IP_ADDRS:
         sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(",")'
-    requires:
-      vars: [CLUSTER]
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq kubectl talosctl
 
   reset-node:
-    desc: Reset Talos on a single node [CLUSTER=main] [IP=required]
-    prompt: Reset Talos node '{{.IP}}' on the '{{.CLUSTER}}' cluster ... continue?
+    desc: Reset Talos on a single node [IP=required]
+    prompt: Reset Talos node '{{.IP}}' ... continue?
     cmd: talosctl reset --nodes {{.IP}} --graceful=false
     requires:
-      vars: [CLUSTER, IP]
+      vars: [IP]
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.KUBERNETES_DIR}}/talosconfig
 
   reset-cluster:
-    desc: Reset Talos across the whole cluster [CLUSTER=main]
-    prompt: Reset the Talos cluster '{{.CLUSTER}}' ... continue?
+    desc: Reset Talos across the whole cluster
+    prompt: Reset the Talos cluster ... continue?
     cmd: talosctl reset --nodes {{.IP_ADDRS}} --graceful=false
     vars:
       IP_ADDRS:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(",")'
-    requires:
-      vars: [CLUSTER]
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
   kubeconfig:
-    desc: Generate the kubeconfig for a Talos cluster [CLUSTER=main]
-    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.KUBERNETES_DIR}}
+    desc: Generate the kubeconfig for a Talos cluster
+    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
       TALOS_CONTROLLER:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
-    requires:
-      vars: [CLUSTER]
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which jq talosctl
 
   defrag:
-    desc: Defrag ETCD database on an single node [CLUSTER=main] [IP=required]
+    desc: Defrag ETCD database on an single node [IP=required]
     cmd: talosctl etcd defrag --nodes {{.IP}}
     requires:
-      vars: [CLUSTER, IP]
+      vars: [IP]
     preconditions:
-      - talosctl config info --talosconfig {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.KUBERNETES_DIR}}/talosconfig
       - which talosctl
 
   apply-cluster:
-    desc: Apply Talos config across the whole cluster [CLUSTER=main] [MODE=default]
+    desc: Apply Talos config across the whole cluster [MODE=default]
     cmds:
       - for: { var: IP_ADDRS }
         task: apply-node
         vars:
           IP: '{{.ITEM}}'
           MODE: '{{.MODE}}'
-          CLUSTER: '{{.CLUSTER}}'
     vars:
       MODE: '{{.MODE | default "auto"}}'
       IP_ADDRS:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(" ")' 
-    requires:
-      vars: [CLUSTER]
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")' 
     preconditions:
       - which jq talosctl
 
   upgrade-cluster:
-    desc: Upgrade Talos across the whole cluster [CLUSTER=main]
+    desc: Upgrade Talos across the whole cluster
     cmds:
       - for: { var: IP_ADDRS }
         task: upgrade-node
         vars:
           IP: '{{.ITEM}}'
-          CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(" ")'
-    requires:
-      vars: [CLUSTER]
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
     preconditions:
       - which jq talosctl
 
   reboot-cluster:
-    desc: Reboot the whole Talos cluster [CLUSTER=main] [MODE=default]
+    desc: Reboot the whole Talos cluster [MODE=default]
     cmds:
       - for: { var: IP_ADDRS }
         task: reboot-node
@@ -182,32 +170,27 @@ tasks:
           CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(" ")'
-    requires:
-      vars: [CLUSTER]
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
     preconditions:
       - which jq talosctl
 
   defrag-cluster:
-    desc: Defrag ETCD database accross the whole cluster [CLUSTER=main]
+    desc: Defrag ETCD database accross the whole cluster
     cmds:
       - for: { var: IP_ADDRS }
         task: defrag
         vars:
           IP: '{{.ITEM}}'
-          CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(" ")'
-    requires:
-      vars: [CLUSTER]
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
     preconditions:
       - which jq talosctl
 
   down:
     internal: true
     cmds:
-      - '{{if eq .CLUSTER "main"}}until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done{{end}}'
+      - until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done
       - until kubectl wait jobs --all --all-namespaces --for=condition=complete --timeout=5m &>/dev/null; do sleep 5; done
     preconditions:
       - which kubectl
@@ -215,7 +198,7 @@ tasks:
   up:
     internal: true
     cmds:
-      - '{{if eq .CLUSTER "main"}}until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done{{end}}'
+      - until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done
       - until kubectl wait jobs --all --all-namespaces --for=condition=complete --timeout=5m &>/dev/null; do sleep 5; done
     preconditions:
       - which kubectl

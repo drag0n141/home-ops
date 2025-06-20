@@ -8,8 +8,7 @@ vars:
 
   CLUSTER: '{{.CLUSTER | default "main"}}'
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
-  SHARED_DIR: '{{.ROOT_DIR}}/kubernetes/shared'
-  TALOS_DIR: '{{.ROOT_DIR}}/talos/{{.CLUSTER}}'
+  TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
 env:
   KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'

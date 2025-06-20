@@ -4,24 +4,22 @@ version: "3"
 tasks:
 
   sync:
-    desc: Sync an ExternalSecret for a cluster [CLUSTER=main]
+    desc: Sync an ExternalSecret
     cmd: kubectl --namespace {{.NS}} annotate externalsecret {{.SECRET}} force-sync=$(date +%s) --overwrite
     vars:
       NS: '{{.NS | default "default"}}'
     requires:
-      vars: [CLUSTER, SECRET]
+      vars: [SECRET]
     preconditions:
       - which kubectl
 
   sync-secrets:
-    desc: Sync all ExternalSecrets [CLUSTER=main]
+    desc: Sync all ExternalSecrets
     cmds:
       - for: { var: SECRETS, split: "\n" }
         cmd: kubectl --namespace {{splitList "," .ITEM | first}} annotate externalsecret {{splitList "," .ITEM | last}} force-sync="{{now | unixEpoch}}" --overwrite
     vars:
       SECRETS:
         sh: kubectl get externalsecret --all-namespaces --no-headers --output=jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
-    requires:
-      vars: [CLUSTER]
     preconditions:
       - which kubectl
