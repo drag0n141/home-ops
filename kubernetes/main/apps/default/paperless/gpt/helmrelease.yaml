@@ -81,6 +81,10 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/prompts
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -88,7 +92,5 @@ spec:
             app:
               - path: /app/db
                 subPath: db
-              - path: /app/prompts
-                subPath: prompts
               - path: /tmp
                 subPath: tmp
