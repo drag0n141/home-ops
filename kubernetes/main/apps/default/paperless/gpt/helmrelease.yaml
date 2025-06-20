@@ -29,6 +29,8 @@ spec:
               VISION_LLM_PROVIDER: openai
               VISION_LLM_MODEL: gpt-4o
               OCR_LIMIT_PAGES: 5
+              OCR_PROCESS_MODE: image
+              PDF_SKIP_EXISTING_OCR: false
               PDF_OCR_TAGGING: false
               PDF_UPLOAD: true
               PDF_COPY_METADATA: true
