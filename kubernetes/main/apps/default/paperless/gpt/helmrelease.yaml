@@ -86,7 +86,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          bazarr:
+          paperless-gpt:
             app:
               - path: /tmp
                 subPath: tmp
