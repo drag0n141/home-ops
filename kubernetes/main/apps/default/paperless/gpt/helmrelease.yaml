@@ -34,6 +34,7 @@ spec:
               PDF_OCR_TAGGING: false
               PDF_UPLOAD: true
               PDF_COPY_METADATA: true
+              AUTO_GENERATE_TAGS: false
               AUTO_TAG: AI-Auto
               AUTO_OCR_TAG: AI-OCR-Auto
               MANUAL_TAG: AI
