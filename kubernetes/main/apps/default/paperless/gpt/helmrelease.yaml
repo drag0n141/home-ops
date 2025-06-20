@@ -40,7 +40,7 @@ spec:
                   name: paperless-gpt-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -84,6 +84,8 @@ spec:
         advancedMounts:
           paperless-gpt:
             app:
+              - path: /app/db
+                subPath: db
               - path: /app/prompts
                 subPath: prompts
               - path: /tmp
