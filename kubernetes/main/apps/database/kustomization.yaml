@@ -6,7 +6,7 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./crunchy-postgres/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./ext-postgres-operator/ks.yaml
+#   - ./ext-postgres-operator/ks.yaml
   - ./vernemq/ks.yaml
 components:
   - ../../components/alerts
