@@ -5,7 +5,7 @@ metadata:
   name: postgres17-vector
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2@sha256:4a6f5ca2212018322823a92250230d471e2fa33c287ed8b400bd58a3cc3a4e6b
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0@sha256:2b397c7080ae712d407e925cc087ad7061dee7fbeb7ec6f55c6bc8482ef6b4f2
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
