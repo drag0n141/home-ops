@@ -1,3 +1,4 @@
+---
 apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
@@ -17,5 +18,5 @@ metadata:
 spec:
   role: *app
   database: *app
-  secretName: postgres
+  secretName: postgres-vector
   privileges: OWNER
