@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app ext-postgres-operator
+  name: &app ext-postgres-operator-vector
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
@@ -10,9 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cloudnative-pg
+    - name: cloudnative-pg-cluster-vector
       namespace: *namespace
-  path: ./kubernetes/main/apps/database/ext-postgres-operator/app
+  path: ./kubernetes/main/apps/database/ext-postgres-operator/vector
   prune: true
   sourceRef:
     kind: GitRepository
