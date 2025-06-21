@@ -17,5 +17,5 @@ metadata:
 spec:
   role: *app
   database: *app
-  secretName: postgres-vector
+  secretName: postgres
   privileges: OWNER
