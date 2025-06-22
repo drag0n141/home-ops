@@ -20,3 +20,5 @@ spec:
   database: *app
   secretName: postgres-vector
   privileges: OWNER
+  secretTemplate:
+    PORT: "{{ .Port }}"
