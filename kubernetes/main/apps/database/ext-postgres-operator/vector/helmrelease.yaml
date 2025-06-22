@@ -11,6 +11,7 @@ spec:
   values:
     podAnnotations:
       reloader.stakater.com/auto: "true"
+    fullnameOverride: *app
     existingSecret: ext-postgres-operator-vector-secret
     serviceAccount:
       name: *app
