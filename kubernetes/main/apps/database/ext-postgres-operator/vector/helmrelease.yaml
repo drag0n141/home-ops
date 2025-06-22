@@ -15,9 +15,3 @@ spec:
     existingSecret: ext-postgres-operator-vector-secret
     serviceAccount:
       name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 32M
-      limits:
-        memory: 100M

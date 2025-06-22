@@ -11,10 +11,7 @@ spec:
   values:
     podAnnotations:
       reloader.stakater.com/auto: "true"
+    fullnameOverride: *app
     existingSecret: ext-postgres-operator-secret
-    resources:
-      requests:
-        cpu: 5m
-        memory: 32M
-      limits:
-        memory: 100M
+    serviceAccount:
+      name: *app
