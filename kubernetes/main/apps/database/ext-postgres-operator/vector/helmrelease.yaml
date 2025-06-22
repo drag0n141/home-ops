@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ext-postgres-operator-vector
+  name: &app ext-postgres-operator-vector
 spec:
   interval: 1h
   chartRef:
@@ -12,6 +12,8 @@ spec:
     podAnnotations:
       reloader.stakater.com/auto: "true"
     existingSecret: ext-postgres-operator-vector-secret
+    serviceAccount:
+      name: *app
     resources:
       requests:
         cpu: 5m
