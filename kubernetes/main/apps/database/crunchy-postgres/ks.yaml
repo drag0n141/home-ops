@@ -62,37 +62,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app crunchy-pgo-cluster-vector
-  namespace: &namespace database
-spec:
-  targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: crunchy-postgres-operator
-      namespace: *namespace
-    - name: onepassword
-      namespace: external-secrets
-  healthCheckExprs:
-    - apiVersion: postgres-operator.crunchydata.com/v1beta1
-      kind: PostgresCluster
-      failed: status.conditions.filter(e, e.type == 'ProxyAvailable').all(e, e.status == 'False')
-      current: status.conditions.filter(e, e.type == 'ProxyAvailable').all(e, e.status == 'True')
-  path: ./kubernetes/main/apps/database/crunchy-postgres/cluster-vector
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: true
-  interval: 1h
-  retryInterval: 2m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: &app crunchy-postgres-store
   namespace: &namespace database
 spec:
@@ -157,30 +126,6 @@ spec:
     - name: crunchy-postgres-operator
       namespace: *namespace
   path: ./kubernetes/main/apps/database/crunchy-postgres/backup
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  wait: false
-  interval: 1h
-  retryInterval: 2m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app crunchy-vector-backup
-  namespace: &namespace database
-spec:
-  targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: crunchy-postgres-operator
-      namespace: *namespace
-  path: ./kubernetes/main/apps/database/crunchy-postgres/backup-vector
   prune: true
   sourceRef:
     kind: GitRepository

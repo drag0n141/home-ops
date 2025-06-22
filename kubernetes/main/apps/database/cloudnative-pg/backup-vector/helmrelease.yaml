@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app crunchy-vector-backup
+  name: &app cnpg-vector-backup
 spec:
   interval: 1h
   chartRef:
@@ -10,7 +10,7 @@ spec:
     name: app-template
   values:
     controllers:
-      crunchy-backup:
+      cnpg-backup:
         type: cronjob
         cronjob:
           schedule: "@daily"
@@ -27,7 +27,7 @@ spec:
               EXCLUDE_DBS: postgres template0 template1
             envFrom: &envFrom
               - secretRef:
-                  name: crunchy-vector-backup-secret
+                  name: cnpg-vector-backup-secret
         containers:
           app:
             image:
@@ -62,7 +62,7 @@ spec:
           - path: /config
       script:
         type: configMap
-        name: crunchy-vector-backup-scripts
+        name: cnpg-vector-backup-scripts
         defaultMode: 0775
         globalMounts:
           - path: /scripts/list_dbs.sh
