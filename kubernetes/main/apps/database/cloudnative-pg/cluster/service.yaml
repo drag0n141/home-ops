@@ -17,4 +17,4 @@ spec:
       targetPort: 5432
   selector:
     cnpg.io/cluster: postgres17
-    role: primary
+    cnpg.io/instanceRole: primary
