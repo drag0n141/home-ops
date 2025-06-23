@@ -17,7 +17,7 @@ spec:
           01-init-schema:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
+              tag: 1.6.0@sha256:f344085e618bb05e22b964b0208dbd06d3468275bac70206f93805245e067b40
             command: ["/bin/sh", "-c"]
             args: ["/opt/guacamole/bin/initdb.sh --postgresql > /migrations/initdb.sql"]
             envFrom: &envFrom
@@ -33,14 +33,14 @@ spec:
           03-init-plugin:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
+              tag: 1.6.0@sha256:f344085e618bb05e22b964b0208dbd06d3468275bac70206f93805245e067b40
             command: ["/bin/sh", "-c"]
             args: ["mkdir -p /guacamole/extensions; cp /opt/guacamole/totp/*.jar /guacamole/extensions;"]
         containers:
           app:
             image:
               repository: docker.io/guacamole/guacamole
-              tag: 1.5.5@sha256:0f62f6d17ab379e46aa66874b2ff564dab856a6ef5e754a69cbb34c32d3e588a
+              tag: 1.6.0@sha256:f344085e618bb05e22b964b0208dbd06d3468275bac70206f93805245e067b40
             env:
               TZ: ${TIMEZONE}
               WEBAPP_CONTEXT: ROOT
