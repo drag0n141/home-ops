@@ -21,7 +21,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 17
+              tag: 17@sha256:e0c87ce7df39d06b93f27cf2cc6a056611f13faaa88cc07ab4dc8bf7a85d0b11
             command: ["/scripts/list_dbs.sh"]
             env:
               EXCLUDE_DBS: postgres template0 template1
@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: docker.io/prodrigestivill/postgres-backup-local
-              tag: 16@sha256:e7182c0dac78540405e954597fcb3f4cfa67955d5df008152ab41ce166fe6014
+              tag: 17@sha256:483fa15ecd998302bd312fc380cb1b3683a940881d9099d6dfe65bcc1e2714e8
             command: ["/bin/bash", "/backup.sh"]
             env:
               TZ: ${TIMEZONE}
