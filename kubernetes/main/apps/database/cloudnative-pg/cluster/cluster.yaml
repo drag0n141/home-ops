@@ -52,6 +52,7 @@ spec:
         host: postgres-primary.database.svc.cluster.local
         user: postgres
         dbname: postgres
+        sslmode: require
       password:
         name: postgres-pguser-postgres
         key: password
