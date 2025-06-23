@@ -82,16 +82,19 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      config:
+      data:
         existingClaim: *app
-        globalMounts:
-          - path: /app/prompts
-      tmpfs:
-        type: emptyDir
         advancedMounts:
           paperless-gpt:
             app:
               - path: /app/db
                 subPath: db
+              - path: /app/prompts
+                subPath: prompts
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          paperless-gpt:
+            app:
               - path: /tmp
                 subPath: tmp
