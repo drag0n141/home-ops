@@ -11,6 +11,7 @@ spec:
   values:
     deploymentLabels:
       nfsMount: "true"
+      postgres: "true"
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     nextcloud:

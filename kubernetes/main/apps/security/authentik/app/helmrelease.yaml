@@ -10,6 +10,8 @@ spec:
     name: authentik
   values:
     global:
+      additionalLabels:
+        postgres: "true"
       podAnnotations:
         reloader.stakater.com/auto: "true"
       deploymentStrategy:

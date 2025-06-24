@@ -10,7 +10,9 @@ spec:
     name: app-template
   values:
     controllers:
-      outline:
+      zipline:
+        labels:
+          postgres: "true"
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

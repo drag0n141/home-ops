@@ -9,6 +9,8 @@ spec:
     kind: OCIRepository
     name: netbox
   values:
+    commonLabels:
+      postgres: "true"
     podAnnotations:
       reloader.stakater.com/auto: "true"
     superuser:
