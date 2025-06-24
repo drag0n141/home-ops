@@ -12,7 +12,7 @@ spec:
     global:
       additionalLabels:
         postgres: "true"
-      podAnnotations:
+      deploymentAnnotations:
         reloader.stakater.com/auto: "true"
       deploymentStrategy:
         type: RollingUpdate

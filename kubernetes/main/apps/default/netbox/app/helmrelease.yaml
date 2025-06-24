@@ -12,7 +12,7 @@ spec:
     commonLabels:
       postgres: "true"
       teleport: enabled
-    podAnnotations:
+    commonAnnotations:
       reloader.stakater.com/auto: "true"
     superuser:
       name: drag0n141
