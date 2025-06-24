@@ -11,6 +11,7 @@ spec:
   values:
     commonLabels:
       postgres: "true"
+      teleport: enabled
     podAnnotations:
       reloader.stakater.com/auto: "true"
     superuser:
@@ -68,8 +69,6 @@ spec:
       timeoutSeconds: 1
       periodSeconds: 10
       successThreshold: 1
-    commonLabels:
-      teleport: enabled
     service:
       annotations:
         teleport.dev/name: *app
