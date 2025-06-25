@@ -95,11 +95,12 @@ spec:
           - path: /etc/searxng/limiter.toml
             subPath: limiter.toml
             readOnly: true
-      cache:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /etc/searxng
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          searxng:
+            app:
+              - path: /etc/searxng
+                subPath: searxng
+              - path: /tmp
+                subPath: tmp

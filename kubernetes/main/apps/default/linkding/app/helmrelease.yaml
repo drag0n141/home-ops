@@ -74,7 +74,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /etc/linkding/data
-      tmp:
+      tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp

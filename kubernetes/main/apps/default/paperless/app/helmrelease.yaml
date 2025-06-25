@@ -94,10 +94,10 @@ spec:
         advancedMounts:
           paperless:
             app:
-              - subPath: "data"
-                path: "/usr/src/paperless/data"
-              - subPath: "media"
-                path: "/usr/src/paperless/media"
+              - path: /usr/src/paperless/data
+                subPath: data
+              - path: /usr/src/paperless/media
+                subPath: media
       nas:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}

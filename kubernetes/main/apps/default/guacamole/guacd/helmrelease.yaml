@@ -43,11 +43,12 @@ spec:
           http:
             port: 4822
     persistence:
-      guacd:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /home/guacd
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /home/tausch
+        advancedMounts:
+          guacd:
+            app:
+              - path: /home/guacd
+                subPath: guacd
+              - path: /home/tausch
+                subPath: tausch

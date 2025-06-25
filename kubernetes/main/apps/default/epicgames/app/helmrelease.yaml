@@ -71,11 +71,12 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      config:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /usr/app/config
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          epicgames:
+            app:
+              - path: /usr/app/config
+                subPath: config
+              - path: /tmp
+                subPath: tmp

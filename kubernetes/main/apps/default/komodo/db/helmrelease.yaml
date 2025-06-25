@@ -49,5 +49,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data/db
-      tmp:
+      tmpfs:
         type: emptyDir
+        globalMounts:
+          - path: /tmp

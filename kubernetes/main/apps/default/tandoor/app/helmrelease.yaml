@@ -128,12 +128,12 @@ spec:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
                 readOnly: true
-      temp:
+      tmpfs:
         type: emptyDir
         advancedMounts:
           tandoor:
             app:
-              - path: /tmp
-                subPath: app-tmp
               - path: /opt/recipes/cookbook/static/django_js_reverse
                 subPath: django_js_reverse
+              - path: /tmp
+                subPath: tmp

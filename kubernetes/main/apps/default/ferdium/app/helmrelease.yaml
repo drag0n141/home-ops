@@ -86,11 +86,11 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
-        existingClaim: ferdium
+        existingClaim: *app
         advancedMounts:
           ferdium:
             app:
-              - subPath: "data"
-                path: "/data"
-              - subPath: "recipes"
-                path: "/app/recipes"
+              - path: /data
+                subPath: data
+              - path: /app/recipes
+                subPath: recipes

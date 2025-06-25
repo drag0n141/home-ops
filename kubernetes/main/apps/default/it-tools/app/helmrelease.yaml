@@ -65,7 +65,7 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      tmp:
+      tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp

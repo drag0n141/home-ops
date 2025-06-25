@@ -67,11 +67,14 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      cache:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /wiki/data/cache
-      uploads:
-        type: emptyDir
-        globalMounts:
-          - path: /wiki/data/uploads
+        advancedMounts:
+          wiki:
+            app:
+              - path: /wiki/data/cache
+                subPath: cache
+              - path: /wiki/data/uploads
+                subPath: uploads
+              - path: /tmp
+                subPath: tmp

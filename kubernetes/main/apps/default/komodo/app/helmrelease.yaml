@@ -73,11 +73,12 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      cache:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /repo-cache
-      action:
-        type: emptyDir
-        globalMounts:
-          - path: /action-cache
+        advancedMounts:
+          komodo:
+            app:
+              - path: /action-cache
+                subPath: action
+              - path: /repo-cache
+                subPath: repo

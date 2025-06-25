@@ -69,10 +69,10 @@ spec:
         advancedMounts:
           apprise:
             app:
-              - subPath: "config"
-                path: "/config"
-              - subPath: "plugin"
-                path: "/plugin"
+              - path: /config
+                subPath: config
+              - path: /plugin
+                subPath: plugin
       config-apprise:
         type: secret
         name: apprise-secret
@@ -80,11 +80,12 @@ spec:
           - path: /config/apprise.yml
             subPath: apprise.yml
             readOnly: true
-      attach:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /attach
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          apprise:
+            app:
+              - path: /attach
+                subPath: attach
+              - path: /tmp
+                subPath: tmp

@@ -69,11 +69,14 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /var/ts3server
-      logs:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /var/ts3server/logs
-      var:
-        type: emptyDir
-        globalMounts:
-          - path: /var/run/ts3server/
+        advancedMounts:
+          ts3:
+            app:
+              - path: var/ts3server/logs
+                subPath: logs
+              - path: /var/run/ts3server
+                subPath: ts3server
+              - path: /tmp
+                subPath: tmp

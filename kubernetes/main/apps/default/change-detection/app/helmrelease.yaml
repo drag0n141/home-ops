@@ -92,7 +92,7 @@ spec:
           change-detection:
             app:
               - path: /datastore
-      tmp:
+      tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp

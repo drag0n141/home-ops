@@ -51,7 +51,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /kms/var
-      tmp:
+      tmpfs:
         type: emptyDir
         globalMounts:
           - path: /tmp

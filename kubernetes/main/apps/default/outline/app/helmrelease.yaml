@@ -90,11 +90,12 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      cache:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /home/node
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          outline:
+            app:
+              - path: /home/node
+                subPath: node
+              - path: /tmp
+                subPath: tmp

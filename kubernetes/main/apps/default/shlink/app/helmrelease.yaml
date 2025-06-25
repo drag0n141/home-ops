@@ -86,11 +86,12 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
     persistence:
-      tmp:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
-      tmp-data:
-        type: emptyDir
-        globalMounts:
-          - path: /etc/shlink/data
+        advancedMounts:
+          shlink:
+            app:
+              - path: /etc/shlink/data
+                subPath: data
+              - path: /tmp
+                subPath: tmp
