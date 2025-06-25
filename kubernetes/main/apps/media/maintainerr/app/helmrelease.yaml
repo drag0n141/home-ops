@@ -68,7 +68,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          radarr:
+          maintainerr:
             app:
               - path: /opt/data/logs
                 subPath: logs
