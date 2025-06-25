@@ -97,7 +97,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
-      tmp:
+      tmpfs:
         type: emptyDir
         medium: Memory
         globalMounts:

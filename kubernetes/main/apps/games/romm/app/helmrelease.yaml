@@ -84,21 +84,24 @@ spec:
         advancedMounts:
           romm:
             app:
-              - subPath: "resources"
-                path: "/romm/resources"
-              - subPath: "assets"
-                path: "/romm/assets"
-      config:
-        type: emptyDir
-        globalMounts:
-          - path: /romm/config
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+              - path: /romm/resources
+                subPath: resources
+              - path: /romm/assets
+                subPath: assets
       games:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/roms
         globalMounts:
           - path: /romm/library
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          romm:
+            app:
+              - path: /redis-data
+                subPath: redis-data
+              - path: /romm/config
+                subPath: config
+              - path: /tmp
+                subPath: tmp

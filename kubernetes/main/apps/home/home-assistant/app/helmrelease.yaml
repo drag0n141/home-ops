@@ -20,6 +20,9 @@ spec:
               tag: 2025.6.3@sha256:6f6b427121f376c92dac2ce14b99ff088010da3f082142fd8b86b4ade563328f
             env:
               TZ: ${TIMEZONE}
+              HOME_ASSISTANT_EXTERNAL_URL: https://home.${SECRET_DOMAIN_INTERNAL}
+              HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
+              HOME_ASSISTANT_TRUSTED_PROXIES: 10.42.0.0/16
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -72,7 +75,16 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
-      tmp:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config/.venv
+                subPath: .venv
+              - path: /config/logs
+                subPath: logs
+              - path: /config/tts
+                subPath: tts
+              - path: /tmp
+                subPath: tmp

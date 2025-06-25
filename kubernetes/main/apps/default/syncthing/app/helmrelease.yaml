@@ -22,6 +22,19 @@ spec:
               TZ: ${TIMEZONE}
               PGID: 1000
               PUID: 1000
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /rest/noauth/health
+                    port: &port 8384
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -45,7 +58,7 @@ spec:
         primary: true
         ports:
           http:
-            port: 8384
+            port: *port
       sync:
         type: LoadBalancer
         annotations:
