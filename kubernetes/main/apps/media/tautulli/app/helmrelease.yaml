@@ -107,3 +107,8 @@ spec:
                 subPath: scripts
               - path: /tmp
                 subPath: tmp
+            jbops:
+              - path: /scripts
+                subPath: scripts
+              - path: /tmp
+                subPath: tmp
