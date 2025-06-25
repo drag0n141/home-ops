@@ -87,7 +87,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          autopulse:
+          stirling-pdf:
             app:
               - path: /logs
                 subPath: logs
