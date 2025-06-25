@@ -74,6 +74,8 @@ spec:
             app:
               - path: /cache
                 subPath: cache
+              - path: /config/logs
+                subPath: logs
               - path: /transcode
                 subPath: transcode
               - path: /tmp
