@@ -19,7 +19,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/danonline/autopulse
+              repository: ghcr.io/dan-online/autopulse
               tag: v1.3.2@sha256:e057c6627397e5b2d16a4b9673ef40dd6c8a58a7adec1d4b1cdeeabd2af4a74d
             command: ["/bin/autopulse"]
             env:
