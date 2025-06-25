@@ -92,10 +92,6 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
       transcode:
         type: emptyDir
         medium: Memory
@@ -109,3 +105,12 @@ spec:
         globalMounts:
           - path: /mnt/data/media
             readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          plex:
+            app:
+              - path: /config/Library/Application Support/Plex Media Server/Logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp

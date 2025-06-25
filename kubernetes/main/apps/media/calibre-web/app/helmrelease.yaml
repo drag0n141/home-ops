@@ -66,10 +66,6 @@ spec:
             subPath: config
           - path: /calibre-library
             subPath: books
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /cache
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
@@ -77,3 +73,12 @@ spec:
         globalMounts:
           - path: /cwa-book-ingest
             subPath: nzb/books
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          calibre-web:
+            app:
+              - path: /cache
+                subPath: cache
+              - path: /tmp
+                subPath: tmp

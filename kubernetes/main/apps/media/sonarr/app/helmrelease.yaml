@@ -106,3 +106,12 @@ spec:
         path: /mnt/data/media
         globalMounts:
           - path: /mnt/data/media
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          sonarr:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp

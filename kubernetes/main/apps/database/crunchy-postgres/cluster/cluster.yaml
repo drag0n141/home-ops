@@ -78,7 +78,7 @@ spec:
       databases: ["kitchenowl_db"]
       password: *password
     - name: lidarr
-      databases: ["lidarr_main", "lidarr_log"]
+      databases: ["lidarr_main"]
       password: *password
     - name: linkding
       databases: ["linkding_db"]

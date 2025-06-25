@@ -46,10 +46,6 @@ spec:
           http:
             port: 2875
     persistence:
-      app:
-        type: emptyDir
-        globalMounts:
-          - path: /app
       config:
         type: secret
         name: autopulse-secret
@@ -64,3 +60,12 @@ spec:
         globalMounts:
           - path: /mnt/data/media
             readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          autopulse:
+            app:
+              - path: /app
+                subPath: app
+              - path: /tmp
+                subPath: tmp

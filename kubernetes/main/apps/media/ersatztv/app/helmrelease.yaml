@@ -67,15 +67,14 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
-      cache:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /cache
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-      transcode:
-        type: emptyDir
-        globalMounts:
-          - path: /transcode
+        advancedMounts:
+          ersatztv:
+            app:
+              - path: /cache
+                subPath: cache
+              - path: /transcode
+                subPath: transcode
+              - path: /tmp
+                subPath: tmp

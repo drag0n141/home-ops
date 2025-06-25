@@ -44,10 +44,6 @@ spec:
         existingClaim: kometa
         globalMounts:
           - path: /config
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
       config-secret:
         type: secret
         name: kometa-secret
@@ -92,3 +88,12 @@ spec:
           - path: /config/99-overlays.yml
             subPath: 99-overlays.yml
             readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          kometa:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp

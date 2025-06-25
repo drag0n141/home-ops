@@ -113,14 +113,6 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data/config
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /data/logs
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
@@ -132,3 +124,12 @@ spec:
                 subPath: twitch
               - path: /data/temp
                 subPath: twitch-temp
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          ganymede:
+            app:
+              - path: /data/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp

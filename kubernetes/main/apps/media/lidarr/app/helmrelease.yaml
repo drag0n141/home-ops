@@ -27,6 +27,7 @@ spec:
               LIDARR__APP__THEME: dark
               LIDARR__AUTH__METHOD: External
               LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              LIDARR__LOG__DBENABLED: "False"
               LIDARR__LOG__LEVEL: info
               LIDARR__SERVER__PORT: &port 8686
             envFrom:
@@ -97,3 +98,12 @@ spec:
         path: /mnt/data/media
         globalMounts:
           - path: /mnt/data/media
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          lidarr:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
