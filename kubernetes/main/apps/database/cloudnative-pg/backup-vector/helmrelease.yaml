@@ -24,7 +24,7 @@ spec:
               tag: 17@sha256:e0c87ce7df39d06b93f27cf2cc6a056611f13faaa88cc07ab4dc8bf7a85d0b11
             command: ["/scripts/list_dbs.sh"]
             env:
-              EXCLUDE_DBS: postgres template0 template1
+              EXCLUDE_DBS: app postgres template0 template1
             envFrom: &envFrom
               - secretRef:
                   name: cnpg-vector-backup-secret
