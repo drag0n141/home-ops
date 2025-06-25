@@ -21,7 +21,9 @@ spec:
             env:
               TZ: ${TIMEZONE}
               APP_LOCALE: de-DE
+              DOCKER_ENABLE_SECURITY: false
               SYSTEM_ENABLEANALYTICS: false
+              INSTALL_BOOK_AND_ADVANCED_HTML_OPS: true
             probes:
               liveness: &probe
                 enabled: true
@@ -42,7 +44,7 @@ spec:
                 cpu: 10m
                 memory: 50Mi
               limits:
-                memory: 700Mi
+                memory: 1000Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -82,15 +84,14 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /configs
-      logs:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /logs
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-      tessdata:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/share/tessdata
+        advancedMounts:
+          autopulse:
+            app:
+              - path: /logs
+                subPath: logs
+              - path: /usr/share/tessdata
+                subPath: tessdata
+              - path: /tmp
+                subPath: tmp
