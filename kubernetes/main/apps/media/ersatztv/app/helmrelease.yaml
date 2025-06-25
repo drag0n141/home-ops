@@ -16,7 +16,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/jasongdove/ersatztv
+              repository: ghcr.io/ersatztv/ersatztv
               tag: v25.2.0-vaapi@sha256:71f925801b798e01833548d467a1d1f67731fae522e6b29a7e861554e205c594
             env:
               TZ: ${TIMEZONE}
