@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app convertx
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      convertx:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/c4illin/convertx
+              tag: v0.14.1@sha256:346589f154332997329fdc888417d4b24c49cc9140eab80e637a68cfbdd8041b
+            env:
+              TZ: ${TIMEZONE}
+              ACCOUNT_REGISTRATION: false
+              HTTP_ALLOWED: false
+              ALLOW_UNAUTHENTICATED: true
+              AUTO_DELETE_EVERY_N_HOURS: 1
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 2Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
+        ports:
+          http:
+            port: 3000
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
+        hosts:
+          - host: &host "convertx.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/data
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
