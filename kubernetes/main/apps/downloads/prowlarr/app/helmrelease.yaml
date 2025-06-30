@@ -23,8 +23,6 @@ spec:
             envFrom:
               - secretRef:
                   name: prowlarr-secret
-            annotations:
-              setGateway: "false"
         containers:
           app:
             image:
