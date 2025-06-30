@@ -36,6 +36,8 @@ spec:
         synchronous_commit: "on"
         parameters:
           max_connections: 500
+          shared_preload_libraries: 'pg_stat_statements'
+          pgaudit.log: 'none'
         pg_hba:
           - hostnossl all all 10.42.0.0/16 md5
           - hostssl all all all md5
