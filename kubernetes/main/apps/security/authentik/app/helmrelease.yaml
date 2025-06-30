@@ -16,7 +16,7 @@ spec:
         reloader.stakater.com/auto: "true"
       deploymentStrategy:
         type: RollingUpdate
-      envFrom:
+      envFrom: &envFrom
         - secretRef:
             name: authentik-secret
     authentik:
@@ -29,6 +29,11 @@ spec:
       error_reporting:
         enabled: false
         send_pii: false
+    server:
+      initContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:17
+          envFrom: *envFrom
     server:
       resources:
         requests:
