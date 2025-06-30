@@ -14,9 +14,9 @@ spec:
       teleport: enabled
     commonAnnotations:
       reloader.stakater.com/auto: "true"
-    InitContainers:
-      - image: ghcr.io/home-operations/postgres-init:17
-        name: init-db
+    initContainers:
+      - name: init-db
+        image: ghcr.io/home-operations/postgres-init:17
         envFrom:
           - secretRef:
               name: netbox-secret
