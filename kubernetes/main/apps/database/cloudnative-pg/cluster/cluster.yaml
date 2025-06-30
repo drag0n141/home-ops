@@ -42,27 +42,27 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: aws-secret-access-key
-  externalClusters:
+#  externalClusters:
 #    - name: &previousCluster postgres17-v1
 #      barmanObjectStore:
 #        <<: *barmanObjectStore
 #        serverName: *previousCluster
-    - name: &crunchyCluster postgres16-crunchy
-      connectionParameters:
-        host: postgres-primary.database.svc.cluster.local
-        user: postgres
-        dbname: postgres
-        sslmode: require
-      password:
-        name: postgres-pguser-postgres
-        key: password
-  bootstrap:
-    initdb:
-      import:
-        type: monolith
-        databases: ["*"]
-        roles: ["*"]
-        source:
-          externalCluster: *crunchyCluster
+#    - name: &crunchyCluster postgres16-crunchy
+#      connectionParameters:
+#        host: postgres-primary.database.svc.cluster.local
+#        user: postgres
+#        dbname: postgres
+#        sslmode: require
+#      password:
+#        name: postgres-pguser-postgres
+#        key: password
+#  bootstrap:
+#    initdb:
+#      import:
+#        type: monolith
+#        databases: ["*"]
+#        roles: ["*"]
+#        source:
+#          externalCluster: *crunchyCluster
 #    recovery:
 #      source: *previousCluster
