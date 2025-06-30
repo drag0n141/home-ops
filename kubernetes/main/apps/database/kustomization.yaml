@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: database
 resources:
   - ./cloudnative-pg/ks.yaml
-  - ./crunchy-postgres/ks.yaml
   - ./dragonfly/ks.yaml
   - ./vernemq/ks.yaml
 components:
