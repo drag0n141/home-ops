@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: crunchy-postgres-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: pgo
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    monitoring: true
+    install:
+      clusterLabels:
+        app.kubernetes.io/name: pgo
