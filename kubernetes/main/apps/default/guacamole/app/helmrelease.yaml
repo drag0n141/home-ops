@@ -99,9 +99,9 @@ spec:
         type: emptyDir
         advancedMounts:
           guacamole:
-            01-init-schema:
+            02-init-schema:
               - path: /migrations
-            02-init-migrations:
+            03-init-migrations:
               - path: /migrations
       plugins:
         type: emptyDir
@@ -109,5 +109,5 @@ spec:
           guacamole:
             app:
               - path: /guacamole
-            03-init-plugin:
+            04-init-plugin:
               - path: /guacamole
