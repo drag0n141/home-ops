@@ -92,6 +92,9 @@ spec:
     - name: netbox
       databases: ["netbox_db"]
       password: *password
+    - name: netronome
+      databases: ["netronome_db"]
+      password: *password
     - name: nextcloud
       databases: ["nextcloud_db"]
       password: *password
