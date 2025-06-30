@@ -14,6 +14,12 @@ spec:
       teleport: enabled
     commonAnnotations:
       reloader.stakater.com/auto: "true"
+    InitContainers:
+      - image: ghcr.io/home-operations/postgres-init:17
+        name: init-db
+        envFrom:
+          - secretRef:
+              name: netbox-secret
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
@@ -93,12 +99,6 @@ spec:
         - hosts:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    extraInitContainers:
-      - image: ghcr.io/home-operations/postgres-init:17
-        name: init-db
-        envFrom:
-          - secretRef:
-              name: netbox-secret
     extraConfig:
       - secret:
           secretName: netbox-secret
