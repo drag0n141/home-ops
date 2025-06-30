@@ -65,6 +65,9 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 1024Mi
+        pod:
+          annotations:
+            setGateway: "true"
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -72,8 +75,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        setGateway: "true"
     service:
       app:
         ports:
