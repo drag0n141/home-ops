@@ -51,7 +51,7 @@ spec:
       existingSecretName: "netbox-secret"
       existingSecretKey: "REDIS_PASSWORD"
     externalDatabase:
-      host: postgres-pgbouncer.database.svc.cluster.local
+      host: postgres17-rw.database.svc.cluster.local
       port: 5432
       database: netbox_db
       username: netbox
@@ -93,6 +93,12 @@ spec:
         - hosts:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    extraInitContainers:
+      - image: ghcr.io/home-operations/postgres-init:17
+        name: init-db
+        envFrom:
+          - secretRef:
+              name: netbox-secret
     extraConfig:
       - secret:
           secretName: netbox-secret

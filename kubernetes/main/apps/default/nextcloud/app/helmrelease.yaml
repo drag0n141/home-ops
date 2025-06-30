@@ -16,6 +16,12 @@ spec:
       reloader.stakater.com/auto: "true"
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:17
+          envFrom:
+            - secretRef:
+                name: nextcloud-secret
       extraVolumes:
       - name: nfs-home
         nfs:
