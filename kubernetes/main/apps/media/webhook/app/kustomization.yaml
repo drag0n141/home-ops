@@ -5,12 +5,11 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: sonarr-loki-rules
+  - name: webhook-configmap
     files:
-      - sonarr.yaml=./lokirule.yaml
-    options:
-      labels:
-        loki_rule: "true"
+      - hooks.yaml=./resources/hooks.yaml
+      - sonarr-refresh-series.sh=./resources/sonarr-refresh-series.sh
+      - sonarr-tag-codecs.sh=./resources/sonarr-tag-codecs.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
