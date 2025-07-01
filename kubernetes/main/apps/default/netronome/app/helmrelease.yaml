@@ -80,6 +80,13 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
+      librespeed-servers:
+        type: configMap
+        name: netronome-configmap
+        globalMounts:
+          - path: /data/librespeed-servers.json
+            subPath: librespeed-servers.json
+            readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:

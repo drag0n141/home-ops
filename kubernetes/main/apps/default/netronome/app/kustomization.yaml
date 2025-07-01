@@ -4,4 +4,11 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-
+configMapGenerator:
+  - name: netronome-configmap
+    files:
+      - apprise.yml=./resources/librespeed-servers.json
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
