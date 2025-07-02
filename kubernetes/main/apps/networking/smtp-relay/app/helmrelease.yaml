@@ -69,10 +69,6 @@ spec:
       app:
         endpoints:
           - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     persistence:
       config:
         type: configMap
@@ -81,7 +77,8 @@ spec:
           - path: /data/maddy.conf
             subPath: maddy.conf
             readOnly: true
-      cache:
+      tmpfs:
         type: emptyDir
+        medium: Memory
         globalMounts:
-          - path: /cache
+          - path: /tmp
