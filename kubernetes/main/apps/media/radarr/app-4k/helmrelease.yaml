@@ -21,7 +21,7 @@ spec:
             image:
               repository: ghcr.io/home-operations/postgres-init
               tag: 17@sha256:e0c87ce7df39d06b93f27cf2cc6a056611f13faaa88cc07ab4dc8bf7a85d0b11
-            envFrom:
+            envFrom: &envFrom
               - secretRef:
                   name: radarr4k-secret
         containers:
@@ -38,9 +38,7 @@ spec:
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
               RADARR__SERVER__PORT: &port 7878
-            envFrom:
-              - secretRef:
-                  name: radarr4k-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true

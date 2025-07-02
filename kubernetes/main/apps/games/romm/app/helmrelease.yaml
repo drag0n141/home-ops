@@ -21,7 +21,7 @@ spec:
             image:
               repository: ghcr.io/home-operations/postgres-init
               tag: 17@sha256:e0c87ce7df39d06b93f27cf2cc6a056611f13faaa88cc07ab4dc8bf7a85d0b11
-            envFrom:
+            envFrom: &envFrom
               - secretRef:
                   name: romm-secret
         containers:
@@ -44,9 +44,7 @@ spec:
               OIDC_CLIENT_ID: romm
               OIDC_REDIRECT_URI: https://romm.${SECRET_DOMAIN_INTERNAL}/api/oauth/openid
               OIDC_SERVER_APPLICATION_URL: https://authelia.${SECRET_DOMAIN}
-            envFrom:
-              - secretRef:
-                  name: romm-secret
+            envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
