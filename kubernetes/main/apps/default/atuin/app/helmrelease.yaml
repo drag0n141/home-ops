@@ -33,11 +33,10 @@ spec:
               TZ: ${TIMEZONE}
               ATUIN_HOST: 0.0.0.0
               ATUIN_PORT: &port 8888
-              ATUIN_OPEN_REGISTRATION: "true"
-              ATUIN_METRICS__ENABLE: "true"
+              ATUIN_OPEN_REGISTRATION: true
+              ATUIN_METRICS__ENABLE: true
               ATUIN_METRICS__HOST: 0.0.0.0
               ATUIN_METRICS__PORT: &metricsPort 8080
-              ATUIN_TLS__ENABLE: "false"
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
@@ -53,8 +52,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
@@ -66,10 +63,6 @@ spec:
       app:
         endpoints:
           - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     ingress:
       app:
         className: traefik-internal
