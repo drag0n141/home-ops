@@ -105,12 +105,13 @@ machine:
     disabled: false
     servers: ["time.cloudflare.com"]
   sysctls:
-    fs.inotify.max_user_watches: 1048576
-    fs.inotify.max_user_instances: 8192
-    net.ipv4.tcp_fastopen: 3
-    net.core.rmem_max: 67108864
-    net.core.wmem_max: 67108864
-    user.max_user_namespaces: 11255
+    fs.inotify.max_user_watches: 1048576   # Watchdog
+    fs.inotify.max_user_instances: 8192    # Watchdog
+    net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
+    net.core.rmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
+    user.max_user_namespaces: 11255        # User Namespaces
+    vm.nr_hugepages: 1024                  # PostgreSQL
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
   features:
