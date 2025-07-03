@@ -33,6 +33,7 @@ spec:
               ANALYTICS_DISABLED: true
               APP_URL: https://id.${SECRET_DOMAIN}
               DB_PROVIDER: postgres
+              UI_CONFIG_DISABLED: true
               EMAIL_LOGIN_NOTIFICATION_ENABLED: true
               LDAP_ENABLED: true
               LDAP_URL: ldaps://ldap-lb.security.svc.cluster.local
