@@ -40,11 +40,13 @@ spec:
               LDAP_SKIP_CERT_VERIFY: true
               LDAP_USER_SEARCH_FILTER: (&({username_attribute}={input})(objectClass=person))
               LDAP_USER_GROUP_SEARCH_FILTER: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
+              LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER: objectGUID
+              LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER: objectGUID
               LDAP_ATTRIBUTE_USER_FIRST_NAME: givenName
               LDAP_ATTRIBUTE_USER_LAST_NAME: sn
               LDAP_ATTRIBUTE_USER_USERNAME: sAMAccountName
               LDAP_ATTRIBUTE_USER_EMAIL: mail
-              LDAP_ATTRIBUTE_GROUP_MEMBER: memberOf
+              LDAP_ATTRIBUTE_GROUP_MEMBER: member
               LDAP_ATTRIBUTE_GROUP_NAME: cn
               LDAP_ATTRIBUTE_ADMIN_GROUP: Admin
               SMTP_FROM: pocket-id@${SECRET_DOMAIN}
