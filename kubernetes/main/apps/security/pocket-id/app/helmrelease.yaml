@@ -59,7 +59,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /healthz
+                    path: /health
                     port: &port 1411
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -111,3 +111,12 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          autopulse:
+            app:
+              - path: /var
+                subPath: var
+              - path: /tmp
+                subPath: tmp
