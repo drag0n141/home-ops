@@ -38,8 +38,7 @@ spec:
               LDAP_ENABLED: true
               LDAP_URL: ldaps://ldap-lb.security.svc.cluster.local
               LDAP_SKIP_CERT_VERIFY: true
-              LDAP_USER_SEARCH_FILTER: (&({username_attribute}={input})(objectClass=person))
-              LDAP_USER_GROUP_SEARCH_FILTER: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
+              LDAP_USER_GROUP_SEARCH_FILTER: (&(objectClass=group)(cn=ID*))
               LDAP_ATTRIBUTE_USER_UNIQUE_IDENTIFIER: objectGUID
               LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER: objectGUID
               LDAP_ATTRIBUTE_USER_FIRST_NAME: givenName
