@@ -1,0 +1,112 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app pocket-id
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      pocket-id:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17@sha256:e0c87ce7df39d06b93f27cf2cc6a056611f13faaa88cc07ab4dc8bf7a85d0b11
+            envFrom: &envFrom
+              - secretRef:
+                  name: pocket-id-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/pocket-id/pocket-id
+              tag: v1.5.0@sha256:37c92ec26cb4f425f0485147d22fa0e9780b29e3d467a4e855e7353a62c110c0
+            env:
+              TZ: ${TIMEZONE}
+              ANALYTICS_DISABLED: true
+              APP_URL: https://id.${SECRET_DOMAIN}
+              DB_PROVIDER: postgres
+              EMAIL_LOGIN_NOTIFICATION_ENABLED: true
+              LDAP_ENABLED: true
+              LDAP_URL: ldaps://ldap-lb.security.svc.cluster.local
+              LDAP_SKIP_CERT_VERIFY: true
+              LDAP_USER_SEARCH_FILTER: (&({username_attribute}={input})(objectClass=person))
+              LDAP_USER_GROUP_SEARCH_FILTER: (&(member:1.2.840.113556.1.4.1941:={dn})(objectClass=group)(objectCategory=group))
+              LDAP_ATTRIBUTE_USER_FIRST_NAME: givenName
+              LDAP_ATTRIBUTE_USER_LAST_NAME: sn
+              LDAP_ATTRIBUTE_USER_USERNAME: sAMAccountName
+              LDAP_ATTRIBUTE_USER_EMAIL: mail
+              LDAP_ATTRIBUTE_GROUP_MEMBER: memberOf
+              LDAP_ATTRIBUTE_GROUP_NAME: cn
+              LDAP_ATTRIBUTE_ADMIN_GROUP: Admin
+              SMTP_FROM: pocket-id@${SECRET_DOMAIN}
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: 2525
+              SESSION_DURATION: 1440
+              TRUST_PROXY: true
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 1411
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: traefik-external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "id.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /data

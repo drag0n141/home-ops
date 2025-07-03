@@ -6,6 +6,7 @@ resources:
   - ./authelia/ks.yaml
   - ./authentik/ks.yaml
   - ./ldap-lb/ks.yaml
+  - ./pocket-id/ks.yaml
   - ./teleport/ks.yaml
 components:
   - ../../components/alerts
