@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/pocket-id/pocket-id
-              tag: dev-ldap-utf8@sha256:2f73f276968d447caa291222a9ea808b18860006fd77601ca4259f9d5eff11aa
+              tag: v.1.5.0@sha256:37c92ec26cb4f425f0485147d22fa0e9780b29e3d467a4e855e7353a62c110c0
             env:
               TZ: ${TIMEZONE}
               ANALYTICS_DISABLED: true
