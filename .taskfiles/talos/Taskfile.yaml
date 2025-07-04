@@ -160,7 +160,6 @@ tasks:
         vars:
           IP: '{{.ITEM}}'
           MODE: '{{.MODE}}'
-          CLUSTER: '{{.CLUSTER}}'
     vars:
       IP_ADDRS:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'

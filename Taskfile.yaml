@@ -6,8 +6,7 @@ shopt: [globstar]
 
 vars:
   BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
-  CLUSTER: '{{.CLUSTER | default "main"}}'
-  KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
+  KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes/main'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
 env:
