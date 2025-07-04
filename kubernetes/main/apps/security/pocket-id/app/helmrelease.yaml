@@ -30,7 +30,6 @@ spec:
               tag: dev-ldap-utf8@sha256:2f73f276968d447caa291222a9ea808b18860006fd77601ca4259f9d5eff11aa
             env:
               TZ: ${TIMEZONE}
-              APP_ENV: development
               ANALYTICS_DISABLED: true
               APP_URL: https://id.${SECRET_DOMAIN}
               DB_PROVIDER: postgres
