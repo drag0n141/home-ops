@@ -8,6 +8,7 @@ resources:
   - ./ldap-lb/ks.yaml
   - ./pocket-id/ks.yaml
   - ./teleport/ks.yaml
+  - ./tinyauth/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace

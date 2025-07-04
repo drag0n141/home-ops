@@ -57,6 +57,18 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
+  name: traefik-middleware-chain-tinyauth
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-rate-limit@kubernetescrd
+      - name: networking-traefik-middleware-secure-headers@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
+      - name: networking-traefik-middleware-tinyauth@kubernetescrd
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
   name: traefik-middleware-chain-pterodactyl
 spec:
   chain:
