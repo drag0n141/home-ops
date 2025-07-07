@@ -5,7 +5,7 @@ metadata:
   name: postgres17
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.5@sha256:b79d3f1da82d745f6a9b98f658c58d47bf14740229bab8b5c9ef5b737742cff3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5@sha256:6d41466de5d43a80544cc5768038b2de964ae5b1d725683c03c5d9f81fdc2e43
   primaryUpdateStrategy: unsupervised
   storage:
     size: 15Gi
