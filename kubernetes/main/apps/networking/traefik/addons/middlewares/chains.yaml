@@ -108,4 +108,4 @@ spec:
     middlewares:
       - name: networking-traefik-middleware-secure-headers@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
-      - name: networking-traefik-middleware-authelia@kubernetescrd
+      - name: networking-traefik-middleware-tinyauth@kubernetescrd
