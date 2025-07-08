@@ -54,6 +54,8 @@ spec:
               SMTP_PORT: 2525
               SESSION_DURATION: 1440
               TRUST_PROXY: true
+              UPLOAD_PATH: /app/data/uploads
+              GEOLITE_DB_PATH: /app/data/GeoLite2-City.mmdb
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -112,13 +114,11 @@ spec:
       data:
         existingClaim: *app
         globalMounts:
-          - path: /data
+          - path: /app/data
       tmpfs:
         type: emptyDir
         advancedMounts:
           pocket-id:
             app:
-              - path: /app/data
-                subPath: data
               - path: /tmp
                 subPath: tmp
