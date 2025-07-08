@@ -37,9 +37,9 @@ spec:
       default:
         BACKEND: "storages.backends.s3.S3Storage"
         OPTIONS:
-          AWS_STORAGE_BUCKET_NAME: "netbox"
-          AWS_S3_ENDPOINT_URL: "https://s3.${SECRET_DOMAIN_INTERNAL}"
-          AWS_S3_REGION_NAME: "us-east-1"
+          bucket_name: "netbox"
+          endpoint_url: "https://s3.${SECRET_DOMAIN_INTERNAL}"
+          region_name: "us-east-1"
     existingSecret: netbox-secret
     metricsEnabled: true
     postgresql:
