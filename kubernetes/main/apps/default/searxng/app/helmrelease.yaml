@@ -18,16 +18,13 @@ spec:
             image:
               repository: ghcr.io/searxng/searxng
               tag: 2025.7.5-6ff4035@sha256:67ee37bc396f5c7230e58a8e9548b4b6e750cdb9b61eb20932aaa6fcfd5e667b
-            command:
-              - /usr/local/searxng/venv/bin/uwsgi
-              - --master
-              - /usr/local/searxng/.template/uwsgi.ini
             env:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_PORT: 8080
-              UWSGI_WORKERS: "1"
+              SEARXNG_PORT: &port 8080
+              UWSGI_WORKERS: 1
+              UWSGI_THREADS: 4
             envFrom:
               - secretRef:
                   name: searxng-secret
@@ -38,7 +35,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthz
-                    port: 8080
+                    port: *port
                   initialDelaySeconds: 15
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -65,7 +62,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: *port
     ingress:
       app:
         className: traefik-external
