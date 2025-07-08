@@ -37,12 +37,6 @@ spec:
             command: ["/bin/sh", "-c"]
             args: ["export PGPASSWORD=$(POSTGRESQL_PASSWORD); psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;"]
             envFrom: *envFrom
-          04-init-plugin:
-            image:
-              repository: docker.io/guacamole/guacamole
-              tag: 1.6.0@sha256:f344085e618bb05e22b964b0208dbd06d3468275bac70206f93805245e067b40
-            command: ["/bin/sh", "-c"]
-            args: ["mkdir -p /guacamole/extensions; cp /opt/guacamole/extensions/guacamole-auth-totp/*.jar /guacamole/extensions;"]
         containers:
           app:
             image:
@@ -50,6 +44,8 @@ spec:
               tag: 1.6.0@sha256:f344085e618bb05e22b964b0208dbd06d3468275bac70206f93805245e067b40
             env:
               TZ: ${TIMEZONE}
+              TOTP_ENABLED: true
+              OPENID_ENABLED: true
               WEBAPP_CONTEXT: ROOT
               GUACD_HOSTNAME: guacd.default.svc.cluster.local
               GUACAMOLE_HOME: /guacamole
@@ -103,11 +99,3 @@ spec:
               - path: /migrations
             03-init-migrations:
               - path: /migrations
-      plugins:
-        type: emptyDir
-        advancedMounts:
-          guacamole:
-            app:
-              - path: /guacamole
-            04-init-plugin:
-              - path: /guacamole
