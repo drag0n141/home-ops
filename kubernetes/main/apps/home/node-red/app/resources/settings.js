@@ -26,7 +26,9 @@ module.exports = {
         },
       },
     },
-    users: [{username: "DrAg0n141", permissions: ["*"]}],
+    users: function(user) {
+        return Promise.resolve({ username: user, permissions: "*" });
+    }
   },
 
   uiPort: process.env.PORT || 1880,
