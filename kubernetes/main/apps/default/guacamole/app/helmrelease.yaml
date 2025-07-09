@@ -50,6 +50,12 @@ spec:
               GUACD_HOSTNAME: guacd.default.svc.cluster.local
               GUACAMOLE_HOME: /guacamole
               GUACD_PORT: "4822"
+              OPENID_AUTHORIZATION_ENDPOINT: https://id.${SECRET_DOMAIN}/authorize
+              OPENID_JWKS_ENDPOINT: https://id.${SECRET_DOMAIN}/.well-known/jwks.json
+              OPENID_ISSUER: https://id.${SECRET_DOMAIN}
+              OPENID_REDIRECT_URI: https://guacamole.${SECRET_DOMAIN}"
+              OPENID_USERNAME_CLAIM_TYPE: preferred_username
+              OPENID_SCOPE: "openid profile groups email"
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
