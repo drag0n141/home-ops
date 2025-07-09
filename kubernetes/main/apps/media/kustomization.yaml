@@ -7,10 +7,10 @@ resources:
   - ./calibre-web/ks.yaml
   - ./ersatztv/ks.yaml
   - ./ganymede/ks.yaml
+  - ./jellyseerr/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./maintainerr/ks.yaml
-  - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./recommendarr/ks.yaml
