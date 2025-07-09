@@ -45,7 +45,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               TOTP_ENABLED: true
-              OPENID_ENABLED: true
+              OPENID_ENABLED: false
               WEBAPP_CONTEXT: ROOT
               GUACD_HOSTNAME: guacd.default.svc.cluster.local
               GUACAMOLE_HOME: /guacamole
