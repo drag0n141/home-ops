@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app overseerr
+  name: &app jellyseerr
   namespace: &namespace media
 spec:
   targetNamespace: *namespace
@@ -10,6 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: database
     - name: onepassword
       namespace: external-secrets
     - name: rook-ceph-cluster
@@ -19,7 +21,7 @@ spec:
   components:
     - ../../../../components/gatus/internal
     - ../../../../components/volsync
-  path: ./kubernetes/main/apps/media/overseerr/app
+  path: ./kubernetes/main/apps/media/jellyseerr/app
   prune: true
   sourceRef:
     kind: GitRepository
