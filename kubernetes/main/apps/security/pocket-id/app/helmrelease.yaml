@@ -35,7 +35,6 @@ spec:
               DB_PROVIDER: postgres
               KEYS_STORAGE: database
               UI_CONFIG_DISABLED: true
-              EMAIL_LOGIN_NOTIFICATION_ENABLED: true
               LDAP_ENABLED: true
               LDAP_URL: ldaps://ldap-lb.security.svc.cluster.local
               LDAP_SKIP_CERT_VERIFY: true
