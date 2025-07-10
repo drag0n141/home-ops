@@ -1,0 +1,17 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: postgres17-pgbouncer-rw
+spec:
+  cluster:
+    name: postgres17
+  instances: 3
+  type: rw
+  monitoring:
+    enablePodMonitor: true
+  pgbouncer:
+    poolMode: transaction
+    parameters:
+      max_client_conn: "1000"
+      default_pool_size: "100"
