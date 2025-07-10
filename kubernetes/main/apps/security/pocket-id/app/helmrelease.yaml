@@ -51,7 +51,7 @@ spec:
               SMTP_FROM: pocket-id@${SECRET_DOMAIN}
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: 2525
-              SESSION_DURATION: 1440
+              SESSION_DURATION: 43800
               TRUST_PROXY: true
               UPLOAD_PATH: /app/data/uploads
               GEOLITE_DB_PATH: /app/data/GeoLite2-City.mmdb
