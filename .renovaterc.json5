@@ -1,47 +1,54 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":automergeDigest",
-    ":automergeBranch",
-    ":skipStatusChecks",
-    ":timezone(Europe/Berlin)",
-    "github>drag0n141/home-ops//.renovate/allowedVersions.json5",
-    "github>drag0n141/home-ops//.renovate/autoMerge.json5",
-    "github>drag0n141/home-ops//.renovate/customManagers.json5",
-    "github>drag0n141/home-ops//.renovate/grafanaDashboards.json5",
-    "github>drag0n141/home-ops//.renovate/groups.json5",
-    "github>drag0n141/home-ops//.renovate/labels.json5",
-    "github>drag0n141/home-ops//.renovate/packageRules.json5",
-    "github>drag0n141/home-ops//.renovate/semanticCommits.json5"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    'docker:enableMajor',
+    ':disableRateLimiting',
+    ':dependencyDashboard',
+    ':semanticCommits',
+    ':automergeDigest',
+    ':automergeBranch',
+    ':skipStatusChecks',
+    ':timezone(Europe/Berlin)',
+    'github>drag0n141/home-ops//.renovate/allowedVersions.json5',
+    'github>drag0n141/home-ops//.renovate/autoMerge.json5',
+    'github>drag0n141/home-ops//.renovate/customManagers.json5',
+    'github>drag0n141/home-ops//.renovate/grafanaDashboards.json5',
+    'github>drag0n141/home-ops//.renovate/groups.json5',
+    'github>drag0n141/home-ops//.renovate/labels.json5',
+    'github>drag0n141/home-ops//.renovate/packageRules.json5',
+    'github>drag0n141/home-ops//.renovate/semanticCommits.json5',
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
-  "rebaseWhen": "conflicted",
-  "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
-  "docker-compose": {
-    "fileMatch": [
-      "(^|/)docker/.+\\.ya?ml$"
-    ]
+  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
+  suppressNotifications: [
+    'prEditedNotification',
+    'prIgnoreNotification',
+  ],
+  rebaseWhen: 'conflicted',
+  ignorePaths: [
+    '**/*.sops.*',
+    '**/.archive/**',
+    '**/resources/**',
+  ],
+  'docker-compose': {
+    managerFilePatterns: [
+      '/(^|/)docker/.+\\.ya?ml$/',
+    ],
   },
-  "flux": {
-    "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml$"
-    ]
+  flux: {
+    managerFilePatterns: [
+      '/(^|/)kubernetes/.+\\.ya?ml$/',
+    ],
   },
-  "helm-values": {
-    "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml$"
-    ]
+  'helm-values': {
+    managerFilePatterns: [
+      '/(^|/)kubernetes/.+\\.ya?ml$/',
+    ],
   },
-  "kubernetes": {
-    "fileMatch": [
-      "(^|/)\\.taskfiles/.+\\.ya?ml$",
-      "(^|/)kubernetes/.+\\.ya?ml$"
-    ]
-  }
+  kubernetes: {
+    managerFilePatterns: [
+      '/(^|/)\\.taskfiles/.+\\.ya?ml$/',
+      '/(^|/)kubernetes/.+\\.ya?ml$/',
+    ],
+  },
 }
