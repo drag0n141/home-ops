@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/11notes/kms
-              tag: 1.0.3@sha256:6232716cb0488d250c704aa9c3cb16fd0eb5022e166eb04cc4b5170058517e66
+              tag: 1.0.3@sha256:8b97bfff8c38bbb2e0a6f58c86e78f27b50163a7548d0711ba4eb82c4f2e07de
             env:
               TZ: ${TIMEZONE}
             securityContext:
