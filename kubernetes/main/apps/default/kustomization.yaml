@@ -8,7 +8,6 @@ resources:
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
   - ./convertx/ks.yaml
-  - ./docmost/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./gotify/ks.yaml
