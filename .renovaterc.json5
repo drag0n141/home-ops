@@ -29,7 +29,7 @@
     "**/.archive/**",
     "**/resources/**",
   ],
-  docker-compose: {
+  "docker-compose": {
     managerFilePatterns: ["/(^|/)docker/.+\\.ya?ml$/"]
   },
   flux: {
