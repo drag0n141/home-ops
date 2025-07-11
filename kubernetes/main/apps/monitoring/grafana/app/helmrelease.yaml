@@ -9,6 +9,12 @@ spec:
     kind: OCIRepository
     name: grafana
   values:
+    extraInitContainers:
+      - name: init-db
+        image: ghcr.io/home-operations/postgres-init:17
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
     replicas: 1
     env:
       GF_ANALYTICS_CHECK_FOR_UPDATES: false
@@ -25,6 +31,7 @@ spec:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
       GF_AUTH_OAUTH_AUTO_LOGIN: true
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_DATABASE_TYPE: postgres
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /tmp/dashboards/home.json
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
@@ -36,7 +43,7 @@ spec:
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN_INTERNAL}
     envFromSecrets:
-      - name: grafana-secret
+      - name: *secret
     imageRenderer:
       enabled: true
     dashboardProviders:
