@@ -33,9 +33,6 @@ spec:
               # Core config
               CORE_RETURN_HTTPS_URLS: true
               CORE_DEFAULT_DOMAIN: zl.${SECRET_DOMAIN_SHORT}
-              CORE_COMPRESSION_ENABLED: true
-              CORE_COMPRESSION_THRESHOLD: "200mb"
-              CORE_COMPRESSION_ON_DASHBOARD: true
               # Datasources
               DATASOURCE_TYPE: s3
               DATASOURCE_S3_BUCKET: zipline
@@ -47,7 +44,7 @@ spec:
               # Exif
               EXIF_REMOVE_GPS: true
               # Features
-              FEATURES_INVITES: false
+              INVITES_ENABLED: false
               FEATURES_ROBOTS_TXT: false
               FEATURES_USER_REGISTRATION: false
               FEATURES_OAUTH_REGISTRATION: true
@@ -61,15 +58,12 @@ spec:
               UPLOADER_LENGTH: 6
               UPLOADER_DEFAULT_FORMAT: "DATE"
               UPLOADER_DISABLED_EXTENSIONS: "ps1,pdf,bat,exe,sh,fish"
-              UPLOADER_FORMAT_DATE: "YYYY-MM-DD_HH-mm-ss"
               UPLOADER_DEFAULT_EXPIRATION: ""
               # URLs
               URLS_ROUTE: /g
               URLS_LENGTH: 6
               # Website
               WEBSITE_TITLE: Zipline
-              WEBSITE_SHOW_FILES_PER_USER: false
-              WEBSITE_SHOW_VERSION: false
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
