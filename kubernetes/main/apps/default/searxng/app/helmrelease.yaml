@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/searxng/searxng
-              tag: 2025.7.11-d8c74c8@sha256:0382dea74fe27dad5cf572f71e3efb4b287d92f92014001e55da8f8a7f0782df
+              tag: 2025.7.11-d574339@sha256:54097e8189288082454fc257cf39c51d8059f24efeb07a4abbe0abbc58e38772
             env:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
