@@ -41,24 +41,26 @@ spec:
               DATASOURCE_S3_FORCE_PATH_STYLE: true
               DATASOURCE_S3_USE_SSL: true
               DATASOURCE_S3_REGION: us-east-1
-              # Exif
-              EXIF_REMOVE_GPS: true
               # Features
               INVITES_ENABLED: false
               FEATURES_ROBOTS_TXT: false
               FEATURES_USER_REGISTRATION: false
               FEATURES_OAUTH_REGISTRATION: true
+              FEATURES_VERSION_CHECKING: false
               # OIDC
+              OAUTH_LOGIN_ONLY: true
               OAUTH_OIDC_AUTHORIZE_URL: https://id.${SECRET_DOMAIN}/authorize
               OAUTH_OIDC_USERINFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
               OAUTH_OIDC_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
               OAUTH_OIDC_REDIRECT_URI: https://zl.${SECRET_DOMAIN_SHORT}/api/auth/oauth/oidc
-              # Uploader
-              UPLOADER_ROUTE: /u
-              UPLOADER_LENGTH: 6
-              UPLOADER_DEFAULT_FORMAT: "DATE"
-              UPLOADER_DISABLED_EXTENSIONS: "ps1,pdf,bat,exe,sh,fish"
-              UPLOADER_DEFAULT_EXPIRATION: ""
+              # Files
+              FILES_ROUTE: /u
+              FILES_LENGTH: 6
+              FILES_DEFAULT_FORMAT: "data"
+              FILES_DISABLED_EXTENSIONS: "ps1,pdf,bat,exe,sh,fish"
+              FILES_DEFAULT_DATE_FORMAT: "YYYY-MM-DD_HH-mm-ss"
+              FILES_DEFAULT_EXPIRATION: ""
+              FILES_REMOVE_GPS_METADATA: true
               # URLs
               URLS_ROUTE: /g
               URLS_LENGTH: 6
