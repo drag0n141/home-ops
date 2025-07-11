@@ -33,6 +33,14 @@ spec:
               LD_DISABLE_BACKGROUND_TASKS: false
               LD_DISABLE_URL_VALIDATION: false
               LD_DB_ENGINE: postgres
+              LD_ENABLE_OIDC: true
+              OIDC_OP_AUTHORIZATION_ENDPOINT: https://id.${SECRET_DOMAIN}/authorize
+              OIDC_OP_TOKEN_ENDPOINT: https://id.${SECRET_DOMAIN}/api/oidc/token
+              OIDC_OP_USER_ENDPOINT: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              OIDC_OP_JWKS_ENDPOINT: https://id.${SECRET_DOMAIN}/.well-known/jwks.json
+              OIDC_USE_PKCE: false
+              OIDC_VERIFY_SSL: true
+              OIDC_USERNAME_CLAIM: preferred_username
               LD_CSRF_TRUSTED_ORIGINS: "https://bookmarks.${SECRET_DOMAIN}"
             envFrom: *envFrom
             securityContext:
