@@ -42,30 +42,8 @@ spec:
               GUNICORN_MEDIA: 0
               SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
               SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
-              TANDOOR_PORT: &tandoorPort 8000
+              TANDOOR_PORT: 8000
             envFrom: *envFrom
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /accounts/login/
-                    port: *tandoorPort
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /accounts/login/
-                    port: *tandoorPort
-                  failureThreshold: 30
-                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
