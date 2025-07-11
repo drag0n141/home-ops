@@ -17,13 +17,12 @@ spec:
       GF_AUTH_ANONYMOUS_ENABLED: false
       GF_AUTH_BASIC_ENABLED: false
       GF_AUTH_GENERIC_OAUTH_ENABLED: true
-      GF_AUTH_GENERIC_OAUTH_API_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/userinfo
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/authorization
-      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_API_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
       GF_AUTH_GENERIC_OAUTH_EMPTY_SCOPES: false
-      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'Admin') && 'Admin' || 'Viewer'"
+      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'ID-Admin') && 'Admin' || 'Viewer'"
       GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email groups
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://authelia.${SECRET_DOMAIN}/api/oidc/token
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
       GF_AUTH_OAUTH_AUTO_LOGIN: true
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /tmp/dashboards/home.json
