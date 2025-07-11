@@ -108,10 +108,10 @@ spec:
             'lost_password_link' => 'disabled',
             'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
             'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
-            'oidc_login_provider_url' => 'https://authelia.${SECRET_DOMAIN}',
+            'oidc_login_provider_url' => 'https://id.${SECRET_DOMAIN}',
             'oidc_login_auto_redirect' => true, //login?noredir=1
             'oidc_login_end_session_redirect' => true,
-            'oidc_login_button_text' => 'Log in with Authelia',
+            'oidc_login_button_text' => 'Log in with Pocket ID',
             'oidc_login_hide_password_form' => true,
             'oidc_login_use_id_token' => true,
             'oidc_login_attributes' => array (
@@ -122,7 +122,7 @@ spec:
                   'login_filter' => 'groups',
               ),
             'oidc_login_default_group' => 'nextcloud',
-            'oidc_login_filter_allowed_values' => array('Nextcloud'),
+            'oidc_login_filter_allowed_values' => array('ID-Nextcloud'),
             'oidc_login_use_external_storage' => false,
             'oidc_login_scope' => 'openid profile email groups',
             'oidc_login_proxy_ldap' => false,
