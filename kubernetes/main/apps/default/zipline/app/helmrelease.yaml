@@ -56,7 +56,7 @@ spec:
               # Files
               FILES_ROUTE: /u
               FILES_LENGTH: 6
-              FILES_DEFAULT_FORMAT: "data"
+              FILES_DEFAULT_FORMAT: "date"
               FILES_DISABLED_EXTENSIONS: "ps1,pdf,bat,exe,sh,fish"
               FILES_DEFAULT_DATE_FORMAT: "YYYY-MM-DD_HH-mm-ss"
               FILES_DEFAULT_EXPIRATION: ""
