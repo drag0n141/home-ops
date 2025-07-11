@@ -31,24 +31,31 @@ spec:
             env:
               TZ: ${TIMEZONE}
               # Core config
-              CORE_RETURN_HTTPS: "true"
-              CORE_COMPRESSION_ENABLED: "true"
+              CORE_RETURN_HTTPS_URLS: true
+              CORE_DEFAULT_DOMAIN: zl.${SECRET_DOMAIN_SHORT}
+              CORE_COMPRESSION_ENABLED: true
               CORE_COMPRESSION_THRESHOLD: "200mb"
-              CORE_COMPRESSION_ON_DASHBOARD: "true"
+              CORE_COMPRESSION_ON_DASHBOARD: true
               # Datasources
-              DATASOURCE_TYPE: "s3"
+              DATASOURCE_TYPE: s3
               DATASOURCE_S3_BUCKET: zipline
               DATASOURCE_S3_ENDPOINT: https://s3.${SECRET_DOMAIN_INTERNAL}
               DATASOURCE_S3_PORT: 443
-              DATASOURCE_S3_FORCE_PATH_STYLE: "true"
-              DATASOURCE_S3_USE_SSL: "true"
+              DATASOURCE_S3_FORCE_PATH_STYLE: true
+              DATASOURCE_S3_USE_SSL: true
               DATASOURCE_S3_REGION: us-east-1
               # Exif
-              EXIF_REMOVE_GPS: "true"
+              EXIF_REMOVE_GPS: true
               # Features
-              FEATURES_INVITES: "false"
-              FEATURES_ROBOTS_TXT: "false"
-              FEATURES_USER_REGISTRATION: "false"
+              FEATURES_INVITES: false
+              FEATURES_ROBOTS_TXT: false
+              FEATURES_USER_REGISTRATION: false
+              FEATURES_OAUTH_REGISTRATION: true
+              # OIDC
+              OAUTH_OIDC_AUTHORIZE_URL: https://id.${SECRET_DOMAIN}/authorize
+              OAUTH_OIDC_USERINFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              OAUTH_OIDC_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
+              OAUTH_OIDC_REDIRECT_URI: https://zl.${SECRET_DOMAIN_SHORT}/api/auth/oauth/oidc
               # Uploader
               UPLOADER_ROUTE: /u
               UPLOADER_LENGTH: 6
@@ -60,9 +67,9 @@ spec:
               URLS_ROUTE: /g
               URLS_LENGTH: 6
               # Website
-              WEBSITE_TITLE: "Zipline"
-              WEBSITE_SHOW_FILES_PER_USER: "false"
-              WEBSITE_SHOW_VERSION: "false"
+              WEBSITE_TITLE: Zipline
+              WEBSITE_SHOW_FILES_PER_USER: false
+              WEBSITE_SHOW_VERSION: false
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
