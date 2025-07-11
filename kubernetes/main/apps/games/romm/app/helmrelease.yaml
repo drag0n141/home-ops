@@ -40,10 +40,9 @@ spec:
               REDIS_PORT: 6379
               REDIS_DB: 11
               OIDC_ENABLED: true
-              OIDC_PROVIDER: authelia
-              OIDC_CLIENT_ID: romm
+              OIDC_PROVIDER: pocketid
               OIDC_REDIRECT_URI: https://romm.${SECRET_DOMAIN_INTERNAL}/api/oauth/openid
-              OIDC_SERVER_APPLICATION_URL: https://authelia.${SECRET_DOMAIN}
+              OIDC_SERVER_APPLICATION_URL: https://id.${SECRET_DOMAIN}/authorize
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
