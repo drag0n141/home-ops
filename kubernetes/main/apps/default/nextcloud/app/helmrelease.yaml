@@ -120,6 +120,8 @@ spec:
                   'mail' => 'email',
                   'groups' => 'groups',
                   'login_filter' => 'groups',
+                  'photoURL' => 'picture',
+                  'is_admin' => 'groups_ID-Admin',
               ),
             'oidc_login_default_group' => 'nextcloud',
             'oidc_login_filter_allowed_values' => array('ID-Nextcloud'),
