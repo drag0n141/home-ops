@@ -12,6 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: teleport
+      interval: 30m
   values:
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster

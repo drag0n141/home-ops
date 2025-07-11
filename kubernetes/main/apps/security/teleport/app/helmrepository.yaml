@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: teleport
-  namespace: flux-system
+  namespace: security
 spec:
   interval: 1h
   url: https://charts.releases.teleport.dev
