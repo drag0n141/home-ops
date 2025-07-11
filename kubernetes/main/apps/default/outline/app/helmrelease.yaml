@@ -47,7 +47,7 @@ spec:
               OIDC_TOKEN_URI: "https://id.${SECRET_DOMAIN}/api/oidc/token"
               OIDC_USERINFO_URI: "https://id.${SECRET_DOMAIN}/api/oidc/userinfo"
               OIDC_USERNAME_CLAIM: email
-              PORT: 8080
+              PORT: &port 8080
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: 2525
               SMTP_FROM_EMAIL: "outline@${SECRET_DOMAIN}"
@@ -75,7 +75,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: *port
     ingress:
       app:
         className: traefik-internal
