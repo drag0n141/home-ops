@@ -24,10 +24,6 @@ spec:
             env:
               TZ: ${TIMEZONE}
               MACHINE_LEARNING_CACHE_FOLDER: /cache
-              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
-              MPLCONFIGDIR: /cache/.config/matplotlib
-              TRANSFORMERS_CACHE: /cache
-              XDG_CONFIG_HOME: /cache/.config
             envFrom:
               - configMapRef:
                   name: immich-configmap
@@ -40,7 +36,7 @@ spec:
                 spec:
                   httpGet:
                     path: /ping
-                    port: 3003
+                    port: &port 3003
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -59,7 +55,6 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
-      enableServiceLinks: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -70,7 +65,7 @@ spec:
       app:
         ports:
           http:
-            port: 3003
+            port: *port
     persistence:
       library:
         type: nfs
@@ -85,7 +80,9 @@ spec:
             app:
               - path: /cache
                 subPath: cache
-              - path: /usr/src/app/.reverse-geocoding-dump
-                subPath: geocoding
+              - path: /.config/matplotlib
+                subPath: matplotlib-config
+              - path: /.cache/matplotlib
+                subPath: matplotlib-cache
               - path: /tmp
                 subPath: tmp
