@@ -24,6 +24,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               MACHINE_LEARNING_CACHE_FOLDER: /cache
+              MPLCONFIGDIR: /tmp/mpl
             envFrom:
               - configMapRef:
                   name: immich-configmap
