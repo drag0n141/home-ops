@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/softethervpn/vpnserver
-              tag: latest@sha256:0afc37232286a640e9d95233cd948248449796d977e9f5d234df81b7e70a34aa
+              tag: latest@sha256:ab4e4a52712116af9681a77c2d374f49b7eb853a3e5f0f8db5f9cb9423916c56
             env:
               TZ: ${TIMEZONE}
             securityContext:
