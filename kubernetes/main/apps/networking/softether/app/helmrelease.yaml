@@ -23,6 +23,9 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
+              sysctls:
+                - name: net.ipv4.ip_forward
+                  value: 1
               capabilities:
                 add: ["NET_ADMIN"]
             resources:
