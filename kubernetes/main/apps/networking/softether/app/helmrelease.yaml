@@ -39,17 +39,13 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        forceRename: *app
-        primary: true
-        ports:
-          http:
-            port: 443
-      vpn:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "vpn.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.240
         ports:
+          http:
+            port: 443
           dns:
             port: 53
             protocol: TCP
