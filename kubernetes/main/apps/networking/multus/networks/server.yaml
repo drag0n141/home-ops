@@ -12,7 +12,7 @@ spec:
         {
           "type": "macvlan",
           "master": "bond0",
-          "mode": "bridge",
+          "mode": "bridge"
         }
       ]
     }

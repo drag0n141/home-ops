@@ -42,7 +42,6 @@ spec:
           [{
             "name":"multus-server",
             "namespace": "networking",
-            "ips": ["192.168.254.240/24"],
             "mac": "7e:ae:c7:bb:e6:ce"
           }]
     service:
