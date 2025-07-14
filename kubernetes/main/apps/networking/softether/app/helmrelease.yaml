@@ -86,5 +86,7 @@ spec:
             app:
               - path: /var/log/softether
                 subPath: logs
+              - path: /run/softether
+                subPath: run
               - path: /tmp
                 subPath: tmp
