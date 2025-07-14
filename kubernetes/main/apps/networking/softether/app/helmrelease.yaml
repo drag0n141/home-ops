@@ -23,9 +23,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
-              sysctls:
-                - name: net.ipv4.ip_forward
-                  value: 1
               capabilities:
                 add: ["NET_ADMIN"]
             resources:
@@ -40,6 +37,9 @@ spec:
         runAsGroup: 0
         fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
+        sysctls:
+          - name: net.ipv4.ip_forward
+            value: "1"
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
