@@ -8,8 +8,11 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "multus-server",
-      "type":"bridge",
-      "bridge":"bond0",
-      "promiscMode":true,
-      "ipam":{}
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "bond0",
+          "mode": "bridge",
+        }
+      ]
     }
