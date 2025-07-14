@@ -12,12 +12,12 @@ spec:
   dependsOn:
     - name: keda
       namespace: system
+    - name: mosquitto
+      namespace: *namespace
     - name: onepassword
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: vernemq
-      namespace: database
     - name: volsync
       namespace: storage
   components:
