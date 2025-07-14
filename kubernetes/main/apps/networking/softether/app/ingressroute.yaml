@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: softether
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: HostSNI(`vpn.${SECRET_DOMAIN}`)
+    services:
+    - name: softether
+      port: 443
+  tls:
+    passthrough: true
+    secretName: "${SECRET_DOMAIN/./-}-production-tls"
