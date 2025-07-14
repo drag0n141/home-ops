@@ -79,5 +79,9 @@ spec:
             app:
               - path: /cache
                 subPath: cache
+              - path: /.cache/matplotlib
+                subPath: matplotlib-cache
+              - path: /.config/matplotlib
+                subPath: matplotlib-config
               - path: /tmp
                 subPath: tmp
