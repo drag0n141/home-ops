@@ -29,6 +29,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
+                squat.ai/tun: 1
                 memory: 512Mi
     defaultPodOptions:
       securityContext:
@@ -37,14 +38,6 @@ spec:
         runAsGroup: 0
         fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name":"multus-server",
-            "namespace": "networking",
-            "ips": ["192.168.254.240/24"],
-            "mac": "7e:ae:c7:bb:e6:ce"
-          }]
     service:
       app:
         type: LoadBalancer
