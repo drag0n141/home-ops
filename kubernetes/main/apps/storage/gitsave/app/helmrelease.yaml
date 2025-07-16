@@ -79,3 +79,10 @@ spec:
             app:
               - path: /app/backups
                 subPath: github
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          gitsave:
+            app:
+              - path: /tmp
+                subPath: tmp
