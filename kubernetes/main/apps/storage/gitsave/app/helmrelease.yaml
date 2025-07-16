@@ -75,7 +75,7 @@ spec:
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/backup
         advancedMounts:
-          pinchflat:
+          gitsave:
             app:
               - path: /app/backups
                 subPath: github
