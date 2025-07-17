@@ -41,7 +41,7 @@ spec:
             image:
               repository: ghcr.io/erebe/wstunnel
               tag: v10.4.4@sha256:30bd953f2e7c387a2889e3a9543dd43cd685849e335c74cf1cbbab5712ba49af
-            command: ["/home/app/wstunnel server wss://0.0.0.0:8080 --restrictTo=127.0.0.1:51820"]
+            command: ["/bin/sh", "-c", "/home/app/wstunnel", "server", "wss://0.0.0.0:8080", "--restrictTo=127.0.0.1:51820"]
             env:
               TZ: ${TIMEZONE}
             securityContext:
