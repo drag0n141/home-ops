@@ -38,8 +38,10 @@ spec:
           domain: ${SECRET_DOMAIN_AD}
           username: svc-teleport
           sid: S-1-5-21-2393014043-1219914493-3909707514-17103
-        discovery_configs:
-          - base_dn: '*'
+        static_hosts:
+        - name: Win11-PRX
+          addr: 192.168.254.44
+          ad: true
       app_service:
         enabled: yes
         apps:
