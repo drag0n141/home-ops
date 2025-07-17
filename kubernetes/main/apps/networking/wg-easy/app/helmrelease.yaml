@@ -69,7 +69,11 @@ spec:
         ports:
           http:
             port: *port
-          wstunnel:
+      wstunnel:
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: "https"
+        ports:
+          http:
             port: 8080
       wireguard:
         type: LoadBalancer
@@ -104,7 +108,6 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns.alpha.kubernetes.io/exclude-unifi: "true"
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-          traefik.ingress.kubernetes.io/service.serversscheme: "https"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
@@ -112,8 +115,8 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
-                  port: wstunnel
+                  identifier: wstunnel
+                  port: http
         tls:
           - hosts:
               - *host
