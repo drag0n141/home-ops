@@ -21,6 +21,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PORT: &port 80
+              DISABLE_IPV6: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
