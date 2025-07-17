@@ -47,7 +47,7 @@ spec:
                 memory: 512Mi
               limits:
                 gpu.intel.com/i915: 1
-                memory: 6144Mi
+                memory: 4096Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
