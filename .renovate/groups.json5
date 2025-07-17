@@ -141,8 +141,8 @@
     {
       description: "Teleport Group",
       groupName: "Teleport",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["teleport"],
+      matchDatasources: ["helm"],
+      matchPackagePatterns: ["teleport-cluster", "teleport-kube-agent"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
