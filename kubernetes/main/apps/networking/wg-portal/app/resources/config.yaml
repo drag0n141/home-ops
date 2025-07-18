@@ -24,6 +24,7 @@ mail:
   from: Wireguard Portal <wireguard@{{ .DOMAIN }}>
 
 auth:
+  callback_url_prefix: https://wireguard.{{ .DOMAIN_INTERNAL }}/api/v0
   oidc:
     - id: pocket-id
       provider_name: pocket-id
