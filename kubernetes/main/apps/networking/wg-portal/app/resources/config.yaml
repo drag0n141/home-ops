@@ -5,7 +5,7 @@ core:
   self_provisioning_allowed: true
 
 advanced:
-  log_level: debug
+  log_level: info
   log_pretty: true
   start_cidr_v4: 192.168.45.0/24
   use_ip_v6: false
@@ -25,19 +25,17 @@ mail:
 
 auth:
   callback_url_prefix: https://wireguard.{{ .DOMAIN_INTERNAL }}/api/v0
-  oauth:
+  oidc:
     - id: pocket-id
       provider_name: pocket-id
       display_name: Login with</br>Pocket ID
+      base_url: https://id.{{ .DOMAIN }}
       client_id: "{{ .WG_PORTAL_CLIENT_ID }}"
       client_secret: "{{ .WG_PORTAL_CLIENT_SECRET }}"
-      auth_url: https://id.{{ .DOMAIN }}/authorize
-      token_url: https://id.{{ .DOMAIN }}/api/oidc/token
-      user_info_url: https://id.{{ .DOMAIN }}/api/oidc/userinfo
-      scopes:
+      extra_scopes:
         - openid, profile, groups, email
       field_map:
-        user_identifier: preferred_username
+        user_identifier: email
         email: email
         firstname: given_name
         lastname: family_name
