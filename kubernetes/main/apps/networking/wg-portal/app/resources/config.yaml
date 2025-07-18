@@ -25,14 +25,16 @@ mail:
 
 auth:
   callback_url_prefix: https://wireguard.{{ .DOMAIN_INTERNAL }}/api/v0
-  oidc:
+  oauth:
     - id: pocket-id
       provider_name: pocket-id
       display_name: Login with</br>Pocket ID
-      base_url: https://id.{{ .DOMAIN }}
       client_id: "{{ .WG_PORTAL_CLIENT_ID }}"
       client_secret: "{{ .WG_PORTAL_CLIENT_SECRET }}"
-      extra_scopes:
+      auth_url: https://id.{{ .DOMAIN }}/authorize
+      token_url: https://id.{{ .DOMAIN }}/api/oidc/token
+      user_info_url: https://id.{{ .DOMAIN }}/api/oidc/userinfo
+      scopes:
         - openid, profile, groups, email
       field_map:
         user_identifier: email
