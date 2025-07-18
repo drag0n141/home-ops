@@ -34,7 +34,7 @@ auth:
       auth_url: https://id.{{ .DOMAIN }}/authorize
       token_url: https://id.{{ .DOMAIN }}/api/oidc/token
       user_info_url: https://id.{{ .DOMAIN }}/api/oidc/userinfo
-      extra_scopes:
+      scopes:
         - openid, profile, groups, email
       field_map:
         user_identifier: preferred_username
