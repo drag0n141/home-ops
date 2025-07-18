@@ -1,0 +1,52 @@
+core:
+  admin_user: "{{ .WG_PORTAL_ADMIN_USER }}"
+  admin_password: "{{ .WG_PORTAL_ADMIN_PASSWORD }}"
+  import_existing: false
+  self_provisioning_allowed: true
+
+advanced:
+  log_level: info
+  log_pretty: true
+  start_cidr_v4: 192.168.45.0/24
+  use_ip_v6: false
+
+database:
+  type: postgres
+  dsn: "host=postgres17-rw.database.svc.cluster.local port=5432 user={{ .WG_PORTAL_POSTGRES_USER }} password={{ .WG_PORTAL_POSTGRES_PASSWORD }} dbname={{ .WG_PORTAL_POSTGRES_DB }}"
+  encryption_passphrase: "{{ .WG_PORTAL_DATABASE_ENCRYPTION }}"
+
+statistics:
+  ping_unprivileged: true
+
+mail:
+  host: smtp-relay.networking.svc.cluster.local
+  port: 2525
+  from: Wireguard Portal <wireguard@{{ .DOMAIN }}>
+
+auth:
+  oidc:
+    - id: pocket-id
+      provider_name: pocket-id
+      display_name: Login with</br>Pocket ID
+      base_url: https://id.{{ .DOMAIN }}
+      client_id: "{{ .WG_PORTAL_CLIENT_ID }}"
+      client_secret: "{{ .WG_PORTAL_CLIENT_SECRET }}"
+      extra_scopes:
+        - openid, profile, groups, email
+      field_map:
+        user_identifier: preferred_username
+        email: email
+        firstname: given_name
+        lastname: family_name
+        user_groups: groups
+      admin_mapping:
+        admin_group_regex: ^ID-Admin$
+      registration_enabled: true
+      log_user_info: true
+
+web:
+  external_url: https://wireguard.{{ .DOMAIN_INTERNAL }}
+  site_company_name: DrAg0n141
+  site_title: Wireguard - DrAg0n141
+  session_secret: "{{ .WG_PORTAL_SESSION_SECRET }}"
+  csrf_secret: "{{ .WG_PORTAL_CSRF_SECRET }}"

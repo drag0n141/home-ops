@@ -11,7 +11,7 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./tailscale/ks.yaml
   - ./traefik/ks.yaml
-  - ./wg-easy/ks.yaml
+  - ./wg-portal/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace

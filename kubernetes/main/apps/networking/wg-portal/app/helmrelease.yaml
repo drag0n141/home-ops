@@ -1,0 +1,151 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app wg-portal
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      wg-portal:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17@sha256:e0c87ce7df39d06b93f27cf2cc6a056611f13faaa88cc07ab4dc8bf7a85d0b11
+            envFrom: &envFrom
+              - secretRef:
+                  name: wg-portal-db-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/h44z/wg-portal
+              tag: v2.0.3@sha256:0aa56c64e391fba1a6c1b641073e29782283668664a019fd798cf27f6be36d01
+            env:
+              TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                add: ["NET_ADMIN", "NET_BIND_SERVICE", "NET_RAW"]
+                drop: ["ALL"]
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 256Mi
+          wstunnel:
+            image:
+              repository: ghcr.io/erebe/wstunnel
+              tag: v10.4.4@sha256:30bd953f2e7c387a2889e3a9543dd43cd685849e335c74cf1cbbab5712ba49af
+            command: ["/bin/sh", "-c", "exec /home/app/wstunnel server wss://0.0.0.0:8080 --restrict-to=localhost:51820"]
+            env:
+              TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        forceRename: *app
+        primary: true
+        ports:
+          http:
+            port: 8888
+      wstunnel:
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: "https"
+        ports:
+          http:
+            port: 8080
+      wireguard:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "wg.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.240
+        ports:
+          wg:
+            port: 51820
+            protocol: UDP
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "wireguard.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      wstunnel:
+        className: traefik-external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "vpn.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: wstunnel
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        type: secret
+        name: wg-portal-secret
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
+      data:
+        existingClaim: *app
+        advancedMounts:
+          wg-portal:
+            app:
+              - path: /app/config
+                subPath: config
+              - path: /app/data
+                subPath: data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          wg-portal:
+            app:
+              - path: /tmp
+                subPath: tmp
