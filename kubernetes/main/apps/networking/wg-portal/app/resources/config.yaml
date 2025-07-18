@@ -5,11 +5,10 @@ core:
   self_provisioning_allowed: true
 
 advanced:
-  log_level: info
+  log_level: error
   log_pretty: true
   start_cidr_v4: 192.168.45.0/24
   use_ip_v6: false
-  api_admin_only: false
 
 database:
   type: postgres
