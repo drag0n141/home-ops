@@ -30,6 +30,7 @@ spec:
               tag: v2.0.3@sha256:0aa56c64e391fba1a6c1b641073e29782283668664a019fd798cf27f6be36d01
             env:
               TZ: ${TIMEZONE}
+              WG_PORTAL_CONFIG: /config/config.yaml
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
