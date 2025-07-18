@@ -40,9 +40,8 @@ auth:
         firstname: given_name
         lastname: family_name
         user_groups: groups
-        is_admin: is_admin
       admin_mapping:
-        admin_value_regex: ^true$
+        admin_group_regex: ^ID-Admin$
       registration_enabled: true
       log_user_info: true
 
