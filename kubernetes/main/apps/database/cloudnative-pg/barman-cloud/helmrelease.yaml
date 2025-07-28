@@ -68,9 +68,9 @@ spec:
     service:
       app:
         annotations:
-          cnpg.io/pluginClientSecret: *clientCert
+          cnpg.io/pluginClientSecret: &clientCert barman-cloud-client-tls
           cnpg.io/pluginPort: "9090"
-          cnpg.io/pluginServerSecret: *serverCert
+          cnpg.io/pluginServerSecret: &serverCert barman-cloud-server-tls
         labels:
           cnpg.io/pluginName: barman-cloud.cloudnative-pg.io
         ports:
@@ -79,11 +79,11 @@ spec:
     persistence:
       client:
         type: secret
-        name: &clientCert barman-cloud-client-tls
+        name: *clientCert
         globalMounts:
           - path: /client
       server:
         type: secret
-        name: &serverCert barman-cloud-server-tls
+        name: *serverCert
         globalMounts:
           - path: /server
