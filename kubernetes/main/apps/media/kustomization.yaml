@@ -10,7 +10,6 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
-  - ./maintainerr/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
   - ./recommendarr/ks.yaml
