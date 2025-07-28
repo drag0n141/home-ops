@@ -3,6 +3,8 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres17
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5@sha256:9de626b82bf15bea05ed1172bfc0e45a3687662ec76ac8cbda8f95d02198db39
@@ -24,29 +26,21 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
-  backup:
-    retentionPolicy: 30d
-    barmanObjectStore: &barmanObjectStore
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://cloudnative-pg/
-      endpointURL: https://minio.${SECRET_DOMAIN_INT}
-      serverName: &currentCluster postgres17-v1
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: aws-access-key-id
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: aws-secret-access-key
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters: &parameters
+        barmanObjectName: minio
+        serverName: postgres17-v1
+  bootstrap:
+    recovery:
+      source: source
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *parameters
 #  externalClusters:
-#    - name: &previousCluster postgres17-v1
-#      barmanObjectStore:
-#        <<: *barmanObjectStore
-#        serverName: *previousCluster
 #    - name: &crunchyCluster postgres16-crunchy
 #      connectionParameters:
 #        host: postgres-primary.database.svc.cluster.local
@@ -64,5 +58,3 @@ spec:
 #        roles: ["*"]
 #        source:
 #          externalCluster: *crunchyCluster
-#    recovery:
-#      source: *previousCluster

@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-    - name: openebs
-      namespace: storage
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -33,6 +31,36 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app cloudnative-pg-barman-cloud
+  namespace: &namespace databases
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+    - name: cloudnative-pg
+      namespace: *namespace
+  path: ./kubernetes/main/apps/databases/cloudnative-pg/barman-cloud
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  postBuild:
+    substitute:
+      # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar
+      SIDECAR_IMAGE_VERSION: v0.5.0
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app cloudnative-pg-cluster
   namespace: &namespace database
 spec:
@@ -43,6 +71,10 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: *namespace
+    - name: cloudnative-pg-barman-cloud
+      namespace: *namespace
+    - name: openebs
+      namespace: storage
   healthCheckExprs:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
@@ -72,6 +104,10 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: *namespace
+    - name: cloudnative-pg-barman-cloud
+      namespace: *namespace
+    - name: openebs
+      namespace: storage
   healthCheckExprs:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
