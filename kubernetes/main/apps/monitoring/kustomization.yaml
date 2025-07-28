@@ -4,12 +4,12 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./alertmanager/ks.yaml
+  - ./alloy/ks.yaml
   - ./blackbox-exporter/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
-  - ./promtail/ks.yaml
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml

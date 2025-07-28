@@ -20,6 +20,8 @@ spec:
         reporting_enabled: false
       server:
         log_level: info
+        grpc_server_max_recv_msg_size: 10485760 # 10 MiB
+        grpc_server_max_send_msg_size: 10485760 # 10 MiB
       commonConfig:
         replication_factor: 1
       compactor:
@@ -75,8 +77,9 @@ spec:
       enabled: false
     sidecar:
       image:
-        registry: ghcr.io
-        repository: home-operations/k8s-sidecar
+        repository: ghcr.io/home-operations/k8s-sidecar
         tag: 1.30.7@sha256:3b6444d91c6e69a9e07c5e55419452d967d18c833d88b36277dc2021b708f621
+      enableUniqueFilenames: true
       rules:
         searchNamespace: ALL
+        folder: /rules/fake
