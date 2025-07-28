@@ -32,14 +32,14 @@ spec:
       parameters: &parameters
         barmanObjectName: minio
         serverName: postgres17-v1
-  bootstrap:
-    recovery:
-      source: source
-  externalClusters:
-    - name: source
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters: *parameters
+#  bootstrap:
+#    recovery:
+#      source: source
+#  externalClusters:
+#    - name: source
+#      plugin:
+#        name: barman-cloud.cloudnative-pg.io
+#        parameters: *parameters
 #  externalClusters:
 #    - name: &crunchyCluster postgres16-crunchy
 #      connectionParameters:
