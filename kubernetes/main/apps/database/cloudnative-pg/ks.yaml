@@ -32,7 +32,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app cloudnative-pg-barman-cloud
-  namespace: &namespace databases
+  namespace: &namespace database
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -43,7 +43,7 @@ spec:
       namespace: cert-manager
     - name: cloudnative-pg
       namespace: *namespace
-  path: ./kubernetes/main/apps/databases/cloudnative-pg/barman-cloud
+  path: ./kubernetes/main/apps/database/cloudnative-pg/barman-cloud
   prune: true
   sourceRef:
     kind: GitRepository

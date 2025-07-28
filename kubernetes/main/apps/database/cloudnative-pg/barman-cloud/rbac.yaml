@@ -48,4 +48,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: barman-cloud
-    namespace: databases
+    namespace: database
