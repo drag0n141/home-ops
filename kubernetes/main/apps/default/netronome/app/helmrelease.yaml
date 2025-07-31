@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/autobrr/netronome
-              tag: v0.5.0@sha256:29b4c44e4427fbed54db1894504b924883076e023b035ec1b7488e0891466851
+              tag: v0.5.1@sha256:74770b21a366f7d245a0c7c476480bf37350f180b2c64491e1beecee18425ca9
             env:
               TZ: ${TIMEZONE}
               NETRONOME__DB_TYPE: postgres
