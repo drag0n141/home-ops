@@ -31,6 +31,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ALLOWED_HOSTS: "*"
+              AI_MODEL_NAME: openai/gpt-4o
               COMMENT_PREF_DEFAULT: 1
               DB_ENGINE: django.db.backends.postgresql_psycopg2
               DEBUG: 0
