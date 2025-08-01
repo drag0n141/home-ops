@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.136.0-openvino@sha256:2d97a3f0be01b17b99246bd06699aa53d65157d503a51741d74f7fa4373a3944
+              tag: v1.137.1-openvino@sha256:8e3c49ff6fb9ece642e4b29714229b9229cfc5d7cbf7e9a535f188c439fb2b48
             env:
               TZ: ${TIMEZONE}
               MPLCONFIGDIR: /cache/matplotlib
