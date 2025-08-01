@@ -47,12 +47,13 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
                 memory: 256Mi
               limits:
-                memory: 512Mi
+                memory: 1024Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
