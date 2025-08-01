@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
-              tag: 1.5.35@sha256:188da7487f777101c6abe996284df7966d9dd58c9b676447d5f880a5268a4393
+              tag: 2.0.1@sha256:b95f7b3e3df000cd39a152be0ddff7139c6d7c5f59cd306f325da44c50a81d05
             env:
               TZ: ${TIMEZONE}
               ALLOWED_HOSTS: "*"
@@ -42,7 +42,7 @@ spec:
               GUNICORN_MEDIA: 0
               SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
               SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
-              TANDOOR_PORT: 8000
+              TANDOOR_PORT: &port 8000
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
@@ -53,10 +53,6 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 512Mi
-          nginx:
-            image:
-              repository: ghcr.io/nginxinc/nginx-unprivileged
-              tag: 1.27.4
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -68,7 +64,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: 8000
     ingress:
       app:
         className: traefik-external
@@ -97,20 +93,6 @@ spec:
                 subPath: mediafiles
               - path: /opt/recipes/staticfiles
                 subPath: staticfiles
-            nginx:
-              - path: /media
-                subPath: mediafiles
-              - path: /static
-                subPath: staticfiles
-      nginx-config:
-        type: configMap
-        name: tandoor-configmap
-        advancedMounts:
-          tandoor:
-            nginx:
-              - path: /etc/nginx/nginx.conf
-                subPath: nginx-config
-                readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
