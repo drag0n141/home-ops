@@ -91,6 +91,8 @@ spec:
             app:
               - path: /logs
                 subPath: logs
+              - path: /pipeline
+                subPath: pipeline
               - path: /usr/share/tessdata
                 subPath: tessdata
               - path: /tmp
