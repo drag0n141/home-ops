@@ -10,11 +10,14 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: onepassword
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   path: ./kubernetes/main/apps/networking/wg-easy/app
   prune: true
@@ -29,4 +32,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: wireguard
       VOLSYNC_CAPACITY: 1Gi
