@@ -30,8 +30,7 @@ spec:
             command:
               - /bin/gateway_sidecar.sh
             securityContext:
-              capabilities:
-                add: ["NET_RAW", "NET_ADMIN"]
+              capabilities: { add: ["NET_ADMIN", "NET_RAW"], drop: ["ALL"] }
           netshoot:
             image:
               repository: ghcr.io/nicolaka/netshoot
@@ -47,8 +46,7 @@ spec:
               limits:
                 memory: 50M
             securityContext:
-              capabilities:
-                add: ["NET_ADMIN"]
+              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
@@ -73,8 +71,7 @@ spec:
                 squat.ai/tun: 1
                 memory: 128Mi
             securityContext:
-              capabilities:
-                add: ["NET_ADMIN"]
+              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
     service:
       app:
         type: ClusterIP

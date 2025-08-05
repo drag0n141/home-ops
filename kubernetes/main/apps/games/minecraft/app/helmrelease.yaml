@@ -58,9 +58,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
-              capabilities:
-                add: ["NET_RAW"]
-                drop: ["ALL"]
+              capabilities: { add: ["NET_RAW"], drop: ["ALL"] }
             probes:
               liveness: &probe
                 enabled: true
