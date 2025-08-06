@@ -5,13 +5,9 @@ metadata:
   name: &app teleport-kube-agent
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: teleport-kube-agent
-      version: 18.0.1
-      sourceRef:
-        kind: HelmRepository
-        name: teleport
+  chartRef:
+    kind: OCIRepository
+    name: teleport-kube-agent
   values:
     log:
       level: INFO
