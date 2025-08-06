@@ -28,15 +28,22 @@ spec:
               - /thin_entrypoint
             args:
               - --cleanup-config-on-exit=true
+              - --multus-cni-conf-dir=/tmp
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 64Mi
             securityContext:
-              privileged: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
     defaultPodOptions:
       hostNetwork: true
+      priorityClassName: system-node-critical
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
     rbac:
       roles:
         multus:
@@ -71,3 +78,10 @@ spec:
         hostPath: /opt/cni/bin
         globalMounts:
           - path: /host/opt/cni/bin
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          multus:
+            app:
+              - path: /tmp
+                subPath: tmp
