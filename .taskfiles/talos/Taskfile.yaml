@@ -79,7 +79,7 @@ tasks:
     cmd: talosctl shutdown --nodes {{.IP_ADDRS}} --force
     vars:
       IP_ADDRS:
-        sh: talosctl --talosconfig {{.KUBERNETES_DIR}}/talosconfig config info --output json | jq --join-output '[.nodes[]] | join(",")'
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
       - talosctl config info
       - which jq kubectl talosctl
