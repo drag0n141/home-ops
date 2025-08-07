@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: onepassword
       namespace: security
-  path: ./kubernetes/main/apps/media/piped/app
+  path: ./kubernetes/apps/media/piped/app
   prune: true
   sourceRef:
     kind: GitRepository

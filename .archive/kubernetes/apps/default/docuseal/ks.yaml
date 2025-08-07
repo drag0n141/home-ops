@@ -21,7 +21,7 @@ spec:
   components:
     - ../../../../../shared/meta/components/gatus/internal
     - ../../../../../shared/meta/components/volsync
-  path: ./kubernetes/main/apps/default/docuseal/app
+  path: ./kubernetes/apps/default/docuseal/app
   prune: true
   sourceRef:
     kind: GitRepository

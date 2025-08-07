@@ -8,7 +8,7 @@ spec:
   targetNamespace: default
   dependsOn:
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/default/portainer/app
+  path: ./kubernetes/apps/default/portainer/app
   prune: true
   sourceRef:
     kind: GitRepository

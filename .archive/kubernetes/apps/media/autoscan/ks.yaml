@@ -14,7 +14,7 @@ spec:
     - name: plex
     - name: rook-ceph-cluster
     - name: volsync
-  path: ./kubernetes/main/apps/media/autoscan/app
+  path: ./kubernetes/apps/media/autoscan/app
   prune: true
   sourceRef:
     kind: GitRepository

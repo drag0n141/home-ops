@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: home
-  path: ./kubernetes/main/apps/home/wyze-bridge/app
+  path: ./kubernetes/apps/home/wyze-bridge/app
   prune: true
   sourceRef:
     kind: GitRepository

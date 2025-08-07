@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/games/agones/app
+  path: ./kubernetes/apps/games/agones/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
-  path: ./kubernetes/main/apps/default/dashy/app
+  path: ./kubernetes/apps/default/dashy/app
   prune: true
   sourceRef:
     kind: GitRepository

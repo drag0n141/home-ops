@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster
-  path: ./kubernetes/main/apps/default/joplin-server/app
+  path: ./kubernetes/apps/default/joplin-server/app
   prune: true
   sourceRef:
     kind: GitRepository

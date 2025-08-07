@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/games/shulker/app
+  path: ./kubernetes/apps/games/shulker/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -31,7 +31,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: shulker
-  path: ./kubernetes/main/apps/games/shulker/cluster
+  path: ./kubernetes/apps/games/shulker/cluster
   prune: true
   sourceRef:
     kind: GitRepository

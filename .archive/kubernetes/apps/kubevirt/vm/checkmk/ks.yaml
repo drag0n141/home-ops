@@ -10,7 +10,7 @@ spec:
     - name: kubevirt
     - name: rook-ceph-cluster
     - name: volsync
-  path: ./kubernetes/main/apps/vm/checkmk/deps
+  path: ./kubernetes/apps/vm/checkmk/deps
   prune: true
   sourceRef:
     kind: GitRepository
@@ -36,7 +36,7 @@ spec:
   targetNamespace: vm
   dependsOn:
     - name: checkmk-deps
-  path: ./kubernetes/main/apps/vm/checkmk/vm
+  path: ./kubernetes/apps/vm/checkmk/vm
   prune: true
   sourceRef:
     kind: GitRepository

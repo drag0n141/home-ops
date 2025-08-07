@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  path: ./kubernetes/main/apps/kube-system/kube-vip/cloud-controller
+  path: ./kubernetes/apps/kube-system/kube-vip/cloud-controller
   prune: false
   sourceRef:
     kind: GitRepository

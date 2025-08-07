@@ -20,7 +20,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gatus/internal
-  path: ./kubernetes/main/apps/default/docmost/app
+  path: ./kubernetes/apps/default/docmost/app
   prune: true
   sourceRef:
     kind: GitRepository

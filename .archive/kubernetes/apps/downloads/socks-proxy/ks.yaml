@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: pod-gateway-webhook
       namespace: vpn
-  path: ./kubernetes/main/apps/downloads/socks-proxy/app
+  path: ./kubernetes/apps/downloads/socks-proxy/app
   prune: true
   sourceRef:
     kind: GitRepository

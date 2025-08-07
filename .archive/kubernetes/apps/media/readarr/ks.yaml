@@ -21,7 +21,7 @@ spec:
   components:
     - ../../../../../shared/meta/components/gatus/internal
     - ../../../../../shared/meta/components/volsync
-  path: ./kubernetes/main/apps/media/readarr/app
+  path: ./kubernetes/apps/media/readarr/app
   prune: true
   sourceRef:
     kind: GitRepository

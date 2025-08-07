@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
-  path: ./kubernetes/main/apps/monitoring/checkmk/app
+  path: ./kubernetes/apps/monitoring/checkmk/app
   prune: true
   sourceRef:
     kind: GitRepository

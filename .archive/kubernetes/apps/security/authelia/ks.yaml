@@ -16,7 +16,7 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
-  path: ./kubernetes/main/apps/security/authelia/app
+  path: ./kubernetes/apps/security/authelia/app
   prune: true
   sourceRef:
     kind: GitRepository

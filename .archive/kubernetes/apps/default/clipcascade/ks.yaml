@@ -19,7 +19,7 @@ spec:
   components:
     - ../../../../../shared/meta/components/gatus/internal
     - ../../../../../shared/meta/components/volsync
-  path: ./kubernetes/main/apps/default/clipcascade/app
+  path: ./kubernetes/apps/default/clipcascade/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kubevirt
-  path: ./kubernetes/main/apps/kubevirt/manager/app
+  path: ./kubernetes/apps/kubevirt/manager/app
   prune: true
   sourceRef:
     kind: GitRepository

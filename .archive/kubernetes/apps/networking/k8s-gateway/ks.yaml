@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
-  path: ./kubernetes/main/apps/networking/k8s-gateway/app
+  path: ./kubernetes/apps/networking/k8s-gateway/app
   prune: true
   sourceRef:
     kind: GitRepository

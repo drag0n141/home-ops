@@ -19,7 +19,7 @@ spec:
   components:
     - ../../../../../shared/meta/components/gatus/internal
     - ../../../../../shared/meta/components/volsync
-  path: ./kubernetes/main/apps/default/radicale/app
+  path: ./kubernetes/apps/default/radicale/app
   prune: true
   sourceRef:
     kind: GitRepository

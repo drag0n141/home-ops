@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
-  path: ./kubernetes/main/apps/default/pterodactyl/redis
+  path: ./kubernetes/apps/default/pterodactyl/redis
   prune: true
   sourceRef:
     kind: GitRepository
@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: mariadb-lb
     - name: pterodactyl-redis
-  path: ./kubernetes/main/apps/default/pterodactyl/app
+  path: ./kubernetes/apps/default/pterodactyl/app
   prune: true
   sourceRef:
     kind: GitRepository

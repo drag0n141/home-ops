@@ -16,7 +16,7 @@ spec:
       namespace: security
   components:
     - ../../../../../shared/meta/components/gatus/external
-  path: ./kubernetes/main/apps/default/traccar/app
+  path: ./kubernetes/apps/default/traccar/app
   prune: true
   sourceRef:
     kind: GitRepository

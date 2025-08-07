@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
-  path: ./kubernetes/main/apps/default/ocis/app
+  path: ./kubernetes/apps/default/ocis/app
   prune: true
   sourceRef:
     kind: GitRepository

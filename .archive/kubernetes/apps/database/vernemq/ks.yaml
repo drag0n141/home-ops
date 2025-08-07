@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-  path: ./kubernetes/main/apps/database/vernemq/app
+  path: ./kubernetes/apps/database/vernemq/app
   prune: true
   sourceRef:
     kind: GitRepository

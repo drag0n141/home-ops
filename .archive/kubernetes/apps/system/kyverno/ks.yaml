@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/system/kyverno/app
+  path: ./kubernetes/apps/system/kyverno/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: kyverno
       namespace: *namespace
-  path: ./kubernetes/main/apps/system/kyverno/policies
+  path: ./kubernetes/apps/system/kyverno/policies
   prune: true
   sourceRef:
     kind: GitRepository

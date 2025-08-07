@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: media
-  path: ./kubernetes/main/apps/media/moviematch/app
+  path: ./kubernetes/apps/media/moviematch/app
   prune: true
   sourceRef:
     kind: GitRepository

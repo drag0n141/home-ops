@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/default/freshrss/app
+  path: ./kubernetes/apps/default/freshrss/app
   prune: true
   sourceRef:
     kind: GitRepository

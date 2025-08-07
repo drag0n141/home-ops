@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/default/twofauth/app
+  path: ./kubernetes/apps/default/twofauth/app
   prune: true
   sourceRef:
     kind: GitRepository

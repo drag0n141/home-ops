@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: crunchy-pgo-cluster
     - name: external-secrets-stores
-  path: ./kubernetes/main/apps/default/vouchervault/app
+  path: ./kubernetes/apps/default/vouchervault/app
   prune: true
   sourceRef:
     kind: GitRepository

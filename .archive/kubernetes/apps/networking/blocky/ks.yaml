@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
-  path: ./kubernetes/main/apps/networking/blocky/app
+  path: ./kubernetes/apps/networking/blocky/app
   prune: true
   sourceRef:
     kind: GitRepository

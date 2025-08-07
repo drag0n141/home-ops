@@ -1,0 +1,44 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres17-vector
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+spec:
+  instances: 3
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2@sha256:4a6f5ca2212018322823a92250230d471e2fa33c287ed8b400bd58a3cc3a4e6b
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 10Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+  postgresql:
+    shared_preload_libraries: ["vchord.so"]
+    parameters:
+      max_connections: "400"
+      shared_buffers: 512MB
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      hugepages-2Mi: 2Gi
+      memory: 4Gi
+  monitoring:
+    enablePodMonitor: true
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters: &parameters
+        barmanObjectName: minio-vector
+        serverName: postgres17-vector-v1
+#  bootstrap:
+#    recovery:
+#      source: source
+#  externalClusters:
+#    - name: source
+#      plugin:
+#        name: barman-cloud.cloudnative-pg.io
+#        parameters: *parameters
