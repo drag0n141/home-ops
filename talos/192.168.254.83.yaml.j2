@@ -11,6 +11,8 @@ machine:
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
+      featureGates:
+        ImageVolume: true
       maxPods: 150
       serializeImagePulls: false
     extraMounts:
@@ -185,8 +187,9 @@ cluster:
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
+      enable-aggregator-routing: "true"
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1alpha1=true
-      feature-gates: MutatingAdmissionPolicy=true
     certSANs: ["127.0.0.1", "192.168.254.250"]
     disablePodSecurityPolicy: true
     auditPolicy:
