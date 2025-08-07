@@ -33,15 +33,21 @@ spec:
       parameters: &parameters
         barmanObjectName: minio
         serverName: postgres17-v1
-#  bootstrap:
-#    recovery:
-#      source: source
-#  externalClusters:
-#    - name: source
-#      plugin:
-#        name: barman-cloud.cloudnative-pg.io
-#        parameters: *parameters
-#  externalClusters:
+  bootstrap:
+    recovery:
+      source: source
+#    initdb:
+#      import:
+#        type: monolith
+#        databases: ["*"]
+#        roles: ["*"]
+#        source:
+#          externalCluster: *crunchyCluster
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *parameters
 #    - name: &crunchyCluster postgres16-crunchy
 #      connectionParameters:
 #        host: postgres-primary.database.svc.cluster.local
@@ -51,11 +57,3 @@ spec:
 #      password:
 #        name: postgres-pguser-postgres
 #        key: password
-#  bootstrap:
-#    initdb:
-#      import:
-#        type: monolith
-#        databases: ["*"]
-#        roles: ["*"]
-#        source:
-#          externalCluster: *crunchyCluster
