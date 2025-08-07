@@ -92,6 +92,8 @@ machine:
       content: |
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
+        [plugins."io.containerd.grpc.v1.cri"]
+          device_ownership_from_security_context = true
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0o644
@@ -105,13 +107,16 @@ machine:
     disabled: false
     servers: ["time.cloudflare.com"]
   sysctls:
-    fs.inotify.max_user_watches: 1048576   # Watchdog
-    fs.inotify.max_user_instances: 8192    # Watchdog
-    net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
-    net.core.rmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-    net.core.wmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-    user.max_user_namespaces: 11255        # User Namespaces
-    vm.nr_hugepages: 1024                  # PostgreSQL
+    fs.inotify.max_user_watches: "1048576"     # Watchdog
+    fs.inotify.max_user_instances: "8192"      # Watchdog
+    net.core.rmem_max: "67108864"              # Cloudflared / QUIC
+    net.core.wmem_max: "67108864"              # Cloudflared / QUIC
+    net.ipv4.neigh.default.gc_thresh1: "4096"  # Prevent ARP cache overflows
+    net.ipv4.neigh.default.gc_thresh2: "8192"  # Prevent ARP cache overflows
+    net.ipv4.neigh.default.gc_thresh3: "16384" # Prevent ARP cache overflows
+    net.ipv4.tcp_fastopen: "3"                 # Send and accept data in the opening SYN packet
+    user.max_user_namespaces: "11255"          # User Namespaces
+    vm.nr_hugepages: "1024"                    # PostgreSQL
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
   features:
