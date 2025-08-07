@@ -18,6 +18,10 @@ machine:
         type: bind
         source: /var/mnt/extra
         options: ["bind", "rshared", "rw"]
+      - destination: /var/lib/containerd
+        type: bind
+        source: /var/mnt/extra/containerd
+        options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.254.0/24"]
