@@ -20,9 +20,9 @@ machine:
         type: bind
         source: /var/mnt/extra
         options: ["bind", "rshared", "rw"]
-      - destination: /var/lib/containerd
+      - destination: /var/lib/rook
         type: bind
-        source: /var/mnt/extra/containerd
+        source: /var/mnt/extra/rook
         options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
