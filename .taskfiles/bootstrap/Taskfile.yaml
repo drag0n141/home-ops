@@ -70,9 +70,9 @@ tasks:
       ASSETS:
         sh: ls {{.TALOS_DIR}}/*.yaml.j2
       GROUPS:
-        sh: ls {{.KUBERNETES_DIR}}/bootstrap/matchbox/groups/*.json.j2
+        sh: ls {{.BOOTSTRAP_DIR}}/matchbox/groups/*.json.j2
       PROFILES:
-        sh: ls {{.KUBERNETES_DIR}}/bootstrap/matchbox/profiles/*.json.j2
+        sh: ls {{.BOOTSTRAP_DIR}}/matchbox/profiles/*.json.j2
     preconditions:
       - op user get --me
       - ping -c1 192.168.254.2
