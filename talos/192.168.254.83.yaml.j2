@@ -20,10 +20,6 @@ machine:
         type: bind
         source: /var/mnt/extra
         options: ["bind", "rshared", "rw"]
-      - destination: /var/lib/rook
-        type: bind
-        source: /var/mnt/extra/rook
-        options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.254.0/24"]
