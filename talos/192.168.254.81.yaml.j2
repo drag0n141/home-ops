@@ -120,7 +120,7 @@ machine:
     net.ipv4.neigh.default.gc_thresh3: "16384" # Prevent ARP cache overflows
     net.ipv4.tcp_fastopen: "3"                 # Send and accept data in the opening SYN packet
     user.max_user_namespaces: "11255"          # User Namespaces
-    vm.nr_hugepages: "1024"                    # PostgreSQL
+    vm.nr_hugepages: "2048"                    # PostgreSQL
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
   features:
