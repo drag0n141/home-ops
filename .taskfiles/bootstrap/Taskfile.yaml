@@ -9,8 +9,6 @@ env:
     sh: yq '.spec.postBuild.substitute.KUBERNETES_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
   TALOS_VERSION:
     sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
-  TALOS_SCHEMATIC_ID:
-    sh: yq '.spec.postBuild.substitute.TALOS_SCHEMATIC_ID | select(.)' {{.SYSTEM_UPGRADE_KS}}
 
 tasks:
 
@@ -40,8 +38,6 @@ tasks:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
       VAULT: kubernetes
-      BOOTSTRAP_DIR: '{{.BOOTSTRAP_DIR}}'
-      KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
     preconditions:
       - op user get --me
       - talosctl config info
@@ -56,7 +52,7 @@ tasks:
     cmds:
       - ssh -l root 192.168.254.2 "sudo mkdir -p /mnt/nvme/appdata/matchbox/{groups,profiles,assets}"
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
-        cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC_ID/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.ITEM}}
+        cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.ITEM}}
       - for: { var: ASSETS }
         cmd: minijinja-cli {{.ITEM}} | op inject | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{base .ITEM | replace ".yaml.j2" ".yaml"}}
       - for: { var: GROUPS }
@@ -71,7 +67,14 @@ tasks:
         sh: ls {{.BOOTSTRAP_DIR}}/matchbox/groups/*.json.j2
       PROFILES:
         sh: ls {{.BOOTSTRAP_DIR}}/matchbox/profiles/*.json.j2
+    env:
+      TALOS_SCHEMATIC:
+        sh: |-
+          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
     preconditions:
       - op user get --me
       - ping -c1 192.168.254.2
+      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which ls minijinja-cli op

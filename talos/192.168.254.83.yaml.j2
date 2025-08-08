@@ -68,24 +68,7 @@ machine:
   install:
     diskSelector:
       model: TS512GMTS430S
-    extraKernelArgs:
-      - -init_on_alloc                      # Less security, faster puter
-      - -init_on_free                       # Less security, faster puter
-      - -selinux                            # Less security, faster puter
-      - apparmor=0                          # Less security, faster puter
-      - init_on_alloc=0                     # Less security, faster puter
-      - init_on_free=0                      # Less security, faster puter
-      - intel_iommu=on                      # PCI Passthrough
-      - iommu=pt                            # PCI Passthrough
-      - mitigations=off                     # Less security, faster puter
-      - security=none                       # Less security, faster puter
-      - talos.auditd.disabled=1             # Less security, faster puter
-    image: factory.talos.dev/installer/{{ ENV.TALOS_SCHEMATIC_ID }}:{{ ENV.TALOS_VERSION }}
-    # siderolabs/i915
-    # siderolabs/intel-ucode
-    # siderolabs/mei
-    # siderolabs/thunderbolt
-    wipe: false
+    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
   disks:
     - device: /dev/disk/by-id/ata-SAMSUNG_MZ7LH1T9HMLT-00005_S455NA0N104654
       partitions:

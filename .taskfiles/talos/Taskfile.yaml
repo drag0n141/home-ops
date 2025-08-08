@@ -9,8 +9,6 @@ env:
     sh: yq '.spec.postBuild.substitute.KUBERNETES_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
   TALOS_VERSION:
     sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
-  TALOS_SCHEMATIC_ID:
-    sh: yq '.spec.postBuild.substitute.TALOS_SCHEMATIC_ID | select(.)' {{.SYSTEM_UPGRADE_KS}}
 
 tasks:
 
@@ -25,25 +23,39 @@ tasks:
       MODE: '{{.MODE | default "auto"}}'
       INSECURE:
         sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null && echo false || echo true
+    env:
+      TALOS_SCHEMATIC:
+        sh: |-
+          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
     requires:
       vars: [IP]
     preconditions:
       - op user get --me
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.TALOS_DIR}}/{{.IP}}.yaml.j2
+      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which minijinja-cli op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required]
     cmds:
       - task: down
-      - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer/$TALOS_SCHEMATIC_ID:$TALOS_VERSION" --timeout=10m
+      - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer/$TALOS_SCHEMATIC:$TALOS_VERSION" --timeout=10m
       - task: up
+    env:
+      TALOS_SCHEMATIC:
+        sh: |-
+          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
     requires:
       vars: [IP]
     preconditions:
       - talosctl config info 
       - talosctl --nodes {{.IP}} get machineconfig
+      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which talosctl
 
   upgrade-k8s:
