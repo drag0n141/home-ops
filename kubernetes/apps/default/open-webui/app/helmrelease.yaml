@@ -33,6 +33,7 @@ spec:
               # App
               WEBUI_URL: https://chat.${SECRET_DOMAIN}
               CORS_ALLOW_ORIGIN: https://chat.${SECRET_DOMAIN}
+              DEFAULT_LOCALE: de
               ENABLE_OPENAI_API: True
               ENABLE_OLLAMA_API: False
               ENABLE_WEB_SEARCH: True
