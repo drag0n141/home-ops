@@ -27,6 +27,7 @@ resources:
   - ./netbox/ks.yaml
   - ./netronome/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./open-webui/ks.yaml
   - ./outline/ks.yaml
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
