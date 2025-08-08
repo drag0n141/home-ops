@@ -1,122 +1,52 @@
-use_default_settings:
-  engines:
-    keep_only:
-      - arch linux wiki
-      - google
-      - google images
-      - google news
-      - google videos
-      - google scholar
-      - google play apps
-      - duckduckgo
-      - brave
-      - startpage
-      - gitlab
-      - github
-      - codeberg
-      - sourcehut
-      - bitbucket
-      - apple app store
-      - wikipedia
-      - currency
-      - docker hub
-      - ddg definitions
-      - duckduckgo images
-      - bandcamp
-      - deviantart
-      - tineye
-      - apple maps
-      - fdroid
-      - flickr
-      - free software directory
-      - z-library
-      - lobste.rs
-      - openstreetmap
-      - npm
-      - pypi
-      - lib.rs
-      - nyaa
-      - reddit
-      - sepiasearch
-      - soundcloud
-      - stackoverflow
-      - askubuntu
-      - superuser
-      - searchcode code
-      - unsplash
-      - youtube
-      - wolframalpha
-      - mojeek
-engines:
-  - name: brave
-    disabled: false
-  - name: startpage
-    disabled: false
-  - name: apple app store
-    disabled: false
-  - name: ddg definitions
-    disabled: false
-  - name: tineye
-    disabled: false
-  - name: apple maps
-    disabled: false
-  - name: duckduckgo images
-    disabled: false
-  - name: fdroid
-    disabled: false
-  - name: free software directory
-    disabled: false
-  - name: bitbucket
-    disabled: false
-  - name: gitlab
-    disabled: false
-  - name: codeberg
-    disabled: false
-  - name: google play apps
-    disabled: false
-  - name: lobste.rs
-    disabled: false
-  - name: npm
-    disabled: false
-  - name: nyaa
-    disabled: false
-    categories: videos
-  - name: searchcode code
-    disabled: false
-  - name: mojeek
-    disabled: false
-  - name: lib.rs
-    disabled: false
-  - name: sourcehut
-    disabled: false
+use_default_settings: true
+server:
+  limiter: true
+  base_url: "https://search.${SECRET_DOMAIN}/"
+  image_proxy: true
+  method: GET # https://github.com/searxng/searxng/pull/3619
+  public_instance: false
 general:
-  instance_name: "DrAg0n141 SearxNG"
+  instance_name: DrAg0n141 SearxNG
   privacypolicy_url: false
   donation_url: false
   contact_url: false
   enable_metrics: false
 search:
   safe_search: 0
-  autocomplete: "duckduckgo"
+  autocomplete: duckduckgo
+  favicon_resolver: duckduckgo
   autocomplete_min: 2
-  default_lang: "all"
+  languages:
+    - all
+    - en
+    - en-US
+  formats:
+    - html
+    - json
   max_page: 0
-server:
-  base_url: "https://search.${SECRET_DOMAIN}/"
-  image_proxy: true
-  http_protocol_version: "1.1"
-  method: "GET"
 ui:
+  default_theme: simple
   static_use_hash: true
   infinite_scroll: true
   query_in_title: true
-  default_theme: "simple"
   theme_args:
-    simple_style: "dark"
+    simple_style: auto
 enabled_plugins:
-  - 'Hash plugin'
-  - 'Search on category select'
-  - 'Self Information'
-  - 'Tracker URL remover'
-  - 'Open Access DOI rewrite'
-  - 'Vim-like hotkeys'
+  - Basic Calculator
+  - Hash plugin
+  - Open Access DOI rewrite
+  - Search on category select
+  - Self Informations
+  - Tracker URL remover
+  - Unit converter plugin
+hostnames:
+  high_priority:
+    - (.*)\/blog\/(.*)
+    - (.*\.)?wikipedia.org$
+    - (.*\.)?github.com$
+    - (.*\.)?reddit.com$
+    - (.*\.)?docker.com$
+    - (.*\.)?archlinux.org$
+    - (.*\.)?stackoverflow.com$
+    - (.*\.)?askubuntu.com$
+    - (.*\.)?superuser.com$
