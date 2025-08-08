@@ -97,7 +97,5 @@ spec:
         advancedMounts:
           searxng:
             app:
-              - path: /etc/searxng
-                subPath: searxng
               - path: /tmp
                 subPath: tmp
