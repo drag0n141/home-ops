@@ -36,6 +36,7 @@ spec:
               ENABLE_OLLAMA_API: false
               ENABLE_WEB_SEARCH: true
               ENABLE_SEARCH_QUERY_GENERATION: true
+              ENABLE_PERSISTENT_CONFIG: false
               WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.default.svc.cluster.local:8080/search?q=<query>
               ENABLE_WEBSOCKET_SUPPORT: true
