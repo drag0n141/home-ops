@@ -1,5 +1,8 @@
 ---
 # Area
+area/docker:
+  - changed-files:
+      - any-glob-to-any-file: docker/**/*
 area/docs:
   - changed-files:
       - any-glob-to-any-file:
@@ -17,7 +20,7 @@ area/renovate:
           - ".renovaterc.json5"
 area/talos:
   - changed-files:
-      - any-glob-to-any-file: "talos/**/*"
+      - any-glob-to-any-file: talos/**/*
 area/taskfile:
   - changed-files:
       - any-glob-to-any-file:
