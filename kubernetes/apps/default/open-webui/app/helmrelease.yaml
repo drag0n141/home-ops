@@ -30,20 +30,26 @@ spec:
               tag: v0.6.18@sha256:ff87dd7605720f33411d87ed5550357b665cec4880378176f2f95bfe751f5e32
             env:
               TZ: ${TIMEZONE}
+              # App
               WEBUI_URL: https://chat.${SECRET_DOMAIN}
               CORS_ALLOW_ORIGIN: https://chat.${SECRET_DOMAIN}
-              ENABLE_OPENAI_API: true
-              ENABLE_OLLAMA_API: false
-              ENABLE_WEB_SEARCH: true
-              ENABLE_SEARCH_QUERY_GENERATION: true
-              ENABLE_PERSISTENT_CONFIG: false
+              ENABLE_OPENAI_API: True
+              ENABLE_OLLAMA_API: False
+              ENABLE_WEB_SEARCH: True
+              ENABLE_SEARCH_QUERY_GENERATION: True
+              ENABLE_PERSISTENT_CONFIG: False
+              WEBUI_SESSION_COOKIE_SAME_SITE: lax
+              WEBUI_SESSION_COOKIE_SECURE: True
+              # Searx
               WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.default.svc.cluster.local:8080/search?q=<query>
-              ENABLE_WEBSOCKET_SUPPORT: true
+              # Redis
+              ENABLE_WEBSOCKET_SUPPORT: True
               WEBSOCKET_MANAGER: redis
-              ENABLE_OAUTH_SIGNUP: true
-              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
-              OAUTH_UPDATE_PICTURE_ON_LOGIN: true
+              # OIDC
+              ENABLE_OAUTH_SIGNUP: True
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: True
+              OAUTH_UPDATE_PICTURE_ON_LOGIN: True
               OAUTH_PROVIDER_NAME: "Pocket ID"
               OAUTH_SCOPES: "openid profile email groups"
               OPENID_PROVIDER_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
