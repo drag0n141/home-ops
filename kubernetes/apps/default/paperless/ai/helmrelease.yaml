@@ -26,6 +26,8 @@ spec:
               PAPERLESS_API_URL: http://paperless.default.svc.cluster.local:8000/api
               PROCESS_PREDEFINED_DOCUMENTS: yes
               USE_EXISTING_DATA: yes
+              RESTRICT_TO_EXISTING_TAGS: yes
+              RESTRICT_TO_EXISTING_DOCUMENT_TYPES: yes
               SCAN_INTERVAL: "*/30 * * * *"
               TAGS: AI
             envFrom:
