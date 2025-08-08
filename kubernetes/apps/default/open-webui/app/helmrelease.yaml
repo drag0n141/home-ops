@@ -30,6 +30,7 @@ spec:
               tag: v0.6.18@sha256:ff87dd7605720f33411d87ed5550357b665cec4880378176f2f95bfe751f5e32
             env:
               TZ: ${TIMEZONE}
+              CORS_ALLOW_ORIGIN: https://chat.${SECRET_DOMAIN}
               ENABLE_OPENAI_API: true
               ENABLE_OLLAMA_API: false
               ENABLE_WEB_SEARCH: true
