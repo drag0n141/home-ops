@@ -35,9 +35,9 @@ spec:
               PDF_UPLOAD: true
               PDF_COPY_METADATA: true
               AUTO_GENERATE_TAGS: false
-              AUTO_TAG: AI-Auto
+              AUTO_TAG: AI-GPT-Auto
               AUTO_OCR_TAG: AI-OCR-Auto
-              MANUAL_TAG: AI
+              MANUAL_TAG: AI-GPT
             envFrom:
               - secretRef:
                   name: paperless-gpt-secret

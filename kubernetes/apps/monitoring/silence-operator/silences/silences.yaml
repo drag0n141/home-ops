@@ -55,3 +55,12 @@ spec:
     - name: horizontalpodautoscaler
       value: keda-hpa-.*
       matchType: "=~"
+---
+apiVersion: observability.giantswarm.io/v1alpha2
+kind: Silence
+metadata:
+  name: kube-memory-overcommit
+spec:
+  matchers:
+    - name: alertname
+      value: KubeMemoryOvercommit
