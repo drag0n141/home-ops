@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ersatztv/ersatztv
-              tag: v25.2.0-vaapi@sha256:71f925801b798e01833548d467a1d1f67731fae522e6b29a7e861554e205c594
+              tag: v25.4.0@sha256:5464348e1989be72161e1e6ef197cf1a1c403efed8090474ce1ffe501a375c37
             env:
               TZ: ${TIMEZONE}
               XDG_DATA_HOME: /config # https://github.com/ErsatzTV/ErsatzTV/issues/327
