@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.6.20@sha256:b82efe121615b1d652b63bb01059c1a827d7875707267ee0765efb01d5ca6617
+              tag: 0.6.21@sha256:173f29b0ec706547904b25cc91c713c9bddb42262a8f454a95c61d152e474ce5
             env:
               TZ: ${TIMEZONE}
               # App
