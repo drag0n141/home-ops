@@ -47,6 +47,28 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 500Mi
+          static:
+            image:
+              repository: docker.io/joseluisq/static-web-server
+              tag: 2.37.0-alpine@sha256:281a22486b93a8c93de86dd6450f7ad1a45c3e3b79808368764b1ebc07df6883
+            env:
+              SERVER_PORT: &port-static 8080
+              SERVER_ROOT: /public
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -59,6 +81,8 @@ spec:
         ports:
           http:
             port: *port
+          http-static:
+            port: *port-static
     ingress:
       app:
         className: traefik-internal
@@ -77,6 +101,23 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      scripts:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "scripts.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http-static
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
@@ -87,3 +128,6 @@ spec:
                 subPath: data
               - path: /config
                 subPath: config
+            static:
+              - path: /public
+                subPath: data
