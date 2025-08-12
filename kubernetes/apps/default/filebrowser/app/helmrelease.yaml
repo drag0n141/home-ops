@@ -53,7 +53,7 @@ spec:
               tag: 2.37.0-alpine@sha256:281a22486b93a8c93de86dd6450f7ad1a45c3e3b79808368764b1ebc07df6883
             env:
               SERVER_PORT: &port-static 8080
-              SERVER_ROOT: /public
+              SERVER_ROOT: /data
             probes:
               liveness:
                 enabled: true
@@ -129,5 +129,5 @@ spec:
               - path: /config
                 subPath: config
             static:
-              - path: /public
+              - path: /data
                 subPath: data
