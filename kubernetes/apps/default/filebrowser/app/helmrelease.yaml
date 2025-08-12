@@ -54,6 +54,7 @@ spec:
             env:
               SERVER_PORT: &port-static 8080
               SERVER_ROOT: /data
+              SERVER_LOG_LEVEL: info
             probes:
               liveness:
                 enabled: true
