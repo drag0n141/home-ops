@@ -134,3 +134,10 @@ spec:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
                 readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          nginx:
+            app:
+              - path: /tmp
+                subPath: tmp
