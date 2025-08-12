@@ -137,7 +137,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          nginx:
-            app:
+          filebrowser:
+            nginx:
               - path: /tmp
                 subPath: tmp
