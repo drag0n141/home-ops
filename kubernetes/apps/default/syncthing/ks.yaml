@@ -65,7 +65,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app syncthing-relaysrv
+  name: &app syncthing-relay
   namespace: &namespace default
 spec:
   targetNamespace: *namespace
