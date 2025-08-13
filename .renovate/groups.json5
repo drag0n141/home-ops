@@ -9,7 +9,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
+      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
       minimumGroupSize: 2,
     },
     {
@@ -18,7 +18,7 @@
       matchDatasources: ["docker"],
       matchPackagePatterns: ["gha-runner-scale-set"],
       group: {
-        commitMessageTopic: "{{{groupName}}} group"
+        commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 2,
     },
@@ -100,7 +100,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      sourceUrl: "https://github.com/immich-app/immich"
+      sourceUrl: "https://github.com/immich-app/immich",
       minimumGroupSize: 2,
     },
     {
