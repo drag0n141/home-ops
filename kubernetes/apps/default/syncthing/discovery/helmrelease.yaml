@@ -42,6 +42,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
         ports:
           http:
             port: 8443
