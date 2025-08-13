@@ -18,7 +18,7 @@ spec:
             image:
               repository: ghcr.io/syncthing/discosrv
               tag: 2.0.0@sha256:c5a7b62f760e493b36478647590a6019f2bd926c467d9fd83c3fcacbc7a3eb64
-            args: ["--http=:8080"]
+            args: ["--http"]
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
@@ -44,7 +44,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: 8443
     ingress:
       app:
         className: traefik-external
