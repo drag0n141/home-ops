@@ -10,6 +10,7 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md"
+      minimumGroupSize: 2,
     },
     {
       description: "Actions Runner Controller Group",
@@ -19,6 +20,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group"
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Cert-Manager Group",
@@ -28,6 +30,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Cilium Group",
@@ -37,6 +40,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "CoreDNS Group",
@@ -46,6 +50,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Dragonfly Operator Group",
@@ -55,6 +60,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "External Secrets Operator Group",
@@ -64,6 +70,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Flux Operator Group",
@@ -72,7 +79,8 @@
       matchPackagePatterns: ["flux-operator", "flux-instance"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
-      }
+      },
+      minimumGroupSize: 4,
     },
     {
       description: "Guacamole Group",
@@ -82,6 +90,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Immich Group",
@@ -92,6 +101,7 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       sourceUrl: "https://github.com/immich-app/immich"
+      minimumGroupSize: 2,
     },
     {
       description: "Intel Device Plugins Group",
@@ -101,6 +111,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Kitchenowl Group",
@@ -110,6 +121,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Rook-Ceph Group",
@@ -119,6 +131,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Spegel Group",
@@ -128,6 +141,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Talos Group",
@@ -137,6 +151,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Teleport Group",
@@ -146,6 +161,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     }
   ]
 }
