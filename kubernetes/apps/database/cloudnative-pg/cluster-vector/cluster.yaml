@@ -24,8 +24,10 @@ spec:
       - name: vchord
         image:
           reference: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2
-        extension_control_path: /usr/share/postgresql/17/extension
-        dynamic_library_path: /usr/lib/postgresql/17/lib
+        extension_control_path:
+          - /usr/share/postgresql/17/extension
+        dynamic_library_path:
+          - /usr/lib/postgresql/17/lib
   resources:
     requests:
       cpu: 500m
