@@ -18,4 +18,3 @@ spec:
       port: 8443
   tls:
     passthrough: true
-    secretName: "${SECRET_DOMAIN/./-}-production-tls"

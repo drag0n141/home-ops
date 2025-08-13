@@ -45,6 +45,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: onepassword
+      namespace: external-secrets
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
   components:
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/syncthing/discovery
@@ -72,6 +79,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: onepassword
+      namespace: external-secrets
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: storage
   components:
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/syncthing/relay
