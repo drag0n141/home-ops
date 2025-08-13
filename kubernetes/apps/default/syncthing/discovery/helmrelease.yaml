@@ -18,7 +18,7 @@ spec:
             image:
               repository: ghcr.io/syncthing/discosrv
               tag: 2.0.0@sha256:c5a7b62f760e493b36478647590a6019f2bd926c467d9fd83c3fcacbc7a3eb64
-            args: ["--http", "--debug"]
+            args: ["-listen=:8443", "--cert=/tls/cert.pem", "--key=/tls/key.pem"]
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
@@ -47,26 +47,19 @@ spec:
         ports:
           http:
             port: 8443
-    ingress:
-      app:
-        className: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "discovery.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       data:
         existingClaim: *app
         globalMounts:
           - path: /var/stdiscosrv
+      tls:
+        type: secret
+        name: "${SECRET_DOMAIN/./-}-production-tls"
+        defaultMode: 0400
+        globalMounts:
+          - subPath: tls.crt
+            path: /tls/cert.pem
+            readOnly: true
+          - subPath: tls.key
+            path: /tls/key.pem
+            readOnly: true

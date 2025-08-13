@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app syncthing-relaysrv
+  name: &app syncthing-relay
 spec:
   interval: 1h
   chartRef:
@@ -10,7 +10,7 @@ spec:
     name: app-template
   values:
     controllers:
-      relaysrv:
+      relay:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -42,6 +42,8 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
         ports:
           http:
             port: 8443
