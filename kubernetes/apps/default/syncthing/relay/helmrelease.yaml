@@ -18,7 +18,7 @@ spec:
             image:
               repository: ghcr.io/syncthing/relaysrv
               tag: 2.0.0@sha256:c7b1d06ffa9def9d284647bcba6e4dc2074455899faba8b993ab25f8df0185f5
-            args: ["-pools=''", "-listen=:8443", "-keys=/tls", "-ext-address=relay.${SECRET_DOMAIN}:443"]
+            args: ["-pools= ", "-listen=:8443", "-keys=/tls", "-ext-address=relay.${SECRET_DOMAIN}:443"]
             env:
               TZ: ${TIMEZONE}
               PGID: 1000
