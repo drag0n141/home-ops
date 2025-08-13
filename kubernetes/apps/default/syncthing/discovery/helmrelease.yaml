@@ -67,4 +67,4 @@ spec:
       data:
         existingClaim: *app
         globalMounts:
-          - path: /var/strelaysrv
+          - path: /var/stdiscosrv
