@@ -14,7 +14,7 @@ spec:
   routes:
   - match: HostSNI(`relay.${SECRET_DOMAIN}`)
     services:
-    - name: syncthing-relaysrv
+    - name: syncthing-relay
       port: 8443
   tls:
     passthrough: true
