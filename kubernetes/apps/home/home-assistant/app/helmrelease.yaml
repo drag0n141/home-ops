@@ -20,7 +20,7 @@ spec:
               tag: 2025.8.1@sha256:4e59d68e002d84a8e48f77df029ecd629fd444f57601931cca39a4ee08a45eec
             env:
               TZ: ${TIMEZONE}
-              HOME_ASSISTANT_EXTERNAL_URL: https://home.${SECRET_DOMAIN_INTERNAL}
+              HOME_ASSISTANT_EXTERNAL_URL: https://home.${SECRET_DOMAIN}
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
               HOME_ASSISTANT_TRUSTED_PROXIES: 10.42.0.0/16
             securityContext:
@@ -82,13 +82,13 @@ spec:
             port: 12321
     ingress:
       app:
-        className: traefik-internal
+        className: traefik-external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "home.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "home.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -99,12 +99,12 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       code-server:
-        className: traefik-internal
+        className: traefik-external
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
         hosts:
-          - host: &host "home.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "home.${SECRET_DOMAIN}"
             paths:
               - path: /code
                 service:
