@@ -78,9 +78,7 @@ spec:
         ports:
           http:
             port: 8123
-      code-server:
-        ports:
-          http:
+          code-server:
             port: 12321
     ingress:
       app:
@@ -103,7 +101,6 @@ spec:
       code-server:
         className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
         hosts:
@@ -111,8 +108,8 @@ spec:
             paths:
               - path: /code
                 service:
-                  identifier: code-server
-                  port: http
+                  identifier: app
+                  port: code-server
         tls:
           - hosts:
               - *host
