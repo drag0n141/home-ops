@@ -54,7 +54,11 @@ spec:
               - secretRef:
                   name: home-assistant-secret
             securityContext:
+              runAsNonRoot: false
               runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
+              fsGroupChangePolicy: OnRootMismatch
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
@@ -106,6 +110,7 @@ spec:
       code-server:
         className: traefik-external
         annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
         hosts:
