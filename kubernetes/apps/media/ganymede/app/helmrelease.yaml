@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/zibbp/ganymede
-              tag: 4.5.0@sha256:ae96c97d3db465bc57b0812872ff0ff727b97159ac67224571954f6762b7342a
+              tag: 4.6.0@sha256:f1b688427c6bd52fd8481841e94f55b551c60b7e207c767a2f24f587c03ccd20
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
