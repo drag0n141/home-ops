@@ -39,9 +39,10 @@ spec:
         admin:
           DISABLE_REGULAR_ORG_CREATION: true
         service:
-          DISABLE_REGISTRATION: false
           ALLOW_ONLY_EXTERNAL_REGISTRATION: true
           DEFAULT_KEEP_EMAIL_PRIVATE: true
+          DISABLE_REGISTRATION: false
+          ENABLE_PASSKEY_AUTHENTICATION: false
           SHOW_REGISTRATION_BUTTON: false
         cron:
           ENABLED: true
