@@ -24,7 +24,7 @@ spec:
         APP_NAME: "Gitea DrAg0n141"
         database:
           DB_TYPE: postgres
-          HOST: postgres-rw.default.svc.cluster.local:5432
+          HOST: postgres17-rw.database.svc.cluster.local:5432
         server:
           SSH_PORT: 22
           SSH_LISTEN_PORT: 2222
@@ -175,7 +175,7 @@ spec:
                 template:
                   spec:
                     initContainers:
-                      - name: init-db
+                      - name: 01-init-db
                         image: ghcr.io/home-operations/postgres-init:17
                         envFrom:
                           - secretRef:
