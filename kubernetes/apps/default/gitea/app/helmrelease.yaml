@@ -67,15 +67,15 @@ spec:
           ACCOUNT_LINKING: auto
           USERNAME: preferred_username
           OPENID_CONNECT_SCOPES: openid email profile groups
-        oauth:
-          - name: PocketID
-            provider: openidConnect
-            existingSecret: *secret
-            autoDiscoverUrl: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
-            groupClaimName: groups
-            adminGroup: ID-Admin
-            restrictedGroup: ID-Gitea
-            iconUrl: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png
+      oauth:
+        - name: PocketID
+          provider: openidConnect
+          existingSecret: *secret
+          autoDiscoverUrl: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+          groupClaimName: groups
+          adminGroup: ID-Admin
+          restrictedGroup: ID-Gitea
+          iconUrl: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png
       metrics:
         enabled: true
         serviceMonitor:
