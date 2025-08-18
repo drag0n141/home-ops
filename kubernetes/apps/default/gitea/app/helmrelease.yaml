@@ -35,7 +35,7 @@ spec:
           LANDING_PAGE: explore
         respository:
           DEFAULT_BRANCH: main
-          DEFAULT_PRIVATE: private
+          DEFAULT_PRIVATE: true
         admin:
           DISABLE_REGULAR_ORG_CREATION: true
         service:
@@ -67,7 +67,6 @@ spec:
           TYPE: redis
         session:
           PROVIDER: redis
-
         openid:
           ENABLE_OPENID_SIGNIN: false
           ENABLE_OPENID_SIGNUP: true
