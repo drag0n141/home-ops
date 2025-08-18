@@ -14,10 +14,10 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword
-      namespace: external-secrets
     - name: minio
       namespace: storage
+    - name: onepassword
+      namespace: external-secrets
   components:
     - ../../../../components/gatus/internal
   path: ./kubernetes/apps/default/outline/app
