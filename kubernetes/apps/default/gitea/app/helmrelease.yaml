@@ -67,6 +67,7 @@ spec:
           TYPE: redis
         session:
           PROVIDER: redis
+
         openid:
           ENABLE_OPENID_SIGNIN: false
           ENABLE_OPENID_SIGNUP: true
@@ -76,6 +77,12 @@ spec:
           USERNAME: preferred_username
           UPDATE_AVATAR: true
           OPENID_CONNECT_SCOPES: openid email profile groups
+        other:
+          SHOW_FOOTER_TEMPLATE_LOAD_TIME: false
+        ui:
+          SHOW_USER_EMAIL: false
+        webhook:
+          ALLOWED_HOST_LIST: "*.${SECRET_DOMAIN}"
       oauth:
         - name: PocketID
           provider: openidConnect
@@ -124,13 +131,6 @@ spec:
         - hosts:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
-    resources:
-      requests:
-        cpu: 15m
-        memory: 226M
-      limits:
-        cpu: 500m
-        memory: 1Gi
   valuesFrom:
     - targetPath: gitea.config.attachment.MINIO_ACCESS_KEY_ID
       kind: Secret
