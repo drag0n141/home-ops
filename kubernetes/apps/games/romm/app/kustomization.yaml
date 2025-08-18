@@ -5,7 +5,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: webhook-configmap
+  - name: romm-configmap
     files:
       - config.yml=./resources/config.yml
 generatorOptions:

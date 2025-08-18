@@ -84,6 +84,13 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
+      config:
+        type: configMap
+        name: romm-configmap
+        globalMounts:
+          - path: /romm/config/config.yml
+            subPath: config.yml
+            readOnly: true
       data:
         existingClaim: *app
         advancedMounts:
