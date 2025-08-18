@@ -39,7 +39,7 @@ spec:
           DISABLE_REGULAR_ORG_CREATION: true
         service:
           DISABLE_REGISTRATION: true
-          REQUIRE_SIGNIN_VIEW: true
+          REQUIRE_SIGNIN_VIEW: false
           DEFAULT_KEEP_EMAIL_PRIVATE: true
         cron:
           ENABLED: true
