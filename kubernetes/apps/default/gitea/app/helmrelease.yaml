@@ -32,15 +32,17 @@ spec:
           SSH_LISTEN_PORT: 2222
           SSH_DOMAIN: git.${SECRET_DOMAIN_INTERNAL}
           ROOT_URL: https://gitea.${SECRET_DOMAIN_INTERNAL}
+          LANDING_PAGE: explore
         respository:
           DEFAULT_BRANCH: main
           DEFAULT_PRIVATE: private
         admin:
           DISABLE_REGULAR_ORG_CREATION: true
         service:
-          DISABLE_REGISTRATION: true
-          REQUIRE_SIGNIN_VIEW: false
+          DISABLE_REGISTRATION: false
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
           DEFAULT_KEEP_EMAIL_PRIVATE: true
+          SHOW_REGISTRATION_BUTTON: false
         cron:
           ENABLED: true
         attachment:
@@ -61,6 +63,8 @@ spec:
           FROM: "Gitea <gitea@${SECRET_DOMAIN}>"
         cache:
           ADAPTER: redis
+        queue:
+          TYPE: redis
         session:
           PROVIDER: redis
         openid:
@@ -70,6 +74,7 @@ spec:
           ENABLE_AUTO_REGISTRATION: true
           ACCOUNT_LINKING: auto
           USERNAME: preferred_username
+          UPDATE_AVATAR: true
           OPENID_CONNECT_SCOPES: openid email profile groups
       oauth:
         - name: PocketID
@@ -156,6 +161,10 @@ spec:
       name: *secret
       valuesKey: POSTGRES_PASSWORD
     - targetPath: gitea.config.cache.HOST
+      kind: Secret
+      name: *secret
+      valuesKey: REDIS_URL
+    - targetPath: gitea.config.queue.CONN_STR
       kind: Secret
       name: *secret
       valuesKey: REDIS_URL
