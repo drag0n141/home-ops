@@ -10,7 +10,8 @@ spec:
     name: gitea
   values:
     image:
-      repository: ghcr.io/go-gitea/gitea
+      registry: ghcr.io
+      repository: go-gitea/gitea
       tag: 1.24.5
       rootless: true
     containerSecurityContext:
@@ -86,7 +87,7 @@ spec:
       enabled: false
     memcached:
       enabled: false
-    redis-cluster:
+    valkey-cluster:
       enabled: false
     persistence:
       enabled: true
