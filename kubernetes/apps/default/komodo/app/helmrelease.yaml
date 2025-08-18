@@ -23,6 +23,7 @@ spec:
               KOMODO_DATABASE_ADDRESS: komodo-db.default.svc.cluster.local:27017
               KOMODO_DISABLE_CONFIRM_DIALOG: true
               KOMODO_DISABLE_USER_REGISTRATION: true
+              KOMODO_FIRST_SERVER_NAME: nas01
               KOMODO_HOST: komodo.${SECRET_DOMAIN_INTERNAL}
               KOMODO_LOCAL_AUTH: true
             envFrom:
@@ -80,5 +81,3 @@ spec:
             app:
               - path: /action-cache
                 subPath: action
-              - path: /repo-cache
-                subPath: repo
