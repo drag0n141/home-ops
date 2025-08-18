@@ -172,6 +172,14 @@ spec:
       kind: Secret
       name: *secret
       valuesKey: REDIS_URL
+    - targetPath: gitea.config.security.SECRET_KEY
+      kind: Secret
+      name: *secret
+      valuesKey: GITEA_SECRET_KEY
+    - targetPath: gitea.config.security.INTERNAL_TOKEN
+      kind: Secret
+      name: *secret
+      valuesKey: GITEA_INTERNAL_TOKEN
   postRenderers:
     - kustomize:
         patches:
