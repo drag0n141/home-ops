@@ -91,7 +91,8 @@ spec:
       enabled: false
     persistence:
       enabled: true
-      existingClaim: gitea
+      create: false
+      claimName: gitea
     service:
       ssh:
         type: LoadBalancer
