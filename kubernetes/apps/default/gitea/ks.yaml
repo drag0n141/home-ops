@@ -25,7 +25,7 @@ spec:
   components:
     - ../../../../components/gatus/internal
     - ../../../../components/volsync
-  path: ./kubernetes/apps/default/default/gitea
+  path: ./kubernetes/apps/default/gitea/app
   prune: true
   sourceRef:
     kind: GitRepository
