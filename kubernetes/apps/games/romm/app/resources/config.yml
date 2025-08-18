@@ -1,0 +1,15 @@
+exclude:
+  platforms: []
+  roms:
+    single_file:
+      extensions: []
+      names: []
+    multi_file:
+      names: []
+      parts:
+        names: []
+        extensions: []
+system:
+  platforms: {}
+  versions: {}
+filesystem: {}
