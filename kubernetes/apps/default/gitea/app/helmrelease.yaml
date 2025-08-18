@@ -28,7 +28,7 @@ spec:
         server:
           SSH_PORT: 22
           SSH_LISTEN_PORT: 2222
-          SSH_DOMAIN: gitea.${SECRET_DOMAIN_INTERNAL}
+          SSH_DOMAIN: git.${SECRET_DOMAIN_INTERNAL}
           ROOT_URL: https://gitea.${SECRET_DOMAIN_INTERNAL}
         respository:
           DEFAULT_BRANCH: main
@@ -38,6 +38,7 @@ spec:
         service:
           DISABLE_REGISTRATION: true
           REQUIRE_SIGNIN_VIEW: true
+          DEFAULT_KEEP_EMAIL_PRIVATE: true
         cron:
           ENABLED: true
         attachment:
@@ -98,7 +99,7 @@ spec:
         type: LoadBalancer
         port: 22
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "gitea-ssh.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.alpha.kubernetes.io/hostname: "git.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.125
     ingress:
       enabled: true
