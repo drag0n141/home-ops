@@ -66,6 +66,7 @@ spec:
         openid:
           ENABLE_OPENID_SIGNIN: false
           ENABLE_OPENID_SIGNUP: true
+          WHITELISTED_URIS: id.${SECRET_DOMAIN}
         oauth2_client:
           ENABLE_AUTO_REGISTRATION: true
           ACCOUNT_LINKING: auto
@@ -85,7 +86,6 @@ spec:
           autoDiscoverUrl: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
           groupClaimName: groups
           adminGroup: ID-Admin
-          restrictedGroup: ID-Gitea
           iconUrl: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png
       metrics:
         enabled: true
