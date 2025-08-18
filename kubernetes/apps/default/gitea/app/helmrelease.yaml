@@ -45,11 +45,6 @@ spec:
           SHOW_REGISTRATION_BUTTON: false
         cron:
           ENABLED: true
-        attachment:
-          STORAGE_TYPE: minio
-          MINIO_ENDPOINT: s3.${SECRET_DOMAIN_INTERNAL}
-          MINIO_BUCKET: gitea
-          MINIO_USE_SSL: true
         storage:
           STORAGE_TYPE: minio
           MINIO_ENDPOINT: s3.${SECRET_DOMAIN_INTERNAL}
@@ -131,14 +126,6 @@ spec:
             - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
   valuesFrom:
-    - targetPath: gitea.config.attachment.MINIO_ACCESS_KEY_ID
-      kind: Secret
-      name: *secret
-      valuesKey: GITEA_AWS_ACCESS_KEY_ID
-    - targetPath: gitea.config.attachment.MINIO_SECRET_ACCESS_KEY
-      kind: Secret
-      name: *secret
-      valuesKey: GITEA_AWS_SECRET_ACCESS_KEY
     - targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
       kind: Secret
       name: *secret
