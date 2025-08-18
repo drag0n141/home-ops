@@ -52,7 +52,7 @@ spec:
           MINIO_USE_SSL: true
         mailer:
           ENABLED: true
-          MAILER_TYPE: smtp
+          PROTOCOL: smtp
           SMTP_ADDR: smtp-relay.networking.svc.cluster.local
           SMTP_PORT: 2525
           FROM: "Gitea <gitea@${SECRET_DOMAIN}>"
