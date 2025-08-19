@@ -54,7 +54,7 @@ spec:
               OAUTH_PROVIDER_NAME: "Pocket ID"
               OAUTH_SCOPES: "openid profile email groups"
               OPENID_PROVIDER_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
-              OPENID_REDIRECT_URI: https://chat.${SECRET_DOMAIN}/oauth/oidc/callback"
+              OPENID_REDIRECT_URI: https://chat.${SECRET_DOMAIN}/oauth/oidc/callback
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
