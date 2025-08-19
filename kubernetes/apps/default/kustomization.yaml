@@ -10,7 +10,6 @@ resources:
   - ./convertx/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
-  - ./filebrowser/ks.yaml
   - ./gitea/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
