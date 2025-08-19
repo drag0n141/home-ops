@@ -69,10 +69,6 @@ machine:
     diskSelector:
       model: TS512GMTS430S
     image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
-  disks:
-    - device: /dev/disk/by-id/ata-SAMSUNG_MZ7LH1T9HMLT-00005_S455NA0N104654
-      partitions:
-        - mountpoint: /var/mnt/extra
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -209,3 +205,19 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
     advertisedSubnets: ["192.168.254.0/24"]
   allowSchedulingOnControlPlanes: true
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: disk.model == "SAMSUNG MZ7LH1T9" && !system_disk
+  maxSize: 512GiB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: disk.model == "SAMSUNG MZ7LH1T9" && !system_disk
+  minSize: 1TB

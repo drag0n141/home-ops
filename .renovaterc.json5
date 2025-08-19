@@ -16,6 +16,7 @@
     "github>drag0n141/home-ops//.renovate/grafanaDashboards.json5",
     "github>drag0n141/home-ops//.renovate/groups.json5",
     "github>drag0n141/home-ops//.renovate/labels.json5",
+    "github>drag0n141/home-ops//.renovate/overrides.json5",
     "github>drag0n141/home-ops//.renovate/packageRules.json5",
     "github>drag0n141/home-ops//.renovate/semanticCommits.json5"
   ],
