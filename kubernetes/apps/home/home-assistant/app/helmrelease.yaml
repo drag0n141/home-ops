@@ -60,6 +60,7 @@ spec:
                 memory: 1Gi
     defaultPodOptions:
       securityContext:
+        runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
@@ -98,15 +99,15 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       code-server:
-        className: traefik-external
+        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
         hosts:
-          - host: &host "home.${SECRET_DOMAIN}"
+          - host: &host "hass-code.${SECRET_DOMAIN_INTERNAL}"
             paths:
-              - path: /code
+              - path: /
                 service:
                   identifier: app
                   port: code-server
@@ -117,12 +118,8 @@ spec:
     persistence:
       config:
         existingClaim: *app
-        advancedMounts:
-          home-assistant:
-            app:
-              - path: /config
-            code-server:
-              - path: /config
+        globalMounts:
+          - path: /config
       tmpfs:
         type: emptyDir
         advancedMounts:
