@@ -103,6 +103,12 @@ spec:
       enabled: true
       create: false
       claimName: gitea
+    preExtraInitContainers:
+      - name: init-db
+        image: ghcr.io/home-operations/postgres-init:17
+        envFrom:
+          - secretRef:
+              name: gitea-secret
     service:
       ssh:
         type: LoadBalancer
@@ -167,23 +173,3 @@ spec:
       kind: Secret
       name: *secret
       valuesKey: GITEA_INTERNAL_TOKEN
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-              name: gitea
-            patch: |
-              apiVersion: apps/v1
-              kind: Deployment
-              metadata:
-                name: gitea
-              spec:
-                template:
-                  spec:
-                    initContainers:
-                      - name: 01-init-db
-                        image: ghcr.io/home-operations/postgres-init:17
-                        envFrom:
-                          - secretRef:
-                              name: gitea-secret
