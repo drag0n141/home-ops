@@ -108,7 +108,7 @@ spec:
         image: ghcr.io/home-operations/postgres-init:17
         envFrom:
           - secretRef:
-            name: gitea-secret
+              name: gitea-secret
     service:
       ssh:
         type: LoadBalancer
