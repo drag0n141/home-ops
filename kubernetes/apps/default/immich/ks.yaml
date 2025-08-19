@@ -2,6 +2,27 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app immich-redis
+  namespace: &namespace default
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/default/immich/redis
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app immich-server
   namespace: &namespace default
 spec:
@@ -12,8 +33,8 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster-vector
       namespace: database
-    - name: dragonfly-cluster
-      namespace: database
+    - name: immich-redis
+      namespace: *namespace
     - name: keda
       namespace: system
     - name: onepassword
