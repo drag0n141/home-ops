@@ -1,0 +1,113 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app iventoy
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      iventoy:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/ziggyds/iventoy
+              tag: 1.0.21@sha256:95f6ff37cfa09fc22320ac9da78d90983ba6ceda1164374d3070baa8572320ff
+            env:
+              TZ: ${TIMEZONE}
+              AUTO_START_PXE: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        forceRename: "{{ .Release.Name }}"
+        primary: true
+        ports:
+          http:
+            port: 26000
+          boot:
+            port: 16000
+      iventoy:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 192.168.222.126
+        ports:
+          nbd:
+            port: 10809
+            protocol: TCP
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
+        hosts:
+          - host: &host "iventoy.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      boot:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "boot.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: boot
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/data
+      assets:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/iso
+        globalMounts:
+          - path: /app/iso
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          iventoy:
+            app:
+              - path: /app/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
