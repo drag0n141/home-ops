@@ -93,3 +93,10 @@ spec:
         path: /mnt/data/iso/netboot
         globalMounts:
           - path: /assets
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          netbootxyz:
+            app:
+              - path: /tmp
+                subPath: tmp
