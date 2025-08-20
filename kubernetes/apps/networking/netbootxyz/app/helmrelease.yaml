@@ -90,7 +90,7 @@ spec:
       assets:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
-        path: /mnt/data/iso/netboot
+        path: /mnt/data/iso
         globalMounts:
           - path: /assets
       tmpfs:
