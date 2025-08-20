@@ -26,7 +26,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities: { add: ["NET_ADMIN", "SYS_ADMIN"], drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -35,11 +34,7 @@ spec:
                 memory: 512Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: OnRootMismatch
+        privileged: true
     service:
       app:
         forceRename: "{{ .Release.Name }}"
