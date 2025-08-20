@@ -24,17 +24,13 @@ spec:
               TZ: ${TIMEZONE}
               AUTO_START_PXE: true
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              privileged: true
             resources:
               requests:
                 cpu: 10m
                 memory: 128Mi
               limits:
                 memory: 512Mi
-    defaultPodOptions:
-      securityContext:
-        privileged: true
     service:
       app:
         forceRename: "{{ .Release.Name }}"
