@@ -8,6 +8,7 @@ resources:
   - ./echo-server/ks.yaml
   - ./external-dns/ks.yaml
   - ./multus/ks.yaml
+  - ./netbootxyz/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./tailscale/ks.yaml
   - ./traefik/ks.yaml
