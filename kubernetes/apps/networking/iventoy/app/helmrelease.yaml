@@ -48,7 +48,7 @@ spec:
             port: 26000
           boot:
             port: 16000
-      iventoy:
+      boot:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 192.168.222.126
