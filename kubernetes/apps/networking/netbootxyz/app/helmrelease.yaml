@@ -26,8 +26,7 @@ spec:
               WEB_APP_PORT: &port 3000
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
