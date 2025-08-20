@@ -26,6 +26,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
+              capabilities: { add: ["NET_ADMIN", "SYS_ADMIN"], drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
