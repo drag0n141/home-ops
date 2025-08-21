@@ -23,6 +23,16 @@
       minimumGroupSize: 2,
     },
     {
+      description: "Barman Cloud Group",
+      groupName: "Barman Cloud",
+      matchDatasources: ["docker", "github-releases"],
+      matchPackagePatterns: ["plugin-barman-cloud"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Dragonfly Operator Group",
       groupName: "Dragonfly Operator",
       matchDatasources: ["docker", "github-releases"],
