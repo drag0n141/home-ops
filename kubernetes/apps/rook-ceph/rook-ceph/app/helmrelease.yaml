@@ -17,7 +17,6 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
-    enableDiscoveryDaemon: true
     image:
       repository: ghcr.io/rook/ceph
       serviceMonitor:
