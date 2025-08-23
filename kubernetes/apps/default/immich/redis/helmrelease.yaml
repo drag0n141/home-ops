@@ -19,6 +19,11 @@ spec:
             image:
               repository: ghcr.io/valkey-io/valkey
               tag: 8.1.3@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571
+            args:
+              - --save
+              - ""
+              - --appendonly
+              - "no"
             env:
               TZ: ${TIMEZONE}
             resources:
