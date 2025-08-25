@@ -5,6 +5,12 @@ helmDefaults:
   postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
 releases:
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.18.2
+    values: [crds: { enabled: true }]
+
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
