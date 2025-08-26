@@ -1,7 +1,10 @@
 {
   "recommendations": [
     "blueglassblock.better-json5",
+    "dlech.chmod",
+    "github.remotehub",
     "irongeek.vscode-env",
+    "ms-vscode.remote-repositories",
     "redhat.vscode-yaml"
   ]
 }
