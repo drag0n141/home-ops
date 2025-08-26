@@ -1,0 +1,52 @@
+{
+  "editor.bracketPairColorization.enabled": true,
+  "editor.fontFamily": "FiraCode Nerd Font",
+  "editor.fontLigatures": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.hover.delay": 1500,
+  "editor.rulers": [100],
+  "editor.stickyScroll.enabled": false,
+  "explorer.autoReveal": false,
+  "files.associations": {
+    "**/*.json5": "json5",
+    "**/*.yaml.j2": "yaml"
+  },
+  "files.trimTrailingWhitespace": true,
+  "material-icon-theme.files.associations": {
+    "*.gotmpl": "smarty",
+    "kubeconfig": "kubernetes",
+    "talosconfig": "kubernetes"
+  },
+  "material-icon-theme.folders.associations": {
+    // top level
+    ".github/workflows": "ci",
+    ".renovate": "robot",
+    "bootstrap": "seeders",
+    "bootstrap/helmfile.d": "helm",
+    "flux": "pipe",
+    "talos": "linux",
+    // namespaces
+    "actions-runner-system": "github",
+    "cert-manager": "guard",
+    "external-secrets": "secure",
+    "flux-system": "pipe",
+    "kube-system": "kubernetes",
+    "media": "video",
+    "observability": "event",
+    "networking": "connection",
+    "openebs-system": "base",
+    "rook-ceph": "dump",
+    "system-upgrade": "update",
+    "volsync-system": "aws"
+  },
+  "vs-kubernetes": {
+    "vs-kubernetes.kubeconfig": "./kubernetes/kubeconfig",
+    "vs-kubernetes.knownKubeconfigs": ["./kubernetes/kubeconfig"]
+  },
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "kubernetes": "./kubernetes/**/*.yaml"
+  }
+}
