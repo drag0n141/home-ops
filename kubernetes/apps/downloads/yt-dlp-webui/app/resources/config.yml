@@ -4,3 +4,5 @@ downloadPath: /downloads
 require_auth: false
 queue_size: 4
 log_path: /tmp/logs
+twitch:
+  check_interval: 5s
