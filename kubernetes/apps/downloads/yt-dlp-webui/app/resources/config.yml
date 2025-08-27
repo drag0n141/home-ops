@@ -1,0 +1,6 @@
+---
+port: 3033
+downloadPath: /downloads
+require_auth: false
+queue_size: 4
+log_path: /tmp/logs

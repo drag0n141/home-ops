@@ -71,6 +71,14 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+      config-yt-dlp-webui:
+        type: configMap
+        name: yt-dlp-webui-configmap
+        defaultMode: 0775
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
