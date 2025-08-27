@@ -93,5 +93,7 @@ spec:
         advancedMounts:
           yt-dlp-webui:
             app:
+              - path: /.cache
+                subPath: cache
               - path: /tmp
                 subPath: tmp
