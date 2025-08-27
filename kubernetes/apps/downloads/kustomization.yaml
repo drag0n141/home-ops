@@ -5,6 +5,7 @@ namespace: downloads
 resources:
   - ./prowlarr/ks.yaml
   - ./sabnzbd/ks.yaml
+  - ./yt-dlp-webui/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
