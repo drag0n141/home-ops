@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/marcopiovanello/yt-dlp-web-ui
-              tag: latest@sha256:19d737ffe39896c38f8bbf62fb23a0fab88b4b78f5b357faa9393b2ade550eaa
+              tag: latest@sha256:60ed03248483da293e7c833217246662cd903fb1e790fd10d340e01de92bc02e
             env:
               TZ: ${TIMEZONE}
             envFrom:
