@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn
+  dependsOn:
     - name: onepassword
       namespace: external-secrets
     - name: rook-ceph-cluster
