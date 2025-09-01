@@ -1,26 +1,9 @@
 libraries:
-  Filme:
-    split_duplicates: true
-    schedule: hourly(1)
-    collection_files:
-    - file: config/1-moviecharts.yml
-    - file: config/3-bestof.yml
-    - file: config/4-decade.yml
-    - file: config/5-holliday.yml
-    - file: config/6-studios.yml
-    - file: config/9-imdb.yml
-    - file: config/98-movie.yml
-  Serien:
-    schedule: hourly(0)
-    collection_files:
-    - file: config/2-tvcharts.yml
-    - file: config/7-networks.yml
-    - file: config/8-tv.yml
   Filme-4K:
     schedule: hourly(6),hourly(18)
     overlay_files:
     - remove_overlays: false
-    - file: config/99-overlays.yml
+    - file: config/overlays.yml
       template_variables:
         4K: true
         4K-HDR: true
@@ -30,7 +13,7 @@ libraries:
     schedule: hourly(6),hourly(18)
     overlay_files:
     - remove_overlays: false
-    - file: config/99-overlays.yml
+    - file: config/overlays.yml
       template_variables:
         4K: true
         4K-HDR: true
@@ -97,15 +80,3 @@ tmdb:
 omdb:
   apikey: "{{ .OMDB_API_KEY }}"
   cache_expiration: 60
-trakt:
-  client_id: "{{ .TRAKT_CLIENT_ID }}"
-  client_secret: "{{ .TRAKT_CLIENT_SECRET }}"
-  force_refresh: true
-  authorization:
-    access_token: "{{ .TRAKT_ACCESS_TOKEN }}"
-    token_type: Bearer
-    expires_in: 86400
-    refresh_token: "{{ .TRAKT_REFRESH_TOKEN }}"
-    scope: public
-    created_at: "{{ .TRAKT_CREATED_AT }}"
-  pin:

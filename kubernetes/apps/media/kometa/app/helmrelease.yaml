@@ -55,38 +55,8 @@ spec:
         type: configMap
         name: kometa-configmap
         globalMounts:
-          - path: /config/1-moviecharts.yml
-            subPath: 1-moviecharts.yml
-            readOnly: true
-          - path: /config/2-tvcharts.yml
-            subPath: 2-tvcharts.yml
-            readOnly: true
-          - path: /config/3-bestof.yml
-            subPath: 3-bestof.yml
-            readOnly: true
-          - path: /config/4-decade.yml
-            subPath: 4-decade.yml
-            readOnly: true
-          - path: /config/5-holliday.yml
-            subPath: 5-holliday.yml
-            readOnly: true
-          - path: /config/6-studios.yml
-            subPath: 6-studios.yml
-            readOnly: true
-          - path: /config/7-networks.yml
-            subPath: 7-networks.yml
-            readOnly: true
-          - path: /config/8-tv.yml
-            subPath: 8-tv.yml
-            readOnly: true
-          - path: /config/9-imdb.yml
-            subPath: 9-imdb.yml
-            readOnly: true
-          - path: /config/98-movie.yml
-            subPath: 98-movie.yml
-            readOnly: true
-          - path: /config/99-overlays.yml
-            subPath: 99-overlays.yml
+          - path: /config/overlays.yml
+            subPath: overlays.yml
             readOnly: true
       tmpfs:
         type: emptyDir
