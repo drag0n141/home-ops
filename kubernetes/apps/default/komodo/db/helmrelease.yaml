@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/library/mongo
-              tag: 8.0.13@sha256:9cac3e2fb62880ae6c973cf46cc471e8188b116628096810dfe9d4f599129fc6
+              tag: 8.0.13@sha256:f4a9789ae2c2712c3350ccc92d15c5ffc11217e02228dcd2f68991f25bea7b7c
             env:
               TZ: ${TIMEZONE}
             envFrom:
