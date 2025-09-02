@@ -101,7 +101,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 2,
+      minimumGroupSize: 1,
     },
     {
       description: "Teleport Group",
