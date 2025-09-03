@@ -16,8 +16,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/agregarr/agregarr
-              tag: latest@sha256:b83a380a034f49a97ec9b41c42791f208e1ced1f22230714782b9c606c9b891e
+              repository: ghcr.io/agregarr/agregar
+              tag: 1.2.0@sha256:b83a380a034f49a97ec9b41c42791f208e1ced1f22230714782b9c606c9b891e
             env:
               TZ: ${TIMEZONE}
             securityContext:
