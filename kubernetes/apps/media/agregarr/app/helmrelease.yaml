@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/agregarr/agregarr
-              tag: 1.2.1@sha256:03c5775b0aea3cdb82d51aedeb6e4da223da52f6d34a09497dc0fc49420d6053
+              tag: 1.2.2@sha256:6bcf50f619790b921d2439cc3b7f3f0c09c2ffa57d6e16d0b215aced1be9f1a4
             env:
               TZ: ${TIMEZONE}
             securityContext:
