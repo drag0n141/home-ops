@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: rclone-configmap
     files:
-      - rclone.yaml=./resources/rclone.yaml
+      - rclone.conf=./resources/rclone.conf
 generatorOptions:
   disableNameSuffixHash: true
