@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/javi11/altmount
               tag: 0.0@sha256:cc124ce6346057b65a6161a1871b885781ebeb923fad3356356d113ee4e992d2
             command: ["/app/altmount"]
-            args: ["serve", "---config=/config/config.yaml"]
+            args: ["serve", "--config=/config/config.yaml"]
             env:
               TZ: ${TIMEZONE}
               PORT: &port 8080
