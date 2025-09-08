@@ -111,7 +111,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /mnt/altmount
-            mountPropagation: Bidirectional
       tmpfs:
         type: emptyDir
         advancedMounts:
