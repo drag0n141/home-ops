@@ -57,6 +57,9 @@ spec:
             securityContext:
               privileged: true
               readOnlyRootFilesystem: true
+              runAsNonRoot: false
+              runAsUser: 0
+              runAsGroup: 0
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
