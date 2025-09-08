@@ -47,6 +47,17 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
+          rclone:
+            image:
+              repository: ghcr.io/rclone/rclone
+              tag: 1.71.0@sha256:fd635aecd9667ee3c3bf920d14118090d4f2a83a080c1fa77e0bafbd4587ca87
+            args: ["mount", "altmount:", "/mnt/altmount", "--config=/config/rclone.conf", "--allow-non-empty", "--allow-other"]
+            env:
+              TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -87,6 +98,20 @@ spec:
                 subPath: config
               - path: /metadata
                 subPath: metadata
+      rclone:
+        type: secret
+        name: rclone-secret
+        advancedMounts:
+          altmount:
+            rclone:
+              - path: /config/rclone.conf
+                subPath: rclone.conf
+                readOnly: true
+      media:
+        type: emptyDir
+        globalMounts:
+          - path: /mnt/altmount
+            mountPropagation: Bidirectional
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -96,3 +121,6 @@ spec:
                 subPath: log
               - path: /tmp
                 subPath: tmp
+            rclone:
+              - path: /tmp
+                subPath: tmp-rclone
