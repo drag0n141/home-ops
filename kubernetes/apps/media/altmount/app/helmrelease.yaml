@@ -111,6 +111,14 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /mnt/altmount
+      dev:
+        type: hostPath
+        hostPath: /dev/fuse
+        advancedMounts:
+          altmount:
+            rclone:
+              - path: /dev/fuse
+                readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
