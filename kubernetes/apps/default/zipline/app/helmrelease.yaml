@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/diced/zipline
-              tag: 4.2.3@sha256:cb1f8ddd50026c47cb8115c37b5af0ef90d783a5e4e4fbc75eebfd0cd10a80e9
+              tag: 4.3.0@sha256:98d137a50decc625911828ca28a40e2caec1d571d30759ff70bb123b1cfd1021
             env:
               TZ: ${TIMEZONE}
               # Core config
