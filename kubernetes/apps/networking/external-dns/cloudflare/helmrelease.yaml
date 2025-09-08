@@ -24,7 +24,6 @@ spec:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --ignore-ingress-tls-spec
-      - --traefik-disable-legacy
       - --ingress-class=traefik-external
     triggerLoopOnEvent: true
     policy: sync
