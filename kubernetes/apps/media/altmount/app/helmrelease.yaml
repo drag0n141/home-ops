@@ -40,7 +40,7 @@ spec:
                 enabled: false
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -92,7 +92,7 @@ spec:
         advancedMounts:
           altmount:
             app:
-              - path: /logs
-                subPath: logs
+              - path: /log
+                subPath: log
               - path: /tmp
                 subPath: tmp
