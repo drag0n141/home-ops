@@ -17,12 +17,7 @@ spec:
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
-        query: probe_success{instance=~"nas01.${SECRET_DOMAIN_INT}:2049"}
-        threshold: "1"
-        ignoreNullValues: "0"
-    - type: prometheus
-      metadata:
-        serverAddress: http://prometheus-operated.monitoring.svc.cluster.local:9090
-        query: probe_success{instance=~"brother-mfc.${SECRET_DOMAIN_INT}"}
+        query: >
+          count(probe_success{instance=~"nas01.${SECRET_DOMAIN_INT}:2049|brother-mfc.${SECRET_DOMAIN_INT}"} == 1) == 2
         threshold: "1"
         ignoreNullValues: "0"
