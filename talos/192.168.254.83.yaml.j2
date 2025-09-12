@@ -42,9 +42,11 @@ machine:
           ip: 192.168.254.250
         vlans:
           - vlanId: 150
-            mtu: 1500
             dhcp: false
-            addresses: ["192.168.150.83/24"]
+            mtu: 1500
+          - vlanId: 160
+            dhcp: false
+            mtu: 1500
       - deviceSelector:
           # k8s-m01
           busPath: 0-1.0
