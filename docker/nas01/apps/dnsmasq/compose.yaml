@@ -52,7 +52,7 @@ networks:
   server_lan:
     driver: ipvlan
     driver_opts:
-      parent: enp5s0f1
+      parent: enp5s0f1np1
     ipam:
       config:
         - subnet: 192.168.254.0/24
