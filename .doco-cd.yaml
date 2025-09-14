@@ -1,0 +1,4 @@
+name: node-exporter
+working_dir: docker/nas01/node-exporter
+external_secrets:
+  TZ: op://Kubernetes/basic/TZ
