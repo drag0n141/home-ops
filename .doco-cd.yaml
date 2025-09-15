@@ -2,4 +2,4 @@ name: node-exporter
 reference: refs/heads/master
 working_dir: docker/nas01/apps/node-exporter
 external_secrets:
-  MINIO_ROOT_USER: op://Kubernetes/minio/MINIO_ROOT_USER
+  TZ: "op://Kubernetes/basic/add more/TZ"
