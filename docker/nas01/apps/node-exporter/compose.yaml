@@ -11,7 +11,7 @@ services:
     volumes:
       - '/:/host:ro,rslave'
     environment:
-      - 'TZ=${CLOUDFLARE_EMAIL}'
+      TZ: ${TZ}
     security_opt:
       - 'no-new-privileges:true'
     deploy:
