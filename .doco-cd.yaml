@@ -2,4 +2,4 @@ name: node-exporter
 reference: refs/heads/master
 working_dir: docker/nas01/apps/node-exporter
 external_secrets:
-  TZ: "op://Kubernetes/basic/password"
+  TZ: "op://Kubernetes/basic2/password"
