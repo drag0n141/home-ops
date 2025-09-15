@@ -5,5 +5,5 @@ external_secrets:
   TZ: "op://Kubernetes/basic/TZ"
   CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
   CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
-  DOMAIN: "op://Kubernetesdomains/DOMAIN"
+  DOMAIN: "op://Kubernetes/domains/DOMAIN"
   DOMAIN_INT: op://Kubernetes/domains/DOMAIN_INT"
