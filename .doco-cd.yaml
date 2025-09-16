@@ -35,7 +35,7 @@ name: traefik
 reference: refs/heads/master
 working_dir: docker/nas01/apps/traefik
 external_secrets:
-  CLOUDFLARE_EMAIL: op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
+  CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
   CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
   DOMAIN: "op://Kubernetes/domains/DOMAIN"
   DOMAIN_INT: "op://Kubernetes/domains/DOMAIN_INT"
