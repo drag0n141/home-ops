@@ -43,8 +43,8 @@ spec:
   healthCheckExprs:
     - apiVersion: dragonflydb.io/v1alpha1
       kind: Dragonfly
-      failed: status.phase != 'ready'
-      current: status.phase == 'ready'
+      current: status.phase == 'Ready' || status.phase == 'ready'
+      failed:  status.phase == 'Failed' || status.phase == 'failed'
   path: ./kubernetes/apps/database/dragonfly/cluster
   prune: true
   sourceRef:
