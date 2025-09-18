@@ -96,7 +96,7 @@ spec:
         advancedMounts:
           paperless-gpt:
             app:
-              - path: /config
+              - path: /app/config
                 subPath: config
               - path: /tmp
                 subPath: tmp
