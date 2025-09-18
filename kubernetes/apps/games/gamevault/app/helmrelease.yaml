@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/phalcode/gamevault-backend
-              tag: 16.0.0@sha256:f22439daa24d992a64e76ce67d8530a20707061d49e7db8044aff6e2120ad79c
+              tag: 16.0.1@sha256:3fafea36e9c97d193fa9e1859a6f4bcc733ea49cc9d010b5b49da0be4cea85de
             env:
               TZ: ${TIMEZONE}
               SERVER_REGISTRATION_DISABLED: false
