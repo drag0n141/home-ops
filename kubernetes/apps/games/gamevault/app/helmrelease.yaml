@@ -37,7 +37,7 @@ spec:
               SERVER_PORT: &port 8080
               AUTH_BASIC_AUTH_ENABLED: false
               AUTH_OAUTH2_ENABLED: true
-              AUTH_OAUTH2_AUTH_URL: https://id.${SECRET_DOMAIN}
+              AUTH_OAUTH2_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
               AUTH_OAUTH2_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
               AUTH_OAUTH2_USERINFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
               AUTH_OAUTH2_CALLBACK_URL: https://gamevault.${SECRET_DOMAIN_INTERNAL}/api/auth/oauth2/login
