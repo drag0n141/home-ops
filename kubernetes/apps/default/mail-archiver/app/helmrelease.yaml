@@ -26,11 +26,12 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/s1t5/mailarchiver
+              repository: ghcr.io/s1t5/mailarchiver
               tag: 2509.6@sha256:b655e7230e9a37e71d9a102900b600dd18f7c59a424251b721a084a84e86e158
             env:
               TZ: ${TIMEZONE}
               Authentication__Enabled: true
+              MailSync__IntervalMinutes: 120
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
