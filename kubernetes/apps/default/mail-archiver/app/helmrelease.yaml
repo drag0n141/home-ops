@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app open-archiver
+  name: &app mail-archiver
 spec:
   interval: 1h
   chartRef:
@@ -10,7 +10,7 @@ spec:
     name: app-template
   values:
     controllers:
-      open-archiver:
+      mail-archiver:
         labels:
           postgres: "true"
         annotations:
@@ -22,22 +22,19 @@ spec:
               tag: 17@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
             envFrom: &envFrom
               - secretRef:
-                  name: open-archiver-secret
+                  name: mail-archiver-secret
         containers:
           app:
             image:
-              repository: docker.io/logiclabshq/open-archiver
-              tag: v0.3.3@sha256:d68bf0393bd39dad5df9ae6d52cedbcfd48cc989238c467b26bae72729866b35
+              repository: docker.io/s1t5/mailarchiver
+              tag: 2509.6@sha256:b655e7230e9a37e71d9a102900b600dd18f7c59a424251b721a084a84e86e158
             env:
               TZ: ${TIMEZONE}
-              # App
-              REDIS_HOST: dragonfly.database.svc.cluster.local
-              REDIS_PORT: 6379
-              MEILI_HOST: http://open-archiver-meilisearch.default.svc.cluster.local:7700
+              Authentication__Enabled: true
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -45,29 +42,6 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 2000Mi
-      meilisearch:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          app:
-            image:
-              repository: docker.io/getmeili/meilisearch
-              tag: v1.21.0@sha256:38e0ae3cfd2f319461f321c79a1d9320143a2258ee0e2f567bc9441d79dcff5f
-            args:
-              - /bin/meilisearch
-              - --experimental-dumpless-upgrade
-            env:
-              MEILI_NO_ANALYTICS: true
-              MEILI_MASTER_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: open-archiver-secret
-                    key: MEILI_MASTER_KEY
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 4000Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -77,25 +51,18 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        forceRename: "{{ .Release.Name }}"
-        primary: true
         ports:
           http:
-            port: 3000
-      meilisearch:
-        controller: meilisearch
-        ports:
-          http:
-            port: 7700
+            port: 5000
     ingress:
       app:
-        className: traefik-external
+        className: traefik-internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: &host "archive.${SECRET_DOMAIN_INTERNAL}"
+          - host: &host "mail-archiver.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -108,8 +75,5 @@ spec:
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
-        advancedMounts:
-          meilisearch:
-            app:
-              - path: /meili_data
-                subPath: meilisearch
+        globalMounts:
+          - path: /app/DataProtection-Keys

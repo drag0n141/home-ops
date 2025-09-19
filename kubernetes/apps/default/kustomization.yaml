@@ -18,6 +18,7 @@ resources:
   - ./homepage/ks.yaml
   - ./kms/ks.yaml
   - ./linkding/ks.yaml
+  - ./mail-archiver/ks.yaml
   - ./mailrise/ks.yaml
   - ./memos/ks.yaml
   - ./mind/ks.yaml
