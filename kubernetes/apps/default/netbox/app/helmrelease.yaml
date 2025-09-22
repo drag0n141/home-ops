@@ -59,12 +59,10 @@ spec:
     externalDatabase:
       host: postgres17-pgbouncer-rw.database.svc.cluster.local
       port: 5432
-      existingSecret:
-        name: "netbox-secret"
-        keys:
-          database: "NETBOX_POSTGRES_DB"
-          username: "NETBOX_POSTGRES_USER"
-          password: "NETBOX_POSTGRES_PASSWORD"
+      database: netbox_db
+      username: netbox
+      existingSecretName: "netbox-secret"
+      existingSecretKey: "NETBOX_PG_PASS"
     email:
       server: smtp-relay.networking.svc.cluster.local
       port: 2525
