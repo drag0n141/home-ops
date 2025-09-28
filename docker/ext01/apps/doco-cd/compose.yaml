@@ -7,7 +7,7 @@ x-poll-config: &poll-config
 
 services:
   doco-co:
-    image: 'ghcr.io/kimdre/doco-cd:0.36.0-rc.3'
+    image: 'ghcr.io/kimdre/doco-cd:0.38.0-rc.3'
     hostname: 'doco-cd'
     container_name: 'doco-cd'
     restart: 'always'
