@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/javi11/altmount
-              tag: 0.0@sha256:2f1f1ed8944ced85afb470f6b7c3798b2e5d83a7314fbe1473b8177835201c83
+              tag: 0.0@sha256:fe3dd9ca9c6cde37b1f3239a8c31876b0705040c5f801632767f75501254f6f8
             command: ["/app/altmount"]
             args: ["serve", "--config=/config/config.yaml"]
             env:
