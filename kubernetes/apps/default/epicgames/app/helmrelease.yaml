@@ -21,6 +21,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               BASE_URL: https://epic.${SECRET_DOMAIN_INTERNAL}
+              COUNTRY_CODE: DE
               CRON_SCHEDULE: "0 0,6,12,18 * * *"
               EMAIL: games.epicgames@${SECRET_DOMAIN_SHORT}
               EMAIL_SENDER_ADDRESS: epicgames@${SECRET_DOMAIN}
