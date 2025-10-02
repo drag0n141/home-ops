@@ -26,7 +26,20 @@ spec:
         name: cluster-secrets
         optional: false
   patches:
-    - patch: |-
+    - # Add Sops decryption to all Kustomizations
+      patch: |-
+        apiVersion: kustomize.toolkit.fluxcd.io/v1
+        kind: Kustomization
+        metadata:
+          name: not-used
+        spec:
+          decryption:
+            provider: sops
+      target:
+        group: kustomize.toolkit.fluxcd.io
+        kind: Kustomization
+    - # Add postBuild to all Kustomizations
+      patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
         kind: Kustomization
         metadata:

@@ -17,5 +17,4 @@ components:
   - ../../components/namespace
   - ../../components/pod-gateway
   - ../../components/repos
-  - ../../components/sops
   - ../../components/substitutions

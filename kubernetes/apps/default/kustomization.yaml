@@ -48,5 +48,4 @@ components:
   - ../../components/alerts
   - ../../components/namespace
   - ../../components/repos
-  - ../../components/sops
   - ../../components/substitutions
