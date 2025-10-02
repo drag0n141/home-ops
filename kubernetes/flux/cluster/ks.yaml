@@ -45,10 +45,6 @@ spec:
         metadata:
           name: not-used
         spec:
-          decryption:
-            provider: sops
-            secretRef:
-              name: sops-age-secret
           postBuild:
             substituteFrom:
               - kind: ConfigMap
