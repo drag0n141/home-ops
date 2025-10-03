@@ -9,5 +9,6 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 6.6.10
-  url: oci://ghcr.io/home-operations/charts-mirror/nextcloud
+    tag: 8.1.0
+  url: oci://ghcr.io/nextcloud/helm/nextcloud
+
