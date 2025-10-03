@@ -10,4 +10,5 @@ spec:
     operation: copy
   ref:
     tag: 0.18.0
-  url: oci://ghcr.io/home-operations/charts-mirror/node-feature-discovery
+  url: oci://registry.k8s.io/nfd/charts/node-feature-discovery
+
