@@ -65,7 +65,7 @@ spec:
       app:
         ports:
           http:
-            port: 8000
+            port: *port
     ingress:
       app:
         className: traefik-external
