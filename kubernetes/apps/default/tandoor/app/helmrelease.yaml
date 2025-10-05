@@ -30,6 +30,8 @@ spec:
               tag: 2.3.0@sha256:94a048d2ca34209654ecb984e29de1f621625b632925b28243735f1de4187d58
             env:
               TZ: ${TIMEZONE}
+              UID: 1000
+              GID: 1000
               ALLOWED_HOSTS: recipes.${SECRET_DOMAIN}
               COMMENT_PREF_DEFAULT: 1
               DB_ENGINE: django.db.backends.postgresql_psycopg2
@@ -44,7 +46,7 @@ spec:
               SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
             envFrom: *envFrom
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
@@ -56,9 +58,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -100,11 +102,5 @@ spec:
             app:
               - path: /opt/recipes/cookbook/static/django_js_reverse
                 subPath: django_js_reverse
-              - path: /var/lib/nginx/logs
-                subPath: nginx_logs
-              - path: /var/lib/nginx/tmp
-                subPath: nginx_tmp
-              - path: /run
-                subPath: run
               - path: /tmp
                 subPath: tmp
