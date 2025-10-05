@@ -46,7 +46,7 @@ spec:
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -105,5 +105,7 @@ spec:
                 subPath: nginx_logs
               - path: /var/lib/nginx/tmp
                 subPath: nginx_tmp
+              - path: /run
+                subPath: run
               - path: /tmp
                 subPath: tmp
