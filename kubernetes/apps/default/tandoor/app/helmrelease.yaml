@@ -30,7 +30,7 @@ spec:
               tag: 2.3.0@sha256:94a048d2ca34209654ecb984e29de1f621625b632925b28243735f1de4187d58
             env:
               TZ: ${TIMEZONE}
-              ALLOWED_HOSTS: "*"
+              ALLOWED_HOSTS: recipes.${SECRET_DOMAIN}
               COMMENT_PREF_DEFAULT: 1
               DB_ENGINE: django.db.backends.postgresql_psycopg2
               DEBUG: 0
