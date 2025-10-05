@@ -42,11 +42,10 @@ spec:
               GUNICORN_MEDIA: 0
               SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
               SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
-              TANDOOR_PORT: &port 8000
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -65,7 +64,7 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: 80
     ingress:
       app:
         className: traefik-external
