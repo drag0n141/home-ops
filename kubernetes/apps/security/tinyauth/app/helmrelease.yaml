@@ -22,6 +22,7 @@ spec:
               TZ: ${TIMEZONE}
               APP_URL: https://tinyauth.${SECRET_DOMAIN}
               COOKIE_SECURE: true
+              DISABLE_ANALYTICS: true
               DISABLE_CONTINUE: true
               GENERIC_NAME: Pocket-ID
               GENERIC_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
