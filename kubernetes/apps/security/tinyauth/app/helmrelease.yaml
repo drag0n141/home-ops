@@ -88,7 +88,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          pocket-id:
+          tinyauth:
             app:
               - path: /data
                 subPath: data
