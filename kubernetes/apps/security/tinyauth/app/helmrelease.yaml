@@ -21,14 +21,14 @@ spec:
             env:
               TZ: ${TIMEZONE}
               APP_URL: https://tinyauth.${SECRET_DOMAIN}
-              COOKIE_SECURE: true
               DISABLE_ANALYTICS: true
               DISABLE_CONTINUE: true
-              GENERIC_NAME: Pocket-ID
-              GENERIC_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
-              GENERIC_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
-              GENERIC_USER_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
-              GENERIC_SCOPES: openid email profile groups
+              PROVIDERS_POCKETID_NAME: Pocket-ID
+              PROVIDERS_POCKETID_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
+              PROVIDERS_POCKETID_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
+              PROVIDERS_POCKETID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              PROVIDERS_POCKETID_SCOPES: openid email profile groups
+              SECURE_COOKIE: true
               SESSION_EXPIRY: 604800
             envFrom:
               - secretRef:
@@ -39,7 +39,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/healthcheck
+                    path: /api/healthz
                     port: &port 3000
                   initialDelaySeconds: 0
                   periodSeconds: 10
