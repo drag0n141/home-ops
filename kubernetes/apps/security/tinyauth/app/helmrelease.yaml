@@ -84,3 +84,11 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          pocket-id:
+            app:
+              - path: /data
+                subPath: data
