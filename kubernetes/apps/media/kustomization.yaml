@@ -13,6 +13,7 @@ resources:
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./plex/ks.yaml
+  - ./pulsarr/ks.yaml
   - ./radarr/ks.yaml
   - ./recommendarr/ks.yaml
   - ./recyclarr/ks.yaml

@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app pulsarr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      pulsarr:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+            envFrom: &envFrom
+              - secretRef:
+                  name: pulsarr-secret
+        containers:
+          app:
+            image:
+              repository: docker.io/lakker/pulsarr
+              tag: 0.6.1@sha256:7c5878b1cf2e7fc016897210056acc6d5d080f02409d3d0d64668baa28070bcf
+            env:
+              TZ: ${TIMEZONE}
+              baseUrl: https://pulsarr.${SECRET_DOMAIN_INTERNAL}
+              cookieSecured: true
+              dbType: postgres
+              logLevel: silent
+              port: &port 3003
+            envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "pulsarr.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          pulsarr:
+            app:
+              - path: /app/data/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
