@@ -40,6 +40,8 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
       prometheusSpec:
+        externalUrl: https://prometheus.${SECRET_DOMAIN_INTERNAL}
+        version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io
           repository: prompp/prompp
