@@ -38,6 +38,7 @@ resources:
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
+  - ./termix/ks.yaml
   - ./ts3/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./vikunja/ks.yaml
