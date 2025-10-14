@@ -35,7 +35,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["CHMOD], drop: ["ALL"] }
+              capabilities: { add: ["CHMOD"], drop: ["ALL"] }
             resources:
               requests:
                 cpu: 5m
