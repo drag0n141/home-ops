@@ -37,17 +37,6 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: gotify
-  - name: gatus
-    group: internal
-    url: https://status.${SECRET_DOMAIN_INTERNAL}
-    interval: 1m
-    ui:
-      hide-hostname: true
-      hide-url: true
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: gotify
   - name: minio-storage
     group: internal
     url: https://console-minio.${SECRET_DOMAIN_INT}
