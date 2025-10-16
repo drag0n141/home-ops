@@ -8,12 +8,12 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openebs
-  install:
-    disableHooks: true
-  upgrade:
-    disableHooks: true
   values:
+    preUpgradeHook:
+      enabled: false
     localpv-provisioner:
+      analytics:
+        enabled: false
       localpv:
         image:
           registry: quay.io/
