@@ -33,7 +33,6 @@ resources:
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
   - ./searxng/ks.yaml
-  - ./rdesktop/ks.yaml
   - ./shlink/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
