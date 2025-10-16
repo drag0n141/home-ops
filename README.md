@@ -27,11 +27,11 @@ _... managed with Flux, Renovate, and GitHub Actions_ 🤖
 
 
 ## 💻 Main Cluster
-| Node             | Hostname | RAM  | Storage                      | Function          | Operating System |
-|------------------|----------|------|------------------------------|-------------------|------------------|
-| Intel NUC13ANHI5 | K8s-M01  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
-| Intel NUC13ANHI5 | K8s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
-| Intel NUC13ANHI5 | K8s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kuberneter Master | Talos            |
+| Node             | Hostname | RAM  | Storage                      | Function   | Operating System |
+|------------------|----------|------|------------------------------|------------|------------------|
+| Intel NUC13ANHI5 | K8s-M01  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kubernetes | Talos            |
+| Intel NUC13ANHI5 | K8s-M02  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kubernetes | Talos            |
+| Intel NUC13ANHI5 | K8s-M03  | 64GB | OS-Disk 512GB, Ceph-Disk 4TB | Kubernetes | Talos            |
 
 ## 💽 Proxmox Cluster
 | Node             | Hostname | RAM  | Storage                      | Function | Operating System |
