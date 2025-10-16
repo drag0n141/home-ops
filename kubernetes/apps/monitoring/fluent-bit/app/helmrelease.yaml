@@ -4,10 +4,10 @@ kind: HelmRelease
 metadata:
   name: fluent-bit
 spec:
+  interval: 1h
   chartRef:
     kind: OCIRepository
     name: fluent-bit
-  interval: 30m
   values:
     config:
       service: |-
@@ -86,6 +86,6 @@ spec:
     dashboards:
       enabled: true
       annotations:
-        grafana_folder: observability
+        grafana_folder: monitoring
     serviceMonitor:
       enabled: true
