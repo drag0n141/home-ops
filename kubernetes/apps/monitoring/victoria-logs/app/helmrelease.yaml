@@ -33,8 +33,7 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
       hosts:
         - name: &host "logs.${SECRET_DOMAIN_INTERNAL}"
-          path:
-            - /
+          path: /
           port: http
       tls:
         - hosts:
