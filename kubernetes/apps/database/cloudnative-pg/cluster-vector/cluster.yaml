@@ -7,8 +7,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
-  # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.6-system-trixie@sha256:f7d5562119aff670d99d4301dc1e8352f1dc0c527ae52e3341901a20ac6018fc
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.6-0.5.3@sha256:bc5fbeba82a75de3f25d06b1dda8a7de42711ab2a0adcfca140d8344bf4d1b62
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
@@ -17,19 +16,10 @@ spec:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
   postgresql:
+    shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "400"
       shared_buffers: 512MB
-    extensions:
-      - name: vchord
-        image:
-          # renovate: datasource=docker depName=ghcr.io/tensorchord/vchord-scratch
-          reference: ghcr.io/tensorchord/vchord-scratch:pg17-v0.5.3
-        dynamic_library_path:
-          - /usr/lib/postgresql/17/lib
-        extension_control_path:
-          - /usr/share/postgresql/17/
-    shared_preload_libraries: ["vchord.so"]
   resources:
     requests:
       cpu: 500m
