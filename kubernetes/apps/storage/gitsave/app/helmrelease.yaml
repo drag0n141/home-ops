@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: docker.io/timwitzdam/gitsave
-              tag: 1.3.5@sha256:e9f96b7ca3ea33b01321b329828df4a016a534c6799f5c800c54a893184d9e0c
+              tag: 1.3.6@sha256:4c8a795463cafae705732499c78182e43e91f1e79bf72f2bbe10c3881ec6991c
             env:
               TZ: ${TIMEZONE}
             envFrom:
