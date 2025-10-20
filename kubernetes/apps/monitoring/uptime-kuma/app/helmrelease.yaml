@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/louislam/uptime-kuma
-              tag: 1.23.16-alpine@sha256:f111cca721507faa0a57e1ffc75210d64c9a9ca0f8375e0336a2a9a88ae2987c
+              tag: 1.23.17-alpine@sha256:9842072171d2fd7f7c7436227232a7639775d5a3847c0153e732368234348fc0
             env:
               TZ: ${TIMEZONE}
             securityContext:
