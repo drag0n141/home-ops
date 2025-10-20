@@ -1,6 +1,6 @@
 services:
   smartctl-exporter:
-    image: 'docker.io/prometheuscommunity/smartctl-exporter:v0.14.0'
+    image: 'quay.io/prometheuscommunity/smartctl-exporter:v0.14.0'
     hostname: 'smartctl-exporter'
     container_name: 'smartctl-exporter'
     restart: 'always'

@@ -1,12 +1,6 @@
-x-poll-config: &poll-config
-  POLL_CONFIG: |
-    - url: https://github.com/drag0n141/home-ops
-      reference: master
-      interval: 180
-      private: false
-
+---
 services:
-  doco-co:
+  doco-cd:
     image: 'ghcr.io/kimdre/doco-cd:0.42.1'
     hostname: 'doco-cd'
     container_name: 'doco-cd'
@@ -15,13 +9,16 @@ services:
       - '8080:8080'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - '/mnt/nvme/appdata/doco-co:/data:rw'
+      - '/mnt/nvme/appdata/doco-cd:/data:rw'
     environment:
       TZ: ${TZ}
       HTTP_PORT: 8080
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN: ${SECRET_PROVIDER_ACCESS_TOKEN}
-      <<: *poll-config
+      POLL_CONFIG: |
+        - url: https://github.com/drag0n141/home-ops.git
+          reference: master
+          interval: 3600
     networks:
       - internal
     security_opt:
