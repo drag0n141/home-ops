@@ -1,3 +1,4 @@
+---
 services:
   traefik:
     image: 'docker.io/traefik:v3.5.3'

@@ -1,3 +1,4 @@
+---
 services:
   dnsmasq:
     image: 'quay.io/poseidon/dnsmasq:v0.5.0'

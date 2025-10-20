@@ -1,3 +1,4 @@
+---
 services:
   smartctl-exporter:
     image: 'quay.io/prometheuscommunity/smartctl-exporter:v0.14.0'
