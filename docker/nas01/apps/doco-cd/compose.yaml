@@ -23,6 +23,18 @@ services:
       - internal
     security_opt:
       - 'no-new-privileges:true'
+    healthcheck:
+      interval: 30s
+      retries: 3
+      start_period: 15s
+      test:
+        - CMD
+        - wget
+        - '--no-verbose'
+        - '--tries=1'
+        - '--spider'
+        - http://localhost:8080/v1/health
+      timeout: 5s
 
 networks:
   internal:
