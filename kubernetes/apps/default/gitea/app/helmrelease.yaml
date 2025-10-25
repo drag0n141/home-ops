@@ -14,7 +14,7 @@ spec:
     image:
       registry: ghcr.io
       repository: go-gitea/gitea
-      tag: 1.24.6
+      tag: 1.24.7
       rootless: true
     containerSecurityContext:
       capabilities:
