@@ -1,6 +1,7 @@
 libraries:
   Filme-4K:
     schedule: hourly(6),hourly(18)
+    refresh_metadata: true
     overlay_files:
     - remove_overlays: false
     - file: config/overlays.yml
@@ -11,6 +12,7 @@ libraries:
         4K-Episode: false
   Serien-4K:
     schedule: hourly(6),hourly(18)
+    refresh_metadata: true
     overlay_files:
     - remove_overlays: false
     - file: config/overlays.yml
