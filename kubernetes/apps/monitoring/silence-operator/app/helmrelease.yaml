@@ -14,7 +14,5 @@ spec:
     crds: CreateReplace
   values:
     alertmanagerAddress: http://alertmanager.monitoring.svc.cluster.local:9093
-    image:
-      registry: quay.io
     networkPolicy:
       enabled: false
