@@ -19,5 +19,11 @@
       versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>)$",
       matchPackagePatterns: ["miniflux"]
     },
+    {
+      description: ["Custom versioning for termix"],
+      matchDatasources: ["docker"],
+      versioning: "regex:^release\\-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+      matchPackagePatterns: ["termix"]
+    },
   ]
 }
