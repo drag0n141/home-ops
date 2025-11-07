@@ -42,9 +42,9 @@ spec:
                   httpGet:
                     path: /api/health
                     port: &port 3011
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
+                  initialDelaySeconds: 40
+                  periodSeconds: 30
+                  timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
               startup:
