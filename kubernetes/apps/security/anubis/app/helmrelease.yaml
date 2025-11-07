@@ -20,7 +20,6 @@ spec:
               tag: v1.23.0@sha256:04d7d67f1d09e8fa87ba42108f920eb487bb75b43922a009ea87bbcf1b5b5c0b
             env:
               TZ: ${TIMEZONE}
-              CUSTOM_REAL_IP_HEADER: true
               COOKIE_DOMAIN: ${SECRET_DOMAIN}
               PUBLIC_URL: https://anubis.${SECRET_DOMAIN}
               REDIRECT_DOMAINS: "*.${SECRET_DOMAIN},*.${SECRET_DOMAIN_SHORT}"
