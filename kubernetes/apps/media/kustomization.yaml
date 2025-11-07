@@ -20,6 +20,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./webhook/ks.yaml
+  - ./youtarr/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace

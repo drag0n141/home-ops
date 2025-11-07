@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app tinyauth
+  name: &app youtarr
 spec:
   interval: 1h
   chartRef:
@@ -10,41 +10,45 @@ spec:
     name: app-template
   values:
     controllers:
-      tinyauth:
+      youtarr:
+        labels:
+          nfsMount: "true"
+          postgres: "true"
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+            envFrom: &envFrom
+              - secretRef:
+                  name: youtarr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/steveiliop56/tinyauth
-              tag: v4.0.1@sha256:815a53c517b4b8f29c02245fc89185186d12162f6bfc2e7566acf888c72ff14b
+              repository: docker.io/dialmaster/youtarr
+              tag: v1.48.0@sha256:0dabd4e16246d160736540b17c3783cc2c738a575322fffd5c61bb3235f1caaa
             env:
               TZ: ${TIMEZONE}
-              APP_URL: https://tinyauth.${SECRET_DOMAIN}
-              DISABLE_ANALYTICS: true
-              PROVIDERS_POCKETID_NAME: Pocket-ID
-              PROVIDERS_POCKETID_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
-              PROVIDERS_POCKETID_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
-              PROVIDERS_POCKETID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
-              PROVIDERS_POCKETID_SCOPES: openid email profile groups
-              SECURE_COOKIE: true
-              SESSION_EXPIRY: 604800
-            envFrom:
-              - secretRef:
-                  name: tinyauth-secret
+              IN_DOCKER_CONTAINER: 1
+              AUTH_ENABLED: false
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/healthz
-                    port: &port 3000
+                    path: /api/health
+                    port: &port 3011
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+              startup:
+                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -52,14 +56,15 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 64Mi
               limits:
-                memory: 256Mi
+                memory: 4Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
@@ -67,13 +72,13 @@ spec:
             port: *port
     ingress:
       app:
-        className: traefik-external
+        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
         hosts:
-          - host: &host "tinyauth.${SECRET_DOMAIN}"
+          - host: &host "youtarr.${SECRET_DOMAIN_INTERNAL}"
             paths:
               - path: /
                 service:
@@ -84,10 +89,23 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/config
+      media:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/media
+        advancedMounts:
+          youtarr:
+            app:
+              - path: /usr/src/app/data
+                subPath: youtube
       tmpfs:
         type: emptyDir
         advancedMounts:
-          tinyauth:
+          youtarr:
             app:
-              - path: /data
-                subPath: data
+              - path: /tmp
+                subPath: tmp
