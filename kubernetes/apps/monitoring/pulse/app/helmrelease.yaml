@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/rcourtman/pulse
-              tag: v4.29.0@sha256:ba914a18a504f149edce9f65bbf0fda91e1f87b960dbbbcc0f08e76a2d589c79
+              tag: v4.29.0@sha256:fc63b6e339f0d0bb93b63ebad38fa4c5e4cd66676c4ed3723f41341df70df524
             env:
               TZ: ${TIMEZONE}
               DISCOVERY_SUBNET: "192.168.254.0/24"
