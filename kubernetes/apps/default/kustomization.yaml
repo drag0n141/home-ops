@@ -5,6 +5,7 @@ namespace: default
 resources:
   - ./apprise/ks.yaml
   - ./atuin/ks.yaml
+  - ./bentopdf/ks.yaml
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
   - ./convertx/ks.yaml
@@ -34,7 +35,6 @@ resources:
   - ./paperless/ks.yaml
   - ./searxng/ks.yaml
   - ./shlink/ks.yaml
-  - ./stirling-pdf/ks.yaml
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./termix/ks.yaml
