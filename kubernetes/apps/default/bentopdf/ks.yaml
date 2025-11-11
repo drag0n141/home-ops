@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   path: ./kubernetes/apps/default/bentopdf/app
   prune: true
   sourceRef:
