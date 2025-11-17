@@ -47,8 +47,9 @@ machine:
           - vlanId: 160
             dhcp: false
             mtu: 1500
-      - deviceSelector:
-          # k8s-m01
+      - # k8s-m01
+        deviceSelector:
+          driver: thunderbolt-net
           busPath: 0-1.0
         dhcp: false
         mtu: 65520
@@ -56,8 +57,9 @@ machine:
         routes:
           - network: 169.254.255.101/32
             metric: 2048
-      - deviceSelector:
-          # k8s-m02
+      - # k8s-m02
+        deviceSelector:
+          driver: thunderbolt-net
           busPath: 1-1.0
         dhcp: false
         mtu: 65520
@@ -122,8 +124,8 @@ machine:
       forwardKubeDNSToHost: false
   udev:
     rules:
-      # Thunderbolt
-      - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+      - # Thunderbolt - Disable Power Management
+        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/control}="on"
   kernel:
     modules:
       - name: thunderbolt
