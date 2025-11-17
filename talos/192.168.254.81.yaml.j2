@@ -162,7 +162,8 @@ cluster:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1beta1=true
     certSANs: ["127.0.0.1", "192.168.254.250"]
     disablePodSecurityPolicy: true
     auditPolicy:
