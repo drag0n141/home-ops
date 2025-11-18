@@ -67,6 +67,8 @@ spec:
       server: smtp-relay.networking.svc.cluster.local
       port: 2525
       from: netbox@${SECRET_DOMAIN}
+    csrf:
+      trustedOrigins: ["https://netbox.${SECRET_DOMAIN_INTERNAL}"]
     persistence:
       enabled: false
     readinessProbe:
