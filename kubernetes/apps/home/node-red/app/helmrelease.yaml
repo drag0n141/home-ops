@@ -16,7 +16,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/nodered/node-red
+              repository: ghcr.io/node-red/node-red
               tag: 4.1.1@sha256:a840dff7e3f704466600d9e4660d46a9f795c589bf9be20a5727c636a8125563
             env:
               TZ: ${TIMEZONE}
