@@ -16,7 +16,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/rcourtman/pulse
+              repository: ghcr.io/rcourtman/pulse
               tag: 4.33.0@sha256:4ffae250633e346de0ffecbb5071e40eda765d9f7053f1213ed3a2358a7ac4f8
             env:
               TZ: ${TIMEZONE}
