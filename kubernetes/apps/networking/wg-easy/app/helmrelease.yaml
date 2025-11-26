@@ -43,7 +43,7 @@ spec:
           wstunnel:
             image:
               repository: ghcr.io/erebe/wstunnel
-              tag: v10.5.0@sha256:83b3a82d1ea08a5e566c5b960a8dcc6308ff66e611ba45210ece2e49202a9fff
+              tag: v10.5.1@sha256:ad821fdf49020882c2fabbcabc7ba767ef63d8347be3d30766391a2335b50cfb
             command: ["/bin/sh", "-c", "exec /home/app/wstunnel server wss://0.0.0.0:8080 --restrict-to=localhost:51820"]
             env:
               TZ: ${TIMEZONE}
