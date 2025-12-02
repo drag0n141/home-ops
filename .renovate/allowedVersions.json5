@@ -5,6 +5,11 @@
       matchDatasources: ["docker"],
       matchPackagePatterns: ["cloudnative-vectorchord", "postgresql", "postgres-backup-local", "postgres-init"],
       allowedVersions: "<=17"
+    },
+    {
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["pulsarr"],
+      ignoredVersions: "1.1.6"
     }
   ]
 }
