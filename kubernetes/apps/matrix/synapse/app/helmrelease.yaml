@@ -118,11 +118,9 @@ spec:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-      hosts:
-        - host: &host "matrix.${SECRET_DOMAIN}"
       tls:
         - hosts:
-            - *host
+            - matrix.${SECRET_DOMAIN}
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
     postgresql:
       enabled: false
@@ -164,9 +162,9 @@ spec:
 #        - name: matrix-hookshot-registration
 #          secret:
 #            secretName: matrix-hookshot-secret
-#        - name: synapse-mas-secret
-#          secret:
-#            secretName: synapse-mas-secret
+        - name: synapse-mas-secret
+          secret:
+            secretName: synapse-mas-secret
 #      extraVolumeMounts:
 #        - name: mautrix-whatsapp-registration
 #          mountPath: /mautrix-whatsapp
@@ -177,10 +175,10 @@ spec:
 #        - name: matrix-hookshot-registration
 #          mountPath: /matrix-hookshot
 #          readOnly: true
-#        - name: synapse-mas-secret
-#          mountPath: /synapse/config/conf.d/mas_config.yaml
-#          subPath: mas_config.yaml
-#          readOnly: true
+        - name: synapse-mas-secret
+          mountPath: /synapse/config/conf.d/mas_config.yaml
+          subPath: mas_config.yaml
+          readOnly: true
     signingkey:
       job:
         enabled: false
