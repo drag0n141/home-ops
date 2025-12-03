@@ -2,11 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: matrix
-resources:
+resources: []
 #  - ./element/ks.yaml
 #  - ./mas/ks.yaml
-#  - ./synapse-admin/ks.yaml
 #  - ./synapse/ks.yaml
+#  - ./synapse-admin/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace

@@ -1,3 +1,0 @@
-{
-  "restrictBaseUrl": "https://matrix.${SECRET_DOMAIN}"
-}
