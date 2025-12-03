@@ -114,13 +114,28 @@ spec:
     ingress:
       enabled: true
       className: traefik-external
+      includeServerName: false
       annotations:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      hosts:
+        - &host matrix.${SECRET_DOMAIN}
+      wkHosts:
+        - *host
+      csHosts:
+        - *host
+      csPaths:
+        - path: /_synapse/client/oidc
+          pathType: Prefix
+          backend:
+            service:
+              name: synapse-matrix-synapse
+              port:
+                number: 8008
       tls:
         - hosts:
-            - matrix.${SECRET_DOMAIN}
+            - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
     postgresql:
       enabled: false
