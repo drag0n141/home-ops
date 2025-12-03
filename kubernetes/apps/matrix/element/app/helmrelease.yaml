@@ -71,7 +71,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          vernemq:
+          element:
             app:
               - path: /tmp
                 subPath: tmp

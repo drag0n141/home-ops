@@ -192,16 +192,20 @@ spec:
   postRenderers:
     - kustomize:
         patches:
-          - kind: Deployment
-            apiVersion: apps/v1
-            metadata:
+          - target:
+              kind: Deployment
               name: synapse
-            spec:
-              template:
-                spec:
-                  initContainers:
-                    - name: 01-init-db
-                      image: ghcr.io/home-operations/postgres-init:17
-                      envFrom:
-                        - secretRef:
-                            name: synapse-secret
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: synapse
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: 01-init-db
+                        image: ghcr.io/home-operations/postgres-init:17
+                        envFrom:
+                          - secretRef:
+                              name: synapse-secret
