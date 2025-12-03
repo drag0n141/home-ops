@@ -1,0 +1,91 @@
+---
+http:
+  listeners:
+    - name: web
+      resources:
+        - name: discovery
+        - name: human
+        - name: oauth
+        - name: compat
+        - name: graphql
+        - name: assets
+      binds:
+        - address: '[::]:8080'
+      proxy_protocol: false
+    - name: internal
+      resources:
+        - name: health
+      binds:
+        - host: localhost
+          port: 8081
+      proxy_protocol: false
+  trusted_proxies:
+    - 10.42.0.0/16
+    - 10.43.0.0/16
+  public_base: "https://mas.${SECRET_DOMAIN}"
+database:
+  uri: "{{ .pg_uri }}"
+  max_connections: 10
+  min_connections: 0
+  connect_timeout: 30
+  idle_timeout: 600
+  max_lifetime: 1800
+email:
+  from: "matrix@${SECRET_DOMAIN}"
+  reply_to: "matrix@${SECRET_DOMAIN}"
+  transport: smtp
+  mode: plain
+  port: 2525
+  hostname: smtp-relay.networking.svc.cluster.local
+secrets:
+  encryption: "{{ .SECRETS_ENCRYPTION }}"
+  keys:
+    - kid: "{{ .SECRETS_KEYS_0_KID }}"
+      key: |
+        {{ .SECRETS_KEYS_0_KEY }}
+    - kid: "{{ .SECRETS_KEYS_1_KID }}"
+      key: |
+        {{ .SECRETS_KEYS_1_KEY }}
+    - kid: "{{ .SECRETS_KEYS_2_KID }}"
+      key: |
+        {{ .SECRETS_KEYS_2_KEY }}
+    - kid: "{{ .SECRETS_KEYS_3_KID }}"
+      key: |
+        {{ .SECRETS_KEYS_3_KEY }}
+passwords:
+  enabled: true
+  schemes:
+    - version: 1
+      algorithm: bcrypt
+    - version: 2
+      algorithm: argon2id
+  minimum_complexity: 3
+matrix:
+  kind: synapse
+  homeserver: "${SECRET_DOMAIN}"
+  secret: "{{ .SYNAPSE_SECRET }}"
+  endpoint: http://synapse-matrix-synapse.matrix.svc.cluster.local:8008
+clients:
+  - client_id: 0000000000000000000SYNAPSE
+    client_auth_method: client_secret_basic
+    client_secret: "{{ .SYNAPSE_SECRET }}"
+upstream_oauth2:
+  providers:
+    - id: pocket_id
+      human_name: Pocket ID
+      issuer: "https://id.${SECRET_DOMAIN}"
+      client_id: "{{ .SYNAPSE_CLIENT_ID }}"
+      client_secret: "{{ .SYNAPSE_CLIENT_SECRET }}"
+      token_endpoint_auth_method: client_secret_basic
+      scope: "openid profile email"
+      claims_imports:
+        localpart:
+          action: require
+          template: "{{ `{{ user.preferred_username }}` }}"
+        displayname:
+          action: suggest
+          template: "{{ `{{ user.name }}` }}"
+        email:
+          action: suggest
+          template: "{{ `{{ user.email }}` }}"
+          set_email_verification: always

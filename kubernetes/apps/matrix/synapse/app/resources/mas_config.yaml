@@ -1,0 +1,9 @@
+experimental_features:
+  msc3861:
+    enabled: true
+    issuer: "https://mas.${SECRET_DOMAIN}"
+    client_id: 0000000000000000000SYNAPSE
+    client_auth_method: client_secret_basic
+    client_secret: "{{ .SYNAPSE_SECRET }}"
+    admin_token: "{{ .SYNAPSE_SECRET }}"
+    introspection_endpoint: "http://mas.matrix.svc.cluster.local:8080/oauth2/introspect"
