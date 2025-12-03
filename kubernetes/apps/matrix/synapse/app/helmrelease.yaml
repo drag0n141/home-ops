@@ -114,7 +114,6 @@ spec:
     ingress:
       enabled: true
       className: traefik-external
-      includeServerName: false
       annotations:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
