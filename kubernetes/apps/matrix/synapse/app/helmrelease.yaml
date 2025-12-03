@@ -194,12 +194,12 @@ spec:
         patches:
           - target:
               kind: Deployment
-              name: synapse-matrix-synaps
+              name: synapse-matrix-synapse
             patch: |
               apiVersion: apps/v1
               kind: Deployment
               metadata:
-                name: synapse-matrix-synaps
+                name: synapse-matrix-synapse
               spec:
                 template:
                   spec:
