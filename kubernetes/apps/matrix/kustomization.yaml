@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: matrix
 resources:
   - ./element/ks.yaml
-#  - ./mas/ks.yaml
+  - ./mas/ks.yaml
   - ./synapse/ks.yaml
   - ./synapse-admin/ks.yaml
 components:

@@ -24,7 +24,7 @@ http:
     - 10.43.0.0/16
   public_base: "https://mas.${SECRET_DOMAIN}"
 database:
-  uri: "{{ .pg_uri }}"
+  uri: postgres://{{ .MAS_POSTGRES_USER }}:{{ .MAS_POSTGRES_PASSWORD }}@postgres17-rw.database.svc.cluster.local/{{ .MAS_POSTGRES_DB }}
   max_connections: 10
   min_connections: 0
   connect_timeout: 30
