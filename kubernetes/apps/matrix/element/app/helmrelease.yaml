@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/element-hq/element-web
-              tag: v1.12.5@sha256:da98dc79218265bc6154c340c14bab5b47f9b7dac019ad85bc75be85ca7f4c4a
+              tag: v1.12.6@sha256:a84f294ce46e4327ebacecb78bfc94cf6a45c7ffa5104a28f06b5ac69d0b2548
             env:
               TZ: ${TIMEZONE}
             securityContext:
