@@ -20,22 +20,12 @@ spec:
               tag: v1.12.5@sha256:da98dc79218265bc6154c340c14bab5b47f9b7dac019ad85bc75be85ca7f4c4a
             env:
               TZ: ${TIMEZONE}
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
                 memory: 128Mi
               limits:
                 memory: 256Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
