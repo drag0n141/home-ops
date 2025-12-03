@@ -152,7 +152,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/_synapse/metrics"
         prometheus.io/port: "9090"
-#      extraVolumes:
+      extraVolumes:
 #        - name: mautrix-whatsapp-registration
 #          secret:
 #            secretName: mautrix-whatsapp-secret
@@ -165,7 +165,7 @@ spec:
         - name: synapse-mas-secret
           secret:
             secretName: synapse-mas-secret
-#      extraVolumeMounts:
+      extraVolumeMounts:
 #        - name: mautrix-whatsapp-registration
 #          mountPath: /mautrix-whatsapp
 #          readOnly: true
