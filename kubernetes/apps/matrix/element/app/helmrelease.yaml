@@ -67,10 +67,3 @@ spec:
         globalMounts:
           - path: /app/config.json
             subPath: config.json
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          element:
-            app:
-              - path: /tmp
-                subPath: tmp
