@@ -22,7 +22,7 @@ spec:
               TZ: ${TIMEZONE}
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -68,3 +68,10 @@ spec:
         globalMounts:
           - path: /app/config.json
             subPath: config.json
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          vernemq:
+            app:
+              - path: /tmp
+                subPath: tmp
