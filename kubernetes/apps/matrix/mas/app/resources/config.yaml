@@ -42,16 +42,16 @@ secrets:
   keys:
     - kid: "{{ .SECRETS_KEYS_0_KID }}"
       key: |
-        {{ .SECRETS_KEYS_0_KEY | nindent 8 }}
+        {{- .SECRETS_KEYS_0_KEY | nindent 8 }}
     - kid: "{{ .SECRETS_KEYS_1_KID }}"
       key: |
-        {{ .SECRETS_KEYS_1_KEY | nindent 8 }}
+        {{- .SECRETS_KEYS_1_KEY | nindent 8 }}
     - kid: "{{ .SECRETS_KEYS_2_KID }}"
       key: |
-        {{ .SECRETS_KEYS_2_KEY | nindent 8 }}
+        {{- .SECRETS_KEYS_2_KEY | nindent 8 }}
     - kid: "{{ .SECRETS_KEYS_3_KID }}"
       key: |
-        {{ .SECRETS_KEYS_3_KEY | nindent 8 }}
+        {{- .SECRETS_KEYS_3_KEY | nindent 8 }}
 passwords:
   enabled: true
   schemes:
@@ -71,7 +71,7 @@ clients:
     client_secret: "{{ .SYNAPSE_SECRET }}"
 upstream_oauth2:
   providers:
-    - id: pocket_id
+    - id: "{{ .SYNAPSE_PROVIDER_ID }}"
       human_name: Pocket ID
       issuer: "https://id.${SECRET_DOMAIN}"
       client_id: "{{ .SYNAPSE_CLIENT_ID }}"
