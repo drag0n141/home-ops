@@ -42,16 +42,16 @@ secrets:
   keys:
     - kid: "{{ .SECRETS_KEYS_0_KID }}"
       key: |
-        {{ .SECRETS_KEYS_0_KEY | indent 8 }}
+        {{ .SECRETS_KEYS_0_KEY | nindent 8 }}
     - kid: "{{ .SECRETS_KEYS_1_KID }}"
       key: |
-        {{ .SECRETS_KEYS_1_KEY | indent 8 }}
+        {{ .SECRETS_KEYS_1_KEY | nindent 8 }}
     - kid: "{{ .SECRETS_KEYS_2_KID }}"
       key: |
-        {{ .SECRETS_KEYS_2_KEY | indent 8 }}
+        {{ .SECRETS_KEYS_2_KEY | nindent 8 }}
     - kid: "{{ .SECRETS_KEYS_3_KID }}"
       key: |
-        {{ .SECRETS_KEYS_3_KEY | indent 8 }}
+        {{ .SECRETS_KEYS_3_KEY | nindent 8 }}
 passwords:
   enabled: true
   schemes:
