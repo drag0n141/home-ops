@@ -2,112 +2,190 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sabnzbd
+  name: &app synapse
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: matrix-synapse
   values:
-    controllers:
-      sabnzbd:
-        labels:
-          nfsMount: "true"
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          app:
-            image:
-              repository: ghcr.io/home-operations/sabnzbd
-              tag: 4.5.5@sha256:da57e01cdebc547852b6df85c8df8c0e4d87792742c7608c5590dc653b184e8c
-            env:
-              TZ: ${TIMEZONE}
-              SABNZBD__PORT: &port 8080
-              SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                sabnzbd,
-                sabnzbd.default,
-                sabnzbd.default.svc,
-                sabnzbd.default.svc.cluster,
-                sabnzbd.default.svc.cluster.local,
-                sabnzbd.${SECRET_DOMAIN_INTERNAL}
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api?mode=version
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-              startup:
-                enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-                memory: 512Mi
-              limits:
-                memory: 6144Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-    service:
-      app:
-        ports:
-          http:
-            port: *port
+    serverName: "${SECRET_DOMAIN}"
+    publicServerName: "matrix.${SECRET_DOMAIN}"
+    wellknown:
+      enabled: true
+      image:
+        repository: ghcr.io/rtsp/docker-lighttpd
+        tag: 1.4.76
+      client:
+        m.homeserver:
+          base_url: "https://matrix.${SECRET_DOMAIN}"
+    workers:
+      default:
+        resources:
+          requests:
+            memory: 512Mi
+          limits:
+            memory: 1Gi
+      media_repository:
+        enabled: false
+        strategy:
+          type: Recreate
+      federation_sender:
+        enabled: false
+        replicaCount: 2
+      generic_worker:
+        enabled: false
+        generic: true
+        replicaCount: 2
+        listeners:
+          - client
+        csPaths:
+          ## Client API requests
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/createRoom$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/publicRooms$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/joined_members$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/context/"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/members$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state$"
+          - "/_matrix/client/v1/rooms/.*/hierarchy$"
+          - "/_matrix/client/unstable/org.matrix.msc2716/rooms/.*/batch_send$"
+          - "/_matrix/client/unstable/im.nheko.summary/rooms/.*/summary$"
+          - "/_matrix/client/(r0|v3|unstable)/account/3pid$"
+          - "/_matrix/client/(r0|v3|unstable)/account/whoami$"
+          - "/_matrix/client/(r0|v3|unstable)/devices$"
+          - "/_matrix/client/versions$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/event/"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/joined_rooms$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/search$"
+          ## Encryption requests
+          - "/_matrix/client/(r0|v3|unstable)/keys/query$"
+          - "/_matrix/client/(r0|v3|unstable)/keys/changes$"
+          - "/_matrix/client/(r0|v3|unstable)/keys/claim$"
+          - "/_matrix/client/(r0|v3|unstable)/room_keys/"
+          ## Registration/login requests
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/login$"
+          - "/_matrix/client/(r0|v3|unstable)/register$"
+          - "/_matrix/client/v1/register/m.login.registration_token/validity$"
+          ## Event sending requests
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/redact"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state/"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/(join|invite|leave|ban|unban|kick)$"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/join/"
+          - "/_matrix/client/(api/v1|r0|v3|unstable)/profile/"
+          ## User directory search requests
+          - "/_matrix/client/(r0|v3|unstable)/user_directory/search"
+      synchrotron:
+        enabled: false
+        generic: true
+        listeners:
+          - client
+        csPaths:
+          - "/_matrix/client/(v2_alpha|r0|v3)/sync$"
+          - "/_matrix/client/(api/v1|v2_alpha|r0|v3)/events$"
+          - "/_matrix/client/(api/v1|r0|v3)/initialSync$"
+          - "/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync$"
+      frontend_proxy:
+        enabled: false
+    config:
+      reportStats: true
+    extraConfig:
+      email:
+        smtp_host: smtp-relay.networking.svc.cluster.local
+        smtp_port: 2525
+        notif_from: "DrAg0n141 Matrix <matrix@${SECRET_DOMAIN}>"
+      presence:
+        enabled: true
+      enable_3pid_lookup: false
+      app_service_config_files:
+        - "/mautrix-whatsapp/registration.yaml"
+        - "/mautrix-discord/registration.yaml"
+        - "/matrix-hookshot/registration.yaml"
+        - "/mautrix-discord/double-puppet-registration.yaml"
+      use_appservice_legacy_authorization: true
+      url_preview_ip_range_blacklist:
+        - "127.0.0.0/8"
+        - '192.168.0.0/16'
+        - '10.0.0.0/8'
+      url_preview_enabled: true
+      experimental_features:
+        msc3575_enabled: true
     ingress:
-      app:
-        className: traefik-internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
-        hosts:
-          - host: &host sabnzbd.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      enabled: true
+      className: traefik-external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      hosts:
+        - host: &host "matrix.${SECRET_DOMAIN}"
+      tls:
+        - hosts:
+            - *host
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+    externalPostgresql:
+      host: "postgres17-rw.database.svc.cluster.local"
+      port: 5432
+      username: "synapse"
+      existingSecret: "synapse-secret"
+      existingSecretPasswordKey: POSTGRES_PASSWORD
+      database: "synapse_db"
+    externalRedis:
+      host: dragonfly.database.svc.cluster.local
+      port: 6379
+      dbid: 14
+      existingSecret: "synapse-secret"
+      existingSecretPasswordKey: REDIS_PASSWORD
+    synapse:
+      strategy:
+        type: Recreate
+      resources:
+        requests:
+          cpu: 10m
+          memory: 1000Mi
+        limits:
+          memory: 2500Mi
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/_synapse/metrics"
+        prometheus.io/port: "9090"
+      extraVolumes:
+        - name: mautrix-whatsapp-registration
+          secret:
+            secretName: mautrix-whatsapp-secret
+        - name: mautrix-discord-registration
+          secret:
+            secretName: mautrix-discord-secret
+        - name: synapse-mas-secret
+          secret:
+            secretName: synapse-mas-secret
+        - name: matrix-hookshot-registration
+          secret:
+            secretName: matrix-hookshot-secret
+      extraVolumeMounts:
+        - name: mautrix-whatsapp-registration
+          mountPath: /mautrix-whatsapp
+          readOnly: true
+        - name: mautrix-discord-registration
+          mountPath: /mautrix-discord
+          readOnly: true
+        - name: matrix-hookshot-registration
+          mountPath: /matrix-hookshot
+          readOnly: true
+        - name: synapse-mas-secret
+          mountPath: /synapse/config/conf.d/mas_config.yaml
+          subPath: mas_config.yaml
+          readOnly: true
+    signingkey:
+      job:
+        enabled: false
+      existingSecret: synapse-secret
+      existingSecretKey: SIGNING_KEY
     persistence:
-      config:
-        existingClaim: *app
-        globalMounts:
-          - path: /config
-      media:
-        type: nfs
-        server: nas01.${SECRET_DOMAIN_INT}
-        path: /mnt/data/media
-        globalMounts:
-          - path: /mnt/data/media
-      nzb:
-        type: nfs
-        server: nas01.${SECRET_DOMAIN_INT}
-        path: /mnt/data/nzb
-        globalMounts:
-          - path: /nzb
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          sabnzbd:
-            app:
-              - path: /config/logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp
+      enabled: true
+      existingClaim: *app
