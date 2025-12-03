@@ -19,6 +19,9 @@ spec:
       client:
         m.homeserver:
           base_url: "https://matrix.${SECRET_DOMAIN}"
+        org.matrix.msc2965.authentication:
+          issuer: "https://mas.${SECRET_DOMAIN}"
+          account: "https://mas.${SECRET_DOMAIN}/account"
     workers:
       default:
         resources:
