@@ -189,3 +189,19 @@ spec:
     persistence:
       enabled: true
       existingClaim: *app
+  postRenderers:
+    - kustomize:
+        patches:
+          - kind: Deployment
+            apiVersion: apps/v1
+            metadata:
+              name: synapse
+            spec:
+              template:
+                spec:
+                  initContainers:
+                    - name: 01-init-db
+                      image: ghcr.io/home-operations/postgres-init:17
+                      envFrom:
+                        - secretRef:
+                            name: synapse-secret
