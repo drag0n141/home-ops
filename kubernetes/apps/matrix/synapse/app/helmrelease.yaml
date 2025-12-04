@@ -115,7 +115,6 @@ spec:
       enabled: true
       className: traefik-external
       includeServerName: false
-      traefikPaths: true
       annotations:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -126,14 +125,6 @@ spec:
         - *host
       csHosts:
         - *host
-      csPaths:
-        - path: "/_matrix/client/.*(login|logout|refresh)"
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: mas
-              port:
-                name: http
       tls:
         - hosts:
             - *host

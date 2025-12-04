@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./ingressroute.yaml
   - ./ocirepository.yaml
 configMapGenerator:
   - name: synapse-mas-configmap
