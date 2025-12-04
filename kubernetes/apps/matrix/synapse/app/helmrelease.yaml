@@ -134,13 +134,6 @@ spec:
               name: mas
               port:
                 number: 8080
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: synapse-matrix-synapse
-              port:
-                number: 8008
       tls:
         - hosts:
             - *host
