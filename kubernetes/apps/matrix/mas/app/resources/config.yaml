@@ -63,12 +63,12 @@ passwords:
 matrix:
   kind: synapse
   homeserver: "${SECRET_DOMAIN}"
-  secret: "{{ .SYNAPSE_SECRET }}"
+  secret: "{{ .SYNAPSE_ADMIN_TOKEN }}"
   endpoint: http://synapse-matrix-synapse.matrix.svc.cluster.local:8008
 clients:
   - client_id: 0000000000000000000SYNAPSE
     client_auth_method: client_secret_basic
-    client_secret: "{{ .SYNAPSE_SECRET }}"
+    client_secret: "{{ .SYNAPSE_MAS_CLIENT_SECRET }}"
 upstream_oauth2:
   providers:
     - id: "{{ .SYNAPSE_PROVIDER_ID }}"
