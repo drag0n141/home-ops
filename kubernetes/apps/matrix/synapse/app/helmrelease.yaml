@@ -31,9 +31,9 @@ spec:
       enable_3pid_lookup: false
       app_service_config_files:
         - "/mautrix-whatsapp/registration.yaml"
-#        - "/mautrix-discord/registration.yaml"
+        - "/mautrix-discord/registration.yaml"
 #        - "/matrix-hookshot/registration.yaml"
-#        - "/mautrix-discord/double-puppet-registration.yaml"
+        - "/mautrix-discord/double-puppet-registration.yaml"
       use_appservice_legacy_authorization: true
       url_preview_ip_range_blacklist:
         - "127.0.0.0/8"
@@ -84,9 +84,9 @@ spec:
         - name: mautrix-whatsapp-registration
           secret:
             secretName: mautrix-whatsapp-secret
-#        - name: mautrix-discord-registration
-#          secret:
-#            secretName: mautrix-discord-secret
+        - name: mautrix-discord-registration
+          secret:
+            secretName: mautrix-discord-secret
 #        - name: matrix-hookshot-registration
 #          secret:
 #            secretName: matrix-hookshot-secret
@@ -97,9 +97,9 @@ spec:
         - name: mautrix-whatsapp-registration
           mountPath: /mautrix-whatsapp
           readOnly: true
-#        - name: mautrix-discord-registration
-#          mountPath: /mautrix-discord
-#          readOnly: true
+        - name: mautrix-discord-registration
+          mountPath: /mautrix-discord
+          readOnly: true
 #        - name: matrix-hookshot-registration
 #          mountPath: /matrix-hookshot
 #          readOnly: true

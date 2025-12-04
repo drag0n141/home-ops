@@ -1,0 +1,22 @@
+---
+# The ID doesn't really matter, put whatever you want.
+id: doublepuppet
+# The URL is intentionally left empty (null), as the homeserver shouldn't
+# push events anywhere for this extra appservice. If you use a
+# non-spec-compliant server, you may need to put some fake URL here.
+url:
+# Generate random strings for these three fields. Only the as_token really
+# matters, hs_token is never used because there's no url, and the default
+# user (sender_localpart) is never used either.
+as_token: {{ .DISCORD_DOUBLE_PUPPET_AS_TOKEN }}
+hs_token: {{ .DISCORD_DOUBLE_PUPPET_HS_TOKEN }}
+sender_localpart: {{ .DISCORD_DOUBLE_PUPPET_LOCAL_PART }}
+# Bridges don't like ratelimiting. This should only apply when using the
+# as_token, normal user tokens will still be ratelimited.
+rate_limited: false
+namespaces:
+  users:
+    # Replace your\.domain with your server name (escape dots for regex)
+    - regex: '@.*:${SECRET_DOMAIN/./\\.}'
+      # This must be false so the appservice doesn't take over all users completely.
+      exclusive: false
