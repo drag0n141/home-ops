@@ -246,7 +246,7 @@ homeserver:
   # but https also works if they run on different machines.
   address: http://synapse-matrix-synapse.matrix.svc.cluster.local:8008
   # The domain of the homeserver (also known as server_name, used for MXIDs, etc).
-  domain: ${SECRET_DOMAIN}
+  domain: matrix.${SECRET_DOMAIN}
 
   # What software is the homeserver running?
   # Standard Matrix homeservers like Synapse, Dendrite and Conduit should just use "standard" here.
