@@ -45,7 +45,7 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 5
               readiness:
-                <<: *probe
+                <<: *probes
                 spec:
                   httpGet:
                     path: /_matrix/mau/ready
