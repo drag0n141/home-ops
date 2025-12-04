@@ -32,24 +32,6 @@ spec:
             args: [ "-c", "/config/config.yaml", "--no-update" ]
             env:
               TZ: ${TIMEZONE}
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /_matrix/mau/live
-                    port: &port 29334
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 5
-              readiness:
-                <<: *probes
-                spec:
-                  httpGet:
-                    path: /_matrix/mau/ready
-                    port: *port
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
