@@ -127,13 +127,13 @@ spec:
       csHosts:
         - *host
       paths:
-        - path: /_matrix/client/.*/(login|logout|refresh)
+        - path: "/_matrix/client/(r0|v3)/(refresh|login|logout).*"
           pathType: ImplementationSpecific
           backend:
             service:
               name: mas
               port:
-                number: 8080
+                name: http
       tls:
         - hosts:
             - *host
