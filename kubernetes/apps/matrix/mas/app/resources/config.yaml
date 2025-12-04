@@ -69,6 +69,11 @@ clients:
   - client_id: 0000000000000000000SYNAPSE
     client_auth_method: client_secret_basic
     client_secret: "{{ .SYNAPSE_MAS_CLIENT_SECRET }}"
+    redirect_uris:
+      - "https://matrix.${SECRET_DOMAIN}/_synapse/client/oidc/callback"
+      - "https://element.${SECRET_DOMAIN}"
+      - "element://vector/webapp"
+      - "vector://vector/webapp"
 upstream_oauth2:
   providers:
     - id: "{{ .SYNAPSE_PROVIDER_ID }}"
