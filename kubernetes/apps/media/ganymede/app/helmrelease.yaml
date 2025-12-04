@@ -40,6 +40,7 @@ spec:
               OAUTH_ENABLED: true
               OAUTH_PROVIDER_URL: https://id.${SECRET_DOMAIN}
               OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oauth/callback
+              SHOW_SSO_LOGIN_BUTTON: true
               FORCE_SSO_AUTH: false
               REQUIRE_LOGIN: true
               MAX_CHAT_DOWNLOAD_EXECUTIONS: 3
