@@ -73,6 +73,7 @@ clients:
     client_auth_method: none
     redirect_uris:
       - element://vector/webapp/
+      - http://localhost/
     grant_types:
       - authorization_code
       - refresh_token
