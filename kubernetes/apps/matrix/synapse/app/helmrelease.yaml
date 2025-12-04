@@ -19,9 +19,6 @@ spec:
       client:
         m.homeserver:
           base_url: "https://matrix.${SECRET_DOMAIN}"
-        org.matrix.msc2965.authentication:
-          issuer: "https://mas.${SECRET_DOMAIN}"
-          account: "https://mas.${SECRET_DOMAIN}/account"
     workers:
       default:
         resources:
@@ -117,13 +114,35 @@ spec:
     ingress:
       enabled: true
       className: traefik-external
+      includeServerName: false
       annotations:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      hosts:
+        - &host matrix.${SECRET_DOMAIN}
+      wkHosts:
+        - *host
+      csHosts:
+        - *host
+      csPaths:
+        - path: /_matrix/client/(.+)/(login|logout|refresh)
+          pathType: Prefix
+          backend:
+            service:
+              name: mas
+              port:
+                number: 8080
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: synapse-matrix-synapse
+              port:
+                number: 8008
       tls:
         - hosts:
-            - matrix.${SECRET_DOMAIN}
+            - *host
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
     postgresql:
       enabled: false
