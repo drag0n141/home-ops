@@ -85,5 +85,8 @@ spec:
             readOnly: true
       tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          mautrix-discord:
+            app:
+              - path: /tmp
+                subPath: tmp
