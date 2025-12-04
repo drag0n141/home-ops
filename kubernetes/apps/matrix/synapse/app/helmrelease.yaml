@@ -98,8 +98,8 @@ spec:
       presence:
         enabled: true
       enable_3pid_lookup: false
-      app_service_config_files: []
-#        - "/mautrix-whatsapp/registration.yaml"
+      app_service_config_files:
+        - "/mautrix-whatsapp/registration.yaml"
 #        - "/mautrix-discord/registration.yaml"
 #        - "/matrix-hookshot/registration.yaml"
 #        - "/mautrix-discord/double-puppet-registration.yaml"
@@ -160,9 +160,9 @@ spec:
         prometheus.io/path: "/_synapse/metrics"
         prometheus.io/port: "9090"
       extraVolumes:
-#        - name: mautrix-whatsapp-registration
-#          secret:
-#            secretName: mautrix-whatsapp-secret
+        - name: mautrix-whatsapp-registration
+          secret:
+            secretName: mautrix-whatsapp-secret
 #        - name: mautrix-discord-registration
 #          secret:
 #            secretName: mautrix-discord-secret
@@ -173,9 +173,9 @@ spec:
           secret:
             secretName: synapse-mas-secret
       extraVolumeMounts:
-#        - name: mautrix-whatsapp-registration
-#          mountPath: /mautrix-whatsapp
-#          readOnly: true
+        - name: mautrix-whatsapp-registration
+          mountPath: /mautrix-whatsapp
+          readOnly: true
 #        - name: mautrix-discord-registration
 #          mountPath: /mautrix-discord
 #          readOnly: true
