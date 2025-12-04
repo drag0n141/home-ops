@@ -37,7 +37,9 @@ spec:
               TEMP_DIR: /data/temp
               LOGS_DIR: /data/logs
               CONFIG_DIR: /data/config
-              SHOW_SSO_LOGIN_BUTTON: false
+              OAUTH_ENABLED: true
+              OAUTH_PROVIDER_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oauth/callback
               FORCE_SSO_AUTH: false
               REQUIRE_LOGIN: true
               MAX_CHAT_DOWNLOAD_EXECUTIONS: 3
