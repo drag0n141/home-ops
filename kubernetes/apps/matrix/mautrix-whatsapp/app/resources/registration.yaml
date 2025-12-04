@@ -1,5 +1,5 @@
 id: whatsapp
-url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+url: http://mautrix-whatsapp.matrix.svc.cluster.local:8000
 as_token: {{ .WHATSAPP_AS_TOKEN }}
 hs_token: {{ .WHATSAPP_HS_TOKEN }}
 sender_localpart: whatsappbot
