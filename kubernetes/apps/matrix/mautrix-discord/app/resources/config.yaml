@@ -75,7 +75,7 @@ appservice:
   hs_token: {{ .DISCORD_HS_TOKEN }}
 bridge:
   # Localpart template of MXIDs for Discord users.
-  username_template: "{{ `discorder_{{.}}` }}"
+  username_template: "{{ `discord_{{.}}` }}"
   # Displayname template for Discord users. This is also used as the room name in DMs if private_chat_portal_meta is enabled.
   # Available variables:
   #   .ID - Internal user ID
