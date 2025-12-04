@@ -38,7 +38,7 @@ spec:
               LOGS_DIR: /data/logs
               CONFIG_DIR: /data/config
               OAUTH_ENABLED: true
-              OAUTH_PROVIDER_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OAUTH_PROVIDER_URL: https://id.${SECRET_DOMAIN}
               OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oauth/callback
               FORCE_SSO_AUTH: false
               REQUIRE_LOGIN: true
@@ -67,7 +67,6 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
-              allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
             resources:
               requests:
