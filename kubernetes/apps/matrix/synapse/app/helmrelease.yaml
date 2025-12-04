@@ -19,75 +19,6 @@ spec:
       client:
         m.homeserver:
           base_url: "https://matrix.${SECRET_DOMAIN}"
-    workers:
-      default:
-        resources:
-          requests:
-            memory: 512Mi
-          limits:
-            memory: 1Gi
-      media_repository:
-        enabled: false
-        strategy:
-          type: Recreate
-      federation_sender:
-        enabled: false
-        replicaCount: 2
-      generic_worker:
-        enabled: false
-        generic: true
-        replicaCount: 2
-        listeners:
-          - client
-        csPaths:
-          ## Client API requests
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/createRoom$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/publicRooms$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/joined_members$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/context/"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/members$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state$"
-          - "/_matrix/client/v1/rooms/.*/hierarchy$"
-          - "/_matrix/client/unstable/org.matrix.msc2716/rooms/.*/batch_send$"
-          - "/_matrix/client/unstable/im.nheko.summary/rooms/.*/summary$"
-          - "/_matrix/client/(r0|v3|unstable)/account/3pid$"
-          - "/_matrix/client/(r0|v3|unstable)/account/whoami$"
-          - "/_matrix/client/(r0|v3|unstable)/devices$"
-          - "/_matrix/client/versions$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/event/"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/joined_rooms$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/search$"
-          ## Encryption requests
-          - "/_matrix/client/(r0|v3|unstable)/keys/query$"
-          - "/_matrix/client/(r0|v3|unstable)/keys/changes$"
-          - "/_matrix/client/(r0|v3|unstable)/keys/claim$"
-          - "/_matrix/client/(r0|v3|unstable)/room_keys/"
-          ## Registration/login requests
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/login$"
-          - "/_matrix/client/(r0|v3|unstable)/register$"
-          - "/_matrix/client/v1/register/m.login.registration_token/validity$"
-          ## Event sending requests
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/redact"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state/"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/(join|invite|leave|ban|unban|kick)$"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/join/"
-          - "/_matrix/client/(api/v1|r0|v3|unstable)/profile/"
-          ## User directory search requests
-          - "/_matrix/client/(r0|v3|unstable)/user_directory/search"
-      synchrotron:
-        enabled: false
-        generic: true
-        listeners:
-          - client
-        csPaths:
-          - "/_matrix/client/(v2_alpha|r0|v3)/sync$"
-          - "/_matrix/client/(api/v1|v2_alpha|r0|v3)/events$"
-          - "/_matrix/client/(api/v1|r0|v3)/initialSync$"
-          - "/_matrix/client/(api/v1|r0|v3)/rooms/[^/]+/initialSync$"
-      frontend_proxy:
-        enabled: false
     config:
       reportStats: true
     extraConfig:
@@ -155,10 +86,6 @@ spec:
           memory: 1000Mi
         limits:
           memory: 2500Mi
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/_synapse/metrics"
-        prometheus.io/port: "9090"
       extraVolumes:
         - name: mautrix-whatsapp-registration
           secret:
