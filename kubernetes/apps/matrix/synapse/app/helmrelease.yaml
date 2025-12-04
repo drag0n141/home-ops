@@ -51,7 +51,8 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-synapse@kubernetescrd"
       tls:
         - hosts:
-            - *host
+            - ${SECRET_DOMAIN}
+            - matrix.${SECRET_DOMAIN}
           secretName: "${SECRET_DOMAIN/./-}-production-tls"
     postgresql:
       enabled: false
