@@ -69,7 +69,7 @@ clients:
   - client_id: 0000000000000000000SYNAPSE
     client_auth_method: client_secret_basic
     client_secret: "{{ .SYNAPSE_MAS_CLIENT_SECRET }}"
-  - client_id: element-desktop
+  - client_id: elementdesk00000000000000001
     client_auth_method: none
     redirect_uris:
       - element://vector/webapp/
