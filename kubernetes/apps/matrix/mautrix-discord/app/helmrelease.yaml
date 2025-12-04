@@ -29,7 +29,7 @@ spec:
               repository: dock.mau.dev/mautrix/discord
               tag: v0.7.5@sha256:898c6c59d65b49cb408f0bd23d6be720bd85c81164a775760fbfc9d6fd2c501e
             command: ["/usr/bin/mautrix-discord"]
-            args: [ "-c", "/config/config.yaml", "--no-update" ]
+            args: [ "-c", "/data/config.yaml", "--no-update" ]
             env:
               TZ: ${TIMEZONE}
             probes:
