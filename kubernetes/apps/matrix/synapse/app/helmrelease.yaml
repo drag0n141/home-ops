@@ -127,7 +127,7 @@ spec:
       csHosts:
         - *host
       paths:
-        - path: "^/_matrix/client/(.*)/(login|logout|refresh)"
+        - path: "/_matrix/client/.*(login|logout|refresh)"
           pathType: ImplementationSpecific
           backend:
             service:
