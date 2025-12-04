@@ -28,6 +28,7 @@ spec:
             image:
               repository: dock.mau.dev/mautrix/whatsapp
               tag: v0.2511.0
+            command: ["mautrix-whatsapp"]
             env:
               TZ: ${TIMEZONE}
             probes:
