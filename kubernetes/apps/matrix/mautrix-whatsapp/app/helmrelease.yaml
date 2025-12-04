@@ -34,7 +34,7 @@ spec:
               TZ: ${TIMEZONE}
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
             resources:
               requests:
@@ -85,5 +85,10 @@ spec:
             readOnly: true
       tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          mautrix-whatsapp:
+            app:
+              - path: /data
+                subPath: data
+              - path: /tmp
+                subPath: tmp
