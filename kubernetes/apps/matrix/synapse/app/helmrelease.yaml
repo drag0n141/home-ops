@@ -127,7 +127,7 @@ spec:
         - *host
       csPaths:
         - path: /_matrix/client/(.+)/(login|logout|refresh)
-          pathType: Prefix
+          pathType: RegularExpression
           backend:
             service:
               name: mas
