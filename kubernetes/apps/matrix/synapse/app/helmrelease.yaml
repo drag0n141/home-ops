@@ -126,7 +126,7 @@ spec:
         - *host
       csHosts:
         - *host
-      paths:
+      csPaths:
         - path: "/_matrix/client/.*(login|logout|refresh)"
           pathType: ImplementationSpecific
           backend:
