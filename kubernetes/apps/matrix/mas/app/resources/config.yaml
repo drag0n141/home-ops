@@ -69,6 +69,21 @@ clients:
   - client_id: 0000000000000000000SYNAPSE
     client_auth_method: client_secret_basic
     client_secret: "{{ .SYNAPSE_MAS_CLIENT_SECRET }}"
+  - client_id: element-desktop
+    client_auth_method: none
+    redirect_uris:
+      - element://vector/webapp/
+    grant_types:
+      - authorization_code
+      - refresh_token
+    response_types:
+      - code
+    token_endpoint_auth_method: none
+    allowed_scopes:
+      - openid
+      - profile
+      - email
+      - matrix
 upstream_oauth2:
   providers:
     - id: "{{ .SYNAPSE_PROVIDER_ID }}"
