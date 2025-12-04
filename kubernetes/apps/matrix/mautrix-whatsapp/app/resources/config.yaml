@@ -287,7 +287,7 @@ appservice:
   # The hostname and port where this appservice should listen.
   # For Docker, you generally have to change the hostname to 0.0.0.0.
   hostname: 0.0.0.0
-  port: 29318
+  port: 8000
 
   # The unique ID of this appservice.
   id: whatsapp

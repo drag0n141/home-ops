@@ -35,7 +35,7 @@ appservice:
 
   # The hostname and port where this appservice should listen.
   hostname: 0.0.0.0
-  port: 29334
+  port: 8000
 
   # Database config.
   database:
