@@ -14,14 +14,8 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
     - name: synapse
       namespace: matrix
-    - name: volsync
-      namespace: storage
-  components:
-    - ../../../../components/volsync
   path: ./kubernetes/apps/matrix/mautrix-discord/app
   prune: true
   sourceRef:
@@ -32,7 +26,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 1Gi

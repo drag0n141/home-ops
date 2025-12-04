@@ -29,7 +29,7 @@ spec:
               repository: dock.mau.dev/mautrix/whatsapp
               tag: v0.2511.0
             command: ["/usr/bin/mautrix-whatsapp"]
-            args: [ "-c", "/data/config.yaml", "--no-update" ]
+            args: [ "-c", "/config/config.yaml", "--no-update" ]
             env:
               TZ: ${TIMEZONE}
             probes:
@@ -87,18 +87,14 @@ spec:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
-      data:
-        existingClaim: *app
-        globalMounts:
-          - path: /data
       config:
         type: secret
         name: mautrix-whatsapp-secret
         globalMounts:
-          - path: /data/config.yaml
+          - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
-          - path: /data/registration.yaml
+          - path: /config/registration.yaml
             subPath: registration.yaml
             readOnly: true
       tmpfs:
