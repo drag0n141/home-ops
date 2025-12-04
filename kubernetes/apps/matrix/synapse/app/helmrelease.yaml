@@ -80,6 +80,11 @@ spec:
           memory: 1000Mi
         limits:
           memory: 2500Mi
+      annotations:
+        reloader.stakater.com/auto: "true"
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/_synapse/metrics"
+        prometheus.io/port: "9090"
       extraVolumes:
         - name: mautrix-whatsapp-registration
           secret:
