@@ -1,5 +1,5 @@
 id: discord
-url: http://mautrix-discord.matrix.svc.cluster.local:29318
+url: http://mautrix-discord.matrix.svc.cluster.local:8000
 as_token: {{ .DISCORD_AS_TOKEN }}
 hs_token: {{ .DISCORD_HS_TOKEN }}
 sender_localpart: discordbot
