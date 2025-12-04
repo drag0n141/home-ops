@@ -196,6 +196,7 @@ spec:
       - "https://(.*?)${SECRET_DOMAIN}"
       - "element://vector/webapp"
       - "vector://vector/webapp"
+      - "http://localhost"
     accessControlAllowHeaders:
       - "Accept"
       - "Authorization"
