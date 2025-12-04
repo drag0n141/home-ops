@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: docker.io/library/alpine
-              tag: 3.22.2
+              tag: 3.23.0
             command: ["/bin/sh", "-c"]
             args:
               - |
