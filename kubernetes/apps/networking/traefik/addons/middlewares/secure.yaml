@@ -178,3 +178,51 @@ spec:
       City: X-GEO-City
       X-Powered-By: ""
       server: ""
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-secure-headers-synapse
+spec:
+  headers:
+    accessControlAllowMethods:
+      - GET
+      - PUT
+      - POST
+      - OPTIONS
+      - DELETE
+    accessControlMaxAge: 3600
+    accessControlAllowOriginListRegex:
+      - "https://(.*?)${SECRET_DOMAIN}"
+    accessControlAllowHeaders:
+      - "Accept"
+      - "Authorization"
+      - "Content-Type"
+      - "Origin"
+    hostsProxyHeaders:
+      - "X-Forwarded-Host"
+      - "X-Forwarded-For"
+      - "X-Forwarded-Proto"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
+    stsSeconds: 31536000
+    stsIncludeSubdomains: false
+    stsPreload: true
+    forceSTSHeader: true
+    contentTypeNosniff: true
+    browserXssFilter: true
+    frameDeny: true
+    accessControlAllowCredentials: true
+    addVaryHeader: true
+    referrerPolicy: "same-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
+    customResponseHeaders:
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
+      X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+      X-Permitted-Cross-Domain-Policies: "none"
+      X-Forwarded-Proto: "https"
+      City: X-GEO-City
+      X-Powered-By: ""
+      server: ""

@@ -16,7 +16,7 @@ spec:
         - name: mas
           port: 8080
       middlewares:
-          - name: traefik-middleware-chain-no-auth
+          - name: traefik-middleware-chain-synapse
             namespace: networking
   tls:
     secretName: "${SECRET_DOMAIN/./-}-production-tls"

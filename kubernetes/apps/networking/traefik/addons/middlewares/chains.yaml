@@ -92,3 +92,13 @@ spec:
     middlewares:
       - name: networking-traefik-middleware-secure-headers-obsidian@kubernetescrd
       - name: networking-traefik-middleware-compress@kubernetescrd
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-synapse
+spec:
+  chain:
+    middlewares:
+      - name: networking-traefik-middleware-secure-headers-synapse@kubernetescrd
+      - name: networking-traefik-middleware-compress@kubernetescrd
