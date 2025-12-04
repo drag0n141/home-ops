@@ -45,17 +45,10 @@ spec:
     ingress:
       enabled: true
       className: traefik-external
-      includeServerName: false
       annotations:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-synapse@kubernetescrd"
-      hosts:
-        - &host matrix.${SECRET_DOMAIN}
-      wkHosts:
-        - *host
-      csHosts:
-        - *host
       tls:
         - hosts:
             - *host
