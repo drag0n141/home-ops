@@ -137,6 +137,8 @@ spec:
         advancedMounts:
           ganymede:
             app:
+              - path: /data/.cache
+                subPath: cache
               - path: /data/logs
                 subPath: logs
               - path: /tmp
