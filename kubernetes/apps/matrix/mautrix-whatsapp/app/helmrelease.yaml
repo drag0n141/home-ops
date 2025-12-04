@@ -44,8 +44,12 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 5
-              readiness: *probes
-              startup: *probes
+              readiness:
+                <<: *probe
+                spec:
+                  httpGet:
+                    path: /_matrix/mau/ready
+                    port: *port
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
