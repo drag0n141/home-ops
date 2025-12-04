@@ -194,8 +194,8 @@ spec:
     accessControlMaxAge: 3600
     accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
-      - "element://vector/webapp"
-      - "vector://vector/webapp"
+      - "element://.*"
+      - "vector://.*"
       - "http://localhost"
     accessControlAllowHeaders:
       - "Accept"
