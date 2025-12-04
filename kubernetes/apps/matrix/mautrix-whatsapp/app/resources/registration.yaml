@@ -1,0 +1,14 @@
+id: whatsapp
+url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+as_token: {{ .WHATPSAPP_AS_TOKEN }}
+hs_token: {{ .WHATPSAPP_HS_TOKEN }}
+sender_localpart: whatsappbot
+rate_limited: false
+namespaces:
+  users:
+    - regex: ^@whatsappbot:${SECRET_DOMAIN/./\\.}$
+      exclusive: true
+    - regex: ^@whatsapp_.*:${SECRET_DOMAIN/./\\.}$
+      exclusive: true
+de.sorunome.msc2409.push_ephemeral: true
+receive_ephemeral: true
