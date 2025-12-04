@@ -115,6 +115,7 @@ spec:
       enabled: true
       className: traefik-external
       includeServerName: false
+      traefikPaths: true
       annotations:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
