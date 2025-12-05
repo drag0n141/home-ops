@@ -2,13 +2,13 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-  name: minio-vector
+  name: garage-vector
 spec:
   configuration:
     data:
       compression: bzip2
-    destinationPath: s3://cloudnative-pg/
-    endpointURL: https://minio.${SECRET_DOMAIN_INT}
+    destinationPath: s3://cnpg/
+    endpointURL: https://s3.${SECRET_DOMAIN_INT}
     s3Credentials:
       accessKeyId:
         name: cloudnative-pg-secret
