@@ -1,25 +1,27 @@
 ---
 apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
+kind: ReplicationSource
 metadata:
-  name: "${APP}-dst"
+  name: "${APP}"
 spec:
+  sourcePVC: "${VOLSYNC_CLAIM:-${APP}}"
   trigger:
-    manual: restore-once
+    schedule: "25 */3 * * *"
   restic:
-    repository: "${APP}-volsync-minio"
-    copyMethod: Snapshot
+    copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
+    repository: "${APP}-volsync-garage"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-openebs-hostpath}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
-    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
-    capacity: "${VOLSYNC_CAPACITY:-1Gi}"
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:-1000}
       runAsGroup: ${VOLSYNC_PGID:-1000}
       fsGroup: ${VOLSYNC_PGID:-1000}
-    cleanupCachePVC: true
-    cleanupTempPVC: true
-    enableFileDeletion: true
+    pruneIntervalDays: 7
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 5
