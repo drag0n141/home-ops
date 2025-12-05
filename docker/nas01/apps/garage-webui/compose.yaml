@@ -1,0 +1,44 @@
+---
+services:
+  garage-webui:
+    image: 'docker.io/khairul169/garage-webui:1.1.0'
+    hostname: 'garage-webui'
+    container_name: 'garage-webui'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    read_only: true
+    volumes:
+      - '/mnt/nvme/appdata/garage/garage.toml:/etc/garage.toml:ro'
+    environment:
+      - 'TZ=${TZ}'
+      - 'API_BASE_URL=http://garage:3903'
+      - 'S3_ENDPOINT_URL=http://garage:3900'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.garage-webui-rtr.entrypoints=https'
+      - 'traefik.http.routers.garage-webui-rtr.rule=Host(`garage.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.garage-webui-rtr.tls=true'
+      - 'traefik.http.routers.garage-webui-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.garage-webui-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.garage-webui-rtr.service=garage-webui-svc'
+      - 'traefik.http.services.garage-webui-svc.loadbalancer.server.port=3909'
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1

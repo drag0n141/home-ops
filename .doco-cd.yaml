@@ -14,6 +14,13 @@ external_secrets:
   GARAGE_ADMIN_TOKEN: "op://Kubernetes/garage/GARAGE_ADMIN_TOKEN"
   TZ: "op://Kubernetes/basic/TZ"
 ---
+name: garage-webui
+reference: refs/heads/master
+working_dir: docker/nas01/apps/garage-webui
+external_secrets:
+  DOMAIN_INT: "op://Kubernetes/domains/DOMAIN_INT"
+  TZ: "op://Kubernetes/basic/TZ"
+---
 name: matchbox
 reference: refs/heads/master
 working_dir: docker/nas01/apps/matchbox
