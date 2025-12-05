@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: minio
+    - name: garage
       namespace: storage
     - name: onepassword
       namespace: external-secrets

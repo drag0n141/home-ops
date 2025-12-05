@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
-    - name: minio
+    - name: garage
       namespace: storage
   components:
     - ../../../../components/gatus/external

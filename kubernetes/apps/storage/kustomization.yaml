@@ -5,7 +5,6 @@ namespace: storage
 resources:
   - ./garage/ks.yaml
   - ./gitsave/ks.yaml
-  - ./minio/ks.yaml
   - ./openebs/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
