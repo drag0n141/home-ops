@@ -14,6 +14,7 @@ services:
       - 'TZ=${TZ}'
       - 'API_BASE_URL=http://garage:3903'
       - 'S3_ENDPOINT_URL=http://garage:3900'
+      - 'API_ADMIN_KEY=${API_ADMIN_KEY}'
     networks:
       - traefik
     security_opt:
