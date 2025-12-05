@@ -50,6 +50,7 @@ spec:
           STORAGE_TYPE: minio
           MINIO_ENDPOINT: s3.${SECRET_DOMAIN_INTERNAL}
           MINIO_BUCKET: gitea
+          MINIO_LOCATION: us-east-1
           MINIO_USE_SSL: true
         mailer:
           ENABLED: true
