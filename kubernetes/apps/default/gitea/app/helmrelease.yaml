@@ -46,12 +46,13 @@ spec:
           SHOW_REGISTRATION_BUTTON: false
         cron:
           ENABLED: true
-        storage:
+        storage: &s3storage
           STORAGE_TYPE: minio
           MINIO_ENDPOINT: s3.${SECRET_DOMAIN_INTERNAL}
           MINIO_BUCKET: gitea
           MINIO_LOCATION: us-east-1
           MINIO_USE_SSL: true
+        attachment: *s3storage
         mailer:
           ENABLED: true
           PROTOCOL: smtp
@@ -139,6 +140,14 @@ spec:
       name: *secret
       valuesKey: GITEA_AWS_ACCESS_KEY_ID
     - targetPath: gitea.config.storage.MINIO_SECRET_ACCESS_KEY
+      kind: Secret
+      name: *secret
+      valuesKey: GITEA_AWS_SECRET_ACCESS_KEY
+    - targetPath: gitea.config.attachment.MINIO_ACCESS_KEY_ID
+      kind: Secret
+      name: *secret
+      valuesKey: GITEA_AWS_ACCESS_KEY_ID
+    - targetPath: gitea.config.attachment.MINIO_SECRET_ACCESS_KEY
       kind: Secret
       name: *secret
       valuesKey: GITEA_AWS_SECRET_ACCESS_KEY
