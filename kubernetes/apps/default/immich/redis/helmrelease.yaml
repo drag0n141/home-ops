@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/valkey-io/valkey
-              tag: 9.0.0@sha256:4503e204c900a00ad393bec83c8c7c4c76b0529cd629e23b34b52011aefd1d27
+              tag: 9.0.0@sha256:00e026f877bbbed33d13241e5e701142e8842f94e1124ce1d5ddbbf6d0cee4fb
             args:
               - --save
               - ""
