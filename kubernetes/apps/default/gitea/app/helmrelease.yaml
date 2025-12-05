@@ -53,6 +53,7 @@ spec:
           MINIO_LOCATION: us-east-1
           MINIO_USE_SSL: true
           MINIO_BUCKET_LOOKUP_TYPE: path
+          SERVE_DIRECT: true
         mailer:
           ENABLED: true
           PROTOCOL: smtp
