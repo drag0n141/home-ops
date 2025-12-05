@@ -39,7 +39,7 @@ spec:
         OPTIONS:
           bucket_name: "netbox"
           endpoint_url: "https://s3.${SECRET_DOMAIN_INTERNAL}"
-          region_name: "garage"
+          region_name: "us-east-1"
     existingSecret: netbox-secret
     metricsEnabled: true
     postgresql:

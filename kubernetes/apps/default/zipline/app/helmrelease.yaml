@@ -40,7 +40,7 @@ spec:
               DATASOURCE_S3_PORT: 443
               DATASOURCE_S3_FORCE_PATH_STYLE: true
               DATASOURCE_S3_USE_SSL: true
-              DATASOURCE_S3_REGION: garage
+              DATASOURCE_S3_REGION: us-east-1
               # Features
               INVITES_ENABLED: false
               FEATURES_ROBOTS_TXT: false
