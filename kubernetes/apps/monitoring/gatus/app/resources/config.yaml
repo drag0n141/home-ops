@@ -37,9 +37,9 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: gotify
-  - name: minio-storage
+  - name: garage-nas
     group: internal
-    url: https://console-minio.${SECRET_DOMAIN_INT}
+    url: https://s3.${SECRET_DOMAIN_INT}
     interval: 1m
     ui:
       hide-hostname: true
