@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: garage-configmap
     files:
-      - configuration.toml=./resources/configuration.toml
+      - garage.toml=./resources/garage.toml
 generatorOptions:
   disableNameSuffixHash: true

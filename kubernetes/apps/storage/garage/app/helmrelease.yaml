@@ -68,7 +68,7 @@ spec:
         name: garage-secret
         globalMounts:
           - path: /etc/garage.toml
-            subPath: configuration.toml
+            subPath: garage.toml
             readOnly: true
       data:
         existingClaim: *app
