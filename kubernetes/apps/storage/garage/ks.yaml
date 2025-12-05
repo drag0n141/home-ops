@@ -22,7 +22,6 @@ spec:
       name: *app
       namespace: *namespace
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   path: ./kubernetes/apps/storage/garage/app
   prune: true
