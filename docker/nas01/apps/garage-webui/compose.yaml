@@ -26,7 +26,7 @@ services:
       - 'traefik.http.routers.garage-webui-rtr.rule=Host(`garage.${DOMAIN_INT}`)'
       - 'traefik.http.routers.garage-webui-rtr.tls=true'
       - 'traefik.http.routers.garage-webui-rtr.tls.certresolver=mydnschallenge'
-      - 'traefik.http.routers.garage-webui-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.garage-webui-rtr.middlewares=chain-internal-tinyauth@file'
       - 'traefik.http.routers.garage-webui-rtr.service=garage-webui-svc'
       - 'traefik.http.services.garage-webui-svc.loadbalancer.server.port=3909'
     deploy:
