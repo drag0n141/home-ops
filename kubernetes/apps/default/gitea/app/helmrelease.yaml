@@ -52,6 +52,7 @@ spec:
           MINIO_BUCKET: gitea
           MINIO_LOCATION: us-east-1
           MINIO_USE_SSL: true
+          MINIO_BUCKET_LOOKUP_TYPE: path
         mailer:
           ENABLED: true
           PROTOCOL: smtp
