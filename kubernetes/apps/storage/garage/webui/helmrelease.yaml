@@ -22,14 +22,6 @@ spec:
               TZ: ${TIMEZONE}
               API_BASE_URL: http://garage.storage.svc.cluster.local:3903
               S3_ENDPOINT_URL: http://garage.storage.svc.cluster.local:3900
-              API_ADMIN_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: garage-secret
-                    key: GARAGE_ADMIN_TOKEN
-            envFrom:
-              - secretRef:
-                  name: garage-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -72,9 +64,9 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
-        type: configMap
-        name: garage-configmap
+        type: secret
+        name: garage-secret
         globalMounts:
           - path: /etc/garage.toml
             subPath: configuration.toml
+            readOnly: true

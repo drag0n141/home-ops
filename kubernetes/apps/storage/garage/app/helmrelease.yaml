@@ -20,9 +20,6 @@ spec:
               tag: v2.1.0@sha256:4c9b34c113e61358466e83fd6e7d66e6d18657ede14b776eb78a93ee8da7cf6a
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: garage-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -67,12 +64,12 @@ spec:
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        enabled: true
-        type: configMap
-        name: garage-configmap
+        type: secret
+        name: garage-secret
         globalMounts:
           - path: /etc/garage.toml
             subPath: configuration.toml
+            readOnly: true
       data:
         existingClaim: *app
         advancedMounts:
