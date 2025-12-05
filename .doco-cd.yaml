@@ -1,7 +1,17 @@
+---
 name: dnsmasq
 reference: refs/heads/master
 working_dir: docker/nas01/apps/dnsmasq
 external_secrets:
+  TZ: "op://Kubernetes/basic/TZ"
+---
+name: garage
+reference: refs/heads/master
+working_dir: docker/nas01/apps/garage
+external_secrets:
+  DOMAIN_INT: "op://Kubernetes/domains/DOMAIN_INT"
+  GARAGE_RPC_SECRET: "op://Kubernetes/garage/GARAGE_RPC_SECRET"
+  GARAGE_ADMIN_TOKEN: "op://Kubernetes/garage/GARAGE_ADMIN_TOKEN"
   TZ: "op://Kubernetes/basic/TZ"
 ---
 name: matchbox

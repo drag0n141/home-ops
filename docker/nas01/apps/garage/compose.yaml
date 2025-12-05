@@ -1,0 +1,46 @@
+---
+services:
+  garage:
+    image: 'docker.io/dxflrs/garage'
+    hostname: 'garage'
+    container_name: 'garage'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    read_only: true
+    volumes:
+      - '/mnt/nvme/appdata/garage/garage.toml:/etc/garage.toml:ro'
+      - '/mnt/data/garage/data:/data:rw'
+      - '/mnt/data/garage/meta:/meta:rw'
+    environment:
+      - 'TZ=${TZ}'
+      - 'GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}'
+      - 'GARAGE_ADMIN_TOKEN=${GARAGE_ADMIN_TOKEN}'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.garage-rtr.entrypoints=https'
+      - 'traefik.http.routers.garage-rtr.rule=Host(`s3.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.garage-rtr.tls=true'
+      - 'traefik.http.routers.garage-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.garage-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.garage-rtr.service=minio-svc'
+      - 'traefik.http.services.garage-svc.loadbalancer.server.port=3900'
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
