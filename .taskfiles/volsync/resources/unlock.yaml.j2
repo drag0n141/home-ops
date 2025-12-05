@@ -16,7 +16,7 @@ spec:
           args: ["unlock", "--remove-all"]
           envFrom:
             - secretRef:
-                name: {{ ENV.APP }}-volsync-minio
+                name: {{ ENV.APP }}-volsync-garage
           resources: {}
         - name: idrive
           image: docker.io/restic/restic:latest
