@@ -28,15 +28,6 @@ working_dir: docker/nas01/apps/matchbox
 external_secrets:
   TZ: "op://Kubernetes/basic/TZ"
 ---
-name: minio
-reference: refs/heads/master
-working_dir: docker/nas01/apps/minio
-external_secrets:
-  DOMAIN_INT: "op://Kubernetes/domains/DOMAIN_INT"
-  MINIO_ROOT_USER: "op://Kubernetes/minio/MINIO_ROOT_USER"
-  MINIO_ROOT_PASSWORD: "op://Kubernetes/minio/MINIO_ROOT_PASSWORD"
-  TZ: "op://Kubernetes/basic/TZ"
----
 name: node-exporter
 reference: refs/heads/master
 working_dir: docker/nas01/apps/node-exporter
