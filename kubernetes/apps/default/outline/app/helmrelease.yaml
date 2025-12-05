@@ -33,7 +33,7 @@ spec:
               TZ: ${TIMEZONE}
               URL: "https://outline.${SECRET_DOMAIN_INTERNAL}"
               ENABLE_UPDATES: false
-              AWS_REGION: us-east-1
+              AWS_REGION: garage
               AWS_S3_ACL: private
               AWS_S3_FORCE_PATH_STYLE: "true"
               AWS_S3_UPLOAD_BUCKET_NAME: outline
