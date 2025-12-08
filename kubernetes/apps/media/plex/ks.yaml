@@ -14,13 +14,14 @@ spec:
       namespace: system
     - name: onepassword
       namespace: external-secrets
-    - name: intel-device-plugin-gpu
+    - name: intel-gpu-resource-driver
       namespace: system
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/gpu
     - ../../../../components/keda
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/plex/app

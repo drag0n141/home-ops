@@ -71,6 +71,7 @@ spec:
     - name: keda
       namespace: system
   components:
+    - ../../../../components/gpu
     - ../../../../components/keda
   path: ./kubernetes/apps/default/immich/machine-learning
   prune: true
@@ -102,6 +103,7 @@ spec:
     - name: keda
       namespace: system
   components:
+    - ../../../../components/gpu
     - ../../../../components/keda
   path: ./kubernetes/apps/default/immich/microservices
   prune: true
