@@ -121,7 +121,7 @@ spec:
               resources: ["services"]
               verbs: ["get", "watch", "list"]
             - apiGroups: ["networking.k8s.io"]
-              resources: ["ingresses", "ingressclasses"]
+              resources: ["ingresses"]
               verbs: ["get", "watch", "list"]
       bindings:
         gatus:
