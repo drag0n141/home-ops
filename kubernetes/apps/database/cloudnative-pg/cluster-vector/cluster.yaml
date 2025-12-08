@@ -42,13 +42,11 @@ spec:
       parameters: &parameters
         barmanObjectName: garage-vector
         serverName: postgres-vector
-  bootstrap:
-    recovery:
-      source: source
+#  bootstrap:
+#    recovery:
+#      source: source
   externalClusters:
     - name: source
       plugin:
         name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: garage-vector
-          serverName: postgres17-vector-v1
+        parameters: *parameters
