@@ -59,6 +59,8 @@ spec:
         className: traefik-external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 404"]
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-synapse@kubernetescrd"
         hosts:

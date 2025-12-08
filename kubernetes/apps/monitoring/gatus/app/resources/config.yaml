@@ -48,11 +48,3 @@ endpoints:
       - "[STATUS] == 403"
     alerts:
       - type: gotify
-  - name: flux-webhook
-    group: external
-    url: https://flux-webhook.${SECRET_DOMAIN}
-    interval: 1m
-    conditions:
-      - "[STATUS] == 404"
-    alerts:
-      - type: gotify
