@@ -133,6 +133,8 @@ spec:
     serviceAccount:
       gatus: {}
     persistence:
+      config:
+        type: emptyDir
       config-file:
         type: configMap
         name: gatus-configmap
