@@ -50,5 +50,5 @@ spec:
       plugin:
         name: barman-cloud.cloudnative-pg.io
         parameters:
-        barmanObjectName: garage-vector
-        serverName: postgres17-vector-v1
+          barmanObjectName: garage-vector
+          serverName: postgres17-vector-v1
