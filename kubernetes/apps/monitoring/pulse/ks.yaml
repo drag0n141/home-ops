@@ -15,7 +15,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   path: ./kubernetes/apps/monitoring/pulse/app
   prune: true

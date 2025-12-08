@@ -21,7 +21,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/keda
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/ganymede/app

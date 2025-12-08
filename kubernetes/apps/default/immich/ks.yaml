@@ -54,7 +54,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: photos
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

@@ -14,8 +14,6 @@ spec:
       namespace: database
     - name: onepassword
       namespace: external-secrets
-  components:
-    - ../../../../components/gatus/internal
   path: ./kubernetes/apps/default/atuin/app
   prune: true
   sourceRef:
@@ -26,6 +24,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app

@@ -21,7 +21,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/keda
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/sonarr/app
@@ -38,7 +37,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 5Gi
-      GATUS_PATH: /ping
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -62,7 +60,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/keda
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/sonarr/app-4k
@@ -79,7 +76,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 5Gi
-      GATUS_PATH: /ping
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -103,7 +99,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/keda
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/sonarr/app-kids
@@ -120,4 +115,3 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 5Gi
-      GATUS_PATH: /ping

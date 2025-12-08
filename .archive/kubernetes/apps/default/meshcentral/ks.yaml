@@ -15,7 +15,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/meshcentral/app
   prune: true

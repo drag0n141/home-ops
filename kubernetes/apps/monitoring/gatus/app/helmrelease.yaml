@@ -23,24 +23,20 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: gatus-secret
-          init-config:
-            dependsOn: init-db
+          gatus-sidecar:
             image:
-              repository: ghcr.io/home-operations/k8s-sidecar
-              tag: 1.30.10@sha256:dd3b1f0c4e6b4512b2deb50c58acf65fd0f0927120a59a95eec854d32a6c9ce3
-            env:
-              FOLDER: /config
-              LABEL: gatus.io/enabled
-              NAMESPACE: ALL
-              RESOURCE: both
-              UNIQUE_FILENAMES: true
-              METHOD: WATCH
-            restartPolicy: Always
-            resources: &resources
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.12@sha256:83bf82d422e9b0529a8076cb584d557a12158d9d8a4c373b4d27afcb87a17569
+            args:
+              - --auto-httproute
+              - --enable-httproute
+              - --enable-service
+            resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 64Mi
+            restartPolicy: Always
         containers:
           app:
             image:
@@ -134,12 +130,9 @@ spec:
     serviceAccount:
       gatus: {}
     persistence:
-      config:
-        type: emptyDir
       config-file:
         type: configMap
         name: gatus-configmap
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
-            readOnly: true

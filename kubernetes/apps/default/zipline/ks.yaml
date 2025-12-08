@@ -16,8 +16,6 @@ spec:
       namespace: external-secrets
     - name: garage
       namespace: storage
-  components:
-    - ../../../../components/gatus/external
   path: ./kubernetes/apps/default/zipline/app
   prune: true
   sourceRef:
@@ -28,8 +26,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
-      GATUS_DOMAIN: ${SECRET_DOMAIN_SHORT}
-      GATUS_SUBDOMAIN: zl

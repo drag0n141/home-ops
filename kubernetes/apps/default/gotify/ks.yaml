@@ -19,7 +19,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/gotify/app
   prune: true

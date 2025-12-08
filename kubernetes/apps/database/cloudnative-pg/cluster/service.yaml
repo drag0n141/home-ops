@@ -8,6 +8,8 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: postgres17.${SECRET_DOMAIN_INTERNAL}
     io.cilium/lb-ipam-ips: 192.168.222.106
+    gatus.home-operations.com/endpoint: |-
+      group: infrastructure
 spec:
   type: LoadBalancer
   ports:

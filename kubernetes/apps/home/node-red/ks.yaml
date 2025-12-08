@@ -17,7 +17,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   path: ./kubernetes/apps/home/node-red/app
   prune: true
@@ -32,5 +31,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: nodered
       VOLSYNC_CAPACITY: 1Gi

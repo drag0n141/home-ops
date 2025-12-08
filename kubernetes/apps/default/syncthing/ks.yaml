@@ -17,7 +17,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/syncthing/app
   prune: true
@@ -32,5 +31,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: sync
       VOLSYNC_CAPACITY: 5Gi

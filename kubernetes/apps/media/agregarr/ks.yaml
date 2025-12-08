@@ -17,7 +17,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/agregarr/app
   prune: true
@@ -52,7 +51,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/agregarr/app-142
   prune: true

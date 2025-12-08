@@ -48,8 +48,6 @@ spec:
       namespace: external-secrets
     - name: komodo-db
       namespace: *namespace
-  components:
-    - ../../../../components/gatus/internal
   path: ./kubernetes/apps/default/komodo/app
   prune: true
   sourceRef:
@@ -60,6 +58,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app

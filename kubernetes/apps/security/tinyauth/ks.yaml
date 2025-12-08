@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-  components:
-    - ../../../../components/gatus/external
   path: ./kubernetes/apps/security/tinyauth/app
   prune: true
   sourceRef:
@@ -24,6 +22,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app

@@ -33,5 +33,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: speedtest
       VOLSYNC_CAPACITY: 1Gi

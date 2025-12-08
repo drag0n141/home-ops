@@ -21,7 +21,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/open-webui/app
   prune: true
@@ -36,5 +35,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: chat
       VOLSYNC_CAPACITY: 5Gi

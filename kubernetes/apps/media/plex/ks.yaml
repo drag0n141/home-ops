@@ -21,7 +21,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/keda
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/plex/app
@@ -37,5 +36,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_PATH: /web/index.html
       VOLSYNC_CAPACITY: 20Gi

@@ -19,7 +19,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
@@ -34,5 +33,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: home
       VOLSYNC_CAPACITY: 5Gi

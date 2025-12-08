@@ -48,8 +48,6 @@ spec:
   dependsOn:
     - name: kitchenowl
       namespace: *namespace
-  components:
-    - ../../../../components/gatus/external
   path: ./kubernetes/apps/default/kitchenowl/web
   prune: true
   sourceRef:
@@ -60,7 +58,3 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
-      GATUS_SUBDOMAIN: kitchenowl
