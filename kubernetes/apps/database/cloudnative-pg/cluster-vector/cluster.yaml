@@ -2,12 +2,12 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres17-vector
+  name: postgres-vector
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.6-0.5.3@sha256:ef3bf2e3abe76c3939b994afbde46cb9f24d2fbdf7ff2026a03aefa84d9a2a23
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.0-standard-trixie
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
@@ -16,10 +16,18 @@ spec:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
   postgresql:
-    shared_preload_libraries: ["vchord.so"]
     parameters:
       max_connections: "400"
       shared_buffers: 512MB
+    extensions:
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3
+        dynamic_library_path:
+          - /usr/lib/postgresql/18/lib/
+        extension_control_path:
+          - /usr/share/postgresql/18/
+    shared_preload_libraries: ["vchord.so"]
   resources:
     requests:
       cpu: 500m
@@ -33,7 +41,7 @@ spec:
       isWALArchiver: true
       parameters: &parameters
         barmanObjectName: garage-vector
-        serverName: postgres17-vector-v1
+        serverName: postgres-vector
   bootstrap:
     recovery:
       source: source
@@ -41,4 +49,6 @@ spec:
     - name: source
       plugin:
         name: barman-cloud.cloudnative-pg.io
-        parameters: *parameters
+        parameters:
+        barmanObjectName: garage-vector
+        serverName: postgres17-vector-v1
