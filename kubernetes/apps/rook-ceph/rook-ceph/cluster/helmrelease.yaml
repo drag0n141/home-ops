@@ -63,10 +63,14 @@ spec:
       network:
         provider: host
         addressRanges:
-          public: ["${NODE_CIDR}"]
-          cluster: ["${THUNDERBOLT_CIDR}"]
+          public: ["169.254.255.0/24"]
+          cluster: ["169.254.255.0/24"]
         connections:
           requireMsgr2: true
+      resources:
+        osd:
+          limits:
+            memory: 8Gi
       storage:
         useAllNodes: true
         useAllDevices: false
