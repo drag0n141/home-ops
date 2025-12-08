@@ -118,7 +118,10 @@ spec:
           type: ClusterRole
           rules:
             - apiGroups: [""]
-              resources: ["configmaps", "secrets"]
+              resources: ["services"]
+              verbs: ["get", "watch", "list"]
+            - apiGroups: ["networking.k8s.io"]
+              resources: ["ingresses", "ingressclasses"]
               verbs: ["get", "watch", "list"]
       bindings:
         gatus:
