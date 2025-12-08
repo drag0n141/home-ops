@@ -8,6 +8,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: intel-gpu-resource-driver
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     cdi:
       staticPath: /var/cdi/static
