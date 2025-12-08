@@ -1,0 +1,12 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tuppr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: tuppr
+  values:
+    replicaCount: 2

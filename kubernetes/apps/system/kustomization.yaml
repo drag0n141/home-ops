@@ -13,6 +13,7 @@ resources:
   - ./reflector/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
+  - ./tuppr/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
