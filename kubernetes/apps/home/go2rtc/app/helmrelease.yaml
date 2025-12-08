@@ -43,6 +43,9 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: go2rtc-gpu
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

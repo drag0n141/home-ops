@@ -41,7 +41,9 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
-      enableServiceLinks: false
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: immich-microservices-gpu
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
