@@ -46,10 +46,6 @@ spec:
         urlPrefix: /
         ssl: false
         prometheusEndpoint: http://prometheus-operated.monitoring.svc.cluster.local:9090
-      logCollector:
-        enabled: true
-        periodicity: daily
-        maxLogSize: 100Mi
       mgr:
         modules:
           - name: diskprediction_local
