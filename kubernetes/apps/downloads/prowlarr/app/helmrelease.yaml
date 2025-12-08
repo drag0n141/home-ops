@@ -76,6 +76,8 @@ spec:
         className: traefik-internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          gatus.home-operations.com/endpoint: |-
+            url: https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}/ping
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
         hosts:
