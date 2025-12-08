@@ -8,7 +8,7 @@ metadata:
 spec:
   instances: 3
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.7-system-trixie@sha256:04083cd243f759b41e348e0eda83eee531ad454dd1c9a7a0f49654f020715dcb
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.7-system-trixie@sha256:80ac475d5bf05dd2a37b05988aa0d71fb42e34a6c6032ca221da825ee7671c7f
   primaryUpdateStrategy: unsupervised
   storage:
     size: 15Gi
