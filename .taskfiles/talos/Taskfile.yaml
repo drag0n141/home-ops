@@ -2,7 +2,7 @@
 version: "3"
 
 vars:
-  SYSTEM_UPGRADE_KS: '{{.KUBERNETES_DIR}}/apps/system/system-upgrade-controller/ks.yaml'
+  SYSTEM_UPGRADE_KS: '{{.KUBERNETES_DIR}}/apps/system/tuppr/ks.yaml'
 
 env:
   KUBERNETES_VERSION:
@@ -53,7 +53,7 @@ tasks:
     requires:
       vars: [IP]
     preconditions:
-      - talosctl config info 
+      - talosctl config info
       - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which talosctl
@@ -147,7 +147,7 @@ tasks:
     vars:
       MODE: '{{.MODE | default "auto"}}'
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")' 
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
     preconditions:
       - which jq talosctl
 

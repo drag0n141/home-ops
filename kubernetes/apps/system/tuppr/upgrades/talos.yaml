@@ -5,8 +5,7 @@ metadata:
   name: talos
 spec:
   talos:
-    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-    version: v1.10.6
+    version: ${TALOS_VERSION}
   policy:
     rebootMode: powercycle
   healthChecks:
