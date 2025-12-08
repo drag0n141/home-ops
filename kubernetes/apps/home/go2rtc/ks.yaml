@@ -10,6 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: intel-gpu-resource-driver
+      namespace: system
     - name: onepassword
       namespace: external-secrets
   components:

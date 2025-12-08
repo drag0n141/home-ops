@@ -68,6 +68,8 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: *namespace
+    - name: intel-gpu-resource-driver
+      namespace: system
     - name: keda
       namespace: system
   components:
@@ -100,6 +102,8 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: *namespace
+    - name: intel-gpu-resource-driver
+      namespace: system
     - name: keda
       namespace: system
   components:
