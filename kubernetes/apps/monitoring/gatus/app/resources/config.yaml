@@ -45,7 +45,7 @@ endpoints:
       hide-hostname: true
       hide-url: true
     conditions:
-      - "[STATUS] == 200"
+      - "[STATUS] == 403"
     alerts:
       - type: gotify
   - name: flux-webhook
