@@ -14,7 +14,7 @@ resources:
   - ./gitea/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
-#   - ./immich/ks.yaml
+  - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./homepage/ks.yaml
   - ./kms/ks.yaml
