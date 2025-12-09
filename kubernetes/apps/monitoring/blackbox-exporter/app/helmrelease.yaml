@@ -10,12 +10,6 @@ spec:
     name: blackbox-exporter
   values:
     fullnameOverride: blackbox-exporter
-    image:
-      registry: quay.io
-    securityContext:
-      readOnlyRootFilesystem: true
-      allowPrivilegeEscalation: false
-      capabilities: { add: ["NET_RAW"], drop: ["ALL"] }
     config:
       modules:
         http_2xx:
