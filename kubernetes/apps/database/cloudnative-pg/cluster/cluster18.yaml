@@ -54,7 +54,7 @@ spec:
     initdb:
       import:
         type: monolith
-        databases: ["*"]
+        databases: ["atuin", "authelia", "authentik", "autopulse", "ferdium", "gamevault", "ganymede", "gatus", "gitea", "gotify", "grafana", "guacamole", "immich", "jellyseerr", "kitchenowl", "lidarr", "linkding", "mas", "mautrixdiscord", "mautrixwhatsapp", "memos", "miniflux", "n8n", "netbox", "netronome", "nextcloud", "openarchiver", "openwebui", "outline", "paperless", "pocketid", "prowlarr", "pulsarr", "radarr", "radarr4k", "recipes", "romm", "shlink", "sonarr", "sonarr4k", "sonarrkids", "synapse", "ts3", "vaultwarden", "vikunja", "wgportal", "wiki", "youtarr", "zipline"]
         roles: ["*"]
         source:
           externalCluster: *oldCluster
