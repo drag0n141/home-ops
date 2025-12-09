@@ -230,7 +230,7 @@ database:
   #           https://github.com/mattn/go-sqlite3#connection-string
   #   Postgres: Connection string. For example, postgres://user:password@host/database?sslmode=disable
   #             To connect via Unix socket, use something like postgres:///dbname?host=/var/run/postgresql
-  uri: postgres://{{ .MAUTRIX_WHATSAPP_POSTGRES_USER }}:{{ .MAUTRIX_WHATSAPP_POSTGRES_PASSWORD }}@postgres17-rw.database.svc.cluster.local/{{ .MAUTRIX_WHATSAPP_POSTGRES_DB }}
+  uri: postgres://{{ .MAUTRIX_WHATSAPP_POSTGRES_USER }}:{{ .MAUTRIX_WHATSAPP_POSTGRES_PASSWORD }}@postgres-rw.database.svc.cluster.local/{{ .MAUTRIX_WHATSAPP_POSTGRES_DB }}
   # Maximum number of connections.
   max_open_conns: 5
   max_idle_conns: 1

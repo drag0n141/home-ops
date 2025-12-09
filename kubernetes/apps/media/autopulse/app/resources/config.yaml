@@ -3,7 +3,7 @@ app:
   hostname: 0.0.0.0
   port: 2875
   log_level: trace
-  database_url: postgres://{{ .AUTOPULSE_POSTGRES_USER }}:{{ .AUTOPULSE_POSTGRES_PASSWORD }}@postgres17-rw.database.svc.cluster.local:5432/{{ .AUTOPULSE_POSTGRES_DB }}
+  database_url: postgres://{{ .AUTOPULSE_POSTGRES_USER }}:{{ .AUTOPULSE_POSTGRES_PASSWORD }}@postgres-rw.database.svc.cluster.local:5432/{{ .AUTOPULSE_POSTGRES_DB }}
 
 auth:
   username: "{{ .AUTOPULSE_USERNAME }}"

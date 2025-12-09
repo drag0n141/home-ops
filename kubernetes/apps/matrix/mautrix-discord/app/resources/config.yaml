@@ -41,7 +41,7 @@ appservice:
   database:
     # The database type. "sqlite3-fk-wal" and "postgres" are supported.
     type: postgres
-    uri: postgres://{{ .MAUTRIX_DISCORD_POSTGRES_USER }}:{{ .MAUTRIX_DISCORD_POSTGRES_PASSWORD }}@postgres17-rw.database.svc.cluster.local/{{ .MAUTRIX_DISCORD_POSTGRES_DB }}
+    uri: postgres://{{ .MAUTRIX_DISCORD_POSTGRES_USER }}:{{ .MAUTRIX_DISCORD_POSTGRES_PASSWORD }}@postgres-rw.database.svc.cluster.local/{{ .MAUTRIX_DISCORD_POSTGRES_DB }}
     # Maximum number of connections. Mostly relevant for Postgres.
     max_open_conns: 20
     max_idle_conns: 2
