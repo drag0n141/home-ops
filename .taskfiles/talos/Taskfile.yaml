@@ -22,7 +22,7 @@ tasks:
     vars:
       MODE: '{{.MODE | default "auto"}}'
       INSECURE:
-        sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null && echo false || echo true
+        sh: talosctl --nodes {{.IP}} get machineconfig &> /dev/null && echo false || echo true
     env:
       TALOS_SCHEMATIC:
         sh: |-
