@@ -15,11 +15,6 @@ machine:
         ImageVolume: true
       maxPods: 150
       serializeImagePulls: false
-    extraMounts:
-      - destination: /var/mnt/extra
-        type: bind
-        source: /var/mnt/extra
-        options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.254.0/24"]
@@ -141,6 +136,13 @@ cluster:
   controlPlane:
     endpoint: https://192.168.254.250:6443
   clusterName: main
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: true
+      service:
+        disabled: false
   network:
     cni:
       name: none
