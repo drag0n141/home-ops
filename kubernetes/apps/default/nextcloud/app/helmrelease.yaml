@@ -18,7 +18,7 @@ spec:
       host: &host nextcloud.${SECRET_DOMAIN}
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/home-operations/postgres-init:17
+          image: ghcr.io/home-operations/postgres-init:18
           envFrom:
             - secretRef:
                 name: nextcloud-secret
