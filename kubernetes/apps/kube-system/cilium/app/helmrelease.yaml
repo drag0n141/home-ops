@@ -30,9 +30,6 @@ spec:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    cluster:
-      id: 1
-      name: main
     cni:
       exclusive: false
     dashboards:
@@ -43,6 +40,8 @@ spec:
     endpointRoutes:
       enabled: true
     envoy:
+      enabled: false
+    gatewayAPI:
       enabled: false
     hubble:
       enabled: false
@@ -58,7 +57,8 @@ spec:
     loadBalancer:
       algorithm: maglev
       mode: dsr
-    localRedirectPolicy: true
+    localRedirectPolicies:
+      enabled: true
     operator:
       replicas: 2
       rollOutPods: true
@@ -70,6 +70,8 @@ spec:
         enabled: true
         annotations:
           grafana_folder: Cilium
+    pmtuDiscovery:
+      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
