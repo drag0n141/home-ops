@@ -34,16 +34,6 @@ spec:
       parameters: &parameters
         barmanObjectName: garage
         serverName: postgres
-  bootstrap:
-#    recovery:
-#      source: source
-    initdb:
-      import:
-        type: monolith
-        databases: ["*"]
-        roles: ["*"]
-        source:
-          externalCluster: *oldCluster
   externalClusters:
 #    - name: source
 #      plugin:
@@ -58,3 +48,13 @@ spec:
       password:
         name: cloudnative-pg-secret
         key: password
+  bootstrap:
+#    recovery:
+#      source: source
+    initdb:
+      import:
+        type: monolith
+        databases: ["*"]
+        roles: ["*"]
+        source:
+          externalCluster: *oldCluster
