@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-vector
+  name: postgres
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
@@ -11,7 +11,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.1-standard-trixie@sha256:2fc5696eb0b684921f7d976b134e9c2419313aa4bbf8b1d79f8591b452787792
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 10Gi
+    size: 15Gi
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
@@ -20,15 +20,6 @@ spec:
     parameters:
       max_connections: "400"
       shared_buffers: 512MB
-    extensions:
-      - name: vchord
-        image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3
-        dynamic_library_path:
-          - /usr/lib/postgresql/18/lib/
-        extension_control_path:
-          - /usr/share/postgresql/18/
-    shared_preload_libraries: ["vchord.so"]
   resources:
     requests:
       cpu: 500m
@@ -41,13 +32,29 @@ spec:
     - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters: &parameters
-        barmanObjectName: garage-vector
-        serverName: postgres-vector
-#  bootstrap:
+        barmanObjectName: garage
+        serverName: postgres
+  bootstrap:
 #    recovery:
 #      source: source
+    initdb:
+      import:
+        type: monolith
+        databases: ["*"]
+        roles: ["*"]
+        source:
+          externalCluster: *oldCluster
   externalClusters:
-    - name: source
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters: *parameters
+#    - name: source
+#      plugin:
+#        name: barman-cloud.cloudnative-pg.io
+#        parameters: *parameters
+    - name: &oldCluster postgres17
+      connectionParameters:
+        host: postgres17-rw.database.svc.cluster.local
+        user: postgres
+        dbname: postgres
+        sslmode: require
+      password:
+        name: cloudnative-pg-secret
+        key: password
