@@ -113,8 +113,12 @@ spec:
     persistence:
       config:
         existingClaim: *app
-        globalMounts:
-          - path: /config
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+            code-server:
+              - path: /config
       secrets:
         type: secret
         name: esphome-secret
@@ -128,6 +132,8 @@ spec:
             app:
               - path: /cache
                 subPath: cache
+              - path: /tmp
+                subPath: esphome-tmp
             code-server:
               - path: /tmp
                 subPath: code-server-tmp
