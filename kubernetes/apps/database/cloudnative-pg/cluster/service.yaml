@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres17-lb
+  name: postgres-lb
   labels:
-    cnpg.io/cluster: postgres17
+    cnpg.io/cluster: postgres
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: postgres17.${SECRET_DOMAIN_INTERNAL}
-    io.cilium/lb-ipam-ips: 192.168.222.106
+    external-dns.alpha.kubernetes.io/hostname: postgres.${SECRET_DOMAIN_INTERNAL}
+    io.cilium/lb-ipam-ips: 192.168.222.109
     gatus.home-operations.com/endpoint: |-
       group: infrastructure
 spec:
@@ -18,5 +18,5 @@ spec:
       protocol: TCP
       targetPort: 5432
   selector:
-    cnpg.io/cluster: postgres17
+    cnpg.io/cluster: postgres
     cnpg.io/instanceRole: primary

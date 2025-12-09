@@ -2,13 +2,13 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres17
+  name: postgres
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.7-system-trixie@sha256:80ac475d5bf05dd2a37b05988aa0d71fb42e34a6c6032ca221da825ee7671c7f
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.1-standard-trixie@sha256:2fc5696eb0b684921f7d976b134e9c2419313aa4bbf8b1d79f8591b452787792
   primaryUpdateStrategy: unsupervised
   storage:
     size: 15Gi
@@ -24,7 +24,7 @@ spec:
     requests:
       cpu: 500m
     limits:
-#      hugepages-2Mi: 2Gi
+      hugepages-2Mi: 2Gi
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
@@ -33,28 +33,28 @@ spec:
       isWALArchiver: true
       parameters: &parameters
         barmanObjectName: garage
-        serverName: postgres17-v1
-  bootstrap:
-    recovery:
-      source: source
+        serverName: postgres
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *parameters
+#    - name: &oldCluster postgres17
+#      connectionParameters:
+#        host: postgres17-rw.database.svc.cluster.local
+#        user: postgres
+#        dbname: postgres
+#        sslmode: require
+#      password:
+#        name: cloudnative-pg-secret
+#        key: password
+#  bootstrap:
+#    recovery:
+#      source: source
 #    initdb:
 #      import:
 #        type: monolith
 #        databases: ["*"]
 #        roles: ["*"]
 #        source:
-#          externalCluster: *crunchyCluster
-  externalClusters:
-    - name: source
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters: *parameters
-#    - name: &crunchyCluster postgres16-crunchy
-#      connectionParameters:
-#        host: postgres-primary.database.svc.cluster.local
-#        user: postgres
-#        dbname: postgres
-#        sslmode: require
-#      password:
-#        name: postgres-pguser-postgres
-#        key: password
+#          externalCluster: *oldCluster
