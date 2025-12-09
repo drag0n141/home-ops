@@ -19,7 +19,7 @@ spec:
           01-init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 17@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+              tag: 18@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
             envFrom: &envFrom
               - secretRef:
                   name: guacamole-secret
@@ -33,7 +33,7 @@ spec:
           03-init-migrations:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 17@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+              tag: 18@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
             command: ["/bin/sh", "-c"]
             args: ["export PGPASSWORD=$(POSTGRESQL_PASSWORD); psql -h $(POSTGRESQL_HOSTNAME) -d $(POSTGRESQL_DATABASE) -U $(POSTGRESQL_USER) -a -w -f /migrations/initdb.sql || true;"]
             envFrom: *envFrom
