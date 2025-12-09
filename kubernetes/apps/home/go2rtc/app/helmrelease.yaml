@@ -50,6 +50,14 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-cam",
+            "namespace": "networking",
+            "ips": ["192.168.160.5/24"],
+            "mac": "b2:74:6d:9f:74:90"
+          }]
     service:
       app:
         forceRename: *app
