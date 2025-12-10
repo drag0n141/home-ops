@@ -5,7 +5,8 @@ metadata:
   name: checkmk
   annotations:
     external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-    gatus.home-operations.com/enabled: "false"
+    gatus.home-operations.com/endpoint: |-
+      url: https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/check_mk
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd,networking-traefik-middleware-redirect-checkmk@kubernetescrd"
 spec:
