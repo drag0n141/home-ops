@@ -147,3 +147,17 @@ spec:
         memory: 768Mi
       limits:
         memory: 768Mi
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: IngressClass
+              name: *app
+            patch: |
+              - op: add
+                path: /metadata/annotations
+                value:
+                  gatus.home-operations.com/endpoint: |-
+                    group: external
+                    alerts:
+                      - type: gotify
