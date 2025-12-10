@@ -110,9 +110,11 @@ spec:
               kind: IngressClass
               name: *app
             patch: |
-              - op: add
-                path: /metadata/annotations
-                value:
+              apiVersion: networking.k8s.io/v1
+              kind: IngressClass
+              metadata:
+                name: *app
+                annotations:
                   gatus.home-operations.com/endpoint: |-
                     group: internal
                     ui:
