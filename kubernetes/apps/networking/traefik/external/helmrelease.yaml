@@ -147,3 +147,19 @@ spec:
         memory: 768Mi
       limits:
         memory: 768Mi
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: IngressClass
+              name: traefik-external
+            patch: |
+              apiVersion: networking.k8s.io/v1
+              kind: IngressClass
+              metadata:
+                name: traefik-external
+                annotations:
+                  gatus.home-operations.com/endpoint: |-
+                    group: external
+                    alerts:
+                      - type: gotify
