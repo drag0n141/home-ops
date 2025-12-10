@@ -29,7 +29,7 @@ spec:
       access:
         enabled: true
     ingressClass:
-      enabled: false
+      enabled: true
       isDefaultClass: false
       name: traefik-external
     ingressRoute:
