@@ -1,0 +1,46 @@
+---
+services:
+  zerobyte:
+    image: 'ghcr.io/nicotsx/zerobyte:v0.18.0'
+    hostname: 'zerobyte'
+    container_name: 'zerobyte'
+    restart: 'always'
+    cap_add:
+      - 'SYS_ADMIN'
+    read_only: true
+    devices:
+      - '/dev/fuse:/dev/fuse'
+    volumes:
+      - '/mnt/nvme/appdata/zerobyte:/var/lib/zerobyte:rw'
+      - '/mnt/nvme/appdata:/mnt/nvme/appdata'
+      - '/mnt/data:/mnt/data'
+    environment:
+      - 'TZ=${TZ}'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.zerobyte-rtr.entrypoints=https'
+      - 'traefik.http.routers.zerobyte-rtr.rule=Host(`zerobyte.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.zerobyte-rtr.tls=true'
+      - 'traefik.http.routers.zerobyte-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.zerobyte-rtr.middlewares=chain-internal-tinyauth@file'
+      - 'traefik.http.routers.zerobyte-rtr.service=zerobyte-svc'
+      - 'traefik.http.services.zerobyte-svc.loadbalancer.server.port=4096'
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
