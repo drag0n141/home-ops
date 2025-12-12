@@ -112,5 +112,7 @@ spec:
               - path: /tmp
                 subPath: tmp
             frontend:
+              - path: /etc/nginx/conf.d
+                subPath: nginx
               - path: /tmp
                 subPath: tmp
