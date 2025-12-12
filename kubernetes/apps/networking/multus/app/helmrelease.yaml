@@ -7,81 +7,18 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: multus
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
-    controllers:
-      multus:
-        type: daemonset
-        annotations:
-          reloader.stakater.com/auto: "true"
-        initContainers:
-          cni-plugins:
-            image:
-              repository: ghcr.io/home-operations/cni-plugins
-              tag: 1.9.0@sha256:cd462d8720f1d9867748f86f84d3b0898f935f882a5130ce47c2c037b1bd3471
-        containers:
-          multus:
-            image:
-              repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-              tag: v4.2.3@sha256:54f120a6f8fede8e2da0d0fe3bed3da2c92edcb2cd895e4f382784a9a708e1b9
-            command:
-              - /thin_entrypoint
-            args:
-              - --cleanup-config-on-exit=true
-              - --multus-cni-conf-dir=/tmp
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 64Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
-    defaultPodOptions:
-      hostNetwork: true
-      priorityClassName: system-node-critical
-      tolerations:
-        - key: CriticalAddonsOnly
-          operator: Exists
-    rbac:
-      roles:
-        multus:
-          type: ClusterRole
-          rules:
-            - apiGroups: ["k8s.cni.cncf.io"]
-              resources: ["*"]
-              verbs: ["*"]
-            - apiGroups: [""]
-              resources: ["pods", "pods/status"]
-              verbs: ["get", "update"]
-            - apiGroups: ["", "events.k8s.io"]
-              resources: ["events"]
-              verbs: ["create", "patch", "update"]
-      bindings:
-        multus:
-          type: ClusterRoleBinding
-          roleRef:
-            identifier: multus
-          subjects:
-            - identifier: multus
-    serviceAccount:
-      multus: {}
-    persistence:
-      etc-cni-net-d:
-        type: hostPath
-        hostPath: /etc/cni/net.d
-        globalMounts:
-          - path: /host/etc/cni/net.d
-      opt-cni-bin:
-        type: hostPath
-        hostPath: /opt/cni/bin
-        globalMounts:
-          - path: /host/opt/cni/bin
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          multus:
-            app:
-              - path: /tmp
-                subPath: tmp
+    cni:
+      binPath: /opt/cni/bin
+      netPath: /etc/cni/net.d
+    multus:
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 512Mi
