@@ -78,5 +78,7 @@ spec:
         advancedMounts:
           tracearr:
             app:
+              - path: /app/data/image-cache
+                subPath: cache
               - path: /tmp
                 subPath: tmp
