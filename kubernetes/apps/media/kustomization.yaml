@@ -19,6 +19,7 @@ resources:
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./tracearr/ks.yaml
   - ./webhook/ks.yaml
 components:
   - ../../components/alerts
