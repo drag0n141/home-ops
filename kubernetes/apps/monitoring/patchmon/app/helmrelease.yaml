@@ -35,6 +35,9 @@ spec:
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_PORT: 6379
               REDIS_DB: 2
+              SERVER_PROTOCOL: https
+              SERVER_HOST: patchmon.${SECRET_DOMAIN_INTERNAL}
+              SERVER_PORT: 443
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
