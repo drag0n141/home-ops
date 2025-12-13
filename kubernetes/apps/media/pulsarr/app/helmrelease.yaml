@@ -34,7 +34,7 @@ spec:
               cookieSecured: true
               dbType: postgres
               logLevel: silent
-              port: &port 3003
+              listenPort: &port 3003
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
