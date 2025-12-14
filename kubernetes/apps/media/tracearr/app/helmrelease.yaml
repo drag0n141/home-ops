@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/connorgallopo/tracearr
-              tag: 1.2.6@sha256:a1df69e21e4e3d98359ba7282ad4210512ee1557ceea40b3f4b66e7b542e6356
+              tag: 1.3.0@sha256:895413d604958810394d9c238cb80e74ad9936e533b35a112b8913f064d05e83
             env:
               TZ: ${TIMEZONE}
               CORS_ORIGIN: https://tracearr.${SECRET_DOMAIN_INTERNAL}
