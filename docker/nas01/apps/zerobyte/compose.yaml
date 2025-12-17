@@ -1,7 +1,7 @@
 ---
 services:
   zerobyte:
-    image: 'ghcr.io/nicotsx/zerobyte:v0.18.4'
+    image: 'ghcr.io/nicotsx/zerobyte:v0.19.0'
     hostname: 'zerobyte'
     container_name: 'zerobyte'
     restart: 'always'
