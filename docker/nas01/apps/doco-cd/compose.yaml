@@ -1,7 +1,7 @@
 ---
 services:
   doco-cd:
-    image: 'ghcr.io/kimdre/doco-cd:0.54.1'
+    image: 'ghcr.io/kimdre/doco-cd:0.55.0'
     hostname: 'doco-cd'
     container_name: 'doco-cd'
     restart: 'always'
