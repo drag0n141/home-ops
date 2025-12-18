@@ -1,11 +1,15 @@
 ---
+log:
+  streams: error # Prevent log spam from UniFi Protect
 api:
   listen: :80
+  origin: "*"
 rtsp:
   listen: :554
 webrtc:
   listen: :8555
   candidates:
+    - 192.168.222.91:8555
     - stun:8555
   ice_servers:
     - urls:
@@ -13,3 +17,5 @@ webrtc:
 streams:
   bedroom:
     - http://192.168.160.10/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={{ .REOLINK_USERNAME }}&password={{ .REOLINK_PASSWORD }}
+  kids:
+    - rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
