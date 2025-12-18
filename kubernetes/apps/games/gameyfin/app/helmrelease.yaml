@@ -69,7 +69,7 @@ spec:
       data:
         existingClaim: *app
         advancedMounts:
-          gamevault:
+          gameyfin:
             app:
               - path: /opt/gameyfin/data
                 subPath: data
@@ -86,7 +86,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          gamevault:
+          gameyfin:
             app:
               - path: /opt/gameyfin/logs
                 subPath: logs
