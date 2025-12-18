@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: games
 resources:
   - ./gamevault/ks.yaml
+  - ./gameyfin/ks.yaml
   - ./minecraft/ks.yaml
   - ./romm/ks.yaml
 components:
