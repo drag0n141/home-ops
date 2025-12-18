@@ -30,7 +30,7 @@ spec:
                   name: gameyfin-secret
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
