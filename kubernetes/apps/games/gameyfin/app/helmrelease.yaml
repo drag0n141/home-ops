@@ -22,6 +22,8 @@ spec:
               tag: 2.3.2@sha256:dcf228761a22db7852ae2e2d142c99d64eb84ca64d18fad9349dc7a9c1f81650
             env:
               TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
               APP_URL: https://gameyfin.${SECRET_DOMAIN_INTERNAL}
             envFrom:
               - secretRef:
@@ -37,10 +39,10 @@ spec:
                 memory: 3500Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
