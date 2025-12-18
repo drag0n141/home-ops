@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: system
-    - name: onepassword
-      namespace: external-secrets
   components:
     - ../../../../components/gpu
   path: ./kubernetes/apps/home/go2rtc/app
