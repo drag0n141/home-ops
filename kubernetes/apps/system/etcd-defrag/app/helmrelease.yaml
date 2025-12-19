@@ -48,10 +48,15 @@ spec:
           name: *app
     defaultPodOptions:
       hostNetwork: true
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
     persistence:
       certs:
         type: hostPath
         hostPath: /system/secrets/etcd
+        hostPathType: Directory
         globalMounts:
           - path: /certs
             readOnly: true
