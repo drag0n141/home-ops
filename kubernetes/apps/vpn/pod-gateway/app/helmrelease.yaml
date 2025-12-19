@@ -68,7 +68,7 @@ spec:
                 cpu: 15m
                 memory: 64Mi
               limits:
-                memory: 128Mi
+                memory: 256Mi
             securityContext:
               capabilities: { add: ["NET_ADMIN"] }
     service:
