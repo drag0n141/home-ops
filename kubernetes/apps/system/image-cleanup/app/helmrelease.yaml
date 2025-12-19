@@ -30,7 +30,7 @@ spec:
                 curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRI_TOOLS}/crictl-${CRI_TOOLS}-linux-amd64.tar.gz &&
                 tar -xvf crictl-* &&
                 mv crictl /usr/local/bin/ &&
-                crictl --runtime-endpoint unix:///run/containerd/containerd.sock rmi --prune &&
+                crictl --timeout 180s --runtime-endpoint unix:///run/containerd/containerd.sock rmi --prune &&
                 echo "Cleanup completed successfully on node $(hostname)" &&
                 sleep 5 &&
                 exit 0
