@@ -27,7 +27,7 @@ spec:
               - |
                 echo "Cleaning up images on node $(hostname)" &&
                 apk add --no-cache curl &&
-                curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${KUBERNETES_VERSION}/crictl-${KUBERNETES_VERSION}-linux-amd64.tar.gz &&
+                curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRI_TOOLS}/crictl-${CRI_TOOLS}-linux-amd64.tar.gz &&
                 tar -xvf crictl-* &&
                 mv crictl /usr/local/bin/ &&
                 crictl --runtime-endpoint unix:///run/containerd/containerd.sock rmi --prune &&
