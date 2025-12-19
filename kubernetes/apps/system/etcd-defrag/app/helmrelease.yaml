@@ -35,7 +35,9 @@ spec:
             - --auto-disalarm
             - --disalarm-threshold=0.8
             securityContext:
-              privileged: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 25m
@@ -46,12 +48,14 @@ spec:
           name: *app
     defaultPodOptions:
       hostNetwork: true
-      hostPID: true
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
     persistence:
       certs:
         type: hostPath
         hostPath: /system/secrets/etcd
-        hostPathType: Directory
         globalMounts:
           - path: /certs
             readOnly: true
