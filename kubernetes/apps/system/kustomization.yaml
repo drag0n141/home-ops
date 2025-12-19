@@ -5,6 +5,7 @@ namespace: system
 resources:
   - ./descheduler/ks.yaml
   - ./fstrim/ks.yaml
+  - ./image-cleanup/ks.yaml
   - ./intel-gpu-resource-driver/ks.yaml
   - ./irqbalance/ks.yaml
   - ./k8tz/ks.yaml
