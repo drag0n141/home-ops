@@ -47,6 +47,10 @@ spec:
     defaultPodOptions:
       hostNetwork: true
       hostPID: true
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
     persistence:
       certs:
         type: hostPath
