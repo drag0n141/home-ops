@@ -52,7 +52,6 @@ spec:
       certs:
         type: hostPath
         hostPath: /system/secrets/etcd
-        hostPathType: Directory
         globalMounts:
           - path: /certs
             readOnly: true
