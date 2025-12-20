@@ -13,6 +13,7 @@ machine:
     extraConfig:
       featureGates:
         ImageVolume: true
+      imageMaximumGCAge: 60m
       maxPods: 150
       serializeImagePulls: false
     defaultRuntimeSeccompProfileEnabled: true
