@@ -22,4 +22,4 @@ spec:
   postBuild:
     substitute:
       # renovate: datasource=github-releases depName=kubernetes-sigs/cri-tools
-      CRI_TOOLS: v1.34.0
+      CRI_TOOLS: v1.35.0
