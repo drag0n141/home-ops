@@ -9,7 +9,7 @@
     {
       matchDatasources: ["docker"],
       matchPackagePatterns: ["pulsarr"],
-      ignoredVersions: "1.1.6"
+      ignoredVersions: ["1.1.6"]
     }
   ]
 }
