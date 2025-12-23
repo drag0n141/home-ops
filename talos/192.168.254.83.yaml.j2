@@ -18,50 +18,6 @@ machine:
     nodeIP:
       validSubnets: ["192.168.254.0/24"]
     disableManifestsDirectory: true
-  network:
-    interfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          deviceSelectors:
-            - hardwareAddr: 48:21:0b:59:*
-              driver: igc
-        dhcp: false
-        addresses: ["192.168.254.83/24"]
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.254.1
-        vip:
-          ip: 192.168.254.250
-        vlans:
-          - vlanId: 150
-            dhcp: false
-            mtu: 1500
-          - vlanId: 160
-            dhcp: false
-            mtu: 1500
-      - # k8s-m01
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 0-1.0
-        dhcp: false
-        mtu: 65520
-        addresses: ["169.254.255.103/32"]
-        routes:
-          - network: 169.254.255.101/32
-            metric: 2048
-      - # k8s-m02
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 1-1.0
-        dhcp: false
-        mtu: 65520
-        addresses: ["169.254.255.103/32"]
-        routes:
-          - network: 169.254.255.102/32
-            metric: 2048
-    disableSearchDomain: true
-    nameservers: ["192.168.254.1"]
   install:
     diskSelector:
       model: TS512GMTS430S
@@ -231,3 +187,76 @@ kind: TimeSyncConfig
 ntp:
   servers:
     - time.cloudflare.com
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+    - address: 192.168.254.1
+searchDomains:
+    disableDefault: true
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 1500
+addresses:
+  - address: 192.168.254.83/24
+routes:
+  - destination: 0.0.0.0/0
+    gateway: 192.168.254.1
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.254.250
+link: bond0
+---
+# IOT
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.150
+vlanID: 150
+parent: bond0
+mtu: 1500
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+    match: link.driver == "igc" && mac(link.permanent_addr).startsWith("48:21:0b:59:")
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: m03-m01
+selector:
+    match: link.driver == "thunderbolt-net" && link.bus_path == "1-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: m03-m01
+up: true
+mtu: 65520
+addresses:
+  - address: 169.254.255.103/32
+routes:
+  - destination: 169.254.255.101/32
+    metric: 2048
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: m03-m02
+selector:
+    match: link.driver == "thunderbolt-net" && link.bus_path == "0-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: m03-m02
+up: true
+mtu: 65520
+addresses:
+  - address: 169.254.255.103/32
+routes:
+  - destination: 169.254.255.102/32
+    metric: 2048
