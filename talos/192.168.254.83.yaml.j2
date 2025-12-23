@@ -228,26 +228,9 @@ selector:
 ---
 apiVersion: v1alpha1
 kind: LinkAliasConfig
-name: m03-m01
-selector:
-    match: link.driver == "thunderbolt-net" && link.bus_path == "1-1.0"
----
-apiVersion: v1alpha1
-kind: LinkConfig
-name: m03-m01
-up: true
-mtu: 65520
-addresses:
-  - address: 169.254.255.103/32
-routes:
-  - destination: 169.254.255.101/32
-    metric: 2048
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
 name: m03-m02
 selector:
-    match: link.driver == "thunderbolt-net" && link.bus_path == "0-1.0"
+    match: link.driver == "thunderbolt-net" && link.bus_path == "1-1.0"
 ---
 apiVersion: v1alpha1
 kind: LinkConfig
@@ -258,4 +241,21 @@ addresses:
   - address: 169.254.255.103/32
 routes:
   - destination: 169.254.255.102/32
+    metric: 2048
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: m03-m01
+selector:
+    match: link.driver == "thunderbolt-net" && link.bus_path == "0-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: m03-m01
+up: true
+mtu: 65520
+addresses:
+  - address: 169.254.255.103/32
+routes:
+  - destination: 169.254.255.101/32
     metric: 2048
