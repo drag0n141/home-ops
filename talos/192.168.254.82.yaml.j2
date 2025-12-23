@@ -11,8 +11,6 @@ machine:
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
-      featureGates:
-        ImageVolume: true
       imageMaximumGCAge: 60m
       maxPods: 150
       serializeImagePulls: false
@@ -21,7 +19,6 @@ machine:
       validSubnets: ["192.168.254.0/24"]
     disableManifestsDirectory: true
   network:
-    hostname: k8s-m02
     interfaces:
       - interface: bond0
         bond:
@@ -87,9 +84,6 @@ machine:
         hard=True
         nconnect=16
         noatime=True
-  time:
-    disabled: false
-    servers: ["time.cloudflare.com"]
   sysctls:
     fs.inotify.max_user_watches: "1048576"     # Watchdog
     fs.inotify.max_user_instances: "8192"      # Watchdog
@@ -106,7 +100,6 @@ machine:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
   features:
     rbac: true
-    stableHostname: true
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles: ["os:admin"]
@@ -120,10 +113,6 @@ machine:
       enabled: true
       resolveMemberNames: true
       forwardKubeDNSToHost: false
-  udev:
-    rules:
-      - # Thunderbolt - Disable Power Management
-        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/control}="on"
   kernel:
     modules:
       - name: thunderbolt
@@ -167,7 +156,7 @@ cluster:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     certSANs: ["127.0.0.1", "192.168.254.250"]
     disablePodSecurityPolicy: true
@@ -213,6 +202,10 @@ cluster:
   allowSchedulingOnControlPlanes: true
 ---
 apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: k8s-m02
+---
+apiVersion: v1alpha1
 kind: VolumeConfig
 name: EPHEMERAL
 provisioning:
@@ -232,3 +225,9 @@ apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  servers:
+    - time.cloudflare.com
