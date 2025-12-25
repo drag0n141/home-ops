@@ -70,7 +70,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
-              capabilities: { add: ["CHOWN"] }
             resources:
               requests:
                 cpu: 100m
