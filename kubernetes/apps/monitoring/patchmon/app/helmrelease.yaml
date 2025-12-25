@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/patchmon/patchmon-backend
-              tag: 1.3.6@sha256:3b456693f5c4f9503edd81cbfabd7e5e1f688f3c6f4e96daa688c250b8b862f0
+              tag: 1.3.7@sha256:18147370b920f9c4cd91d96ced9aeb00f1c8922f7c6eb455c1bca3e151513bab
             env:
               TZ: ${TIMEZONE}
               CORS_ORIGIN: https://patchmon.${SECRET_DOMAIN_INTERNAL}
