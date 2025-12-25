@@ -9,7 +9,7 @@ resources:
   - ./external-dns/ks.yaml
   - ./multus/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./tailscale/ks.yaml
+#   - ./tailscale/ks.yaml
   - ./traefik/ks.yaml
   - ./wg-easy/ks.yaml
 components:
