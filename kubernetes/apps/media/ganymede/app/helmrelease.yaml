@@ -68,9 +68,9 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
-              capabilities: { add: ["CHOWN"], drop: ["ALL"] }
+              capabilities: { add: ["CHOWN"] }
             resources:
               requests:
                 cpu: 100m
