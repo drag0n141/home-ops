@@ -1,0 +1,27 @@
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-lan
+spec:
+  config: |-
+    {
+      "cniVersion": "1.1.0",
+      "name": "multus-lan",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "bond0.140",
+          "mode": "bridge",
+          "ipam": {
+            "type": "static",
+            "routes": [
+              { "dst": "192.168.140.0/24", "gw": "192.168.140.1" }
+            ]
+          }
+        },
+        {
+          "type": "sbr"
+        }
+      ]
+    }

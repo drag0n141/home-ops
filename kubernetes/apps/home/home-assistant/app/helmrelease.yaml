@@ -72,6 +72,12 @@ spec:
             "namespace": "networking",
             "ips": ["192.168.150.5/24"],
             "mac": "7e:ae:c7:bb:d6:ce"
+          },
+          {
+            "name":"multus-lan",
+            "namespace": "networking",
+            "ips": ["192.168.140.2/24"],
+            "mac": "7e:ae:c7:eb:d6:ce"
           }]
     service:
       app:
