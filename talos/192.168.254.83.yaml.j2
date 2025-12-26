@@ -212,7 +212,13 @@ kind: Layer2VIPConfig
 name: 192.168.254.250
 link: bond0
 ---
-# IOT
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.140
+vlanID: 140
+parent: bond0
+mtu: 1500
+---
 apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.150
