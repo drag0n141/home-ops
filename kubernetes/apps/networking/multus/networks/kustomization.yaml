@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./iot.yaml
   - ./lan.yaml
+  - ./vpn.yaml
