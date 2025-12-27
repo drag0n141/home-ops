@@ -10,6 +10,8 @@ spec:
     name: blackbox-exporter
   values:
     fullnameOverride: blackbox-exporter
+    image:
+      registry: quay.io
     config:
       modules:
         http_2xx:
