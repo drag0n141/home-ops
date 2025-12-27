@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: wg-easy
+  name: &app wg-easy
 spec:
   interval: 1h
   chartRef:
@@ -81,6 +81,7 @@ spec:
             protocol: UDP
     ingress:
       app:
+        forceRename: *app
         className: traefik-internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"

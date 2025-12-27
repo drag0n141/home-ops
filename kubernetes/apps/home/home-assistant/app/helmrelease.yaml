@@ -88,6 +88,7 @@ spec:
             port: 12321
     ingress:
       app:
+        forceRename: *app
         className: traefik-external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
