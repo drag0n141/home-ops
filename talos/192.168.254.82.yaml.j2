@@ -214,6 +214,13 @@ link: bond0
 ---
 apiVersion: v1alpha1
 kind: VLANConfig
+name: bond0.130
+vlanID: 130
+parent: bond0
+mtu: 1500
+---
+apiVersion: v1alpha1
+kind: VLANConfig
 name: bond0.140
 vlanID: 140
 parent: bond0
