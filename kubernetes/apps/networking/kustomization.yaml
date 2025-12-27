@@ -15,6 +15,5 @@ resources:
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/pod-gateway
   - ../../components/repos
   - ../../components/substitutions
