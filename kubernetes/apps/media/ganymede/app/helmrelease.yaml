@@ -33,6 +33,7 @@ spec:
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
+              DEBUG: true
               VIDEOS_DIR: /data/videos
               TEMP_DIR: /data/temp
               LOGS_DIR: /data/logs
