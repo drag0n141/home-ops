@@ -18,6 +18,7 @@ services:
       - '/tmp'
     environment:
       - 'TZ=${TZ}'
+      - 'RESTIC_HOSTNAME=NAS01'
     networks:
       - traefik
     security_opt:
