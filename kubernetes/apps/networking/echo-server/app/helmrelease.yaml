@@ -64,7 +64,7 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     ingress:
-      app:
+      external:
         className: traefik-external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
