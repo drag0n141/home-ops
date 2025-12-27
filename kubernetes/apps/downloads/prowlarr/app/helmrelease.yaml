@@ -65,7 +65,13 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
       annotations:
-        setGateway: "true"
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-vpn",
+            "namespace": "networking",
+            "ips": ["192.168.130.10/24"],
+            "mac": "7e:ag:d7:bb:d6:ce"
+          }]
     service:
       app:
         ports:
