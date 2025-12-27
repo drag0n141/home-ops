@@ -35,7 +35,7 @@ spec:
               PGID: 1000
               DEBUG: false
               VIDEOS_DIR: /data/videos
-              TEMP_DIR: /data/temp
+              TEMP_DIR: /data/videos/.tmp
               LOGS_DIR: /data/logs
               CONFIG_DIR: /data/config
               OAUTH_ENABLED: true
@@ -132,8 +132,6 @@ spec:
             app:
               - path: /data/videos
                 subPath: twitch
-              - path: /data/temp
-                subPath: twitch-temp
       tmpfs:
         type: emptyDir
         advancedMounts:
