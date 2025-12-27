@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app wg-easy
+  name: wg-easy
 spec:
   interval: 1h
   chartRef:
@@ -69,6 +69,7 @@ spec:
           traefik.ingress.kubernetes.io/service.serversscheme: "https"
         ports:
           http:
+            appProtocol: kubernetes.io/wss
             port: 8080
       wireguard:
         type: LoadBalancer
@@ -81,7 +82,7 @@ spec:
             protocol: UDP
     ingress:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         className: traefik-internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"

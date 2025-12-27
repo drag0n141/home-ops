@@ -15,6 +15,14 @@ spec:
           postgres: "true"
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
+            envFrom: &envFrom
+              - secretRef:
+                  name: prowlarr-secret
         containers:
           app:
             image:
@@ -29,9 +37,7 @@ spec:
               PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__LOG__LEVEL: info
               PROWLARR__SERVER__PORT: &port 9696
-            envFrom:
-              - secretRef:
-                  name: prowlarr-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true

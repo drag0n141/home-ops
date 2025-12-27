@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: media
 resources:
   - ./agregarr/ks.yaml
-  - ./altmount/ks.yaml
   - ./autopulse/ks.yaml
   - ./calibre-web/ks.yaml
   - ./ersatztv/ks.yaml
