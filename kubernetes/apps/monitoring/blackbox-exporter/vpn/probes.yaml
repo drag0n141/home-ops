@@ -6,7 +6,7 @@ metadata:
 spec:
   module: icmp
   prober:
-    url: blackbox-exporter-vpn.observability.svc.cluster.local:9115
+    url: blackbox-exporter-vpn.monitoring.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
@@ -23,7 +23,7 @@ metadata:
 spec:
   module: http_2xx
   prober:
-    url: blackbox-exporter-vpn.observability.svc.cluster.local:9115
+    url: blackbox-exporter-vpn.monitoring.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
