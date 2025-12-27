@@ -73,7 +73,7 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
-            "name":"multus-vpn",
+            "name": "multus-vpn",
             "namespace": "networking",
             "ips": ["192.168.130.10/24"],
             "mac": "22:3b:8e:1b:23:01"
