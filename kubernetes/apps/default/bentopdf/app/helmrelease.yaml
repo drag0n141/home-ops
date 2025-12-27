@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/alam00000/bentopdf
-              tag: v1.11.2@sha256:5273e0ce98a3fb3eba735cf973712351a6c9593930114431db10b180c2c9b6cb
+              tag: v1.14.0@sha256:06f259a361e37dcd3cc7069634431e75c1d1adec0ca483f369a999891fcf1165
             env:
               TZ: ${TIMEZONE}
             securityContext:
