@@ -53,6 +53,16 @@
       minimumGroupSize: 2,
     },
     {
+      description: "Guardian Group",
+      groupName: "Guardian",
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["guardian"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Immich Group",
       groupName: "Immich",
       matchDatasources: ["docker"],

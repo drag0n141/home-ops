@@ -9,6 +9,7 @@ resources:
   - ./calibre-web/ks.yaml
   - ./ersatztv/ks.yaml
   - ./ganymede/ks.yaml
+  - ./guardian/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./plex/ks.yaml
