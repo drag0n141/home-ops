@@ -39,6 +39,7 @@ resources:
   - ./tandoor/ks.yaml
   - ./termix/ks.yaml
   - ./ts3/ks.yaml
+  - ./uc-intg-manager/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./vikunja/ks.yaml
   - ./wallos/ks.yaml
