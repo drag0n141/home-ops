@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/joni1802/ts3-manager
-              tag: v2.2.4@sha256:6af176de4bdcde10987c1eb3790881072a9f87ae3be4f83bb5fdf2be0c5df308
+              tag: v2.2.4@sha256:1f70dce517506f9b9f10d0acfb8f601d350c32ec71151aa14cc56307935577c5
             env:
               TZ: ${TIMEZONE}
               WHITELIST: ts3-server.default.svc.cluster.local,ts3.${SECRET_DOMAIN_INTERNAL},ts.${SECRET_DOMAIN}
