@@ -48,6 +48,7 @@ machine:
     image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
   kernel:
     modules:
+      - name: nbd
       - name: thunderbolt
       - name: thunderbolt_net
   kubelet:
