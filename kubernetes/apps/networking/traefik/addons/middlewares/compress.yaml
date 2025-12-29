@@ -9,3 +9,9 @@ spec:
     excludedContentTypes:
       - application/zip
       - application/octet-stream
+      - video/mp4
+      - video/webm
+      - video/x-matroska
+      - video/quicktime
+      - application/vnd.apple.mpegurl
+      - application/x-mpegURL

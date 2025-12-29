@@ -13,32 +13,32 @@ spec:
     accessControlMaxAge: 100
     accessControlAllowOriginListRegex:
       - "https://(.*?)${SECRET_DOMAIN}"
+    accessControlExposeHeaders:
+      - Content-Length
+      - Content-Range
+      - Accept-Ranges
+      - ETag
     hostsProxyHeaders:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-GEO-City"
-      - "Cf-Connecting-Ip"
-      - "Cf-Ipcountry"
+      - "X-Real-IP"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
-    customFrameOptionsValue: "allow-from https:${SECRET_DOMAIN}"
     contentTypeNosniff: true
-    browserXssFilter: true
-    frameDeny: true
-    referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests;"
+    referrerPolicy: "strict-origin-when-cross-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
     customResponseHeaders:
-      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Frame-Options: "SAMEORIGIN"
+      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Content-Type-Options: "nosniff"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
-      City: X-GEO-City
       X-Powered-By: ""
-      server: ""
+      Server: ""
+      Accept-Ranges: "bytes"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -61,27 +61,23 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-GEO-City"
-      - "Cf-Connecting-Ip"
-      - "Cf-Ipcountry"
+      - "X-Real-IP"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
-    browserXssFilter: true
-    frameDeny: true
-    referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests;"
+    referrerPolicy: "strict-origin-when-cross-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
     customResponseHeaders:
-      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Frame-Options: "SAMEORIGIN"
+      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Content-Type-Options: "nosniff"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
-      City: X-GEO-City
       X-Powered-By: ""
-      server: ""
+      Server: ""
+      Accept-Ranges: "bytes"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -105,27 +101,23 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-GEO-City"
-      - "Cf-Connecting-Ip"
-      - "Cf-Ipcountry"
+      - "X-Real-IP"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
-    browserXssFilter: true
-    frameDeny: true
-    referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests;"
+    referrerPolicy: "strict-origin-when-cross-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
     customResponseHeaders:
-      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Frame-Options: "SAMEORIGIN"
+      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Content-Type-Options: "nosniff"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
-      City: X-GEO-City
       X-Powered-By: ""
-      server: ""
+      Server: ""
+      Accept-Ranges: "bytes"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -155,29 +147,25 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-GEO-City"
-      - "Cf-Connecting-Ip"
-      - "Cf-Ipcountry"
+      - "X-Real-IP"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
-    browserXssFilter: true
-    frameDeny: true
     accessControlAllowCredentials: true
     addVaryHeader: true
-    referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests;"
+    referrerPolicy: "strict-origin-when-cross-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
     customResponseHeaders:
-      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Frame-Options: "SAMEORIGIN"
+      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Content-Type-Options: "nosniff"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
-      City: X-GEO-City
       X-Powered-By: ""
-      server: ""
+      Server: ""
+      Accept-Ranges: "bytes"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -206,26 +194,22 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-GEO-City"
-      - "Cf-Connecting-Ip"
-      - "Cf-Ipcountry"
+      - "X-Real-IP"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
-    browserXssFilter: true
-    frameDeny: true
     accessControlAllowCredentials: true
     addVaryHeader: true
-    referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests;"
+    referrerPolicy: "strict-origin-when-cross-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
     customResponseHeaders:
-      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Frame-Options: "SAMEORIGIN"
+      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Content-Type-Options: "nosniff"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
-      City: X-GEO-City
       X-Powered-By: ""
-      server: ""
+      Server: ""
+      Accept-Ranges: "bytes"
