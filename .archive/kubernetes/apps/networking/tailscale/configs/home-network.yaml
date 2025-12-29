@@ -20,9 +20,3 @@ spec:
       - 10.64.0.1/32
   hostname: tailscale-k8s
   exitNode: true
-  statefulSet:
-    pod:
-      tailscaleContainer:
-        env:
-          - name: TS_DEBUG_FIREWALL_MODE
-            value: "nftables"
