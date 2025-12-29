@@ -92,6 +92,8 @@ spec:
                 memory: 1024Mi
     service:
       app:
+        forceRename: *app
+        primary: true
         annotations:
           teleport.dev/name: "{{ .Release.Name }}"
         labels:
@@ -105,16 +107,8 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: "ganymede-cdn.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.87
         ports:
-          http:
+          https:
             port: 443
-    serviceMonitor:
-      app:
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     ingress:
       app:
         forceRename: "{{ .Release.Name }}"
