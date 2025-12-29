@@ -3,26 +3,27 @@ version: v1alpha1
 debug: false
 persist: true
 machine:
-  type: controlplane
-  token: op://Kubernetes/talos/MACHINE_TOKEN
   ca:
     crt: op://Kubernetes/talos/MACHINE_CA_CRT
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://Kubernetes/talos/MACHINE_CA_KEY
+    {% endif %}
   certSANs: ["127.0.0.1", "192.168.254.250"]
-  kubelet:
-    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
-    extraConfig:
-      imageMaximumGCAge: 60m
-      maxPods: 150
-      serializeImagePulls: false
-    defaultRuntimeSeccompProfileEnabled: true
-    nodeIP:
-      validSubnets: ["192.168.254.0/24"]
-    disableManifestsDirectory: true
-  install:
-    diskSelector:
-      model: TS512GMTS430S
-    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
+  features:
+    rbac: true
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles: ["os:admin"]
+      allowedKubernetesNamespaces: ["actions-runner-system", "system"]
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      resolveMemberNames: true
+      forwardKubeDNSToHost: false
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -41,6 +42,28 @@ machine:
         hard=True
         nconnect=16
         noatime=True
+  install:
+    diskSelector:
+      model: TS512GMTS430S
+    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
+  kernel:
+    modules:
+      - name: thunderbolt
+      - name: thunderbolt_net
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    extraConfig:
+      imageMaximumGCAge: 60m
+      maxPods: 150
+      serializeImagePulls: false
+    defaultRuntimeSeccompProfileEnabled: true
+    nodeIP:
+      validSubnets: ["192.168.254.0/24"]
+    disableManifestsDirectory: true
+  nodeLabels:
+    node.kubernetes.io/gpu: "true"
+    topology.kubernetes.io/region: main
+    topology.kubernetes.io/zone: m
   sysctls:
     fs.inotify.max_user_watches: "1048576"     # Watchdog
     fs.inotify.max_user_instances: "8192"      # Watchdog
@@ -55,35 +78,17 @@ machine:
     vm.nr_hugepages: "2048"                    # PostgreSQL
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
-  features:
-    rbac: true
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles: ["os:admin"]
-      allowedKubernetesNamespaces: ["actions-runner-system", "system"]
-    apidCheckExtKeyUsage: true
-    diskQuotaSupport: true
-    kubePrism:
-      enabled: true
-      port: 7445
-    hostDNS:
-      enabled: true
-      resolveMemberNames: true
-      forwardKubeDNSToHost: false
-  kernel:
-    modules:
-      - name: thunderbolt
-      - name: thunderbolt_net
-  nodeLabels:
-    node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: main
-    topology.kubernetes.io/zone: m
+  type: {{ ENV.MACHINE_TYPE }}
+  token: op://Kubernetes/talos/MACHINE_TOKEN
 cluster:
-  id: op://Kubernetes/talos/CLUSTER_ID
-  secret: op://Kubernetes/talos/CLUSTER_SECRET
+  ca:
+    crt: op://Kubernetes/talos/CLUSTER_CA_CRT
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    key: op://Kubernetes/talos/CLUSTER_CA_KEY
+    {% endif %}
+  clusterName: main
   controlPlane:
     endpoint: https://192.168.254.250:6443
-  clusterName: main
   discovery:
     enabled: true
     registries:
@@ -91,47 +96,42 @@ cluster:
         disabled: true
       service:
         disabled: false
+  id: op://Kubernetes/talos/CLUSTER_ID
   network:
     cni:
       name: none
     dnsDomain: cluster.local
     podSubnets: ["10.42.0.0/16"]
     serviceSubnets: ["10.43.0.0/16"]
-  coreDNS:
-    disabled: true
+  secret: op://Kubernetes/talos/CLUSTER_SECRET
   token: op://Kubernetes/talos/CLUSTER_TOKEN
-  secretboxEncryptionSecret: op://Kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
-  ca:
-    crt: op://Kubernetes/talos/CLUSTER_CA_CRT
-    key: op://Kubernetes/talos/CLUSTER_CA_KEY
+  {% if ENV.MACHINE_TYPE == 'controlplane' %}
   aggregatorCA:
     crt: op://Kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://Kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
-  serviceAccount:
-    key: op://Kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
+    certSANs: ["127.0.0.1", "192.168.254.250"]
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: MutatingAdmissionPolicy=true
-      runtime-config: admissionregistration.k8s.io/v1beta1=true
-    certSANs: ["127.0.0.1", "192.168.254.250"]
-    disablePodSecurityPolicy: true
-    auditPolicy:
-      apiVersion: audit.k8s.io/v1
-      kind: Policy
-      rules:
-        - level: Metadata
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
+  coreDNS:
+    disabled: true
+  etcd:
+    advertisedSubnets: ["192.168.254.0/24"]
+    ca:
+      crt: op://Kubernetes/talos/CLUSTER_ETCD_CA_CRT
+      key: op://Kubernetes/talos/CLUSTER_ETCD_CA_KEY
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
+  secretboxEncryptionSecret: op://Kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
-    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
-    extraArgs:
-      bind-address: 0.0.0.0
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
       kind: KubeSchedulerConfiguration
@@ -149,14 +149,12 @@ cluster:
                   - maxSkew: 1
                     topologyKey: kubernetes.io/hostname
                     whenUnsatisfiable: ScheduleAnyway
-  etcd:
-    ca:
-      crt: op://Kubernetes/talos/CLUSTER_ETCD_CA_CRT
-      key: op://Kubernetes/talos/CLUSTER_ETCD_CA_KEY
     extraArgs:
-      listen-metrics-urls: http://0.0.0.0:2381
-    advertisedSubnets: ["192.168.254.0/24"]
-  allowSchedulingOnControlPlanes: true
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
+  serviceAccount:
+    key: op://Kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  {% endif %}
 ---
 apiVersion: v1alpha1
 kind: TimeSyncConfig
