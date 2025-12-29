@@ -101,14 +101,10 @@ spec:
         ports:
           http:
             port: *port
-      nginx:
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "ganymede-cdn.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: 192.168.222.87
+      cdn:
         ports:
-          https:
-            port: 443
+          http:
+            port: 8080
     serviceMonitor:
       app:
         serviceName: app
@@ -150,18 +146,6 @@ spec:
             nginx:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
-                readOnly: true
-      nginx-tls:
-        type: secret
-        name: "${SECRET_DOMAIN/./-}-production-tls"
-        advancedMounts:
-          ganymede:
-            nginx:
-              - path: /etc/nginx/tls/tls.crt
-                subPath: tls.crt
-                readOnly: true
-              - path: /etc/nginx/tls/tls.key
-                subPath: tls.key
                 readOnly: true
       media:
         type: nfs

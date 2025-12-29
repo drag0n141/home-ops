@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ganymede-cdn
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ganymede-cdn.${SECRET_DOMAIN_INTERNAL}`) && PathPrefix(`/data/videos`)
+      kind: Rule
+      services:
+        - name: ganymede-cdn
+          port: 8080
+          passHostHeader: true
+      middlewares:
+          - name: traefik-middleware-chain-no-auth
+            namespace: networking
+  tls:
+    secretName: "${SECRET_DOMAIN/./-}-production-tls"
