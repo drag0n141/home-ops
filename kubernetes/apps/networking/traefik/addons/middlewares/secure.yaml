@@ -197,7 +197,7 @@ spec:
     contentTypeNosniff: true
     accessControlAllowCredentials: true
     addVaryHeader: true
-    referrerPolicy: "strict-origin-when-cross-origin"
+    referrerPolicy: "same-origin"
     contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
     customResponseHeaders:
       Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
