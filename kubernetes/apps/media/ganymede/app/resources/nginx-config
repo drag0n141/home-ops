@@ -17,7 +17,12 @@ http {
   scgi_temp_path /tmp/scgi_temp;
 
   server {
-    listen 8080;
+    listen 443 ssl;
+
+    ssl_certificate /etc/nginx/tls/tls.crt;
+    ssl_certificate_key /etc/nginx/tls/tls.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
 
     charset utf-8;
     root /;
