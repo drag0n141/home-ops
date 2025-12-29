@@ -72,7 +72,7 @@ tasks:
       MACHINE_TYPE:
         sh: |-
           talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
-            || basename $(find '{{.TALOS_DIR}}' -name '{{.IP}}.yaml' -printf '%h')
+            || basename $(find '{{.TALOS_DIR}}' -name '192.*.yaml' -printf '%h')
     env:
       TALOS_SCHEMATIC:
         sh: |-
@@ -83,5 +83,8 @@ tasks:
     preconditions:
       - op user get --me
       - ping -c1 192.168.254.2
+      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
+      - test -f {{.TALOS_DIR}}/networking.yaml
+      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml.j2
       - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which ls minijinja-cli op
