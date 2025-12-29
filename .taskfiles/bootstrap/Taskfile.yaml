@@ -64,7 +64,7 @@ tasks:
       - ssh -l root 192.168.254.2 "docker restart matchbox"
     vars:
       ASSETS:
-        sh: ls {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/*.yaml.j2
+        sh: ls {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/*.yaml
       GROUPS:
         sh: ls {{.BOOTSTRAP_DIR}}/matchbox/groups/*.json.j2
       PROFILES:
