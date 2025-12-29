@@ -5,6 +5,7 @@ metadata:
   name: ganymede-cdn
   annotations:
     kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
 spec:
   entryPoints:
     - websecure
