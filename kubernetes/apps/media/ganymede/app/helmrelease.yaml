@@ -92,7 +92,7 @@ spec:
                 memory: 1024Mi
     service:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         primary: true
         annotations:
           teleport.dev/name: "{{ .Release.Name }}"
@@ -157,7 +157,11 @@ spec:
         advancedMounts:
           ganymede:
             nginx:
-              - path: /etc/nginx/tls
+              - path: /etc/nginx/tls/tls.crt
+                subPath: tls.crt
+                readOnly: true
+              - path: /etc/nginx/tls/tls.key
+                subPath: tls.key
                 readOnly: true
       media:
         type: nfs
