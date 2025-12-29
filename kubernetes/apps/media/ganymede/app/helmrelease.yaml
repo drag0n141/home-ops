@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app ganymede
+  name: ganymede
 spec:
   interval: 1h
   chartRef:
@@ -31,6 +31,7 @@ spec:
               tag: 4.11.1@sha256:8518ca87d462c66779e95e38f55b13287c0be9ba99f07d51fe67285898009420
             env:
               TZ: ${TIMEZONE}
+              CDN_URL: https://ganymede-cdn.${SECRET_DOMAIN_INTERNAL}
               PUID: 1000
               PGID: 1000
               DEBUG: false
@@ -73,18 +74,33 @@ spec:
                 cpu: 100m
               limits:
                 memory: 8Gi
+          nginx:
+            image:
+              repository: ghcr.io/nginxinc/nginx-unprivileged
+              tag: 1.27.4-alpine@sha256:e234d4f7e346c098f7b22245690372382aded5be988611eb2c53ae62231eece7
+            env:
+              TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 1024Mi
     service:
       app:
-        type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "ganymede-test.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: 192.168.222.87
-          teleport.dev/name: *app
+          teleport.dev/name: "{{ .Release.Name }}"
         labels:
           teleport: enabled
         ports:
           http:
             port: *port
+          nginx:
+            port: 8080
     serviceMonitor:
       app:
         endpoints:
@@ -95,6 +111,7 @@ spec:
             scrapeTimeout: 10s
     ingress:
       app:
+        forceRename: "{{ .Release.Name }}"
         className: traefik-internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
@@ -111,11 +128,37 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      cdn:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: &host "ganymede-cdn.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: nginx
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data/config
+      nginx-config:
+        type: configMap
+        name: ganymede-configmap
+        advancedMounts:
+          ganymede:
+            nginx:
+              - path: /etc/nginx/nginx.conf
+                subPath: nginx-config
+                readOnly: true
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
@@ -123,6 +166,9 @@ spec:
         advancedMounts:
           ganymede:
             app:
+              - path: /data/videos
+                subPath: twitch
+            nginx:
               - path: /data/videos
                 subPath: twitch
       tmpfs:
@@ -134,5 +180,8 @@ spec:
                 subPath: cache
               - path: /data/logs
                 subPath: logs
+              - path: /tmp
+                subPath: tmp
+            nginx:
               - path: /tmp
                 subPath: tmp

@@ -1,0 +1,33 @@
+pid /tmp/nginx.pid;
+events {
+  worker_connections 1024;
+}
+http {
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+  keepalive_timeout 65;
+
+  client_body_temp_path /tmp/client_temp;
+  proxy_temp_path /tmp/proxy_temp_path;
+  fastcgi_temp_path /tmp/fastcgi_temp;
+  uwsgi_temp_path /tmp/uwsgi_temp;
+  scgi_temp_path /tmp/scgi_temp;
+
+  server {
+    listen 8080;
+
+    charset utf-8;
+    root /data;
+
+    location / {
+      try_files $uri =404;
+      add_header Accept-Ranges bytes always;
+      add_header Access-Control-Allow-Origin * always;
+      expires 7d;
+      add_header Cache-Control "public, immutable";
+    }
+  }
+}

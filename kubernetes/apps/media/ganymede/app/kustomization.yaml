@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: ganymede-configmap
+    files:
+      - ./resources/nginx-config
+generatorOptions:
+  disableNameSuffixHash: true
