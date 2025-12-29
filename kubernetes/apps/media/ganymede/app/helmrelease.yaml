@@ -75,7 +75,10 @@ spec:
                 memory: 8Gi
     service:
       app:
+        type: LoadBalancer
         annotations:
+          external-dns.alpha.kubernetes.io/hostname: "ganymede-test.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.87
           teleport.dev/name: *app
         labels:
           teleport: enabled
