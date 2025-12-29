@@ -30,7 +30,7 @@ tasks:
     env:
       TALOS_SCHEMATIC:
         sh: |-
-          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+          minijinja-cli {{.TALOS_DIR}}/schematic.yaml \
             | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
             | jq --raw-output '.id'
       MACHINE_TYPE: '{{.MACHINE_TYPE}}'
@@ -42,7 +42,7 @@ tasks:
       - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
       - test -f {{.TALOS_DIR}}/networking.yaml
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml
-      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
+      - test -f {{.TALOS_DIR}}/schematic.yaml
       - which minijinja-cli op talosctl
 
   upgrade-node:
@@ -54,7 +54,7 @@ tasks:
     env:
       TALOS_SCHEMATIC:
         sh: |-
-          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+          minijinja-cli {{.TALOS_DIR}}/schematic.yaml \
             | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
             | jq --raw-output '.id'
     requires:
@@ -62,7 +62,7 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.IP}} get machineconfig
-      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
+      - test -f {{.TALOS_DIR}}/schematic.yaml
       - which talosctl
 
   upgrade-k8s:
