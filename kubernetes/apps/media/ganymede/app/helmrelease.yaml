@@ -175,6 +175,7 @@ spec:
             nginx:
               - path: /data/videos
                 subPath: twitch
+                readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
