@@ -16,7 +16,7 @@ tasks:
     desc: Apply Talos config to a node [IP=required]
     cmds:
       - task: down
-      - minijinja-cli {{.TALOS_DIR}}/{{.IP}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} --mode={{.MODE}} --config-patch @{{.TALOS_DIR}}/networking.yaml --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml --file /dev/stdin
+      - minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} --mode={{.MODE}} --config-patch @{{.TALOS_DIR}}/networking.yaml --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml --file /dev/stdin
       - talosctl --nodes {{.IP}} health
       - task: up
     vars:
