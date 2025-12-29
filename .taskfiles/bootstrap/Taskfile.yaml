@@ -56,7 +56,7 @@ tasks:
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.ITEM}}
       - for: { var: ASSETS }
-        cmd: minijinja-cli {{.ITEM}} | op inject | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{base .ITEM | replace ".yaml.j2" ".yaml"}}
+        cmd: minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject | talosctl machineconfig patch - --patch @{{.TALOS_DIR}}/networking.yaml --patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.ITEM}}.yaml | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{base .ITEM | replace ".yaml.j2" ".yaml"}}
       - for: { var: GROUPS }
         cmd: minijinja-cli {{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/groups/{{base .ITEM | replace ".json.j2" ".json"}}
       - for: { var: PROFILES }
@@ -64,17 +64,22 @@ tasks:
       - ssh -l root 192.168.254.2 "docker restart matchbox"
     vars:
       ASSETS:
-        sh: ls {{.TALOS_DIR}}/*.yaml.j2
+        sh: ls {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/*.yaml.j2
       GROUPS:
         sh: ls {{.BOOTSTRAP_DIR}}/matchbox/groups/*.json.j2
       PROFILES:
         sh: ls {{.BOOTSTRAP_DIR}}/matchbox/profiles/*.json.j2
+      MACHINE_TYPE:
+        sh: |-
+          talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
+            || basename $(find '{{.TALOS_DIR}}' -name '{{.IP}}.yaml' -printf '%h')
     env:
       TALOS_SCHEMATIC:
         sh: |-
           minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
             | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
             | jq --raw-output '.id'
+      MACHINE_TYPE: '{{.MACHINE_TYPE}}'
     preconditions:
       - op user get --me
       - ping -c1 192.168.254.2
