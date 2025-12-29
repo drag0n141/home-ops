@@ -1,0 +1,56 @@
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: k8s-m02
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 1500
+addresses:
+  - address: 192.168.254.82/24
+routes:
+  - gateway: 192.168.254.1
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+    match: link.driver == "igc" && mac(link.permanent_addr).startsWith("48:21:0b:59:")
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: m02-m01
+selector:
+    match: link.driver == "thunderbolt-net" && link.bus_path == "1-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: m02-m01
+up: true
+mtu: 65520
+addresses:
+  - address: 169.254.255.102/32
+routes:
+  - destination: 169.254.255.101/32
+    metric: 2048
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: m02-m03
+selector:
+    match: link.driver == "thunderbolt-net" && link.bus_path == "0-1.0"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: m02-m03
+up: true
+mtu: 65520
+addresses:
+  - address: 169.254.255.102/32
+routes:
+  - destination: 169.254.255.103/32
+    metric: 2048
