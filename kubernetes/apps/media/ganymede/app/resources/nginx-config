@@ -20,7 +20,7 @@ http {
     listen 8080;
 
     charset utf-8;
-    root /data;
+    root /;
 
     location / {
       try_files $uri =404;
