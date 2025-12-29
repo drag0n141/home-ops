@@ -56,7 +56,7 @@ tasks:
       - for: ["kernel-amd64", "initramfs-amd64.xz"]
         cmd: curl -skL https://factory.talos.dev/image/$TALOS_SCHEMATIC/$TALOS_VERSION/{{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.ITEM}}
       - for: { var: ASSETS }
-        cmd: minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject > /tmp/base.yaml && talosctl machineconfig patch /tmp/base.yaml --patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.ITEM}}.yaml --output - | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{base .ITEM | replace ".yaml.j2" ".yaml"}}
+        cmd: minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject > /tmp/base.yaml && talosctl machineconfig patch /tmp/base.yaml --patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.ITEM}} --output - | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/assets/{{.ITEM}}
       - for: { var: GROUPS }
         cmd: minijinja-cli {{.ITEM}} | curl --key /root/.ssh/id_ed25519 -skT - -u "root:" sftp://192.168.254.2//mnt/nvme/appdata/matchbox/groups/{{base .ITEM | replace ".json.j2" ".json"}}
       - for: { var: PROFILES }
