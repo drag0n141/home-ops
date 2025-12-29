@@ -99,8 +99,14 @@ spec:
         ports:
           http:
             port: *port
-          nginx:
-            port: 8080
+      nginx:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "ganymede-cdn.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.87
+        ports:
+          http:
+            port: 443
     serviceMonitor:
       app:
         endpoints:
@@ -128,22 +134,6 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
-      cdn:
-        className: traefik-internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - host: &host "ganymede-cdn.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: nginx
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
@@ -157,6 +147,14 @@ spec:
             nginx:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
+                readOnly: true
+      nginx-tls:
+        type: secret
+        name: "${SECRET_DOMAIN/./-}-production-tls"
+        advancedMounts:
+          ganymede:
+            nginx:
+              - path: /etc/nginx/tls
                 readOnly: true
       media:
         type: nfs
