@@ -21,6 +21,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               UC_INTG_MANAGER_HTTP_PORT: &port 8080
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -28,6 +32,12 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
@@ -38,9 +48,17 @@ spec:
           }]
     service:
       app:
+        forceRename: *app
+        primary: true
         ports:
           http:
             port: *port
+      api:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "uc-intg.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.121
+        ports:
           api:
             port: 9090
     ingress:
