@@ -33,7 +33,7 @@ spec:
           SSH_DOMAIN: git.${SECRET_DOMAIN_INTERNAL}
           ROOT_URL: https://gitea.${SECRET_DOMAIN_INTERNAL}
           LANDING_PAGE: explore
-        respository:
+        repository:
           DEFAULT_BRANCH: main
           DEFAULT_PRIVATE: true
         admin:
