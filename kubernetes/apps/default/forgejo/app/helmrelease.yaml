@@ -79,8 +79,6 @@ spec:
           OPENID_CONNECT_SCOPES: openid email profile groups
         other:
           SHOW_FOOTER_TEMPLATE_LOAD_TIME: false
-        podAnnotations:
-          reloader.stakater.com/auto: "true"
         time:
           DEFAULT_UI_LOCATION: ${TIMEZONE}
         ui:
