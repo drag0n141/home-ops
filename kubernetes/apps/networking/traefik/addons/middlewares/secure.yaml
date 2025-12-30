@@ -17,23 +17,28 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-Real-IP"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
+    customFrameOptionsValue: "allow-from https:${SECRET_DOMAIN}"
     contentTypeNosniff: true
-    referrerPolicy: "strict-origin-when-cross-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
+    browserXssFilter: true
+    frameDeny: true
+    referrerPolicy: "same-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
-      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Content-Type-Options: "nosniff"
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
+      City: X-GEO-City
       X-Powered-By: ""
-      Server: ""
-      Accept-Ranges: "bytes"
+      server: ""
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -56,23 +61,27 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-Real-IP"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
-    referrerPolicy: "strict-origin-when-cross-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
+    browserXssFilter: true
+    frameDeny: true
+    referrerPolicy: "same-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
-      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Content-Type-Options: "nosniff"
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
+      City: X-GEO-City
       X-Powered-By: ""
-      Server: ""
-      Accept-Ranges: "bytes"
+      server: ""
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -96,23 +105,27 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-Real-IP"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
-    referrerPolicy: "strict-origin-when-cross-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
+    browserXssFilter: true
+    frameDeny: true
+    referrerPolicy: "same-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
-      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Content-Type-Options: "nosniff"
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
+      City: X-GEO-City
       X-Powered-By: ""
-      Server: ""
-      Accept-Ranges: "bytes"
+      server: ""
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -142,25 +155,29 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-Real-IP"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
+    browserXssFilter: true
+    frameDeny: true
     accessControlAllowCredentials: true
     addVaryHeader: true
-    referrerPolicy: "strict-origin-when-cross-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
+    referrerPolicy: "same-origin"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
-      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Content-Type-Options: "nosniff"
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
+      City: X-GEO-City
       X-Powered-By: ""
-      Server: ""
-      Accept-Ranges: "bytes"
+      server: ""
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -189,22 +206,26 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
-      - "X-Real-IP"
+      - "X-GEO-City"
+      - "Cf-Connecting-Ip"
+      - "Cf-Ipcountry"
     stsSeconds: 31536000
     stsIncludeSubdomains: false
     stsPreload: true
     forceSTSHeader: true
     contentTypeNosniff: true
+    browserXssFilter: true
+    frameDeny: true
     accessControlAllowCredentials: true
     addVaryHeader: true
     referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests; frame-ancestors 'self'"
+    contentSecurityPolicy: "upgrade-insecure-requests;"
     customResponseHeaders:
-      Permissions-Policy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-      X-Content-Type-Options: "nosniff"
+      permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
+      City: X-GEO-City
       X-Powered-By: ""
-      Server: ""
-      Accept-Ranges: "bytes"
+      server: ""
