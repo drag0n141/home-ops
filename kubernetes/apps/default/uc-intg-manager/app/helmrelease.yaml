@@ -38,19 +38,19 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-iot",
+            "namespace": "networking",
+            "ips": ["192.168.150.17/24"],
+            "mac": "fa:8e:69:4b:6f:77"
+          }]
     service:
       app:
-        forceRename: *app
-        primary: true
         ports:
           http:
             port: *port
-      api:
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: "uc-intg.${SECRET_DOMAIN_INTERNAL}"
-          lbipam.cilium.io/ips: 192.168.222.121
-        ports:
           api:
             port: 9090
     ingress:
