@@ -69,6 +69,7 @@ spec:
         openid:
           ENABLE_OPENID_SIGNIN: false
           ENABLE_OPENID_SIGNUP: true
+          UPDATE_AVATAR: true
           WHITELISTED_URIS: id.${SECRET_DOMAIN}
         oauth2_client:
           ENABLE_AUTO_REGISTRATION: true
