@@ -21,10 +21,6 @@ spec:
             env:
               TZ: ${TIMEZONE}
               UC_INTG_MANAGER_HTTP_PORT: &port 8080
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -32,12 +28,6 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
-      securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: OnRootMismatch
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
