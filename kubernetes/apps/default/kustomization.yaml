@@ -11,7 +11,7 @@ resources:
   - ./convertx/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
-  - ./gitea/ks.yaml
+  - ./forgejo/ks.yaml
   - ./gotify/ks.yaml
   - ./guacamole/ks.yaml
   - ./immich/ks.yaml

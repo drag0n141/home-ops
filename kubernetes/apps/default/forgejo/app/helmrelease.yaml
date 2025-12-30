@@ -1,0 +1,199 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app forgejo
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: forgejo
+  values:
+    strategy:
+      type: Recreate
+    image:
+      registry: code.forgejo.org
+      repository: forgejo/forgejo
+      tag: 13.0.3
+      rootless: true
+    containerSecurityContext:
+      capabilities:
+        add: ["SYS_CHROOT"]
+    gitea:
+      admin:
+        existingSecret: &secret forgejo-secret
+      config:
+        APP_NAME: "Forgejo DrAg0n141"
+        database:
+          DB_TYPE: postgres
+          HOST: postgres-rw.database.svc.cluster.local:5432
+        server:
+          DOMAIN: forgejo.${SECRET_DOMAIN_INTERNAL}
+          SSH_PORT: 22
+          SSH_LISTEN_PORT: 2222
+          SSH_DOMAIN: ssh.forgejo.${SECRET_DOMAIN_INTERNAL}
+          ROOT_URL: https://forgejo.${SECRET_DOMAIN_INTERNAL}
+          LANDING_PAGE: explore
+        repository:
+          DEFAULT_BRANCH: main
+          DEFAULT_PRIVATE: true
+        admin:
+          DISABLE_REGULAR_ORG_CREATION: true
+        service:
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          DEFAULT_KEEP_EMAIL_PRIVATE: true
+          DISABLE_REGISTRATION: false
+          ENABLE_PASSKEY_AUTHENTICATION: false
+          SHOW_REGISTRATION_BUTTON: false
+        cron:
+          ENABLED: true
+        storage: &s3storage
+          STORAGE_TYPE: minio
+          MINIO_ENDPOINT: s3.${SECRET_DOMAIN_INTERNAL}
+          MINIO_BUCKET: forgejo
+          MINIO_LOCATION: us-east-1
+          MINIO_USE_SSL: true
+        attachment: *s3storage
+        mailer:
+          ENABLED: true
+          PROTOCOL: smtp
+          SMTP_ADDR: smtp-relay.networking.svc.cluster.local
+          SMTP_PORT: 2525
+          FROM: "Forgejo <forgejo@${SECRET_DOMAIN}>"
+        cache:
+          ADAPTER: redis
+        queue:
+          TYPE: redis
+        session:
+          PROVIDER: redis
+        openid:
+          ENABLE_OPENID_SIGNIN: false
+          ENABLE_OPENID_SIGNUP: true
+          WHITELISTED_URIS: id.${SECRET_DOMAIN}
+        oauth2_client:
+          ENABLE_AUTO_REGISTRATION: true
+          ACCOUNT_LINKING: auto
+          USERNAME: preferred_username
+          UPDATE_AVATAR: true
+          OPENID_CONNECT_SCOPES: openid email profile groups
+        other:
+          SHOW_FOOTER_TEMPLATE_LOAD_TIME: false
+        time:
+          DEFAULT_UI_LOCATION: ${TIMEZONE}
+        ui:
+          SHOW_USER_EMAIL: false
+        webhook:
+          ALLOWED_HOST_LIST: "*.${SECRET_DOMAIN}"
+      oauth:
+        - name: PocketID
+          provider: openidConnect
+          existingSecret: *secret
+          autoDiscoverUrl: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+          groupClaimName: groups
+          adminGroup: ID-Admin
+          iconUrl: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pocket-id.png
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    postgresql:
+      enabled: false
+    memcached:
+      enabled: false
+    persistence:
+      enabled: true
+      mount: true
+      create: false
+      claimName: forgejo
+    service:
+      ssh:
+        type: LoadBalancer
+        port: 22
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "ssh.forgejo.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.125
+    ingress:
+      enabled: true
+      className: traefik-internal
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
+      hosts:
+        - host: &host "forgejo.${SECRET_DOMAIN_INTERNAL}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+  valuesFrom:
+    - targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
+      kind: Secret
+      name: *secret
+      valuesKey: FORGEJO_AWS_ACCESS_KEY_ID
+    - targetPath: gitea.config.storage.MINIO_SECRET_ACCESS_KEY
+      kind: Secret
+      name: *secret
+      valuesKey: FORGEJO_AWS_SECRET_ACCESS_KEY
+    - targetPath: gitea.config.attachment.MINIO_ACCESS_KEY_ID
+      kind: Secret
+      name: *secret
+      valuesKey: FORGEJO_AWS_ACCESS_KEY_ID
+    - targetPath: gitea.config.attachment.MINIO_SECRET_ACCESS_KEY
+      kind: Secret
+      name: *secret
+      valuesKey: FORGEJO_AWS_SECRET_ACCESS_KEY
+    - targetPath: gitea.config.database.NAME
+      kind: Secret
+      name: *secret
+      valuesKey: POSTGRES_DB
+    - targetPath: gitea.config.database.USER
+      kind: Secret
+      name: *secret
+      valuesKey: POSTGRES_USERNAME
+    - targetPath: gitea.config.database.PASSWD
+      kind: Secret
+      name: *secret
+      valuesKey: POSTGRES_PASSWORD
+    - targetPath: gitea.config.cache.HOST
+      kind: Secret
+      name: *secret
+      valuesKey: REDIS_URL
+    - targetPath: gitea.config.queue.CONN_STR
+      kind: Secret
+      name: *secret
+      valuesKey: REDIS_URL
+    - targetPath: gitea.config.session.PROVIDER_CONFIG
+      kind: Secret
+      name: *secret
+      valuesKey: REDIS_URL
+    - targetPath: gitea.config.security.SECRET_KEY
+      kind: Secret
+      name: *secret
+      valuesKey: FORGEJO_SECRET_KEY
+    - targetPath: gitea.config.security.INTERNAL_TOKEN
+      kind: Secret
+      name: *secret
+      valuesKey: FORGEJO_INTERNAL_TOKEN
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: forgejo
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: forgejo
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: init-db
+                        image: ghcr.io/home-operations/postgres-init:18
+                        envFrom:
+                          - secretRef:
+                              name: forgejo-secret
