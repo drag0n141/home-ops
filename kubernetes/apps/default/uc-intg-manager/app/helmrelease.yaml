@@ -88,5 +88,10 @@ spec:
           - path: /config
       tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          uc-intg-manager:
+            app:
+              - path: /.ucintg
+                subPath: ucintg
+              - path: /tmp
+                subPath: tmp
