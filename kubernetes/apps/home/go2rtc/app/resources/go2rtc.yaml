@@ -19,5 +19,7 @@ streams:
     - rtspx://192.168.1.1:7441/vMpsO93lM41iH2qN
   door:
     - rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
+  door_package:
+    - rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
   kids:
     - rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
