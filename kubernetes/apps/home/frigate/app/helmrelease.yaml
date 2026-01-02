@@ -22,9 +22,6 @@ spec:
               tag: 0.16.3@sha256:cf4305d9f1c673d71c4d0fab30ca56ca05ac91168711a74ee7867a4691a7ad02
             env:
               TZ: ${TIMEZONE}
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
             probes:
               liveness: &probes
                 enabled: false
