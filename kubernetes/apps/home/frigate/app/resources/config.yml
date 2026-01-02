@@ -67,3 +67,8 @@ cameras:
       height: 960
     motion:
       mask: 0.274,0.468,0.35,0.471,0.349,0.543,0.275,0.546
+
+telemetry:
+  stats:
+    intel_gpu_stats: false
+  version_check: false
