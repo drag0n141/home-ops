@@ -86,6 +86,13 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+      config-file:
+        type: configMap
+        name: frigate-configmap
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}

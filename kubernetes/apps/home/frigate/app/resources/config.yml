@@ -1,0 +1,62 @@
+mqtt:
+  host: mosquitto.home.svc.cluster.local
+  topic_prefix: frigate
+
+database:
+  path: /config/frigate.db
+
+detectors:
+  ov:
+    type: openvino
+    device: GPU
+
+model:
+  width: 300
+  height: 300
+  input_tensor: nhwc
+  input_pixel_format: bgr
+  path: /openvino-model/ssdlite_mobilenet_v2.xml
+  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+
+ffmpeg:
+  global_args: ["-hide_banner", "-loglevel", "warning"]
+  hwaccel_args: preset-intel-qsv-h264
+  output_args:
+    record: preset-record-ubiquiti
+
+snapshots:
+  enabled: true
+  timestamp: false
+  bounding_box: true
+  retain:
+    default: 1
+
+record:
+  enabled: true
+  retain:
+    days: 1
+    mode: all
+  detections:
+    retain:
+      days: 1
+      mode: active_objects
+
+go2rtc:
+  streams:
+    frigate_door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
+    frigate_door_lq: rtspx://192.168.1.1:7441/NTmKEeY6GtFgZYgX
+
+cameras:
+  frigate_porch:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_door_lq
+          roles: [detect]
+        - path: rtsp://localhost:8554/frigate_door_hq
+          roles: [record]
+    detect:
+      width: 720
+      height: 960
+      fps: 10
+    motion:
+      mask: 0.274,0.468,0.35,0.471,0.349,0.543,0.275,0.546
