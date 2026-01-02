@@ -20,7 +20,7 @@ streams:
   door_hq:
     - rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
   door_lq:
-    - rtspx://192.168.1.1:7441/Bv4Aa2nUDsjDfrZN
+    - rtspx://192.168.1.1:7441/z5YROdihtqmdE1IF
   door_package_hq:
     - rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
   kids_hq:
