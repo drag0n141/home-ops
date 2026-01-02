@@ -51,18 +51,7 @@ spec:
       app:
         ports:
           http:
-            primary: true
             port: *port
-          go2rtc:
-            port: 1984
-          rtsp:
-            port: 8554
-          webrtc-tcp:
-            port: 8555
-            protocol: TCP
-          webrtc-udp:
-            port: 8555
-            protocol: UDP
     ingress:
       app:
         className: traefik-internal

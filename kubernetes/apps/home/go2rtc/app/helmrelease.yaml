@@ -47,10 +47,17 @@ spec:
         runAsGroup: 1000
     service:
       app:
+        forceRename: *app
+        primary: true
         ports:
           http:
-            primary: true
             port: *port
+      streams:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "go2rtc-streams.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.91
+        ports:
           rtsp:
             port: 554
           webrtc-tcp:

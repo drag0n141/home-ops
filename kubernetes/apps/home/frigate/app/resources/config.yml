@@ -49,9 +49,9 @@ cameras:
   door:
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home.svc.cluster.local:554/door_lq
+        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/door_lq
           roles: [detect]
-        - path: rtsp://go2rtc.home.svc.cluster.local:554/door_hq
+        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/door_hq
           roles: [record]
     detect:
       width: 720
