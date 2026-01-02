@@ -47,7 +47,7 @@ go2rtc:
     frigate_door_lq: rtspx://192.168.1.1:7441/NTmKEeY6GtFgZYgX
 
 cameras:
-  frigate_porch:
+  frigate_door:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_door_lq
