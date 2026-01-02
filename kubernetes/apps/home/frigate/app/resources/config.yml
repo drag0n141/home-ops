@@ -40,7 +40,7 @@ snapshots:
   timestamp: false
   bounding_box: true
   retain:
-    default: 1
+    default: 14
 
 record:
   enabled: true
@@ -48,8 +48,10 @@ record:
     days: 1
     mode: all
   detections:
+    pre_capture: 5
+    post_capture: 5
     retain:
-      days: 1
+      days: 14
       mode: active_objects
 
 cameras:
