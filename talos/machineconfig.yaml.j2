@@ -183,3 +183,7 @@ provisioning:
   diskSelector:
     match: disk.model == "SAMSUNG MZ7LH1T9" && !system_disk
   minSize: 1TB
+---
+apiVersion: v1alpha1
+kind: OOMConfig
+triggerExpression: "false"
