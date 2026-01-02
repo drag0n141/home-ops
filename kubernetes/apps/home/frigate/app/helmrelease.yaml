@@ -55,6 +55,12 @@ spec:
             port: *port
           go2rtc:
             port: 1984
+      streams:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "go2rtc-streams.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.91
+        ports:
           rtsp:
             port: 8554
           webrtc-tcp:
@@ -78,6 +84,24 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      go2rtc:
+        className: traefik-internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+          gatus.home-operations.com/enabled: "false"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
+        hosts:
+          - host: &host "go2rtc.${SECRET_DOMAIN_INTERNAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: go2rtc
         tls:
           - hosts:
               - *host

@@ -47,16 +47,19 @@ record:
 
 go2rtc:
   streams:
-    frigate_door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
-    frigate_door_lq: rtspx://192.168.1.1:7441/NTmKEeY6GtFgZYgX
+    bedroom_hq: rtspx://192.168.1.1:7441/vMpsO93lM41iH2qN
+    door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
+    door_lq: rtspx://192.168.1.1:7441/NTmKEeY6GtFgZYgX
+    door_package_hq: rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
+    kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
 
 cameras:
-  frigate_door:
+  door:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_door_lq
+        - path: rtsp://localhost:8554/door_lq
           roles: [detect]
-        - path: rtsp://localhost:8554/frigate_door_hq
+        - path: rtsp://localhost:8554/door_hq
           roles: [record]
     detect:
       width: 720
