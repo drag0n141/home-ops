@@ -1,3 +1,14 @@
+# yaml-language-server: $schema=https://frigate.dmfrey.com/api/config/schema.json
+logger:
+  default: info
+  # logs:
+  #   frigate.record: debug
+
+mqtt:
+  host: mosquitto.home.svc.cluster.local
+  port: 1883
+  topic_prefix: frigate
+
 database:
   path: /config/frigate.db
 
