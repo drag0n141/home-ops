@@ -63,7 +63,7 @@ cameras:
         - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/door_hq
           roles: [record]
     detect:
-      width: 352
-      height: 480
+      width: 720
+      height: 960
     motion:
       mask: 0.274,0.468,0.35,0.471,0.349,0.543,0.275,0.546
