@@ -22,6 +22,8 @@ spec:
               tag: 0.16.3@sha256:cf4305d9f1c673d71c4d0fab30ca56ca05ac91168711a74ee7867a4691a7ad02
             env:
               TZ: ${TIMEZONE}
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
+              S6_READ_ONLY_ROOT: 1
             probes:
               liveness: &probes
                 enabled: false
@@ -35,6 +37,9 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
             resources:
               claims:
                 - name: gpu
@@ -47,6 +52,12 @@ spec:
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: frigate-gpu
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
