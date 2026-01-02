@@ -14,8 +14,6 @@ spec:
       namespace: *namespace
     - name: keda
       namespace: system
-    - name: mosquitto
-      namespace: *namespace
     - name: onepassword
       namespace: external-secrets
     - name: intel-gpu-resource-driver

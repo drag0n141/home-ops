@@ -1,7 +1,3 @@
-mqtt:
-  host: mosquitto.home.svc.cluster.local
-  topic_prefix: frigate
-
 database:
   path: /config/frigate.db
 
