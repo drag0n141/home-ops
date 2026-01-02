@@ -39,6 +39,8 @@ spec:
       sendAnonymousUsage: false
     additionalArguments:
       - "--serversTransport.insecureSkipVerify=true"
+      - "--entryPoints.web.http.encodedCharacters.allowEncodedPercent=true"
+      - "--entryPoints.websecure.http.encodedCharacters.allowEncodedPercent=true"
       - "--entrypoints.web.transport.respondingTimeouts.readTimeout=0"
       - "--entrypoints.websecure.transport.respondingTimeouts.readTimeout=0"
     ports:
