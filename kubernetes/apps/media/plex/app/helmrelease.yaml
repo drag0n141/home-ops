@@ -68,7 +68,10 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 192.168.222.85
+          teleport.dev/name: plex-home
           traefik.ingress.kubernetes.io/service.serversscheme: https
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 32400
