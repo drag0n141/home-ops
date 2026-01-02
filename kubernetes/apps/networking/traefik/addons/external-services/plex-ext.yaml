@@ -39,4 +39,4 @@ spec:
   externalName: ${SECRET_PLEX_SERVER}
   ports:
     - name: http
-      port: 443
+      port: 42400
