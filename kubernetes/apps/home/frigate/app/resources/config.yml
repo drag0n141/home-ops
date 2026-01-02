@@ -24,6 +24,10 @@ ffmpeg:
   output_args:
     record: preset-record-ubiquiti
 
+detect:
+  enabled: true
+  fps: 5
+
 snapshots:
   enabled: true
   timestamp: false
@@ -57,6 +61,5 @@ cameras:
     detect:
       width: 720
       height: 960
-      fps: 10
     motion:
       mask: 0.274,0.468,0.35,0.471,0.349,0.543,0.275,0.546
