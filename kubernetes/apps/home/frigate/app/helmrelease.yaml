@@ -24,8 +24,7 @@ spec:
               TZ: ${TIMEZONE}
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: false
             probes:
               liveness: &probes
                 enabled: false
