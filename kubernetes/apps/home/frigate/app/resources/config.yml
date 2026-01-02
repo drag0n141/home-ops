@@ -45,21 +45,13 @@ record:
       days: 1
       mode: active_objects
 
-go2rtc:
-  streams:
-    bedroom_hq: rtspx://192.168.1.1:7441/vMpsO93lM41iH2qN
-    door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
-    door_lq: rtspx://192.168.1.1:7441/NTmKEeY6GtFgZYgX
-    door_package_hq: rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
-    kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
-
 cameras:
   door:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/door_lq
+        - path: rtsp://go2rtc.home.svc.cluster.local:554/door_lq
           roles: [detect]
-        - path: rtsp://localhost:8554/door_hq
+        - path: rtsp://go2rtc.home.svc.cluster.local:554/door_hq
           roles: [record]
     detect:
       width: 720

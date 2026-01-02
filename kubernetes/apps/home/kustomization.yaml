@@ -5,6 +5,7 @@ namespace: home
 resources:
   - ./esphome/ks.yaml
   - ./frigate/ks.yaml
+  - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml

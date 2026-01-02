@@ -9,17 +9,18 @@ rtsp:
 webrtc:
   listen: :8555
   candidates:
-    - 192.168.222.91:8555
     - stun:8555
   ice_servers:
     - urls:
        - stun:stun.cloudflare.com:3478
 streams:
-  bedroom:
+  bedroom_hq:
     - rtspx://192.168.1.1:7441/vMpsO93lM41iH2qN
-  door:
+  door_hq:
     - rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
-  door_package:
+  door_lq:
+    - rtspx://192.168.1.1:7441/NTmKEeY6GtFgZYgX
+  door_package_hq:
     - rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
-  kids:
+  kids_hq:
     - rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
