@@ -22,7 +22,7 @@ model:
   height: 320
   input_tensor: nhwc
   input_pixel_format: rgb
-  path: /config/model_cache/tensorrt/yolov7-320.onnx
+  path: /config/model_cache/yolov7-320.onnx
   labelmap_path: /labelmap/coco-80.txt
 
 ffmpeg:
