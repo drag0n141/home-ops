@@ -48,7 +48,7 @@ spec:
               LDAP_ATTRIBUTE_USER_EMAIL: mail
               LDAP_ATTRIBUTE_GROUP_MEMBER: member
               LDAP_ATTRIBUTE_GROUP_NAME: cn
-              LDAP_ATTRIBUTE_ADMIN_GROUP: ID-Admin
+              LDAP_ADMIN_GROUP_NAME: ID-Admin
               SMTP_FROM: pocket-id@${SECRET_DOMAIN}
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: 2525
