@@ -18,12 +18,12 @@ detectors:
     device: GPU
 
 model:
-  width: 300
-  height: 300
+  width: 320
+  height: 320
   input_tensor: nhwc
-  input_pixel_format: bgr
-  path: /openvino-model/ssdlite_mobilenet_v2.xml
-  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+  input_pixel_format: rgb
+  path: /config/model_cache/tensorrt/yolov7-320.onnx
+  labelmap_path: /labelmap/coco-80.txt
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
@@ -45,7 +45,7 @@ snapshots:
 record:
   enabled: true
   retain:
-    days: 1
+    days: 3
     mode: all
   detections:
     pre_capture: 5
@@ -67,6 +67,10 @@ cameras:
       height: 960
     motion:
       mask: 0.274,0.468,0.35,0.471,0.349,0.543,0.275,0.546
+    live:
+      streams:
+        main_stream: pool_record
+        sub_stream: pool_detect
 
 telemetry:
   stats:
