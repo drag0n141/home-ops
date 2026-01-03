@@ -18,7 +18,7 @@ detectors:
     device: GPU
 
 model:
-  model_type: yolov7
+  model_type: yolo-generic
   width: 320
   height: 320
   input_tensor: nchw
