@@ -22,7 +22,7 @@ model:
   width: 320
   height: 320
   input_tensor: nhwc
-  input_pixel_format: bgr
+  input_pixel_format: float
   path: /config/model_cache/yolov7-320.onnx
   labelmap_path: /labelmap/coco-80.txt
 
