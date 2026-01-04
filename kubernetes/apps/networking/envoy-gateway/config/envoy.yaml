@@ -1,0 +1,106 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy
+spec:
+  logging:
+    level:
+      default: info
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+        container:
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.4
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 2Gi
+  shutdown:
+    drainTimeout: 180s
+  telemetry:
+    metrics:
+      prometheus:
+        compression:
+          type: Zstd
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: envoy
+    namespace: networking
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: envoy
+spec:
+  compression:
+    - type: Zstd
+    - type: Brotli
+    - type: Gzip
+  retry:
+    numRetries: 2
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+  tcpKeepalive: {}
+  timeout:
+    http:
+      connectionIdleTimeout: 15s
+      requestTimeout: 0s
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: envoy
+spec:
+  clientIPDetection:
+    xForwardedFor:
+      trustedCIDRs:
+        - 10.42.0.0/16
+  http2:
+    onInvalidMessage: TerminateStream
+  http3: {}
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+  tcpKeepalive: {}
+  timeout:
+    http:
+      idleTimeout: 60s
+  tls:
+    minVersion: "1.2"
+    alpnProtocols:
+      - h2
+      - http/1.1
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: none
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: networking
+      sectionName: http
+    - name: envoy-internal
+      namespace: networking
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
