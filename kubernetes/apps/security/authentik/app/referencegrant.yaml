@@ -28,4 +28,4 @@ spec:
   to:
     - group: ''
       kind: Service
-      name: authentik
+      name: authentik-server
