@@ -28,4 +28,4 @@ spec:
   to:
     - group: ''
       kind: Service
-      name: ak-outpost-authentik-embedded-outpost
+      name: authentik-server
