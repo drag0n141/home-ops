@@ -21,8 +21,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/anubis
     - ../../../../components/keda
-    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/radarr/app
   prune: true
