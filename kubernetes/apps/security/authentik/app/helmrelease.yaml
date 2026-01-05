@@ -29,6 +29,8 @@ spec:
       error_reporting:
         enabled: false
         send_pii: false
+      embeddedOutpost:
+        enabled: true
     server:
       initContainers:
         - name: init-db
