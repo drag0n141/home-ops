@@ -23,7 +23,7 @@ model:
   height: 320
   input_tensor: nchw
   input_dtype: float
-  path: /config/model_cache/yolov7-320.onnx
+  path: /config/model_cache/yolov9-s-320.onnx
   labelmap_path: /labelmap/coco-80.txt
 
 ffmpeg:
