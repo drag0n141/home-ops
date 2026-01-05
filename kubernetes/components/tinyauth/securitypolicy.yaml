@@ -16,7 +16,7 @@ spec:
         - name: tinyauth
           namespace: security
           port: 3000
-      path: /api/auth/envoy
+      path: /api/auth/envoy?path=
       headersToBackend:
         - Set-Cookie
   targetRefs:
