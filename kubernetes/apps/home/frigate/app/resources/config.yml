@@ -67,7 +67,7 @@ cameras:
       width: 720
       height: 960
     motion:
-      mask: 0.274,0.468,0.35,0.471,0.349,0.543,0.275,0.546
+      mask: 0.267,0.475,0.367,0.473,0.349,0.554,0.272,0.557
     live:
       streams:
         main_stream: pool_record
