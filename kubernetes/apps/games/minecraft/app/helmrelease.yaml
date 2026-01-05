@@ -28,7 +28,7 @@ spec:
               EULA: true
               FORCE_GAMEMODE: true
               ICON: https://www.freeiconspng.com/uploads/minecraft-server-icon-23.png
-              JVM_XX_OPTS: "-XX:MaxRAMPercentage=75 -Dpaper.disableAsyncProfiler=true"
+              JVM_XX_OPTS: "-XX:MaxRAMPercentage=75"
               MAX_BUILD_HEIGHT: 320
               MAX_TICK_TIME: -1
               MAX_WORLD_SIZE: 29999984
@@ -37,7 +37,6 @@ spec:
               MOTD: "DrAg0n141 - Minecraft Server"
               OPS: "DrAg0n141"
               OVERRIDE_ICON: TRUE
-              PAPER_CHANNEL: experimental
               SERVER_NAME: DrAg0n141
               SKIP_SUDO: true
               SPAWN_PROTECTION: 0
@@ -46,7 +45,6 @@ spec:
               VERSION: "1.21"
               VIEW_DISTANCE: 12
               WHITELIST: "DrAg0n141"
-              JAVA_VERSION: "21"
             envFrom:
               - secretRef:
                   name: minecraft-secret
