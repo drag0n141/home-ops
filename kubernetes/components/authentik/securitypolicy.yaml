@@ -12,7 +12,7 @@ spec:
       - cookie
     http:
       backendRefs:
-        - name: authentik
+        - name: authentik-server
           namespace: security
           port: 80
       path: /outpost.goauthentik.io/auth/envoy
