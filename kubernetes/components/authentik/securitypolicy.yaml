@@ -1,0 +1,26 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: ${APP}-authentik
+spec:
+  extAuth:
+    failOpen: false
+    headersToExtAuth:
+      - X-Forwarded-For
+      - X-Forwarded-Proto
+      - cookie
+    http:
+      backendRefs:
+        - name: authentik
+          namespace: security
+          port: 80
+      path: /outpost.goauthentik.io/auth/envoy
+      headersToBackend:
+        - Set-Cookie
+        - X-authentik-*
+        - authorization
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: "${HTTP_ROUTE_TARGET:-${APP}}"

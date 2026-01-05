@@ -1,0 +1,25 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: ${APP}-tinyauth
+spec:
+  extAuth:
+    failOpen: false
+    headersToExtAuth:
+      - X-Forwarded-For
+      - X-Forwarded-Proto
+      - accept
+      - cookie
+    http:
+      backendRefs:
+        - name: tinyauth
+          namespace: security
+          port: 3000
+      path: /api/auth/envoy
+      headersToBackend:
+        - Set-Cookie
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: "${HTTP_ROUTE_TARGET:-${APP}}"
