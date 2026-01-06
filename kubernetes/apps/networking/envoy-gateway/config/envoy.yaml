@@ -68,6 +68,19 @@ spec:
     xForwardedFor:
       trustedCIDRs:
         - 10.42.0.0/16
+  headers:
+    enableEnvoyHeaders: true
+    preserveXRequestID: true
+    lateResponseHeaders:
+      set:
+        - name: Strict-Transport-Security
+          value: max-age=31536000; preload
+        - name: Referrer-Policy
+          value: same-origin, strict-origin-when-cross-origin
+        - name: X-Content-Type-Options
+          value: nosniff
+        - name: X-Frame-Options
+          value: SAMEORIGIN
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
