@@ -13,22 +13,17 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
-      dashboard:
-        ingressClassName: traefik-internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        host:
-          name: "rook.${SECRET_DOMAIN_INTERNAL}"
-          path: /
-        tls:
-          - hosts:
-              - "rook.${SECRET_DOMAIN_INTERNAL}"
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     toolbox:
       enabled: true
+    route:
+      dashboard:
+        host:
+          name: rook.${SECRET_DOMAIN_INTERNAL}
+          path: /
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
     cephClusterSpec:
       cephConfig:
         global:
