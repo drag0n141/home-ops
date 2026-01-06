@@ -9,6 +9,8 @@ spec:
     headersToExtAuth:
       - X-Forwarded-For
       - X-Forwarded-Proto
+      - X-Forwarded-Uri
+      - X-Forwarded-Method
       - accept
       - cookie
     http:
