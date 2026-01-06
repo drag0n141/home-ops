@@ -75,45 +75,37 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
         forceRename: *app
-        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}/ping
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
-        hosts:
-          - host: &host "sonarr.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
       ping:
-        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/controller: none
           gatus.home-operations.com/enabled: "false"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: *host
-            paths:
-              - path: /ping
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /ping
     persistence:
       config:
         existingClaim: *app

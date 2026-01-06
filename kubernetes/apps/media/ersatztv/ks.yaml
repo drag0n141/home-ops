@@ -20,6 +20,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gpu
+    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/ersatztv/app
   prune: true

@@ -23,7 +23,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               CACHE_DIR: /cache
-              CALIBRE_PORT: 8083
+              CALIBRE_PORT: &port 8083
               PUID: 1000
               PGID: 1000
             securityContext:
@@ -39,25 +39,18 @@ spec:
       app:
         ports:
           http:
-            port: 8083
-    ingress:
+            port: *port
+    route:
       app:
-        className: traefik-internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-compress@kubernetescrd"
-        hosts:
-          - host: &host "calibre.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         existingClaim: *app
