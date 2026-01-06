@@ -33,3 +33,7 @@ spec:
         - group: gateway.envoyproxy.io
           kind: Backend
           name: checkmk
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

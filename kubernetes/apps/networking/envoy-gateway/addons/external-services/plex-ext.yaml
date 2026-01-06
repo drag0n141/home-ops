@@ -47,3 +47,7 @@ spec:
         - group: gateway.envoyproxy.io
           kind: Backend
           name: plex-ext
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
