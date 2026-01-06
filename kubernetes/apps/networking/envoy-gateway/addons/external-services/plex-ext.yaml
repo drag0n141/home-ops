@@ -22,7 +22,7 @@ metadata:
     gatus.home-operations.com/enabled: "false"
 spec:
   hostnames:
-    - plex-ext.${SECRET_DOMAIN_INTERNAL}"
+    - plex-ext.${SECRET_DOMAIN_INTERNAL}
   parentRefs:
     - name: envoy-internal
       namespace: networking

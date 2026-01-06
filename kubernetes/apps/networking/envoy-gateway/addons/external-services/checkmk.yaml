@@ -19,7 +19,7 @@ metadata:
       url: https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/check_mk
 spec:
   hostnames:
-    - checkmk.${SECRET_DOMAIN_INTERNAL}"
+    - checkmk.${SECRET_DOMAIN_INTERNAL}
   parentRefs:
     - name: envoy-internal
       namespace: networking
