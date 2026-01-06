@@ -30,6 +30,8 @@ spec:
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
               TINYAUTH_SECURECOOKIE: true
               TINYAUTH_SESSIONEXPIRY: 604800
+              TINYAUTH_RESOURCESDIR: /data/resources
+              TINYAUTH_DATABASEPATH: /data/tinyauth.db
             envFrom:
               - secretRef:
                   name: tinyauth-secret
