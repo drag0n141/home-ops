@@ -29,25 +29,22 @@ spec:
     - name: envoy-internal
       namespace: networking
   rules:
-    - backendRefs:
-        - group: gateway.envoyproxy.io
-          kind: Backend
-          name: checkmk
+    - matches:
+        - path:
+            type: Exact
+            value: "/"
       filters:
         - type: RequestRedirect
           requestRedirect:
             path:
               type: ReplaceFullPath
-      matches:
+              replaceFullPath: "/checkmk/"
+            statusCode: 301
+    - matches:
         - path:
             type: PathPrefix
-            replaceFullPath: "/checkmk/"
-          statusCode:
-    - backendRefs:
+            value: "/"
+      backendRefs:
         - group: gateway.envoyproxy.io
           kind: Backend
           name: checkmk
-      matches:
-        - path:
-            type: PathPrefix
-            value: /
