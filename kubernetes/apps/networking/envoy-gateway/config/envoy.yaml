@@ -76,9 +76,7 @@ spec:
         - name: Strict-Transport-Security
           value: max-age=31536000; preload
         - name: Referrer-Policy
-          value: same-origin, strict-origin-when-cross-origin
-        - name: X-Content-Type-Options
-          value: nosniff
+          value: same-origin
         - name: X-Frame-Options
           value: SAMEORIGIN
   http2:
