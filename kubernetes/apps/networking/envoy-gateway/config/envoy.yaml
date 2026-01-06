@@ -70,7 +70,18 @@ spec:
         - 10.42.0.0/16
   headers:
     enableEnvoyHeaders: true
-    preserveXRequestID: true
+    earlyRequestHeaders:
+      set:
+        - name: X-Forwarded-For
+          value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
+        - name: X-Forwarded-Host
+          value: "%REQ(Host)%"
+        - name: X-Forwarded-Port
+          value: "%DOWNSTREAM_LOCAL_PORT%"
+        - name: X-Forwarded-Proto
+          value: https
+        - name: X-Real-IP
+          value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
     lateResponseHeaders:
       set:
         - name: Strict-Transport-Security
