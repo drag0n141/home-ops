@@ -14,6 +14,22 @@ spec:
     - name: http
       port: 42400
 ---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  labels:
+    app.kubernetes.io/instance: plex-ext
+    app.kubernetes.io/name: plex-ext
+  name: plex-ext
+spec:
+  appProtocols:
+    - gateway.envoyproxy.io/ws
+    - gateway.envoyproxy.io/wss
+  endpoints:
+    - fqdn:
+        hostname: ${SECRET_PLEX_SERVER}
+        port: 42400
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -28,6 +44,6 @@ spec:
       namespace: networking
   rules:
     - backendRefs:
-        - name: plex-ext
-          namespace: networking
-          port: 42400
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: plex-ext
