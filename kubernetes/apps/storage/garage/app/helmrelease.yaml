@@ -41,29 +41,23 @@ spec:
       app:
         ports:
           s3:
-            port: 3900
+            port: &port 3900
           api:
             port: 3903
-    ingress:
+    route:
       app:
-        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 403"]
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host s3.${SECRET_DOMAIN_INTERNAL}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: s3
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "s3.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         type: secret
