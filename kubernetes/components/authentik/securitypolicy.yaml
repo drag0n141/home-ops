@@ -12,9 +12,9 @@ spec:
       - cookie
     http:
       backendRefs:
-        - name: authentik-server
+        - name: ak-outpost-authentik-embedded-outpost
           namespace: security
-          port: 80
+          port: 9000
       path: /outpost.goauthentik.io/auth/envoy
       headersToBackend:
         - Set-Cookie
