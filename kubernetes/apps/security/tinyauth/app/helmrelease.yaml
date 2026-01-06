@@ -17,18 +17,19 @@ spec:
           app:
             image:
               repository: ghcr.io/steveiliop56/tinyauth
-              tag: v4.1.0@sha256:402ee231204757a3e01b4aaba9e4aa09a3c7c4680a82bc47135632ec8864b8c8
+              tag: nightly@sha256:114ac02794b57b61abdb57c3729ed30ea97ccfbf4b7f6f011cb809af0e6c5176
+              # tag: v4.1.0@sha256:402ee231204757a3e01b4aaba9e4aa09a3c7c4680a82bc47135632ec8864b8c8
             env:
               TZ: ${TIMEZONE}
-              APP_URL: https://tinyauth.${SECRET_DOMAIN}
-              DISABLE_ANALYTICS: true
-              PROVIDERS_POCKETID_NAME: Pocket-ID
-              PROVIDERS_POCKETID_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
-              PROVIDERS_POCKETID_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
-              PROVIDERS_POCKETID_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
-              PROVIDERS_POCKETID_SCOPES: openid email profile groups
-              SECURE_COOKIE: true
-              SESSION_EXPIRY: 604800
+              TINYAUTH_APPURL: https://tinyauth.${SECRET_DOMAIN}
+              TINYAUTH_DISABLEANALYTICS: true
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME: Pocket-ID
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_AUTHURL: https://id.${SECRET_DOMAIN}/authorize
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL: https://id.${SECRET_DOMAIN}/api/oidc/token
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
+              TINYAUTH_SECURECOOKIE: true
+              TINYAUTH_SESSIONEXPIRY: 604800
             envFrom:
               - secretRef:
                   name: tinyauth-secret
