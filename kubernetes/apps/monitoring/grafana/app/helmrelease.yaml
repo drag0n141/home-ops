@@ -312,7 +312,7 @@ spec:
       main:
         enabled: true
         hostnames:
-          - "{{ .Release.Name }}.k13.dev"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
