@@ -32,6 +32,7 @@ spec:
               TZ: ${TIMEZONE}
               LD_DISABLE_BACKGROUND_TASKS: false
               LD_DISABLE_URL_VALIDATION: false
+              LD_DISABLE_LOGIN_FORM: true
               LD_DB_ENGINE: postgres
               LD_ENABLE_OIDC: true
               OIDC_OP_AUTHORIZATION_ENDPOINT: https://id.${SECRET_DOMAIN}/authorize
