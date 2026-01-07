@@ -135,6 +135,11 @@ spec:
               implementation: prometheus
     dashboards:
       default:
+        apc-ups:
+          # renovate: depName="APC-Ups"
+          gnetId: 13524
+          revision: 1
+          datasource: Prometheus
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
@@ -295,24 +300,6 @@ spec:
         crunchy-query-statistics:
           url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/query_statistics.json
           datasource: Prometheus
-    sidecar:
-      image:
-        registry: ghcr.io
-        repository: home-operations/k8s-sidecar
-        tag: 1.30.10@sha256:dd3b1f0c4e6b4512b2deb50c58acf65fd0f0927120a59a95eec854d32a6c9ce3
-      dashboards:
-        enabled: true
-        searchNamespace: ALL
-        label: grafana_dashboard
-        folderAnnotation: grafana_folder
-        provider:
-          disableDelete: true
-          foldersFromFilesStructure: true
-      datasources:
-        enabled: true
-        searchNamespace: ALL
-        labelValue: ""
-        label: grafana_datasource
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
@@ -321,39 +308,23 @@ spec:
       - pr0ps-trackmap-panel
       - vonage-status-panel
       - victoriametrics-logs-datasource
-    ingress:
-      enabled: true
-      ingressClassName: traefik-internal
-      annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-      hosts:
-        - &host "grafana.${SECRET_DOMAIN_INTERNAL}"
-      tls:
-        - hosts:
-            - *host
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    route:
+      main:
+        enabled: true
+        hostnames:
+          - "{{ .Release.Name }}.k13.dev"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
     persistence:
       enabled: false
     testFramework:
       enabled: false
-    rbac:
-      pspEnabled: false
     resources:
       requests:
         cpu: 10m
       limits:
         memory: 250M
-    serviceAccount:
-      create: true
-      autoMount: true
     serviceMonitor:
       enabled: true
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: grafana
+
