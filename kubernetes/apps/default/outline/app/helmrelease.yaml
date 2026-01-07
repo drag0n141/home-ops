@@ -28,7 +28,6 @@ spec:
             image:
               repository: docker.io/outlinewiki/outline
               tag: 1.2.0@sha256:9fcb1f4a3de27b8ffcae687e63b3891d2ee49298bb8d4ba75e98fc28a9bbd364
-            command: ["/bin/sh", "-c", "yarn db:migrate --env=production-ssl-disabled && yarn start --env=production-ssl-disabled"]
             env:
               TZ: ${TIMEZONE}
               URL: "https://outline.${SECRET_DOMAIN_INTERNAL}"
