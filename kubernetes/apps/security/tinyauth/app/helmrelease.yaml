@@ -28,8 +28,8 @@ spec:
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL: https://id.${SECRET_DOMAIN}/api/oidc/token
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
-              TINYAUTH_SECURECOOKIE: true
-              TINYAUTH_SESSIONEXPIRY: 604800
+              TINYAUTH_AUTH_SECURECOOKIE: true
+              TINYAUTH_AUTH_SESSIONEXPIRY: 604800
               TINYAUTH_RESOURCESDIR: /data/resources
               TINYAUTH_DATABASEPATH: /data/tinyauth.db
               TINYAUTH_SERVER_TRUSTEDPROXIES: 10.42.0.0/16
