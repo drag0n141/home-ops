@@ -27,6 +27,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      HTTP_ROUTE_TARGET: kube-prometheus-stack-prometheus
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

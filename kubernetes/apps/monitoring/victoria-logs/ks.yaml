@@ -27,3 +27,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      HTTP_ROUTE_TARGET: victoria-logs-server
