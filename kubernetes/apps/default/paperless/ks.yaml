@@ -127,6 +127,8 @@ spec:
       namespace: system
     - name: paperless
       namespace: *namespace
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/paperless/scan
   prune: true
   sourceRef:

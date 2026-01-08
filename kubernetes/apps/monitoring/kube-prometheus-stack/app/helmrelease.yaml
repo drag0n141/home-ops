@@ -25,20 +25,16 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: traefik-internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        pathType: Prefix
-        hosts:
-          - &host "prometheus.${SECRET_DOMAIN_INTERNAL}"
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      route:
+        main:
+          enabled: true
+          annotations:
+            gatus.home-operations.com/enabled: "false"
+          hostnames:
+            - prometheus.${SECRET_DOMAIN_INTERNAL}
+          parentRefs:
+            - name: envoy-internal
+              namespace: networking
       prometheusSpec:
         externalUrl: https://prometheus.${SECRET_DOMAIN_INTERNAL}
         version: v2.55.1 # override 'unsupported Prometheus version' error

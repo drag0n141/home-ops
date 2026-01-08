@@ -38,6 +38,8 @@ spec:
   dependsOn:
     - name: shlink
       namespace: *namespace
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/shlink/web
   prune: true
   sourceRef:
@@ -48,3 +50,6 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app

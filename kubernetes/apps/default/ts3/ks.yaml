@@ -50,6 +50,8 @@ spec:
       namespace: external-secrets
     - name: ts3-server
       namespace: *namespace
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/ts3/manager
   prune: true
   sourceRef:
@@ -60,3 +62,6 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app

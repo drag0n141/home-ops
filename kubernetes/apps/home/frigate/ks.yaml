@@ -25,6 +25,7 @@ spec:
   components:
     - ../../../../components/gpu
     - ../../../../components/keda
+    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/home/frigate/app
   prune: true

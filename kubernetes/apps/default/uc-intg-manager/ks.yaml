@@ -15,6 +15,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/uc-intg-manager/app
   prune: true

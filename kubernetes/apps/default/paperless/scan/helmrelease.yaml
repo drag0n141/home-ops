@@ -55,7 +55,7 @@ spec:
         primary: true
         ports:
           http:
-            port: 80
+            port: &port 80
       brother:
         type: LoadBalancer
         annotations:
@@ -70,25 +70,19 @@ spec:
           snmp:
             port: 161
             protocol: UDP
-    ingress:
+    route:
       app:
-        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           gatus.home-operations.com/enabled: "false"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
-        hosts:
-          - host: &host "scan.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       nas:
         type: nfs

@@ -19,6 +19,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/vaultwarden/app
   prune: true
@@ -33,4 +34,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      HTTP_ROUTE_TARGET: vaultwarden-admin
       VOLSYNC_CAPACITY: 1Gi

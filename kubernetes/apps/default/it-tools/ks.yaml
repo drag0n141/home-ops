@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/it-tools/app
   prune: true
   sourceRef:
@@ -19,3 +21,6 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app

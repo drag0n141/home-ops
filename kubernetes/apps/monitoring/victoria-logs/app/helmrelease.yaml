@@ -18,22 +18,27 @@ spec:
         size: 20Gi
       serviceMonitor:
         enabled: true
-      ingress:
+      route:
         enabled: true
-        ingressClassName: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           gatus.home-operations.com/enabled: "false"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
-        hosts:
-          - name: &host "logs.${SECRET_DOMAIN_INTERNAL}"
-            path: /
-            port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - logs.${SECRET_DOMAIN_INTERNAL}
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        extraRules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /select/vmui/
+                  statusCode: 302
+            matches:
+              - path:
+                  type: Exact
+                  value: /
     dashboards:
       enabled: true
       annotations:
