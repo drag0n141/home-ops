@@ -35,3 +35,10 @@ spec:
       existingClaimName: teleport
     service:
       type: ClusterIP
+      spec:
+        ports:
+          - name: tls
+            port: 443
+            targetPort: 3080
+            protocol: TCP
+            appProtocol: https
