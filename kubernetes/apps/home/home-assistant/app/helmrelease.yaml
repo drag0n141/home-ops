@@ -83,9 +83,9 @@ spec:
       app:
         ports:
           http:
-            port: 8123
+            port: &hasscode 8123
           code-server:
-            port: 12321
+            port: &codeport 12321
     ingress:
       app:
         forceRename: *app
@@ -105,24 +105,19 @@ spec:
           - hosts:
               - *host
             secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    route:
       code-server:
-        className: traefik-internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
           gatus.home-operations.com/enabled: "false"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-tinyauth@kubernetescrd"
-        hosts:
-          - host: &host "hass-code.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: code-server
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "hass-code.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *codeport
     persistence:
       config:
         existingClaim: *app
