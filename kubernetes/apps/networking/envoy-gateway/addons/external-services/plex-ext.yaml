@@ -13,6 +13,7 @@ spec:
   ports:
     - name: http
       port: 42400
+      appProtocol: kubernetes.io/https
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
@@ -29,6 +30,7 @@ spec:
     - fqdn:
         hostname: ${SECRET_PLEX_SERVER}
         port: 42400
+      protocol: HTTPS
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
