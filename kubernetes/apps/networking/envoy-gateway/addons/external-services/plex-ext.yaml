@@ -23,8 +23,7 @@ metadata:
   name: plex-ext
 spec:
   appProtocols:
-    - gateway.envoyproxy.io/ws
-    - gateway.envoyproxy.io/wss
+    - gateway.envoyproxy.io/https
   endpoints:
     - fqdn:
         hostname: ${SECRET_PLEX_SERVER}

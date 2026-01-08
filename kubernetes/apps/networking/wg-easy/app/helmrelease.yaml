@@ -65,8 +65,6 @@ spec:
           http:
             port: *port
       wstunnel:
-        annotations:
-          traefik.ingress.kubernetes.io/service.serversscheme: "https"
         ports:
           http:
             appProtocol: kubernetes.io/wss

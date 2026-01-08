@@ -73,6 +73,7 @@ spec:
           teleport: enabled
         ports:
           http:
+            appProtocol: https
             port: &port 32400
     route:
       app:
