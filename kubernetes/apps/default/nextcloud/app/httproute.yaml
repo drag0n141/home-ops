@@ -1,0 +1,20 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nextcloud
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+spec:
+  hostnames:
+    - "nextcloud.${SECRET_DOMAIN}"
+  parentRefs:
+    - name: envoy-external
+      namespace: networking
+  rules:
+    - backendRefs:
+        - name: nextcloud
+          namespace: default
+          port: 8080
