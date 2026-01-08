@@ -113,23 +113,13 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ssh.forgejo.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.125
-    ingress:
+    httpRoute:
       enabled: true
-      className: traefik-internal
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-        gatus.home-operations.com/enabled: "false"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-      hosts:
-        - host: &host "forgejo.${SECRET_DOMAIN_INTERNAL}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      hostnames:
+        - "forgejo.${SECRET_DOMAIN_INTERNAL}"
+      parentRefs:
+        - name: envoy-internal
+          namespace: networking
   valuesFrom:
     - targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
       kind: Secret
