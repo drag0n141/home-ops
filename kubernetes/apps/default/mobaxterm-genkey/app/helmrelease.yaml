@@ -45,7 +45,7 @@ spec:
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "mobaxterm.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
