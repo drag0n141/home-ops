@@ -8,8 +8,9 @@ spec:
     failOpen: false
     headersToExtAuth:
       - X-Forwarded-For
-      - X-Forwarded-Proto
       - X-Forwarded-Host
+      - X-Forwarded-Proto
+      - X-Forwarded-Uri
       - accept
       - cookie
     http:
