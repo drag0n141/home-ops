@@ -29,22 +29,6 @@ spec:
           trust_x_forwarded_for: true
     log:
       level: INFO
-    ingress:
-      enabled: true
-      spec:
-        ingressClassName: traefik-external
-    annotations:
-      ingress:
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-        external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-      service:
-        traefik.ingress.kubernetes.io/service.serversscheme: https
-    highAvailability:
-      tls:
-        existingSecretName: "${SECRET_DOMAIN/./-}-production-tls"
     proxyListenerMode: multiplex
     persistence:
       enabled: true
