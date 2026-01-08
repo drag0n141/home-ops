@@ -4,9 +4,9 @@ kind: HTTPRoute
 metadata:
   name: teleport
   annotations:
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
-    external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: false
+    external-dns.alpha.kubernetes.io/exclude-unifi: true
+    external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
 spec:
   hostnames:
     - "teleport.${SECRET_DOMAIN}"
