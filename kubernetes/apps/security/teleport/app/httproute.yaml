@@ -1,14 +1,34 @@
 ---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  labels:
+    app.kubernetes.io/instance: teleport
+    app.kubernetes.io/name: teleport
+  name: teleport
+spec:
+  appProtocols:
+    - gateway.envoyproxy.io/ws
+    - gateway.envoyproxy.io/wss
+  endpoints:
+    - fqdn:
+        hostname: teleport.security.svc.cluster.local
+        port: 443
+  tls:
+    insecureSkipVerify: true
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: BackendTLSPolicy
 metadata:
   name: teleport
 spec:
   targetRefs:
-    - group: ""
-      kind: Service
+    - group: gateway.envoyproxy.io
+      kind: Backend
       name: teleport
-      sectionName: tls
+  validation:
+    hostname: teleport.${SECRET_DOMAIN}
+    wellKnownCACertificates: System
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -25,6 +45,11 @@ spec:
       namespace: networking
   rules:
     - backendRefs:
-        - name: teleport
-          namespace: security
-          port: 443
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: teleport
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+
