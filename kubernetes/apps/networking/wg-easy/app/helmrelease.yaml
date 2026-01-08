@@ -94,7 +94,7 @@ spec:
                 port: *port
       wstunnel:
         annotations:
-          external-dns.alpha.kubernetes.io/exclude-unifi: true
+          external-dns.alpha.kubernetes.io/controller: none
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 400"]
         hostnames:
