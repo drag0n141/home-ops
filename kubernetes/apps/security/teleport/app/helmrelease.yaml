@@ -35,13 +35,3 @@ spec:
       existingClaimName: teleport
     service:
       type: ClusterIP
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Service
-              name: teleport
-            patch: |
-              - op: add
-                path: /spec/ports/0/appProtocol
-                value: https

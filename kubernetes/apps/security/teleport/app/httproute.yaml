@@ -1,4 +1,19 @@
 ---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTLSPolicy
+metadata:
+  name: teleport
+spec:
+  targetRefs:
+    - group: ""
+      kind: Service
+      name: teleport
+      namespace: security
+      sectionName: tls
+  validation:
+    hostname: teleport.${SECRET_DOMAIN}
+    wellKnownCACertificates: System
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:

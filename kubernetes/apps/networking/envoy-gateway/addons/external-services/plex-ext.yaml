@@ -30,6 +30,8 @@ spec:
     - fqdn:
         hostname: ${SECRET_PLEX_SERVER}
         port: 42400
+  tls:
+    insecureSkipVerify: true
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
