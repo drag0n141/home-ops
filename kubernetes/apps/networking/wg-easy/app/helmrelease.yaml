@@ -90,20 +90,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-      wstunnel:
-        annotations:
-          external-dns.alpha.kubernetes.io/controller: none
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 400"]
-        hostnames:
-          - "vpn.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: wstunnel
-                port: 8080
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

@@ -3,43 +3,44 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
   labels:
-    app.kubernetes.io/instance: teleport
-    app.kubernetes.io/name: teleport
-  name: teleport
+    app.kubernetes.io/instance: wg-easy
+    app.kubernetes.io/name: wg-easy
+  name: wg-easy-wstunnel
 spec:
   appProtocols:
     - gateway.envoyproxy.io/ws
     - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
-        hostname: teleport.security.svc.cluster.local
-        port: 443
+        hostname: wg-easy-wstunnel.networking.svc.cluster.local
+        port: 8080
   tls:
     insecureSkipVerify: true
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: BackendTLSPolicy
 metadata:
-  name: teleport
+  name: wg-easy-wstunnel
 spec:
   targetRefs:
     - group: gateway.envoyproxy.io
       kind: Backend
-      name: teleport
+      name: wg-easy-wstunnel
   validation:
-    hostname: teleport.${SECRET_DOMAIN}
+    hostname: vpn.${SECRET_DOMAIN}
     wellKnownCACertificates: System
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: teleport
+  name: wg-easy-wstunnel
   annotations:
     external-dns.alpha.kubernetes.io/controller: none
+    gatus.home-operations.com/endpoint: |-
+      conditions: ["[STATUS] == 400"]
 spec:
   hostnames:
-    - "teleport.${SECRET_DOMAIN}"
-    - "*.teleport.${SECRET_DOMAIN}"
+    - "vpn.${SECRET_DOMAIN}"
   parentRefs:
     - name: envoy-external
       namespace: networking
@@ -47,7 +48,7 @@ spec:
     - backendRefs:
         - group: gateway.envoyproxy.io
           kind: Backend
-          name: teleport
+          name: wg-easy-wstunnel
       matches:
         - path:
             type: PathPrefix
