@@ -8,7 +8,6 @@ spec:
     - group: ""
       kind: Service
       name: teleport
-      namespace: security
       sectionName: tls
   validation:
     hostname: teleport.${SECRET_DOMAIN}
