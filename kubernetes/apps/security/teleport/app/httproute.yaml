@@ -10,8 +10,8 @@ spec:
       name: teleport
       sectionName: tls
   validation:
+    caCertificateRefs: []
     hostname: teleport.${SECRET_DOMAIN}
-    wellKnownCACertificates: System
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
