@@ -75,6 +75,7 @@ spec:
           http:
             appProtocol: https
             port: &port 32400
+            protocol: HTTPS
     route:
       app:
         annotations:

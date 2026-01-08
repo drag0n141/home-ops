@@ -13,6 +13,7 @@ spec:
   ports:
     - name: http
       port: 42400
+      protocol: HTTPS
       appProtocol: https
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
