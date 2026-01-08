@@ -83,7 +83,7 @@ spec:
     httpRoute:
       enabled: true
       hostnames:
-        - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        - "netbox.${SECRET_DOMAIN_INTERNAL}"
       parentRefs:
         - name: envoy-internal
           namespace: networking
