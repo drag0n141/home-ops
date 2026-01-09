@@ -52,6 +52,24 @@ spec:
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN/./-}-production-tls"
+    - name: http-short-root
+      protocol: HTTP
+      port: 80
+      hostname: "${SECRET_DOMAIN_SHORT}"
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https-short-root
+      protocol: HTTPS
+      port: 443
+      hostname: "${SECRET_DOMAIN_SHORT}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
     - name: http-short
       protocol: HTTP
       port: 80
