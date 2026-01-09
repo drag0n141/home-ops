@@ -43,19 +43,7 @@ spec:
       experimental_features:
         msc3575_enabled: true
     ingress:
-      enabled: true
-      className: traefik-external
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        gatus.home-operations.com/endpoint: |-
-          url: https://${SECRET_DOMAIN}/.well-known/matrix/client
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-synapse@kubernetescrd"
-      tls:
-        - hosts:
-            - ${SECRET_DOMAIN}
-            - matrix.${SECRET_DOMAIN}
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      enabled: false
     postgresql:
       enabled: false
     redis:

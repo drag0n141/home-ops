@@ -74,25 +74,20 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: traefik-external
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 404"]
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-shlink@kubernetescrd"
-        hosts:
-          - host: *host
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
+        hostnames:
+          - "${SECRET_DOMAIN_SHORT}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       tmpfs:
         type: emptyDir

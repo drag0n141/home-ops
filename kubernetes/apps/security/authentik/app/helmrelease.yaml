@@ -44,22 +44,13 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      ingress:
-        enabled: true
-        ingressClassName: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-        - auth.${SECRET_DOMAIN}
-        pathType: "Prefix"
-        paths:
-          - "/"
-        tls:
-        - hosts:
-          - auth.${SECRET_DOMAIN}
-          secretName: "${SECRET_DOMAIN/./-}-production-tls"
+      route:
+        main:
+          enabled: true
+          hostnames: ["auth.${SECRET_DOMAIN}"]
+          parentRefs:
+            - name: envoy-external
+              namespace: networking
     worker:
       replicas: 1
       resources:

@@ -86,24 +86,18 @@ spec:
       app:
         ports:
           http:
-            port: 3000
-    ingress:
+            port: &port 3000
+    route:
       app:
-        className: traefik-external
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "zl.${SECRET_DOMAIN_SHORT}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
+        hostnames:
+          - "zl.${SECRET_DOMAIN_SHORT}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       tmpfs:
         type: emptyDir

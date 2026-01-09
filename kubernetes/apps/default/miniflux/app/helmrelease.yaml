@@ -50,7 +50,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthcheck
-                    port: 8080
+                    port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -74,7 +74,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: *port
     serviceMonitor:
       app:
         endpoints:
@@ -83,21 +83,14 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    ingress:
+    route:
       app:
-        className: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "miniflux.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port

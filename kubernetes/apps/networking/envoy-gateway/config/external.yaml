@@ -4,7 +4,7 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external-gateway.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: &hostname external.${SECRET_DOMAIN}
     gatus.home-operations.com/endpoint: |-
       alerts:
         - type: gotify
@@ -14,7 +14,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.222.5
+      lbipam.cilium.io/ips: 192.168.222.10
   listeners:
     - name: http
       protocol: HTTP

@@ -1,22 +1,22 @@
 ---
 ingress:
   - hostname: "${SECRET_DOMAIN}"
-    service: https://traefik-external.networking.svc.cluster.local:443
+    service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
       originServerName: "external.${SECRET_DOMAIN}"
   - hostname: "*.${SECRET_DOMAIN}"
-    service: https://traefik-external.networking.svc.cluster.local:443
+    service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
       originServerName: "external.${SECRET_DOMAIN}"
   - hostname: "${SECRET_DOMAIN_SHORT}"
-    service: https://traefik-external.networking.svc.cluster.local:443
+    service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
       originServerName: "external.${SECRET_DOMAIN}"
   - hostname: "*.${SECRET_DOMAIN_SHORT}"
-    service: https://traefik-external.networking.svc.cluster.local:443
+    service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
       originServerName: "external.${SECRET_DOMAIN}"

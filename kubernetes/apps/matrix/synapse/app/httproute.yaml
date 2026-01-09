@@ -1,0 +1,55 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: matrix
+  namespace: matrix
+  annotations:
+    gatus.home-operations.com/endpoint: |-
+      url: https://${SECRET_DOMAIN}/.well-known/matrix/client
+spec:
+  hostnames:
+    - "${SECRET_DOMAIN}"
+    - "matrix.${SECRET_DOMAIN}"
+  parentRefs:
+    - name: envoy-external
+      namespace: networking
+  rules:
+    - matches:
+        - path:
+            type: RegularExpression
+            value: "^/_matrix/client/.*/(?:login|logout|refresh).*"
+          headers:
+            - name: :authority
+              value: "matrix.${SECRET_DOMAIN}"
+      backendRefs:
+        - name: mas
+          namespace: matrix
+          port: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /_matrix
+      backendRefs:
+        - name: synapse-matrix-synapse
+          namespace: matrix
+          port: 8008
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/matrix
+      backendRefs:
+        - name: synapse-wellknown-lighttpd
+          namespace: matrix
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /_synapse
+          headers:
+            - name: :authority
+              value: "matrix.${SECRET_DOMAIN}"
+      backendRefs:
+        - name: synapse-matrix-synapse
+          namespace: matrix
+          port: 8008

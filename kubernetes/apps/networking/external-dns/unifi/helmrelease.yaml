@@ -37,11 +37,10 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 5
     extraArgs:
-      - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns.alpha.kubernetes.io/exclude-unifi notin (true)
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["gateway-httproute", "ingress", "service", "traefik-proxy"]
+    sources: ["gateway-httproute", "service"]
     txtOwnerId: main
     txtPrefix: k8s.main.
     excludeDomains: ["ipv4.${SECRET_DOMAIN}"]

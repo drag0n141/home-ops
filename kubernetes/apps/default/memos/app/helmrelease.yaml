@@ -66,21 +66,18 @@ spec:
       app:
         ports:
           http:
-            port: 5230
-    ingress:
+            port: *port
+    route:
       app:
-        className: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "notes.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "notes.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
         tls:
           - hosts:
               - *host

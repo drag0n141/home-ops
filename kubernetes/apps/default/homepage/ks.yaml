@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/homepage/app
   prune: true
   sourceRef:
@@ -36,6 +38,8 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/homepage/work
   prune: true
   sourceRef:

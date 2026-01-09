@@ -24,7 +24,7 @@ spec:
               - secretRef:
                   name: vikunja-secret
         containers:
-          main:
+          app:
             image:
               repository: docker.io/vikunja/vikunja
               tag: 0.24.6@sha256:ed1f3ed467fecec0b57e9de7bc6607f8bbcbb23ffced6a81f5dfefc794cdbe3b
@@ -84,24 +84,17 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
-      main:
-        className: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "vikunja.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       data:
         existingClaim: *app

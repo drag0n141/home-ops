@@ -10,12 +10,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: envoy-gateway
+      namespace: *namespace
     - name: external-dns-cloudflare
       namespace: *namespace
     - name: onepassword
       namespace: external-secrets
-    - name: traefik-external
-      namespace: *namespace
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: true
   sourceRef:

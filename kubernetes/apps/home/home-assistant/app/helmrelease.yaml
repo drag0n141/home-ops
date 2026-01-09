@@ -83,29 +83,20 @@ spec:
       app:
         ports:
           http:
-            port: &hasscode 8123
+            port: &hassport 8123
           code-server:
             port: &codeport 12321
-    ingress:
-      app:
-        forceRename: *app
-        className: traefik-external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: &host "home.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
     route:
+      app:
+        hostnames:
+          - "home.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *hassport
       code-server:
         annotations:
           gatus.home-operations.com/enabled: "false"
