@@ -20,7 +20,7 @@ spec:
               tag: latest@sha256:51ca4de773ed84fcf36c14445825439af2bbbf11cb36356b58885b80c14e2f5d
             env:
               TZ: ${TIMEZONE}
-              BASE_URL: https://epic.${SECRET_DOMAIN_INTERNAL}
+              BASE_URL: https://epicgames.${SECRET_DOMAIN_INTERNAL}
               COUNTRY_CODE: DE
               CRON_SCHEDULE: "0 0,6,12,18 * * *"
               EMAIL: games.epicgames@${SECRET_DOMAIN_SHORT}
