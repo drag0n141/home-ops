@@ -64,7 +64,7 @@ spec:
             port: &port 80
     route:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         hostnames:
           - "bitwarden.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:

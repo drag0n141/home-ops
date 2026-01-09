@@ -50,7 +50,7 @@ spec:
             port: &port 8409
     route:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:

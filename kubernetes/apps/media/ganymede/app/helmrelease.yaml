@@ -93,7 +93,6 @@ spec:
     service:
       app:
         forceRename: "{{ .Release.Name }}"
-        primary: true
         annotations:
           teleport.dev/name: "{{ .Release.Name }}"
         labels:

@@ -77,7 +77,7 @@ spec:
             port: *port
     route:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         annotations:
           gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}/ping
