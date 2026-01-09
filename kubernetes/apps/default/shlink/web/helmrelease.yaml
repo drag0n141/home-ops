@@ -20,7 +20,7 @@ spec:
               tag: 4.6.2@sha256:93d4c24ca33d856e8e8076232eed6f5e5b01c70d705fdeae63fc7ae4034ea07d
             env:
               TIMEZONE: ${TIMEZONE}
-              SHLINK_SERVER_URL: https://${SECRET_DOMAIN_SHORT}
+              SHLINK_SERVER_URL: https://sh.${SECRET_DOMAIN_SHORT}
             envFrom:
               - secretRef:
                   name: shlink-web-secret
