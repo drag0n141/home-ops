@@ -32,8 +32,7 @@ tasks:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl | kubectl apply --server-side --filename -
       - kubectl --namespace flux-system apply --server-side --filename {{.KUBERNETES_DIR}}/components/substitutions/cluster-settings.yaml
-      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml template --quiet | kubectl apply --server-side --filename -
-      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml sync --hide-notes
+      - task: helmfile
     vars:
       RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
@@ -43,11 +42,22 @@ tasks:
       - op user get --me
       - talosctl config info
       - test -f {{.TALOS_DIR}}/talosconfig
-      - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml
-      - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml
       - test -f {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl
       - test -f {{.KUBERNETES_DIR}}/components/substitutions/cluster-settings.yaml
-      - which helmfile jq kubectl op talosctl
+      - which jq kubectl op talosctl
+
+  helmfile:
+    internal: true
+    cmds:
+      - |
+        helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml template --quiet \
+          | yq ea -e 'select(.kind == "CustomResourceDefinition")' \
+          | kubectl apply --server-side --field-manager bootstrap --force-conflicts --filename -
+      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml sync --hide-notes
+    preconditions:
+      - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml
+      - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml
+      - which helmfile kubectl yq
 
   matchbox:
     desc: Sync required Matchbox config to PXEBoot machine
