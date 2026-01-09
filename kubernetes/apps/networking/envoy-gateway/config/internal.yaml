@@ -19,6 +19,24 @@ spec:
       external-dns.alpha.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: 192.168.222.11
   listeners:
+    - name: http-root
+      protocol: HTTP
+      port: 80
+      hostname: "${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https-root
+      protocol: HTTPS
+      port: 443
+      hostname: "${SECRET_DOMAIN}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: "${SECRET_DOMAIN/./-}-production-tls"
     - name: http
       protocol: HTTP
       port: 80
