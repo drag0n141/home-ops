@@ -2,13 +2,42 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: synapse
+  name: synapse-main
   annotations:
     gatus.home-operations.com/endpoint: |-
       url: https://${SECRET_DOMAIN}/.well-known/matrix/client
 spec:
   hostnames:
     - "${SECRET_DOMAIN}"
+  parentRefs:
+    - name: envoy-external
+      namespace: networking
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /_matrix
+      backendRefs:
+        - name: synapse-matrix-synapse
+          namespace: matrix
+          port: 8008
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/matrix
+      backendRefs:
+        - name: synapse-wellknown-lighttpd
+          namespace: matrix
+          port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: synapse-subdomain
+  annotations:
+    gatus.home-operations.com/enabled: "false"
+spec:
+  hostnames:
     - "matrix.${SECRET_DOMAIN}"
   parentRefs:
     - name: envoy-external
@@ -18,9 +47,6 @@ spec:
         - path:
             type: RegularExpression
             value: "^/_matrix/client/.*/(?:login|logout|refresh).*"
-          headers:
-            - name: Host
-              value: "matrix.${SECRET_DOMAIN}"
       backendRefs:
         - name: mas
           namespace: matrix
@@ -37,9 +63,6 @@ spec:
         - path:
             type: PathPrefix
             value: /.well-known/matrix
-          headers:
-            - name: Host
-              value: "${SECRET_DOMAIN}"
       backendRefs:
         - name: synapse-wellknown-lighttpd
           namespace: matrix
@@ -48,9 +71,6 @@ spec:
         - path:
             type: PathPrefix
             value: /_synapse
-          headers:
-            - name: Host
-              value: "matrix.${SECRET_DOMAIN}"
       backendRefs:
         - name: synapse-matrix-synapse
           namespace: matrix
