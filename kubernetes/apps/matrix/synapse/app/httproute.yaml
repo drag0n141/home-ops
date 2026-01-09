@@ -20,7 +20,7 @@ spec:
             type: RegularExpression
             value: "^/_matrix/client/.*/(?:login|logout|refresh).*"
           headers:
-            - name: :authority
+            - name: Host
               value: "matrix.${SECRET_DOMAIN}"
       backendRefs:
         - name: mas
@@ -38,6 +38,9 @@ spec:
         - path:
             type: PathPrefix
             value: /.well-known/matrix
+          headers:
+            - name: Host
+              value: "${SECRET_DOMAIN}"
       backendRefs:
         - name: synapse-wellknown-lighttpd
           namespace: matrix
@@ -47,7 +50,7 @@ spec:
             type: PathPrefix
             value: /_synapse
           headers:
-            - name: :authority
+            - name: Host
               value: "matrix.${SECRET_DOMAIN}"
       backendRefs:
         - name: synapse-matrix-synapse
