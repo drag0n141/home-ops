@@ -31,7 +31,7 @@ spec:
             env:
               TIMEZONE: ${TIMEZONE}
               DB_DRIVER: postgres
-              DEFAULT_DOMAIN: s.${SECRET_DOMAIN_SHORT}
+              DEFAULT_DOMAIN: &host ${SECRET_DOMAIN_SHORT}
               DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
               IS_HTTPS_ENABLED: "true"
               PORT: &port 80
@@ -80,7 +80,7 @@ spec:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 404"]
         hostnames:
-          - "s.${SECRET_DOMAIN_SHORT}"
+          - "${SECRET_DOMAIN_SHORT}"
         parentRefs:
           - name: envoy-external
             namespace: networking
