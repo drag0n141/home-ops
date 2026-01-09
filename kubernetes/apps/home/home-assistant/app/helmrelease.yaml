@@ -88,6 +88,7 @@ spec:
             port: &codeport 12321
     route:
       app:
+        forceRename: "{{ .Release.Name }}"
         hostnames:
           - "home.${SECRET_DOMAIN}"
         parentRefs:
