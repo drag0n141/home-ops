@@ -14,4 +14,3 @@ spec:
     crds: CreateReplace
   values:
     fullnameOverride: *app
-    replicaCount: 1
