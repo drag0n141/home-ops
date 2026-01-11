@@ -75,6 +75,10 @@ cameras:
           roles: [detect]
         - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/garden_hq
           roles: [record]
+    motion:
+      mask:
+        - 0,0,0.222,0,0.221,0.103,0.19,0.189,0.031,0.781,0,0.575
+        - 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
     detect:
       width: 1280
       height: 720
