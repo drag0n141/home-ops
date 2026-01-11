@@ -23,5 +23,9 @@ streams:
     - rtspx://192.168.1.1:7441/z5YROdihtqmdE1IF
   door_package_hq:
     - rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
+  garden_hq:
+    - rtspx://192.168.1.1:7441/tB8FzwOHNoGu2790
+  garden_lq:
+    - rtspx://192.168.1.1:7441/eZ9I0xQeGhPw7kpm
   kids_hq:
     - rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
