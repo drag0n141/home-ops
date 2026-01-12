@@ -31,7 +31,6 @@ spec:
               tag: 4.11.2@sha256:1c884a88f12df0d33ea8bf1de09163e657251d653845919dbd4d2a4d5d5608ce
             env:
               TZ: ${TIMEZONE}
-              CDN_URL: https://ganymede-cdn.${SECRET_DOMAIN_INTERNAL}
               PUID: 1000
               PGID: 1000
               DEBUG: false
