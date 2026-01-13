@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 1.123.11@sha256:2f1acd5ebde6bb13adf1fb73229a880308e5e4d2e0c643aa07ede5dd3f46c2ab
+              tag: 1.123.12@sha256:516bd1506f3f6712f7820aaac2fca9f640d4a3d426e2c805075cb19e51040830
             env:
               TZ: ${TIMEZONE}
               GENERIC_TIMEZONE: ${TIMEZONE}
