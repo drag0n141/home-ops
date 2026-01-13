@@ -44,19 +44,24 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  compression:
+  compressor:
     - type: Zstd
+      zstd: {}
     - type: Brotli
+      brotli: {}
     - type: Gzip
+      gzip: {}
   retry:
     numRetries: 2
+    retryOn:
+      triggers:
+        - reset
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
   timeout:
     http:
-      connectionIdleTimeout: 15s
       requestTimeout: 0s
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -111,9 +116,6 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
-  timeout:
-    http:
-      idleTimeout: 60s
   tls:
     minVersion: "1.2"
     alpnProtocols:
