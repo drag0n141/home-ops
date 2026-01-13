@@ -9,8 +9,6 @@ spec:
     kind: OCIRepository
     name: forgejo
   values:
-    strategy:
-      type: Recreate
     image:
       registry: code.forgejo.org
       repository: forgejo/forgejo
