@@ -66,8 +66,7 @@ tasks:
       - op inject --in-file {{.DOCKER_DIR}}/nas01/apps/doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/apps/doco-cd/.env
       - scp {{.DOCKER_DIR}}/nas01/apps/doco-cd/compose.yaml {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
       - scp {{.DOCKER_DIR}}/nas01/apps/doco-cd/.env {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
-      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker-compose pull"
-      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker-compose up -d"
+      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker compose up -d"
     vars:
       NAS_HOST: 192.168.254.2
       NAS_USER: root
