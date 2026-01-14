@@ -56,8 +56,6 @@ spec:
     retryOn:
       triggers:
         - reset
-  connection:
-    bufferLimit: 64Mi
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
@@ -75,9 +73,6 @@ spec:
     xForwardedFor:
       trustedCIDRs:
         - 10.42.0.0/16
-  connection:
-    bufferLimit: 8Mi
-    maxAcceptPerSocketEvent: 0
   headers:
     enableEnvoyHeaders: true
     earlyRequestHeaders:
@@ -115,17 +110,12 @@ spec:
         - name: X-XSS-Protection
           value: "1; mode=block"
   http2:
-    initialStreamWindowSize: 2Mi
-    initialConnectionWindowSize: 32Mi
     onInvalidMessage: TerminateStream
   http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
-  timeout:
-    http:
-      requestReceivedTimeout: 0s
   tls:
     minVersion: "1.2"
     alpnProtocols:
