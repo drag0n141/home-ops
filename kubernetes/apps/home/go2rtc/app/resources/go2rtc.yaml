@@ -29,3 +29,7 @@ streams:
     - rtspx://192.168.1.1:7441/eZ9I0xQeGhPw7kpm
   kids_hq:
     - rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
+  yard_hq:
+    - rtspx://192.168.1.1:7441/GQaihGTnFde5Byyi
+  yard_lq:
+    - rtspx://192.168.1.1:7441/ZxgpdiYy9KHV0qqv
