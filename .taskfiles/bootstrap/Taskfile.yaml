@@ -59,6 +59,28 @@ tasks:
       - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml
       - which helmfile kubectl yq
 
+  apps_nas:
+    desc: Bootstrap Apps to NAS
+    cmds:
+      - defer: rm -f {{.DOCKER_DIR}}/nas01/apps/doco-cd/.env
+      - op inject --in-file {{.DOCKER_DIR}}/nas01/apps/doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/apps/doco-cd/.env
+      - scp {{.DOCKER_DIR}}/nas01/apps/doco-cd/compose.yaml {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
+      - scp {{.DOCKER_DIR}}/nas01/apps/doco-cd/.env {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
+      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker-compose pull"
+      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker-compose up -d"
+    vars:
+      NAS_HOST: 192.168.254.2
+      NAS_USER: root
+      COMPOSE_DIR: /mnt/nvme/appdata/compose/doco-cd
+    env:
+      VAULT: kubernetes
+    preconditions:
+      - op user get --me
+      - test -f {{.DOCKER_DIR}}/nas01/apps/doco-cd/.secrets.env
+      - test -f {{.DOCKER_DIR}}/nas01/apps/doco-cd/compose.yaml
+      - which op
+
+
   matchbox:
     desc: Sync required Matchbox config to PXEBoot machine
     cmds:

@@ -6,6 +6,7 @@ shopt: [globstar]
 
 vars:
   BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
+  DOCKER_DIR: '{{.ROOT_DIR}}/docker'
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
