@@ -19,7 +19,21 @@ spec:
               repository: ghcr.io/agregarr/agregarr
               tag: 2.1.0@sha256:c692e8266562a252d87a1310557505ca971ace5aa846de39b297706c103b155b
             env:
+              PORT: &port 7171
               TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/status
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -40,7 +54,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 7171
+            port: *port
     route:
       app:
         hostnames:
@@ -48,13 +62,9 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/config
       tmpfs:
