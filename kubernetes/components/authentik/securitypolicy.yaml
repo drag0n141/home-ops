@@ -17,6 +17,7 @@ spec:
           port: 9000
       path: /outpost.goauthentik.io/auth/envoy
       headersToBackend:
+        - Location
         - Set-Cookie
         - X-authentik-*
         - authorization

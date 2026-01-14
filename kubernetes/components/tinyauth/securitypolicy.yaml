@@ -20,6 +20,7 @@ spec:
           port: 3000
       path: /api/auth/envoy?path=
       headersToBackend:
+        - Location
         - Set-Cookie
   targetRefs:
     - group: gateway.networking.k8s.io
