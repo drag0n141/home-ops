@@ -13,9 +13,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    cni:
-      binPath: /opt/cni/bin
-      netPath: /etc/cni/net.d
     multus:
       resources:
         requests:
