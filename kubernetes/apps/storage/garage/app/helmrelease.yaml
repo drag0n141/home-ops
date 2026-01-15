@@ -57,7 +57,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: http
+                port: s3
     persistence:
       config:
         type: secret
