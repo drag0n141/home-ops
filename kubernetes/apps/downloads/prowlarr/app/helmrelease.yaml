@@ -97,7 +97,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
       ping:
         annotations:
           gatus.home-operations.com/enabled: "false"
@@ -109,7 +109,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
             matches:
               - path:
                   type: PathPrefix

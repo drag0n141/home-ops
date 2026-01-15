@@ -83,9 +83,9 @@ spec:
       app:
         ports:
           http:
-            port: &hassport 8123
+            port: 8123
           code-server:
-            port: &codeport 12321
+            port: 12321
     route:
       app:
         forceRename: "{{ .Release.Name }}"
@@ -99,7 +99,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *hassport
+                port: http
       code-server:
         annotations:
           gatus.home-operations.com/enabled: "false"
@@ -111,7 +111,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *codeport
+                port: code-server
     persistence:
       config:
         existingClaim: *app

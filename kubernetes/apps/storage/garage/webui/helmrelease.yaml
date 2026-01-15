@@ -43,7 +43,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 3909
+            port: 3909
     route:
       app:
         annotations:
@@ -53,10 +53,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         type: secret

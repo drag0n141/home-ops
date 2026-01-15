@@ -90,7 +90,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

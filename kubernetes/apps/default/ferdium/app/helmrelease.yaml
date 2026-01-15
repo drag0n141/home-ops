@@ -69,7 +69,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 3333
+            port: 3333
     route:
       app:
         hostnames:
@@ -77,10 +77,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       data:
         existingClaim: *app

@@ -65,7 +65,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 9090
+            port: 9090
     route:
       app:
         hostnames:
@@ -73,10 +73,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       data:
         existingClaim: *app

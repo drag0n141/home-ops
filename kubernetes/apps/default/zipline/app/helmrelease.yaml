@@ -86,7 +86,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 3000
+            port: 3000
     route:
       app:
         hostnames:
@@ -94,10 +94,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       tmpfs:
         type: emptyDir

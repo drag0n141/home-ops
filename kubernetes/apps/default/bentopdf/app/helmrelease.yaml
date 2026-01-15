@@ -52,10 +52,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       tmpfs:
         type: emptyDir

@@ -55,7 +55,7 @@ spec:
         primary: true
         ports:
           http:
-            port: &port 80
+            port: 80
       brother:
         type: LoadBalancer
         annotations:
@@ -82,7 +82,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
     persistence:
       nas:
         type: nfs

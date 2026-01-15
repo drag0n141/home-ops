@@ -47,7 +47,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 8409
+            port: 8409
     route:
       app:
         forceRename: "{{ .Release.Name }}"
@@ -61,7 +61,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
       iptv:
         annotations:
           gatus.home-operations.com/enabled: "false"
@@ -73,7 +73,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
             matches:
               - path:
                   type: PathPrefix

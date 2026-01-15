@@ -40,7 +40,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 80
+            port: 80
     route:
       app:
         hostnames:
@@ -48,10 +48,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       data:
         existingClaim: *app

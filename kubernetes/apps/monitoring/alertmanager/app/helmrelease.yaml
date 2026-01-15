@@ -78,7 +78,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 9093
+            port: 9093
     route:
       app:
         annotations:
@@ -88,10 +88,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         type: configMap

@@ -41,7 +41,7 @@ spec:
       app:
         ports:
           s3:
-            port: &port 3900
+            port: 3900
           api:
             port: 3903
     route:
@@ -57,7 +57,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
+                port: http
     persistence:
       config:
         type: secret

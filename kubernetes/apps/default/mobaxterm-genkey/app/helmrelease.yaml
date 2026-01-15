@@ -39,7 +39,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 5000
+            port: 5000
     route:
       app:
         annotations:
@@ -49,7 +49,3 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
