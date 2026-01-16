@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: dock.mau.dev/mautrix/whatsapp
-              tag: v0.2512.0
+              tag: v0.2601.0
             command: ["/usr/bin/mautrix-whatsapp"]
             args: [ "-c", "/data/config.yaml", "--no-update" ]
             env:
