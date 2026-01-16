@@ -22,19 +22,6 @@ spec:
               TZ: ${TIMEZONE}
               PUID: 1000
               PGID: 1000
-            probes:
-              liveness: &probes
-                enabled: false
-                custom: true
-                spec:
-                  httpGet:
-                    path: /status
-                    port: &port 5690
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -55,7 +42,7 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: 5690
     route:
       app:
         hostnames:
