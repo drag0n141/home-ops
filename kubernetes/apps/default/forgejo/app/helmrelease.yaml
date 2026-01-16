@@ -103,7 +103,7 @@ spec:
       enabled: true
       mount: true
       create: false
-      claimName: forgejo
+      claimName: *app
     service:
       ssh:
         type: LoadBalancer

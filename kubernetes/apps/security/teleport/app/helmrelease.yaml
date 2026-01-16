@@ -32,6 +32,6 @@ spec:
     proxyListenerMode: multiplex
     persistence:
       enabled: true
-      existingClaimName: teleport
+      existingClaimName: *app
     service:
       type: ClusterIP

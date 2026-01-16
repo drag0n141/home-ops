@@ -15,7 +15,7 @@ spec:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     nextcloud:
-      host: &host nextcloud.${SECRET_DOMAIN}
+      host: nextcloud.${SECRET_DOMAIN}
       extraInitContainers:
         - name: init-db
           image: ghcr.io/home-operations/postgres-init:18
@@ -48,7 +48,7 @@ spec:
               key: REDIS_PASSWORD
       existingSecret:
         enabled: true
-        secretName: nextcloud-secret
+        secretName: *secret
         usernameKey: ADMIN_USER
         passwordKey: ADMIN_PASS
         smtpHostKey: SMTP_HOST
@@ -165,7 +165,7 @@ spec:
       type: postgresql
       existingSecret:
         enabled: true
-        secretName: nextcloud-secret
+        secretName: *secret
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
         hostKey: POSTGRES_HOST
@@ -178,4 +178,4 @@ spec:
       enabled: false
     persistence:
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: *app

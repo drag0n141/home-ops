@@ -52,14 +52,14 @@ spec:
       host: "postgres-rw.database.svc.cluster.local"
       port: 5432
       username: "synapse"
-      existingSecret: "synapse-secret"
+      existingSecret: &secret synapse-secret
       existingSecretPasswordKey: POSTGRES_PASSWORD
       database: "synapse_db"
     externalRedis:
       host: dragonfly.database.svc.cluster.local
       port: 6379
       dbid: 14
-      existingSecret: "synapse-secret"
+      existingSecret: *secret
       existingSecretPasswordKey: REDIS_PASSWORD
     synapse:
       strategy:
@@ -105,7 +105,7 @@ spec:
     signingkey:
       job:
         enabled: false
-      existingSecret: synapse-secret
+      existingSecret: *secret
       existingSecretKey: SIGNING_KEY
     persistence:
       enabled: true

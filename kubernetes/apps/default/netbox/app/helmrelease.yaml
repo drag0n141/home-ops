@@ -19,7 +19,7 @@ spec:
         image: ghcr.io/home-operations/postgres-init:18
         envFrom:
           - secretRef:
-              name: netbox-secret
+              name: &secret netbox-secret
     superuser:
       name: drag0n141
       email: server.netbox@${SECRET_DOMAIN_SHORT}
@@ -40,7 +40,7 @@ spec:
           bucket_name: "netbox"
           endpoint_url: "https://s3.${SECRET_DOMAIN_INTERNAL}"
           region_name: "us-east-1"
-    existingSecret: netbox-secret
+    existingSecret: *secret
     metricsEnabled: true
     postgresql:
       enabled: false
@@ -89,7 +89,7 @@ spec:
           namespace: networking
     extraConfig:
       - secret:
-          secretName: netbox-secret
+          secretName: *secret
     housekeeping:
       enabled: false
     worker:
@@ -97,9 +97,9 @@ spec:
   valuesFrom:
     - targetPath: storages.default.OPTIONS.access_key
       kind: Secret
-      name: netbox-secret
+      name: *secret
       valuesKey: AWS_ACCESS_KEY_ID
     - targetPath: storages.default.OPTIONS.secret_key
       kind: Secret
-      name: netbox-secret
+      name: *secret
       valuesKey: AWS_SECRET_ACCESS_KEY
