@@ -124,6 +124,8 @@ spec:
             app:
               - path: /config/.venv
                 subPath: .venv
+              - path: /media/llmvision
+                subPath: llmvision
               - path: /config/logs
                 subPath: logs
               - path: /config/tts
