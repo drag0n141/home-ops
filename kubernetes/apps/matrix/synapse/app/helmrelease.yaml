@@ -109,7 +109,7 @@ spec:
       existingSecretKey: SIGNING_KEY
     persistence:
       enabled: true
-      existingClaim: "{{ .Release.Name }}"
+      existingClaim: *app
   postRenderers:
     - kustomize:
         patches:
