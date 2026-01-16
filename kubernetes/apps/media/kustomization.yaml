@@ -21,6 +21,7 @@ resources:
   - ./tautulli/ks.yaml
   - ./tracearr/ks.yaml
   - ./webhook/ks.yaml
+  - ./wizarr/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
