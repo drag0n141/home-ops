@@ -43,7 +43,7 @@ spec:
             port: 1883
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
       settings:

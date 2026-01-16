@@ -70,7 +70,7 @@ spec:
             protocol: TCP
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /var/ts3server
       tmpfs:

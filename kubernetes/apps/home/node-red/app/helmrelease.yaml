@@ -53,7 +53,7 @@ spec:
             namespace: networking
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
       settings:

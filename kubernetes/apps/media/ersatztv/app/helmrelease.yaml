@@ -80,7 +80,7 @@ spec:
                   value: /iptv
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       tmpfs:

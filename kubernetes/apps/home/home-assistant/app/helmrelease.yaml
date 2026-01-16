@@ -114,7 +114,7 @@ spec:
                 port: code-server
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       tmpfs:

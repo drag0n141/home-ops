@@ -103,7 +103,7 @@ spec:
                 port: http
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       transcode:

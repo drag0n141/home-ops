@@ -74,7 +74,7 @@ spec:
             namespace: networking
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           tandoor:
             app:

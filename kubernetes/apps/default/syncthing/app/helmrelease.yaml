@@ -89,6 +89,6 @@ spec:
                 port: http
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /var/syncthing

@@ -88,7 +88,7 @@ spec:
             namespace: networking
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       logs:

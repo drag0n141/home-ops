@@ -74,6 +74,6 @@ spec:
             namespace: networking
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /home/node/.n8n

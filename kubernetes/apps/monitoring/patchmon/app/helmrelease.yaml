@@ -92,7 +92,7 @@ spec:
                 port: http
     persistence:
       agents:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           patchmon:
             app:

@@ -102,6 +102,6 @@ spec:
           - path: /etc/secrets
             readOnly: true
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /alertmanager

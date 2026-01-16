@@ -67,7 +67,7 @@ spec:
             subPath: garage.toml
             readOnly: true
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           garage:
             app:

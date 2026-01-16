@@ -48,7 +48,7 @@ spec:
             port: 1688
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /kms/var
       tmpfs:

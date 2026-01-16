@@ -81,7 +81,7 @@ spec:
             subPath: config.yml
             readOnly: true
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           romm:
             app:

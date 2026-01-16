@@ -91,7 +91,7 @@ spec:
             port: 25565
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
       tmpfs:

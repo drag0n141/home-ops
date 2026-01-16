@@ -63,7 +63,7 @@ spec:
             namespace: networking
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           dispatcharr:
             app:
