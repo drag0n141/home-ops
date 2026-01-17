@@ -88,6 +88,16 @@ cameras:
     detect:
       width: 1280
       height: 720
+  yard:
+    ffmpeg:
+      inputs:
+        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/yard_lq
+          roles: [detect]
+        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/yard_hq
+          roles: [record]
+    detect:
+      width: 1280
+      height: 720
 
 telemetry:
   stats:
