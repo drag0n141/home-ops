@@ -102,5 +102,7 @@ spec:
         advancedMounts:
           frigate:
             app:
+              - path: /run
+                subPath: run
               - path: /tmp
                 subPath: tmp
