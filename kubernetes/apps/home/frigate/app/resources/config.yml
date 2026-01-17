@@ -66,6 +66,8 @@ cameras:
     detect:
       width: 720
       height: 960
+    lpr:
+      enabled: false
     motion:
       mask: 0.267,0.475,0.367,0.473,0.349,0.554,0.272,0.557
     zones:
@@ -88,6 +90,8 @@ cameras:
     detect:
       width: 1280
       height: 720
+    lpr:
+      enabled: false
   yard:
     ffmpeg:
       inputs:
@@ -98,6 +102,8 @@ cameras:
     detect:
       width: 1280
       height: 720
+    lpr:
+      enabled: true
     motion:
       mask:
         - 0.942,0,0.869,0.297,0,0.544,0,0
