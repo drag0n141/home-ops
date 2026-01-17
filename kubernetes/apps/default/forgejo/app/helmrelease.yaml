@@ -12,7 +12,7 @@ spec:
     image:
       registry: code.forgejo.org
       repository: forgejo/forgejo
-      tag: 14.0.0
+      tag: 14.0.1
       rootless: true
     containerSecurityContext:
       capabilities:
