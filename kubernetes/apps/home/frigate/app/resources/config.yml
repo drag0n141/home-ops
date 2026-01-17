@@ -36,6 +36,12 @@ detect:
   enabled: true
   fps: 5
 
+face_recognition:
+  enabled: true
+  model_size: large
+lpr:
+  enabled: true
+
 snapshots:
   enabled: true
   timestamp: false
