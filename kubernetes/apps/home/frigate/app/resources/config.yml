@@ -98,6 +98,8 @@ cameras:
     detect:
       width: 1280
       height: 720
+    motion:
+      mask: 0.942,0,0.869,0.297,0,0.544,0,0
 
 telemetry:
   stats:
