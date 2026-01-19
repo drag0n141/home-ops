@@ -65,6 +65,9 @@ objects:
   track:
     - person
     - car
+    - face
+    - package
+    - license_plate
 
 review:
   alerts:
@@ -72,11 +75,13 @@ review:
       - person
       - car
       - face
+      - license_plate
   detections:
     labels:
       - person
       - car
       - face
+      - license_plate
 
 cameras:
   door:
@@ -93,6 +98,7 @@ cameras:
       track:
         - person
         - face
+        - package
     lpr:
       enabled: false
     motion:
@@ -138,6 +144,7 @@ cameras:
         - person
         - face
         - car
+        - license_plate
     lpr:
       enabled: true
     motion:
