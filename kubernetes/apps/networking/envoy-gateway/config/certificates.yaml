@@ -11,8 +11,12 @@ spec:
     - "*.${SECRET_DOMAIN_TELEPORT}"
   duration: 160h
   issuerRef:
-    name: letsencrypt-production
     kind: ClusterIssuer
+    name: letsencrypt-production
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
   secretName: "${SECRET_DOMAIN/./-}-production-tls"
   usages:
     - digital signature
@@ -27,8 +31,12 @@ spec:
     - "*.${SECRET_DOMAIN_SHORT}"
   duration: 160h
   issuerRef:
-    name: letsencrypt-production
     kind: ClusterIssuer
+    name: letsencrypt-production
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
   secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
   usages:
     - digital signature
