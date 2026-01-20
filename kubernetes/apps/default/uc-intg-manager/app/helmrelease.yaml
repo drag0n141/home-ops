@@ -24,7 +24,7 @@ spec:
               UC_MDNS_LOCAL_HOSTNAME: uc-intg.${SECRET_DOMAIN_INTERNAL}
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
