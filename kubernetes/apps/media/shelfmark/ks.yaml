@@ -18,6 +18,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/keda
+    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/shelfmark/app
   prune: true
