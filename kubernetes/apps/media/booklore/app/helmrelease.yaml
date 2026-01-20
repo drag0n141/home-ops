@@ -1,0 +1,213 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: booklore
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      booklore:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          mariadb:
+            image:
+              repository: docker.io/library/mariadb
+              tag: 12.1.2-noble
+            env:
+              MARIADB_DATABASE: booklore
+              MARIADB_USER: booklore
+              PGID: 1000
+              PUID: 1000
+            envFrom: &envFrom
+              - secretRef:
+                  name: booklore-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - bash
+                      - -c
+                      - |-
+                        mariadb-admin ping --socket=/run/mysqld/mysqld.sock --user=root --password=$${MARIADB_ROOT_PASSWORD}
+            restartPolicy: Always
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              seccompProfile: {type: Unconfined}
+          nginx-config:
+            image:
+              repository: ghcr.io/booklore-app/booklore
+              tag: v1.17.0@sha256:5b594a607fb0d9533d06a850156e2b54877ed0ddd0da8cd1f0240cb38bb6ac70
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - "envsubst '$${BOOKLORE_PORT}' < /etc/nginx/nginx.conf > /config/nginx.conf"
+            env:
+              BOOKLORE_PORT: &httpPort 6060
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              runAsUser: 100
+              runAsGroup: 101
+              fsGroup: 101
+        containers:
+          booklore:
+            image:
+              repository: ghcr.io/booklore-app/booklore
+              tag: v1.17.0@sha256:5b594a607fb0d9533d06a850156e2b54877ed0ddd0da8cd1f0240cb38bb6ac70
+            command:
+              - java
+            args:
+              - -jar
+              - /app/app.jar
+            env:
+              DATABASE_URL: jdbc:mariadb://localhost:3306/booklore
+              DATABASE_USERNAME: booklore
+            envFrom: *envFrom
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/healthcheck
+                    port: 8080
+              readiness: *probe
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/healthcheck
+                    port: 8080
+                  failureThreshold: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+          nginx:
+            image:
+              repository: ghcr.io/booklore-app/booklore
+              tag: v1.17.0@sha256:5b594a607fb0d9533d06a850156e2b54877ed0ddd0da8cd1f0240cb38bb6ac70
+            env:
+              TZ: ${TIMEZONE}
+            command:
+              - nginx
+            args:
+              - -c
+              - /config/nginx.conf
+              - -g
+              - "daemon off;"
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *httpPort
+              readiness: *probe
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              runAsUser: 100
+              runAsGroup: 101
+              fsGroup: 101
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *httpPort
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          booklore:
+            booklore:
+              - path: /app/data
+                subPath: app
+            mariadb:
+              - path: /var/lib/mysql
+                subPath: mysql
+      media:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/media
+        advancedMounts:
+          booklore:
+            booklore:
+              - path: /books
+                subPath: books
+              - path: /bookdrop
+                subPath: nzb/books
+      mysqld:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Mi
+        advancedMounts:
+          booklore:
+            mariadb:
+              - path: /run/mysqld
+      nginx:
+        type: emptyDir
+        sizeLimit: 200Mi
+        advancedMounts:
+          booklore:
+            nginx:
+              - path: /config
+                subPath: config
+              - path: /var/lib/nginx/logs
+                subPath: log
+              - path: /var/lib/nginx/tmp
+                subPath: tmp
+            nginx-config:
+              - path: /config
+                subPath: config
+      nginx-run:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 100Mi
+        advancedMounts:
+          booklore:
+            nginx:
+              - path: /run/nginx
+      tmpfs:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 100Mi
+        advancedMounts:
+          booklore:
+            booklore:
+              - path: /tmp
+                subPath: app
+            mariadb:
+              - path: /tmp
+                subPath: mysql

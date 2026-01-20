@@ -21,7 +21,7 @@ spec:
             image:
               repository: ghcr.io/home-operations/postgres-init
               tag: 18@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
                   name: autopulse-db-secret
         containers:
