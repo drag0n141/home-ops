@@ -6,7 +6,6 @@ resources:
   - ./agregarr/ks.yaml
   - ./autopulse/ks.yaml
   - ./booklore/ks.yaml
-  - ./calibre-web/ks.yaml
   - ./dispatcharr/ks.yaml
   - ./ersatztv/ks.yaml
   - ./ganymede/ks.yaml
