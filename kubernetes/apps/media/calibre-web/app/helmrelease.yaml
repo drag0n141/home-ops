@@ -18,8 +18,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/crocodilestick/calibre-web-automated
-              tag: V3.0.4@sha256:e602e73b6fd50c3ba389b38acb701205976a05b650898f615f93bd7e3537a827
+              repository: ghcr.io/crocodilestick/calibre-web-automated
+              tag: V3.1.4@sha256:577e846f104fd21453ef306eefb4a95dd95b3b9ddd2463a150944494284da0fd
             env:
               TZ: ${TIMEZONE}
               CACHE_DIR: /cache
