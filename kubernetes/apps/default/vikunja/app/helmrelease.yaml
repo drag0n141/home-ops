@@ -91,23 +91,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: http
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: Content-Type
-                      value: application/json
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /api/
-          - backendRefs:
-              - identifier: app
-                port: http
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
