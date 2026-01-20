@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app calibre-downloader
+  name: shelfmark
 spec:
   interval: 1h
   chartRef:
@@ -10,7 +10,7 @@ spec:
     name: app-template
   values:
     controllers:
-      calibre-downloader:
+      shelfmark:
         labels:
           nfsMount: "true"
         annotations:
@@ -18,14 +18,23 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/calibrain/calibre-web-automated-book-downloader
-              tag: latest@sha256:12691808e34fc9e8269ffa414ff486f9efed8c445d3bd35789dab1e9f221776a
-            command: ["python", "-m", "app"]
+              repository: ghcr.io/calibrain/shelfmark
+              tag: v1.0.1@sha256:1efbbd45ea434cb4f5abde217e19c35280ea1de9eb2c0baa37e6b8cddac32fae
+            command: ["gunicorn"]
+            args:
+              # - --log-level=debug
+              - --access-logfile=-
+              - --error-logfile=-
+              - --worker-class=geventwebsocket.gunicorn.workers.GeventWebSocketWorker
+              - --workers=1
+              - -t
+              - "300"
+              - -b
+              - 0.0.0.0:8084
+              - shelfmark.main:app
             env:
               TZ: ${TIMEZONE}
-              FLASK_PORT: 8084
               INGEST_DIR: /mnt/data/media/nzb/books
-              BOOK_LANGUAGE: de
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -36,8 +45,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /request/api/status
-                    port: 8084
+                    path: /api/health
+                    port: &port 8084
                   initialDelaySeconds: 5
                   periodSeconds: 30
                   timeoutSeconds: 30
@@ -46,9 +55,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 256Mi
+                memory: 128Mi
               limits:
-                memory: 2Gi
+                memory: 512Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -58,40 +67,33 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
         ports:
           http:
-            port: 8084
-    ingress:
+            port: *port
+    route:
       app:
-        className: traefik-internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-authelia@kubernetescrd"
-        hosts:
-          - host: &host "calibre-downloader.${SECRET_DOMAIN_INTERNAL}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: "${SECRET_DOMAIN/./-}-production-tls"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
     persistence:
-      tmp:
-        type: emptyDir
+      config:
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /tmp
-      log:
-        type: emptyDir
-        globalMounts:
-          - path: /var/log/cwa-book-downloader/
+          - path: /config
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/media
         globalMounts:
           - path: /mnt/data/media
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          shelfmark:
+            app:
+              - path: /var/log
+                subPath: var-log
+              - path: /tmp
+                subPath: tmp

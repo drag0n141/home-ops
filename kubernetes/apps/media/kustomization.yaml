@@ -17,6 +17,7 @@ resources:
   - ./recommendarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./seerr/ks.yaml
+  - ./shelfmark/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./tracearr/ks.yaml
