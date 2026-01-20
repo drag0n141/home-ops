@@ -87,6 +87,8 @@ spec:
           value: "%REQ(:METHOD)%"
     lateResponseHeaders:
       set:
+        - name: Access-Control-Allow-Origin
+          value: "https://*.${SECRET_DOMAIN}"
         - name: Content-Security-Policy
           value: "upgrade-insecure-requests;"
         - name: Cross-Origin-Opener-Policy
