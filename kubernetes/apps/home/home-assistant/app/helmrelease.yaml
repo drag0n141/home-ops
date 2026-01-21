@@ -122,6 +122,9 @@ spec:
                 subPath: hass
               - path: /media
                 subPath: media
+            code-server:
+              - path: /config
+                subPath: hass
       tmpfs:
         type: emptyDir
         advancedMounts:
