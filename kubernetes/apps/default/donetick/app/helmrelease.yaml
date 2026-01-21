@@ -36,6 +36,7 @@ spec:
               DT_EMAIL_PORT: 2525
               DT_EMAIL_EMAIL: donetick@${SECRET_DOMAIN}
               DT_SERVER_PORT: &port 2021
+              DT_OAUTH2_NAME: Pocket-ID
               DT_OAUTH2_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
               DT_OAUTH2_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
               DT_OAUTH2_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
