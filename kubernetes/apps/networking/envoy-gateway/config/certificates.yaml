@@ -15,7 +15,7 @@ spec:
     name: letsencrypt-production
   privateKey:
     algorithm: ECDSA
-    size: 384
+    size: 256
     rotationPolicy: Always
   secretName: "${SECRET_DOMAIN/./-}-production-tls"
   usages:
@@ -35,7 +35,7 @@ spec:
     name: letsencrypt-production
   privateKey:
     algorithm: ECDSA
-    size: 384
+    size: 256
     rotationPolicy: Always
   secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
   usages:
