@@ -40,6 +40,7 @@ spec:
               DT_OAUTH2_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
               DT_OAUTH2_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
               DT_OAUTH2_REDIRECT_URL: https://donetick.${SECRET_DOMAIN}/auth/oauth2
+              DT_IS_USER_CREATION_DISABLED: true
             envFrom: *envFrom
             probes:
               liveness: &probes
