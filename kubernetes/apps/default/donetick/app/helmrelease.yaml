@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: donetick
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      donetick:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
+            envFrom: &envFrom
+              - secretRef:
+                  name: donetick-secret
+        containers:
+          app:
+            image:
+              repository: docker.io/donetick/donetick
+              tag: v0.1.64@sha256:e2474d903a60df7d15142e89acc04f8ef32347bc13c3c6f47750f7f14c6dae34
+            env:
+              TZ: ${TIMEZONE}
+              DT_ENV: selfhosted
+              DT_DATABASE_TYPE: postgres
+              DT_EMAIL_HOST: smtp-relay.networking.svc.cluster.local
+              DT_EMAIL_PORT: 2525
+              DT_EMAIL_EMAIL: donetick@${SECRET_DOMAIN}
+              DT_SERVER_PORT: &port 2021
+              DT_OAUTH2_AUTH_URL: https://id.${SECRET_DOMAIN}/authorize
+              DT_OAUTH2_TOKEN_URL: https://id.${SECRET_DOMAIN}/api/oidc/token
+              DT_OAUTH2_USER_INFO_URL: https://id.${SECRET_DOMAIN}/api/oidc/userinfo
+              DT_OAUTH2_REDIRECT_URL: https://donetick.${SECRET_DOMAIN}/auth/oauth2
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/ping
+                    port: *port
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /donetick-data
