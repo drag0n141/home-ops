@@ -132,7 +132,6 @@ cameras:
     objects:
       track:
         - person
-        - car
     lpr:
       enabled: true
     motion:
