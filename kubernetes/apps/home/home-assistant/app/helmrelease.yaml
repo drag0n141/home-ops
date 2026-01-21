@@ -115,8 +115,13 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /config
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config
+                subPath: hass
+              - path: /media
+                subPath: media
       tmpfs:
         type: emptyDir
         advancedMounts:
