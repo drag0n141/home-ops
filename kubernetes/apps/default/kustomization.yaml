@@ -37,6 +37,7 @@ resources:
   - ./paperless/ks.yaml
   - ./searxng/ks.yaml
   - ./shlink/ks.yaml
+  - ./spoolman/ks.yaml
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./termix/ks.yaml
