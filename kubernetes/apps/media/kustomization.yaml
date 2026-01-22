@@ -8,7 +8,7 @@ resources:
   - ./booklore/ks.yaml
   - ./dispatcharr/ks.yaml
   - ./ersatztv/ks.yaml
-  - ./ganymede/ks.yaml
+#   - ./ganymede/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./plex/ks.yaml
