@@ -42,7 +42,6 @@ resources:
   - ./ts3/ks.yaml
   - ./uc-intg-manager/ks.yaml
   - ./vaultwarden/ks.yaml
-  - ./vikunja/ks.yaml
   - ./wallos/ks.yaml
   - ./wiki/ks.yaml
   - ./zipline/ks.yaml
