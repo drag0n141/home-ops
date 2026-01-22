@@ -31,6 +31,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               DT_ENV: selfhosted
+              DT_NAME: Donetick
               DT_DATABASE_TYPE: postgres
               DT_EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               DT_EMAIL_PORT: 2525
