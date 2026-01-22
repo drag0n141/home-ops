@@ -5,6 +5,7 @@ namespace: default
 resources:
   - ./apprise/ks.yaml
   - ./atuin/ks.yaml
+  - ./bambuddy/ks.yaml
   - ./bentopdf/ks.yaml
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
