@@ -46,6 +46,8 @@ spec:
             port: *port
     route:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
