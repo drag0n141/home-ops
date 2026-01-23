@@ -3,7 +3,7 @@ alerting:
   gotify:
     title: Gatus (Kubernetes)
     server-url: http://gotify.default.svc.cluster.local
-    token: ${GOTIFY_TOKEN}
+    token: $${GOTIFY_TOKEN}
     default-alert:
       description: health-check failed
       send-on-resolved: true
@@ -53,7 +53,7 @@ metrics: true
 
 storage:
   type: postgres
-  path: ${POSTGRES_URI}?sslmode=require
+  path: $${POSTGRES_URI}?sslmode=require
   caching: true
 
 ui:
@@ -68,4 +68,4 @@ ui:
       link: https://github.com/drag0n141/home-ops
 
 web:
-  port: ${WEB_PORT}
+  port: $${WEB_PORT}
