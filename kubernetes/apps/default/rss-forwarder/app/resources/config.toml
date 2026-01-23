@@ -1,9 +1,0 @@
-[feeds.home-operations-containers]
-url = "https://github.com/home-operations/containers/commits/main/.atom"
-interval = "10m"
-retry_limit = 5
-
-[feeds.home-operations-containers.sink]
-type = "custom"
-command= "bash"
-arguments = ["-c", "cat - >> ./rust-blog.log"]
