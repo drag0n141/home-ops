@@ -34,6 +34,7 @@ resources:
   - ./outline/ks.yaml
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
+  - ./rss-forwarder/ks.yaml
   - ./searxng/ks.yaml
   - ./shlink/ks.yaml
   - ./spoolman/ks.yaml
