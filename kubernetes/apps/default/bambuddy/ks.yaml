@@ -17,7 +17,6 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/bambuddy/app
   prune: true
