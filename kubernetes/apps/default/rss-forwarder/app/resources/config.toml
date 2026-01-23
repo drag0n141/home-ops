@@ -4,7 +4,4 @@ interval = "10m"
 retry_limit = 5
 sink.type = "custom"
 sink.command= "bash"
-sink.arguments = [
-    "-c",
-    "jq -c '{title: .title, message: .link, priority: 5}' | curl -X POST \"${GOTIFY_URL}/message?token=${GOTIFY_TOKEN}\" -H 'Content-Type: application/json' -d @-"
-]
+sink.arguments = ["-c","jq -c '{title: .title, message: .link, priority: 5}' | curl -X POST \"${GOTIFY_URL}/message?token=${GOTIFY_TOKEN}\" -H 'Content-Type: application/json' -d @-"]
