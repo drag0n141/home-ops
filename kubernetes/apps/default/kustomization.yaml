@@ -27,7 +27,6 @@ resources:
   - ./mind/ks.yaml
   - ./miniflux/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
-  - ./n8n/ks.yaml
   - ./netbox/ks.yaml
   - ./netronome/ks.yaml
   - ./nextcloud/ks.yaml
