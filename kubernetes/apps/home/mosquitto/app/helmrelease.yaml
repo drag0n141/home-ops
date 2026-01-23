@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mosquitto
+  name: mosquitto
 spec:
   interval: 1h
   chartRef:
@@ -48,7 +48,7 @@ spec:
           - path: /data
       settings:
         type: configMap
-        name: mosquitto-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /mosquitto/config/mosquitto.conf
             subPath: mosquitto.conf

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app element
+  name: element
 spec:
   interval: 1h
   chartRef:
@@ -52,7 +52,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: element-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /app/config.json
             subPath: config.json

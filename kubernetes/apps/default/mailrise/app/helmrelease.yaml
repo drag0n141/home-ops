@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mailrise
+  name: mailrise
 spec:
   interval: 1h
   chartRef:
@@ -24,7 +24,7 @@ spec:
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
-                  name: mailrise-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -35,14 +35,6 @@ spec:
                 memory: 10Mi
               limits:
                 memory: 200Mi
-    defaultPodOptions:
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: *app
     service:
       app:
         type: LoadBalancer
@@ -57,7 +49,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: mailrise-configmap
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /etc/mailrise.conf
             subPath: mailrise.conf

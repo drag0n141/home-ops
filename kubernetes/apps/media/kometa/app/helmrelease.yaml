@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app kometa
+  name: kometa
 spec:
   interval: 1h
   chartRef:
@@ -46,14 +46,14 @@ spec:
           - path: /config
       config-secret:
         type: secret
-        name: kometa-secret
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /config/config.yml
             subPath: config.yml
             readOnly: true
       config-file:
         type: configMap
-        name: kometa-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /config/overlays.yml
             subPath: overlays.yml

@@ -22,7 +22,7 @@ spec:
               tag: 18@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
             envFrom: &envFrom
               - secretRef:
-                  name: gatus-secret
+                  name: "{{ .Release.Name }}-secret"
           gatus-sidecar:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
@@ -131,7 +131,7 @@ spec:
         type: emptyDir
       config-file:
         type: configMap
-        name: gatus-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml

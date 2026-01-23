@@ -27,7 +27,7 @@ spec:
               EXCLUDE_DBS: app readarr_cache readarr_log postgres template0 template1
             envFrom: &envFrom
               - secretRef:
-                  name: cnpg-backup-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -62,7 +62,7 @@ spec:
           - path: /config
       script:
         type: configMap
-        name: cnpg-backup-scripts
+        name: "{{ .Release.Name }}-scripts"
         defaultMode: 0775
         globalMounts:
           - path: /scripts/list_dbs.sh

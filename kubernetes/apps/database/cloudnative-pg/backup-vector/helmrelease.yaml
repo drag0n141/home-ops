@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cnpg-vector-backup
+  name: cnpg-vector-backup
 spec:
   interval: 1h
   chartRef:
@@ -27,7 +27,7 @@ spec:
               EXCLUDE_DBS: app postgres template0 template1
             envFrom: &envFrom
               - secretRef:
-                  name: cnpg-vector-backup-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -62,7 +62,7 @@ spec:
           - path: /config
       script:
         type: configMap
-        name: cnpg-vector-backup-scripts
+        name: "{{ .Release.Name }}-scripts"
         defaultMode: 0775
         globalMounts:
           - path: /scripts/list_dbs.sh
