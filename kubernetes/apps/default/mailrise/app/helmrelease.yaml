@@ -49,7 +49,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: "{{ .Release.Name }}-secret"
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /etc/mailrise.conf
             subPath: mailrise.conf
