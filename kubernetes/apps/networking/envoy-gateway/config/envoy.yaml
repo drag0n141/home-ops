@@ -74,7 +74,7 @@ spec:
       trustedCIDRs:
         - 10.42.0.0/16
   headers:
-    enableEnvoyHeaders: false
+    enableEnvoyHeaders: true
     earlyRequestHeaders:
       set:
         - name: X-Forwarded-Proto
@@ -111,9 +111,7 @@ spec:
           value: "noindex, nofollow"
         - name: X-XSS-Protection
           value: "1; mode=block"
-      remove:
-        - Server
-        - X-Powered-By
+      remove: ["Server", "X-Powered-By"]
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
