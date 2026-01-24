@@ -86,9 +86,10 @@ spec:
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
     lateResponseHeaders:
-      set:
+      add:
         - name: Access-Control-Allow-Origin
           value: "*"
+      set:
         - name: Content-Security-Policy
           value: "upgrade-insecure-requests;"
         - name: Cross-Origin-Opener-Policy
