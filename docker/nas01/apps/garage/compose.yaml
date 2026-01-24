@@ -1,7 +1,7 @@
 ---
 services:
   garage:
-    image: 'docker.io/dxflrs/garage:v2.1.0'
+    image: 'docker.io/dxflrs/garage:v2.2.0'
     hostname: 'garage'
     container_name: 'garage'
     restart: 'always'
