@@ -74,7 +74,7 @@ spec:
       trustedCIDRs:
         - 10.42.0.0/16
   headers:
-    enableEnvoyHeaders: true
+    enableEnvoyHeaders: false
     earlyRequestHeaders:
       set:
         - name: X-Forwarded-Proto
@@ -96,7 +96,7 @@ spec:
         - name: Cross-Origin-Resource-Policy
           value: "same-site"
         - name: Cross-Origin-Embedder-Policy
-          value: "unsafe-none"
+          value: "credentialless"
         - name: Permissions-Policy
           value: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
         - name: Referrer-Policy
