@@ -86,10 +86,9 @@ spec:
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
     lateResponseHeaders:
-      add:
+      set:
         - name: Access-Control-Allow-Origin
           value: "*"
-      set:
         - name: Content-Security-Policy
           value: "upgrade-insecure-requests;"
         - name: Cross-Origin-Opener-Policy
@@ -112,6 +111,9 @@ spec:
           value: "noindex, nofollow"
         - name: X-XSS-Protection
           value: "1; mode=block"
+      remove:
+        - Server
+        - X-Powered-By
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
