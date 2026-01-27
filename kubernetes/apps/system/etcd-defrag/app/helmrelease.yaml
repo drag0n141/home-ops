@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: etcd-defrag
+  name: &app etcd-defrag
 spec:
   interval: 1h
   chartRef:
@@ -43,7 +43,7 @@ spec:
               limits:
                 memory: 128Mi
         serviceAccount:
-          name: "{{ .Release.Name }}"
+          name: *app
     defaultPodOptions:
       hostNetwork: true
       hostPID: true
