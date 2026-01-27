@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app barman-cloud
+  name: barman-cloud
 spec:
   interval: 1h
   chartRef:
@@ -59,7 +59,7 @@ spec:
               limits:
                 memory: 128Mi
         serviceAccount:
-          name: *app
+          name: "{{ .Release.Name }}"
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app agregarr142
+  name: agregarr142
 spec:
   interval: 1h
   chartRef:

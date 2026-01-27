@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app keda
+  name: keda
 spec:
   interval: 1h
   chartRef:

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app teleport-kube-agent
+  name: teleport-kube-agent
 spec:
   interval: 1h
   chartRef:

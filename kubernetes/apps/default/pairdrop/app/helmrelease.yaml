@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app pairdrop
+  name: pairdrop
 spec:
   interval: 1h
   chartRef:
@@ -43,7 +43,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: *app
+              app.kubernetes.io/name: "{{ .Release.Name }}"
     service:
       app:
         ports:
