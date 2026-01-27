@@ -63,6 +63,7 @@ spec:
     service:
       app:
         annotations:
+          gatus.home-operations.com/enabled: "false"
           teleport.dev/name: "{{ .Release.Name }}"
         labels:
           teleport: enabled
