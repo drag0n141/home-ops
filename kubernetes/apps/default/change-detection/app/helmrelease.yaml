@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app change-detection
+  name: change-detection
 spec:
   interval: 1h
   chartRef:
@@ -61,7 +61,7 @@ spec:
     service:
       app:
         annotations:
-          teleport.dev/name: *app
+          teleport.dev/name: "{{ .Release.Name }}"
         labels:
           teleport: enabled
         ports:

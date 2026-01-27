@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app convertx
+  name: convertx
 spec:
   interval: 1h
   chartRef:
@@ -44,7 +44,7 @@ spec:
     service:
       app:
         annotations:
-          teleport.dev/name: *app
+          teleport.dev/name: "{{ .Release.Name }}"
         labels:
           teleport: enabled
         ports:
