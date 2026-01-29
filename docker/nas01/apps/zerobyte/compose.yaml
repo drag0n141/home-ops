@@ -18,6 +18,8 @@ services:
       - '/tmp'
     environment:
       - 'TZ=${TZ}'
+      - 'APP_SECRET=${ZEROBYTE_APP_SECRET}'
+      - 'BASE_URL=https://zerobyte.${DOMAIN_INT}'
       - 'RESTIC_HOSTNAME=NAS01'
     networks:
       - traefik
