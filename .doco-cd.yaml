@@ -55,4 +55,6 @@ reference: refs/heads/master
 working_dir: docker/nas01/apps/zerobyte
 external_secrets:
   DOMAIN_INT: "op://Kubernetes/domains/DOMAIN_INT"
+  ZEROBYTE_APP_SECRET: "op://Kubernetes/zerobyte/ZEROBYTE_APP_SECRET"
   TZ: "op://Kubernetes/basic/TZ"
+

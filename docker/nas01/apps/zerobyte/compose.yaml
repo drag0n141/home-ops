@@ -1,7 +1,7 @@
 ---
 services:
   zerobyte:
-    image: 'ghcr.io/nicotsx/zerobyte:v0.22.0'
+    image: 'ghcr.io/nicotsx/zerobyte:v0.24.2'
     hostname: 'zerobyte'
     container_name: 'zerobyte'
     restart: 'always'
@@ -18,6 +18,8 @@ services:
       - '/tmp'
     environment:
       - 'TZ=${TZ}'
+      - 'APP_SECRET=${ZEROBYTE_APP_SECRET}'
+      - 'BASE_URL=https://zerobyte.${DOMAIN_INT}'
       - 'RESTIC_HOSTNAME=NAS01'
     networks:
       - traefik
