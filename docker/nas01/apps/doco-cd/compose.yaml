@@ -24,17 +24,11 @@ services:
     security_opt:
       - 'no-new-privileges:true'
     healthcheck:
-      interval: 30s
-      retries: 3
+      test: [ "CMD", "/doco-cd", "healthcheck" ]
       start_period: 15s
-      test:
-        - CMD
-        - wget
-        - '--no-verbose'
-        - '--tries=1'
-        - '--spider'
-        - http://localhost:8080/v1/health
+      interval: 30s
       timeout: 5s
+      retries: 3
 
 networks:
   internal:
