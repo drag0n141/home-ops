@@ -81,6 +81,7 @@ spec:
             protocol: UDP
     route:
       app:
+        forceRename: "{{ .Release.Name }}"
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:
@@ -88,6 +89,22 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+      go2rtc:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+        hostnames:
+          - "go2rtc.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: go2rtc
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
