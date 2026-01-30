@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: go2rtc
-      namespace: *namespace
     - name: keda
       namespace: system
     - name: onepassword
