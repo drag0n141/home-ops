@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: home
 resources:
   - ./frigate/ks.yaml
+  - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./node-red/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
