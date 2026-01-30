@@ -61,6 +61,18 @@ record:
       days: 14
       mode: active_objects
 
+go2rtc:
+  streams:
+    bedroom_hq: rtspx://192.168.1.1:7441/vMpsO93lM41iH2qN
+    door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
+    door_lq: rtspx://192.168.1.1:7441/z5YROdihtqmdE1IF
+    door_package_hq: rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
+    garden_hq: rtspx://192.168.1.1:7441/tB8FzwOHNoGu2790
+    garden_lq: rtspx://192.168.1.1:7441/eZ9I0xQeGhPw7kpm
+    kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
+    yard_hq: rtspx://192.168.1.1:7441/GQaihGTnFde5Byyi
+    yard_lq: rtspx://192.168.1.1:7441/ZxgpdiYy9KHV0qqv
+
 objects:
   track:
     - person
@@ -80,9 +92,9 @@ cameras:
   door:
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/door_lq
+        - path: rtsp://localhost:8554/door_lq
           roles: [detect]
-        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/door_hq
+        - path: rtsp://localhost:8554/door_hq
           roles: [record]
     detect:
       width: 720
@@ -100,9 +112,9 @@ cameras:
   garden:
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/garden_lq
+        - path: rtsp://localhost:8554/garden_lq
           roles: [detect]
-        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/garden_hq
+        - path: rtsp://localhost:8554/garden_hq
           roles: [record]
     motion:
       mask:
@@ -122,9 +134,9 @@ cameras:
   yard:
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/yard_lq
+        - path: rtsp://localhost:8554/yard_lq
           roles: [detect]
-        - path: rtsp://go2rtc-streams.home.svc.cluster.local:554/yard_hq
+        - path: rtsp://localhost:8554/yard_hq
           roles: [record]
     detect:
       width: 1280
