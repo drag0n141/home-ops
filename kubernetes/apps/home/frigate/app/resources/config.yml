@@ -103,6 +103,9 @@ cameras:
           roles: [detect]
         - path: rtsp://localhost:8554/door_hq
           roles: [record]
+    live:
+      streams:
+        Main Stream: door_hq
     detect:
       width: 720
       height: 960
@@ -123,6 +126,9 @@ cameras:
           roles: [detect]
         - path: rtsp://localhost:8554/garden_hq
           roles: [record]
+    live:
+      streams:
+        Main Stream: garden_hq
     motion:
       mask:
         - 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
@@ -145,6 +151,9 @@ cameras:
           roles: [detect]
         - path: rtsp://localhost:8554/yard_hq
           roles: [record]
+    live:
+      streams:
+        Main Stream: yard_hq
     detect:
       width: 1280
       height: 720
