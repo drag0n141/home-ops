@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.20.5@sha256:665f2f5cc5482ea2e44f90a7fa170908aaeb95d8d3c70e17f746de8fcb81f644
+              tag: 2.20.6@sha256:1404a6a2ec7fcc75dea60e1c091421d90d5fe0d28635193403c3d99e660f2a06
             env:
               USERMAP_UID: 1000
               USERMAP_GID: 1000
