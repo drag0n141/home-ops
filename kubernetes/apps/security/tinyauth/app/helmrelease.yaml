@@ -61,9 +61,9 @@ spec:
                 memory: 256Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
     service:
       app:
         ports:
