@@ -25,11 +25,5 @@
       versioning: "regex:^release\\-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
       matchPackagePatterns: ["termix"]
     },
-    {
-      description: ["Custom versioning for bambuddy"],
-      matchDatasources: ["docker"],
-      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)b(?<build>\\d+)$",
-      matchPackagePatterns: ["bambuddy"]
-    },
   ]
 }
