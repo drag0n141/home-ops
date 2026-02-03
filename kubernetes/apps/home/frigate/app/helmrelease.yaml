@@ -22,6 +22,7 @@ spec:
               tag: 0.16.4@sha256:1f8dbaaa4c7c2855c2aef711842d13b0c20bfdc3f28ad88faf66aa1bc219b108
             env:
               TZ: ${TIMEZONE}
+              HF_HOME: /tmp
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               S6_READ_ONLY_ROOT: 1
             probes:
@@ -40,6 +41,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"], add: ["CHOWN", "SETUID", "SETGID", "FOWNER", "DAC_OVERRIDE", "PERFMON"] }
             resources:
               claims:
                 - name: gpu
