@@ -40,8 +40,11 @@ machine:
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
-        nconnect=16
+        nconnect=8
         noatime=True
+        rsize=1048576
+        wsize=1048576
+        async=True
   install:
     diskSelector:
       model: TS512GMTS430S
@@ -166,7 +169,7 @@ ntp:
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
-timeout: 5m
+timeout: 10m
 ---
 apiVersion: v1alpha1
 kind: VolumeConfig
