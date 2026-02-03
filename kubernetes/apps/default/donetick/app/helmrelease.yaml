@@ -33,6 +33,7 @@ spec:
               DT_ENV: selfhosted
               DT_NAME: Donetick
               DT_DATABASE_TYPE: postgres
+              DT_SERVER_CORS_ALLOW_ORIGINS: https://{{ .Release.Name }}.${SECRET_DOMAIN}
               DT_EMAIL_HOST: smtp-relay.networking.svc.cluster.local
               DT_EMAIL_PORT: 2525
               DT_EMAIL_EMAIL: donetick@${SECRET_DOMAIN}
@@ -62,7 +63,7 @@ spec:
                 cpu: 50m
                 memory: 100Mi
               limits:
-                memory: 500Mi
+                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -87,3 +88,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /donetick-data
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
