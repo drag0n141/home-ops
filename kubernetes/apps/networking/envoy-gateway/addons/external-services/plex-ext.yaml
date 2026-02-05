@@ -12,7 +12,7 @@ spec:
   externalName: ${SECRET_PLEX_SERVER}
   ports:
     - name: http
-      port: 42400
+      port: 443
       appProtocol: https
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -29,7 +29,7 @@ spec:
   endpoints:
     - fqdn:
         hostname: ${SECRET_PLEX_SERVER}
-        port: 42400
+        port: 443
   tls:
     insecureSkipVerify: true
 ---
