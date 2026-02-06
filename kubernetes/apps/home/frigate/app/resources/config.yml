@@ -64,7 +64,7 @@ record:
 go2rtc:
   streams:
     bedroom_hq: rtspx://192.168.1.1:7441/vMpsO93lM41iH2qN
-    door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
+    door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW#backchannel=1
     door_lq: rtspx://192.168.1.1:7441/z5YROdihtqmdE1IF
     door_package_hq: rtspx://192.168.1.1:7441/O3YVCV6ioQXWrEwt
     garden_hq: rtspx://192.168.1.1:7441/tB8FzwOHNoGu2790
