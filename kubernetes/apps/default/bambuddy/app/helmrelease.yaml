@@ -39,6 +39,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-iot",
+            "namespace": "networking",
+            "ips": ["192.168.150.7/24"],
+            "mac": "13:35:b0:b4:fc:19"
+          }]
     service:
       app:
         ports:
