@@ -89,5 +89,7 @@ spec:
             app:
               - path: /opt/recipes/cookbook/static/django_js_reverse
                 subPath: django_js_reverse
+              - path: /var/lib/nginx/logs
+                subPath: logs
               - path: /tmp
                 subPath: tmp
