@@ -42,10 +42,10 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
-            "name": "multus-iot",
+            "name":"multus-iot",
             "namespace": "networking",
-            "ips": ["192.168.150.7/24"],
-            "mac": "13:35:b0:b4:fc:19"
+            "ips": ["192.168.150.18/24"],
+            "mac": "d4:d6:58:b8:aa:b5"
           }]
     service:
       app:
