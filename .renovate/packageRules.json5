@@ -5,7 +5,14 @@
       description: ["Loose versioning for non-semver packages"],
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackagePatterns: ["bambuddy", "changedetection", "plex", "searxng"]
+      matchPackagePatterns: ["changedetection", "plex", "searxng"]
+    },
+    {
+      description: ["Loose versioning for bambuddy"],
+      matchDatasources: ["docker"],
+      allowedVersions: "/^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$/",
+      versioning: "loose",
+      matchPackagePatterns: ["bambuddy"]
     },
     {
       description: ["Custom versioning for minio"],
