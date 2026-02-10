@@ -113,8 +113,8 @@ spec:
         globalMounts:
           - path: /config
       config-file:
-        type: configMap
-        name: "{{ .Release.Name }}-configmap"
+        type: secret
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /config/config.yml
             subPath: config.yml

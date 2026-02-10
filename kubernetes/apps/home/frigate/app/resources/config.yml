@@ -72,6 +72,7 @@ go2rtc:
     kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
     yard_hq: rtspx://192.168.1.1:7441/GQaihGTnFde5Byyi
     yard_lq: rtspx://192.168.1.1:7441/ZxgpdiYy9KHV0qqv
+    printer_hq: rtsps://bblp:{{ .BAMBULAB_ACCESS_CODE }}@192.168.150.167:322/streaming/live/1
   webrtc:
     candidates:
       - 192.168.222.111:8555
