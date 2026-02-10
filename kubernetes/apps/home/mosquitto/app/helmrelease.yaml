@@ -13,6 +13,13 @@ spec:
       mosquitto:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-config:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.22
+            command: ["/bin/sh", "-c"]
+            args: ["cp /tmp/secret/* /mosquitto/external_config/ && mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd && chmod 0700 /mosquitto/external_config/mosquitto_pwd"]
         containers:
           app:
             image:
@@ -56,3 +63,16 @@ spec:
         globalMounts:
           - path: /mosquitto/config/mosquitto.conf
             subPath: mosquitto.conf
+      secret-file:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        advancedMounts:
+          mosquitto:
+            init-config:
+              - path: /tmp/secret/mosquitto_pwd
+                subPath: mosquitto_pwd
+                readOnly: true
+      external-config:
+        type: emptyDir
+        globalMounts:
+          - path: /mosquitto/external_config
