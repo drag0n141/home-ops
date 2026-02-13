@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/donetick/donetick
-              tag: v0.1.71@sha256:9f7a796839f382c1be29ee446a9337281c9c483d41b736da67d939949bd429c2
+              tag: v0.1.73@sha256:5d23231efa855c7d4d32bf88777951ab667476355b697ec032a1614c447e0920
             env:
               TZ: ${TIMEZONE}
               DT_ENV: selfhosted
