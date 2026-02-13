@@ -19,7 +19,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
+              tag: 18@sha256:ae89578925b480f5972f237dda2f7a37efe36aff500d3e7bd1d3a6a3181e4191
             envFrom: &envFrom
               - secretRef:
                   name: patchmon-secret
@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/patchmon/patchmon-backend
-              tag: 1.3.7@sha256:18147370b920f9c4cd91d96ced9aeb00f1c8922f7c6eb455c1bca3e151513bab
+              tag: 1.4.0@sha256:07fddcb58b15f9f99e0274a62951983331d1920d93b25197367eb3460a02f780
             env:
               TZ: ${TIMEZONE}
               CORS_ORIGIN: https://patchmon.${SECRET_DOMAIN_INTERNAL}
@@ -50,7 +50,7 @@ spec:
           frontend:
             image:
               repository: ghcr.io/patchmon/patchmon-frontend
-              tag: 1.3.7@sha256:c81fe302f1a039a7f3b887b54e4d165b3c7b9ed9f1e60e8f99a982607ef2f6b8
+              tag: 1.4.0@sha256:a623bd56285ccad060472a35019206ef6a6d4b624ce53859302cd5186a476080
             env:
               TZ: ${TIMEZONE}
               BACKEND_HOST: localhost

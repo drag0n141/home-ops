@@ -19,7 +19,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
+              tag: 18@sha256:ae89578925b480f5972f237dda2f7a37efe36aff500d3e7bd1d3a6a3181e4191
             envFrom: &envFrom
               - secretRef:
                   name: pulsarr-secret
@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/lakker/pulsarr
-              tag: 0.11.2@sha256:8b70ecbea788098c143b57363b025e015f5707f740ebca53398274baefd775cf
+              tag: 0.11.3@sha256:42eb35263ee1dffc4cc380617d251fceb45b34e6c34363f2914780033a02666f
             env:
               TZ: ${TIMEZONE}
               baseUrl: https://pulsarr.${SECRET_DOMAIN_INTERNAL}

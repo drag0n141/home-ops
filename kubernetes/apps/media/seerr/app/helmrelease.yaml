@@ -19,7 +19,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18@sha256:3c54d39f19fdb82ed5b3f286450e4071133cc6025bd0e25856bc2c522f8fc030
+              tag: 18@sha256:ae89578925b480f5972f237dda2f7a37efe36aff500d3e7bd1d3a6a3181e4191
             envFrom: &envFrom
               - secretRef:
                   name: seerr-secret
@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/seerr-team/seerr
-              tag: develop@sha256:96c3e5fc6dae55744c6579f2bce879940a5a67b205ce2dbb58810674a4e80176
+              tag: develop@sha256:0fe85d7fa40ae90fbf7c4ec8014e30203cfbdafd14615ef968f61fef698c69c9
             env:
               TZ: ${TIMEZONE}
               DB_TYPE: postgres

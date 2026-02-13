@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lukegus/termix
-              tag: release-1.11.0@sha256:402f918e3c32aad6d928df8ba6ee39c6fd1a6e250369d86e3a521635a3286a7a
+              tag: release-1.11.1@sha256:aca304385f759b3d8b302fe56f9fd5dc5cd4f9bde636d454c08f7a38375197a9
             env:
               TZ: ${TIMEZONE}
               PORT: &port 8080
