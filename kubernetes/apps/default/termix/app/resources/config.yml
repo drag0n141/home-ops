@@ -1,0 +1,12 @@
+---
+default_provider: pocket-id
+
+providers:
+  - alias: pocket-id
+    issuer: https://id.${SECRET_DOMAIN}
+    client_id: "{{ .OPKSSH_CLIENT_ID }}"
+    scopes: openid email profile groups
+    access_type: offline
+    prompt: consent
+    redirect_uris:
+      - https://termix.${SECRET_DOMAIN_INTERNAL}/ssh/opkssh-callback

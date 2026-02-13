@@ -50,6 +50,13 @@ spec:
           - name: envoy-internal
             namespace: networking
     persistence:
+      config:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        globalMounts:
+          - path: /app/data/.opk/config.yml
+            subPath: config.yml
+            readOnly: true
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
