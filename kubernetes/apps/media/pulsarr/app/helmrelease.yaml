@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/lakker/pulsarr
-              tag: 0.11.4@sha256:84c44f959be4167aa78c925e3e7e48f017eecadbf3cd22e9f4507e60a0099b95
+              tag: 0.11.5@sha256:faae1b97935197e40ee3bf50564812cfaaa0032b986418b9dbfdc75e278e28fd
             env:
               TZ: ${TIMEZONE}
               baseUrl: https://pulsarr.${SECRET_DOMAIN_INTERNAL}
