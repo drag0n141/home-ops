@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/icereed/paperless-gpt
-              tag: v0.24.0@sha256:15bad5d455b98f21bb7b5d6615f56871ff67a8bb379dc0dd7ba411f4633071a6
+              tag: v0.25.0@sha256:9f4071a0ec63cfeffcfaf8a9cbf6dab4e128d6940df3c6f1ed855048a3a021df
             env:
               TZ: ${TIMEZONE}
               PAPERLESS_BASE_URL: http://paperless.default.svc.cluster.local:8000
