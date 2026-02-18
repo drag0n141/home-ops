@@ -2,11 +2,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: postgres17
+  name: postgres
 spec:
   backupOwnerReference: self
   cluster:
-    name: postgres17
+    name: postgres
   immediate: true
   method: plugin
   pluginConfiguration:
