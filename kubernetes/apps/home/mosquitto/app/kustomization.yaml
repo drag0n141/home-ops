@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./securitypolicy.yaml
 configMapGenerator:
   - name: mosquitto-configmap
     files:
