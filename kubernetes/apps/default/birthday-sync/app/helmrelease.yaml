@@ -21,7 +21,7 @@ spec:
           pip-install:
             image:
               repository: docker.io/library/python
-              tag: 3.12-slim
+              tag: 3.14-slim
             command:
               - pip
               - install
@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: docker.io/library/python
-              tag: 3.12-slim
+              tag: 3.14-slim
             command: ["python3", "/scripts/sync_birthdays.py"]
             env:
               PYTHONPATH: /pip-packages
