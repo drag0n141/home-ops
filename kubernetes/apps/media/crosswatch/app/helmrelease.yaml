@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cenodude/crosswatch
-              tag: 0.9.6@sha256:e73c0ef98cd38be65d65c0d091ecc9b737aa25c40370a0c3d936bac51abd1135
+              tag: 0.9.7@sha256:23bf7b566fc7849d76aca8606a02e449404e5a0635be032ac6a575691a284cca
             env:
               TZ: ${TIMEZONE}
             securityContext:
