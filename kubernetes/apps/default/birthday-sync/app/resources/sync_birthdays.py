@@ -31,6 +31,18 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+CURRENT_YEAR = date.today().year
+
+
+# ─── Hilfsfunktion ────────────────────────────────────────────────────────────
+
+def build_key(name: str, day: int, month: int, birth_year: int | None) -> str:
+    """Eindeutiger Key für den Diff-Abgleich."""
+    if birth_year:
+        return f"{name}_{day:02d}.{month:02d}.{birth_year}_{CURRENT_YEAR}"
+    else:
+        return f"{name}_{day:02d}.{month:02d}_{CURRENT_YEAR}"
+
 
 # ─── Google Auth ──────────────────────────────────────────────────────────────
 
@@ -88,6 +100,7 @@ def get_excluded_contact_ids(people_service) -> set:
 
 
 def get_birthdays(people_service, excluded_ids: set) -> dict[str, dict]:
+    """Gibt ein Dict zurück: { event_key → birthday_dict }"""
     birthdays = {}
     page_token = None
 
@@ -118,12 +131,18 @@ def get_birthdays(people_service, excluded_ids: set) -> dict[str, dict]:
                 bday_date = bday.get("date", {})
                 month = bday_date.get("month")
                 day = bday_date.get("day")
+                birth_year = bday_date.get("year")  # kann None sein
+
                 if month and day:
-                    birthdays[display_name] = {
+                    age = CURRENT_YEAR - birth_year if birth_year else None
+                    key = build_key(display_name, day, month, birth_year)
+                    birthdays[key] = {
                         "name": display_name,
                         "month": month,
                         "day": day,
-                        "year": bday_date.get("year"),
+                        "birth_year": birth_year,
+                        "age": age,
+                        "key": key,
                     }
 
         page_token = result.get("nextPageToken")
@@ -137,6 +156,7 @@ def get_birthdays(people_service, excluded_ids: set) -> dict[str, dict]:
 # ─── Google Calendar ──────────────────────────────────────────────────────────
 
 def get_existing_birthday_events(calendar_service) -> dict[str, str]:
+    """Gibt ein Dict zurück: { event_key → event_id }"""
     existing = {}
     page_token = None
 
@@ -157,9 +177,10 @@ def get_existing_birthday_events(calendar_service) -> dict[str, str]:
             break
 
         for event in result.get("items", []):
-            contact_name = event.get("extendedProperties", {}).get("private", {}).get("contact_name")
-            if contact_name:
-                existing[contact_name] = event["id"]
+            props = event.get("extendedProperties", {}).get("private", {})
+            event_key = props.get("event_key")
+            if event_key:
+                existing[event_key] = event["id"]
 
         page_token = result.get("nextPageToken")
         if not page_token:
@@ -169,19 +190,19 @@ def get_existing_birthday_events(calendar_service) -> dict[str, str]:
     return existing
 
 
-def delete_event(calendar_service, event_id: str, name: str, dry_run: bool) -> bool:
+def delete_event(calendar_service, event_id: str, key: str, dry_run: bool) -> bool:
     if dry_run:
-        log.info(f"[DRY-RUN] Würde löschen: {name}")
+        log.info(f"[DRY-RUN] Würde löschen: {key}")
         return True
     try:
         calendar_service.events().delete(
             calendarId=CONFIG["calendar_id"],
             eventId=event_id,
         ).execute()
-        log.info(f"🗑 Gelöscht: {name}")
+        log.info(f"🗑 Gelöscht: {key}")
         return True
     except HttpError as e:
-        log.error(f"Fehler beim Löschen von {name}: {e}")
+        log.error(f"Fehler beim Löschen von {key}: {e}")
         return False
 
 
@@ -189,35 +210,39 @@ def create_event(calendar_service, birthday: dict, dry_run: bool) -> bool:
     name = birthday["name"]
     month = birthday["month"]
     day = birthday["day"]
+    age = birthday.get("age")
+    birth_year = birthday.get("birth_year")
 
-    current_year = date.today().year
     try:
-        event_date = date(current_year, month, day)
+        event_date = date(CURRENT_YEAR, month, day)
     except ValueError:
-        event_date = date(current_year, month, 28)
+        event_date = date(CURRENT_YEAR, month, 28)
         log.warning(f"{name}: 29. Feb → 28. Feb angepasst")
 
     date_str = event_date.strftime("%Y-%m-%d")
     next_day_str = (event_date + timedelta(days=1)).strftime("%Y-%m-%d")
 
+    summary = f"🎂 {name} ({age})" if age is not None else f"🎂 {name}"
+    description = f"Geburtstag von {name}" + (f"\nGeboren: {birth_year}" if birth_year else "")
+
     event_body = {
-        "summary": f"🎂 {name}",
-        "description": f"Geburtstag von {name}" + (f"\nGeboren: {birthday['year']}" if birthday.get("year") else ""),
+        "summary": summary,
+        "description": description,
         "start": {"date": date_str},
         "end": {"date": next_day_str},
-        "recurrence": ["RRULE:FREQ=YEARLY"],
         "reminders": {"useDefault": True},
         "transparency": "transparent",
         "extendedProperties": {
             "private": {
                 "source": "birthday-sync",
                 "contact_name": name,
+                "event_key": birthday["key"],
             }
         },
     }
 
     if dry_run:
-        log.info(f"[DRY-RUN] Würde erstellen: {name} ({day:02d}.{month:02d}.)")
+        log.info(f"[DRY-RUN] Würde erstellen: {summary} ({day:02d}.{month:02d}.)")
         return True
 
     try:
@@ -225,7 +250,7 @@ def create_event(calendar_service, birthday: dict, dry_run: bool) -> bool:
             calendarId=CONFIG["calendar_id"],
             body=event_body,
         ).execute()
-        log.info(f"✓ Erstellt: {name} ({day:02d}.{month:02d}.)")
+        log.info(f"✓ Erstellt: {summary} ({day:02d}.{month:02d}.)")
         return True
     except HttpError as e:
         log.error(f"✗ Fehler bei {name}: {e}")
@@ -256,29 +281,29 @@ def main():
     if args.list_contacts:
         print("\n📋 Kontakte mit Geburtstag:")
         for b in sorted(contacts_birthdays.values(), key=lambda x: (x["month"], x["day"])):
-            year_str = f" ({b['year']})" if b.get("year") else ""
-            print(f"  {b['day']:02d}.{b['month']:02d}{year_str}  {b['name']}")
+            age_str = f" → wird {b['age']}" if b.get("age") else ""
+            print(f"  {b['day']:02d}.{b['month']:02d}  {b['name']}{age_str}")
         return
 
     calendar_events = get_existing_birthday_events(calendar_service)
 
-    contacts_names = set(contacts_birthdays.keys())
-    calendar_names = set(calendar_events.keys())
+    contacts_keys = set(contacts_birthdays.keys())
+    calendar_keys = set(calendar_events.keys())
 
-    to_create = contacts_names - calendar_names
-    to_delete = calendar_names - contacts_names
-    unchanged = contacts_names & calendar_names
+    to_create = contacts_keys - calendar_keys
+    to_delete = calendar_keys - contacts_keys
+    unchanged = contacts_keys & calendar_keys
 
     log.info(f"Diff: {len(to_create)} neu, {len(to_delete)} zu löschen, {len(unchanged)} unverändert")
 
     deleted = sum(
-        delete_event(calendar_service, calendar_events[name], name, args.dry_run)
-        for name in to_delete
+        delete_event(calendar_service, calendar_events[key], key, args.dry_run)
+        for key in to_delete
     )
 
     created = sum(
-        create_event(calendar_service, contacts_birthdays[name], args.dry_run)
-        for name in to_create
+        create_event(calendar_service, contacts_birthdays[key], args.dry_run)
+        for key in to_create
     )
 
     log.info(f"=== Fertig: {created} erstellt, {deleted} gelöscht, {len(unchanged)} unverändert ===")
