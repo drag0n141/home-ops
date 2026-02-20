@@ -35,7 +35,7 @@ spec:
             image:
               repository: docker.io/library/python
               tag: 3.12-slim
-            command: ["python", "/scripts/sync_birthdays.py"]
+            command: ["python3", "/scripts/sync_birthdays.py"]
             env:
               PYTHONPATH: /pip-packages
               EXCLUDE_LABEL: no-birthday
