@@ -1,0 +1,77 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: birthday-sync
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      birthday-sync:
+        type: cronjob
+        cronjob:
+          schedule: "@daily"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+        initContainers:
+          pip-install:
+            image:
+              repository: docker.io/library/python
+              tag: 3.12-slim
+            command:
+              - pip
+              - install
+              - "--target=/pip-packages"
+              - "google-auth>=2.0.0"
+              - "google-auth-oauthlib>=1.0.0"
+              - "google-auth-httplib2>=0.1.0"
+              - "google-api-python-client>=2.0.0"
+        containers:
+          app:
+            image:
+              repository: docker.io/library/python
+              tag: 3.12-slim
+            command: ["python", "/scripts/sync_birthdays.py"]
+            env:
+              PYTHONPATH: /pip-packages
+              EXCLUDE_LABEL: no-birthday
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      script:
+        type: configMap
+        name: "{{ .Release.Name }}-scripts"
+        globalMounts:
+          - path: /scripts/sync_birthdays.py
+            subPath: sync_birthdays.py
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          birthday-sync:
+            app:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp
+            pip-install:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp-pip
