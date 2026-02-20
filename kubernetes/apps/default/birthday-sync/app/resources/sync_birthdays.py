@@ -21,7 +21,7 @@ CONFIG = {
 
 SCOPES = [
     "https://www.googleapis.com/auth/contacts.readonly",
-    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/calendar",
 ]
 
 logging.basicConfig(
