@@ -20,7 +20,7 @@ spec:
         initContainers:
           pip-install:
             image:
-              repository: docker.io/library/python
+              repository: public.ecr.aws/docker/library/python
               tag: 3.14-slim
             command:
               - pip
@@ -33,9 +33,9 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/library/python
+              repository: public.ecr.aws/docker/library/python
               tag: 3.14-slim
-            command: ["python3", "/scripts/sync_birthdays.py"]
+            command: ["python", "/scripts/sync_birthdays.py"]
             env:
               PYTHONPATH: /pip-packages
               EXCLUDE_LABEL: no-birthday
