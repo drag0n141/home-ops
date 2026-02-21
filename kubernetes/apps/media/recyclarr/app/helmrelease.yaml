@@ -27,6 +27,7 @@ spec:
             args: ["sync"]
             env:
               TZ: ${TIMEZONE}
+              RECYCLARR_DATA_DIR: /tmp
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
