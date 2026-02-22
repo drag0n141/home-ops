@@ -23,7 +23,7 @@ radarr:
           - 240770601cc226190c367ef59aba7463 # AAC
           - c2998bd0d90ed5621d8df281e839436e # DD
         assign_scores_to:
-          - name: [German] HD Bluray + WEB
+          - name: "[German] HD Bluray + WEB"
       - trash_ids:
           - 570bc9ebecd92723d2d21500f4be314c # Remaster
           - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
@@ -34,14 +34,14 @@ radarr:
           - eecf3a857724171f968a66cb5719e152 # IMAX
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
         assign_scores_to:
-          - name: [German] HD Bluray + WEB
+          - name: "[German] HD Bluray + WEB"
       - trash_ids:
           - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
           - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
         assign_scores_to:
-          - name: [German] HD Bluray + WEB
+          - name: "[German] HD Bluray + WEB"
 
   radarr4k:
     base_url: http://radarr4k.media.svc.cluster.local:7878
@@ -71,7 +71,7 @@ radarr:
           - 240770601cc226190c367ef59aba7463 # AAC
           - c2998bd0d90ed5621d8df281e839436e # DD
         assign_scores_to:
-          - name: [German] Remux + WEB 2160p
+          - name: "[German] Remux + WEB 2160p"
       - trash_ids:
           - 0f12c086e289cf966fa5948eac571f44 # Hybrid
           - 570bc9ebecd92723d2d21500f4be314c # Remaster
@@ -83,18 +83,18 @@ radarr:
           - eecf3a857724171f968a66cb5719e152 # IMAX
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
         assign_scores_to:
-          - name: [German] Remux + WEB 2160p
+          - name: "[German] Remux + WEB 2160p"
       - trash_ids:
           - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
           - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
         assign_scores_to:
-          - name: [German] Remux + WEB 2160p
+          - name: "[German] Remux + WEB 2160p"
       - trash_ids:
           - 839bea857ed2c0a8e084f3cbdbd65ecb # HDR/DV x265 HD releases
         assign_scores_to:
-          - name: [German] Remux + WEB 2160p
+          - name: "[German] Remux + WEB 2160p"
 
 sonarr:
   sonarr:
@@ -116,7 +116,7 @@ sonarr:
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
         assign_scores_to:
-          - name: [German] HD Bluray + WEB
+          - name: "[German] HD Bluray + WEB"
 
   sonarrkids:
     base_url: http://sonarrkids.media.svc.cluster.local:8989
@@ -137,7 +137,7 @@ sonarr:
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
         assign_scores_to:
-          - name: [German] HD Bluray + WEB
+          - name: "[German] HD Bluray + WEB"
 
   sonarr4k:
     base_url: http://sonarr4k.media.svc.cluster.local:8989
@@ -158,4 +158,4 @@ sonarr:
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
         assign_scores_to:
-          - name: [German] UHD Bluray + WEB
+          - name: "[German] UHD Bluray + WEB"
