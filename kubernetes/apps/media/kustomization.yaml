@@ -19,7 +19,6 @@ resources:
   - ./seerr/ks.yaml
   - ./shelfmark/ks.yaml
   - ./sonarr/ks.yaml
-  - ./suggestarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./tracearr/ks.yaml
   - ./webhook/ks.yaml
