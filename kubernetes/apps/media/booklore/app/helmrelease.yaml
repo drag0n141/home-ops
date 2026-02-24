@@ -45,24 +45,14 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
               seccompProfile: {type: Unconfined}
-          nginx-config:
+          wait-for-mariadb:
             image:
-              repository: ghcr.io/booklore-app/booklore
-              tag: v2.0.1@sha256:e5c51133c0c50e97004bf711a34521c698e4b27b6847e54fe304c08ff4aa8ee1
-            command:
-              - /bin/sh
-              - -c
+              repository: docker.io/wait4x/wait4x
+              tag: 3.6.0
             args:
-              - "envsubst '$${BOOKLORE_PORT}' < /etc/nginx/nginx.conf > /config/nginx.conf"
-            env:
-              BOOKLORE_PORT: &httpPort 6060
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-              runAsUser: 100
-              runAsGroup: 101
-              fsGroup: 101
+              - "mysql"
+              - "booklore:$(DATABASE_PASSWORD)@tcp(localhost:3306)/booklore"
+            envFrom: *envFrom
         containers:
           booklore:
             image:
@@ -84,7 +74,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/v1/healthcheck
-                    port: 8080
+                    port: &port 8080
               readiness: *probe
               startup:
                 enabled: true
@@ -92,41 +82,18 @@ spec:
                 spec:
                   httpGet:
                     path: /api/v1/healthcheck
-                    port: 8080
+                    port: *port
                   failureThreshold: 10
+            resources:
+              requests:
+                cpu: 50m
+                memory: 500Mi
+              limits:
+                memory: 2Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-          nginx:
-            image:
-              repository: ghcr.io/booklore-app/booklore
-              tag: v2.0.1@sha256:e5c51133c0c50e97004bf711a34521c698e4b27b6847e54fe304c08ff4aa8ee1
-            env:
-              TZ: ${TIMEZONE}
-            command:
-              - nginx
-            args:
-              - -c
-              - /config/nginx.conf
-              - -g
-              - "daemon off;"
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: *httpPort
-              readiness: *probe
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-              runAsUser: 100
-              runAsGroup: 101
-              fsGroup: 101
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -138,7 +105,7 @@ spec:
       app:
         ports:
           http:
-            port: *httpPort
+            port: *port
     route:
       app:
         hostnames:
@@ -176,33 +143,8 @@ spec:
           booklore:
             mariadb:
               - path: /run/mysqld
-      nginx:
-        type: emptyDir
-        sizeLimit: 200Mi
-        advancedMounts:
-          booklore:
-            nginx:
-              - path: /config
-                subPath: config
-              - path: /var/lib/nginx/logs
-                subPath: log
-              - path: /var/lib/nginx/tmp
-                subPath: tmp
-            nginx-config:
-              - path: /config
-                subPath: config
-      nginx-run:
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 100Mi
-        advancedMounts:
-          booklore:
-            nginx:
-              - path: /run/nginx
       tmpfs:
         type: emptyDir
-        medium: Memory
-        sizeLimit: 100Mi
         advancedMounts:
           booklore:
             booklore:
