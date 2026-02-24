@@ -74,7 +74,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/v1/healthcheck
-                    port: &port 8080
+                    port: &port 6060
               readiness: *probe
               startup:
                 enabled: true
