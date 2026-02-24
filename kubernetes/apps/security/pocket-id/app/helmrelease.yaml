@@ -54,6 +54,7 @@ spec:
               SMTP_PORT: 2525
               SESSION_DURATION: 43800
               TRUST_PROXY: true
+              VERSION_CHECK_DISABLED: true
               UPLOAD_PATH: /app/data/uploads
               GEOLITE_DB_PATH: /app/data/GeoLite2-City.mmdb
             envFrom: *envFrom
