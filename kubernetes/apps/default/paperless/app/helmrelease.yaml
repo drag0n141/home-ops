@@ -54,7 +54,7 @@ spec:
               PAPERLESS_OCR_LANGUAGE: deu
               PAPERLESS_OCR_SKIP_ARCHIVE_FILE: with_text
               PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
-              PAPERLESS_FILENAME_FORMAT: "{{ `{{ correspondent | default('uncategorized') | slugify }}/{{ created_year }}/{{ correspondent | default('uncategorized') | slugify }}_{{ document_type | slugify }}_{{ created }}` }}"
+              PAPERLESS_FILENAME_FORMAT: &filename_format "{{ `{{ correspondent | default('uncategorized') | slugify }}/{{ created_year }}/{{ correspondent | default('uncategorized') | slugify }}_{{ document_type | slugify }}_{{ created }}` }}"
               PAPERLESS_TIKA_ENABLED: 0
               S6_READ_ONLY_ROOT: 1
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
@@ -97,7 +97,7 @@ spec:
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
               PAPERLESS_EXPORT_DIR: /data/nas/export
               PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
-              PAPERLESS_FILENAME_FORMAT: "{{ `{{ correspondent | default('uncategorized') | slugify }}/{{ created_year }}/{{ correspondent | default('uncategorized') | slugify }}_{{ document_type }}_{{ created }}` }}"
+              PAPERLESS_FILENAME_FORMAT: *filename_format
               PAPERLESS_DBENGINE: postgresql
             envFrom: *envFrom
             resources:
