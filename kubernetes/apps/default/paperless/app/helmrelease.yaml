@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: paperless
+  name: &app paperless
 spec:
   interval: 1h
   chartRef:
@@ -114,7 +114,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: "{{ .Release.Name }}"
+        controller: *app
         ports:
           http:
             port: *port
