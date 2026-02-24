@@ -30,6 +30,7 @@ spec:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.20.8@sha256:e231ec11a1907bfdf172b4f120b4ef1994feb71e6cc624e8b88c53e2da3dfb62
             env:
+              TZ: ${TIMEZONE}
               USERMAP_UID: 1000
               USERMAP_GID: 1000
               PAPERLESS_TIME_ZONE: ${TIMEZONE}
@@ -40,7 +41,7 @@ spec:
               PAPERLESS_WEBSERVER_WORKERS: 2
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
-              PAPERLESS_PORT: 8000
+              PAPERLESS_PORT: &port 8000
               PAPERLESS_CONSUMPTION_DIR: /data/nas/consume
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
               PAPERLESS_EXPORT_DIR: /data/nas/export
@@ -54,10 +55,50 @@ spec:
               PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
               PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
               PAPERLESS_TIKA_ENABLED: 0
+              S6_READ_ONLY_ROOT: 1
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 2500Mi
+      backup:
+        type: cronjob
+        cronjob:
+          concurrencyPolicy: Forbid
+          schedule: "30 0 * * *"
+          suspend: false
+          successfulJobsHistory: 1
+          failedJobsHistory: 3
+        containers:
+          app:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.20.8@sha256:e231ec11a1907bfdf172b4f120b4ef1994feb71e6cc624e8b88c53e2da3dfb62
+            command:
+              - "/bin/sh"
+              - "-c"
+              - |
+                echo "Starting paperless-ngx document export..."
+                python3 /usr/src/paperless/src/manage.py document_exporter /data/nas/export --compare-checksums --delete --use-filename-format --use-folder-prefix
+                echo "Export completed successfully."
+            env:
+              TZ: ${TIMEZONE}
+              USERMAP_UID: 1000
+              USERMAP_GID: 1000
+              PAPERLESS_TIME_ZONE: ${TIMEZONE}
+              PAPERLESS_DATA_DIR: /usr/src/paperless/data
+              PAPERLESS_EXPORT_DIR: /data/nas/export
+              PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
+              PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
+              PAPERLESS_DBENGINE: postgresql
+            envFrom: *envFrom
             resources:
               requests:
                 cpu: 10m
@@ -66,16 +107,16 @@ spec:
                 memory: 2500Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
-            port: 8000
+            port: *port
     route:
       app:
         hostnames:
@@ -93,9 +134,27 @@ spec:
                 subPath: data
               - path: /usr/src/paperless/media
                 subPath: media
+          backup:
+            app:
+              - path: /usr/src/paperless/data
+                subPath: data
+              - path: /usr/src/paperless/media
+                subPath: media
       nas:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/paperless
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/nas
+          backup:
+            app:
+              - path: /data/nas
+      tmpfs:
+        type: emptyDir
         globalMounts:
-          - path: /data/nas
+          - path: /tmp
+            subPath: tmp
+          - path: /run
+            subPath: run
