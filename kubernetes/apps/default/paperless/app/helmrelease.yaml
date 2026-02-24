@@ -73,7 +73,7 @@ spec:
         type: cronjob
         cronjob:
           concurrencyPolicy: Forbid
-          schedule: "30 0 * * *"
+          schedule: "0 2 * * 0"
           suspend: false
           successfulJobsHistory: 1
           failedJobsHistory: 3
