@@ -230,7 +230,6 @@ def create_event(calendar_service, birthday: dict, dry_run: bool) -> bool:
         "description": description,
         "start": {"date": date_str},
         "end": {"date": next_day_str},
-        "reminders": {"useDefault": True},
         "transparency": "transparent",
         "extendedProperties": {
             "private": {
