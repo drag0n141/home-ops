@@ -36,8 +36,8 @@ spec:
           envFrom: *envFrom
       resources:
         requests:
-          cpu: 50m
-          memory: 500Mi
+          cpu: 30m
+          memory: 550Mi
         limits:
           memory: 800Mi
       metrics:
@@ -55,10 +55,10 @@ spec:
       replicas: 1
       resources:
         requests:
-          cpu: 5m
-          memory: 200Mi
+          cpu: 50m
+          memory: 900Mi
         limits:
-          memory: 1Gi
+          memory: 1500Mi
     postgresql:
       enabled: false
     redis:
