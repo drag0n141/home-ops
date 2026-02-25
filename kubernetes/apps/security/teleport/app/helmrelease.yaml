@@ -9,6 +9,8 @@ spec:
     kind: OCIRepository
     name: teleport-cluster
   values:
+  image:
+    repository: public.ecr.aws/gravitational/teleport
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster
     auth:
