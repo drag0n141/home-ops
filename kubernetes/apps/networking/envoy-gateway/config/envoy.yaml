@@ -13,7 +13,7 @@ spec:
       envoyDeployment:
         replicas: 2
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.37.0
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.4
           resources:
             requests:
               cpu: 100m
@@ -44,10 +44,13 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  compression:
+  compressor:
     - type: Zstd
+      zstd: {}
     - type: Brotli
+      brotli: {}
     - type: Gzip
+      gzip: {}
   retry:
     numRetries: 2
     retryOn:
