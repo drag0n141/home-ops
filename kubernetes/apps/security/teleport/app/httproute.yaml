@@ -13,7 +13,7 @@ spec:
   endpoints:
     - fqdn:
         hostname: teleport.security.svc.cluster.local
-        port: 443
+        port: 3080
   tls:
     insecureSkipVerify: true
 ---
