@@ -17,6 +17,24 @@ spec:
   tls:
     insecureSkipVerify: true
 ---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: teleport
+    app.kubernetes.io/name: teleport
+  name: teleport
+spec:
+  targetRefs:
+    - group: gateway.envoyproxy.io
+      kind: Backend
+      name: teleport
+  headers:
+    request:
+      set:
+        - name: Accept-Encoding
+          value: "br, gzip, deflate"
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: BackendTLSPolicy
 metadata:
