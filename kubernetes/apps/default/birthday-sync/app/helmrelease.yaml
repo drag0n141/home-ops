@@ -21,7 +21,7 @@ spec:
           pip-install:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.14-slim@sha256:061e468e5839950e66ad59cc762e6a5d20f5b0c890582c60e1acd6734f3e2eac
+              tag: 3.14-slim@sha256:586f424e29bbb3bc840dd9759d90d20692641fd62c251fe5a88e19a55a0d9c79
             command:
               - pip
               - install
@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.14-slim@sha256:061e468e5839950e66ad59cc762e6a5d20f5b0c890582c60e1acd6734f3e2eac
+              tag: 3.14-slim@sha256:586f424e29bbb3bc840dd9759d90d20692641fd62c251fe5a88e19a55a0d9c79
             command: ["python", "/scripts/sync_birthdays.py"]
             env:
               PYTHONPATH: /pip-packages
