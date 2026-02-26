@@ -4,6 +4,8 @@ kind: HTTPRoute
 metadata:
   name: openclaw-instance
 spec:
+  annotations:
+    gatus.home-operations.com/enabled: "false"
   hostnames:
     - "openclaw.${SECRET_DOMAIN_INTERNAL}"
   parentRefs:
