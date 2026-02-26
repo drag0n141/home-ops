@@ -3,6 +3,32 @@ kind: OpenClawInstance
 metadata:
   name: &app openclaw-instance
 spec:
+  initContainers:
+    - name: install-kubectl
+      image: alpine:latest
+      command:
+        - /bin/sh
+        - -c
+        - |
+          KUBECTL_VERSION=$(curl -fsSL https://dl.k8s.io/release/stable.txt)
+          MARKER="/home/openclaw/.openclaw/.local/bin/.kubectl-version"
+
+          if [ ! -f /home/openclaw/.openclaw/.local/bin/kubectl ] || \
+             [ ! -f "$MARKER" ] || \
+             [ "$(cat $MARKER)" != "$KUBECTL_VERSION" ]; then
+            echo "Installing kubectl $KUBECTL_VERSION..."
+            apk add --no-cache curl
+            curl -fsSL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
+              -o /home/openclaw/.openclaw/.local/bin/kubectl
+            chmod +x /home/openclaw/.openclaw/.local/bin/kubectl
+            echo "$KUBECTL_VERSION" > "$MARKER"
+            echo "kubectl $KUBECTL_VERSION installed"
+          else
+            echo "kubectl $KUBECTL_VERSION already up to date, skipping"
+          fi
+      volumeMounts:
+        - name: openclaw-instance
+          mountPath: /home/openclaw/.openclaw
   envFrom:
     - secretRef:
         name: openclaw-secret
