@@ -118,7 +118,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           booklore:
-            booklore:
+            app:
               - path: /app/data
                 subPath: app
             mariadb:
@@ -130,7 +130,7 @@ spec:
         path: /mnt/data/media
         advancedMounts:
           booklore:
-            booklore:
+            p:
               - path: /books
                 subPath: books
               - path: /bookdrop
@@ -147,7 +147,7 @@ spec:
         type: emptyDir
         advancedMounts:
           booklore:
-            booklore:
+            app:
               - path: /tmp
                 subPath: app
             mariadb:
