@@ -20,16 +20,6 @@ spec:
   networking:
     ingress:
       enabled: false
-  observability:
-    metrics:
-      enabled: true
-      grafanaDashboard:
-        enabled: true
-        folder: OpenClaw
-      serviceMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: true
   storage:
     persistence:
       enabled: true
