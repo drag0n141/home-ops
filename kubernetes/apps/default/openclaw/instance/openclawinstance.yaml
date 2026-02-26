@@ -17,7 +17,7 @@ spec:
           # Install Homebrew if not present on PVC
           if [ ! -f /home/openclaw/.openclaw/.local/homebrew/bin/brew ]; then
             echo "Installing Homebrew..."
-            apk add --no-cache curl git bash
+            apk add --no-cache curl git bash 2>&1
             git clone --depth 1 https://github.com/Homebrew/brew \
               /home/openclaw/.openclaw/.local/homebrew
             echo "Homebrew installed"
