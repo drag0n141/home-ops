@@ -4,31 +4,38 @@ metadata:
   name: &app openclaw-instance
 spec:
   initContainers:
-    - name: install-kubectl
+    - name: install-tools
       image: alpine:latest
       command:
         - /bin/sh
         - -c
         - |
-          KUBECTL_VERSION=$(curl -fsSL https://dl.k8s.io/release/stable.txt)
-          MARKER="/home/openclaw/.openclaw/.local/bin/.kubectl-version"
+          set -e
+          mkdir -p /home/openclaw/.openclaw/.local/bin
+          mkdir -p /home/openclaw/.openclaw/.local/homebrew
 
-          if [ ! -f /home/openclaw/.openclaw/.local/bin/kubectl ] || \
-             [ ! -f "$MARKER" ] || \
-             [ "$(cat $MARKER)" != "$KUBECTL_VERSION" ]; then
-            echo "Installing kubectl $KUBECTL_VERSION..."
-            apk add --no-cache curl
-            curl -fsSL "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
-              -o /home/openclaw/.openclaw/.local/bin/kubectl
-            chmod +x /home/openclaw/.openclaw/.local/bin/kubectl
-            echo "$KUBECTL_VERSION" > "$MARKER"
-            echo "kubectl $KUBECTL_VERSION installed"
+          # Install Homebrew if not present on PVC
+          if [ ! -f /home/openclaw/.openclaw/.local/homebrew/bin/brew ]; then
+            echo "Installing Homebrew..."
+            apk add --no-cache curl git bash
+            git clone --depth 1 https://github.com/Homebrew/brew \
+              /home/openclaw/.openclaw/.local/homebrew
+            echo "Homebrew installed"
           else
-            echo "kubectl $KUBECTL_VERSION already up to date, skipping"
+            echo "Homebrew already installed, skipping"
           fi
       volumeMounts:
         - name: openclaw-instance
           mountPath: /home/openclaw/.openclaw
+  env:
+    - name: HOMEBREW_PREFIX
+      value: /home/openclaw/.openclaw/.local/homebrew
+    - name: HOMEBREW_CELLAR
+      value: /home/openclaw/.openclaw/.local/homebrew/Cellar
+    - name: HOMEBREW_REPOSITORY
+      value: /home/openclaw/.openclaw/.local/homebrew
+    - name: PATH
+      value: /home/openclaw/.openclaw/.local/homebrew/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
   envFrom:
     - secretRef:
         name: openclaw-secret
