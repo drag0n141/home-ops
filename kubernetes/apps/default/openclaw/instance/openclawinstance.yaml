@@ -15,6 +15,10 @@ spec:
         trustedProxies:
           - "127.0.0.1"
           - "10.42.0.0/16"
+      llmConfig:
+        - provider: openai
+          model: gpt-5.2
+          baseURL: https://api.openai.com/v1
   chromium:
     enabled: true
     image:
