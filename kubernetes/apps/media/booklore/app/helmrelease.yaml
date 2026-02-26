@@ -54,7 +54,7 @@ spec:
               - "booklore:$(DATABASE_PASSWORD)@tcp(localhost:3306)/booklore"
             envFrom: *envFrom
         containers:
-          booklore:
+          app:
             image:
               repository: ghcr.io/booklore-app/booklore
               tag: v2.0.2@sha256:943cfda807b724d27859b527c4a437092b7aa8544d17845e8767a1db65813c86
