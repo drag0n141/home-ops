@@ -15,8 +15,10 @@ spec:
         trustedProxies:
           - "127.0.0.1"
           - "10.42.0.0/16"
-      agent:
-        model: "openai/gpt-5.1-codex"
+      agents:
+        defaults:
+          model:
+            primary: "openai/gpt-5.1-codex"
   chromium:
     enabled: true
     image:
