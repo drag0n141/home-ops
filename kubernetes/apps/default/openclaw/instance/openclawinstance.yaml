@@ -6,6 +6,12 @@ spec:
   envFrom:
     - secretRef:
         name: openclaw-secret
+  config:
+    raw:
+      gateway:
+        controlUi:
+          allowedOrigins:
+            - "https://openclaw.${SECRET_DOMAIN_INTERNAL}"
   chromium:
     enabled: true
     image:
