@@ -5,7 +5,7 @@ metadata:
 spec:
   initContainers:
     - name: install-tools
-      image: alpine:latest
+      image: ghcr.io/openclaw/openclaw:latest
       command:
         - /bin/sh
         - -c
@@ -13,20 +13,14 @@ spec:
           set -e
           mkdir -p /home/openclaw/.openclaw/.local/bin
           mkdir -p /home/openclaw/.openclaw/.local/homebrew
-
-          # Install Homebrew if not present on PVC
           if [ ! -f /home/openclaw/.openclaw/.local/homebrew/bin/brew ]; then
             echo "Installing Homebrew..."
-            apk add --no-cache curl git bash 2>&1
             git clone --depth 1 https://github.com/Homebrew/brew \
               /home/openclaw/.openclaw/.local/homebrew
             echo "Homebrew installed"
           else
             echo "Homebrew already installed, skipping"
           fi
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
       volumeMounts:
         - name: data
           mountPath: /home/openclaw/.openclaw
