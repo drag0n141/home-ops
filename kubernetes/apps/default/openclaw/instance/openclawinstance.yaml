@@ -12,6 +12,8 @@ spec:
         controlUi:
           allowedOrigins:
             - "https://openclaw.${SECRET_DOMAIN_INTERNAL}"
+        trustedProxies:
+          - "10.42.0.0/16"
   chromium:
     enabled: true
     image:
