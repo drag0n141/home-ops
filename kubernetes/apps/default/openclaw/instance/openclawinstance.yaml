@@ -66,6 +66,8 @@ spec:
   security:
     networkPolicy:
       enabled: false
+  selfConfigure:
+    enabled: true
   storage:
     persistence:
       enabled: true
