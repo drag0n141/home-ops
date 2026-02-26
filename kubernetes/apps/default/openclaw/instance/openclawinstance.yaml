@@ -12,6 +12,7 @@ spec:
         controlUi:
           allowedOrigins:
             - "https://openclaw.${SECRET_DOMAIN_INTERNAL}"
+          dangerouslyDisableDeviceAuth: true
         trustedProxies:
           - "127.0.0.1"
           - "10.42.0.0/16"
