@@ -8,9 +8,14 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openclaw-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     fullnameOverride: *app
     crds:
+      install: true
       keep: false
     networkPolicy:
       enabled: false
