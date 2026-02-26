@@ -13,4 +13,4 @@ spec:
     - backendRefs:
         - name: openclaw-instance
           namespace: default
-          port: 18789
+          port: 18790
