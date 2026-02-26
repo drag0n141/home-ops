@@ -20,10 +20,9 @@ spec:
   networking:
     ingress:
       enabled: false
-    security:
-      networkPolicy:
-        allowedIngressNamespaces:
-          - networking
+  security:
+    networkPolicy:
+      enabled: false
   storage:
     persistence:
       enabled: true
