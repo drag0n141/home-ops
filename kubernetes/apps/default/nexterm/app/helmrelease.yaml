@@ -58,3 +58,12 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          nexterm:
+            app:
+              - path: /home/node
+                subPath: home
+              - path: /tmp
+                subPath: tmp
