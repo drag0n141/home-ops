@@ -24,6 +24,9 @@ spec:
           else
             echo "Homebrew already installed, skipping"
           fi
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
       volumeMounts:
         - name: data
           mountPath: /home/openclaw/.openclaw
