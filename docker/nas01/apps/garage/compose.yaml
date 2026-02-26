@@ -27,7 +27,7 @@ services:
       - 'traefik.http.routers.garage-rtr.rule=Host(`s3.${DOMAIN_INT}`)'
       - 'traefik.http.routers.garage-rtr.tls=true'
       - 'traefik.http.routers.garage-rtr.tls.certresolver=mydnschallenge'
-      - 'traefik.http.routers.garage-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.garage-rtr.middlewares=chain-no-auth@file'
       - 'traefik.http.routers.garage-rtr.service=garage-svc'
       - 'traefik.http.services.garage-svc.loadbalancer.server.port=3900'
     deploy:
