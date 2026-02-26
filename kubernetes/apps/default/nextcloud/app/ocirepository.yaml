@@ -11,4 +11,3 @@ spec:
   ref:
     tag: 8.9.1
   url: oci://ghcr.io/nextcloud/helm/nextcloud
-

@@ -34,6 +34,7 @@ resources:
   - ./nextcloud/ks.yaml
   - ./nexterm/ks.yaml
   - ./open-webui/ks.yaml
+  - ./openclaw/ks.yaml
   - ./outline/ks.yaml
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
