@@ -16,7 +16,6 @@ resources:
   - ./ferdium/ks.yaml
   - ./forgejo/ks.yaml
   - ./gotify/ks.yaml
-  - ./guacamole/ks.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./homepage/ks.yaml
