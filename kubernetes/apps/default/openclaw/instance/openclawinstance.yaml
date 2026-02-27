@@ -58,6 +58,7 @@ spec:
           timeoutSeconds: 300
           heartbeat:
             every: "30m"
+            to: "$${OPENCLAW_PHONE_NUMBER}"
             activeHours:
               start: "07:00"
               end: "23:00"
