@@ -77,7 +77,7 @@ spec:
               systemPrompt: "Compacting session context. Extract only what's worth remembering. No fluff."
       channels:
         whatsapp:
-          dmPolicy: "pairing"
+          dmPolicy: "allowlist"
           allowFrom:
             - "$${WHATSAPP_PHONE_NUMBER}"
           groupPolicy: "allowlist"
