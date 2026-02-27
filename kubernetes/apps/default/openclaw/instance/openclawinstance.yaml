@@ -97,8 +97,6 @@ spec:
             - "$${WHATSAPP_PHONE_NUMBER}"
       plugins:
         entries:
-          minimax-portal-auth:
-            enabled: true
           whatsapp:
             enabled: true
       session:
