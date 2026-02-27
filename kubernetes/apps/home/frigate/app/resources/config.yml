@@ -53,9 +53,8 @@ snapshots:
 
 record:
   enabled: true
-  retain:
+  continuous:
     days: 3
-    mode: all
   detections:
     pre_capture: 5
     post_capture: 5
