@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ollama
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      ollama:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          pull-models:
+            image:
+              repository: docker.io/ollama/ollama
+              tag: 0.17.4
+            command:
+              - /bin/sh
+              - -c
+              - |
+                echo "Starting Ollama server for model pulling..."
+                ollama serve &
+                OLLAMA_PID=$!
+
+                # Wait for Ollama to be ready
+                echo "Waiting for Ollama to start..."
+                for i in $(seq 1 30); do
+                  if ollama list >/dev/null 2>&1; then
+                    echo "Ollama is ready!"
+                    break
+                  fi
+                  sleep 2
+                done
+
+                echo "Pulling nomic-embed-text for embeddings..."
+                ollama pull nomic-embed-text
+
+                echo "All models pulled successfully!"
+                kill $OLLAMA_PID
+                wait $OLLAMA_PID 2>/dev/null || true
+        containers:
+          app:
+            image:
+              repository: docker.io/ollama/ollama
+              tag: 0.17.4
+            env:
+              TZ: ${TIMEZONE}
+              OLLAMA_HOST: 0.0.0.0
+              OLLAMA_ORIGINS: "*"
+              OLLAMA_MODELS: /models
+              OLLAMA_KEEP_ALIVE: "5m"
+              OLLAMA_NUM_PARALLEL: 1
+              OLLAMA_CONTEXT_LENGTH: "4096"
+              OLLAMA_MAX_LOADED_MODELS: 1
+              OLLAMA_FLASH_ATTENTION: 1
+            resources:
+              requests:
+                cpu: 50m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+    service:
+      app:
+        ports:
+          http:
+            port: 11434
+    persistence:
+      models:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /models
