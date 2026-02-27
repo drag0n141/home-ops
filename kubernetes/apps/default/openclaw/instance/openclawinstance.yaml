@@ -52,6 +52,8 @@ spec:
         defaults:
           model:
             primary: "minimax/MiniMax-M2.5"
+            fallbacks:
+              - "openai-codex/gpt-5.3-codex"
           maxConcurrent: 4
           timeoutSeconds: 300
           heartbeat:
