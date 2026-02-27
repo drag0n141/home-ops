@@ -79,10 +79,10 @@ spec:
         whatsapp:
           dmPolicy: "pairing"
           allowFrom:
-            - "${WHATSAPP_PHONE_NUMBER}"
+            - "$${WHATSAPP_PHONE_NUMBER}"
           groupPolicy: "allowlist"
           groupAllowFrom:
-            - "${WHATSAPP_PHONE_NUMBER}"
+            - "$${WHATSAPP_PHONE_NUMBER}"
       plugins:
         entries:
           minimax-portal-auth:
