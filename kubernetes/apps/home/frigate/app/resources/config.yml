@@ -40,6 +40,7 @@ detect:
 
 face_recognition:
   enabled: true
+  model_size: small
 lpr:
   enabled: true
 
@@ -113,7 +114,6 @@ cameras:
     objects:
       track:
         - person
-        - face
     lpr:
       enabled: false
     motion:
