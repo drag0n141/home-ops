@@ -19,11 +19,8 @@ spec:
             image:
               repository: ghcr.io/valkey-io/valkey
               tag: 9.0.3@sha256:2bce660b767cb62c8c0ea020e94a230093be63dbd6af4f21b044960517a5842d
-            args:
-              - --save
-              - ""
-              - --appendonly
-              - "no"
+            command: ["valkey-server"]
+            args: ["--save", "", "--appendonly", "no"]
             env:
               TZ: ${TIMEZONE}
             resources:
