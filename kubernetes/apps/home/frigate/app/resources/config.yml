@@ -40,7 +40,6 @@ detect:
 
 face_recognition:
   enabled: true
-  model_size: large
 lpr:
   enabled: true
 
