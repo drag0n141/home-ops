@@ -128,6 +128,9 @@ spec:
         memory: 250Mi
       limits:
         memory: 2000Mi
+  runtimeDeps:
+    pnpm: true
+    python: true
   networking:
     ingress:
       enabled: false
