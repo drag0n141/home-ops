@@ -113,6 +113,7 @@ cameras:
     objects:
       track:
         - person
+        - face
     lpr:
       enabled: false
     motion:
