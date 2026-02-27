@@ -21,6 +21,16 @@ spec:
           else
             echo "Homebrew already installed, skipping"
           fi
+          if [ ! -f /home/openclaw/.openclaw/.local/bin/gh ]; then
+            echo "Installing gh CLI..."
+            cd /tmp
+            curl -fsSL https://github.com/cli/cli/releases/download/v2.61.0/gh_2.61.0_linux_amd64.tar.gz -o gh.tar.gz
+            tar xzf gh.tar.gz
+            cp gh_2.61.0_linux_amd64/bin/gh /home/openclaw/.openclaw/.local/bin/
+            rm -rf gh.tar.gz gh_2.61.0_linux_amd64
+          else
+            echo "gh CLI already installed, skipping"
+          fi
       volumeMounts:
         - name: data
           mountPath: /home/openclaw/.openclaw
@@ -77,12 +87,12 @@ spec:
               systemPrompt: "Compacting session context. Extract only what's worth remembering. No fluff."
       channels:
         whatsapp:
-          dmPolicy: "allowlist"
+          dmPolicy: "pairing"
           allowFrom:
-            - "$${WHATSAPP_PHONE_NUMBER}"
+            - "${WHATSAPP_PHONE_NUMBER}"
           groupPolicy: "allowlist"
           groupAllowFrom:
-            - "$${WHATSAPP_PHONE_NUMBER}"
+            - "${WHATSAPP_PHONE_NUMBER}"
       plugins:
         entries:
           minimax-portal-auth:
