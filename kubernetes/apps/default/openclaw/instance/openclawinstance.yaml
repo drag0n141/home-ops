@@ -40,6 +40,8 @@ spec:
     raw:
       agents:
         defaults:
+          model:
+            primary: "minimax/MiniMax-M2.5"
           maxConcurrent: 4
           timeoutSeconds: 300
           heartbeat:
