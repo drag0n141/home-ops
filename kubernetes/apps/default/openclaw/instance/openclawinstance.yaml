@@ -40,6 +40,14 @@ spec:
     raw:
       agents:
         defaults:
+          maxConcurrent: 4
+          timeoutSeconds: 300
+          heartbeat:
+            every: "30m"
+            target: "last"
+            activeHours:
+              start: "07:00"
+              end: "23:00"
           contextPruning:
             mode: "cache-ttl"
             ttl: "6h"
@@ -66,6 +74,16 @@ spec:
               softThresholdTokens: 12000
               prompt: "Extract key decisions, state changes, lessons, blockers to memory/YYYY-MM-DD.md. Format: ## [HH:MM] Topic. Skip routine work. NO_FLUSH if nothing important."
               systemPrompt: "Compacting session context. Extract only what's worth remembering. No fluff."
+      session:
+        dmScope: "per-channel-peer"
+        maintenance:
+          mode: "enforce"
+          pruneAfter: "7d"
+          maxEntries: 1000
+          rotateBytes: "100mb"
+          resetArchiveRetention: "7d"
+      messages:
+        responsePrefix: "[{provider}/{model}]"
       gateway:
         controlUi:
           allowedOrigins:
