@@ -10,7 +10,7 @@ rules:
     resources: ["pods/log"]
     verbs: ["get", "list"]
   - apiGroups: [""]
-    resources: ["pods"]
+    resources: ["jobs", "pods"]
     verbs: ["delete"]
   - apiGroups: [""]
     resources: ["pods/exec"]
@@ -20,7 +20,7 @@ rules:
     verbs: ["get", "list", "watch", "patch", "update"]
   - apiGroups: ["batch"]
     resources: ["jobs", "cronjobs"]
-    verbs: ["get", "list", "watch", "delete"]
+    verbs: ["get", "list", "watch"]
   - apiGroups: ["networking.k8s.io"]
     resources: ["ingresses", "networkpolicies"]
     verbs: ["get", "list", "watch"]
@@ -49,4 +49,3 @@ subjects:
   - kind: ServiceAccount
     name: openclaw-instance
     namespace: default
-
