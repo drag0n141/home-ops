@@ -20,7 +20,7 @@ rules:
     verbs: ["get", "list", "watch", "patch", "update"]
   - apiGroups: ["batch"]
     resources: ["jobs", "cronjobs"]
-    verbs: ["get", "list", "watch"]
+    verbs: ["get", "list", "watch", "delete"]
   - apiGroups: ["networking.k8s.io"]
     resources: ["ingresses", "networkpolicies"]
     verbs: ["get", "list", "watch"]
@@ -49,3 +49,4 @@ subjects:
   - kind: ServiceAccount
     name: openclaw-instance
     namespace: default
+
