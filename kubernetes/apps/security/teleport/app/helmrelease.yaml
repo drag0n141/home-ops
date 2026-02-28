@@ -29,6 +29,7 @@ spec:
           trust_x_forwarded_for: true
     log:
       level: INFO
+    proxyListenerMode: multiplex
     publicAddr:
       - teleport.${SECRET_DOMAIN}:443
       - teleport.security.svc:443
