@@ -17,7 +17,7 @@ spec:
           pull-models:
             image:
               repository: docker.io/ollama/ollama
-              tag: 0.17.4
+              tag: 0.17.5
             command:
               - /bin/sh
               - -c
@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: docker.io/ollama/ollama
-              tag: 0.17.4
+              tag: 0.17.5
             env:
               TZ: ${TIMEZONE}
               OLLAMA_HOST: 0.0.0.0
