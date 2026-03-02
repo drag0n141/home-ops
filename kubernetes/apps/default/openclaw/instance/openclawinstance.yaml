@@ -177,7 +177,7 @@ spec:
   selfConfigure:
     enabled: true
   skills:
-    - "searxng"
+    - "@anthropic/mcp-server-fetch"
   storage:
     persistence:
       enabled: true
