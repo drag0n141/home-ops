@@ -21,7 +21,6 @@ spec:
             env:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_PORT: &port 8080
               UWSGI_WORKERS: 1
               UWSGI_THREADS: 4

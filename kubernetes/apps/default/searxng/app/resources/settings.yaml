@@ -1,7 +1,6 @@
 use_default_settings: true
 server:
   limiter: true
-  base_url: "https://search.${SECRET_DOMAIN}/"
   image_proxy: true
   method: GET # https://github.com/searxng/searxng/pull/3619
   public_instance: false
