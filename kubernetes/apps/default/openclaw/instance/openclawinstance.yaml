@@ -162,7 +162,7 @@ spec:
   selfConfigure:
     enabled: true
   skills:
-    - "@abk234/searxng"
+    - "searxng"
   storage:
     persistence:
       enabled: true
