@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./ollama/ks.yaml
+  - ./openclaw/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace

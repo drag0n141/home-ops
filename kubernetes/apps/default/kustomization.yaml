@@ -32,7 +32,6 @@ resources:
   - ./netronome/ks.yaml
   - ./nextcloud/ks.yaml
   - ./nexterm/ks.yaml
-  - ./openclaw/ks.yaml
   - ./outline/ks.yaml
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml

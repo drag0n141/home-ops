@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app openclaw
-  namespace: &namespace default
+  namespace: &namespace ai
 spec:
   targetNamespace: *namespace
   commonMetadata:
@@ -19,7 +19,7 @@ spec:
   components:
     - ../../../../components/tinyauth
     - ../../../../components/volsync
-  path: ./kubernetes/apps/default/openclaw/app
+  path: ./kubernetes/apps/ai/openclaw/app
   prune: true
   sourceRef:
     kind: GitRepository

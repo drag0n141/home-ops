@@ -1,0 +1,28 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: openclaw-code-server-tinyauth
+spec:
+  extAuth:
+    failOpen: false
+    headersToExtAuth:
+      - X-Forwarded-For
+      - X-Forwarded-Host
+      - X-Forwarded-Proto
+      - X-Forwarded-Uri
+      - accept
+      - cookie
+    http:
+      backendRefs:
+        - name: tinyauth
+          namespace: security
+          port: 3000
+      path: /api/auth/envoy?path=
+      headersToBackend:
+        - Location
+        - Set-Cookie
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: "openclaw-code-server"
