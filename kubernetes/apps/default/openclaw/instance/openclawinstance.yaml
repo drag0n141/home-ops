@@ -119,7 +119,7 @@ spec:
                     chatType: "group"
             models:
               - provider: "openai"
-                model: "gpt-4o-mini-transcribe"
+                model: "gpt-5.2"
       channels:
         whatsapp:
           dmPolicy: "allowlist"
