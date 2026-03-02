@@ -31,6 +31,20 @@ spec:
           else
             echo "gh CLI already installed, skipping"
           fi
+          # Check if pip is available (either standalone or via python3 -m pip)
+          set +e
+          if command -v pip3 >/dev/null 2>&1 || command -v pip >/dev/null 2>&1 || python3 -m pip --version >/dev/null 2>&1; then
+            echo "pip is available"
+          else
+            echo "Installing pip..."
+            cd /tmp
+            curl -fsSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            python3 get-pip.py --user --no-warn-script-location --break-system-packages || \
+            python3 get-pip.py --user --no-warn-script-location || \
+            echo "pip install skipped (use python3 -m pip instead)"
+            rm -f get-pip.py
+          fi
+          set -e
       volumeMounts:
         - name: data
           mountPath: /home/openclaw/.openclaw
@@ -43,6 +57,8 @@ spec:
       value: /home/openclaw/.openclaw/.local/homebrew
     - name: PATH
       value: /home/openclaw/.openclaw/.local/homebrew/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - name: PIP_BREAK_SYSTEM_PACKAGES
+      value: "1"
   envFrom:
     - secretRef:
         name: openclaw-secret
