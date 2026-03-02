@@ -8,6 +8,8 @@ spec:
     - &policy
       group: gateway.envoyproxy.io
       kind: SecurityPolicy
+      namespace: ai
+    - <<: *policy
       namespace: default
     - <<: *policy
       namespace: downloads
