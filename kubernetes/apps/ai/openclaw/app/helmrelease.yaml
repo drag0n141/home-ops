@@ -97,7 +97,7 @@ spec:
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
-                  name: openclaw
+                  name: openclaw-secret
             resources:
               requests:
                 cpu: 50m
