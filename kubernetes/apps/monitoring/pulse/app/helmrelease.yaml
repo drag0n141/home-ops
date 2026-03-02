@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/rcourtman/pulse
-              tag: 5.1.16@sha256:a439b015beebb601292670939a344b4a30de19b9cb0cec76ea1e7279afe07f5c
+              tag: 5.1.17@sha256:4930c26053dd0126d73d3c6308f05ec05092e2ebdd8cef2c549d329b3e0dd693
             env:
               TZ: ${TIMEZONE}
               DISCOVERY_SUBNET: "192.168.254.0/24"
