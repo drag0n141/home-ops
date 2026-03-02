@@ -107,6 +107,19 @@ spec:
               softThresholdTokens: 12000
               prompt: "Extract key decisions, state changes, lessons, blockers to memory/YYYY-MM-DD.md. Format: ## [HH:MM] Topic. Skip routine work. NO_FLUSH if nothing important."
               systemPrompt: "Compacting session context. Extract only what's worth remembering. No fluff."
+      tools:
+        media:
+          audio:
+            enabled: true
+            scope:
+              default: "allow"
+              rules:
+                - action: "deny"
+                  match:
+                    chatType: "group"
+            models:
+              - provider: "openai"
+                model: "gpt-4o-mini-transcribe"
       channels:
         whatsapp:
           dmPolicy: "allowlist"
