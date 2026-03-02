@@ -57,6 +57,10 @@ spec:
       value: /home/openclaw/.openclaw/.local/homebrew
     - name: PATH
       value: /home/openclaw/.openclaw/.local/homebrew/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - name: UV_TOOL_BIN_DIR
+      value: /home/openclaw/.openclaw/.local/bin
+    - name: UV_TOOL_DIR
+      value: /home/openclaw/.openclaw/.local/tools
     - name: PIP_BREAK_SYSTEM_PACKAGES
       value: "1"
   envFrom:
