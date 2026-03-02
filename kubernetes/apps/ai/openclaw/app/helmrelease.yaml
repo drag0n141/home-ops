@@ -82,7 +82,7 @@ spec:
                 # Set up openclawbot CLI symlink
                 ln -sf /app/openclawbot.mjs /home/node/.local/bin/openclawbot
                 # Start gateway
-                exec node dist/index.js gateway --bind lan
+                exec node dist/index.js gateway --bind lan --allow-unconfigured
             env:
               BROWSER_WS_ENDPOINT: "ws://localhost:3000/chrome?stealth=1&--disable-web-security=true"
               GOPATH: /home/node/go
