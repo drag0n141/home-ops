@@ -146,7 +146,7 @@ spec:
   selfConfigure:
     enabled: true
   skills:
-    - "@anthropic/searxng"
+    - "@abk234/searxng"
   storage:
     persistence:
       enabled: true
