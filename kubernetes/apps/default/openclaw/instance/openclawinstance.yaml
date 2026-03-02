@@ -176,8 +176,6 @@ spec:
       enabled: false
   selfConfigure:
     enabled: true
-  skills:
-    - "@anthropic/mcp-server-fetch"
   storage:
     persistence:
       enabled: true
