@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qdrant
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: qdrant
+  values:
+    config:
+      service:
+        host: "::"
+    metrics:
+      serviceMonitor:
+        enabled: true
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: StatefulSet
+              name: qdrant
+            patch: |-
+              - op: remove
+                path: /spec/volumeClaimTemplates
+
+              - op: add
+                path: /spec/template/spec/volumes/-
+                value:
+                  name: qdrant-storage
+                  persistentVolumeClaim:
+                    claimName: qdrant

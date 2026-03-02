@@ -5,6 +5,7 @@ namespace: ai
 resources:
   - ./ollama/ks.yaml
   - ./openclaw/ks.yaml
+  - ./qdrant/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
