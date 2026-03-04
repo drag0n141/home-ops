@@ -13,7 +13,7 @@ spec:
     annotations:
       reloader.stakater.com/auto: "true"
     extraInitContainers:
-      - name: init-db
+      - name: 01-init-db
         image: ghcr.io/home-operations/postgres-init:18
         envFrom:
           - secretRef:
