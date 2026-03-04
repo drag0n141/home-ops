@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app semaphore
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: semaphore
+  values:
+    fullnameOverride: *app
+    annotations:
+      reloader.stakater.com/auto: "true"
+    extraInitContainers:
+      - name: init-db
+        image: ghcr.io/home-operations/postgres-init:18
+        envFrom:
+          - secretRef:
+              name:  &secret semaphore-secret
+    extraEnvVariables:
+      SEMAPHORE_SCHEDULE_TIMEZONE: ${TIMEZONE}
+      ANSIBLE_HOST_KEY_CHECKING: false
+    general:
+      host: https://semaphore.${SECRET_DOMAIN_INTERNAL}
+    secrets:
+      accesskeyEncryptionKey: SEMAPHORE_ACCESS_KEY_ENCRYPTION
+      cookieHashKey: SEMAPHORE_COOKIE_HASH
+      cookieEncryptionKey: SEMAPHORE_COOKIE_ENCRYPTION
+      existingSecret: *secret
+    database:
+      type: postgres
+      host: postgres-rw.database.svc.cluster.local
+      name: semaphore_db
+      port: "5432"
+      usernameFromSecret: true
+      usernameKey: POSTGRES_USER
+      passwordKey: POSTGRES_PASSWORD
+      existingSecret: *secret
+    persistence:
+      enabled: true
+      existingClaim: *app
+    oidc:
+      enable: true
+      providers:
+        pocketid:
+          display_name: "Login with Pocket ID"
+          provider_url: https://id.${SECRET_DOMAIN}
+          redirect_url: https://semaphore.${SECRET_DOMAIN_INTERNAL}/api/auth/oidc/pocketid/redirect/
+          username_claim: preferred_username
+          name_claim: given_name
+          email_claim: email
+          scopes:
+            - openid
+            - email
+            - profile
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50M
+      limits:
+        memory: 512Mi
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: OIDC_CLIENT_ID
+      targetPath: oidc.providers.pocketid.client_id
+    - kind: Secret
+      name: *secret
+      valuesKey: OIDC_CLIENT_SECRET
+      targetPath: oidc.providers.pocketid.client_secret

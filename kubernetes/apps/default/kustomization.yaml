@@ -36,6 +36,7 @@ resources:
   - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
   - ./searxng/ks.yaml
+  - ./semaphore/ks.yaml
   - ./shlink/ks.yaml
   - ./spoolman/ks.yaml
   - ./syncthing/ks.yaml
