@@ -29,7 +29,7 @@ spec:
       cookieEncryptionKey: SEMAPHORE_COOKIE_ENCRYPTION
       existingSecret: *secret
     admin:
-      create: true
+      create: false
       fullnameKey: SEMAPHORE_ADMIN_NAME
       usernameKey: SEMAPHORE_ADMIN
       passwordKey: SEMAPHORE_ADMIN_PASSWORD
