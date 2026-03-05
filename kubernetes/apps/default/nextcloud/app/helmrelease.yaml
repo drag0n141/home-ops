@@ -161,6 +161,10 @@ spec:
       type: cronjob
       cronjob:
         successfulJobsHistoryLimit: 1
+        securityContext:
+          runAsGroup: 33
+          runAsNonRoot: true
+          runAsUser: 33
     internalDatabase:
       enabled: false
     externalDatabase:
