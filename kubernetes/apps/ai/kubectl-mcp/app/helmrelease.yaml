@@ -18,7 +18,7 @@ spec:
             image:
               repository: ghcr.io/rohitg00/kubectl-mcp-server
               tag: 1.24.0@sha256:17134e36a3e1d3a5e457c12d61e8c7f7c52a7927c6ae4250131dfd95a74a2331
-            args: ["server", "--transport=streamable-http"]
+            args: ["--transport=streamable-http"]
             env:
               TZ: ${TIMEZONE}
             resources:
