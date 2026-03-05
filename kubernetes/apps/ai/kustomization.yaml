@@ -5,6 +5,7 @@ namespace: ai
 resources:
   - ./agentgateway/ks.yaml
   - ./dex/ks.yaml
+  - ./github-mcp/ks.yaml
   - ./ha-mcp/ks.yaml
   - ./mcp-gateway/ks.yaml
   - ./ollama/ks.yaml
