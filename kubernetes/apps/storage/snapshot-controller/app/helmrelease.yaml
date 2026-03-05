@@ -8,10 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: snapshot-controller
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     controller:
       replicaCount: 2

@@ -8,10 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: envoy-gateway
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     config:
       envoyGateway:

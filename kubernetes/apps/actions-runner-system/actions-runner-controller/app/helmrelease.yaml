@@ -8,9 +8,5 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set-controller
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     fullnameOverride: *app

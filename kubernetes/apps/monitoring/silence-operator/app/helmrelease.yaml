@@ -8,10 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: silence-operator
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     alertmanagerAddress: http://alertmanager.monitoring.svc.cluster.local:9093
     networkPolicy:
