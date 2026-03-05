@@ -18,7 +18,7 @@ spec:
             image:
               repository: ghcr.io/github/github-mcp-server
               tag: v0.31.0@sha256:7b1384cdd6d025c09256af2fb6cb79bc5e87aedc957c8826b5e50d8cb82f0be3
-            args: ["http", "--port=8082"]
+            args: ["http", "--port=8082" "--streamable-http"]
             env:
               TZ: ${TIMEZONE}
             envFrom:
