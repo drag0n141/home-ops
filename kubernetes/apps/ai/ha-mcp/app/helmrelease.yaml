@@ -22,7 +22,7 @@ spec:
               - ha-mcp-web
             env:
               TZ: ${TIMEZONE}
-              HOMEASSISTANT_URL: http://haos${SECRET_DOMAIN_INT}:8123
+              HOMEASSISTANT_URL: http://haos.${SECRET_DOMAIN_INT}:8123
             envFrom:
               - secretRef:
                   name: ha-mcp-secret
