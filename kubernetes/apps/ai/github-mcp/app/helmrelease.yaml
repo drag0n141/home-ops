@@ -21,9 +21,6 @@ spec:
             args: ["http", "--enable-command-logging"]
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: github-mcp-secret
             resources:
               requests:
                 cpu: 50m
@@ -37,8 +34,6 @@ spec:
         runAsGroup: 1000
     service:
       app:
-        labels:
-          mcp.home.arpa/server: "true"
         ports:
           http:
             appProtocol: kgateway.dev/mcp
