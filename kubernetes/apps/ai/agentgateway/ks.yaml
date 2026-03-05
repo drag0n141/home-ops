@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: agentgateway-crds
-      namespace: *namespace
   path: ./kubernetes/apps/ai/agentgateway/crds
   prune: true
   sourceRef:
