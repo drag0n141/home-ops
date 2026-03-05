@@ -43,7 +43,7 @@ spec:
           mcp.home.arpa/server: "true"
         ports:
           http:
-            appProtocol: agentgateway.dev/mcp
+            appProtocol: kgateway.dev/mcp
             port: 8086
     route:
       app:
