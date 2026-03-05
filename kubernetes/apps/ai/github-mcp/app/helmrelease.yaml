@@ -50,6 +50,6 @@ spec:
             namespace: ai
         rules:
           - backendRefs:
-              - name: ha-mcp
+              - name: github-mcp
                 group: agentgateway.dev
                 kind: AgentgatewayBackend
