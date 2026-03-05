@@ -15,7 +15,7 @@ spec:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
     nextcloud:
-      host: nextcloud.${SECRET_DOMAIN}
+      host: &host nextcloud.${SECRET_DOMAIN}
       extraInitContainers:
         - name: init-db
           image: ghcr.io/home-operations/postgres-init:18
@@ -158,6 +158,9 @@ spec:
           pm.process_idle_timeout = 10s
     cronjob:
       enabled: true
+      type: cronjob
+      cronjob:
+        successfulJobsHistoryLimit: 1
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -170,12 +173,20 @@ spec:
         passwordKey: POSTGRES_PASSWORD
         hostKey: POSTGRES_HOST
         databaseKey: POSTGRES_DB
-    livenessProbe:
-      enabled: false
-    readinessProbe:
-      enabled: false
-    startupProbe:
-      enabled: false
     persistence:
       enabled: true
       existingClaim: *app
+    httpRoute:
+      enabled: true
+      annotations:
+        external-dns.alpha.kubernetes.io/controller: none
+      hostnames:
+        - *host
+      parentRefs:
+        - name: envoy-external
+          namespace: networking
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: "/"

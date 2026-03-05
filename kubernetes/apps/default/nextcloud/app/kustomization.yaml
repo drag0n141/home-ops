@@ -5,5 +5,4 @@ resources:
   - ./dnsendpoint.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./httproute.yaml
   - ./ocirepository.yaml
