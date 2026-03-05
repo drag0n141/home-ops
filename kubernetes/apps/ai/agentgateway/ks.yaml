@@ -1,0 +1,72 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app agentgateway-crds
+  namespace: &namespace ai
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: agentgateway-crds
+      namespace: *namespace
+  path: ./kubernetes/apps/ai/agentgateway/crds
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app agentgateway
+  namespace: &namespace ai
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: agentgateway-crds
+      namespace: *namespace
+  path: ./kubernetes/apps/ai/agentgateway/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app agentgateway-gateway
+  namespace: &namespace ai
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: agentgateway
+      namespace: *namespace
+  path: ./kubernetes/apps/ai/agentgateway/gateway
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m

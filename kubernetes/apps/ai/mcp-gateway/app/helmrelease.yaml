@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mcp-gateway
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      mcp-gateway:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/hyprmcp/mcp-gateway
+              tag: 0.4.0@sha256:fde162c3b0df2f75b31776d1bc6736a7da29bc9665cc6fa872d37d022e2e3040
+            args:
+              - --config
+              - /config/hyprmcp-gateway.yaml
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 9000
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "mcp.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    persistence:
+      config:
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
+        globalMounts:
+          - path: /config/hyprmcp-gateway.yaml
+            subPath: hyprmcp-gateway.yaml
