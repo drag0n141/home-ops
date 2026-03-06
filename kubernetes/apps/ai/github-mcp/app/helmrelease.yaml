@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/github/github-mcp-server
-              tag: v0.31.0@sha256:7b1384cdd6d025c09256af2fb6cb79bc5e87aedc957c8826b5e50d8cb82f0be3
+              tag: v0.32.0@sha256:2763823c63bcca718ce53850a1d7fcf2f501ec84028394f1b63ce7e9f4f9be28
             args: ["http", "--enable-command-logging"]
             env:
               TZ: ${TIMEZONE}
