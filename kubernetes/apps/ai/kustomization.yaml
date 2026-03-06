@@ -9,7 +9,6 @@ resources:
   - ./ha-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./mcp-gateway/ks.yaml
-  - ./n8n-mcp/ks.yaml
   - ./ollama/ks.yaml
   - ./openclaw/ks.yaml
   - ./qdrant/ks.yaml
