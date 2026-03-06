@@ -16,13 +16,15 @@ spec:
         containers:
           app:
             image:
-              repository: quay.io/redhat-services-prod/rhel-lightspeed-tenant/linux-mcp-server
-              tag: 1.3.2
+              repository: ghcr.io/drag0n141/linux-mcp-server
+              tag: latest@sha256:ee3eeed5b221de34bd0e82ec51d64743e23ecb8f35ad78f5d1d59e87af96ee4e
             env:
               TZ: ${TIMEZONE}
               LINUX_MCP_TRANSPORT: streamable-http
               LINUX_MCP_HOST: 0.0.0.0
               LINUX_MCP_SSH_USER: root
+              LINUX_MCP_EXECUTE_ENABLED: true
+              LINUX_MCP_ALLOWED_COMMANDS: "curl,python3,pip"
             envFrom:
               - secretRef:
                   name: linux-mcp-secret
