@@ -16,8 +16,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/drag0n141/linux-mcp-server
-              tag: latest@sha256:ee3eeed5b221de34bd0e82ec51d64743e23ecb8f35ad78f5d1d59e87af96ee4e
+              repository: ghcr.io/drag0n141/linux-mcp
+              tag: v1.0.0@sha256:648ab2b46ed3d15f8003178a8cf8af6250d0bb843d79043bcae311688edab729
             env:
               TZ: ${TIMEZONE}
               LINUX_MCP_TRANSPORT: streamable-http
