@@ -57,6 +57,8 @@ spec:
   dependsOn:
     - name: agentgateway
       namespace: *namespace
+    - name: onepassword
+      namespace: external-secrets
   path: ./kubernetes/apps/ai/agentgateway/gateway
   prune: true
   sourceRef:
