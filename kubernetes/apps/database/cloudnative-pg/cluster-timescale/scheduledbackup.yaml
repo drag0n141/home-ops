@@ -2,11 +2,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: postgres-vector
+  name: postgres-timescale
 spec:
   backupOwnerReference: self
   cluster:
-    name: postgres-vector
+    name: postgres-timescale
   immediate: true
   method: plugin
   pluginConfiguration:

@@ -1,0 +1,48 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-timescale
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+spec:
+  instances: 3
+  # renovate: datasource=docker depName=ghcr.io/clevyr/cloudnativepg-timescale
+  imageName: ghcr.io/clevyr/cloudnativepg-timescale:17.5-22-ts2.19.3@sha256:93b11ac805e92adadc21dfbc81d401b2c2e69fc5c653347805d571a33aae458d
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 10Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+  bootstrap:
+    initdb:
+      postInitTemplateSQL:
+        - CREATE EXTENSION IF NOT EXISTS timescaledb;
+  postgresql:
+    parameters:
+      max_connections: "400"
+      shared_buffers: 512MB
+    shared_preload_libraries: ["timescaledb"]
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 4Gi
+  monitoring:
+    enablePodMonitor: true
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters: &parameters
+        barmanObjectName: garage-timescale
+        serverName: postgres-timescale
+#  bootstrap:
+#    recovery:
+#      source: source
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *parameters
