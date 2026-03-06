@@ -7,7 +7,7 @@ resources:
   - ./dex/ks.yaml
 #   - ./github-mcp/ks.yaml
   - ./ha-mcp/ks.yaml
-#   - ./kubectl-mcp/ks.yaml
+  - ./kubectl-mcp/ks.yaml
   - ./mcp-gateway/ks.yaml
   - ./ollama/ks.yaml
   - ./openclaw/ks.yaml
