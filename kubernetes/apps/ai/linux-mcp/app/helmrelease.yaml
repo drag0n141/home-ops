@@ -22,6 +22,7 @@ spec:
               TZ: ${TIMEZONE}
               LINUX_MCP_TRANSPORT: streamable-http
               LINUX_MCP_HOST: 0.0.0.0
+              LINUX_MCP_SSH_USER: root
             envFrom:
               - secretRef:
                   name: linux-mcp-secret
