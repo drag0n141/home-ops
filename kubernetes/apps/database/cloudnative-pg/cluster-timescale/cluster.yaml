@@ -12,6 +12,8 @@ spec:
     kind: ImageCatalog
     name: timescaledb
     major: 18
+  postgresGID: 1000
+  postgresUID: 1000
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
