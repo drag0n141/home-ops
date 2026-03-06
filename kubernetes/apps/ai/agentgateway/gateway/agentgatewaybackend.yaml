@@ -19,3 +19,11 @@ spec:
             auth:
               secretRef:
                 name: github-mcp-secret
+      - name: n8n-mcp
+        static:
+          host: n8n-mcp.ai.svc.cluster.local
+          port: 3000
+          policies:
+            auth:
+              secretRef:
+                name: n8n-mcp-secret
