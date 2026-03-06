@@ -36,7 +36,7 @@ spec:
       app:
         ports:
           http:
-            appProtocol: agentgateway.dev/mcp
+            appProtocol: kgateway.dev/mcp
             port: 8082
     route:
       app:
