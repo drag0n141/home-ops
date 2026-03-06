@@ -7,8 +7,11 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
-  # renovate: datasource=docker depName=ghcr.io/clevyr/cloudnativepg-timescale
-  imageName: ghcr.io/clevyr/cloudnativepg-timescale:17.5-22-ts2.19.3@sha256:93b11ac805e92adadc21dfbc81d401b2c2e69fc5c653347805d571a33aae458d
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ImageCatalog
+    name: timescaledb
+    major: 18
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi

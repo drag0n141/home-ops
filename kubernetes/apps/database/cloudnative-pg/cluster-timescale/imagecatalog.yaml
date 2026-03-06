@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ImageCatalog
+metadata:
+  name: timescaledb
+spec:
+  images:
+    - major: 18
+      # renovate: datasource=docker depName=timescale/timescaledb-ha
+      image: timescale/timescaledb-ha:pg18.3-ts2.25.2@sha256:63a517973da2b81d9ae0a1d730be06df84a3d14b28aa6353c283cf6351d43479
