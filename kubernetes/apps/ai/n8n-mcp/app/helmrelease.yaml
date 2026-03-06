@@ -22,7 +22,6 @@ spec:
               TZ: ${TIMEZONE}
               MCP_MODE: http
               N8N_MCP_TELEMETRY_DISABLED: true
-              N8N_MODE: true
               N8N_API_URL: https://n8n.${SECRET_DOMAIN_INTERNAL}
               PORT: &port 3000
             envFrom:
