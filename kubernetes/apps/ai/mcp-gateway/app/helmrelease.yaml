@@ -65,6 +65,8 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             url: https://mcp.${SECRET_DOMAIN}/mcp
+            conditions:
+              - "[STATUS] == 401"
         hostnames:
           - "mcp.${SECRET_DOMAIN}"
         parentRefs:
