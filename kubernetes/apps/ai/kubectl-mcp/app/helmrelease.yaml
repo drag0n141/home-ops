@@ -47,7 +47,7 @@ spec:
             namespace: ai
         rules:
           - backendRefs:
-              - name: kubectl-mcp
+              - name: agentgateway-mcp
                 group: agentgateway.dev
                 kind: AgentgatewayBackend
     rbac:
