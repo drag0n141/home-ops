@@ -34,7 +34,7 @@ spec:
     enablePodMonitor: true
   plugins:
     - name: barman-cloud.cloudnative-pg.io
-      isWALArchiver: true
+      isWALArchiver: false
       parameters: &parameters
         barmanObjectName: garage-timescale
         serverName: postgres-timescale
