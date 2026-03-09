@@ -35,6 +35,7 @@ services:
       - '--entrypoints.https.http.tls.certresolver=mydnschallenge'
       - '--certificatesresolvers.mydnschallenge.acme.dnschallenge=true'
       - '--certificatesresolvers.mydnschallenge.acme.dnschallenge.provider=cloudflare'
+      - '--certificatesresolvers.mydnschallenge.acme.profile=shortlived'
       - '--certificatesresolvers.mydnschallenge.acme.storage=/certs/acme.json'
       - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53'
       - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.propagation.delayBeforeChecks=60'
