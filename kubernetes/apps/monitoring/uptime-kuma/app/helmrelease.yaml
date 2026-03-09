@@ -17,30 +17,34 @@ spec:
           app:
             image:
               repository: ghcr.io/louislam/uptime-kuma
-              tag: 2.2.0@sha256:85d68948704fcadc7438f45c9f2666ef2239b5b84073479e1c5bc4d4d8b6d17c
+              tag: 2.2.0-slim-rootless@sha256:617d2f4dfac678eab50b59df29fe3874776f97a0eb4caa671c17e862ccee133e
             env:
               TZ: ${TIMEZONE}
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              DATA_DIR: /app/data
+              PORT: &port 3001
+              UPTIME_KUMA_DB_TYPE: sqlite
             resources:
               requests:
                 cpu: 10m
                 memory: 100Mi
               limits:
                 memory: 500Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: [ALL]}
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
-            port: 3001
+            port: *port
     route:
       app:
         hostnames:
