@@ -1,0 +1,11 @@
+---
+working_dir: ./docker/ext01
+auto_discover: true
+auto_discover_opts:
+  depth: 1
+  delete: true
+external_secrets:
+  TZ: "op://Kubernetes/basic/TZ"
+  CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
+  CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
+  DOMAIN: "op://Kubernetes/domains/DOMAIN"

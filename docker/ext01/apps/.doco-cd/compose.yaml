@@ -5,19 +5,17 @@ services:
     hostname: 'doco-cd'
     container_name: 'doco-cd'
     restart: 'always'
-    ports:
-      - '8080:8080'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - '/opt/appdata/doco-cd:/data:rw'
     environment:
       TZ: ${TZ}
-      HTTP_PORT: 8080
+      DEPLOY_CONFIG_BASE_DIR: ./docker/ext01/
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN: ${SECRET_PROVIDER_ACCESS_TOKEN}
       POLL_CONFIG: |
         - url: https://github.com/drag0n141/home-ops.git
-          reference: master
+          reference: refs/heads/master
           interval: 3600
     networks:
       - internal

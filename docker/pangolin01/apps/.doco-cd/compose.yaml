@@ -7,9 +7,11 @@ services:
     restart: 'always'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - '/mnt/nvme/appdata/doco-cd:/data:rw'
+      - '/opt/appdata/doco-cd:/data:rw'
     environment:
       TZ: ${TZ}
+      DEPLOY_CONFIG_BASE_DIR: ./docker/pangolin01/
+      HTTP_PORT: 8080
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN: ${SECRET_PROVIDER_ACCESS_TOKEN}
       POLL_CONFIG: |

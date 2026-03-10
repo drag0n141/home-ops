@@ -1,0 +1,14 @@
+---
+working_dir: ./docker/pangolin01
+auto_discover: true
+auto_discover_opts:
+  depth: 1
+  delete: true
+external_secrets:
+  TZ: "op://Kubernetes/basic/TZ"
+  CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
+  CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
+  DOMAIN: "op://Kubernetes/domains/DOMAIN"
+  MAXMIND_PANGOLIN_LICENSE_KEY: op://Services/MaxMind/License Keys/pangolin_license_key
+  PANGOLIN_SERVER_SECRET: op://Services/Pangolin/Server/server_secret
+  CROWDSEC_TRAEFIK_API_KEY: op://Services/Pangolin/Server/crowdsec_traefik_api_key
