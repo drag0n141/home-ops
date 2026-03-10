@@ -31,7 +31,7 @@ services:
       - 'traefik.http.routers.zerobyte-rtr.entrypoints=https'
       - 'traefik.http.routers.zerobyte-rtr.rule=Host(`zerobyte.${DOMAIN_INT}`)'
       - 'traefik.http.routers.zerobyte-rtr.tls=true'
-      - 'traefik.http.routers.zerobyte-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.zerobyte-rtr.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.zerobyte-rtr.middlewares=chain-internal-tinyauth@file'
       - 'traefik.http.routers.zerobyte-rtr.service=zerobyte-svc'
       - 'traefik.http.services.zerobyte-svc.loadbalancer.server.port=4096'
