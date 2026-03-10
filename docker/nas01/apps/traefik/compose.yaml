@@ -35,7 +35,7 @@ services:
       - 'traefik.http.routers.traefik-rtr.entrypoints=https'
       - 'traefik.http.routers.traefik-rtr.rule=Host(`traefik-nas01.${DOMAIN_INT}`)'
       - 'traefik.http.routers.traefik-rtr.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.traefik-rtr.middlewares=chain-internal-authelia@file'
+      - 'traefik.http.routers.traefik-rtr.middlewares=chain-internal-tinyauth@file'
       - 'traefik.http.routers.traefik-rtr.service=api@internal'
       - 'traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.${DOMAIN_INT}'
     deploy:
