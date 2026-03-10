@@ -16,8 +16,8 @@ services:
     read_only: true
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - '/mnt/nvme/appdata/traefik/certs:/certs:rw'
-      - '/mnt/nvme/appdata/traefik/logs:/logs:rw'
+      - '/mnt/nvme/appdata/traefik/certs:/letsencrypt:rw'
+      - '/mnt/nvme/appdata/traefik/logs:/var/log/traefik:rw'
     configs:
       - source: traefik_config
         target: /etc/traefik/traefik_config.yml
@@ -75,8 +75,7 @@ configs:
           exposedByDefault: false
           network: traefik
         file:
-          directory: "/rules"
-          watch: true
+          filename: "/etc/traefik/dynamic_config.yml"
 
       log:
         level: "INFO"
@@ -87,7 +86,7 @@ configs:
         compress: true
 
       accessLog:
-        filePath: /logs/access.log
+        filePath: /var/log/traefik/access.log
         bufferingSize: 100
         filters:
           minDuration: 100ms
@@ -153,7 +152,7 @@ configs:
       certificatesResolvers:
         letsencrypt:
           acme:
-            storage: "/certs/acme.json"
+            storage: "/letsencrypt/acme.json"
             profile: shortlived
             dnsChallenge:
               provider: cloudflare
