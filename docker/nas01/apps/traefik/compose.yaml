@@ -134,6 +134,9 @@ configs:
                 scheme: https
         https:
           address: ":443"
+          transport:
+            respondingTimeouts:
+              readTimeout: "30m"
           http3:
             advertisedPort: 443
           http:
@@ -141,9 +144,8 @@ configs:
               certResolver: letsencrypt
               domains:
                 - main: "*.${DOMAIN}"
-            transport:
-              respondingTimeouts:
-                readTimeout: "30m"
+            middlewares:
+              - chain-no-auth@file
             encodedCharacters:
               allowEncodedSlash: true
               allowEncodedQuestionMark: true
