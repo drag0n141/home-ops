@@ -8,40 +8,7 @@ services:
     cap_drop:
       - 'ALL'
     command:
-      - '--api=true'
-      - '--api.dashboard=true'
-      - '--api.insecure=false'
-      - '--entryPoints.ping.address=localhost:8082'
-      - '--ping.entryPoint=ping'
-      - '--log=true'
-      - '--log.level=INFO'
-      - '--accessLog=true'
-      - '--accessLog.filePath=/logs/access.log'
-      - '--accessLog.bufferingSize=100'
-      - '--global.sendAnonymousUsage=false'
-      - '--global.checkNewVersion=true'
-      - '--providers.docker=true'
-      - '--providers.docker.endpoint=unix:///var/run/docker.sock'
-      - '--providers.docker.exposedbydefault=false'
-      - '--providers.docker.network=traefik'
-      - '--providers.file.directory=/rules'
-      - '--providers.file.watch=true'
-      - '--entrypoints.http.address=:80'
-      - '--entrypoints.https.address=:443'
-      - '--entrypoints.https.http3'
-      - '--entrypoints.https.http3.advertisedPort=443'
-      - '--entrypoints.https.forwardedHeaders.trustedIPs=103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,104.16.0.0/13,104.24.0.0/14,108.162.192.0/18,131.0.72.0/22,141.101.64.0/18,162.158.0.0/15,172.64.0.0/13,173.245.48.0/20,188.114.96.0/20,190.93.240.0/20,197.234.240.0/22,198.41.128.0/17'
-      - '--entrypoints.https.http.tls.domains[0].main=*.${DOMAIN}'
-      - '--entrypoints.https.http.tls.certresolver=mydnschallenge'
-      - '--certificatesresolvers.mydnschallenge.acme.dnschallenge=true'
-      - '--certificatesresolvers.mydnschallenge.acme.dnschallenge.provider=cloudflare'
-      - '--certificatesresolvers.mydnschallenge.acme.profile=shortlived'
-      - '--certificatesresolvers.mydnschallenge.acme.storage=/certs/acme.json'
-      - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53'
-      - '--certificatesResolvers.mydnschallenge.acme.dnsChallenge.propagation.delayBeforeChecks=60'
-      - '--entrypoints.http.http.redirections.entryPoint.to=https'
-      - '--entrypoints.http.http.redirections.entryPoint.scheme=https'
-      - '--serverstransport.insecureskipverify=true'
+      - '--configFile=/etc/traefik/traefik_config.yml'
     ports:
       - '80:80'
       - '443:443/tcp'
@@ -51,7 +18,11 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - '/mnt/nvme/appdata/traefik/certs:/certs:rw'
       - '/mnt/nvme/appdata/traefik/logs:/logs:rw'
-      - '/mnt/nvme/appdata/traefik/rules:/rules:rw'
+    configs:
+      - source: traefik_config
+        target: /etc/traefik/traefik_config.yml
+      - source: traefik_dynamic_config
+        target: /etc/traefik/dynamic_config.yml
     environment:
       - 'CF_API_EMAIL=${CLOUDFLARE_EMAIL}'
       - 'CF_DNS_API_TOKEN=${CLOUDFLARE_TRAEFIK_API_TOKEN}'
@@ -82,3 +53,247 @@ networks:
      config:
        - subnet: 172.16.1.0/24
          gateway: 172.16.1.1
+
+configs:
+  traefik_config:
+    content: |-
+      ---
+      api:
+        insecure: false
+        dashboard: true
+
+      ping:
+        entryPoint: "ping"
+
+      global:
+        sendAnonymousUsage: false
+        checkNewVersion: true
+
+      providers:
+        docker:
+          endpoint: "unix:///var/run/docker.sock"
+          exposedByDefault: false
+          network: traefik
+        file:
+          directory: "/rules"
+          watch: true
+
+      log:
+        level: "INFO"
+        format: "common"
+        maxSize: 100
+        maxBackups: 3
+        maxAge: 3
+        compress: true
+
+      accessLog:
+        filePath: /logs/access.log
+        bufferingSize: 100
+        filters:
+          minDuration: 100ms
+          retryAttempts: true
+          statusCodes:
+            - 200-299
+            - 400-499
+            - 500-599
+        format: json
+        fields:
+          defaultMode: drop
+          names:
+            ClientAddr: keep
+            ClientHost: keep
+            DownstreamContentSize: keep
+            DownstreamStatus: keep
+            Duration: keep
+            RequestMethod: keep
+            RequestPath: keep
+            RequestProtocol: keep
+            RetryAttempts: keep
+            ServiceName: keep
+            StartUTC: keep
+            TLSCipher: keep
+            TLSVersion: keep
+          headers:
+            defaultMode: drop
+            names:
+              Authorization: redact
+              Content-Type: keep
+              Cookie: redact
+              User-Agent: keep
+              X-Forwarded-For: keep
+              X-Forwarded-Proto: keep
+              X-Real-Ip: keep
+
+      entryPoints:
+        ping:
+          address: "localhost:8082"
+        http:
+          address: ":80"
+          http:
+            redirections:
+              entryPoint:
+                to: https
+                scheme: https
+        https:
+          address: ":443"
+          http3:
+            advertisedPort: 443
+          http:
+            tls:
+              certResolver: letsencrypt
+              domains:
+                - main: "*.${DOMAIN}"
+            transport:
+              respondingTimeouts:
+                readTimeout: "30m"
+            encodedCharacters:
+              allowEncodedSlash: true
+              allowEncodedQuestionMark: true
+
+      certificatesResolvers:
+        letsencrypt:
+          acme:
+            storage: "/certs/acme.json"
+            profile: shortlived
+            dnsChallenge:
+              provider: cloudflare
+              resolvers:
+                - "1.1.1.1:53"
+                - "1.0.0.1:53"
+              propagation:
+                delayBeforeChecks: 60
+
+      serversTransport:
+        insecureSkipVerify: true
+
+  traefik_dynamic_config:
+    content: |-
+      ---
+      tls:
+        options:
+          default:
+            minVersion: VersionTLS12
+            cipherSuites:
+              - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+              - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+              - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+              - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+              - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+              - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+          modern-2020:
+            minVersion: VersionTLS13
+
+      http:
+        middlewares:
+          middlewares-rate-limit:
+            rateLimit:
+              average: 100
+              burst: 50
+
+          middlewares-secure-headers:
+            headers:
+              accessControlAllowMethods:
+                - GET
+                - OPTIONS
+                - PUT
+                - POST
+              accessControlMaxAge: 100
+              hostsProxyHeaders:
+                - X-Forwarded-Host
+              stsSeconds: 31536000
+              stsIncludeSubdomains: false
+              stsPreload: true
+              forceSTSHeader: true
+              customFrameOptionsValue: "allow-from https:${DOMAIN}"
+              contentTypeNosniff: true
+              browserXssFilter: true
+              frameDeny: true
+              referrerPolicy: same-origin
+              customResponseHeaders:
+                Permissions-Policy: "accelerometer=(),camera=(),geolocation=(),gyroscope=(),magnetometer=(),microphone=(),payment=(),usb=()"
+                Content-Security-Policy: "upgrade-insecure-requests;"
+                X-Frame-Options: SAMEORIGIN
+                X-Robots-Tag: "none,noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex"
+                X-Permitted-Cross-Domain-Policies: none
+                X-Forwarded-Proto: https
+                X-Powered-By: ""
+                server: ""
+
+          middlewares-secure-headers-garage:
+            headers:
+              accessControlAllowMethods:
+                - GET
+                - HEAD
+                - POST
+                - PUT
+                - DELETE
+              accessControlMaxAge: 3000
+              accessControlAllowOriginList:
+                - "*"
+              accessControlAllowHeaders:
+                - "*"
+              addVaryHeader: true
+
+          middlewares-compress:
+            compress:
+              minResponseBodyBytes: 1024
+              excludedContentTypes:
+                - application/zip
+                - application/octet-stream
+
+          middlewares-tinyauth:
+            forwardAuth:
+              address: "https://tinyauth.${DOMAIN}/api/auth/traefik"
+              trustForwardHeader: true
+              authResponseHeaders:
+                - Remote-User
+                - Remote-Groups
+                - Remote-Name
+                - Remote-Email
+
+          middlewares-only-local:
+            ipAllowList:
+              sourceRange:
+                - 192.168.40.0/24
+                - 192.168.41.0/24
+                - 192.168.42.0/24
+                - 192.168.140.0/24
+                - 192.168.230.0/24
+                - 192.168.240.0/24
+                - 192.168.254.0/24
+                - 172.18.0.0/16
+
+          chain-no-auth:
+            chain:
+              middlewares:
+                - middlewares-rate-limit
+                - middlewares-secure-headers
+                - middlewares-compress
+
+          chain-tinyauth:
+            chain:
+              middlewares:
+                - middlewares-rate-limit
+                - middlewares-secure-headers
+                - middlewares-compress
+                - middlewares-tinyauth
+
+          chain-garage:
+            chain:
+              middlewares:
+                - middlewares-secure-headers-garage
+
+          chain-internal-no-auth:
+            chain:
+              middlewares:
+                - middlewares-only-local
+                - middlewares-secure-headers
+                - middlewares-compress
+
+          chain-internal-tinyauth:
+            chain:
+              middlewares:
+                - middlewares-only-local
+                - middlewares-secure-headers
+                - middlewares-compress
+                - middlewares-tinyauth
