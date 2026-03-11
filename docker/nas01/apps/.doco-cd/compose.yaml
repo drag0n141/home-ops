@@ -10,6 +10,7 @@ services:
       - '/mnt/nvme/appdata/doco-cd:/data:rw'
     environment:
       TZ: ${TZ}
+      DEPLOY_CONFIG_BASE_DIR: ./docker/nas01/
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN: ${SECRET_PROVIDER_ACCESS_TOKEN}
       POLL_CONFIG: |
