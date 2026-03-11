@@ -62,10 +62,10 @@ tasks:
   apps_nas:
     desc: Bootstrap Apps to NAS
     cmds:
-      - defer: rm -f {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env
-      - op inject --in-file {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env
-      - scp {{.DOCKER_DIR}}/nas01/apps/.doco-cd/docker-compose.app.yaml {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
-      - scp {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
+      - defer: rm -f {{.DOCKER_DIR}}/nas01/.doco-cd/.env
+      - op inject --in-file {{.DOCKER_DIR}}/nas01/.doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/.doco-cd/.env
+      - scp {{.DOCKER_DIR}}/nas01/.doco-cd/docker-compose.app.yaml {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
+      - scp {{.DOCKER_DIR}}/nas01/.doco-cd/.env {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
       - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker compose up -d"
     vars:
       NAS_HOST: 192.168.254.2
@@ -75,8 +75,8 @@ tasks:
       VAULT: kubernetes
     preconditions:
       - op user get --me
-      - test -f {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.secrets.env
-      - test -f {{.DOCKER_DIR}}/nas01/apps/.doco-cd/docker-compose.app.yaml
+      - test -f {{.DOCKER_DIR}}/nas01/.doco-cd/.secrets.env
+      - test -f {{.DOCKER_DIR}}/nas01/.doco-cd/docker-compose.app.yaml
       - which op
 
 
