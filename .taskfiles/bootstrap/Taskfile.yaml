@@ -63,7 +63,7 @@ tasks:
     desc: Bootstrap Apps to NAS
     cmds:
       - defer: rm -f {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env
-      - op inject --in-file {{.DOCKER_DIR}}/nas01/apps/doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env
+      - op inject --in-file {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env
       - scp {{.DOCKER_DIR}}/nas01/apps/.doco-cd/compose.yaml {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
       - scp {{.DOCKER_DIR}}/nas01/apps/.doco-cd/.env {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
       - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker compose up -d"
