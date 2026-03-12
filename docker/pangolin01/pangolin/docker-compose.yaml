@@ -27,14 +27,24 @@ services:
           memory: 256m
 
   crowdsec:
-    command: -t
+    image: ghcr.io/crowdsecurity/crowdsec:v1.7.6
     container_name: crowdsec
+    restart: unless-stopped
+    command: -t
+    volumes:
+      - /opt/appdata/crowdsec/config:/etc/crowdsec:rw
+      - /opt/appdata/crowdsec/data:/var/lib/crowdsec/data:rw
+      - /opt/appdata/pangolin/config/traefik/logs:/var/log/traefik:ro
+    configs:
+      - source: crowdsec_acquis
+        target: /etc/crowdsec/acquis.yaml
     environment:
-      COLLECTIONS: crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules
-      ENROLL_INSTANCE_NAME: pangolin-crowdsec
-      ENROLL_TAGS: docker
-      GID: "1000"
-      PARSERS: crowdsecurity/whitelists
+      - COLLECTIONS=crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules
+      - ENROLL_INSTANCE_NAME=pangolin-crowdsec
+      - ENROLL_TAGS=docker
+      - GID=1000
+      - PARSERS=crowdsecurity/whitelists
+      - TZ=${TZ}
     healthcheck:
       interval: 10s
       retries: 3
@@ -45,17 +55,8 @@ services:
         - lapi
         - status
       timeout: 5s
-    image: ghcr.io/crowdsecurity/crowdsec:v1.7.6
     labels:
       - traefik.enable=false
-    restart: unless-stopped
-    volumes:
-      - /opt/appdata/crowdsec/config:/etc/crowdsec:rw
-      - /opt/appdata/crowdsec/data:/var/lib/crowdsec/data:rw
-      - /opt/appdata/pangolin/config/traefik/logs:/var/log/traefik:ro
-    configs:
-      - source: crowdsec_acquis
-        target: /etc/crowdsec/acquis.yaml
 
   gerbil:
     image: ghcr.io/fosrl/gerbil:1.3.0
@@ -83,20 +84,19 @@ services:
     image: docker.io/traefik:3.6.10
     container_name: traefik
     restart: unless-stopped
+    command:
+      - --configFile=/etc/traefik/traefik_config.yml
     environment:
-      - OVH_ENDPOINT=ovh-eu
-      - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY}
-      - OVH_APPLICATION_SECRET=${OVH_APPLICATION_SECRET}
-      - OVH_CONSUMER_KEY=${OVH_CONSUMER_KEY}
+      - CF_API_EMAIL=${CLOUDFLARE_EMAIL}
+      - CF_DNS_API_TOKEN=${CLOUDFLARE_TRAEFIK_API_TOKEN}
       - CROWDSEC_API_KEY=${CROWDSEC_TRAEFIK_API_KEY}
+      - TZ=${TZ}
     network_mode: service:gerbil
     depends_on:
       crowdsec:
         condition: service_healthy
       pangolin:
         condition: service_healthy
-    command:
-      - --configFile=/etc/traefik/traefik_config.yml
     volumes:
       - /opt/appdata/pangolin/config/letsencrypt:/letsencrypt:rw
       - /opt/appdata/pangolin/config/traefik/logs:/var/log/traefik:rw
