@@ -23,7 +23,7 @@ services:
       - 'traefik.http.routers.uptime-kuma-rtr.entrypoints=https'
       - 'traefik.http.routers.uptime-kuma-rtr.rule=Host(`uptime.${DOMAIN}`)'
       - 'traefik.http.routers.uptime-kuma-rtr.tls=true'
-      - 'traefik.http.routers.uptime-kuma-rtr.tls.certresolver=mydnschallenge'
+      - 'traefik.http.routers.uptime-kuma-rtr.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.uptime-kuma-rtr.middlewares=chain-no-auth@file'
       - 'traefik.http.routers.uptime-kuma-rtr.service=uptime-kuma-svc'
       - 'traefik.http.routers.uptime-kuma-rtr.tls.domains[0].sans=*.${DOMAIN}'
