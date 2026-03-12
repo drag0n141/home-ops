@@ -36,6 +36,7 @@ metadata:
   name: teleport
   annotations:
     external-dns.alpha.kubernetes.io/controller: none
+    newt-sidecar/enabled: false
 spec:
   hostnames:
     - "teleport.${SECRET_DOMAIN}"
