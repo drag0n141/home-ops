@@ -142,6 +142,11 @@ configs:
       domains:
           domain1:
               base_domain: "${DOMAIN}"
+              prefer_wildcard_cert: true
+              cert_resolver: "letsencrypt"
+          domain2:
+              base_domain: "${DOMAIN_SHORT}"
+              prefer_wildcard_cert: true
               cert_resolver: "letsencrypt"
       server:
           secret: "${PANGOLIN_SERVER_SECRET}"
