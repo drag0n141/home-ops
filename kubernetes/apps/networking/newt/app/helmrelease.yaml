@@ -58,14 +58,9 @@ spec:
         newt:
           type: ClusterRole
           rules:
-            - apiGroups:
-                - gateway.networking.k8s.io
-              resources:
-                - httproutes
-              verbs:
-                - get
-                - watch
-                - list
+            - apiGroups: ["gateway.networking.k8s.io"]
+              resources: ["httproutes"]
+              verbs: ["get", "watch", "list"]
       bindings:
         newt:
           type: ClusterRoleBinding
