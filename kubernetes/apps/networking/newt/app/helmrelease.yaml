@@ -17,10 +17,11 @@ spec:
         initContainers:
           newt-sidecar:
             image:
-              repository: ghcr.io/home-operations/newt-sidecar
-              tag: 0.0.1
+              repository: ghcr.io/drag0n141/newt-sidecar
+              tag: feat-service-discovery-2dff08a
             args:
               - --gateway-name=envoy-external
+              - --enable-service
               - --site-id=informal-big-headed-mole-rat
               - --target-hostname=envoy-external.networking.svc.cluster.local
               - --deny-countries=RU,CN,KP,IR,BY,IL
