@@ -79,6 +79,26 @@ tasks:
       - test -f {{.DOCKER_DIR}}/nas01/.doco-cd/docker-compose.app.yaml
       - which op
 
+  apps_pangolin:
+    desc: Bootstrap Apps to Pangolin [HOST=required]
+    cmds:
+      - defer: rm -f {{.DOCKER_DIR}}/pangolin01/.doco-cd/.env
+      - op inject --in-file {{.DOCKER_DIR}}/pangolin01/.doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/pangolin01/.doco-cd/.env
+      - scp {{.DOCKER_DIR}}/pangolin01/.doco-cd/docker-compose.app.yaml {{.USER}}@{{.HOST}}:{{.COMPOSE_DIR}}/
+      - scp {{.DOCKER_DIR}}/pangolin01/.doco-cd/.env {{.USER}}@{{.HOST}}:{{.COMPOSE_DIR}}/
+      - ssh {{.USER}}@{{.HOST}} "cd {{.COMPOSE_DIR}} && docker compose up -d"
+    vars:
+      USER: root
+      COMPOSE_DIR: /opt/appdata/compose/doco-cd
+    env:
+      VAULT: kubernetes
+    requires:
+      vars: [HOST]
+    preconditions:
+      - op user get --me
+      - test -f {{.DOCKER_DIR}}/pangolin01/.doco-cd/.secrets.env
+      - test -f {{.DOCKER_DIR}}/pangolin01/.doco-cd/docker-compose.app.yaml
+      - which op
 
   matchbox:
     desc: Sync required Matchbox config to PXEBoot machine
