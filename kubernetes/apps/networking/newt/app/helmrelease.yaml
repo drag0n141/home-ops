@@ -18,7 +18,7 @@ spec:
           newt-sidecar:
             image:
               repository: ghcr.io/drag0n141/newt-sidecar
-              tag: feat-service-discovery-7382205
+              tag: feat-service-discovery-7e6afc2
             args:
               - --gateway-name=envoy-external
               - --enable-service
