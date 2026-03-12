@@ -18,10 +18,11 @@ spec:
           newt-sidecar:
             image:
               repository: ghcr.io/drag0n141/newt-sidecar
-              tag: feat-service-discovery-49f6a75
+              tag: feat-service-discovery-9e84307
             args:
               - --gateway-name=envoy-external
               - --enable-service
+              - --all-ports
               - --site-id=informal-big-headed-mole-rat
               - --target-hostname=envoy-external.networking.svc.cluster.local
               - --deny-countries=RU,CN,KP,IR,BY,IL
