@@ -9,6 +9,6 @@ external_secrets:
   CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
   CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
   DOMAIN: "op://Kubernetes/domains/DOMAIN"
-  MAXMIND_PANGOLIN_LICENSE_KEY: op://Services/MaxMind/License Keys/pangolin_license_key
-  PANGOLIN_SERVER_SECRET: op://Services/Pangolin/Server/server_secret
-  CROWDSEC_TRAEFIK_API_KEY: op://Services/Pangolin/Server/crowdsec_traefik_api_key
+  MAXMIND_PANGOLIN_LICENSE_KEY: op://Kubernetes/maxmind/MAXMIND_LICENSE_KEY
+  PANGOLIN_SERVER_SECRET: op://Kubernetes/pangolin/PANGOLIN_SERVER_SECRET
+  CROWDSEC_TRAEFIK_API_KEY: op://Kubernetes/pangolin/CROWDSEC_TRAEFIK_API_KEY
