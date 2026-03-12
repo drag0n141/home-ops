@@ -23,7 +23,7 @@ spec:
               - --gateway-name=envoy-external
               - --site-id=informal-big-headed-mole-rat
               - --target-hostname=envoy-external.networking.svc.cluster.local
-              - --deny-countries=RU,CN,KP,IR,BY
+              - --deny-countries=RU,CN,KP,IR,BY,IL
             restartPolicy: Always
             resources:
               limits:
