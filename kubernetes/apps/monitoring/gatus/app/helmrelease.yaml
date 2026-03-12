@@ -29,8 +29,6 @@ spec:
               tag: 0.0.13@sha256:40d549ea5ae89acac94bdf4cee1233e718a96c6e382c67f7e28de688511169d2
             args:
               - --auto-httproute
-              - --auto-ingress
-              - --enable-ingress
               - --enable-httproute
               - --enable-service
             resources:
@@ -113,9 +111,6 @@ spec:
               verbs: ["get", "watch", "list"]
             - apiGroups: ["gateway.networking.k8s.io"]
               resources: ["gateways", "httproutes"]
-              verbs: ["get", "watch", "list"]
-            - apiGroups: ["networking.k8s.io"]
-              resources: ["ingresses", "ingressclasses"]
               verbs: ["get", "watch", "list"]
       bindings:
         gatus:
