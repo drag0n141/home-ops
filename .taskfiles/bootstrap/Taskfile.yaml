@@ -66,7 +66,7 @@ tasks:
       - op inject --in-file {{.DOCKER_DIR}}/nas01/.doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/nas01/.doco-cd/.env
       - scp {{.DOCKER_DIR}}/nas01/.doco-cd/docker-compose.app.yaml {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
       - scp {{.DOCKER_DIR}}/nas01/.doco-cd/.env {{.NAS_USER}}@{{.NAS_HOST}}:{{.COMPOSE_DIR}}/
-      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker compose up -d"
+      - ssh {{.NAS_USER}}@{{.NAS_HOST}} "cd {{.COMPOSE_DIR}} && docker compose -f docker-compose.app.yaml up -d"
     vars:
       NAS_HOST: 192.168.254.2
       NAS_USER: root
@@ -86,7 +86,7 @@ tasks:
       - op inject --in-file {{.DOCKER_DIR}}/pangolin01/.doco-cd/.secrets.env --out-file {{.DOCKER_DIR}}/pangolin01/.doco-cd/.env
       - scp {{.DOCKER_DIR}}/pangolin01/.doco-cd/docker-compose.app.yaml {{.USER}}@{{.HOST}}:{{.COMPOSE_DIR}}/
       - scp {{.DOCKER_DIR}}/pangolin01/.doco-cd/.env {{.USER}}@{{.HOST}}:{{.COMPOSE_DIR}}/
-      - ssh {{.USER}}@{{.HOST}} "cd {{.COMPOSE_DIR}} && docker compose up -d"
+      - ssh {{.USER}}@{{.HOST}} "cd {{.COMPOSE_DIR}} && docker compose -f docker-compose.app.yaml up -d"
     vars:
       USER: root
       COMPOSE_DIR: /opt/appdata/compose/doco-cd
