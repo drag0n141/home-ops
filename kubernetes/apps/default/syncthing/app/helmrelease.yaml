@@ -64,7 +64,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.120
-          newt-sidecar/enabled: true
+          newt-sidecar/enabled: "true"
         ports:
           discovery:
             port: 21027
