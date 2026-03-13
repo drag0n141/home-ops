@@ -165,6 +165,20 @@ spec:
           runAsGroup: 33
           runAsNonRoot: true
           runAsUser: 33
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - nextcloud
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - app
+              topologyKey: kubernetes.io/hostname
     internalDatabase:
       enabled: false
     externalDatabase:
