@@ -81,6 +81,12 @@ services:
       - 21820:21820/udp
       - 443:443
       - 80:80
+      - 22000:22000
+      - 22000:22000/udp
+      - 21027:21027/udp
+      - 10011:10011
+      - 30033:30033
+      - 9987:9987/udp
 
   traefik:
     image: docker.io/traefik:3.6.10
@@ -286,6 +292,18 @@ configs:
             encodedCharacters:
               allowEncodedSlash: true
               allowEncodedQuestionMark: true
+        tcp-22000:
+          address: ":22000/tcp"
+        tcp-10011:
+          address: ":10011/tcp"
+        tcp-30033:
+          address: ":30033/tcp"
+        udp-9987:
+          address: ":9987/udp"
+        udp-21027:
+          address: ":21027/udp"
+        udp-22000:
+          address: ":22000/udp"
 
       serversTransport:
         insecureSkipVerify: true
