@@ -7,7 +7,7 @@ spec:
   endpoints:
     - dnsName: pangolin.${SECRET_DOAMIN}
       recordType: A
-      targets: ["${SECRET_PANGOLIN_IP"]
+      targets: ["${SECRET_PANGOLIN_IP}"]
     - dnsName: "external.${SECRET_DOMAIN}"
       recordType: CNAME
       targets: ["pangolin.${SECRET_DOAMIN}"]
