@@ -1,0 +1,13 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: pangolin
+spec:
+  endpoints:
+    - dnsName: pangolin.${SECRET_DOAMIN}
+      recordType: A
+      targets: ["${SECRET_PANGOLIN_IP"]
+    - dnsName: "external.${SECRET_DOMAIN}"
+      recordType: CNAME
+      targets: ["pangolin.${SECRET_DOAMIN}"]

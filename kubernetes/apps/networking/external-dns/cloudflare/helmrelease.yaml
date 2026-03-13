@@ -20,7 +20,6 @@ spec:
             key: CF_API_TOKEN
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
-      - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-name=envoy-external
@@ -29,7 +28,7 @@ spec:
     sources: ["crd","gateway-httproute"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_SHORT}"]
     serviceMonitor:
       enabled: true
     podAnnotations:
