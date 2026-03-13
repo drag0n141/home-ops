@@ -5,7 +5,7 @@ metadata:
   name: pangolin
 spec:
   endpoints:
-    - dnsName: pangolin.${SECRET_DOAMIN}
+    - dnsName: "pangolin.${SECRET_DOAMIN}"
       recordType: A
       targets: ["${SECRET_PANGOLIN_IP}"]
     - dnsName: "external.${SECRET_DOMAIN}"
