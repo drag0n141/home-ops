@@ -182,8 +182,6 @@ spec:
       existingClaim: *app
     httpRoute:
       enabled: true
-      annotations:
-        external-dns.alpha.kubernetes.io/controller: none
       hostnames:
         - *host
       parentRefs:
