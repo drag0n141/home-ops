@@ -367,7 +367,7 @@ configs:
               referrerPolicy: strict-origin-when-cross-origin
               sslProxyHeaders:
                 X-Forwarded-Proto: https
-              stsIncludeSubdomains: true
+              stsIncludeSubdomains: false
               stsPreload: true
               stsSeconds: 63072000
         routers:
