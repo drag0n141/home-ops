@@ -17,8 +17,8 @@ spec:
         initContainers:
           newt-sidecar:
             image:
-              repository: ghcr.io/drag0n141/newt-sidecar
-              tag: feat-service-discovery-7e6afc2
+              repository: ghcr.io/home-operations/newt-sidecar
+              tag: main-dc423e5
             args:
               - --gateway-name=envoy-external
               - --enable-service
