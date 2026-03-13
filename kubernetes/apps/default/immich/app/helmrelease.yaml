@@ -90,8 +90,6 @@ spec:
             port: 8081
     route:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/controller: none
         hostnames:
           - "photos.${SECRET_DOMAIN}"
         parentRefs:
