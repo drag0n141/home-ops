@@ -156,6 +156,10 @@ configs:
               base_domain: "${DOMAIN_SHORT}"
               prefer_wildcard_cert: true
               cert_resolver: "letsencrypt"
+          domain2:
+              base_domain: "${DOMAIN_PANGOLIN}"
+              prefer_wildcard_cert: true
+              cert_resolver: "letsencrypt"
       server:
           secret: "${PANGOLIN_SERVER_SECRET}"
           cors:
