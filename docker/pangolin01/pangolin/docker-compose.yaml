@@ -373,6 +373,9 @@ configs:
                 - main: "${DOMAIN}"
                   sans:
                     - "*.${DOMAIN}"
+                - main: "${DOMAIN_SHORT}"
+                  sans:
+                    - "*.${DOMAIN_SHORT}"
 
           # API router (handles /api/v1 paths)
           api-router:
