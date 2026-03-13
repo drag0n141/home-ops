@@ -38,6 +38,8 @@ services:
     configs:
       - source: crowdsec_acquis
         target: /etc/crowdsec/acquis.yaml
+      - source: crowdsec_whitelist
+        target: /etc/crowdsec/postoverflows/s01-whitelist/01-home-whitelist.yaml
     environment:
       - COLLECTIONS=crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules
       - ENROLL_INSTANCE_NAME=pangolin-crowdsec
@@ -178,6 +180,14 @@ configs:
       appsec_config: crowdsecurity/virtual-patching
       labels:
         type: appsec
+  crowdsec_whitelist:
+    content: |
+      name: my/home-dynamic-ip
+      description: "Whitelist home dynamic IP via DDNS"
+      whitelist:
+        reason: "Home DynDNS"
+        expression:
+          - evt.Overflow.Alert.Source.IP in LookupHost("ipv4.${DOMAIN}")
   traefik_config:
     content: |-
       ---
