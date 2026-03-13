@@ -77,8 +77,6 @@ spec:
             protocol: UDP
     route:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/controller: none
         hostnames:
           - "sync.${SECRET_DOMAIN}"
         parentRefs:
