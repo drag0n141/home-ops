@@ -156,7 +156,7 @@ configs:
               base_domain: "${DOMAIN_SHORT}"
               prefer_wildcard_cert: true
               cert_resolver: "letsencrypt"
-          domain2:
+          domain3:
               base_domain: "${DOMAIN_PANGOLIN}"
               prefer_wildcard_cert: true
               cert_resolver: "letsencrypt"
