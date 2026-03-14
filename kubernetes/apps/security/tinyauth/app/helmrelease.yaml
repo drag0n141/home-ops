@@ -17,12 +17,11 @@ spec:
           app:
             image:
               repository: ghcr.io/steveiliop56/tinyauth
-              tag: v5.0.0-alpha.1@sha256:9cf889b8dceb6ea85c69e1b42a6dc33ce1ca7b4aae1a3807ce3ddf6e494cca74
-              # tag: v4.1.0@sha256:402ee231204757a3e01b4aaba9e4aa09a3c7c4680a82bc47135632ec8864b8c8
+              tag: v5.0.4@sha256:d5035210ee238ca23f438f3715bcfec9b8135475316d2507a9df3ffc191aa173
             env:
               TZ: ${TIMEZONE}
               TINYAUTH_APPURL: https://tinyauth.${SECRET_DOMAIN}
-              TINYAUTH_DISABLEANALYTICS: true
+              TINYAUTH_ANALYTICS_ENABLED: false
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_NAME: Pocket-ID
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_AUTHURL: https://id.${SECRET_DOMAIN}/authorize
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL: https://id.${SECRET_DOMAIN}/api/oidc/token
@@ -30,9 +29,9 @@ spec:
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: openid email profile groups
               TINYAUTH_AUTH_SECURECOOKIE: true
               TINYAUTH_AUTH_SESSIONEXPIRY: 604800
-              TINYAUTH_RESOURCESDIR: /data/resources
-              TINYAUTH_DATABASEPATH: /data/tinyauth.db
-              TINYAUTH_SERVER_TRUSTEDPROXIES: 10.42.0.0/16
+              TINYAUTH_AUTH_TRUSTEDPROXIES: 10.42.0.0/16
+              TINYAUTH_RESOURCES_PATH: /data/resources
+              TINYAUTH_DATABASE_PATH: /data/tinyauth.db
             envFrom:
               - secretRef:
                   name: tinyauth-secret
