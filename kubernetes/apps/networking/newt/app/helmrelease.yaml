@@ -18,7 +18,7 @@ spec:
           newt-sidecar:
             image:
               repository: ghcr.io/home-operations/newt-sidecar
-              tag: main-4adf237
+              tag: 0.1.0
             args:
               - --gateway-name=envoy-external
               - --enable-service
