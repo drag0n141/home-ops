@@ -22,7 +22,6 @@ spec:
             args:
               - --gateway-name=envoy-external
               - --enable-service
-              - --all-ports
               - --auth-sso-idp=1
               - --site-id=informal-big-headed-mole-rat
               - --target-hostname=envoy-external.networking.svc.cluster.local
