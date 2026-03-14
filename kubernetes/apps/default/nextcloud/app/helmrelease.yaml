@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -152,7 +153,7 @@ spec:
           pm.max_children = 57
           pm.start_servers = 14
           pm.min_spare_servers = 14
-          pm.max_spare_athers = 42
+          pm.max_spare_servers = 42
           pm.max_requests = 500
           pm.process_idle_timeout = 10s
     cronjob:
