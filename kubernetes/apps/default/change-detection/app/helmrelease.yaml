@@ -60,10 +60,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        annotations:
-          teleport.dev/name: "{{ .Release.Name }}"
-        labels:
-          teleport: enabled
         ports:
           http:
             port: 5000

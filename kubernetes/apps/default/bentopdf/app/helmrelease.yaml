@@ -37,9 +37,9 @@ spec:
     service:
       app:
         annotations:
-          teleport.dev/name: "{{ .Release.Name }}"
-        labels:
-          teleport: enabled
+          newt-sidecar/enabled: "true"
+          newt-sidecar/auth-sso: "true"
+          newt-sidecar/full-domain: "pdf.${SECRET_DOMAIN_PANGOLIN}"
         ports:
           http:
             port: &port 8080
