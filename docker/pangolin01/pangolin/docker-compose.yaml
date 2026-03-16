@@ -38,6 +38,8 @@ services:
     configs:
       - source: crowdsec_acquis
         target: /etc/crowdsec/acquis.yaml
+      - source: crowdsec_scenario_override
+        target: /etc/crowdsec/scenarios/http-crawl-non_statics.yaml
       - source: crowdsec_whitelist
         target: /etc/crowdsec/postoverflows/s01-whitelist/01-home-whitelist.yaml
     environment:
@@ -190,6 +192,20 @@ configs:
       appsec_config: crowdsecurity/virtual-patching
       labels:
         type: appsec
+  crowdsec_scenario_override:
+    content: |
+      name: crowdsecurity/http-crawl-non_statics
+      type: leaky
+      description: "Override: relaxed threshold for legit browsing"
+      filter: "evt.Meta.service == 'http' && evt.Meta.http_status in ['404','403','400']"
+      groupby: "evt.Meta.source_ip"
+      capacity: 80
+      leakspeed: "10s"
+      blackhole: 5m
+      labels:
+        service: http
+        type: crawl
+        remediation: true
   crowdsec_whitelist:
     content: |
       name: my/home-dynamic-ip
