@@ -355,7 +355,8 @@ configs:
                 defaultDecisionSeconds: 15
                 enabled: true
                 forwardedHeadersTrustedIPs:
-                  - 0.0.0.0/0
+                  - 10.0.0.0/8
+                  - 172.16.0.0/12
                 httpTimeoutSeconds: 10
                 logLevel: INFO
                 updateIntervalSeconds: 15
