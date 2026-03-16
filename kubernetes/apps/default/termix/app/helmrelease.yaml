@@ -39,6 +39,10 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        annotations:
+          newt-sidecar/enabled: "true"
+          newt-sidecar/auth-sso: "true"
+          newt-sidecar/full-domain: "{{ .Release.Name }}.${SECRET_DOMAIN_PANGOLIN}"
         ports:
           http:
             port: *port
