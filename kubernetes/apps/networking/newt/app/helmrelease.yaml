@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/fosrl/newt
-              tag: 1.10.2@sha256:c7b4f508cba35d698a3e4b2d55e3d902ae993d6588198291ef8e232d30421974
+              tag: 1.10.3@sha256:41a269865ed59dc16a8412b292380b15bf506d2a3a386eca024ffb29e0d18cd5
             env:
               BLUEPRINT_FILE: /etc/newt/blueprint.yaml
               PANGOLIN_ENDPOINT: https://pangolin.${SECRET_DOMAIN}
