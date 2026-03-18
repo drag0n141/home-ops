@@ -141,6 +141,11 @@ cameras:
     objects:
       track:
         - person
+      filters:
+        person:
+          mask:
+            - 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
+            - 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
     lpr:
       enabled: false
   yard:
@@ -159,6 +164,11 @@ cameras:
     objects:
       track:
         - person
+      filters:
+        person:
+          mask:
+            - 0.942,0,0.869,0.297,0,0.544,0,0
+            - 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
     lpr:
       enabled: true
     motion:
