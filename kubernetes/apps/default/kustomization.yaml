@@ -11,6 +11,7 @@ resources:
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
   - ./convertx/ks.yaml
+  - ./cve-report/ks.yaml
   - ./donetick/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
