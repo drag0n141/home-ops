@@ -91,7 +91,7 @@ services:
       - 9987:9987/udp
 
   traefik:
-    image: docker.io/traefik:3.6.10
+    image: docker.io/traefik:v3.6.11
     container_name: traefik
     restart: unless-stopped
     command:
