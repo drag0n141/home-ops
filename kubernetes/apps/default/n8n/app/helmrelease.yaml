@@ -30,6 +30,10 @@ spec:
               tag: 2.13.2@sha256:72e962537379dcefeb63a01397a099576e2e89a365f5a75efb8a5ad5bc5cff6a
             env:
               TZ: ${TIMEZONE}
+              CHECKMK_URL: https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk
+              GOTIFY_URL: http://gotify.default.svc.cluster.local
+              SMTP_FROM: cve-report@${SECRET_DOMAIN}
+              REPORT_TO: server.cve@${SECRET_DOMAIN_SHORT}
               GENERIC_TIMEZONE: ${TIMEZONE}
               DB_TYPE: postgresdb
               EXECUTIONS_DATA_PRUNE: true
