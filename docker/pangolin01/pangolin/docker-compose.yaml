@@ -26,42 +26,6 @@ services:
         reservations:
           memory: 256m
 
-  crowdsec:
-    image: ghcr.io/crowdsecurity/crowdsec:v1.7.6
-    container_name: crowdsec
-    restart: unless-stopped
-    command: -t
-    volumes:
-      - /opt/appdata/crowdsec/config:/etc/crowdsec:rw
-      - /opt/appdata/crowdsec/data:/var/lib/crowdsec/data:rw
-      - /opt/appdata/pangolin/config/traefik/logs:/var/log/traefik:ro
-    configs:
-      - source: crowdsec_acquis
-        target: /etc/crowdsec/acquis.yaml
-      - source: crowdsec_scenario_override
-        target: /etc/crowdsec/scenarios/http-crawl-non_statics.yaml
-      - source: crowdsec_whitelist
-        target: /etc/crowdsec/postoverflows/s01-whitelist/01-home-whitelist.yaml
-    environment:
-      - COLLECTIONS=crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules
-      - ENROLL_INSTANCE_NAME=pangolin-crowdsec
-      - ENROLL_TAGS=docker
-      - GID=1000
-      - PARSERS=crowdsecurity/whitelists
-      - TZ=${TZ}
-    healthcheck:
-      interval: 10s
-      retries: 3
-      start_period: 30s
-      test:
-        - CMD
-        - cscli
-        - lapi
-        - status
-      timeout: 5s
-    labels:
-      - traefik.enable=false
-
   gerbil:
     image: ghcr.io/fosrl/gerbil:1.3.0
     container_name: gerbil
@@ -99,12 +63,9 @@ services:
     environment:
       - CF_API_EMAIL=${CLOUDFLARE_EMAIL}
       - CF_DNS_API_TOKEN=${CLOUDFLARE_TRAEFIK_API_TOKEN}
-      - CROWDSEC_API_KEY=${CROWDSEC_TRAEFIK_API_KEY}
       - TZ=${TZ}
     network_mode: service:gerbil
     depends_on:
-      crowdsec:
-        condition: service_healthy
       pangolin:
         condition: service_healthy
     volumes:
@@ -177,43 +138,6 @@ configs:
           disable_user_create_org: false
           allow_raw_resources: true
           enable_integration_api: true
-  crowdsec_acquis:
-    content: |
-      ---
-      source: file
-      filenames:
-        - /var/log/traefik/access.log
-      labels:
-        type: traefik
-      ---
-      source: appsec
-      listen_addr: 0.0.0.0:7422
-      path: /
-      appsec_config: crowdsecurity/virtual-patching
-      labels:
-        type: appsec
-  crowdsec_scenario_override:
-    content: |
-      name: crowdsecurity/http-crawl-non_statics
-      type: leaky
-      description: "Override: relaxed threshold for legit browsing"
-      filter: "evt.Meta.service == 'http' && evt.Meta.http_status in ['404','403','400']"
-      groupby: "evt.Meta.source_ip"
-      capacity: 80
-      leakspeed: "10s"
-      blackhole: 5m
-      labels:
-        service: http
-        type: crawl
-        remediation: true
-  crowdsec_whitelist:
-    content: |
-      name: my/home-dynamic-ip
-      description: "Whitelist home dynamic IP via DDNS"
-      whitelist:
-        reason: "Home DynDNS"
-        expression:
-          - evt.Overflow.Alert.Source.IP in LookupHost("ipv4.${DOMAIN}")
   traefik_config:
     content: |-
       ---
@@ -233,9 +157,6 @@ configs:
           badger:
             moduleName: "github.com/fosrl/badger"
             version: "v1.3.1"
-          crowdsec:
-            moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
-            version: v1.5.1
 
       log:
         level: "INFO"
@@ -306,8 +227,6 @@ configs:
           http:
             tls:
               certResolver: "letsencrypt"
-            middlewares:
-              - crowdsec@file
             encodedCharacters:
               allowEncodedSlash: true
               allowEncodedQuestionMark: true
@@ -335,32 +254,6 @@ configs:
       ---
       http:
         middlewares:
-          crowdsec:
-            plugin:
-              crowdsec:
-                clientTrustedIPs:
-                  - 10.0.0.0/8
-                  - 172.16.0.0/12
-                  - 192.168.0.0/16
-                  - 100.89.137.0/20
-                crowdsecAppsecBodyLimit: 10485760
-                crowdsecAppsecEnabled: true
-                crowdsecAppsecFailureBlock: true
-                crowdsecAppsecHost: crowdsec:7422
-                crowdsecAppsecUnreachableBlock: true
-                crowdsecLapiHost: crowdsec:8080
-                crowdsecLapiKey: {{ env "CROWDSEC_API_KEY" }}
-                crowdsecLapiScheme: http
-                crowdsecMode: live
-                defaultDecisionSeconds: 15
-                enabled: true
-                forwardedHeadersTrustedIPs:
-                  - 10.0.0.0/8
-                  - 172.16.0.0/12
-                httpTimeoutSeconds: 10
-                logLevel: INFO
-                updateIntervalSeconds: 15
-                updateMaxFailure: 0
           default-whitelist:
             ipWhiteList:
               sourceRange:
