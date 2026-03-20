@@ -18,14 +18,18 @@ spec:
           newt-sidecar:
             image:
               repository: ghcr.io/home-operations/newt-sidecar
-              tag: 0.1.2
-            args:
-              - --gateway-name=envoy-external
-              - --enable-service
-              - --auth-sso-idp=1
-              - --site-id=informal-big-headed-mole-rat
-              - --target-hostname=envoy-external.networking.svc.cluster.local
-              - --deny-countries=RU,CN,KP,IR,BY,IL
+              tag: 0.2.0
+            env:
+              NEWTSC_SITE_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: newt-secret
+                    key: NEWTSC_SITE_NICEID
+              NEWTSC_AUTH_SSO_IDP: 1
+              NEWTSC_DENY_COUNTRIES: RU,CN,KP,IR,BY,IL
+              NEWTSC_ENABLE_SERVCICE: true
+              NEWTSC_GATEWAY_NAME: envoy-external
+              NEWTSC_TARGET_HOSTNAME: envoy-external.networking.svc.cluster.local
             restartPolicy: Always
             resources:
               limits:
