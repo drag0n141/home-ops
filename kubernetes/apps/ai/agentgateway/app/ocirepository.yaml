@@ -9,5 +9,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.0.1
-  url: oci://cr.agentgateway.dev/charts/agentgateway
+    tag: v1.0.0
+  url: oci://ghcr.io/agentgateway/charts/agentgateway
