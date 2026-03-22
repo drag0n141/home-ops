@@ -20,10 +20,10 @@ spec:
               tag: v1.3.3@sha256:4bfeac268ba87b8e08e308c9aa0182fe99e9501ec464027afc333d1634e65977
             env:
               TZ: ${TIMEZONE}
+              APPRISE_BASE_URL: https://apprise.${SECRET_DOMAIN_INTERNAL}
               APPRISE_DEFAULT_THEME: dark
               APPRISE_STATEFUL_MODE: simple
               APPRISE_WORKER_COUNT: 4
-              BASE_URL: https://apprise.${SECRET_DOMAIN_INTERNAL}
               IPV4_ONLY: true
             securityContext:
               allowPrivilegeEscalation: false
