@@ -268,6 +268,8 @@ configs:
               contentTypeNosniff: true
               customFrameOptionsValue: SAMEORIGIN
               customResponseHeaders:
+                Content-Security-Policy = "upgrade-insecure-requests;"
+                Permissions-Policy = "accelerometer=(),camera=(),geolocation=(),gyroscope=(),magnetometer=(),microphone=(),payment=(),usb=()"
                 Server: ""
                 X-Forwarded-Proto: https
                 X-Powered-By: ""
