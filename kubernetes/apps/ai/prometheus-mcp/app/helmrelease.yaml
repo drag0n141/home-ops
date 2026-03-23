@@ -17,20 +17,18 @@ spec:
           app:
             image:
               repository: ghcr.io/pab1it0/prometheus-mcp-server
-              tag: 1.6.0
+              tag: 1.6.0@sha256:06259d8cc17469edd79989fd4b9de57cec7afb028e1469c02ebada6a952de5e1
             env:
               TZ: ${TIMEZONE}
-              PROMETHEUS_URL: http://prometheus-kube-prometheus-stack.monitoring.svc.cluster.local:9090
+              PROMETHEUS_URL: http://prometheus-operated.monitoring.svc.cluster.local:9090
               PROMETHEUS_MCP_SERVER_TRANSPORT: http
               PROMETHEUS_MCP_BIND_HOST: 0.0.0.0
               PROMETHEUS_MCP_BIND_PORT: "8080"
-              PROMETHEUS_DISABLE_LINKS: "true"
+              PROMETHEUS_DISABLE_LINKS: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -42,8 +40,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        seccompProfile:
-          type: RuntimeDefault
     service:
       app:
         labels:
