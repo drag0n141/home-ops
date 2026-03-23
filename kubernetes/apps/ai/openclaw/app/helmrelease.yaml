@@ -101,7 +101,7 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 512Mi
+                memory: 1Gi
               limits:
                 cpu: 2000m
                 memory: 4Gi
@@ -140,6 +140,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
+                memory: 128Mi
               limits:
                 memory: 1Gi
     defaultPodOptions:
@@ -188,7 +189,7 @@ spec:
           type: ClusterRole
           rules:
             - apiGroups: [""]
-              resources: ["pods", "nodes", "services", "namespaces", "configmaps", "persistentvolumes", "persistentvolumeclaims", "endpoints", "resourcequotas", "limitranges", "serviceaccounts", "events"]  # Added events
+              resources: ["pods", "nodes", "services", "namespaces", "configmaps", "persistentvolumes", "persistentvolumeclaims", "endpoints", "resourcequotas", "limitranges", "serviceaccounts", "events"]
               verbs: ["get", "list", "watch"]
             - apiGroups: [""]
               resources: ["pods/log"]
