@@ -25,9 +25,10 @@ jobs:
           fetch-depth: 0
 
       - uses: anthropics/claude-code-action@v1
+        env:
+          ANTHROPIC_BASE_URL: "https://api.minimax.io/anthropic"
         with:
           claude_code_oauth_token: ${{ secrets.MINIMAX_API_KEY }}
-          anthropic_base_url: "https://api.minimax.io/anthropic"
           allowed_bots: "drag0n141-bot[bot]"
           claude_args: |
             --model MiniMax-M2.7
