@@ -35,7 +35,7 @@ spec:
       memory: 512Mi
     limits:
       hugepages-2Mi: 2Gi
-      memory: 600Mi
+      memory: 2Gi
   monitoring:
     enablePodMonitor: true
   plugins:
