@@ -23,8 +23,14 @@ spec:
               PROMETHEUS_URL: http://prometheus-kube-prometheus-stack.monitoring.svc.cluster.local:9090
               PROMETHEUS_MCP_SERVER_TRANSPORT: http
               PROMETHEUS_MCP_BIND_HOST: 0.0.0.0
-              PROMETHEUS_MCP_BIND_PORT: 8080
+              PROMETHEUS_MCP_BIND_PORT: "8080"
               PROMETHEUS_DISABLE_LINKS: "true"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -36,6 +42,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
     service:
       app:
         labels:
