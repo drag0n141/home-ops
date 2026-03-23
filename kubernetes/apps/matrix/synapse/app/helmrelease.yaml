@@ -67,9 +67,9 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 1000Mi
+          memory: 256Mi
         limits:
-          memory: 2500Mi
+          memory: 512Mi
       annotations:
         reloader.stakater.com/auto: "true"
         prometheus.io/scrape: "true"
