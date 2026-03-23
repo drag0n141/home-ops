@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus-mcp
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      prometheus-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/pab1it0/prometheus-mcp-server
+              tag: 1.6.0@sha256:06259d8cc17469edd79989fd4b9de57cec7afb028e1469c02ebada6a952de5e1
+            env:
+              TZ: ${TIMEZONE}
+              PROMETHEUS_URL: http://prometheus-operated.monitoring.svc.cluster.local:9090
+              PROMETHEUS_MCP_SERVER_TRANSPORT: http
+              PROMETHEUS_MCP_BIND_HOST: 0.0.0.0
+              PROMETHEUS_MCP_BIND_PORT: "8080"
+              PROMETHEUS_DISABLE_LINKS: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+    service:
+      app:
+        labels:
+          mcp.home.arpa/server: "true"
+        ports:
+          http:
+            appProtocol: kgateway.dev/mcp
+            port: 8080
+    route:
+      app:
+        parentRefs:
+          - name: agentgateway-mcp
+            namespace: ai
+        rules:
+          - backendRefs:
+              - name: agentgateway-mcp
+                group: agentgateway.dev
+                kind: AgentgatewayBackend
