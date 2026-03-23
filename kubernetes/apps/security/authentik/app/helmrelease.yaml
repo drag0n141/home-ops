@@ -39,7 +39,7 @@ spec:
           cpu: 30m
           memory: 550Mi
         limits:
-          memory: 800Mi
+          memory: 1Gi
       metrics:
         enabled: true
         serviceMonitor:
@@ -56,7 +56,7 @@ spec:
       resources:
         requests:
           cpu: 50m
-          memory: 900Mi
+          memory: 600Mi
         limits:
           memory: 1500Mi
     postgresql:
