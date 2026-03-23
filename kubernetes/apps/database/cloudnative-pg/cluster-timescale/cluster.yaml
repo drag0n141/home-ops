@@ -35,7 +35,7 @@ spec:
       cpu: 500m
       memory: 512Mi
     limits:
-      memory: 4Gi
+      memory: 1536Mi
   monitoring:
     enablePodMonitor: true
   plugins:
