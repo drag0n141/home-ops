@@ -7,4 +7,4 @@ spec:
   images:
     - major: 18
       # renovate: datasource=docker depName=timescale/timescaledb-ha
-      image: timescale/timescaledb-ha:pg18.3-ts2.25.2@sha256:a743be037e944f23418fdddcf231f10aa0bc3ae2ee1218a0f8005915313f7a78
+      image: timescale/timescaledb-ha:pg18.3-ts2.25.2@sha256:416fe955f5d9aa42a5a1c273e63d6f6c3480faa9ca98171924ef09fa6315da5e
