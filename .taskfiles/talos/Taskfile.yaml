@@ -48,9 +48,9 @@ tasks:
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required]
     cmds:
-#      - task: down
+      - task: down
       - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer/$TALOS_SCHEMATIC:$TALOS_VERSION" --timeout=10m
-#      - task: up
+      - task: up
     env:
       TALOS_SCHEMATIC:
         sh: |-
