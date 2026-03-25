@@ -46,7 +46,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          guacd:
+          termix-guacd:
             app:
               - path: /home/guacd
                 subPath: guacd
