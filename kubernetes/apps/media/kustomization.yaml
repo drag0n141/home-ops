@@ -1,14 +1,13 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: media
 resources:
   - ./agregarr/ks.yaml
   - ./autopulse/ks.yaml
-  - ./booklore/ks.yaml
   - ./crosswatch/ks.yaml
   - ./dispatcharr/ks.yaml
   - ./ganymede/ks.yaml
+  - ./grimmory/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./plex/ks.yaml
