@@ -42,3 +42,11 @@ spec:
         ports:
           http:
             port: 4822
+    persistence:
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          guacd:
+            app:
+              - path: /home/guacd
+                subPath: guacd
