@@ -21,12 +21,15 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PORT: &port 8080
+              ENABLE_GUACAMOLE: true
+              GUACD_HOST: termix-guacd.default.svc.cluster.local
+              GUACD_PORT: "4822"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
             resources:
               requests:
-                cpu: 5m
+                cpu: 10m
                 memory: 128Mi
               limits:
                 memory: 512Mi
