@@ -30,6 +30,8 @@ spec:
               tag: 0.14.2@sha256:5da3aefd0a8393ebc756ae93e596e8cf41bebb9a7193ec244d246684a6119cad
             env:
               TZ: ${TIMEZONE}
+              PUID: 1000
+              PGID: 1000
               baseUrl: https://pulsarr.${SECRET_DOMAIN_INTERNAL}
               cookieSecured: true
               dbType: postgres
@@ -47,10 +49,10 @@ spec:
                 memory: 1Gi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
