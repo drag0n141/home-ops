@@ -7,9 +7,6 @@ metadata:
     app.kubernetes.io/name: home-assistant
   name: home-assistant
 spec:
-  appProtocols:
-    - gateway.envoyproxy.io/ws
-    - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
         hostname: haos.${SECRET_DOMAIN_INT}

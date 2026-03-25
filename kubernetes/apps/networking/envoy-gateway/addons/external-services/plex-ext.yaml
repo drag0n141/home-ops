@@ -19,9 +19,6 @@ metadata:
     app.kubernetes.io/name: plex-ext
   name: plex-ext
 spec:
-  appProtocols:
-    - gateway.envoyproxy.io/ws
-    - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
         hostname: ${SECRET_PLEX_SERVER}

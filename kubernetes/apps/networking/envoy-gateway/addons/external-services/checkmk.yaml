@@ -7,9 +7,6 @@ metadata:
     app.kubernetes.io/name: checkmk
   name: checkmk
 spec:
-  appProtocols:
-    - gateway.envoyproxy.io/ws
-    - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
         hostname: checkmk.${SECRET_DOMAIN_INT}
