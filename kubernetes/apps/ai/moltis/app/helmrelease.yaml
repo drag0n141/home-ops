@@ -52,6 +52,10 @@ spec:
                   failureThreshold: 3
             securityContext:
               privileged: true
+              runAsNonRoot: false
+              runAsUser: 0
+              runAsGroup: 0
+              allowPrivilegeEscalation: true
         containers:
           app:
             image:
@@ -86,9 +90,6 @@ spec:
                   failureThreshold: 3
               readiness: *probe
             securityContext:
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
             resources:
@@ -100,6 +101,9 @@ spec:
                 memory: 4Gi
     defaultPodOptions:
       securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
