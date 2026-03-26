@@ -21,6 +21,12 @@ spec:
               repository: quay.io/podman/stable
               tag: v5.8.1@sha256:080edf4fe511fa8493f1ed0b86bd71e7b2805a1ff5343037d4f6173c870d7e35
             restartPolicy: Always
+            command:
+              - podman
+              - system
+              - service
+              - --time=0
+              - tcp://0.0.0.0:2375
             securityContext:
               privileged: true
         containers:
