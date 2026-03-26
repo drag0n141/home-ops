@@ -131,7 +131,9 @@ spec:
       tmpfs:
         type: emptyDir
         globalMounts:
-          - path: /tmp
-            subPath: tmp
           - path: /certs
             subPath: certs
+          - path: /home/moltis/.docker
+            subPath: home
+          - path: /tmp
+            subPath: tmp
