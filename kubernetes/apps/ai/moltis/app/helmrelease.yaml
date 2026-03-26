@@ -67,9 +67,11 @@ spec:
               DOCKER_HOST: tcp://localhost:2376
               DOCKER_CERT_PATH: /certs/client
               DOCKER_TLS_VERIFY: "1"
-              MOLTIS_BEHIND_PROXY: "true"
+              MOLTIS_NO_TLS: true
+              MOLTIS_BEHIND_PROXY: true
               MOLTIS_CONFIG_DIR: /config
               MOLTIS_DATA_DIR: /data
+              MOLTIS_PROVIDER: minimax
               MOLTIS_WEBAUTHN_RP_ID: "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
               MOLTIS_WEBAUTHN_ORIGIN: "https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
               TZ: ${TIMEZONE}
