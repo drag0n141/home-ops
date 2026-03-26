@@ -57,12 +57,6 @@ spec:
             image:
               repository: ghcr.io/moltis-org/moltis
               tag: 0.10.18@sha256:b155dd370fd26d5ea7286ea41011fcfec5ea6effd93486dd0809e310f02ec9bc
-            args:
-              - --bind
-              - "[::]"
-              - --port
-              - "13131"
-              - --no-tls
             env:
               DOCKER_HOST: tcp://localhost:2376
               DOCKER_CERT_PATH: /certs/client
