@@ -9,6 +9,7 @@ resources:
   - ./kubectl-mcp/ks.yaml
   - ./linux-mcp/ks.yaml
   - ./mcp-gateway/ks.yaml
+  - ./moltis/ks.yaml
   - ./ollama/ks.yaml
   - ./openclaw/ks.yaml
   - ./prometheus-mcp/ks.yaml
