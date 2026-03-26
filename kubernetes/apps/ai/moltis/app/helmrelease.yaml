@@ -86,6 +86,9 @@ spec:
                   failureThreshold: 3
               readiness: *probe
             securityContext:
+              runAsNonRoot: true
+              runAsUser: 1000
+              runAsGroup: 1000
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
             resources:
