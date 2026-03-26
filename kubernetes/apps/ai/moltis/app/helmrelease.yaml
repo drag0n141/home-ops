@@ -21,8 +21,6 @@ spec:
               repository: docker.io/docker
               tag: 29.3.0-dind@sha256:1ba18449911d01f477a3fc104123c85d677addc60701b14b3fcb5381f9c4a537
             restartPolicy: Always
-            securityContext:
-              privileged: true
             env:
               - name: DOCKER_TLS_CERTDIR
                 value: /certs
@@ -52,6 +50,8 @@ spec:
                   periodSeconds: 20
                   timeoutSeconds: 3
                   failureThreshold: 3
+            securityContext:
+              privileged: true
         containers:
           app:
             image:
@@ -89,6 +89,13 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probe
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 1000
+              runAsGroup: 1000
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
@@ -98,8 +105,6 @@ spec:
                 memory: 4Gi
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
