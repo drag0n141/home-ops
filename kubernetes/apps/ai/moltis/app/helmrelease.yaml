@@ -18,15 +18,37 @@ spec:
         initContainers:
           daemon:
             image:
-              repository: quay.io/podman/stable
-              tag: v5.8.1@sha256:080edf4fe511fa8493f1ed0b86bd71e7b2805a1ff5343037d4f6173c870d7e35
+              repository: docker.io/docker
+              tag: 29.3.0-dind@sha256:1ba18449911d01f477a3fc104123c85d677addc60701b14b3fcb5381f9c4a537
             restartPolicy: Always
-            command:
-              - podman
-              - system
-              - service
-              - --time=0
-              - unix:///var/run/docker.sock
+            env:
+              - name: DOCKER_TLS_CERTDIR
+                value: /certs
+            probes:
+              startup:
+                enabled: true
+                custom: true
+                spec: &probeSpec
+                  exec:
+                    command: ["docker", "info"]
+                  periodSeconds: 2
+                  timeoutSeconds: 3
+                  failureThreshold: 60
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *probeSpec
+                  periodSeconds: 5
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              liveness:
+                enabled: true
+                custom: true
+                  <<: *probeSpec
+                  periodSeconds: 20
+                  timeoutSeconds: 3
+                  failureThreshold: 3
             securityContext:
               privileged: true
         containers:
@@ -36,6 +58,8 @@ spec:
               tag: 0.10.18@sha256:b155dd370fd26d5ea7286ea41011fcfec5ea6effd93486dd0809e310f02ec9bc
             env:
               DOCKER_HOST: tcp://localhost:2376
+              DOCKER_CERT_PATH: /certs/client
+              DOCKER_TLS_VERIFY: "1"
               MOLTIS_NO_TLS: true
               MOLTIS_BEHIND_PROXY: true
               MOLTIS_CONFIG_DIR: /config
@@ -106,6 +130,8 @@ spec:
       tmpfs:
         type: emptyDir
         globalMounts:
+          - path: /certs
+            subPath: certs
           - path: /home/moltis/.docker
             subPath: home
           - path: /tmp
