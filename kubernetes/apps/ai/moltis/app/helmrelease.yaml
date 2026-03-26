@@ -197,7 +197,7 @@ spec:
         server: nas01.${SECRET_DOMAIN_INT}
         path: /mnt/data/openclaw
         globalMounts:
-          - path: /data
+          - path: /nfs-data
       tmpfs:
         type: emptyDir
         globalMounts:
