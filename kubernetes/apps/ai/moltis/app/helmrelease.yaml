@@ -45,6 +45,7 @@ spec:
               liveness:
                 enabled: true
                 custom: true
+                spec:
                   <<: *probeSpec
                   periodSeconds: 20
                   timeoutSeconds: 3
