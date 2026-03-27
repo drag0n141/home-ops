@@ -1,0 +1,38 @@
+---
+services:
+  doco-cd:
+    image: 'ghcr.io/kimdre/doco-cd:0.76.0'
+    hostname: 'doco-cd'
+    container_name: 'doco-cd'
+    restart: 'always'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/opt/appdata/doco-cd:/data:rw'
+    environment:
+      TZ: ${TZ}
+      DEPLOY_CONFIG_BASE_DIR: ./docker/netbird01/
+      SECRET_PROVIDER: 1password
+      SECRET_PROVIDER_ACCESS_TOKEN: ${SECRET_PROVIDER_ACCESS_TOKEN}
+      POLL_CONFIG: |
+        - url: https://github.com/drag0n141/home-ops.git
+          reference: refs/heads/master
+          interval: 3600
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    healthcheck:
+      test: [ "CMD", "/doco-cd", "healthcheck" ]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  internal:
+    name: internal
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1

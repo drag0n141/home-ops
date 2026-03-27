@@ -1,0 +1,196 @@
+---
+name: netbird
+
+services:
+  traefik:
+    image: docker.io/traefik:v3.6
+    container_name: netbird-traefik
+    restart: unless-stopped
+    command:
+      - --configFile=/etc/traefik/traefik_config.yml
+    network_mode: service:netbird-server
+    depends_on:
+      netbird-server:
+        condition: service_started
+    configs:
+      - source: traefik_config
+        target: /etc/traefik/traefik_config.yml
+      - source: traefik_dynamic_config
+        target: /etc/traefik/dynamic_config.yml
+    volumes:
+      - /opt/appdata/netbird/config/letsencrypt:/letsencrypt:rw
+    security_opt:
+      - 'no-new-privileges:true'
+
+  dashboard:
+    image: ghcr.io/netbirdio/dashboard:v2.36.0
+    container_name: netbird-dashboard
+    restart: unless-stopped
+    environment:
+      - NETBIRD_MGMT_API_ENDPOINT=https://netbird.${DOMAIN}
+      - NETBIRD_MGMT_GRPC_API_ENDPOINT=https://netbird.${DOMAIN}
+      # OIDC - embedded IdP
+      - AUTH_AUDIENCE=netbird-dashboard
+      - AUTH_CLIENT_ID=netbird-dashboard
+      - AUTH_CLIENT_SECRET=
+      - AUTH_AUTHORITY=https://netbird.${DOMAIN}/oauth2
+      - USE_AUTH0=false
+      - AUTH_SUPPORTED_SCOPES=openid profile email groups
+      - AUTH_REDIRECT_URI=/nb-auth
+      - AUTH_SILENT_REDIRECT_URI=/nb-silent-auth
+      # SSL
+      - NGINX_SSL_PORT=443
+      - LETSENCRYPT_DOMAIN=none
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.netbird-dashboard.rule=Host(`netbird.${DOMAIN}`)
+      - traefik.http.routers.netbird-dashboard.entrypoints=websecure
+      - traefik.http.routers.netbird-dashboard.tls=true
+      - traefik.http.routers.netbird-dashboard.tls.certresolver=letsencrypt
+      - traefik.http.routers.netbird-dashboard.service=netbird-dashboard
+      - traefik.http.routers.netbird-dashboard.priority=1
+      - traefik.http.services.netbird-dashboard.loadbalancer.server.port=80
+    security_opt:
+      - 'no-new-privileges:true'
+
+  netbird-server:
+    image: ghcr.io/netbirdio/netbird-server:0.67.1
+    container_name: netbird-server
+    restart: unless-stopped
+    ports:
+      - "3478:3478/udp"
+      - "80:80"
+      - "443:443"
+    configs:
+      - source: netbird_config
+        target: /etc/netbird/config.yaml
+    volumes:
+      - /opt/appdata/netbird/config/data:/var/lib/netbird:rw
+    command:
+      - --config
+      - /etc/netbird/config.yaml
+    labels:
+      - traefik.enable=true
+      # gRPC router (h2c backend for HTTP/2 cleartext)
+      - traefik.http.routers.netbird-grpc.rule=Host(`netbird.${DOMAIN}`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))
+      - traefik.http.routers.netbird-grpc.entrypoints=websecure
+      - traefik.http.routers.netbird-grpc.tls=true
+      - traefik.http.routers.netbird-grpc.tls.certresolver=letsencrypt
+      - traefik.http.routers.netbird-grpc.service=netbird-server-h2c
+      - traefik.http.routers.netbird-grpc.priority=100
+      # Backend router (relay, WebSocket, API, OAuth2)
+      - traefik.http.routers.netbird-backend.rule=Host(`netbird.${DOMAIN}`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))
+      - traefik.http.routers.netbird-backend.entrypoints=websecure
+      - traefik.http.routers.netbird-backend.tls=true
+      - traefik.http.routers.netbird-backend.tls.certresolver=letsencrypt
+      - traefik.http.routers.netbird-backend.service=netbird-server
+      - traefik.http.routers.netbird-backend.priority=100
+      # Services
+      - traefik.http.services.netbird-server.loadbalancer.server.port=80
+      - traefik.http.services.netbird-server-h2c.loadbalancer.server.port=80
+      - traefik.http.services.netbird-server-h2c.loadbalancer.server.scheme=h2c
+    security_opt:
+      - 'no-new-privileges:true'
+
+networks:
+  default:
+    driver: bridge
+    name: netbird
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+          gateway: 172.30.0.1
+
+configs:
+  netbird_config:
+    content: |-
+      server:
+        listenAddress: ":80"
+        exposedAddress: "https://netbird.${DOMAIN}:443"
+        stunPorts:
+          - 3478
+        metricsPort: 9090
+        healthcheckAddress: ":9000"
+        logLevel: "info"
+        logFile: "console"
+
+        authSecret: "${NETBIRD_AUTH_SECRET}"
+        dataDir: "/var/lib/netbird"
+
+        auth:
+          issuer: "https://netbird.${DOMAIN}/oauth2"
+          signKeyRefreshEnabled: true
+          dashboardRedirectURIs:
+            - "https://netbird.${DOMAIN}/nb-auth"
+            - "https://netbird.${DOMAIN}/nb-silent-auth"
+          cliRedirectURIs:
+            - "http://localhost:53000/"
+
+        reverseProxy:
+          trustedHTTPProxies:
+            - "172.30.0.10/32"
+
+        store:
+          engine: "sqlite"
+          encryptionKey: "${NETBIRD_ENCRYPTION_KEY}"
+
+  traefik_config:
+    content: |-
+      ---
+      api:
+        insecure: true
+        dashboard: true
+
+      providers:
+        docker:
+          exposedByDefault: false
+          network: netbird
+        file:
+          filename: "/etc/traefik/dynamic_config.yml"
+
+      log:
+        level: "INFO"
+        format: "common"
+
+      accessLog: {}
+
+      certificatesResolvers:
+        letsencrypt:
+          acme:
+            email: "${ACME_EMAIL}"
+            storage: "/letsencrypt/acme.json"
+            tlsChallenge: {}
+
+      entryPoints:
+        web:
+          address: ":80"
+          http:
+            redirections:
+              entrypoint:
+                to: websecure
+                scheme: https
+        websecure:
+          address: ":443"
+          allowACMEByPass: true
+          transport:
+            respondingTimeouts:
+              readTimeout: 0
+              writeTimeout: 0
+              idleTimeout: 0
+
+      serversTransport:
+        forwardingTimeouts:
+          responseHeaderTimeout: 0s
+          idleConnTimeout: 0s
+
+      ping:
+        entryPoint: "web"
+
+  traefik_dynamic_config:
+    content: |-
+      ---
+      tcp:
+        serversTransports:
+          pp-v2:
+            proxyProtocol:
+              version: 2
