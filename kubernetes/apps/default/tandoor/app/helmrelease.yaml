@@ -32,7 +32,7 @@ spec:
               TZ: ${TIMEZONE}
               ALLOWED_HOSTS: recipes.${SECRET_DOMAIN}
               COMMENT_PREF_DEFAULT: 1
-              DB_ENGINE: django.db.backends.postgresql_psycopg2
+              DB_ENGINE: django.db.backends.postgresql
               DEBUG: 0
               DEFAULT_FROM_EMAIL: recipes@${SECRET_DOMAIN}
               EMAIL_HOST: smtp-relay.networking.svc.cluster.local
