@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
-              tag: 0.54.6@sha256:7611738e564caa08a9b7591a7909e4f6c78d34d289873b9fd7d320af50943419
+              tag: 0.54.7@sha256:b632a9fb6be702fb859e02cd5cac5de7a7466ce1e97f5f5347a1d012c0720108
             env:
               TZ: ${TIMEZONE}
               BASE_URL: https://change-detection.${SECRET_DOMAIN_INTERNAL}
@@ -35,7 +35,7 @@ spec:
           browserless:
             image:
               repository: ghcr.io/browserless/chrome
-              tag: v2.45.0@sha256:d76132c3e63b52a3e7b1b8817cccc956d77395c3c6dacd76115f768c66f86e69
+              tag: v2.46.0@sha256:503dc5de6e672cb928e07c4c1890ee3d08a96f3c6b1cb55aae45aeb0c0508f39
             env:
               TZ: ${TIMEZONE}
               TIMEOUT: 60000
