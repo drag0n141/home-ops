@@ -16,16 +16,12 @@ spec:
         containers:
           app:
             image:
-              repository: isokoliuk/mcp-searxng
-              tag: latest
+              repository: docker.io/isokoliuk/mcp-searxng
+              tag: 0.10.0@sha256:c41115e70a53902d524546f3e0a3d16b4c18380639435f104bf1eed7c144d82f
             env:
               TZ: ${TIMEZONE}
-              SEARXNG_URL: http://searxng.searxng.svc.cluster.local:8080
-              MCP_HTTP_PORT: "3000"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              SEARXNG_URL: http://searxng.default.svc.cluster.local:8080
+              MCP_HTTP_PORT: &port 3000
             resources:
               requests:
                 cpu: 10m
@@ -44,7 +40,7 @@ spec:
         ports:
           http:
             appProtocol: kgateway.dev/mcp
-            port: 3000
+            port: *port
     route:
       app:
         parentRefs:
