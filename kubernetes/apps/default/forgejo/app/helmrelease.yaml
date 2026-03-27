@@ -100,8 +100,6 @@ spec:
       enabled: false
     persistence:
       enabled: true
-      mount: true
-      create: false
       claimName: *app
     service:
       ssh:
