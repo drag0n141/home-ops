@@ -23,7 +23,7 @@ services:
       - 'no-new-privileges:true'
 
   dashboard:
-    image: ghcr.io/netbirdio/dashboard:v2.36.0
+    image: docker.io/netbirdio/dashboard:v2.36.0
     container_name: netbird-dashboard
     restart: unless-stopped
     environment:
