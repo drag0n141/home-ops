@@ -53,7 +53,7 @@ spec:
                     name: newt-secret
                     key: NEWTSC_SITE_ID
               - name: NEWTSC_AUTH_SSO_IDP
-                value: 1
+                value: "1"
               - name: NEWTSC_DENY_COUNTRIES
                 value: RU,CN,KP,IR,BY,IL
               - name: NEWTSC_ENABLE_SERVCICE
