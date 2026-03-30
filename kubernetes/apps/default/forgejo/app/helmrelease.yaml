@@ -30,10 +30,14 @@ spec:
         repository:
           DEFAULT_BRANCH: main
           DEFAULT_PRIVATE: true
+        repository.pull-request:
+          DEFAULT_DELETE_BRANCH_AFTER_MERGE: true
+          DEFAULT_MERGE_STYLE: squash
         admin:
           DISABLE_REGULAR_ORG_CREATION: true
         service:
           ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          DEFAULT_ENABLE_TIMETRACKING: false
           ENABLE_INTERNAL_SIGNIN: false
           DEFAULT_KEEP_EMAIL_PRIVATE: true
           DISABLE_REGISTRATION: false
@@ -56,6 +60,7 @@ spec:
           SMTP_PORT: 2525
           FROM: "Forgejo <forgejo@${SECRET_DOMAIN}>"
         cache:
+          ENABLED: true
           ADAPTER: redis
         queue:
           TYPE: redis
