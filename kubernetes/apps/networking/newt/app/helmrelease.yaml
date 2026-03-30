@@ -60,7 +60,7 @@ spec:
               - name: NEWTSC_GATEWAY_NAME
                 value: envoy-external
               - name: NEWTSC_TARGET_HOSTNAME
-                value: envoy-external.network.svc.cluster.local
+                value: envoy-external.networking.svc.cluster.local
             restartPolicy: Always
             resources:
               limits:
