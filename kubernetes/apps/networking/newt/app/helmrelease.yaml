@@ -46,6 +46,8 @@ spec:
         initContainers:
           - name: newt-sidecar
             image: ghcr.io/home-operations/newt-sidecar:0.2.1
+            args:
+              - --enable-service
             env:
               - name: NEWTSC_SITE_ID
                 valueFrom:
@@ -56,8 +58,6 @@ spec:
                 value: "1"
               - name: NEWTSC_DENY_COUNTRIES
                 value: RU,CN,KP,IR,BY,IL
-              - name: NEWTSC_ENABLE_SERVCICE
-                value: true
               - name: NEWTSC_GATEWAY_NAME
                 value: envoy-external
               - name: NEWTSC_TARGET_HOSTNAME
