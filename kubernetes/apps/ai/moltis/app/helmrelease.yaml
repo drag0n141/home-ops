@@ -65,6 +65,7 @@ spec:
               DOCKER_HOST: tcp://localhost:2376
               DOCKER_CERT_PATH: /certs/client
               DOCKER_TLS_VERIFY: "1"
+              GOOGLE_OAUTH_CREDENTIALS: /data/gcp-oauth.keys.json
               MOLTIS_NO_TLS: true
               MOLTIS_BEHIND_PROXY: true
               MOLTIS_CONFIG_DIR: /config
@@ -131,7 +132,7 @@ spec:
         name: "{{ .Release.Name }}-secret"
         defaultMode: 0440
         globalMounts:
-          - path: /home/moltis/.config/google-calendar-mcp/gcp-oauth.keys.json
+          - path: /data/gcp-oauth.keys.json
             subPath: GOOGLE_CALENDAR_TOKEN
             readOnly: true
       data:
