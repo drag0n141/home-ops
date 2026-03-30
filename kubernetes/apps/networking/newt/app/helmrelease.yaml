@@ -30,7 +30,6 @@ spec:
         useNativeInterface: false
         acceptClients: true
         mtu: 1380
-        pangolinEndpoint: https://pangolin.${SECRET_DOMAIN}
         auth:
           existingSecretName: newt-secret
         extraEnv:
