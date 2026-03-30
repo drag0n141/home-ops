@@ -37,7 +37,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/networking/newt/sidecard
+  path: ./kubernetes/apps/networking/newt/sidecar
   prune: true
   sourceRef:
     kind: GitRepository
