@@ -57,7 +57,7 @@ spec:
               - name: NEWTSC_DENY_COUNTRIES
                 value: RU,CN,KP,IR,BY,IL
               - name: NEWTSC_ENABLE_SERVCICE
-                value: ture
+                value: true
               - name: NEWTSC_GATEWAY_NAME
                 value: envoy-external
               - name: NEWTSC_TARGET_HOSTNAME
