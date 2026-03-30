@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 2.14.2@sha256:4f448824ec99e1160e49eeb1c5bf2130a5d244fe9029e871a9f4d9f126dbfc98
+              tag: 2.15.0@sha256:ad511abd95036c2c62c9975ee2b48a5e138eb8898880364cf6cd40db1d75bf6b
             env:
               TZ: ${TIMEZONE}
               CHECKMK_URL: https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk
