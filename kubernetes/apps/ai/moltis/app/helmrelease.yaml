@@ -132,7 +132,7 @@ spec:
         defaultMode: 0440
         globalMounts:
           - path: /data/gcp-oauth.keys.json
-            subPath: GOOGLE_TOKEN
+            subPath: GOOGLE_CALENDAR_TOKEN
             readOnly: true
       data:
         type: nfs
