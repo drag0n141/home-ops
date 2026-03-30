@@ -131,7 +131,7 @@ spec:
         name: "{{ .Release.Name }}-secret"
         defaultMode: 0440
         globalMounts:
-          - path: /data/gcp-oauth.keys.json
+          - path: /home/moltis/.config/google-calendar-mcp/gcp-oauth.keys.json
             subPath: GOOGLE_CALENDAR_TOKEN
             readOnly: true
       data:
