@@ -7,80 +7,93 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: newt
   values:
-    controllers:
-      newt:
+    global:
+      deploymentAnnotations:
+        reloader.stakater.com/auto: "true"
+      image:
+        # renovate: datasource=github-releases depName=fosrl/newt
+        tag: 1.10.3
+      nativeMode:
+        enabled: false
+      networkPolicy:
+        enabled: false
+      prometheusRule:
+        enabled: true
+    newtInstances:
+      - name: main-tunnel
+        enabled: true
         replicas: 2
-        annotations:
-          reloader.stakater.com/auto: "true"
+        pingInterval: 60s
+        interface: "newt"
+        useNativeInterface: false
+        acceptClients: true
+        mtu: 1380
+        pangolinEndpoint: https://pangolin.${SECRET_DOMAIN}
+        auth:
+          existingSecretName: newt-secret
+        extraEnv:
+          BLUEPRINT_FILE: /etc/newt/blueprint.yaml
+          NEWT_ADMIN_ADDR: "0.0.0.0:2112"
+          NEWT_METRICS_PROMETHEUS_ENABLED: "true"
+        extraVolumeMounts:
+          - name: blueprint
+            mountPath: /etc/newt
+        extraVolumes:
+          - name: blueprint
+            emptyDir: {}
         initContainers:
-          newt-sidecar:
-            image:
-              repository: ghcr.io/home-operations/newt-sidecar
-              tag: 0.2.0
+          - name: newt-sidecar
+            image: ghcr.io/home-operations/newt-sidecar:0.2.1
             env:
-              NEWTSC_SITE_ID:
+              - name: NEWTSC_SITE_ID
                 valueFrom:
                   secretKeyRef:
                     name: newt-secret
-                    key: NEWTSC_SITE_NICEID
-              NEWTSC_AUTH_SSO_IDP: 1
-              NEWTSC_DENY_COUNTRIES: RU,CN,KP,IR,BY,IL
-              NEWTSC_ENABLE_SERVCICE: true
-              NEWTSC_GATEWAY_NAME: envoy-external
-              NEWTSC_TARGET_HOSTNAME: envoy-external.networking.svc.cluster.local
+                    key: NEWTSC_SITE_ID
+              - name: NEWTSC_AUTH_SSO_IDP
+                value: 1
+              - name: NEWTSC_DENY_COUNTRIES
+                value: RU,CN,KP,IR,BY,IL
+              - name: NEWTSC_ENABLE_SERVCICE
+                value: ture
+              - name: NEWTSC_GATEWAY_NAME
+                value: envoy-external
+              - name: NEWTSC_TARGET_HOSTNAME
+                value: envoy-external.network.svc.cluster.local
             restartPolicy: Always
             resources:
               limits:
                 memory: 128Mi
-        containers:
-          app:
-            image:
-              repository: ghcr.io/fosrl/newt
-              tag: 1.10.4@sha256:ccd2b0e9a0492d7492c00dff1295d0c487a2f71f9f8fc80b1c61e597f5181aed
-            env:
-              BLUEPRINT_FILE: /etc/newt/blueprint.yaml
-              PANGOLIN_ENDPOINT: https://pangolin.${SECRET_DOMAIN}
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            volumeMounts:
+              - name: blueprint
+                mountPath: /etc/newt
+          - name: wait-blueprint
+            image: ghcr.io/home-operations/busybox:1.37.0
+            command:
+              - /bin/sh
+              - -c
+              - until test -f /etc/newt/blueprint.yaml; do sleep 1; done
             resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 384Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
+                memory: 16Mi
+            volumeMounts:
+              - name: blueprint
+                mountPath: /etc/newt
+        metrics:
+          port: 2112
+          service:
+            enabled: true
+            port: 2112
+          serviceMonitor:
+            enabled: true
+        service:
+          enabled: true
     rbac:
-      roles:
-        newt:
-          type: ClusterRole
-          rules:
-            - apiGroups: [""]
-              resources: ["services"]
-              verbs: ["get", "watch", "list"]
-            - apiGroups: ["gateway.networking.k8s.io"]
-              resources: ["httproutes"]
-              verbs: ["get", "watch", "list"]
-      bindings:
-        newt:
-          type: ClusterRoleBinding
-          roleRef:
-            identifier: newt
-          subjects:
-            - identifier: newt
+      clusterRole: true
     serviceAccount:
-      newt: {}
-    persistence:
-      blueprint:
-        type: emptyDir
-        globalMounts:
-          - path: /etc/newt
+      automountServiceAccountToken: true
+      name: newt
