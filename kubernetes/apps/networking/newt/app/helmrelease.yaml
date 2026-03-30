@@ -24,7 +24,7 @@ spec:
     newtInstances:
       - name: main-tunnel
         enabled: true
-        replicas: 2
+        replicas: 1
         pingInterval: 60s
         interface: "newt"
         useNativeInterface: false
