@@ -126,6 +126,14 @@ spec:
             subPath: config
           - path: /data
             subPath: data
+      google:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        defaultMode: 0440
+        globalMounts:
+          - path: /data/gcp-oauth.keys.json
+            subPath: GOOGLE_TOKEN
+            readOnly: true
       data:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
