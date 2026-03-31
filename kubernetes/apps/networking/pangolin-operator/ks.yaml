@@ -12,13 +12,18 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
   path: ./kubernetes/apps/networking/pangolin-operator/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  wait: true
   interval: 1h
   retryInterval: 2m
   timeout: 5m
