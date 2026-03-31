@@ -1,0 +1,13 @@
+---
+piVersion: pangolin.home-operations.com/v1alpha1
+kind: PrivateResource
+metadata:
+  name: local
+spec:
+  siteRef: k8s
+  name: Local Network
+  mode: cidr
+  destination: 192.168.0.0/16
+  tcpPorts: "*"
+  udpPorts: "*"
+  disableIcmp: false
