@@ -39,7 +39,7 @@ spec:
               - name: RUNNER_TOKEN
                 valueFrom:
                   secretKeyRef:
-                    key: token
+                    key: RUNNER_TOKEN
                     name: forgejo-runner-secret
         containers:
           runner:
