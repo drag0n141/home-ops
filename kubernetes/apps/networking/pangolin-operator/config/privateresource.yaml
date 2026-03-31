@@ -1,10 +1,10 @@
 ---
-piVersion: pangolin.home-operations.com/v1alpha1
+apiVersion: pangolin.home-operations.com/v1alpha1
 kind: PrivateResource
 metadata:
   name: local
 spec:
-  siteRef: k8s
   name: Local Network
+  siteRef: k8s
   mode: cidr
   destination: 192.168.0.0/16
