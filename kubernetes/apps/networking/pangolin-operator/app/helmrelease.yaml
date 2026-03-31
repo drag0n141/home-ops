@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name:  pangolin-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name:  pangolin-operator
+  values:
+    image:
+      repository: ghcr.io/home-operations/pangolin-operator
+      tag: 0.0.2
+    pangolin:
+      existingSecret: pangolin-operator-secret
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 256Mi

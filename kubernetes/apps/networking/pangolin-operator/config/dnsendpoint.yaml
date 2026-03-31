@@ -8,6 +8,9 @@ spec:
     - dnsName: "pangolin.${SECRET_DOMAIN}"
       recordType: A
       targets: ["${SECRET_PANGOLIN_IP}"]
+    - dnsName: "pangolin-api.${SECRET_DOMAIN}"
+      recordType: A
+      targets: ["${SECRET_PANGOLIN_IP}"]
     - dnsName: "*.pangolin.${SECRET_DOMAIN}"
       recordType: A
       targets: ["${SECRET_PANGOLIN_IP}"]

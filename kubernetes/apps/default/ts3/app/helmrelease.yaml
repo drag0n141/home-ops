@@ -58,8 +58,8 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.80
-          newt-sidecar/enabled: "true"
-          newt-sidecar/all-ports: "true"
+          pangolin-operator/site-ref: k8s
+          pangolin-operator/all-ports: "true"
         ports:
           voice:
             port: 9987

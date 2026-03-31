@@ -320,6 +320,13 @@ configs:
               - security-headers
             tls:
               certResolver: letsencrypt
+          int-api-router:
+            rule: "Host(`pangolin-api.${DOMAIN}`)"
+            service: int-api-service
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: letsencrypt
 
           # WebSocket router
           ws-router:
@@ -342,3 +349,8 @@ configs:
             loadBalancer:
               servers:
                 - url: "http://pangolin:3000"
+
+          int-api-service:
+            loadBalancer:
+              servers:
+                - url: "http://pangolin:3003"

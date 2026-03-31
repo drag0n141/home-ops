@@ -44,9 +44,10 @@ spec:
     service:
       app:
         annotations:
-          newt-sidecar/enabled: "true"
-          newt-sidecar/auth-sso: "true"
-          newt-sidecar/full-domain: "{{ .Release.Name }}.${SECRET_DOMAIN_PANGOLIN}"
+          pangolin-operator/site-ref: k8s
+          pangolin-operator/auth-sso: "true"
+          pangolin-operator/auth-sso-idp: "1"
+          pangolin-operator/full-domain: "{{ .Release.Name }}.${SECRET_DOMAIN_PANGOLIN}"
         ports:
           http:
             port: 3000

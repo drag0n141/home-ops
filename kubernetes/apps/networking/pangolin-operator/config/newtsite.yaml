@@ -1,0 +1,19 @@
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: NewtSite
+metadata:
+  name: k8s
+spec:
+  name: k8s
+  autoDiscover:
+    annotationPrefix: pangolin-operator
+    denyCountries: RU,CN,KP,IR,BY,IL
+    gatewayName: envoy-external
+    gatewayNamespace: networking
+    ssl: true
+    enableRouteDiscovery: true
+    enableServiceDiscovery: true
+  newt:
+    # renovate: datasource=github-releases depName=fosrl/newt
+    tag: 1.10.4
+    mtu: 1380

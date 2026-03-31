@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app newt
+  name: &app pangolin-operator
   namespace: &namespace networking
 spec:
   targetNamespace: *namespace
@@ -10,13 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: envoy-gateway
-      namespace: *namespace
-    - name: external-dns-cloudflare
-      namespace: *namespace
     - name: onepassword
       namespace: external-secrets
-  path: ./kubernetes/apps/networking/newt/app
+  path: ./kubernetes/apps/networking/pangolin-operator/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -30,14 +26,21 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app newt-sidecar
+  name: &app pangolin-operator-config
   namespace: &namespace networking
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/networking/newt/sidecar
+  dependsOn:
+    - name: envoy-gateway
+      namespace: *namespace
+    - name: external-dns-cloudflare
+      namespace: *namespace
+    - name: pangolin-operator
+      namespace: *namespace
+  path: ./kubernetes/apps/networking/pangolin-operator/config
   prune: true
   sourceRef:
     kind: GitRepository
