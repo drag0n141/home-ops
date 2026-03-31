@@ -6,7 +6,7 @@ metadata:
 spec:
   name: checkmk
   siteRef: k8s
-  protocol: https
+  protocol: http
   fullDomain: checkmk.${SECRET_DOMAIN_PANGOLIN}
   ssl: true
   targets:
@@ -24,7 +24,7 @@ metadata:
 spec:
   name: nas01
   siteRef: k8s
-  protocol: https
+  protocol: http
   fullDomain: nas01.${SECRET_DOMAIN_PANGOLIN}
   ssl: true
   targets:
@@ -42,7 +42,7 @@ metadata:
 spec:
   name: pikvm
   siteRef: k8s
-  protocol: https
+  protocol: http
   fullDomain: pikvm.${SECRET_DOMAIN_PANGOLIN}
   ssl: true
   targets:
@@ -60,7 +60,7 @@ metadata:
 spec:
   name: prx
   siteRef: k8s
-  protocol: https
+  protocol: http
   fullDomain: prx.${SECRET_DOMAIN_PANGOLIN}
   ssl: true
   targets:
@@ -78,7 +78,7 @@ metadata:
 spec:
   name: udm
   siteRef: k8s
-  protocol: https
+  protocol: http
   fullDomain: udm.${SECRET_DOMAIN_PANGOLIN}
   ssl: true
   targets:
