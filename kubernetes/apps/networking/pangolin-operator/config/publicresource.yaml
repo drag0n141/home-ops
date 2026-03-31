@@ -1,0 +1,90 @@
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: PublicResource
+metadata:
+  name: checkmk
+spec:
+  name: checkmk
+  siteRef: k8s
+  protocol: https
+  fullDomain: checkmk.${SECRET_DOMAIN_PANGOLIN}
+  ssl: true
+  targets:
+    - hostname: checkmk.${SECRET_DOMAIN_INT}
+      port: 80
+      method: http
+  auth:
+    ssoEnabled: true
+    autoLoginIdp: 1
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: PublicResource
+metadata:
+  name: nas01
+spec:
+  name: nas01
+  siteRef: k8s
+  protocol: https
+  fullDomain: nas01.${SECRET_DOMAIN_PANGOLIN}
+  ssl: true
+  targets:
+    - hostname: nas01.${SECRET_DOMAIN_INT}
+      port: 88
+      method: http
+  auth:
+    ssoEnabled: true
+    autoLoginIdp: 1
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: PublicResource
+metadata:
+  name: pikvm
+spec:
+  name: pikvm
+  siteRef: k8s
+  protocol: https
+  fullDomain: pikvm.${SECRET_DOMAIN_PANGOLIN}
+  ssl: true
+  targets:
+    - hostname: pikvm.${SECRET_DOMAIN_INT}
+      port: 80
+      method: http
+  auth:
+    ssoEnabled: true
+    autoLoginIdp: 1
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: PublicResource
+metadata:
+  name: prx
+spec:
+  name: prx
+  siteRef: k8s
+  protocol: https
+  fullDomain: prx.${SECRET_DOMAIN_PANGOLIN}
+  ssl: true
+  targets:
+    - hostname: prx.${SECRET_DOMAIN_INT}
+      port: 8006
+      method: https
+  auth:
+    ssoEnabled: true
+    autoLoginIdp: 1
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: PublicResource
+metadata:
+  name: udm
+spec:
+  name: udm
+  siteRef: k8s
+  protocol: https
+  fullDomain: udm.${SECRET_DOMAIN_PANGOLIN}
+  ssl: true
+  targets:
+    - hostname: udm-se.${SECRET_DOMAIN_INT}
+      port: 443
+      method: https
+  auth:
+    ssoEnabled: true
+    autoLoginIdp: 1
