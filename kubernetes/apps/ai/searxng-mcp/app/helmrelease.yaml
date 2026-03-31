@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/isokoliuk/mcp-searxng
-              tag: 0.10.0@sha256:c41115e70a53902d524546f3e0a3d16b4c18380639435f104bf1eed7c144d82f
+              tag: 0.10.1@sha256:1017689711eddc40ab02834aeac55fba70a81c902512783eeae7b9dac92ec01b
             env:
               TZ: ${TIMEZONE}
               SEARXNG_URL: http://searxng.default.svc.cluster.local:8080
