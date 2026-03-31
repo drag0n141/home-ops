@@ -30,7 +30,7 @@ spec:
                 fi
                 echo "Registering runner..."
                 cd /persistent && forgejo-runner register \
-                  --instance https://git.bjw-s.dev \
+                  --instance https://http://forgejo.${SECRET_DOMAIN_INTERNAL} \
                   --token "${RUNNER_TOKEN}" \
                   --name k8s-runner \
                   --labels "default:k8spod:/config/podspec-default.yaml" \
