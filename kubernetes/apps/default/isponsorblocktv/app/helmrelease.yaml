@@ -43,7 +43,7 @@ spec:
             "name":"multus-iot",
             "namespace": "networking",
             "ips": ["192.168.150.19/24"],
-            "mac": "bf:05:ed:4a:3b:9c"
+            "mac": "be:05:ed:4a:3b:9c"
           }]
     persistence:
       config:
