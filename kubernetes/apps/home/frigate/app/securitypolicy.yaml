@@ -13,6 +13,7 @@ spec:
       - X-Forwarded-Uri
       - accept
       - cookie
+      - user-agent
     http:
       backendRefs:
         - name: tinyauth
