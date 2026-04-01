@@ -35,6 +35,8 @@ spec:
         runAsGroup: 1000
     service:
       app:
+        annotations:
+          kgateway.dev/mcp-path: /mcp
         labels:
           mcp.home.arpa/server: "true"
         ports:
