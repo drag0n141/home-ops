@@ -8,7 +8,7 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./external-dns/ks.yaml
   - ./multus/ks.yaml
-#   - ./pangolin-operator/ks.yaml
+  - ./pangolin-operator/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./wg-easy/ks.yaml
 components:
