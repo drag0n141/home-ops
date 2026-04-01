@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/favonia/cloudflare-ddns
-              tag: 1.16.0@sha256:8e0f869aed97beeed4e172a01e97090673cb9b04e7e1d62fcb6cfc656f9761ad
+              tag: 1.16.1@sha256:d9eb06b9ddb1ef121334095645e2b55ac208ea1ef1f363a201a255aa8a9798cc
             env:
               TZ: ${TIMEZONE}
               DOMAINS: ipv4.${SECRET_DOMAIN}
