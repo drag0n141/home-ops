@@ -3,6 +3,7 @@ apiVersion: pangolin.home-operations.com/v1alpha1
 kind: PrivateResource
 metadata:
   name: local
+  namespace: networking
 spec:
   name: Local Network
   siteRef: k8s

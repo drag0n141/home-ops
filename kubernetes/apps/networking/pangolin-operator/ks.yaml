@@ -34,7 +34,6 @@ metadata:
   name: &app pangolin-operator-config
   namespace: &namespace networking
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
