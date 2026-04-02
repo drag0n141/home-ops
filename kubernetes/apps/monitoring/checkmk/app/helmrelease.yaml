@@ -21,6 +21,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               CMK_SITE_ID: checkmk
+              MAIL_RELAY_HOST: mailrise.default.svc.cluster.local:8025
             envFrom:
               - secretRef:
                   name: checkmk-secret
