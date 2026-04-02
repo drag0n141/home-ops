@@ -2,25 +2,6 @@
 apiVersion: pangolin.home-operations.com/v1alpha1
 kind: PublicResource
 metadata:
-  name: checkmk
-  namespace: networking
-spec:
-  name: checkmk
-  siteRef: k8s
-  protocol: http
-  fullDomain: checkmk.${SECRET_DOMAIN_PANGOLIN}
-  ssl: true
-  targets:
-    - hostname: checkmk.${SECRET_DOMAIN_INT}
-      port: 80
-      method: http
-  auth:
-    ssoEnabled: true
-    autoLoginIdp: 1
----
-apiVersion: pangolin.home-operations.com/v1alpha1
-kind: PublicResource
-metadata:
   name: nas01
   namespace: networking
 spec:
