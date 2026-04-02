@@ -5,6 +5,7 @@ namespace: monitoring
 resources:
   - ./alertmanager/ks.yaml
   - ./blackbox-exporter/ks.yaml
+  - ./checkmk/ks.yaml
   - ./fluent-bit/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
