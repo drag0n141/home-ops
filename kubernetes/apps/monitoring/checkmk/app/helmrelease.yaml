@@ -74,6 +74,12 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /omd/sites
+      backups:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/backup/checkmk
+        globalMounts:
+          - path: /backups
       tmpfs:
         type: emptyDir
         medium: Memory
