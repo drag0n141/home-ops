@@ -31,13 +31,13 @@ spec:
               limits:
                 memory: 1Gi
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
     defaultPodOptions:
       securityContext:
         runAsNonRoot: false
         runAsUser: 0
-        runAsGroup: 1000
+        runAsGroup: 0
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
