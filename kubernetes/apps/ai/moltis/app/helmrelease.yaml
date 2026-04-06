@@ -60,7 +60,7 @@ spec:
           app:
             image:
               repository: ghcr.io/moltis-org/moltis
-              tag: 20260328.03@sha256:6b73557e2a10c6b6d11ec6f9e316cbdd7f2cc94f57c1bd768a91804a2922f2c8
+              tag: 20260405.06@sha256:5269a9324506dc5cbcc82609fc4cf911bc0811ac920c1dd62a5e2ac490105bfa
             env:
               DOCKER_HOST: tcp://localhost:2376
               DOCKER_CERT_PATH: /certs/client
