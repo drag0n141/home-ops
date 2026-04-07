@@ -1,7 +1,7 @@
 ---
 services:
   node-exporter:
-    image: 'quay.io/prometheus/node-exporter:v1.11.0'
+    image: 'quay.io/prometheus/node-exporter:v1.11.1'
     hostname: 'node-exporter'
     container_name: 'node-exporter'
     restart: 'always'
