@@ -23,8 +23,9 @@ spec:
               PAPERLESS_BASE_URL: http://paperless.default.svc.cluster.local:8000
               PAPERLESS_PUBLIC_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
               LLM_PROVIDER: openai
-              LLM_MODEL: gpt-4o
+              LLM_MODEL: "MiniMax M2.7"
               LLM_LANGUAGE: German
+              OPENAI_BASE_URL: https://api.minimax.io/v1
               OCR_PROVIDER: llm
               VISION_LLM_PROVIDER: openai
               VISION_LLM_MODEL: gpt-4o
