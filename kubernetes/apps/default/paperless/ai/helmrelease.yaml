@@ -21,9 +21,8 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ACTIVATE_TAGGING: no
-              AI_PROVIDER: custom
-              CUSTOM_BASE_URL: https://api.minimax.io/v1
-              CUSTOM_MODEL: "MiniMax M2.7"
+              AI_PROVIDER: openai
+              OPENAI_MODEL: gpt-4o
               PAPERLESS_API_URL: http://paperless.default.svc.cluster.local:8000/api
               PROCESS_PREDEFINED_DOCUMENTS: yes
               USE_EXISTING_DATA: yes
