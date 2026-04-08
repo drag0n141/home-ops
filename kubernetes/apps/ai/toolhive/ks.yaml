@@ -2,20 +2,25 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app agentgateway-crds
+  name: &app toolhive-operator-crds
   namespace: &namespace ai
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/ai/agentgateway/crds
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
+  path: ./kubernetes/apps/ai/toolhive/crds
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  wait: true
   interval: 1h
   retryInterval: 2m
   timeout: 5m
@@ -23,7 +28,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app agentgateway
+  name: &app toolhive-operator
   namespace: &namespace ai
 spec:
   targetNamespace: *namespace
@@ -31,15 +36,20 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: agentgateway-crds
+    - name: toolhive-operator-crds
       namespace: *namespace
-  path: ./kubernetes/apps/ai/agentgateway/app
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
+  path: ./kubernetes/apps/ai/toolhive/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false
+  wait: true
   interval: 1h
   retryInterval: 2m
   timeout: 5m
@@ -47,7 +57,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app agentgateway-gateway
+  name: &app toolhive-operator-config
   namespace: &namespace ai
 spec:
   targetNamespace: *namespace
@@ -55,11 +65,11 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: agentgateway
-      namespace: *namespace
     - name: onepassword
       namespace: external-secrets
-  path: ./kubernetes/apps/ai/agentgateway/gateway
+    - name: toolhive-operator-crds
+      namespace: *namespace
+  path: ./kubernetes/apps/ai/toolhive/config
   prune: true
   sourceRef:
     kind: GitRepository

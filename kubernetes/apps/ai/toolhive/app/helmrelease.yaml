@@ -2,9 +2,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: agentgateway-crds
+  name: toolhive-operator
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: agentgateway-crds
+    name: toolhive-operator
+  values:
+    operator:
+      replicaCount: 1

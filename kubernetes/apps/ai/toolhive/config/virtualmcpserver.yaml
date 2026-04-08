@@ -1,0 +1,58 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: VirtualMCPServer
+metadata:
+  name: mcp-gateway
+spec:
+  authServerConfig:
+    issuer: https://mcp.${SECRET_DOMAIN}
+    signingKeySecretRefs:
+      - name: toolhive-secret
+        key: TOOLHIVE_SIGNING_KEY
+    hmacSecretRefs:
+      - name: toolhive-secret
+        key: TOOLHIVE_HMAC_KEY
+    tokenLifespans:
+      accessTokenLifespan: 1h
+      refreshTokenLifespan: 168h
+      authCodeLifespan: 10m
+    upstreamProviders:
+      - name: pocket-id
+        type: oidc
+        oidcConfig:
+          issuerUrl: https://id.${SECRET_DOMAIN}
+          clientId: b503054f-dc60-4c71-8e60-47d38fdbcdfe
+          clientSecretRef:
+            name: toolhive-secret
+            key: TOOLHIVE_CLIENT_SECRET
+          redirectUri: https://id.${SECRET_DOMAIN}/oauth/callback
+          scopes:
+            - openid
+            - profile
+            - email
+  config:
+    groupRef: mcp-tools
+    aggregation:
+      conflictResolution: prefix
+      conflictResolutionConfig:
+        prefixFormat: "{workload}_"
+  embeddingServerRef:
+    name: mcp-tools-embedding
+  incomingAuth:
+    type: oidc
+    oidcConfig:
+      type: inline
+      resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
+      inline:
+        audience: https://mcp.${SECRET_DOMAIN}/mcp
+        issuer: https://mcp.${SECRET_DOMAIN}
+        jwksAllowPrivateIP: true
+  outgoingAuth:
+    source: discovered
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: vmcp
+          env:
+            - name: INSECURE_DISABLE_URL_VALIDATION
+              value: "true"

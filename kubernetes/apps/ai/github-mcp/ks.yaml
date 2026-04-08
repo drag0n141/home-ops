@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
+    - name: toolhive-operator-crds
+      namespace: *namespace
   path: ./kubernetes/apps/ai/github-mcp/app
   prune: true
   sourceRef:

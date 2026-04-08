@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app prometheus-mcp
+  name: &app memory-mcp
   namespace: &namespace ai
 spec:
   targetNamespace: *namespace
@@ -10,9 +10,15 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: toolhive-operator-crds
       namespace: *namespace
-  path: ./kubernetes/apps/ai/prometheus-mcp/app
+    - name: volsync
+      namespace: storage
+  components:
+    - ../../../../components/volsync
+  path: ./kubernetes/apps/ai/memory-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -22,3 +28,7 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 5Gi

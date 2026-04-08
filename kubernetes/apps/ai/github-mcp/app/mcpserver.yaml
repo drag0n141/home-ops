@@ -1,0 +1,12 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: github-mcp
+spec:
+  image: ghcr.io/github/github-mcp-server:v0.33.0
+  transport: stdio
+  groupRef: mcp-tools
+  secrets:
+    - name: github-mcp-secret
+      key: GH_TOKEN

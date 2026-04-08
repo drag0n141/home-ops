@@ -2,18 +2,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai
 resources:
-  - ./agentgateway/ks.yaml
-  - ./dex/ks.yaml
   - ./github-mcp/ks.yaml
   - ./ha-mcp/ks.yaml
-  - ./kubectl-mcp/ks.yaml
-  - ./linux-mcp/ks.yaml
-  - ./mcp-gateway/ks.yaml
+#   - ./kubectl-mcp/ks.yaml
+#   - ./linux-mcp/ks.yaml
+  - ./memory-mcp/ks.yaml
   - ./moltis/ks.yaml
   - ./ollama/ks.yaml
   - ./openclaw/ks.yaml
   - ./prometheus-mcp/ks.yaml
   - ./qdrant/ks.yaml
+  - ./toolhive/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
