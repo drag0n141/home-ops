@@ -25,7 +25,7 @@ spec:
           clientSecretRef:
             name: toolhive-secret
             key: client-secret
-          redirectUri: https://id.${SECRET_DOMAIN}/oauth/callback
+          redirectUri: https://mcp.${SECRET_DOMAIN}/oauth/callback
           scopes:
             - openid
             - profile
