@@ -36,6 +36,11 @@ spec:
       conflictResolution: prefix
       conflictResolutionConfig:
         prefixFormat: "{workload}_"
+    optimizer:
+      embeddingServiceTimeout: 120s
+      maxToolsToReturn: 12
+      hybridSearchSemanticRatio: '0.5'
+      semanticDistanceThreshold: '1.0'
   embeddingServerRef:
     name: mcp-tools-embedding
   incomingAuth:
