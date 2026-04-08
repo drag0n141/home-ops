@@ -9,6 +9,7 @@ resources:
   - ./moltis/ks.yaml
   - ./ollama/ks.yaml
   - ./openclaw/ks.yaml
+  - ./plex-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
   - ./qdrant/ks.yaml
   - ./searxng-mcp/ks.yaml

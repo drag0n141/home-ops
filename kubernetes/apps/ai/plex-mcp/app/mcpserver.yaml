@@ -1,0 +1,39 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: plex-mcp
+spec:
+  image: public.ecr.aws/docker/library/python:3.14
+  transport: stdio
+  groupRef: mcp-tools
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          image: public.ecr.aws/docker/library/python:3.14
+          securityContext:
+            readOnlyRootFilesystem: false
+          stdin: true
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              export HOME=/tmp &&
+              cd /tmp &&
+              git clone --depth 1 https://github.com/vladimir-tutin/plex-mcp-server.git &&
+              cd plex-mcp-server &&
+              pip install --quiet -r requirements.txt aiohttp &&
+              exec python plex_mcp_server.py --transport stdio
+          env:
+            - name: HOME
+              value: "/tmp"
+            - name: PLEX_URL
+              valueFrom:
+                secretKeyRef:
+                  name: plex-mcp-secret
+                  key: PLEX_URL
+            - name: PLEX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: plex-mcp-secret
+                  key: PLEX_TOKEN
