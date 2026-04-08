@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai
 resources:
-#   - ./github-mcp/ks.yaml
+  - ./github-mcp/ks.yaml
   - ./ha-mcp/ks.yaml
 #   - ./kubectl-mcp/ks.yaml
 #   - ./linux-mcp/ks.yaml
