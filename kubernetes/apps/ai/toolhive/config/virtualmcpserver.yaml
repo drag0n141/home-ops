@@ -8,10 +8,10 @@ spec:
     issuer: https://mcp.${SECRET_DOMAIN}
     signingKeySecretRefs:
       - name: toolhive-secret
-        key: TOOLHIVE_SIGNING_KEY
+        key: signing-key
     hmacSecretRefs:
       - name: toolhive-secret
-        key: TOOLHIVE_HMAC_KEY
+        key: hmac-key
     tokenLifespans:
       accessTokenLifespan: 1h
       refreshTokenLifespan: 168h
@@ -24,7 +24,7 @@ spec:
           clientId: b503054f-dc60-4c71-8e60-47d38fdbcdfe
           clientSecretRef:
             name: toolhive-secret
-            key: TOOLHIVE_CLIENT_SECRET
+            key: client-secret
           redirectUri: https://id.${SECRET_DOMAIN}/oauth/callback
           scopes:
             - openid
