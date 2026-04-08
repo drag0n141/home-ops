@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: quay.io/prometheus/alertmanager
-              tag: v0.31.1
+              tag: v0.32.0
             env:
               TZ: ${TIMEZONE}
             ports:
