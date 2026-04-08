@@ -11,6 +11,7 @@ resources:
   - ./openclaw/ks.yaml
   - ./prometheus-mcp/ks.yaml
   - ./qdrant/ks.yaml
+  - ./searxng-mcp/ks.yaml
   - ./toolhive/ks.yaml
 components:
   - ../../components/alerts

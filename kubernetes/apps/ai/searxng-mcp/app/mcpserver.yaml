@@ -1,0 +1,12 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: searxng-mcp
+spec:
+  image: docker.io/isokoliuk/mcp-searxng:v1.0.3
+  transport: stdio
+  groupRef: mcp-tools
+  env:
+    - name: SEARXNG_URL
+      value: http://searxng.default.svc.cluster.local:8080
