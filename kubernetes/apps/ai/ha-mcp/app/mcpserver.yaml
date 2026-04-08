@@ -9,7 +9,7 @@ spec:
   groupRef: mcp-tools
   env:
     - name: HOMEASSISTANT_URL
-      value: http://hestia.bjw-s.internal:8123
+      value: http://haos.${SECRET_DOMAIN_INT}:8123
   secrets:
     - name: ha-mcp-secret
       key: HOMEASSISTANT_TOKEN
