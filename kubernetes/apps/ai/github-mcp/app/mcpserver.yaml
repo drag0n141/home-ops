@@ -9,4 +9,4 @@ spec:
   groupRef: mcp-tools
   secrets:
     - name: github-mcp-secret
-      key: GH_TOKEN
+      key: GITHUB_PERSONAL_ACCESS_TOKEN
