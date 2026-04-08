@@ -11,4 +11,4 @@ spec:
     - name: PROMETHEUS_URL
       value: http://prometheus-operated.monitoring.svc.cluster.local:9090
     - name: PROMETHEUS_DISABLE_LINKS
-      value: true
+      value: "true"
