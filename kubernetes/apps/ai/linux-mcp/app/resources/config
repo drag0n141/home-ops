@@ -1,4 +1,0 @@
-Host k8s
-  HostName K8s-MGMT.${SECRET_DOMAIN_INT}
-  User root
-  StrictHostKeyChecking no
