@@ -2,17 +2,6 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "1Password Connect Group",
-      groupName: "1Password Connect",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["1password/connect"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
-      minimumGroupSize: 2,
-    },
-    {
       description: "Actions Runner Controller Group",
       groupName: "Actions Runner Controller",
       matchDatasources: ["docker"],
