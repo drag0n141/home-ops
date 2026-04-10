@@ -37,7 +37,7 @@ spec:
       namespace: *namespace
     - name: keda
       namespace: system
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   components:
     - ../../../../components/keda

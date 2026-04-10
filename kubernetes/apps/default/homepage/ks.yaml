@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   components:
     - ../../../../components/tinyauth
@@ -39,7 +39,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   components:
     - ../../../../components/tinyauth

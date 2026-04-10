@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   path: ./kubernetes/apps/media/tracearr/app
   prune: true

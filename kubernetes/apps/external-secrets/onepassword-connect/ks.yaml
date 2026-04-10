@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: external-secrets
       namespace: *namespace
-    - name: onepassword-connect
+    - name: onepassword-connect-connect
       namespace: *namespace
   healthCheckExprs:
     - apiVersion: external-secrets.io/v1

@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: flux-operator
       namespace: *namespace
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   path: ./kubernetes/apps/flux-system/flux-instance/app
   prune: true

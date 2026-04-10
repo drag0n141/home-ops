@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: multus-networks
       namespace: networking
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   components:
     - ../../../../components/tinyauth

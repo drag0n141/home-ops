@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword
+    - name: onepassword-connect
       namespace: external-secrets
   components:
     - ../../../../components/tinyauth
