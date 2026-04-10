@@ -7,10 +7,17 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: onepassword-connect-secret
+  name: onepassword-connect-credentials-secret
   namespace: external-secrets
 stringData:
   1password-credentials.json: op://Kubernetes/1password/OP_CREDENTIALS_JSON
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: onepassword-connect-vault-secret
+  namespace: external-secrets
+stringData:
   token: op://Kubernetes/1password/OP_CONNECT_TOKEN
 ---
 apiVersion: v1
