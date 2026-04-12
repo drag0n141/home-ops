@@ -54,3 +54,19 @@ spec:
           env:
             - name: INSECURE_DISABLE_URL_VALIDATION
               value: "true"
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: VirtualMCPServer
+metadata:
+  name: mcp-gateway-internal
+spec:
+  config:
+    groupRef: mcp-tools
+    aggregation:
+      conflictResolution: prefix
+      conflictResolutionConfig:
+        prefixFormat: "{workload}_"
+  incomingAuth:
+    type: anonymous
+  outgoingAuth:
+    source: discovered
