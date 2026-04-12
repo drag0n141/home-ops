@@ -8,6 +8,7 @@ resources:
   - ./memory-mcp/ks.yaml
   - ./moltis/ks.yaml
   - ./ollama/ks.yaml
+  - ./open-webui/ks.yaml
   - ./openclaw/ks.yaml
   - ./plex-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
