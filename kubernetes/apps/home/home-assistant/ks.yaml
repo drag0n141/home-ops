@@ -9,6 +9,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-dns-cloudflare
+      namespace: *namespace
+    - name: pangolin-operator
+      namespace: *namespace
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
   sourceRef:
