@@ -18,3 +18,11 @@ spec:
     tag: 1.11.0
     acceptClients: true
     mtu: 1380
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: NewtSite
+metadata:
+  name: local
+spec:
+  name: local
+  type: local
