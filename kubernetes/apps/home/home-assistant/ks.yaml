@@ -11,9 +11,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-dns-cloudflare
-      namespace: *namespace
+      namespace: networking
     - name: pangolin-operator
-      namespace: *namespace
+      namespace: networking
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
   sourceRef:
