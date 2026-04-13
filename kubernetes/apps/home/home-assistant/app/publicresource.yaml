@@ -1,0 +1,15 @@
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: PublicResource
+metadata:
+  name: home-assistant
+spec:
+  name: home-assistant
+  siteRef: HAOS
+  protocol: http
+  fullDomain: home.${SECRET_DOMAIN}
+  ssl: true
+  targets:
+    - hostname: localhost
+      port: 8123
+      method: http
