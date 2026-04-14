@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/lakker/pulsarr
-              tag: 0.15.1@sha256:c91ca5aa023f11113a8697af7a5248ef20a8fac7114176c3b71ec3fdfef3acb4
+              tag: 0.15.2@sha256:401b6b788f5947a6dce469ce78d6db48601463f22eda3a9004b0b21a00e933d4
             env:
               TZ: ${TIMEZONE}
               PUID: 1000
