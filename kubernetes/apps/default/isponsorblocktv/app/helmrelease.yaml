@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dmunozv04/isponsorblocktv
-              tag: v2.6.1@sha256:545856523283753ebcf4b400a46895b9906844be5265a0f4cab98a6b0bdf84be
+              tag: v2.7.0@sha256:ff292ed53c9208ebfa7da3be7084bd863339d545a799bfefed5092396f5e8b4b
             env:
               TZ: ${TIMEZONE}
             securityContext:
