@@ -26,3 +26,12 @@ metadata:
 spec:
   name: local
   type: local
+---
+apiVersion: pangolin.home-operations.com/v1alpha1
+kind: NewtSite
+metadata:
+  name: haos
+spec:
+  name: haos
+  type: newt
+  managedDeployment: false
