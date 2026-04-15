@@ -6,7 +6,8 @@ metadata:
 spec:
   image: ghcr.io/homeassistant-ai/ha-mcp:7.2.0
   transport: streamable-http
-  groupRef: mcp-tools
+  groupRef:
+    name: mcp-tools
   env:
     - name: HOMEASSISTANT_URL
       value: http://haos.${SECRET_DOMAIN_INT}:8123
