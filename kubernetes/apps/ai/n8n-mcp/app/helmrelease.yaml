@@ -1,0 +1,18 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: n8n-mcp
+spec:
+  image: ghcr.io/czlonkowski/n8n-mcp:2.47.8
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: MCP_MODE
+      value: stdio
+    - name: N8N_API_URL
+      value: https://n8n.${SECRET_DOMAIN_INTERNAL}
+  secrets:
+    - name: n8n-mcp-secret
+      key: N8N_API_KEY
