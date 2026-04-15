@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/checkmk/check-mk-raw
-              tag: 2.4.0p25@sha256:1072442ab9be10c0564cc2aca5737164361789d616e616dde79a29666a256be2
+              tag: 2.4.0p26@sha256:9f334f3e93dd57cb2d037390312bccf37a494b9e1f812c391f96df9220cb9deb
             env:
               TZ: ${TIMEZONE}
               CMK_SITE_ID: checkmk
