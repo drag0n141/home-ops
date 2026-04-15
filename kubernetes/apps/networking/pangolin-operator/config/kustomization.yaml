@@ -6,3 +6,4 @@ resources:
   - ./newtsite.yaml
   - ./privateresource.yaml
   - ./publicresource.yaml
+  - ./pushsecret.yaml
