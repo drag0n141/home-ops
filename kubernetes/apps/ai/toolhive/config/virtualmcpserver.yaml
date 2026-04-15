@@ -31,6 +31,7 @@ spec:
             - profile
             - email
   config:
+    groupRef: mcp-tools
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
@@ -62,6 +63,7 @@ metadata:
   name: mcp-gateway-internal
 spec:
   config:
+    groupRef: mcp-tools
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
