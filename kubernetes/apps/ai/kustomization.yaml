@@ -13,7 +13,7 @@ resources:
   - ./openclaw/ks.yaml
 #  - ./plex-mcp/ks.yaml
 #  - ./prometheus-mcp/ks.yaml
-#  - ./searxng-mcp/ks.yaml
+  - ./searxng-mcp/ks.yaml
   - ./toolhive/ks.yaml
 components:
   - ../../components/alerts
