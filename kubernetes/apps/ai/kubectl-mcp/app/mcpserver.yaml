@@ -6,4 +6,5 @@ metadata:
 spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:1.24.0
   transport: stdio
-  groupRef: mcp-tools
+  groupRef:
+    name: mcp-tools
