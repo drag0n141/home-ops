@@ -6,7 +6,8 @@ metadata:
 spec:
   image: ghcr.io/pab1it0/prometheus-mcp-server:1.6.0
   transport: stdio
-  groupRef: mcp-tools
+  groupRef:
+    name: mcp-tools
   env:
     - name: PROMETHEUS_URL
       value: http://prometheus-operated.monitoring.svc.cluster.local:9090
