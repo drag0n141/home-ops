@@ -6,7 +6,8 @@ metadata:
 spec:
   image: docker.io/isokoliuk/mcp-searxng:1.0.3
   transport: stdio
-  groupRef: mcp-tools
+  groupRef:
+    name: mcp-tools
   env:
     - name: SEARXNG_URL
       value: http://searxng.default.svc.cluster.local:8080
