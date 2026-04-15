@@ -14,7 +14,7 @@ resources:
 #  - ./plex-mcp/ks.yaml
 #  - ./prometheus-mcp/ks.yaml
 #  - ./searxng-mcp/ks.yaml
-  - ./toolhive/ks.yaml
+#  - ./toolhive/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
