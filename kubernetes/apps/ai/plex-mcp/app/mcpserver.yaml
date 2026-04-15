@@ -6,7 +6,8 @@ metadata:
 spec:
   image: public.ecr.aws/docker/library/python:3.14
   transport: stdio
-  groupRef: mcp-tools
+  groupRef:
+    name: mcp-tools
   podTemplateSpec:
     spec:
       containers:
