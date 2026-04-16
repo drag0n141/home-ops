@@ -14,6 +14,8 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
+  components:
+    - ../../../../components/tinyauth
   path: ./kubernetes/apps/renovate/renovate-operator/app
   prune: true
   sourceRef:
@@ -24,6 +26,9 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
