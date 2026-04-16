@@ -1,0 +1,62 @@
+---
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: GithubAccessToken
+metadata:
+  name: drag0n141-bot-auth-token
+spec:
+  appID: "380295"
+  installID: "41046841"
+  auth:
+    privateKey:
+      secretRef:
+        name: drag0n141-bot-pem-secret
+        key: private_key_pem
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: drag0n141-bot-auth-token
+spec:
+  target:
+    name: drag0n141-bot-secret
+    template:
+      type: Opaque
+      data:
+        GITHUB_COM_TOKEN: "{{ .token }}"
+        GITHUB_COM_USER: ZHJhZzBuMTQx
+        RENOVATE_TOKEN: "{{ .token }}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: GithubAccessToken
+          name: drag0n141-bot-auth-token
+---
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: drag0n141
+spec:
+  discoveryFilter: drag0n141/home-ops
+  extraEnv:
+    - name: LOG_LEVEL
+      value: debug
+    - name: RENOVATE_ALLOWED_COMMANDS
+      value: |-
+        ["pnpm run bundle"]
+    - name: RENOVATE_PLATFORM_COMMIT
+      value: "true"
+  image: ghcr.io/renovatebot/renovate:43.0.2
+  parallelism: 5
+  provider:
+    name: github
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  schedule: 0 * * * *
+  secretRef: drag0n141-bot-secret
+  webhook:
+    enabled: true
+    authentication:
+      enabled: false
