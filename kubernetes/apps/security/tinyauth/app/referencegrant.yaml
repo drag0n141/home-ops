@@ -26,6 +26,8 @@ spec:
     - <<: *policy
       namespace: networking
     - <<: *policy
+      namespace: renovate
+    - <<: *policy
       namespace: storage
   to:
     - group: ''
