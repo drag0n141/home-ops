@@ -2,13 +2,6 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "Auto-merge Github Actions",
-      matchManagers: ["github-actions"],
-      automerge: true,
-      matchUpdateTypes: ["minor", "patch", "digest"],
-      minimumReleaseAge: "3 days",
-    },
-    {
       description: "Auto-merge Containers",
       matchDatasources: ["docker"],
       automerge: true,
@@ -31,9 +24,7 @@
       matchDatasources: ["docker"],
       automerge: true,
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: [
-        "ghcr.io/renovatebot/renovate",
-      ],
+      matchPackageNames: ["ghcr.io/renovatebot/renovate"],
       schedule: ["before 6am on Monday"],
     },
   ]

@@ -3,17 +3,14 @@
   customManagers: [
     {
       customType: "regex",
-      description: "Process annotated dependencies",
-      fileMatch: ["(^|/).+\\.ya?ml(?:\\.j2)?$"],
-      matchStrings: [
-        // # renovate: datasource=github-releases depName=kubernetes/kubernetes
-        // version: 1.29.1
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+ (?<currentValue>[v|\\d]\\S+)",
-        // # renovate: datasource=github-releases depName=rancher/system-upgrade-controller
-        // https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.2/crd.yaml
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+/(?<currentValue>[v|\\d][^/]+)",
+      description: "Process OCI dependencies",
+      managerFilePatterns: [
+        "/^kubernetes/.+\\.yaml(?:\\.j2)?$/"
       ],
-      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      matchStrings: [
+        "oci://(?<depName>[^:]+):(?<currentValue>\\S+)",
+      ],
+      datasourceTemplate: "docker",
     },
     {
       customType: "regex",
