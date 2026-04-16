@@ -5,8 +5,6 @@
       description: "Auto-merge Github Actions",
       matchManagers: ["github-actions"],
       automerge: true,
-      automergeType: "branch",
-      ignoreTests: true,
       matchUpdateTypes: ["minor", "patch", "digest"],
       minimumReleaseAge: "3 days",
     },
@@ -25,8 +23,18 @@
       automerge: true,
       automergeType: "pr",
       ignoreTests: false,
-      matchPackageNames: ["/kube-prometheus-stack/", "/netbox-chart/"],
+      matchPackageNames: ["/helm-charts/renovate-operator", "/kube-prometheus-stack/", "/netbox-chart/"],
       matchUpdateTypes: ["minor", "patch"],
-    }
+    },
+    {
+      description: "Auto-merge high-cadence packages weekly",
+      matchDatasources: ["docker"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: [
+        "ghcr.io/renovatebot/renovate",
+      ],
+      schedule: ["before 6am on Monday"],
+    },
   ]
 }
