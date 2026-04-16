@@ -12,6 +12,8 @@ spec:
     fullnameOverride: renovate-operator
     route:
       enabled: true
+      annotations:
+        gatus.home-operations.com/enabled: "false"
       hostnames:
         - renovate.${SECRET_DOMAIN_INTERNAL}
       parentRefs:
