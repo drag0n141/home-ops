@@ -1,0 +1,152 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dawarich
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    configMaps:
+      dawarich-initdb:
+        data:
+          dawarich.sql: |
+            CREATE EXTENSION IF NOT EXISTS "postgis";
+    controllers:
+      dawarich:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:6fa1f331cddd2eb0b6afa7b8d3685c864127a81ab01c3d9400bc3ff5263a51cf
+            envFrom: &envFrom
+              - secretRef:
+                  name: dawarich-secret
+        containers:
+          app:
+            image:
+              repository: mirror.gcr.io/freikin/dawarich
+              tag: 1.6.1@sha256:a884f69f19ce0f66992f3872d24544d1e587e133b8a003e072711aafc1e02429
+            command: ["web-entrypoint.sh"]
+            args: ["bin/rails", "server", "-p", "3000", "-b", "::"]
+            env: &env
+              TZ: ${TIMEZONE}
+              TIME_ZONE: ${TIMEZONE}
+              ALLOW_EMAIL_PASSWORD_REGISTRATION: false
+              APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              APPLICATION_PROTOCOL: http
+              DISTANCE_UNIT: km
+              MIN_MINUTES_SPENT_IN_CITY: 60
+              OIDC_PROVIDER_NAME: Pocket ID
+              OIDC_AUTO_REGISTER: true
+              OIDC_ISSUER: https://id.${SECRET_DOMAIN}
+              OIDC_REDIRECT_URI: "https://{{ .Release.Name }}.${SECRET_DOMAIN}/users/auth/openid_connect/callback"
+              RAILS_ENV: production
+              RAILS_LOG_TO_STDOUT: true
+              SELF_HOSTED: true
+              STORE_GEODATA: true
+            envFrom: *envFrom
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/health
+                    port: &port 3000
+              readiness: *probe
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+          sidekick:
+            image:
+              repository: mirror.gcr.io/freikin/dawarich
+              tag: 1.6.1@sha256:a884f69f19ce0f66992f3872d24544d1e587e133b8a003e072711aafc1e02429
+            command: ["sidekiq-entrypoint.sh"]
+            args: ["sidekiq"]
+            env: *env
+            envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          dawarich:
+            app: &mounts
+              - path: /var/app/db
+                subPath: db
+              - path: /var/app/public
+                subPath: public
+              - path: /var/app/storage
+                subPath: storage
+              - path: /dawarich_db_data
+                subPath: dawarich_db_data
+            sidekick: *mounts
+      initdb:
+        type: configMap
+        identifier: dawarich-initdb
+        advancedMounts:
+          dawarich:
+            init-db:
+              - path: /initdb
+      tmp:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 100Mi
+        advancedMounts:
+          dawarich:
+            app: &mounts
+              - path: /tmp
+                subPath: tmp
+              - path: /var/app/tmp
+                subPath: app
+            sidekick: *mounts
+      watched:
+        type: emptyDir
+        sizeLimit: 100Mi
+        advancedMounts:
+          dawarich:
+            app: &mounts
+              - path: /var/app/tmp/imports/watched
+            sidekick: *mounts
