@@ -38,7 +38,7 @@ metadata:
   name: drag0n141
 spec:
   discoveryFilters:
-    - drag0n141/home-ops
+    - drag0n141/*
   extraEnv:
     - name: LOG_LEVEL
       value: debug
