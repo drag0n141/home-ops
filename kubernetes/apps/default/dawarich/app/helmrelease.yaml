@@ -42,6 +42,7 @@ spec:
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               DISTANCE_UNIT: km
+              ENABLE_TELEMETRY: false
               MIN_MINUTES_SPENT_IN_CITY: 60
               OIDC_PROVIDER_NAME: Pocket ID
               OIDC_AUTO_REGISTER: true
@@ -52,15 +53,6 @@ spec:
               SELF_HOSTED: true
               STORE_GEODATA: true
             envFrom: *envFrom
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v1/health
-                    port: &port 3000
-              readiness: *probe
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -89,13 +81,13 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 4Gi
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
