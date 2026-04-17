@@ -12,7 +12,7 @@ resources:
   - ./christmas-community/ks.yaml
   - ./convertx/ks.yaml
   - ./cve-report/ks.yaml
-#   - ./dawarich/ks.yaml
+  - ./dawarich/ks.yaml
   - ./donetick/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
