@@ -94,8 +94,8 @@ spec:
             namespace: networking
     persistence:
       config:
-        type: secret
-        name: traccar-secret
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /opt/traccar/conf/traccar.xml
             subPath: traccar.xml
