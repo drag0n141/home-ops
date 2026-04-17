@@ -28,11 +28,41 @@ spec:
             image:
               repository: docker.io/traccar/traccar
               tag: 6.12.2@sha256:0643815ddff1f6deaa5ff75f7fd8a89c24d730d12698dd926623ae61ed1d6803
+            command:
+              - /bin/sh
+              - -c
+              - |
+                cd /opt/traccar
+                ./jre/bin/java -jar tracker-server.jar conf/traccar.xml &
+                JAVA_PID=$!
+                sleep 3
+                tail -f logs/tracker-server.log &
+                wait $JAVA_PID
             env:
               TZ: ${TIMEZONE}
               CONFIG_USE_ENVIRONMENT_VARIABLES: true
               DATABASE_DRIVER: org.postgresql.Driver
             envFrom: *envFrom
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/server
+                    port: &port 8082
+                  initialDelaySeconds: 60
+                  periodSeconds: 30
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/server
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -54,7 +84,7 @@ spec:
       app:
         ports:
           http:
-            port: 8082
+            port: *port
     route:
       app:
         hostnames:
