@@ -47,6 +47,26 @@ spec:
         ["pnpm run bundle"]
     - name: RENOVATE_PLATFORM_COMMIT
       value: "true"
+    - name: DOCKERHUB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: dockerhub-secret
+          key: DOCKERHUB_USERNAME
+    - name: DOCKERHUB_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: dockerhub-secret
+          key: DOCKERHUB_TOKEN
+    - name: RENOVATE_HOST_RULES
+      value: >-
+        [
+          {
+            "hostType": "docker",
+            "matchHost": "docker.io",
+            "username": "$(DOCKERHUB_USERNAME)",
+            "password": "$(DOCKERHUB_TOKEN)"
+          }
+        ]
   image: ghcr.io/renovatebot/renovate:43.123.8
   parallelism: 5
   provider:
