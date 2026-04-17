@@ -86,18 +86,9 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        forceRename: "{{ .Release.Name }}"
         ports:
           http:
             port: *port
-      owntracks:
-        annotations:
-          pangolin-operator/site-ref: k8s
-          pangolin-operator/all-ports: "true"
-        ports:
-          http:
-            port: 5144
-            protocol: TCP
     route:
       app:
         hostnames:
@@ -105,10 +96,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: http
     persistence:
       config:
         type: configMap
