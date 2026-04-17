@@ -45,6 +45,7 @@ spec:
               OPENID_ADMIN_GROUP: ID-Admin
               OPENID_FORCE: true
               OPENID_ISSUER_URL: https://id.${SECRET_DOMAIN}
+              WEB_URL: https://traccar.${SECRET_DOMAIN}
             envFrom: *envFrom
             probes:
               liveness:
