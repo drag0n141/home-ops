@@ -42,6 +42,9 @@ spec:
               TZ: ${TIMEZONE}
               CONFIG_USE_ENVIRONMENT_VARIABLES: true
               DATABASE_DRIVER: org.postgresql.Driver
+              OPENID_ADMIN_GROUP: ID-Admin
+              OPENID_FORCE: true
+              OPENID_ISSUER_URL: https://id.${SECRET_DOMAIN}
             envFrom: *envFrom
             probes:
               liveness:
