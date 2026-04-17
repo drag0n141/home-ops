@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: traccar-configmap
+    files:
+      - traccar.xml=./resources/traccar.xml
+generatorOptions:
+  disableNameSuffixHash: true
