@@ -72,13 +72,6 @@ spec:
           - name: envoy-external
             namespace: networking
     persistence:
-      config:
-        type: secret
-        name: traccar-secret
-        globalMounts:
-          - path: /opt/traccar/conf/traccar.xml
-            subPath: traccar.xml
-            readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
