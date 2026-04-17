@@ -42,6 +42,9 @@ spec:
               TZ: ${TIMEZONE}
               CONFIG_USE_ENVIRONMENT_VARIABLES: true
               DATABASE_DRIVER: org.postgresql.Driver
+              FORWARD_TYPE: url
+              FORWARD_URL: http://n8n.default.svc.cluster.local:5678/webhook/traccar-dawarich?uniqueId={uniqueId}&lat={latitude}&lon={longitude}&timestamp={deviceTime}&altitude={altitude}&speed={speed}&hdop={accuracy}
+              FORWARD_RETRY_ENABLE: true
               OPENID_ADMIN_GROUP: ID-Admin
               OPENID_FORCE: true
               OPENID_ISSUER_URL: https://id.${SECRET_DOMAIN}
