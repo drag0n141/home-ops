@@ -33,15 +33,6 @@ spec:
               CONFIG_USE_ENVIRONMENT_VARIABLES: true
               DATABASE_DRIVER: org.postgresql.Driver
             envFrom: *envFrom
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/health
-                    port: &port 8082
-              readiness: *probe
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
