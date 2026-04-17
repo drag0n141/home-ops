@@ -14,6 +14,7 @@ spec:
         data:
           dawarich.sql: |
             CREATE EXTENSION IF NOT EXISTS "postgis";
+            CREATE EXTENSION IF NOT EXISTS postgis_topology;
     controllers:
       dawarich:
         labels:
