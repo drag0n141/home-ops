@@ -64,7 +64,7 @@ spec:
               readiness: *probe
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -82,7 +82,7 @@ spec:
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -129,15 +129,3 @@ spec:
           dawarich:
             init-db:
               - path: /initdb
-      tmp:
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 100Mi
-        advancedMounts:
-          dawarich:
-            app: &mounts
-              - path: /tmp
-                subPath: tmp
-              - path: /var/app/tmp
-                subPath: app
-            sidekick: *mounts
