@@ -54,7 +54,7 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: 8082
     route:
       app:
         hostnames:
