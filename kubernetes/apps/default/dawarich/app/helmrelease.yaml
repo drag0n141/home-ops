@@ -119,6 +119,8 @@ spec:
                 subPath: public
               - path: /var/app/storage
                 subPath: storage
+              - path: /var/app/tmp/imports/watched
+                subPath: watched
             sidekick: *mounts
       initdb:
         type: configMap
@@ -138,12 +140,4 @@ spec:
                 subPath: tmp
               - path: /var/app/tmp
                 subPath: app
-            sidekick: *mounts
-      watched:
-        type: emptyDir
-        sizeLimit: 100Mi
-        advancedMounts:
-          dawarich:
-            app: &mounts
-              - path: /var/app/tmp/imports/watched
             sidekick: *mounts
