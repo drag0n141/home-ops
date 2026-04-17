@@ -38,7 +38,7 @@ spec:
             env: &env
               TZ: ${TIMEZONE}
               TIME_ZONE: ${TIMEZONE}
-              ALLOW_EMAIL_PASSWORD_REGISTRATION: true
+              ALLOW_EMAIL_PASSWORD_REGISTRATION: false
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               DISTANCE_UNIT: km
