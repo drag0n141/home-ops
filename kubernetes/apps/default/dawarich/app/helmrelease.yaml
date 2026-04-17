@@ -106,14 +106,12 @@ spec:
         advancedMounts:
           dawarich:
             app: &mounts
-              - path: /var/app/db
-                subPath: db
               - path: /var/app/public
                 subPath: public
               - path: /var/app/storage
                 subPath: storage
-              - path: /dawarich_db_data
-                subPath: dawarich_db_data
+              - path: /var/app/tmp/imports/watched
+                subPath: watched
             sidekick: *mounts
       initdb:
         type: configMap
