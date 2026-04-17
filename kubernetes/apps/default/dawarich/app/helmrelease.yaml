@@ -110,8 +110,6 @@ spec:
                 subPath: public
               - path: /var/app/storage
                 subPath: storage
-              - path: /var/app/tmp/imports/watched
-                subPath: watched
             sidekick: *mounts
       initdb:
         type: configMap
