@@ -10,12 +10,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: crunchy-pgo-cluster
+    - name: cloudnative-pg-cluster
       namespace: database
-    - name: onepassword
-      namespace: security
-  components:
-    - ../../../../../shared/meta/components/gatus/external
+    - name: onepassword-connect
+      namespace: external-secrets
   path: ./kubernetes/apps/default/traccar/app
   prune: true
   sourceRef:
@@ -23,9 +21,6 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: false
-  interval: 30m
-  retryInterval: 1m
+  interval: 1h
+  retryInterval: 2m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app

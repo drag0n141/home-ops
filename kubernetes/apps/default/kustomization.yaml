@@ -45,6 +45,7 @@ resources:
   - ./syncthing/ks.yaml
   - ./tandoor/ks.yaml
   - ./termix/ks.yaml
+  - ./traccar/ks.yaml
   - ./ts3/ks.yaml
   - ./uc-intg-manager/ks.yaml
   - ./vaultwarden/ks.yaml

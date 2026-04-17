@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traccar
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      traccar:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:6fa1f331cddd2eb0b6afa7b8d3685c864127a81ab01c3d9400bc3ff5263a51cf
+            envFrom: &envFrom
+              - secretRef:
+                  name: traccar-secret
+        containers:
+          app:
+            image:
+              repository: docker.io/traccar/traccar
+              tag: 6.12.2@sha256:0643815ddff1f6deaa5ff75f7fd8a89c24d730d12698dd926623ae61ed1d6803
+            env:
+              TZ: ${TIMEZONE}
+              CONFIG_USE_ENVIRONMENT_VARIABLES: true
+              DATABASE_DRIVER: org.postgresql.Driver
+            envFrom: *envFrom
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 8082
+              readiness: *probe
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 1000Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    persistence:
+      config:
+        type: secret
+        name: traccar-secret
+        globalMounts:
+          - path: /opt/traccar/conf/traccar.xml
+            subPath: traccar.xml
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          traccar:
+            app:
+              - path: /opt/traccar/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
