@@ -20,6 +20,13 @@ spec:
     parameters:
       max_connections: "400"
       shared_buffers: 512MB
+    extensions:
+      - name: postgis
+        image:
+          # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgis-extension
+          reference: ghcr.io/cloudnative-pg/postgis-extension:3.6.1-18-trixie
+        ld_library_path:
+          - system
   resources:
     requests:
       cpu: 500m
