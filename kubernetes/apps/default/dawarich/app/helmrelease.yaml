@@ -38,7 +38,7 @@ spec:
             env: &env
               TZ: ${TIMEZONE}
               TIME_ZONE: ${TIMEZONE}
-              # ALLOW_EMAIL_PASSWORD_REGISTRATION: false
+              ALLOW_EMAIL_PASSWORD_REGISTRATION: true
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               DISTANCE_UNIT: km
@@ -53,6 +53,15 @@ spec:
               SELF_HOSTED: true
               STORE_GEODATA: true
             envFrom: *envFrom
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/health
+                    port: &port 3000
+              readiness: *probe
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -92,7 +101,7 @@ spec:
       app:
         ports:
           http:
-            port: 3000
+            port: *port
     route:
       app:
         hostnames:
