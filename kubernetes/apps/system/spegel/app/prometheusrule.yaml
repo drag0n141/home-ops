@@ -1,0 +1,26 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: spegel
+  namespace: system
+spec:
+  groups:
+    - name: spegel
+      rules:
+        - alert: SpegelHighCPU
+          expr: |
+            sum(rate(container_cpu_usage_seconds_total{
+              namespace="system",
+              pod=~"spegel-.*",
+              container="spegel"
+            }[5m])) by (pod) > 1.0
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Spegel Pod {{ $labels.pod }} hat dauerhaft hohe CPU-Last"
+            description: |
+              Pod {{ $labels.pod }} nutzt seit mehr als 15 Minuten
+              über 1 CPU-Kern (aktuell: {{ $value | humanize }} cores).
+              Mögliche Ursache: Renovate-Run oder OCI-Event-Flut auf dem Node.
