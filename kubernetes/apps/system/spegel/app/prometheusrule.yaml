@@ -2,8 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: spegel
-  namespace: system
+  name: spegel-highcpu
 spec:
   groups:
     - name: spegel
