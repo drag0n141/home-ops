@@ -24,6 +24,8 @@ spec:
             items:
               - key: gcp-oauth.keys.json
                 path: gcp-oauth.keys.json
+        - name: tmp
+          emptyDir: {}
       containers:
         - name: mcp
           image: docker.io/node:24-alpine
@@ -37,3 +39,5 @@ spec:
               mountPath: /app/gcp-oauth.keys.json
               subPath: gcp-oauth.keys.json
               readOnly: true
+            - name: tmp
+              mountPath: /tmp
