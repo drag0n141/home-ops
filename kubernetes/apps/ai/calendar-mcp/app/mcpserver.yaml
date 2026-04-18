@@ -1,0 +1,39 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: calendar-mcp
+spec:
+  image: docker.io/node:24-alpine
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: HOME
+      value: /tmp
+    - name: NPM_CONFIG_CACHE
+      value: /tmp/.npm
+    - name: GOOGLE_OAUTH_CREDENTIALS
+      value: /app/gcp-oauth.keys.json
+  podTemplateSpec:
+    spec:
+      volumes:
+        - name: oauth
+          secret:
+            secretName: calendar-mcp-secret
+            items:
+              - key: gcp-oauth.keys.json
+                path: gcp-oauth.keys.json
+      containers:
+        - name: mcp
+          image: docker.io/node:24-alpine
+          command:
+            - npx
+          args:
+            - -y
+            - "@cocal/google-calendar-mcp"
+          volumeMounts:
+            - name: oauth
+              mountPath: /app/gcp-oauth.keys.json
+              subPath: gcp-oauth.keys.json
+              readOnly: true
