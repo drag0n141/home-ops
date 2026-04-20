@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hermes
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      hermes:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v2026.4.16@sha256:14ba9a26cf2d498ea773f1825326c404795ec4cb436a9479d22b7a345396c370
+            args: ["gateway", "run"]
+            env:
+              TZ: ${TIMEZONE}
+              HOME: /opt/data
+            envFrom:
+              - secretRef:
+                  name: hermes-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+          dashboard:
+            image:
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v2026.4.16@sha256:14ba9a26cf2d498ea773f1825326c404795ec4cb436a9479d22b7a345396c370
+            args: ["dashboard ", "--host", "0.0.0.0"]
+            env:
+              TZ: ${TIMEZONE}
+              HOME: /opt/data
+              GATEWAY_HEALTH_URL: http://localhost:8642
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 9119
+          agent:
+            port: 8642
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /opt/data
+      data:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/openclaw
+        globalMounts:
+          - path: /nfs-data
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

@@ -4,6 +4,7 @@ namespace: ai
 resources:
   - ./github-mcp/ks.yaml
   - ./ha-mcp/ks.yaml
+  - ./hermes/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./memory-mcp/ks.yaml
   - ./moltis/ks.yaml
