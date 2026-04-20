@@ -19,7 +19,6 @@ resources:
   - ./forgejo/ks.yaml
   - ./gotify/ks.yaml
   - ./immich/ks.yaml
-  - ./isponsorblocktv/ks.yaml
   - ./it-tools/ks.yaml
   - ./homepage/ks.yaml
   - ./kms/ks.yaml
