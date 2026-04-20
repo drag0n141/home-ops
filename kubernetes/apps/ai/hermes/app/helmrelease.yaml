@@ -41,7 +41,7 @@ spec:
             image:
               repository: docker.io/nousresearch/hermes-agent
               tag: v2026.4.16@sha256:14ba9a26cf2d498ea773f1825326c404795ec4cb436a9479d22b7a345396c370
-            args: ["dashboard ", "--host", "0.0.0.0"]
+            args: ["dashboard", "--host", "0.0.0.0"]
             env:
               TZ: ${TIMEZONE}
               HOME: /opt/data
