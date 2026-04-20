@@ -67,7 +67,7 @@ spec:
             "password": "$(DOCKERHUB_TOKEN)"
           }
         ]
-  image: ghcr.io/renovatebot/renovate:43.123.8
+  image: ghcr.io/renovatebot/renovate:43.132.1
   parallelism: 5
   provider:
     name: github
