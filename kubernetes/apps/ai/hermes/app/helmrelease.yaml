@@ -26,7 +26,6 @@ spec:
               API_SERVER_ENABLED: true
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
-              HOME: /opt/data
             envFrom:
               - secretRef:
                   name: hermes-secret
@@ -46,7 +45,6 @@ spec:
             args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
             env:
               TZ: ${TIMEZONE}
-              HOME: /opt/data
               GATEWAY_HEALTH_URL: http://localhost:8642
             securityContext:
               allowPrivilegeEscalation: false
