@@ -11,7 +11,6 @@ resources:
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./patchmon/ks.yaml
-  - ./pulse/ks.yaml
   - ./silence-operator/ks.yaml
   - ./siren/ks.yaml
   - ./smartctl-exporter/ks.yaml
