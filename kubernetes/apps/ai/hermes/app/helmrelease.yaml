@@ -23,6 +23,9 @@ spec:
             args: ["gateway", "run"]
             env:
               TZ: ${TIMEZONE}
+              API_SERVER_ENABLED: true
+              API_SERVER_HOST: 0.0.0.0
+              API_SERVER_PORT: &port 8642
               HOME: /opt/data
             envFrom:
               - secretRef:
@@ -67,7 +70,7 @@ spec:
           http:
             port: 9119
           agent:
-            port: 8642
+            port: *port
     route:
       app:
         hostnames:
