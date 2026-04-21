@@ -4,7 +4,7 @@ kind: MCPServer
 metadata:
   name: n8n-mcp
 spec:
-  image: ghcr.io/czlonkowski/n8n-mcp:2.47.13
+  image: ghcr.io/czlonkowski/n8n-mcp:2.47.14
   transport: stdio
   groupRef:
     name: mcp-tools
