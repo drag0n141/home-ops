@@ -47,15 +47,20 @@ spec:
         ["pnpm run bundle"]
     - name: RENOVATE_PLATFORM_COMMIT
       value: "true"
+    - name: RENOVATE_REDIS_URL
+      valueFrom:
+        secretKeyRef:
+          name: renovator-operator-secret
+          key: RENOVATE_REDIS_URL
     - name: DOCKERHUB_USERNAME
       valueFrom:
         secretKeyRef:
-          name: dockerhub-secret
+          name: renovator-operator-secret
           key: DOCKERHUB_USERNAME
     - name: DOCKERHUB_TOKEN
       valueFrom:
         secretKeyRef:
-          name: dockerhub-secret
+          name: renovator-operator-secret
           key: DOCKERHUB_TOKEN
     - name: RENOVATE_HOST_RULES
       value: >-
