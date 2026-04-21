@@ -55,12 +55,20 @@ spec:
           http:
             port: 1883
       websocket:
-        annotations:
-          pangolin-operator/site-ref: k8s
-          pangolin-operator/full-domain: "mqtt.${SECRET_DOMAIN}"
         ports:
           http:
             port: 8083
+    route:
+      app:
+        hostnames:
+          - "mqtt.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: websocket
+                port: http
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
