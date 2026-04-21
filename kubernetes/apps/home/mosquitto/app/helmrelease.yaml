@@ -57,9 +57,9 @@ spec:
       websocket:
         annotations:
           pangolin-operator/site-ref: k8s
-          pangolin-operator/all-ports: "true"
+          pangolin-operator/full-domain: "mqtt.${SECRET_DOMAIN}"
         ports:
-          websocket:
+          http:
             port: 8083
     persistence:
       data:
