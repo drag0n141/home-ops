@@ -19,7 +19,10 @@ spec:
         maxMessageSize: 30
       serviceAccount:
         allowedNamespaces:
-          - '*'
+          - default
+          - flux-system
+          - matrix
+          - security
     logLevel: info
     allowBreakTheGlass: false
     allowCrossNamespaceRefs: true
