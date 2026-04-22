@@ -1,0 +1,27 @@
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: ${APP}-migadu
+spec:
+  interval: 12h
+  approvePlan: auto
+  vars:
+    - name: app
+      value: ${APP}
+    - name: name
+      value: ${MAILBOX_NAME:-${APP}}
+    - name: domain
+      value: ${SECRET_DOMAIN}
+  path: ./terraform/migadu
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  writeOutputsToSecret:
+    name: ${APP}-migadu
+  runnerPodTemplate:
+    spec:
+      envFrom:
+        - secretRef:
+            name: ${APP}-migadu-token

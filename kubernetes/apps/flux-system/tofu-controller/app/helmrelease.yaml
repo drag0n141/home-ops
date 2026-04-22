@@ -17,6 +17,9 @@ spec:
         tag: 1.11.6@sha256:10e1c1dc9160e9dbb1d9832d708fd42d8bf0826e090cee084c804413f971e800
       grpc:
         maxMessageSize: 30
+      serviceAccount:
+        allowedNamespaces:
+          - "*"
     logLevel: info
     allowBreakTheGlass: false
     allowCrossNamespaceRefs: true
