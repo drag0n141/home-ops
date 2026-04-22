@@ -5,4 +5,5 @@ resources:
   - ./externalsecret.yaml
   - ./httproute.yaml
   - ./mcpgroup.yaml
+  - ./mcpoidcconfig.yaml
   - ./virtualmcpserver.yaml
