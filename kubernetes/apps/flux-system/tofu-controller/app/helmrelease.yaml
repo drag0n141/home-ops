@@ -19,7 +19,7 @@ spec:
         maxMessageSize: 30
       serviceAccount:
         allowedNamespaces:
-          - "*"
+          - '*'
     logLevel: info
     allowBreakTheGlass: false
     allowCrossNamespaceRefs: true
