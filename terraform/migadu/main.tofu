@@ -19,23 +19,21 @@ variable "name" {
   type = string
 }
 
-resource "random_password" "password" {
-  length = 64
+variable "destination_local_part" {
+  type = string
 }
 
-resource "migadu_mailbox" "mailbox" {
-  name        = var.name
-  domain_name = var.domain
-  local_part  = var.app
-  password    = random_password.password.result
-  may_send    = true
+resource "migadu_identity" "identity" {
+  domain_name  = var.domain
+  local_part   = var.destination_local_part
+  identity     = var.app
+  name         = var.name
+  password_use = "none"
+  may_send     = true
 }
 
-output "password" {
-  sensitive = true
-  value = random_password.password.result
-}
-
-output "host" {
-  value = "smtp.migadu.com"
+resource "migadu_alias" "alias" {
+  domain_name  = var.domain
+  local_part   = var.app
+  destinations = ["${var.destination_local_part}@${var.domain}"]
 }

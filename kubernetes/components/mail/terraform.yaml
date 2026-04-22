@@ -8,9 +8,9 @@ spec:
   approvePlan: auto
   vars:
     - name: app
-      value: ${APP}
+      value: ${MAIL_ADDRESS:-${APP}}
     - name: name
-      value: ${MAILBOX_NAME:-${APP}}
+      value: ${MAIL_NAME:-${APP}}
     - name: domain
       value: ${SECRET_DOMAIN}
   path: ./terraform/migadu
@@ -18,8 +18,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  writeOutputsToSecret:
-    name: ${APP}-migadu
   runnerPodTemplate:
     spec:
       envFrom:
