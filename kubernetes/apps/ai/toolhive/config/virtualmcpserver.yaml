@@ -6,6 +6,8 @@ metadata:
 spec:
   authServerConfig:
     issuer: https://mcp.${SECRET_DOMAIN}
+    audiences:
+      - https://mcp.${SECRET_DOMAIN}/mcp
     signingKeySecretRefs:
       - name: toolhive-secret
         key: signing-key
