@@ -4,10 +4,7 @@ kind: MCPOIDCConfig
 metadata:
   name: mcp-gateway-oidc
 spec:
-  type: oidc
-  oidcConfig:
-    type: inline
-    resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
-    inline:
-      issuer: https://mcp.${SECRET_DOMAIN}
-      jwksAllowPrivateIP: true
+  type: inline
+  inline:
+    issuer: https://mcp.${SECRET_DOMAIN}
+    jwksAllowPrivateIP: true
