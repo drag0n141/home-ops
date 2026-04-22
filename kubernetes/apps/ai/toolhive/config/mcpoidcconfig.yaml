@@ -1,0 +1,14 @@
+---
+apiVersion: toolhive.stacklok.com/v1alpha1
+kind: MCPOIDCConfig
+metadata:
+  name: mcp-gateway-oidc
+spec:
+  type: oidc
+  oidcConfig:
+    type: inline
+    resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
+    inline:
+      audience: https://mcp.${SECRET_DOMAIN}/mcp
+      issuer: https://mcp.${SECRET_DOMAIN}
+      jwksAllowPrivateIP: true

@@ -1,5 +1,5 @@
 ---
-apiVersion: toolhive.stacklok.dev/v1alpha1
+apiVersion: toolhive.stacklok.dev/v1beta1
 kind: VirtualMCPServer
 metadata:
   name: mcp-gateway
@@ -31,7 +31,6 @@ spec:
             - profile
             - email
   config:
-    groupRef: mcp-tools
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
@@ -40,13 +39,9 @@ spec:
     name: mcp-tools
   incomingAuth:
     type: oidc
-    oidcConfig:
-      type: inline
-      resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
-      inline:
-        audience: https://mcp.${SECRET_DOMAIN}/mcp
-        issuer: https://mcp.${SECRET_DOMAIN}
-        jwksAllowPrivateIP: true
+    oidcConfigRef:
+      name: mcp-gateway-oidc
+      audience: https://mcp.${SECRET_DOMAIN}/mcp
   outgoingAuth:
     source: discovered
   podTemplateSpec:
@@ -57,7 +52,7 @@ spec:
             - name: INSECURE_DISABLE_URL_VALIDATION
               value: "true"
 ---
-apiVersion: toolhive.stacklok.dev/v1alpha1
+apiVersion: toolhive.stacklok.dev/v1beta1
 kind: VirtualMCPServer
 metadata:
   name: mcp-gateway-internal
