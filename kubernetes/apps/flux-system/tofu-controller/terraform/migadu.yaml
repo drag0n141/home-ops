@@ -13,7 +13,7 @@ spec:
         key      = "migadu/migadu.tfstate"
         region   = "auto"
         endpoints = {
-          s3 = "http://garage.storage.svc.cluster.local:3900"
+          s3 = "https://${SECRET_CLOUDFLARE_R2_ID}.r2.cloudflarestorage.com"
         }
 
         skip_credentials_validation = true
