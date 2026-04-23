@@ -1,7 +1,7 @@
 resource "onepassword_item" "garage_nas" {
   vault    = data.onepassword_vault.kubernetes.uuid
   title    = "garage-nas"
-  category = "login"
+  category = "password"
 
   section {
     label = "Admin"
