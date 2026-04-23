@@ -5,7 +5,6 @@ auto_discover_opts:
   depth: 1
   delete: true
 external_secrets:
-  API_ADMIN_KEY: "op://Kubernetes/garage/GARAGE_ADMIN_TOKEN"
   CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
   CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
   DOMAIN: "op://Kubernetes/domains/DOMAIN"
