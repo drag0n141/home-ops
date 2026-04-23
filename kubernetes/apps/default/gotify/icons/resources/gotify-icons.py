@@ -33,9 +33,8 @@ def get_icon_name(app_name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", app_name.lower()).strip("-")
 
 
-def app_has_icon(session: requests.Session, app_id: int) -> bool:
-    resp = session.get(f"{GOTIFY_URL}/application/{app_id}/image")
-    return resp.status_code == 200
+def app_has_icon(app: dict) -> bool:
+    return not app["image"].startswith("static/")
 
 
 def upload_icon(session: requests.Session, app_id: int, icon_name: str) -> bool:
@@ -77,12 +76,12 @@ def main():
             print(f"  Skipped (SKIP_LIST)")
             continue
 
-        icon_name = get_icon_name(app_name)
-        print(f"  -> {icon_name}")
-
-        if app_has_icon(session, app_id):
+        if app_has_icon(app):
             print(f"  Icon already set, skipping")
             continue
+
+        icon_name = get_icon_name(app_name)
+        print(f"  -> {icon_name}")
 
         upload_icon(session, app_id, icon_name)
 
