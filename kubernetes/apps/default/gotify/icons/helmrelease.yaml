@@ -17,15 +17,26 @@ spec:
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
           failedJobsHistory: 1
+        initContainers:
+          pip-install:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
+            command:
+              - pip
+              - install
+              - "--target=/pip-packages"
+              - "requests"
         containers:
           app:
             image:
               repository: public.ecr.aws/docker/library/python
               tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
-            command: ["sh", "-c", "pip install requests -q && python /scripts/gotify-icons.py"]
+            command: ["python", "/scripts/gotify-icons.py"]
             env:
               TZ: ${TIMEZONE}
               GOTIFY_URL: http://gotify.default.svc.cluster.local
+              PYTHONPATH: /pip-packages
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -53,5 +64,12 @@ spec:
         advancedMounts:
           gotify-icons:
             app:
+              - path: /pip-packages
+                subPath: pip-packages
               - path: /tmp
                 subPath: tmp
+            pip-install:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp-pip
