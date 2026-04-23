@@ -13,7 +13,7 @@ CDN_BASE = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png"
 ICON_MAPPING = {
     "Change-Detection":  "changedetection",
     "DB-Backup":         "postgresql",
-    "RSS-Forwarder":     "github",
+    "RSS-Forwarder":     "github-light",
     "USV":               "apc",
 }
 
