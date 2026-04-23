@@ -1,0 +1,57 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gotify-icons
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      gotify-icons:
+        type: cronjob
+        cronjob:
+          schedule: "0 8 * * 1"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+        containers:
+          app:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
+            command: ["python", "/scripts/gotify-icons.py"]
+            env:
+              TZ: ${TIMEZONE}
+              GOTIFY_URL: http://gotify.default.svc.cluster.local
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      script:
+        type: configMap
+        name: "{{ .Release.Name }}-scripts"
+        globalMounts:
+          - path: /scripts/gotify-icons.py
+            subPath: gotify-icons.py
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          cve-report:
+            app:
+              - path: /tmp
+                subPath: tmp

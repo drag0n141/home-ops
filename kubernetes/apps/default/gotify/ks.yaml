@@ -34,3 +34,27 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 256Mi
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app gotify-icons
+  namespace: &namespace default
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: gotify
+      namespace: *namespace
+  path: ./kubernetes/apps/default/gotify/icons
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
