@@ -11,7 +11,7 @@ spec:
       backend "s3" {
         bucket   = "terraform"
         key      = "migadu/migadu.tfstate"
-        region   = "us-east-1"
+        region   = "auto"
         endpoints = {
           s3 = "http://garage.storage.svc.cluster.local:3900"
         }
@@ -21,7 +21,6 @@ spec:
         skip_metadata_api_check     = true
         skip_region_validation      = true
         use_path_style              = true
-        insecure                    = true
       }
   backendConfigsFrom:
     - kind: Secret
