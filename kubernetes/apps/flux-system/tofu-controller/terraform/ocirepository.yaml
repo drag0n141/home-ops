@@ -4,7 +4,7 @@ kind: OCIRepository
 metadata:
   name: terraform
 spec:
-  interval: 1h
+  interval: 15m
   url: oci://ghcr.io/drag0n141/manifests/terraform
   ref:
     tag: master
