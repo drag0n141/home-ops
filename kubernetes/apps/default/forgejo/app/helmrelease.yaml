@@ -58,7 +58,7 @@ spec:
           PROTOCOL: smtp
           SMTP_ADDR: smtp-relay.networking.svc.cluster.local
           SMTP_PORT: 2525
-          FROM: "Forgejo <forgejo@${SECRET_DOMAIN}>"
+          FROM: "Forgejo <git@${SECRET_DOMAIN}>"
         cache:
           ENABLED: true
           ADAPTER: redis
