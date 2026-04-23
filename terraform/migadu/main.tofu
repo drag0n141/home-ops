@@ -40,7 +40,7 @@ module "onepassword_domains" {
 
 provider "migadu" {
   username = module.onepassword_migadu.fields["MIGADU_USERNAME"]
-  token    = module.onepassword_migadu.fields["MIGADU_TOKEN"]
+  token    = module.onepassword_migadu.fields["TERRAFORM_MIGADU_TOKEN"]
 }
 
 locals {
