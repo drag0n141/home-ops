@@ -4,36 +4,66 @@ terraform {
       source  = "metio/migadu"
       version = "2026.3.5"
     }
+    onepassword = {
+      source  = "1Password/onepassword"
+      version = "2.1.2"
+    }
   }
 }
 
-variable "domain" {
-  type = string
+provider "onepassword" {
+  url   = var.OP_CONNECT_HOST
+  token = var.OP_CONNECT_TOKEN
 }
 
-variable "app" {
-  type = string
+data "onepassword_vault" "kubernetes" {
+  name = "Kubernetes"
 }
 
-variable "name" {
-  type = string
+module "onepassword_migadu" {
+  source = "github.com/joryirving/terraform-1password-item"
+  vault  = data.onepassword_vault.kubernetes.name
+  item   = "migadu"
+  providers = {
+    onepassword = onepassword
+  }
 }
 
-variable "destination_local_part" {
-  type = string
+provider "migadu" {
+  username = module.onepassword_migadu.fields["MIGADU_USERNAME"]
+  token    = module.onepassword_migadu.fields["MIGADU_TOKEN"]
 }
 
-resource "migadu_identity" "identity" {
-  domain_name  = var.domain
-  local_part   = var.destination_local_part
-  identity     = var.app
-  name         = var.name
-  password_use = "none"
-  may_send     = true
+locals {
+  identities = [
+    { app = "authentik",       name = "Authentik" },
+    { app = "bitwarden",       name = "Bitwarden" },
+    { app = "books",           name = "Books" },
+    { app = "cve-report",      name = "CVE-Report" },
+    { app = "epicgames",       name = "EpicGames" },
+    { app = "ferdium",         name = "Ferdium" },
+    { app = "git",             name = "Git" },
+    { app = "immich",          name = "Immich" },
+    { app = "kitchenowl",      name = "Kitchenowl" },
+    { app = "matrix",          name = "Matrix" },
+    { app = "nas01",           name = "NAS01" },
+    { app = "netbox",          name = "Netbox" },
+    { app = "nextcloud",       name = "Nextcloud" },
+    { app = "outline",         name = "Outline" },
+    { app = "pocket-id",       name = "Pocket-ID" },
+    { app = "rss",             name = "RSS" },
+    { app = "tautulli",        name = "Tautulli" },
+    { app = "unifi",           name = "Unifi" },
+    { app = "wallos",          name = "Wallos" },
+    { app = "wiki",            name = "Wiki" },
+    { app = "wireguard",       name = "Wireguard Portal" },
+  ]
 }
-
-resource "migadu_alias" "alias" {
-  domain_name  = var.domain
-  local_part   = var.app
-  destinations = ["${var.destination_local_part}@${var.domain}"]
+module "identities" {
+  for_each               = { for i in local.identities : i.app => i }
+  source                 = "./modules/migadu"
+  app                    = each.value.app
+  name                   = each.value.name
+  domain                 = var.domain
+  destination_local_part = var.destination_local_part
 }

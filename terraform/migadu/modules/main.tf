@@ -1,0 +1,14 @@
+resource "migadu_identity" "identity" {
+  domain_name  = var.domain
+  local_part   = var.destination_local_part
+  identity     = var.app
+  name         = var.name
+  password_use = "none"
+  may_send     = true
+}
+
+resource "migadu_alias" "alias" {
+  domain_name  = var.domain
+  local_part   = var.app
+  destinations = ["${var.destination_local_part}@${var.domain}"]
+}
