@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: garage
-      namespace: storage
     - name: onepassword-connect
       namespace: external-secrets
   path: ./kubernetes/apps/flux-system/tofu-controller/app
