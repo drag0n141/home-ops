@@ -60,12 +60,9 @@ locals {
     { app = "nextcloud",       name = "Nextcloud" },
     { app = "outline",         name = "Outline" },
     { app = "pocket-id",       name = "Pocket-ID" },
-    { app = "rss",             name = "RSS" },
-    { app = "tautulli",        name = "Tautulli" },
     { app = "unifi",           name = "Unifi" },
     { app = "wallos",          name = "Wallos" },
     { app = "wiki",            name = "Wiki" },
-    { app = "wireguard",       name = "Wireguard Portal" },
   ]
 }
 module "identities" {
