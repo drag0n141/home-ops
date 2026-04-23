@@ -49,13 +49,28 @@ def upload_logo(session: requests.Session, client_id: str, icon_name: str) -> bo
         return False
 
 
+def get_all_clients(session: requests.Session) -> list:
+    clients = []
+    page = 1
+    while True:
+        resp = session.get(
+            f"{POCKET_ID_URL}/api/oidc/clients",
+            params={"itemsPerPage": 100, "page": page},
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        clients.extend(data["data"])
+        if page >= data["pagination"]["totalPages"]:
+            break
+        page += 1
+    return clients
+
+
 def main():
     session = requests.Session()
     session.headers["X-API-Key"] = POCKET_ID_API_KEY
 
-    resp = session.get(f"{POCKET_ID_URL}/api/oidc/clients", params={"limit": 1000})
-    resp.raise_for_status()
-    clients = resp.json()["data"]
+    clients = get_all_clients(session)
 
     print(f"Found {len(clients)} clients")
 
