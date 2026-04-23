@@ -35,7 +35,7 @@
       description: "Flux Operator Group",
       groupName: "Flux Operator",
       matchDatasources: ["docker"],
-      matchPackagePatterns: ["flux-operator", "flux-instance"],
+      matchPackagePatterns: ["flux-operator", "flux-instance", "flux-operator-manifests"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
