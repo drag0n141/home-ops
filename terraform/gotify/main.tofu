@@ -32,7 +32,7 @@ module "onepassword_gotify" {
 }
 
 provider "gotify" {
-  endpoint = "http://gotify.gotify.svc.cluster.local"
+  endpoint = "http://gotify.default.svc.cluster.local"
   username = module.onepassword_gotify.fields["GOTIFY_DEFAULTUSER_NAME"]
   password = module.onepassword_gotify.fields["GOTIFY_DEFAULTUSER_PASS"]
 }
