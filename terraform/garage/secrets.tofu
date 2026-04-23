@@ -20,7 +20,7 @@ resource "onepassword_item" "garage_nas" {
   dynamic "section" {
     for_each = toset(local.buckets)
     content {
-      label = section.key
+      label = title(section.key)
       field {
         label = "${upper(section.key)}_AWS_ACCESS_KEY_ID"
         type  = "STRING"
