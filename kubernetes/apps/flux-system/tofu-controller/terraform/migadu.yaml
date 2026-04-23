@@ -13,7 +13,7 @@ spec:
         key      = "migadu/migadu.tfstate"
         region   = "us-east-1"
         endpoints = {
-          s3 = "https://s3.${SECRET_DOMAIN_INTERNAL}"
+          s3 = "http://garage.storage.svc.cluster.local:3900"
         }
 
         skip_credentials_validation = true
@@ -21,6 +21,7 @@ spec:
         skip_metadata_api_check     = true
         skip_region_validation      = true
         use_path_style              = true
+        insecure                    = true
       }
   backendConfigsFrom:
     - kind: Secret
