@@ -23,9 +23,11 @@
 # Docker
 - name: docker/ext01
   color: "b0129c"
-- name: docker/komodo
-  color: "b0129c"
 - name: docker/nas01
+  color: "b0129c"
+- name: docker/netbird01
+  color: "b0129c"
+- name: docker/pangolin01
   color: "b0129c"
 # Renovate Types
 - name: renovate/container
