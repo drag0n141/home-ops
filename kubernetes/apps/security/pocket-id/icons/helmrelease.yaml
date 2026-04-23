@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pocket-id-icons
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      pocket-id-icons:
+        type: cronjob
+        cronjob:
+          schedule: "0 8 * * 1"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+        initContainers:
+          pip-install:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
+            command:
+              - pip
+              - install
+              - "--target=/pip-packages"
+              - "requests"
+        containers:
+          app:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
+            command: ["python", "/scripts/pocket-id-icons.py"]
+            env:
+              TZ: ${TIMEZONE}
+              POCKET_ID_URL: https://id.${SECRET_DOMAIN}
+              PYTHONPATH: /pip-packages
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      script:
+        type: configMap
+        name: "{{ .Release.Name }}-scripts"
+        globalMounts:
+          - path: /scripts/pocket-id-icons.py
+            subPath: pocket-id-icons.py
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          pocket-id-icons:
+            app:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp
+            pip-install:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp-pip
