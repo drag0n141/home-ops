@@ -18,6 +18,8 @@
   color: "0e8a16"
 - name: area/taskfile
   color: "0e8a16"
+- name: area/terraform
+  color: "0e8a16"
 # Docker
 - name: docker/ext01
   color: "b0129c"
@@ -35,6 +37,8 @@
 - name: renovate/github-release
   color: "027fa0"
 - name: renovate/helm
+  color: "027fa0"
+- name: renovate/terraform
   color: "027fa0"
 # Semantic Types
 - name: type/digest

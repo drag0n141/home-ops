@@ -26,13 +26,19 @@ area/taskfile:
       - any-glob-to-any-file:
           - ".taskfiles/**/*"
           - "Taskfile.yaml"
+area/terraform:
+  - changed-files:
+      - any-glob-to-any-file: terraform/**/*
 # Docker
 docker/ext01:
   - changed-files:
       - any-glob-to-any-file: docker/ext01/**/*
-docker/komodo:
-  - changed-files:
-      - any-glob-to-any-file: docker/komodo/**/*
 docker/nas01:
   - changed-files:
       - any-glob-to-any-file: docker/nas01/**/*
+docker/netbird01:
+  - changed-files:
+      - any-glob-to-any-file: docker/netbird01/**/*
+docker/pangolin01:
+  - changed-files:
+      - any-glob-to-any-file: docker/pangolin01/**/*
