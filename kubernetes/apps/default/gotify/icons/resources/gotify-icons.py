@@ -11,21 +11,19 @@ GOTIFY_PASS = os.environ["GOTIFY_PASSWORD"]
 CDN_BASE = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png"
 
 ICON_MAPPING = {
-    "Change-Detection":  "changedetection-io",
-    "CVE-Report":        "cve",
+    "Change-Detection":  "changedetection",
     "DB-Backup":         "postgresql",
-    "RSS-Forwarder":     "rss",
-    "SonarrAnime":       "sonarr",
-    "SonarrDoVi":        "sonarr",
-    "SonarrKids":        "sonarr",
-    "Sonarr4K":          "sonarr",
-    "Radarr4K":          "radarr",
+    "RSS-Forwarder":     "github",
     "USV":               "apc",
-    "YT-DLP":            "youtube",
 }
 
 SKIP_LIST = [
     "CVE-Report",
+    "SonarrAnime",
+    "SonarrDoVi",
+    "SonarrKids",
+    "Sonarr4K",
+    "Radarr4K",
 ]
 
 
