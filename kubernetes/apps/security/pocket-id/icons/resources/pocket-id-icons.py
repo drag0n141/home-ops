@@ -53,7 +53,7 @@ def main():
     session = requests.Session()
     session.headers["X-API-Key"] = POCKET_ID_API_KEY
 
-    resp = session.get(f"{POCKET_ID_URL}/api/oidc/clients")
+    resp = session.get(f"{POCKET_ID_URL}/api/oidc/clients", params={"limit": 1000})
     resp.raise_for_status()
     clients = resp.json()["data"]
 
