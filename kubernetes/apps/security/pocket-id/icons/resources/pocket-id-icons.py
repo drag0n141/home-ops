@@ -10,7 +10,8 @@ POCKET_ID_API_KEY = os.environ["POCKET_ID_API_KEY"]
 CDN_BASE = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png"
 
 ICON_MAPPING = {
-    "Synapse": "matrix-synapse-light",
+    "Synapse":        "matrix-synapse-light",
+    "OpenPubkey-SSH": "sshwifty",
 }
 
 SKIP_LIST = [
