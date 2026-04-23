@@ -13,17 +13,17 @@ CDN_BASE = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png"
 ICON_MAPPING = {
     "Change-Detection":  "changedetection",
     "DB-Backup":         "postgresql",
+    "Radarr4K":          "radarr",
     "RSS-Forwarder":     "github-light",
+    "SonarrAnime":       "sonarr",
+    "SonarrDoVi":        "sonarr",
+    "SonarrKids":        "sonarr",
+    "Sonarr4K":          "sonarr",
     "USV":               "apc",
 }
 
 SKIP_LIST = [
     "CVE-Report",
-    "SonarrAnime",
-    "SonarrDoVi",
-    "SonarrKids",
-    "Sonarr4K",
-    "Radarr4K",
 ]
 
 
