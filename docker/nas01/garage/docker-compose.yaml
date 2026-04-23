@@ -30,6 +30,13 @@ services:
       - 'traefik.http.routers.garage-rtr.middlewares=chain-garage@file'
       - 'traefik.http.routers.garage-rtr.service=garage-svc'
       - 'traefik.http.services.garage-svc.loadbalancer.server.port=3900'
+      - 'traefik.http.routers.garage-api-rtr.entrypoints=https'
+      - 'traefik.http.routers.garage-api-rtr.rule=Host(`s3-api.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.garage-api-rtr.tls=true'
+      - 'traefik.http.routers.garage-api-rtr.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.garage-api-rtr.middlewares=chain-garage@file'
+      - 'traefik.http.routers.garage-api-rtr.service=garage-api-svc'
+      - 'traefik.http.services.garage-api-svc.loadbalancer.server.port=3903'
     deploy:
       resources:
         limits:
