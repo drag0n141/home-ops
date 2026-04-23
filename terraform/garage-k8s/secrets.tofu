@@ -1,4 +1,4 @@
-resource "onepassword_item" "garage_nas" {
+resource "onepassword_item" "garage_k8s" {
   vault    = data.onepassword_vault.kubernetes.uuid
   title    = "garage-k8s"
   category = "password"
