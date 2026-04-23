@@ -5,4 +5,5 @@ variable "OP_CONNECT_HOST" {
 variable "OP_CONNECT_TOKEN" {
   type      = string
   sensitive = true
+  default   = null
 }
