@@ -9,12 +9,10 @@ locals {
   ]
 }
 
-# Admin key for managing garage buckets
 resource "garage_key" "admin_key" {
   name = "admin-user"
 }
 
-# Create buckets dynamically using the garage module
 module "buckets" {
   for_each    = toset(local.buckets)
   source      = "./modules/garage"
