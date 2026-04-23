@@ -51,7 +51,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          cve-report:
+          gotify-icons:
             app:
               - path: /tmp
                 subPath: tmp
