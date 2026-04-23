@@ -19,7 +19,6 @@ ICON_MAPPING = {
 
 SKIP_LIST = [
     "CVE-Report",
-    "Mind",
     "SonarrAnime",
     "SonarrDoVi",
     "SonarrKids",

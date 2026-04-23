@@ -7,7 +7,6 @@ locals {
     { name = "Fail2Ban" },
     { name = "Gatus" },
     { name = "Lidarr" },
-    { name = "Mind" },
     { name = "Prowlarr" },
     { name = "Proxmox" },
     { name = "Radarr" },

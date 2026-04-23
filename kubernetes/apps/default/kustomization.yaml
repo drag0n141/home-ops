@@ -26,7 +26,6 @@ resources:
   - ./mail-archiver/ks.yaml
   - ./mailrise/ks.yaml
   - ./memos/ks.yaml
-  - ./mind/ks.yaml
   - ./miniflux/ks.yaml
   - ./mobaxterm-genkey/ks.yaml
   - ./n8n/ks.yaml
