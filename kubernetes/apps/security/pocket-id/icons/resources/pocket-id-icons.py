@@ -55,7 +55,7 @@ def get_all_clients(session: requests.Session) -> list:
     while True:
         resp = session.get(
             f"{POCKET_ID_URL}/api/oidc/clients",
-            params={"itemsPerPage": 100, "page": page},
+            params={"page": page},
         )
         resp.raise_for_status()
         data = resp.json()
