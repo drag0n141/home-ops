@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    migadu = {
+      source  = "metio/migadu"
+      version = "2026.3.5"
+    }
+  }
+}
+
 resource "migadu_identity" "identity" {
   domain_name  = var.domain
   local_part   = var.destination_local_part
