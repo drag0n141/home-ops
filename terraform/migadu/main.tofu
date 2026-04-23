@@ -29,6 +29,15 @@ module "onepassword_migadu" {
   }
 }
 
+module "onepassword_domains" {
+  source = "github.com/joryirving/terraform-1password-item"
+  vault  = data.onepassword_vault.kubernetes.name
+  item   = "domains"
+  providers = {
+    onepassword = onepassword
+  }
+}
+
 provider "migadu" {
   username = module.onepassword_migadu.fields["MIGADU_USERNAME"]
   token    = module.onepassword_migadu.fields["MIGADU_TOKEN"]
@@ -64,6 +73,6 @@ module "identities" {
   source                 = "./modules/migadu"
   app                    = each.value.app
   name                   = each.value.name
-  domain                 = var.domain
-  destination_local_part = var.destination_local_part
+  domain                 = module.onepassword_domains.fields["DOMAIN"]
+  destination_local_part = module.onepassword_migadu.fields["MIGADU_LOCAL_PART"]
 }

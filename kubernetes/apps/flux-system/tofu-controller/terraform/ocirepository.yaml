@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: terraform
+spec:
+  interval: 1h
+  url: oci://ghcr.io/drag0n141/manifests/terraform
+  ref:
+    tag: master
