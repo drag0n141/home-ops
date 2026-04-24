@@ -8,5 +8,5 @@ spec:
   callbackUrls:
     - "https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid"
   allowedUserGroups:
-    - name: id-admin
+    - name: id-home
       namespace: security

@@ -8,7 +8,5 @@ spec:
   callbackUrls:
     - "https://nextcloud.${SECRET_DOMAIN}/apps/oidc_login/oidc"
   allowedUserGroups:
-    - name: id-admin
-      namespace: security
     - name: id-nextcloud
       namespace: security

@@ -8,7 +8,5 @@ spec:
   callbackUrls:
     - "https://paperless.${SECRET_DOMAIN_INTERNAL}/accounts/oidc/pocket-id/login/callback/"
   allowedUserGroups:
-    - name: id-admin
-      namespace: security
     - name: id-paperless
       namespace: security
