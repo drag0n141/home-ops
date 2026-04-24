@@ -21,7 +21,7 @@ spec:
           image: ghcr.io/home-operations/postgres-init:18
           envFrom:
             - secretRef:
-                name: nextcloud-secret
+                name: &secret nextcloud-secret
       extraVolumes:
       - name: nfs-home
         nfs:
@@ -34,13 +34,13 @@ spec:
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: &secret nextcloud-secret
-              key: OIDC_CLIENT_ID
+              name: &secretoidc nextcloud-oidc-credentials
+              key: client_id
         - name: OIDC_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: *secret
-              key: OIDC_CLIENT_SECRET
+              name: *secretoidc
+              key: client_secret
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
