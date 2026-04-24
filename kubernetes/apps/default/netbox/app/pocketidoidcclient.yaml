@@ -14,4 +14,4 @@ spec:
     keys:
       clientID: SOCIAL_AUTH_OIDC_KEY
       clientSecret: SOCIAL_AUTH_OIDC_SECRET
-      issuer_url: SOCIAL_AUTH_OIDC_ENDPOINT
+      issuerUrl: SOCIAL_AUTH_OIDC_ENDPOINT
