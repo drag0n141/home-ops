@@ -24,7 +24,7 @@ spec:
           clientId: b503054f-dc60-4c71-8e60-47d38fdbcdfe
           clientSecretRef:
             name: toolhive-oidc-credentials
-            key: client-secret
+            key: client_secret
           redirectUri: https://mcp.${SECRET_DOMAIN}/oauth/callback
           scopes:
             - openid
