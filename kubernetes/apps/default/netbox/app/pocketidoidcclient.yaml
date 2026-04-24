@@ -10,6 +10,8 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
+    - name: id-netbox
+      namespace: security
   secret:
     keys:
       clientID: SOCIAL_AUTH_OIDC_KEY

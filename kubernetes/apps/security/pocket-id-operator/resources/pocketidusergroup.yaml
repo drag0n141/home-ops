@@ -9,9 +9,9 @@ spec:
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDUserGroup
 metadata:
-  name: id-gameyfin
+  name: id-gamevault
 spec:
-  name: "ID-Gameyfin"
+  name: "ID-Gamevault"
 ---
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDUserGroup
@@ -26,6 +26,13 @@ metadata:
   name: id-immich
 spec:
   name: "ID-Immich"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-netbox
+spec:
+  name: "ID-Netbox"
 ---
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDUserGroup
