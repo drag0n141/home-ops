@@ -1,0 +1,17 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: vaultwarden
+spec:
+  name: Vaultwarden
+  callbackUrls:
+    - "https://bitwarden.${SECRET_DOMAIN_INTERNAL}/identity/connect/oidc-signin"
+  pkceEnabled: true
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+  secret:
+    keys:
+      clientID: SSO_CLIENT_ID
+      clientSecret: SSO_CLIENT_SECRET

@@ -22,7 +22,9 @@ spec:
               tag: 18@sha256:6fa1f331cddd2eb0b6afa7b8d3685c864127a81ab01c3d9400bc3ff5263a51cf
             envFrom: &envFrom
               - secretRef:
-                  name: vaultwarden-secret
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
         containers:
           app:
             image:
@@ -39,6 +41,12 @@ spec:
               SMTP_HOST: smtp-relay.networking.svc.cluster.local
               SMTP_SECURITY: "off"
               SMTP_PORT: 2525
+              SSO_ENABLED: true
+              SSO_ONLY: false
+              SSO_PKCE: true
+              SSO_SIGNUPS_MATCH_EMAIL: true
+              SSO_AUTHORITY: https://id.drag0n141.de
+              SSO_SCOPES: email profile groups openid offline_access
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
