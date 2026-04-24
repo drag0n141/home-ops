@@ -125,17 +125,7 @@ spec:
       enabled: false
     worker:
       enabled: false
-    plugins:
-      - netbox_reorder_rack
   valuesFrom:
-    - targetPath: extraConfig[0].values.SOCIAL_AUTH_OIDC_KEY
-      kind: Secret
-      name: &secretoidc netbox-oidc-credentials
-      valuesKey: client_id
-    - targetPath: extraConfig[0].values.SOCIAL_AUTH_OIDC_SECRET
-      kind: Secret
-      name: *secretoidc
-      valuesKey: client_secret
     - targetPath: storages.default.OPTIONS.access_key
       kind: Secret
       name: *secret
