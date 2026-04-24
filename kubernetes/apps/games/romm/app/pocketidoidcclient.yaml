@@ -1,0 +1,14 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: romm
+spec:
+  name: RomM
+  callbackUrls:
+    - "https://romm.${SECRET_DOMAIN_INTERNAL}/api/oauth/openid"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-romm
+      namespace: security

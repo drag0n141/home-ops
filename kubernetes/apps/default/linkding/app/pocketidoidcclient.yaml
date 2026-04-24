@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: linkding
+spec:
+  name: Linkding
+  callbackUrls:
+    - "https://bookmarks.${SECRET_DOMAIN}/oidc/callback/"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

@@ -1,0 +1,13 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: termix
+spec:
+  name: Termix
+  callbackUrls:
+    - "https://termix.${SECRET_DOMAIN_INTERNAL}/users/oidc/callback"
+    - "https://termix.${SECRET_DOMAIN_PANGOLIN}/users/oidc/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: ganymede
+spec:
+  name: Ganymede
+  callbackUrls:
+    - "https://ganymede.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oauth/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

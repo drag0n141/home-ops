@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: memos
+spec:
+  name: Memos
+  callbackUrls:
+    - "https://notes.${SECRET_DOMAIN}/auth/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

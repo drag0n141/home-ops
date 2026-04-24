@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: tinyauth
+spec:
+  name: Tinyauth
+  callbackUrls:
+    - "https://tinyauth.${SECRET_DOMAIN}/api/oauth/callback/pocketid"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: synapse
+spec:
+  name: Synapse
+  callbackUrls:
+    - "https://mas.${SECRET_DOMAIN}/upstream/callback/01KBJ70YK8D4THFTF932Z7B9ZJ"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

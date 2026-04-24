@@ -1,0 +1,14 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: tandoor
+spec:
+  name: Tandoor
+  callbackUrls:
+    - "https://recipes.${SECRET_DOMAIN}/accounts/oidc/pocket-id/login/callback/"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-tandoor
+      namespace: security

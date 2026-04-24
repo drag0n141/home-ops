@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: zipline
+spec:
+  name: Zipline
+  callbackUrls:
+    - "https://zl.${SECRET_DOMAIN_SHORT}/api/auth/oauth/oidc"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

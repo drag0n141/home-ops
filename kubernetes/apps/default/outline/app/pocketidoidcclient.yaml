@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: outline
+spec:
+  name: Outline
+  callbackUrls:
+    - "https://outline.${SECRET_DOMAIN_INTERNAL}/auth/oidc.callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

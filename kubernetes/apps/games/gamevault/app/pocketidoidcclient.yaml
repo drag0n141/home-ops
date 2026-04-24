@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: gamevault
+spec:
+  name: Gamevault
+  callbackUrls:
+    - "https://gamevault.${SECRET_DOMAIN_INTERNAL}/api/auth/oauth2/login"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

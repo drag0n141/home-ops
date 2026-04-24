@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: donetick
+spec:
+  name: Donetick
+  callbackUrls:
+    - "https://donetick.${SECRET_DOMAIN}/auth/oauth2"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

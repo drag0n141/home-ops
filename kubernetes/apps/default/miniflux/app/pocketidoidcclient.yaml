@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: miniflux
+spec:
+  name: Miniflux
+  callbackUrls:
+    - "https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

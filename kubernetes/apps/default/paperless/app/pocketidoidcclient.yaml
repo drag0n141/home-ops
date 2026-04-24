@@ -1,0 +1,14 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: paperless
+spec:
+  name: Paperless
+  callbackUrls:
+    - "https://paperless.${SECRET_DOMAIN_INTERNAL}/accounts/oidc/pocket-id/login/callback/"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-paperless
+      namespace: security

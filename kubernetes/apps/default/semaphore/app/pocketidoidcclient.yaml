@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: semaphore
+spec:
+  name: Semaphore
+  callbackUrls:
+    - "https://semaphore.${SECRET_DOMAIN_INTERNAL}/api/auth/oidc/pocketid/redirect/"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security

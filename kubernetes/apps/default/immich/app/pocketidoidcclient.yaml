@@ -1,0 +1,16 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: immich
+spec:
+  name: Immich
+  callbackUrls:
+    - "https://photos.${SECRET_DOMAIN}/auth/login"
+    - "https://photos.${SECRET_DOMAIN}/user-settings"
+    - "app.immich:///oauth-callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-immich
+      namespace: security
