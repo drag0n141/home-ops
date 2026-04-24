@@ -10,8 +10,3 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
-  secret:
-    keys:
-      clientID: SOCIAL_AUTH_OIDC_KEY
-      clientSecret: SOCIAL_AUTH_OIDC_SECRET
-      issuerUrl: SOCIAL_AUTH_OIDC_ENDPOINT

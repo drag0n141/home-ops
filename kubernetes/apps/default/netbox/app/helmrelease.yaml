@@ -92,9 +92,20 @@ spec:
       parentRefs:
         - name: envoy-internal
           namespace: networking
-    extraEnvVarsSecret: netbox-oidc-credentials
+    extraEnvs:
+      - name: SOCIAL_AUTH_OIDC_KEY
+        valueFrom:
+          secretKeyRef:
+            name: &secretoidc netbox-oidc-credentials
+            key: client_id
+      - name: SOCIAL_AUTH_OIDC_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: *secretoidc
+            key: client_secret
     extraConfig:
       - values:
+          SOCIAL_AUTH_OIDC_ENDPOINT: "https://id.${SECRET_DOMAIN}"
           SOCIAL_AUTH_PIPELINE:
             [
               "social_core.pipeline.social_auth.social_details",
