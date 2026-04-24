@@ -10,7 +10,5 @@ spec:
     - "https://photos.${SECRET_DOMAIN}/user-settings"
     - "app.immich:///oauth-callback"
   allowedUserGroups:
-    - name: id-admin
-      namespace: security
     - name: id-immich
       namespace: security

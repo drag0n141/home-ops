@@ -8,5 +8,5 @@ spec:
   callbackUrls:
     - "https://miniflux.${SECRET_DOMAIN}/oauth2/oidc/callback"
   allowedUserGroups:
-    - name: id-admin
+    - name: id-rss
       namespace: security
