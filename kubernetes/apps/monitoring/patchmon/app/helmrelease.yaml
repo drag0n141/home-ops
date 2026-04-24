@@ -22,7 +22,9 @@ spec:
               tag: 18@sha256:6fa1f331cddd2eb0b6afa7b8d3685c864127a81ab01c3d9400bc3ff5263a51cf
             envFrom: &envFrom
               - secretRef:
-                  name: patchmon-secret
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
         containers:
           app:
             image:
@@ -32,6 +34,12 @@ spec:
               TZ: ${TIMEZONE}
               CORS_ORIGIN: https://patchmon.${SECRET_DOMAIN_INTERNAL}
               PORT: &port 3001
+              OIDC_ENABLED: true
+              OIDC_DISABLE_LOCAL_AUTH: true
+              OIDC_BUTTON_TEXT: Login with Pocket ID
+              OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
+              OIDC_REDIRECT_URI: https://patchmon.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oidc/callback
+              OIDC_ADMIN_GROUP: ID-Admin
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_PORT: 6379
               REDIS_DB: 2
