@@ -1,0 +1,77 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-admin
+spec:
+  name: "ID-Admin"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-gameyfin
+spec:
+  name: "ID-Gameyfin"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-home
+spec:
+  name: "ID-Home"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-immich
+spec:
+  name: "ID-Immich"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-nextcloud
+spec:
+  name: "ID-Nextcloud"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-paperless
+spec:
+  name: "ID-Paperless"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-romm
+spec:
+  name: "ID-RomM"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-rss
+spec:
+  name: "ID-RSS"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-tandoor
+spec:
+  name: "ID-Tandoor"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-users
+spec:
+  name: "ID-Users"
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: id-wireguard
+spec:
+  name: "ID-Wireguard"
