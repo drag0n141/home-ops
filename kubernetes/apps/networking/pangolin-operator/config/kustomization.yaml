@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./dnsendpoint.yaml
   - ./newtsite.yaml
+  - ./pocketidoidcclient.yaml
   - ./privateresource.yaml
   - ./publicresource.yaml
   - ./pushsecret.yaml
