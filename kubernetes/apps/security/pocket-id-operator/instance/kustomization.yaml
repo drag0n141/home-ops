@@ -5,7 +5,7 @@ resources:
   - ./externalsecret.yaml
   - ./pocketidinstance.yaml
 patches:
-  - path: patch.yaml
+  - path: ./patch.yaml
     target:
       kind: Deployment
       name: pocket-id
