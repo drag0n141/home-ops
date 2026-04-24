@@ -5,6 +5,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./pocketidoidcclient.yaml
+  - ./pushsecret.yaml
 configMapGenerator:
   - name: mas-configmap
     files:
