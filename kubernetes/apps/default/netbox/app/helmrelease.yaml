@@ -81,7 +81,10 @@ spec:
       enabled: false
     service:
       annotations:
-        teleport.dev/name: *app
+        pangolin-operator/site-ref: k8s
+        pangolin-operator/auth-sso: "true"
+        pangolin-operator/auth-sso-idp: "1"
+        pangolin-operator/full-domain: "netbox.${SECRET_DOMAIN_PANGOLIN}"
     httpRoute:
       enabled: true
       hostnames:
@@ -91,6 +94,7 @@ spec:
           namespace: networking
     extraConfig:
       - values:
+          SOCIAL_AUTH_OIDC_ENDPOINT: "https://id.${SECRET_DOMAIN}"
           SOCIAL_AUTH_PIPELINE:
             [
               "social_core.pipeline.social_auth.social_details",
@@ -103,7 +107,7 @@ spec:
               "social_core.pipeline.social_auth.associate_user",
               "social_core.pipeline.social_auth.load_extra_data",
               "social_core.pipeline.user.user_details",
-              "netbox.sso_pipeline_roles.set_role",
+              "netbox.sso_pipeline_roles.set_roles",
             ]
       - secret:
           secretName: *secret
