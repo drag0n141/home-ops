@@ -12,3 +12,7 @@ spec:
       namespace: security
     - name: id-home
       namespace: security
+  secret:
+    keys:
+      clientID: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+      clientSecret: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET

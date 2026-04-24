@@ -16,3 +16,15 @@ spec:
       namespace: security
   logo:
     nameOverride: sshwifty
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: pangolin
+spec:
+  name: Pangolin
+  callbackUrls:
+    - "https://pangolin.${SECRET_DOMAIN}/auth/idp/1/oidc/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
