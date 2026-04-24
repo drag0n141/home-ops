@@ -15,8 +15,6 @@ locals {
     { name = "RSS-Forwarder" },
     { name = "SABnzbd" },
     { name = "Sonarr" },
-    { name = "SonarrAnime" },
-    { name = "SonarrDoVi" },
     { name = "SonarrKids" },
     { name = "Sonarr4K" },
     { name = "Streamlink" },
