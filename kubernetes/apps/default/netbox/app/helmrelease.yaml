@@ -97,15 +97,15 @@ spec:
       - secret:
           secretName: *secret
     extraVolumes:
-      - name: sso-pipeline-roles
+      - name: netbox-configmap
         configMap:
-          name: netbox-sso-configmap
+          name: netbox-configmap
     extraVolumeMounts:
-      - name: sso-pipeline-roles
+      - name: netbox-configmap
         mountPath: /opt/netbox/netbox/netbox/sso_pipeline_roles.py
         subPath: sso_pipeline_roles.py
         readOnly: true
-      - name: sso-pipeline-roles
+      - name: netbox-configmap
         mountPath: /etc/netbox/config/oidc_config.py
         subPath: oidc_config.py
         readOnly: true

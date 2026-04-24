@@ -7,7 +7,7 @@ resources:
   - ./ocirepository.yaml
   - ./pocketidoidcclient.yaml
 configMapGenerator:
-  - name: netbox-sso-configmap
+  - name: netbox-configmap
     files:
       - sso_pipeline_roles.py=./resources/sso_pipeline_roles.py
       - oidc_config.py=./resources/oidc_config.py
