@@ -4,8 +4,3 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./pocketidinstance.yaml
-patches:
-  - path: ./patch.yaml
-    target:
-      kind: Deployment
-      name: pocket-id
