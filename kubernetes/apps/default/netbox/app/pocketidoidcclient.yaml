@@ -1,0 +1,17 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: netbox
+spec:
+  name: Netbox
+  callbackUrls:
+    - "https://netbox.${SECRET_DOMAIN_INTERNAL}/oauth/complete/oidc/"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+  secret:
+    keys:
+      clientID: SOCIAL_AUTH_OIDC_KEY
+      clientSecret: SOCIAL_AUTH_OIDC_SECRET
+      issuer_url: SOCIAL_AUTH_OIDC_ENDPOINT

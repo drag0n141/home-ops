@@ -5,3 +5,10 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+  - ./pocketidoidcclient.yaml
+configMapGenerator:
+  - name: netbox-sso-configmap
+    files:
+      - sso_pipeline_roles.py=./resources/sso_pipeline_roles.py
+generatorOptions:
+  disableNameSuffixHash: true

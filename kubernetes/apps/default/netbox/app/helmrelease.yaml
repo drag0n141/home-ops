@@ -66,6 +66,11 @@ spec:
       server: smtp-relay.networking.svc.cluster.local
       port: 2525
       from: netbox@${SECRET_DOMAIN}
+    remoteAuth:
+      enabled: true
+      backends:
+        - social_core.backends.open_id_connect.OpenIdConnectAuth
+      autoCreateUser: true
     csrf:
       trustedOrigins: ["https://netbox.${SECRET_DOMAIN_INTERNAL}"]
     persistence:
@@ -85,8 +90,34 @@ spec:
         - name: envoy-internal
           namespace: networking
     extraConfig:
+      - values:
+          SOCIAL_AUTH_PIPELINE:
+            [
+              "social_core.pipeline.social_auth.social_details",
+              "social_core.pipeline.social_auth.social_uid",
+              "social_core.pipeline.social_auth.auth_allowed",
+              "social_core.pipeline.social_auth.social_user",
+              "social_core.pipeline.user.get_username",
+              "social_core.pipeline.social_auth.associate_by_email",
+              "social_core.pipeline.user.create_user",
+              "social_core.pipeline.social_auth.associate_user",
+              "social_core.pipeline.social_auth.load_extra_data",
+              "social_core.pipeline.user.user_details",
+              "netbox.sso_pipeline_roles.set_role",
+            ]
       - secret:
           secretName: *secret
+      - secret:
+          secretName: netbox-oidc-credentials
+    extraVolumes:
+      - name: sso-pipeline-roles
+        configMap:
+          name: netbox-sso-configmap
+    extraVolumeMounts:
+      - name: sso-pipeline-roles
+        mountPath: /opt/netbox/netbox/netbox/sso_pipeline_roles.py
+        subPath: sso_pipeline_roles.py
+        readOnly: true
     housekeeping:
       enabled: false
     worker:
