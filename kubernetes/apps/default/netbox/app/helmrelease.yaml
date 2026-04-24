@@ -126,11 +126,11 @@ spec:
     worker:
       enabled: false
   valuesFrom:
-    - targetPath: values.extraConfig[0].values.SOCIAL_AUTH_OIDC_KEY
+    - targetPath: extraConfig[0].values.SOCIAL_AUTH_OIDC_KEY
       kind: Secret
       name: &secretoidc netbox-oidc-credentials
       valuesKey: client_id
-    - targetPath: values.extraConfig[0].values.SOCIAL_AUTH_OIDC_SECRET
+    - targetPath: extraConfig[0].values.SOCIAL_AUTH_OIDC_SECRET
       kind: Secret
       name: *secretoidc
       valuesKey: client_secret
