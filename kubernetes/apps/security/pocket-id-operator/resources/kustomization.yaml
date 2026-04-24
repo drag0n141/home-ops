@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./pocketidoidcclient.yaml
   - ./pocketidusergroup.yaml
+  - ./pushsecret.yaml
