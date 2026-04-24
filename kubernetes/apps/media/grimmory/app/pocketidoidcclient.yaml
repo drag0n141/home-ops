@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: grimmory
+spec:
+  name: Grimmory
+  callbackUrls:
+    - "https://grimmory.${SECRET_DOMAIN_INTERNAL}/oauth2-callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
