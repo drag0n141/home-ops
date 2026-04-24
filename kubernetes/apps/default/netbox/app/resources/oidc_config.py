@@ -1,5 +1,9 @@
 from os import environ
 
+SOCIAL_AUTH_BACKEND_ATTRS = {
+    "oidc": ("Login with Pocket ID", ""),
+}
+
 SOCIAL_AUTH_OIDC_ENDPOINT = environ.get('SOCIAL_AUTH_OIDC_ENDPOINT')
 SOCIAL_AUTH_OIDC_KEY = environ.get('SOCIAL_AUTH_OIDC_KEY')
 SOCIAL_AUTH_OIDC_SECRET = environ.get('SOCIAL_AUTH_OIDC_SECRET')
