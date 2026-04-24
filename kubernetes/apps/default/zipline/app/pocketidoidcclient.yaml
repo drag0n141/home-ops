@@ -10,6 +10,8 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
+  logo:
+    nameOverride: zipline-diced
   secret:
     keys:
       clientID: OAUTH_OIDC_CLIENT_ID
