@@ -4,7 +4,7 @@ default_provider: pocket-id
 providers:
   - alias: pocket-id
     issuer: https://id.${SECRET_DOMAIN}
-    client_id: "{{ .client_id }}"
+    client_id: "{{ .OPKSSH_CLIENT_ID }}"
     scopes: openid email profile groups
     access_type: offline
     prompt: consent
