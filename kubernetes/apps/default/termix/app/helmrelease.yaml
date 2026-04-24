@@ -24,6 +24,14 @@ spec:
               ENABLE_GUACAMOLE: true
               GUACD_HOST: termix-guacd.default.svc.cluster.local
               GUACD_PORT: "4822"
+              OIDC_AUTHORIZATION_URL: "https://id.${SECRET_DOMAIN}/authorize"
+              OIDC_TOKEN_URL: "https://id.${SECRET_DOMAIN}/api/oidc/token"
+              OIDC_ISSUER_URL: "https://id.${SECRET_DOMAIN}"
+              OIDC_USERINFO_URL: "https://id.${SECRET_DOMAIN}/api/oidc/userinfo"
+              OIDC_NAME_PATH: display_name
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
