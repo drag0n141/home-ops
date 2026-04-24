@@ -8,16 +8,22 @@
       overrideDepName: "{{packageName}}",
     },
     {
+      description: "Override Renovate Operator source",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/mogenius/helm-charts/renovate-operator"],
+      sourceUrl: "https://github.com/mogenius/renovate-operator",
+    },
+    {
       description: "Override Talos Installer Package Name",
       matchDatasources: ["docker"],
       matchPackageNames: ["/factory\\.talos\\.dev/"],
       overridePackageName: "ghcr.io/siderolabs/installer",
     },
     {
-      description: "Override Renovate Operator source",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["ghcr.io/mogenius/helm-charts/renovate-operator"],
-      sourceUrl: "https://github.com/mogenius/renovate-operator",
+      description: "Custom registry for garage Terraform provider",
+      matchDatasources: ["terraform-provider"],
+      matchPackageNames: ["schwitzd/garage"],
+      registryUrls: ["https://github.com/Schwitzd/terraform-provider-garage"],
     }
   ],
 }
