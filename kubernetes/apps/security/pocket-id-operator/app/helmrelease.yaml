@@ -1,0 +1,13 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pocket-id-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: pocket-id-operator
+  values:
+    instance:
+      enabled: false

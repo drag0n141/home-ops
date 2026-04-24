@@ -6,6 +6,7 @@ resources:
   - ./authentik/ks.yaml
   - ./ldap-lb/ks.yaml
   - ./pocket-id/ks.yaml
+  - ./pocket-id-operator/ks.yaml
   - ./tinyauth/ks.yaml
 components:
   - ../../components/alerts
