@@ -18,12 +18,6 @@
       matchDatasources: ["docker"],
       matchPackageNames: ["/factory\\.talos\\.dev/"],
       overridePackageName: "ghcr.io/siderolabs/installer",
-    },
-    {
-      description: "Custom registry for garage Terraform provider",
-      matchDatasources: ["terraform-provider"],
-      matchPackageNames: ["schwitzd/garage"],
-      registryUrls: ["https://github.com/Schwitzd/terraform-provider-garage"],
     }
   ],
 }
