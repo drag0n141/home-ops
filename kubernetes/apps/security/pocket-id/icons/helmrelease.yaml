@@ -13,7 +13,7 @@ spec:
       pocket-id-icons:
         type: cronjob
         cronjob:
-          schedule: "0 8 * * 1"
+          schedule: "@daily"
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
           failedJobsHistory: 1
