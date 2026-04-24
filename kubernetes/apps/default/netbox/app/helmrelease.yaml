@@ -92,17 +92,6 @@ spec:
       parentRefs:
         - name: envoy-internal
           namespace: networking
-    extraEnvs:
-      - name: SOCIAL_AUTH_OIDC_KEY
-        valueFrom:
-          secretKeyRef:
-            name: &secretoidc netbox-oidc-credentials
-            key: client_id
-      - name: SOCIAL_AUTH_OIDC_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: *secretoidc
-            key: client_secret
     extraConfig:
       - values:
           SOCIAL_AUTH_OIDC_ENDPOINT: "https://id.${SECRET_DOMAIN}"
@@ -136,6 +125,14 @@ spec:
     worker:
       enabled: false
   valuesFrom:
+    - targetPath: values.extraConfig[0].values.SOCIAL_AUTH_OIDC_KEY
+      kind: Secret
+      name: &secretoidc netbox-oidc-credentials
+      valuesKey: client_id
+    - targetPath: values.extraConfig[0].values.SOCIAL_AUTH_OIDC_SECRET
+      kind: Secret
+      name: *secretoidc
+      valuesKey: client_secret
     - targetPath: storages.default.OPTIONS.access_key
       kind: Secret
       name: *secret
