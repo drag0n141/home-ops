@@ -18,16 +18,6 @@ spec:
         name: *secret
         key: ENCRYPTION_KEY
   env:
-    - name: LDAP_BIND_DN
-      valueFrom:
-        secretKeyRef:
-          name: *secret
-          key: LDAP_BIND_DN
-    - name: LDAP_BASE
-      valueFrom:
-        secretKeyRef:
-          name: *secret
-          key: LDAP_BASE
     - name: LDAP_USER_SEARCH_FILTER
       valueFrom:
         secretKeyRef:
@@ -35,6 +25,8 @@ spec:
           key: LDAP_USER_SEARCH_FILTER
   ldap:
     url: "ldaps://ldap-lb.security.svc.cluster.local"
+    base: "${SECRET_LDAP_BASE}"
+    bindDN: "${SECRET_LDAP_BIND_DN}"
     bindPassword:
       valueFrom:
         secretKeyRef:
