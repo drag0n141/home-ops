@@ -10,3 +10,5 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
+  logo:
+    autoGenerate: false

@@ -23,7 +23,7 @@ spec:
           issuerUrl: https://id.${SECRET_DOMAIN}
           clientId: b503054f-dc60-4c71-8e60-47d38fdbcdfe
           clientSecretRef:
-            name: toolhive-secret
+            name: toolhive-oidc-credentials
             key: client-secret
           redirectUri: https://mcp.${SECRET_DOMAIN}/oauth/callback
           scopes:

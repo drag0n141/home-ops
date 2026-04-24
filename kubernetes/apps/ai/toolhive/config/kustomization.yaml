@@ -6,4 +6,5 @@ resources:
   - ./httproute.yaml
   - ./mcpgroup.yaml
   - ./mcpoidcconfig.yaml
+  - ./pocketidoidcclient.yaml
   - ./virtualmcpserver.yaml

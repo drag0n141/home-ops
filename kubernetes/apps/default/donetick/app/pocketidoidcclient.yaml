@@ -10,3 +10,7 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
+  secret:
+    keys:
+      clientID: DT_OAUTH2_CLIENT_ID
+      clientSecret: DT_OAUTH2_CLIENT_SECRET
