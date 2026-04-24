@@ -17,7 +17,7 @@ spec:
         image: ghcr.io/home-operations/postgres-init:18
         envFrom:
           - secretRef:
-              name:  &secret semaphore-secret
+              name: &secret semaphore-secret
     extraEnvVariables:
       SEMAPHORE_SCHEDULE_TIMEZONE: ${TIMEZONE}
       ANSIBLE_HOST_KEY_CHECKING: false
@@ -62,10 +62,10 @@ spec:
         memory: 512Mi
   valuesFrom:
     - kind: Secret
-      name: *secret
-      valuesKey: OIDC_CLIENT_ID
+      name: &secretopidc semaphore--oidc-credentials
+      valuesKey: client_id
       targetPath: oidc.providers.pocketid.client_id
     - kind: Secret
-      name: *secret
-      valuesKey: OIDC_CLIENT_SECRET
+      name: *secretopidc
+      valuesKey: client_secret
       targetPath: oidc.providers.pocketid.client_secret
