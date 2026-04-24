@@ -10,5 +10,6 @@ configMapGenerator:
   - name: netbox-sso-configmap
     files:
       - sso_pipeline_roles.py=./resources/sso_pipeline_roles.py
+      - oidc_config.py=./resources/oidc_config.py
 generatorOptions:
   disableNameSuffixHash: true
