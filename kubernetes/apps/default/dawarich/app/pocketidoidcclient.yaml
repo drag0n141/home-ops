@@ -1,0 +1,14 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: dawarich
+spec:
+  name: Dawarich
+  callbackUrls:
+    - "https://dawarich.${SECRET_DOMAIN}/users/auth/openid_connect/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-home
+      namespace: security
