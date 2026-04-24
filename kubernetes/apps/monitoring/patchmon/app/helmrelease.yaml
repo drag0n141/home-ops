@@ -39,7 +39,7 @@ spec:
               OIDC_BUTTON_TEXT: Login with Pocket ID
               OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
               OIDC_REDIRECT_URI: https://patchmon.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oidc/callback
-              OIDC_ADMIN_GROUP: ID-Admin
+              OIDC_SUPERADMIN_GROUP: ID-Admin
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_PORT: 6379
               REDIS_DB: 2
