@@ -88,7 +88,7 @@ spec:
       oauth:
         - name: PocketID
           provider: openidConnect
-          existingSecret: *secret
+          existingSecret: forgejo-oidc-credentials
           autoDiscoverUrl: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
           groupClaimName: groups
           adminGroup: ID-Admin

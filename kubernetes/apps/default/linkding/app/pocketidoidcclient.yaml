@@ -10,3 +10,7 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
+  secret:
+    keys:
+      clientID: OIDC_RP_CLIENT_ID
+      clientSecret: OIDC_RP_CLIENT_SECRET

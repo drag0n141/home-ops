@@ -10,3 +10,7 @@ spec:
   allowedUserGroups:
     - name: id-rss
       namespace: security
+  secret:
+    keys:
+      clientID: OAUTH2_CLIENT_ID
+      clientSecret: OAUTH2_CLIENT_SECRET
