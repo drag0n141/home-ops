@@ -10,3 +10,7 @@ spec:
   allowedUserGroups:
     - name: id-home
       namespace: security
+  secret:
+    keys:
+      TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTID: OAUTH_CLIENT_ID
+      TINYAUTH_OAUTH_PROVIDERS_POCKETID_CLIENTSECRET: OAUTH_CLIENT_SECRET

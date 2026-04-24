@@ -34,7 +34,7 @@ spec:
               TINYAUTH_DATABASE_PATH: /data/tinyauth.db
             envFrom:
               - secretRef:
-                  name: tinyauth-secret
+                  name: "{{ .Release.Name }}-oidc-credentials"
             probes:
               liveness: &probes
                 enabled: true
