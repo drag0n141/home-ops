@@ -4,13 +4,21 @@ kind: PocketIDInstance
 metadata:
   name: &app pocket-id
 spec:
+  podTemplate:
+    spec:
+      initContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:18
+          envFrom:
+            - secretRef:
+                name: &secret pocket-id-secret
   image: ghcr.io/pocket-id/pocket-id:v2.6.2-distroless@sha256:a9adc636b5d30098307b8a1292c5887a59690cd5429aac5e87b588852f9c346d
   timezone: "${TIMEZONE}"
   appUrl: "https://id.${SECRET_DOMAIN}"
   databaseUrl:
     valueFrom:
       secretKeyRef:
-        name: &secret pocket-id-secret
+        name: *secret
         key: DB_CONNECTION_STRING
   encryptionKey:
     valueFrom:
