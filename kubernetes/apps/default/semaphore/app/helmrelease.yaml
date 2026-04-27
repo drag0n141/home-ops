@@ -59,7 +59,7 @@ spec:
         cpu: 10m
         memory: 50M
       limits:
-        memory: 512Mi
+        memory: 768Mi
   valuesFrom:
     - kind: Secret
       name: &secretopidc semaphore-oidc-credentials
