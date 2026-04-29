@@ -54,7 +54,7 @@ services:
       - 'no-new-privileges:true'
 
   netbird-server:
-    image: ghcr.io/netbirdio/netbird-server:0.70.1
+    image: ghcr.io/netbirdio/netbird-server:0.70.2
     container_name: netbird-server
     restart: unless-stopped
     ports:
