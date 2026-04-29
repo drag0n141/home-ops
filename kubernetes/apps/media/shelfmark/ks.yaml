@@ -10,14 +10,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: keda
-      namespace: system
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/keda
+    - ../../../../components/zeroscaler
     - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/shelfmark/app

@@ -12,14 +12,12 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: database
-    - name: keda
-      namespace: system
     - name: onepassword-connect
       namespace: external-secrets
     - name: plex
       namespace: media
   components:
-    - ../../../../components/keda
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/media/autopulse/app
   prune: true
   sourceRef:

@@ -9,7 +9,6 @@ resources:
   - ./intel-gpu-resource-driver/ks.yaml
   - ./irqbalance/ks.yaml
   - ./k8tz/ks.yaml
-  - ./keda/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml

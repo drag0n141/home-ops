@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: keda
-      namespace: system
     - name: onepassword-connect
       namespace: external-secrets
     - name: intel-gpu-resource-driver
@@ -22,7 +20,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gpu
-    - ../../../../components/keda
+    - ../../../../components/zeroscaler
     - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/home/frigate/app

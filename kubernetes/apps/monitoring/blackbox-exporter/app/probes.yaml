@@ -25,6 +25,7 @@ kind: Probe
 metadata:
   name: nfs
 spec:
+  jobName: nfs_probe
   module: tcp_connect
   prober:
     url: blackbox-exporter.monitoring.svc.cluster.local:9115
@@ -32,3 +33,17 @@ spec:
     staticConfig:
       static:
         - nas01.${SECRET_DOMAIN_INT}:2049
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: printer
+spec:
+  jobName: printer_probe
+  module: icp
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - brother-mfc.${SECRET_DOMAIN_INT}

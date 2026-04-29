@@ -35,14 +35,12 @@ spec:
       namespace: database
     - name: immich-redis
       namespace: *namespace
-    - name: keda
-      namespace: system
     - name: onepassword-connect
       namespace: external-secrets
     - name: pocket-id-instance
       namespace: security
   components:
-    - ../../../../components/keda
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/default/immich/app
   prune: true
   sourceRef:
@@ -72,11 +70,9 @@ spec:
       namespace: *namespace
     - name: intel-gpu-resource-driver
       namespace: system
-    - name: keda
-      namespace: system
   components:
     - ../../../../components/gpu
-    - ../../../../components/keda
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/default/immich/machine-learning
   prune: true
   sourceRef:
@@ -106,11 +102,9 @@ spec:
       namespace: *namespace
     - name: intel-gpu-resource-driver
       namespace: system
-    - name: keda
-      namespace: system
   components:
     - ../../../../components/gpu
-    - ../../../../components/keda
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/default/immich/microservices
   prune: true
   sourceRef:
