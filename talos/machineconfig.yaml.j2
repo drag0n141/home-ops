@@ -31,7 +31,6 @@ machine:
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
         [plugins."io.containerd.cri.v1.runtime"]
-          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
           device_ownership_from_security_context = true
     - op: overwrite
       path: /etc/nfsmount.conf
@@ -117,6 +116,7 @@ cluster:
     certSANs: ["127.0.0.1", "192.168.254.250"]
     extraArgs:
       enable-aggregator-routing: "true"
+      feature-gates: HPAScaleToZero=true
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
   controllerManager:
     extraArgs:

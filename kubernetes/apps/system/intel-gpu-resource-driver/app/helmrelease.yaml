@@ -10,8 +10,8 @@ spec:
     name: intel-gpu-resource-driver
   values:
     cdi:
-      staticPath: /var/cdi/static
-      dynamicPath: /var/cdi/dynamic
+      staticPath: /run/cdi
+      dynamicPath: /run/cdi
     kubeletPlugin:
       privileged: true
       healthMonitoring:
