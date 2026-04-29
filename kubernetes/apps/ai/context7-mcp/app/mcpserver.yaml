@@ -1,0 +1,13 @@
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServer
+metadata:
+  name: context7-mcp
+spec:
+  image: ghcr.io/stacklok/dockyard/npx/context7:2.2.2
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  secrets:
+    - name: context7-mcp-secret
+      key: CONTEXT7_API_KEY
