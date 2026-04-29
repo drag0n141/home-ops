@@ -65,14 +65,16 @@ kind: VirtualMCPServer
 metadata:
   name: mcp-gateway-internal
 spec:
+  groupRef:
+    name: mcp-tools
   config:
     groupRef: mcp-tools
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
         prefixFormat: "{workload}_"
-  groupRef:
-    name: mcp-tools
+  embeddingServerRef:
+    name: mcp-tools-embedding
   incomingAuth:
     type: anonymous
   outgoingAuth:
