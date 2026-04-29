@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: anthropics/claude-code-action@b3c0320e7e8228fcafe773fda5bfd427aa8d1c34 # v1
+      - uses: anthropics/claude-code-action@ef50f123a3a9be95b60040d042717517407c7256 # v1
         env:
           ANTHROPIC_BASE_URL: "https://api.minimax.io/anthropic"
         with:
