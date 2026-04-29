@@ -45,11 +45,6 @@ spec:
       name: mcp-gateway-oidc
       audience: https://mcp.${SECRET_DOMAIN}/mcp
       resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
-      scopes:
-        - openid
-        - profile
-        - email
-        - offline_access
   outgoingAuth:
     source: discovered
   podTemplateSpec:
