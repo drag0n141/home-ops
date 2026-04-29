@@ -1,0 +1,25 @@
+---
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: victoria-logs
+spec:
+  image: ghcr.io/victoriametrics/mcp-victorialogs:latest
+  transport: streamable-http
+  mcpPort: 8081
+  groupRef:
+    name: mcp-tools
+  permissionProfile:
+    type: builtin
+    name: network
+  env:
+    - name: MCP_SERVER_MODE
+      value: http
+    - name: MCP_LISTEN_ADDR
+      value: :8081
+    - name: MCP_LOG_FORMAT
+      value: json
+    - name: MCP_LOG_LEVEL
+      value: info
+    - name: VL_INSTANCE_ENTRYPOINT
+      value: http://victoria-logs-server.monitoring.svc.cluster.local:9428

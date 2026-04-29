@@ -13,7 +13,9 @@ resources:
   - ./plex-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
   - ./searxng-mcp/ks.yaml
+  - ./sidero-mcp/ks.yaml
   - ./toolhive/ks.yaml
+  - ./victoria-logs-mcp/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
