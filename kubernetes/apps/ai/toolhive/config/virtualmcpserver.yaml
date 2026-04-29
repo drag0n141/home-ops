@@ -30,19 +30,26 @@ spec:
             - openid
             - profile
             - email
+  groupRef:
+    name: mcp-tools
   config:
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
         prefixFormat: "{workload}_"
-  groupRef:
-    name: mcp-tools
+  embeddingServerRef:
+    name: mcp-tools-embedding
   incomingAuth:
     type: oidc
     oidcConfigRef:
       name: mcp-gateway-oidc
       audience: https://mcp.${SECRET_DOMAIN}/mcp
       resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
+      scopes:
+        - openid
+        - profile
+        - email
+        - offline_access
   outgoingAuth:
     source: discovered
   podTemplateSpec:
