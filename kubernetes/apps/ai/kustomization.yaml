@@ -6,6 +6,7 @@ resources:
   - ./ha-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./memory-mcp/ks.yaml
+  - ./moltis/ks.yaml
   - ./n8n-mcp/ks.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
