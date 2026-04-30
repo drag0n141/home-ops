@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./prometheusrule.yaml
 configMapGenerator:
   - name: zerobyte-exporter-scripts
     files:

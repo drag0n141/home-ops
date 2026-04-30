@@ -1,0 +1,70 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: zerobyte-exporter
+spec:
+  groups:
+    - name: zerobyte-exporter.rules
+      rules:
+        - alert: ZerobyteBackupFailed
+          expr: |
+            zerobyte_backup_last_status == 0
+          for: 0m
+          annotations:
+            summary: >-
+              Backup schedule {{ $labels.schedule_name }} (volume: {{ $labels.volume_name }}, repo: {{ $labels.repository_name }}) has failed
+          labels:
+            severity: critical
+
+        - alert: ZerobyteBackupWarning
+          expr: |
+            zerobyte_backup_last_status == 2
+          for: 0m
+          annotations:
+            summary: >-
+              Backup schedule {{ $labels.schedule_name }} (volume: {{ $labels.volume_name }}, repo: {{ $labels.repository_name }}) completed with warnings
+          labels:
+            severity: warning
+
+        - alert: ZerobyteBackupStuck
+          expr: |
+            zerobyte_backup_last_status == 3
+          for: 12h
+          annotations:
+            summary: >-
+              Backup schedule {{ $labels.schedule_name }} (volume: {{ $labels.volume_name }}, repo: {{ $labels.repository_name }}) has been running for more than 12 hours
+          labels:
+            severity: warning
+
+        - alert: ZerobyteBackupTooOld
+          expr: |
+            (zerobyte_backup_next_timestamp_seconds - zerobyte_backup_last_timestamp_seconds) > 0
+            and
+            zerobyte_backup_next_timestamp_seconds < time()
+          for: 1h
+          annotations:
+            summary: >-
+              Backup schedule {{ $labels.schedule_name }} (volume: {{ $labels.volume_name }}) is overdue - next backup time has passed without a new backup
+          labels:
+            severity: warning
+
+        - alert: ZerobyteRepositoryUnhealthy
+          expr: |
+            zerobyte_repository_status == 0
+          for: 5m
+          annotations:
+            summary: >-
+              Repository {{ $labels.repo_name }} ({{ $labels.repo_type }}) has status error
+          labels:
+            severity: critical
+
+        - alert: ZerobyteRepositorySizeExceeded
+          expr: |
+            zerobyte_repository_total_size_bytes > 2 * 1024 * 1024 * 1024 * 1024
+          for: 0m
+          annotations:
+            summary: >-
+              Repository {{ $labels.repo_name }} has exceeded the 2 TB threshold with {{ $value | humanize1024 }}B
+          labels:
+            severity: warning
