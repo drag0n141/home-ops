@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: zerobyte-exporter
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      zerobyte-exporter:
+        initContainers:
+          pip-install:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
+            command:
+              - pip
+              - install
+              - "--target=/pip-packages"
+              - "prometheus_client>=0.25.0"
+              - "requests>=2.31.0"
+        containers:
+          app:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:6252ac40474bcf25574af39a25d252458b475f56d7243ab41d355fa5885c03c4
+            command: ["python", "/scripts/zerobyte_exporter.py"]
+            env:
+              PYTHONPATH: /pip-packages
+              EXPORTER_PORT: &metricsPort 9876
+              SCRAPE_INTERVAL: "60"
+              ZEROBYTE_URL: https://zerobyte.${DOMAIN_INT}
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          metrics:
+            port: *metricsPort
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: metrics
+    persistence:
+      script:
+        type: configMap
+        name: "{{ .Release.Name }}-scripts"
+        globalMounts:
+          - path: /scripts/zerobyte-exporter.py
+            subPath: zerobyte-exporter.py
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          zerobyte-exporter:
+            app:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp
+            pip-install:
+              - path: /pip-packages
+                subPath: pip-packages
+              - path: /tmp
+                subPath: tmp-pip
