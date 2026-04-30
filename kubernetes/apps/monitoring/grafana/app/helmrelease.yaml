@@ -327,7 +327,19 @@ spec:
       requests:
         cpu: 10m
       limits:
-        memory: 250M
+        memory: 512Mi
     serviceMonitor:
       enabled: true
-
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+        label: grafana_dashboard
+        folderAnnotation: grafana_folder
+        provider:
+          disableDelete: true
+          foldersFromFilesStructure: true
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+        labelValue: ""

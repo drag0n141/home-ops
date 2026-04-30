@@ -6,3 +6,13 @@ resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
   - ./pocketidoidcclient.yaml
+configMapGenerator:
+  - name: grafana-dashboard
+    files:
+      - zerobytes.json=./dashboard/zerobytes.json
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+  labels:
+    grafana_dashboard: "true"
