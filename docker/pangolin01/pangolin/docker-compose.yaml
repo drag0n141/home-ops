@@ -2,7 +2,7 @@
 name: pangolin
 services:
   pangolin:
-    image: ghcr.io/fosrl/pangolin:ee-1.18.0
+    image: ghcr.io/fosrl/pangolin:ee-1.18.1
     container_name: pangolin
     restart: unless-stopped
     volumes:
@@ -55,7 +55,7 @@ services:
       - 9987:9987/udp
 
   traefik:
-    image: docker.io/traefik:v3.6.14
+    image: docker.io/traefik:v3.6.15
     container_name: traefik
     restart: unless-stopped
     command:

@@ -15,7 +15,7 @@ spec:
     enableServiceDiscovery: true
   newt:
     # renovate: datasource=github-releases depName=fosrl/newt
-    tag: 1.12.2
+    tag: 1.12.3
     acceptClients: true
     mtu: 1380
 ---
