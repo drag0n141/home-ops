@@ -121,6 +121,7 @@ cluster:
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
+      feature-gates: HPAScaleToZero=true
     image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
   coreDNS:
     disabled: true
