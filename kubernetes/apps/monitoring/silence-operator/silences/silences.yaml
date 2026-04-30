@@ -36,6 +36,17 @@ spec:
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
+  name: blackbox-probe-printer
+spec:
+  matchers:
+    - name: alertname
+      value: BlackboxProbeFailed
+    - name: instance
+      value: brother-mfc.${SECRET_DOMAIN_INT}
+---
+apiVersion: observability.giantswarm.io/v1alpha2
+kind: Silence
+metadata:
   name: probe-printer
 spec:
   matchers:
