@@ -34,7 +34,7 @@ spec:
               PYTHONPATH: /pip-packages
               EXPORTER_PORT: &metricsPort 9876
               SCRAPE_INTERVAL: "60"
-              ZEROBYTE_URL: https://zerobyte.${DOMAIN_INT}
+              ZEROBYTE_URL: https://zerobyte.${SECRET_DOMAIN_INT}
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
