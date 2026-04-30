@@ -32,7 +32,7 @@ spec:
             command: ["python", "/scripts/zerobyte-exporter.py"]
             env:
               PYTHONPATH: /pip-packages
-              EXPORTER_PORT: &metricsPort 9876
+              EXPORTER_PORT: &port 9876
               SCRAPE_INTERVAL: "60"
               ZEROBYTE_URL: https://zerobyte.${SECRET_DOMAIN_INT}
             envFrom:
@@ -52,12 +52,16 @@ spec:
     service:
       app:
         ports:
-          metrics:
-            port: *metricsPort
+          http:
+            port: *port
     serviceMonitor:
       app:
         endpoints:
-          - port: metrics
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     persistence:
       script:
         type: configMap
