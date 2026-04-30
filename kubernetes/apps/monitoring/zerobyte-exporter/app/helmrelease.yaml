@@ -11,6 +11,8 @@ spec:
   values:
     controllers:
       zerobyte-exporter:
+        annotations:
+          reloader.stakater.com/auto: "true"
         initContainers:
           pip-install:
             image:
