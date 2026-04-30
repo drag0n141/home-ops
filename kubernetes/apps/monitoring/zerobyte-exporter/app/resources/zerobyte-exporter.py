@@ -14,11 +14,11 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger("zerobyte-exporter")
 
 # ── Configuration via environment variables ─────────────────────────────────────
-ZEROBYTE_URL    = os.getenv("ZEROBYTE_URL", "http://localhost:4096")
-ZEROBYTE_EMAIL  = os.getenv("ZEROBYTE_EMAIL", "")
-ZEROBYTE_PASS   = os.getenv("ZEROBYTE_PASSWORD", "")
-SCRAPE_INTERVAL = int(os.getenv("SCRAPE_INTERVAL", "60"))
-EXPORTER_PORT   = int(os.getenv("EXPORTER_PORT", "9876"))
+ZEROBYTE_URL      = os.getenv("ZEROBYTE_URL", "http://localhost:4096")
+ZEROBYTE_USERNAME = os.getenv("ZEROBYTE_USERNAME", "")
+ZEROBYTE_PASS     = os.getenv("ZEROBYTE_PASSWORD", "")
+SCRAPE_INTERVAL   = int(os.getenv("SCRAPE_INTERVAL", "60"))
+EXPORTER_PORT     = int(os.getenv("EXPORTER_PORT", "9876"))
 
 # ── Prometheus metrics ──────────────────────────────────────────────────────────
 
@@ -113,9 +113,9 @@ STATUS_MAP_VOLUME = {
 
 
 class ZerobyteClient:
-    def __init__(self, base_url: str, email: str, password: str):
+    def __init__(self, base_url: str, username: str, password: str):
         self.base_url = base_url.rstrip("/")
-        self.email    = email
+        self.username = username
         self.password = password
         self.session  = requests.Session()
         self.session.headers.update({"Content-Type": "application/json"})
@@ -124,21 +124,12 @@ class ZerobyteClient:
         """Authenticate and store the session cookie."""
         try:
             resp = self.session.post(
-                f"{self.base_url}/api/auth/sign-in/email",
-                json={"email": self.email, "password": self.password},
+                f"{self.base_url}/api/auth/sign-in/username",
+                json={"username": self.username, "password": self.password},
                 timeout=10,
             )
             if resp.status_code == 200:
                 log.info("Login successful")
-                return True
-            # Fallback: some Zerobyte versions route auth under /api/v1/auth
-            resp2 = self.session.post(
-                f"{self.base_url}/api/v1/auth/sign-in/email",
-                json={"email": self.email, "password": self.password},
-                timeout=10,
-            )
-            if resp2.status_code == 200:
-                log.info("Login successful (v1 path)")
                 return True
             log.error("Login failed: %s %s", resp.status_code, resp.text[:200])
             return False
