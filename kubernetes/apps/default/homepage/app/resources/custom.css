@@ -1,0 +1,29 @@
+@media(min-width: 500px) {
+    .services-list.flex.flex-col {
+    display: grid !important;
+    grid-template-columns: repeat(42, 1fr);
+    gap: 0.5rem;
+    }
+    .services-list.flex.flex-col .service {
+        grid-column: span 42;
+    }
+    .services-list.flex.flex-col .service > div {
+        height: 100%;
+    }
+    .services-list.flex.flex-col .service > .mb-2 {
+        margin-bottom: 0 !important;
+    }
+    .services-list.flex.flex-col #col-small.service {  /*bookmarks, 1/7*/
+        grid-column: span 8;
+    }
+    .services-list.flex.flex-col #col-smaller.service { /*Standard, 1/3*/
+        grid-column: span 14;
+    }
+    .services-list.flex.flex-col #col-big.service { /*1/2*/
+        grid-column: span 21;
+
+    }
+    .services-list.flex.flex-col #col-bigger.service {  /*2/3*/
+        grid-column: span 28;
+    }
+}

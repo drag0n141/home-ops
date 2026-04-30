@@ -5,3 +5,13 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./secret.sops.yaml
+configMapGenerator:
+  - name: homepage-configmap
+    files:
+      - custom.css=./resources/custom.css
+      - docker.yaml=./resources/docker.yaml
+      - kubernetes.yaml=./resources/kubernetes.yaml
+      - services.yaml=./resources/services.yaml
+      - settings.yaml=./resources/settings.yaml
+generatorOptions:
+  disableNameSuffixHash: true

@@ -1,0 +1,37 @@
+---
+- Services:
+    - Tracearr:
+        href: https://tracearr.${SECRET_DOMAIN_INTERNAL}
+        icon: tracearr.png
+        description: Tracearr
+        widget:
+          type: tracearr
+          url: http://tracearr.media.svc.cluster.local:3000
+          key: {{HOMEPAGE_VAR_TRACEARR_API_KEY}}
+          view: summary
+
+    - SABnzbd:
+        href: https://sabnzbd.${SECRET_DOMAIN_INTERNAL}
+        icon: sabnzbd.png
+        description: NZB Downloader
+        widget:
+          type: sabnzbd
+          url: http://sabnzbd.downloads.svc.cluster.local:8080
+          key: {{HOMEPAGE_VAR_DOCKER_SABNZBD_TOKEN}}
+
+    - Uptime Kuma:
+        href: https://uptime.${SECRET_DOMAIN}
+        icon: uptime-kuma.png
+        description: Uptime Kuma
+        widget:
+          type: uptimekuma
+          url: http://uptime-kuma.monitoring.svc.cluster.local:3001
+          slug: default
+
+    - Gatus:
+        href: https://status.${SECRET_DOMAIN_INTERNAL}
+        icon: gatus.png
+        description: Gatus
+        widget:
+          type: gatus
+          url: http://gatus.monitoring.svc.cluster.local

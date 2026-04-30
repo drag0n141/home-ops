@@ -20,7 +20,7 @@ spec:
               tag: v1.12.3@sha256:cc84f2f5eb3c7734353701ccbaa24ed02dacb0d119114e50e4251e2005f3990a
             env:
               TZ: ${TIMEZONE}
-              HOMEPAGE_ALLOWED_HOSTS: homepage.${SECRET_DOMAIN},homepage.${SECRET_DOMAIN_INTERNAL}
+              HOMEPAGE_ALLOWED_HOSTS: homepage.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: homepage-secret
@@ -89,17 +89,11 @@ spec:
         globalMounts:
           - path: /app/config
       homepage-config:
-        type: secret
-        name: homepage-files-secret
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
-          - path: /app/config/bookmarks.yaml
-            subPath: bookmarks.yaml
-            readOnly: true
           - path: /app/config/settings.yaml
             subPath: settings.yaml
-            readOnly: true
-          - path: /app/config/widgets.yaml
-            subPath: widgets.yaml
             readOnly: true
           - path: /app/config/docker.yaml
             subPath: docker.yaml
@@ -112,4 +106,14 @@ spec:
             readOnly: true
           - path: /app/config/custom.css
             subPath: custom.css
+            readOnly: true
+      homepage-secret:
+        type: secret
+        name: homepage-files-secret
+        globalMounts:
+          - path: /app/config/bookmarks.yaml
+            subPath: bookmarks.yaml
+            readOnly: true
+          - path: /app/config/widgets.yaml
+            subPath: widgets.yaml
             readOnly: true

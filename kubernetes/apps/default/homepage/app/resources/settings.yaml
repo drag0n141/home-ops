@@ -1,0 +1,93 @@
+---
+headerStyle: clean
+target: _self
+language: de
+fiveColumns: false
+hideVersion: true
+disableCollapse: true
+layout:
+  Services:
+    style: row
+    columns: 4
+    header: false
+  Standard:
+    tab: Home
+    style: row
+    columns: 4
+    icon: mdi-application
+  Finanzen:
+    tab: Home
+    style: row
+    columns: 4
+    icon: mdi-cash
+  Shopping:
+    tab: Home
+    style: row
+    columns: 4
+    icon: mdi-shopping
+  Cashback:
+    tab: Home
+    style: row
+    columns: 4
+    icon: mdi-cash
+  Media:
+    tab: Server
+    style: row
+    columns: 4
+    icon: mdi-play-circle
+  System Management:
+    tab: Server
+    style: row
+    columns: 4
+    icon: mdi-linux
+  Netzwerk:
+    tab: Server
+    style: row
+    columns: 4
+    icon: mdi-network
+  Server:
+    tab: Server
+    style: row
+    columns: 4
+    icon: mdi-server
+  Externe Services:
+    tab: Other
+    style: row
+    columns: 4
+    icon: mdi-cloud
+  Foren:
+    tab: Other
+    style: row
+    columns: 4
+    icon: mdi-forum
+  Warez:
+    tab: Other
+    style: row
+    columns: 4
+    icon: mdi-download-circle
+  Server Tools:
+    tab: Other
+    style: column
+    columns: 1
+    icon: mdi-tooltip
+  Server Monitoring:
+    tab: Other
+    style: column
+    columns: 1
+    icon: mdi-chart-bar
+  Other Devices:
+    tab: Other
+    style: column
+    columns: 1
+    icon: mdi-devices
+  Tools:
+    tab: Other
+    style: column
+    columns: 1
+    icon: mdi-tools
+providers:
+  openweathermap: {{HOMEPAGE_VAR_OWM_API}}
+  weatherapi: {{HOMEPAGE_VAR_WA_API}}
+background:
+  image: https://raw.githubusercontent.com/drag0n141/icons/master/wallpaper/wallpaper.jpg
+  brightness: 50
