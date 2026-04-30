@@ -231,15 +231,15 @@ def scrape(client: ZerobyteClient):
 # ── Entry point ─────────────────────────────────────────────────────────────────
 
 def main():
-    if not ZEROBYTE_EMAIL or not ZEROBYTE_PASS:
-        log.error("ZEROBYTE_EMAIL and ZEROBYTE_PASSWORD must be set!")
+    if not ZEROBYTE_USERNAME or not ZEROBYTE_PASS:
+        log.error("ZEROBYTE_USERNAME and ZEROBYTE_PASSWORD must be set!")
         raise SystemExit(1)
 
     # Optionally unregister default process/platform metrics for a cleaner output:
     # REGISTRY.unregister(PROCESS_COLLECTOR)
     # REGISTRY.unregister(PLATFORM_COLLECTOR)
 
-    client = ZerobyteClient(ZEROBYTE_URL, ZEROBYTE_EMAIL, ZEROBYTE_PASS)
+    client = ZerobyteClient(ZEROBYTE_URL, ZEROBYTE_USERNAME, ZEROBYTE_PASS)
 
     log.info("Connecting to Zerobyte at %s", ZEROBYTE_URL)
     if not client.login():
