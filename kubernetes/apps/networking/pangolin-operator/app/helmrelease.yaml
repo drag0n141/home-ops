@@ -11,7 +11,7 @@ spec:
   values:
     image:
       repository: ghcr.io/home-operations/pangolin-operator
-      tag: 0.1.2
+      tag: 0.1.3
     pangolin:
       existingSecret: pangolin-operator-secret
     resources:
