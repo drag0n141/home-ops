@@ -1,4 +1,3 @@
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -17,7 +16,7 @@ spec:
     - name: plex
       namespace: media
   components:
-    - ../../../../components/zeroscaler
+    # - ../../../../components/zeroscaler
   path: ./kubernetes/apps/media/autopulse/app
   prune: true
   sourceRef:

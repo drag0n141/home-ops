@@ -1,4 +1,3 @@
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -17,7 +16,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/zeroscaler
+    # - ../../../../components/zeroscaler
     - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/downloads/sabnzbd/app
