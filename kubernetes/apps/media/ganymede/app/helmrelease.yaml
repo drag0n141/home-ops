@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/zibbp/ganymede
-              tag: 4.15.1@sha256:48e52e99ce58f61c6fce2e8faca068298179ccaf312689036689f201b9f60042
+              tag: 4.16.0@sha256:0488ea74436f1a2f61fa20e25a06f79759cf32aef3e0e5eff97af64d5d209b62
             env:
               TZ: ${TIMEZONE}
               # CDN_URL: https://ganymede-cdn.${SECRET_DOMAIN_INTERNAL}
