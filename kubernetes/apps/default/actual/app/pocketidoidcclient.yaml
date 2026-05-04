@@ -10,3 +10,7 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
+  secret:
+    keys:
+      clientID: ACTUAL_OPENID_CLIENT_ID
+      clientSecret: ACTUAL_OPENID_CLIENT_SECRET

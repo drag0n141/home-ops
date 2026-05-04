@@ -21,6 +21,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ACTUAL_PORT: &port 5006
+              ACTUAL_OPENID_DISCOVERY_URL: https://id.${SECRET_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
