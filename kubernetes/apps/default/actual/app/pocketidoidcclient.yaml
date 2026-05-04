@@ -1,0 +1,12 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: actual
+spec:
+  name: Actual
+  callbackUrls:
+    - "https://actual.${SECRET_DOMAIN_INTERNAL}/openid/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
