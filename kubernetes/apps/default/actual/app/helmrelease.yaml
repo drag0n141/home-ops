@@ -21,6 +21,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ACTUAL_PORT: &port 5006
+              ACTUAL_OPENID_SERVER_HOSTNAME: "https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
               ACTUAL_OPENID_DISCOVERY_URL: https://id.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
