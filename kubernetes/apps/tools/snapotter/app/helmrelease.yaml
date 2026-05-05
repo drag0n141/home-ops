@@ -20,6 +20,7 @@ spec:
               tag: 1.16.0@sha256:47a1df2ffe227c72364301a604802d408c9efd5dc96aee65ab78f2b4515ec8d8
             env:
               TZ: ${TIMEZONE}
+              AUTH_ENABLED: false
               PORT: &port 1349
               DEFAULT_THEME: dark
             securityContext:
