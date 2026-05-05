@@ -6,6 +6,7 @@ resources:
   - ./bentopdf/ks.yaml
   - ./convertx/ks.yaml
   - ./pairdrop/ks.yaml
+  - ./snapotter/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
