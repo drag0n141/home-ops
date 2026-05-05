@@ -18,7 +18,6 @@ resources:
   - ./forgejo/ks.yaml
   - ./gotify/ks.yaml
   - ./immich/ks.yaml
-  - ./it-tools/ks.yaml
   - ./homepage/ks.yaml
   - ./kms/ks.yaml
   - ./linkding/ks.yaml

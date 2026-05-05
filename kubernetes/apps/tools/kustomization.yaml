@@ -5,6 +5,7 @@ namespace: tools
 resources:
   - ./bentopdf/ks.yaml
   - ./convertx/ks.yaml
+  - ./it-tools/ks.yaml
   - ./pairdrop/ks.yaml
   - ./snapotter/ks.yaml
 components:
