@@ -43,7 +43,7 @@ spec:
           pangolin-operator/full-domain: "pdf.${SECRET_DOMAIN_PANGOLIN}"
         ports:
           http:
-            port: &port 8080
+            port: 8080
     route:
       app:
         annotations:

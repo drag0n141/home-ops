@@ -7,11 +7,9 @@ resources:
   - ./apprise/ks.yaml
   - ./atuin/ks.yaml
   - ./bambuddy/ks.yaml
-  - ./bentopdf/ks.yaml
   - ./birthday-sync/ks.yaml
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
-  - ./convertx/ks.yaml
   - ./cve-report/ks.yaml
   - ./dawarich/ks.yaml
   - ./donetick/ks.yaml
@@ -35,7 +33,6 @@ resources:
   - ./nextcloud/ks.yaml
   - ./nexterm/ks.yaml
   - ./outline/ks.yaml
-  - ./pairdrop/ks.yaml
   - ./paperless/ks.yaml
   - ./searxng/ks.yaml
   - ./semaphore/ks.yaml

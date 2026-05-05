@@ -29,6 +29,8 @@ spec:
       namespace: renovate
     - <<: *policy
       namespace: storage
+    - <<: *policy
+      namespace: tools
   to:
     - group: ''
       kind: Service
