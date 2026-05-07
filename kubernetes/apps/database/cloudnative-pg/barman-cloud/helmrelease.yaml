@@ -58,9 +58,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 128Mi
-        serviceAccount:
-          name: *app
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
