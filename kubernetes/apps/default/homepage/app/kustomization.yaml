@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./rbac.yaml
   - ./secret.sops.yaml
 configMapGenerator:
   - name: homepage-configmap
