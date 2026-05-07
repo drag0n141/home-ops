@@ -35,6 +35,7 @@ spec:
               limits:
                 memory: 300Mi
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -81,8 +82,6 @@ spec:
             identifier: homepage
           subjects:
             - identifier: homepage
-    serviceAccount:
-      homepage: {}
     persistence:
       config:
         type: emptyDir

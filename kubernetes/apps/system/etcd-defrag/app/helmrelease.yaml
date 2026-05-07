@@ -42,9 +42,8 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 128Mi
-        serviceAccount:
-          name: *app
     defaultPodOptions:
+      automountServiceAccountToken: true
       hostNetwork: true
       hostPID: true
       securityContext:

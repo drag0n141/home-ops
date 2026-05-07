@@ -60,6 +60,7 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         pod:
+          automountServiceAccountToken: true
           labels:
             app.kubernetes.io/component: forgejo-runner
           securityContext:
@@ -96,8 +97,6 @@ spec:
             - apiGroups: [""]
               resources: ["pods/log"]
               verbs: ["list", "watch", "get"]
-    serviceAccount:
-      forgejo-runner: {}
     persistence:
       config:
         type: configMap
