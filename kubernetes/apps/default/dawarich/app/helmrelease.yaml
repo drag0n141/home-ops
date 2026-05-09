@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/freikin/dawarich
-              tag: 1.7.6@sha256:8133c47e6b72faff53f7c54453176e8489b58f87768262284d1589ea4b34473d
+              tag: 1.7.7@sha256:f7eea22def731ef98f0644b191c477917790bb0e5449b0014bac2f349ce178a7
             command: ["web-entrypoint.sh"]
             args: ["bin/rails", "server", "-p", "3000", "-b", "::"]
             env: &env
@@ -78,7 +78,7 @@ spec:
           sidekick:
             image:
               repository: mirror.gcr.io/freikin/dawarich
-              tag: 1.7.6@sha256:8133c47e6b72faff53f7c54453176e8489b58f87768262284d1589ea4b34473d
+              tag: 1.7.7@sha256:f7eea22def731ef98f0644b191c477917790bb0e5449b0014bac2f349ce178a7
             command: ["sidekiq-entrypoint.sh"]
             args: ["sidekiq"]
             env: *env
