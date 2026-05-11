@@ -11,3 +11,7 @@ external_secrets:
   DOMAIN: "op://Kubernetes/domains/DOMAIN"
   DOMAIN_PANGOLIN: "op://Kubernetes/domains/DOMAIN_PANGOLIN"
   DOMAIN_SHORT: "op://Kubernetes/domains/DOMAIN_SHORT"
+force_recreate: false
+reconciliation:
+  enabled: true
+  interval: 3600

@@ -13,3 +13,7 @@ external_secrets:
   GARAGE_ADMIN_TOKEN: "op://Kubernetes/garage/GARAGE_ADMIN_TOKEN"
   TZ: "op://Kubernetes/basic/TZ"
   ZEROBYTE_APP_SECRET: "op://Kubernetes/zerobyte/ZEROBYTE_APP_SECRET"
+force_recreate: false
+reconciliation:
+  enabled: true
+  interval: 3600

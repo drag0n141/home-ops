@@ -9,3 +9,7 @@ external_secrets:
   CLOUDFLARE_EMAIL: "op://Kubernetes/cloudflare/CLOUDFLARE_EMAIL"
   CLOUDFLARE_TRAEFIK_API_TOKEN: "op://Kubernetes/cloudflare/CLOUDFLARE_TRAEFIK_API_TOKEN"
   DOMAIN: "op://Kubernetes/domains/DOMAIN"
+force_recreate: false
+reconciliation:
+  enabled: true
+  interval: 3600
