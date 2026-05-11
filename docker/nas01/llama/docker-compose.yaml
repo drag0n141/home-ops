@@ -6,8 +6,6 @@ services:
     container_name: 'llama-cpp'
     restart: 'always'
     runtime: nvidia
-    ports:
-      - '8080:8080'
     read_only: true
     volumes:
       - '/mnt/nvme/appdata/llm/models:/models:rw'
@@ -31,9 +29,19 @@ services:
       - 'LLAMA_ARG_CHAT_TEMPLATE=chatml'
       - 'LLAMA_ARG_CTX_SIZE=8192'
     networks:
-      - internal
+      - traefik
     security_opt:
       - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.llama-webui-rtr.entrypoints=https'
+      - 'traefik.http.routers.llama-webui-rtr.rule=Host(`llama.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.llama-webui-rtr.tls=true'
+      - 'traefik.http.routers.llama-webui-rtr.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.llama-webui-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.llama-webui-rtr.service=llama-webui-svc'
+      - 'traefik.http.services.llama-webui-svc.loadbalancer.server.port=8080'
     deploy:
       resources:
         reservations:
@@ -43,11 +51,11 @@ services:
               capabilities: [gpu]
 
 networks:
-  internal:
-    name: internal
+  traefik:
+    name: traefik
     external: true
     driver: bridge
     ipam:
      config:
-       - subnet: 172.16.2.0/24
-         gateway: 172.16.2.1
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
