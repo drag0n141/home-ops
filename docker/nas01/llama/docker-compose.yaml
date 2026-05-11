@@ -82,6 +82,7 @@ services:
       - 'LLAMA_ARG_FLASH_ATTN=off'
       - 'LLAMA_ARG_API_KEY=${LLAMA_API_KEY}'
       - 'LLAMA_ARG_NO_WEBUI=1'
+      - 'LLAMA_ARG_IMAGE_MAX_PIXELS=1048576'
       - 'LLAMA_ARG_CTX_SIZE=8192'
     networks:
       - traefik
