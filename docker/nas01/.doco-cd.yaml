@@ -1,3 +1,4 @@
+---
 working_dir: ./docker/nas01
 auto_discovery:
   enabled: true
