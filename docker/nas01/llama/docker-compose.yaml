@@ -29,6 +29,8 @@ services:
       - 'LLAMA_ARG_API_KEY=${LLAMA_API_KEY}'
       - 'LLAMA_ARG_CHAT_TEMPLATE=chatml'
       - 'LLAMA_ARG_NO_WEBUI=1'
+      - 'LLAMA_ARG_REASONING=off'
+      - 'LLAMA_ARG_REASONING_BUDGET=0'
       - 'LLAMA_ARG_CTX_SIZE=8192'
     networks:
       - traefik
