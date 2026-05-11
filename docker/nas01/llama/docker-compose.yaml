@@ -16,6 +16,7 @@ services:
       - 'TZ=${TZ}'
       - 'NVIDIA_VISIBLE_DEVICES=all'
       - 'NVIDIA_DRIVER_CAPABILITIES=compute,utility'
+      - 'GGML_CUDA_FORCE_MMQ=1'
       - 'LLAMA_ARG_HF_REPO=unsloth/Qwen3.5-4B-GGUF'
       - 'LLAMA_ARG_HF_FILE=Qwen3.5-4B-Q4_K_M.gguf'
       - 'LLAMA_ARG_MODEL=/models/Qwen3.5-4B-Q4_K_M.gguf'
@@ -25,8 +26,9 @@ services:
       - 'LLAMA_ARG_N_GPUS=1'
       - 'LLAMA_ARG_GPU_LAYERS=99'
       - 'LLAMA_ARG_JINJA=1'
-      - 'GGML_CUDA_FORCE_MMQ=1'
+      - 'LLAMA_ARG_API_KEY=${LLAMA_API_KEY}'
       - 'LLAMA_ARG_CHAT_TEMPLATE=chatml'
+      - 'LLAMA_ARG_NO_WEBUI=1'
       - 'LLAMA_ARG_CTX_SIZE=8192'
     networks:
       - traefik

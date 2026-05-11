@@ -11,6 +11,7 @@ external_secrets:
   DOMAIN_INT: "op://Kubernetes/domains/DOMAIN_INT"
   GARAGE_RPC_SECRET: "op://Kubernetes/garage/GARAGE_RPC_SECRET"
   GARAGE_ADMIN_TOKEN: "op://Kubernetes/garage/GARAGE_ADMIN_TOKEN"
+  LLAMA_API_KEY: "op://Kubernetes/llama/LLAMA_API_KEY"
   TZ: "op://Kubernetes/basic/TZ"
   ZEROBYTE_APP_SECRET: "op://Kubernetes/zerobyte/ZEROBYTE_APP_SECRET"
 force_recreate: false
