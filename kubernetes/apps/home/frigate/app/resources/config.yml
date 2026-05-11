@@ -21,7 +21,6 @@ detectors:
 
 genai:
   provider: openai
-  base_url: https://llama.${SECRET_DOMAIN_INT}
   api_key: "{{ .LLAMA_API_KEY }}"
   model: qwen3.5-4b
   provider_options:

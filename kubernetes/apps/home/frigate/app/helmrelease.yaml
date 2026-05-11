@@ -23,6 +23,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               HF_HOME: /tmp
+              OPENAI_BASE_URL: https://llama.${SECRET_DOMAIN_INT}
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               S6_READ_ONLY_ROOT: 1
             probes:
