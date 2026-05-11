@@ -54,6 +54,56 @@ services:
               count: 1
               capabilities: [gpu]
 
+  llama-ocr:
+    image: 'ghcr.io/ggml-org/llama.cpp:server-cuda'
+    hostname: 'llama-ocr'
+    container_name: 'llama-ocr'
+    restart: 'always'
+    runtime: nvidia
+    read_only: true
+    tmpfs:
+      - '/tmp'
+    volumes:
+      - '/mnt/nvme/appdata/llm/models:/models:rw'
+      - '/mnt/nvme/appdata/llm/cache-ocr:/root/.cache:rw'
+    environment:
+      - 'TZ=${TZ}'
+      - 'NVIDIA_VISIBLE_DEVICES=all'
+      - 'NVIDIA_DRIVER_CAPABILITIES=compute,utility'
+      - 'GGML_CUDA_FORCE_MMQ=1'
+      - 'LLAMA_ARG_HF_REPO=ggml-org/GLM-OCR-GGUF'
+      - 'LLAMA_ARG_HF_FILE=GLM-OCR-Q8_0.gguf'
+      - 'LLAMA_ARG_MODEL=/models/GLM-OCR-Q8_0.gguf'
+      - 'LLAMA_ARG_MMPROJ_URL=https://huggingface.co/ggml-org/GLM-OCR-GGUF/resolve/main/mmproj-GLM-OCR-Q8_0.gguf'
+      - 'LLAMA_ARG_HOST=0.0.0.0'
+      - 'LLAMA_ARG_PORT=8080'
+      - 'LLAMA_ARG_N_GPUS=1'
+      - 'LLAMA_ARG_GPU_LAYERS=99'
+      - 'LLAMA_ARG_FLASH_ATTN=off'
+      - 'LLAMA_ARG_API_KEY=${LLAMA_API_KEY}'
+      - 'LLAMA_ARG_NO_WEBUI=1'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.llama-ocr-rtr.entrypoints=https'
+      - 'traefik.http.routers.llama-ocr-rtr.rule=Host(`llama-ocr.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.llama-ocr-rtr.tls=true'
+      - 'traefik.http.routers.llama-ocr-rtr.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.llama-ocr-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.llama-ocr-rtr.service=llama-ocr-svc'
+      - 'traefik.http.services.llama-ocr-svc.loadbalancer.server.port=8080'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
 networks:
   traefik:
     name: traefik
