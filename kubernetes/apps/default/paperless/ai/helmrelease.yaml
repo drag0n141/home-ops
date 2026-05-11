@@ -21,8 +21,9 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ACTIVATE_TAGGING: no
-              AI_PROVIDER: openai
-              OPENAI_MODEL: gpt-4o
+              AI_PROVIDER: custom
+              CUSTOM_BASE_URL: https://llama.${SECRET_DOMAIN_INT}/v1
+              CUSTOM_MODEL: qwen3.5-4b
               PAPERLESS_API_URL: http://paperless.default.svc.cluster.local:8000/api
               PROCESS_PREDEFINED_DOCUMENTS: yes
               USE_EXISTING_DATA: yes
