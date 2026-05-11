@@ -8,9 +8,12 @@ services:
     runtime: nvidia
     ports:
       - '8080:8080'
+    read_only: true
     volumes:
-      - '/mnt/nvme/appdata/llm/models:/models'
-      - '/mnt/nvme/appdata/llm/cache:/root/.cache/'
+      - '/mnt/nvme/appdata/llm/models:/models:rw'
+      - '/mnt/nvme/appdata/llm/cache:/root/.cache:rw'
+    tmpfs:
+      - '/tmp'
     environment:
       - 'TZ=${TZ}'
       - 'NVIDIA_VISIBLE_DEVICES=all'
@@ -24,6 +27,7 @@ services:
       - 'LLAMA_ARG_N_GPUS=1'
       - 'LLAMA_ARG_GPU_LAYERS=99'
       - 'LLAMA_ARG_JINJA=1'
+      - 'GGML_CUDA_FORCE_MMQ=1'
       - 'LLAMA_ARG_CHAT_TEMPLATE=chatml'
       - 'LLAMA_ARG_CTX_SIZE=8192'
     networks:
