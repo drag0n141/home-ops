@@ -1,0 +1,49 @@
+---
+services:
+  llama-cpp:
+    image: 'ghcr.io/ggml-org/llama.cpp:server-cuda'
+    hostname: 'llama-cpp'
+    container_name: 'llama-cpp'
+    restart: 'always'
+    runtime: nvidia
+    ports:
+      - '8080:8080'
+    volumes:
+      - '/mnt/nvme/appdata/llm/models:/models'
+      - '/mnt/nvme/appdata/llm/cache:/root/.cache/'
+    environment:
+      - 'TZ=${TZ}'
+      - 'NVIDIA_VISIBLE_DEVICES=all'
+      - 'NVIDIA_DRIVER_CAPABILITIES=compute,utility'
+      - 'LLAMA_ARG_HF_REPO=unsloth/Qwen3.5-4B-GGUF'
+      - 'LLAMA_ARG_HF_FILE=Qwen3.5-4B-Q4_K_M.gguf'
+      - 'LLAMA_ARG_MODEL=/models/Qwen3.5-4B-Q4_K_M.gguf'
+      - 'LLAMA_ARG_MMPROJ_URL=https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/main/mmproj-BF16.gguf'
+      - 'LLAMA_ARG_HOST=0.0.0.0'
+      - 'LLAMA_ARG_PORT=8080'
+      - 'LLAMA_ARG_N_GPUS=1'
+      - 'LLAMA_ARG_GPU_LAYERS=99'
+      - 'LLAMA_ARG_JINJA=1'
+      - 'LLAMA_ARG_CHAT_TEMPLATE=chatml'
+      - 'LLAMA_ARG_CTX_SIZE=8192'
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  internal:
+    name: internal
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1
