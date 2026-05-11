@@ -124,9 +124,9 @@ cameras:
       genai:
         enabled: True
         use_snapshot: True
-        prompt: "Analyze the {label} in these images from the {camera} security camera at the front door. Focus on the actions and potential intent of the {label}."
+        prompt: "Describe what the {label} is doing at the front door. Be brief and in German."
         object_prompts:
-          person: "Examine the person in these images. What are they doing, and how might their actions suggest their purpose (e.g., delivering something, approaching, leaving)? If they are carrying or interacting with a package, include details about its source or destination."
+          person: "Describe the person briefly in German: appearance, actions, and purpose of visit. Mention any packages."
         objects:
           - person
     lpr:
