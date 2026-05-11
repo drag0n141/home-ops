@@ -1,7 +1,6 @@
----
 working_dir: ./docker/nas01
-auto_discover: true
-auto_discover_opts:
+auto_discovery:
+  enabled: true
   depth: 1
   delete: true
 external_secrets:
