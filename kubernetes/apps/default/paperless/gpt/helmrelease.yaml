@@ -23,7 +23,7 @@ spec:
               PAPERLESS_BASE_URL: http://paperless.default.svc.cluster.local:8000
               PAPERLESS_PUBLIC_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
               LLM_PROVIDER: openai
-              OPENAI_BASE_URL: https://llama.${SECRET_DOMAIN_INT}/v1
+              OPENAI_BASE_URL: https://llama.${SECRET_DOMAIN_INT}
               LLM_MODEL: qwen3.5-4b
               LLM_LANGUAGE: German
               OCR_PROVIDER: llm
