@@ -19,6 +19,14 @@ detectors:
     type: openvino
     device: GPU
 
+genai:
+  provider: openai
+  base_url: https://llama.${SECRET_DOMAIN_INT}
+  api_key: "{{ .LLAMA_API_KEY }}"
+  model: qwen3.5-4b
+  provider_options:
+    context_size: 8192
+
 model:
   model_type: yolo-generic
   width: 320
