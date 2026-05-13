@@ -1,7 +1,15 @@
+custom_providers:
+  - name: minimax
+    base_url: https://api.minimax.io/v1
+    key_env: MINIMAX_API_KEY
+    models:
+      MiniMax-M2.7:
+        context_length: 204800
+      MiniMax-M2.7-highspeed:
+        context_length: 204800
 model:
   default: "MiniMax-M2.7"
-  provider: minimax
-  context_length: 200000
+  provider: custom:minimax
 terminal:
   backend: local
   cwd: /opt/data/workspace
