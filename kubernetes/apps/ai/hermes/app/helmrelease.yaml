@@ -27,11 +27,7 @@ spec:
                 set -euo pipefail
                 mkdir -p /opt/data
                 cp /run/config/config.yaml /opt/data/config.yaml
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
-              runAsGroup: 1000
-              runAsUser: 1000
+                chown 10000:10000 /opt/data/config.yaml
           install-tools:
             image:
               repository: docker.io/nousresearch/hermes-agent
@@ -66,11 +62,6 @@ spec:
                   mkdir -p $HOMEBREW_PREFIX
                   git clone --depth 1 https://github.com/Homebrew/brew $HOMEBREW_PREFIX
                 fi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
-              runAsGroup: 1000
-              runAsUser: 1000
         containers:
           app:
             image:
@@ -103,7 +94,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities: { add: ["CHOWN"], drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
@@ -113,9 +104,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
