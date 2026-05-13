@@ -36,6 +36,11 @@ security:
   tirith_fail_open: true
 privacy:
   redact_pii: true
+platform_toolsets:
+  cli:
+    - hermes-cli
+  telegram:
+    - hermes-telegram
 agent:
   max_turns: 90
   gateway_timeout: 1800
@@ -43,17 +48,6 @@ agent:
   api_max_retries: 2
   reasoning_effort: medium
   tool_use_enforcement: auto
-platforms:
-  matrix:
-    enabled: true
-matrix:
-  require_mention: false
-  auto_thread: false
-  dm_mention_threads: false
-display:
-  platforms:
-    matrix:
-      tool_progress: "off"
 mcp_servers:
   homelab:
     url: http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp
