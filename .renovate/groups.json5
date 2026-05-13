@@ -35,11 +35,11 @@
       description: "Flux Operator Group",
       groupName: "Flux Operator",
       matchDatasources: ["docker"],
-      matchPackagePatterns: ["flux-operator", "flux-instance", "flux-operator-manifests"],
+      matchPackagePatterns: ["flux-operator", "flux-instance"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 4,
+      minimumGroupSize: 2,
     },
     {
       description: "Immich Group",
