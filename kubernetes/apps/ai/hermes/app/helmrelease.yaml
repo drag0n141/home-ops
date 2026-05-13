@@ -27,8 +27,6 @@ spec:
                 set -euo pipefail
                 mkdir -p /opt/data
                 cp /run/config/config.yaml /opt/data/config.yaml
-                cp /run/config/env /opt/data/.env
-                chmod 600 /opt/data/.env
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
