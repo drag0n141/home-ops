@@ -53,3 +53,5 @@ mcp_servers:
     url: http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp
 web:
   search_backend: searxng
+whatsapp:
+  unauthorized_dm_behavior: ignore
