@@ -31,14 +31,12 @@ spec:
                 chmod 600 /opt/data/.env
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: { drop: ["ALL"] }
               runAsGroup: 1000
               runAsUser: 1000
           install-tools:
             image:
-              repository: nousresearch/hermes-agent
+              repository: docker.io/nousresearch/hermes-agent
               tag: v2026.5.7@sha256:9462082533e603fc6ba4259c51d7722dcd8cbb0f348488ceedc35d06fa8f9324
             command:
               - /bin/sh
@@ -79,7 +77,7 @@ spec:
           app:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.4.23@sha256:d4ee57f254aabbe10e41c49533bbf3eb98e6b026463c42843a07588e45ddd338
+              tag: v2026.5.7@sha256:9462082533e603fc6ba4259c51d7722dcd8cbb0f348488ceedc35d06fa8f9324
             args: ["gateway", "run"]
             env:
               TZ: ${TIMEZONE}
