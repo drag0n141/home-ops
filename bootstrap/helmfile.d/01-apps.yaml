@@ -1,5 +1,6 @@
 ---
 helmDefaults:
+  args: ['--force-conflicts']
   cleanupOnFail: true
   wait: true
   waitForJobs: true
@@ -15,11 +16,10 @@ releases:
         command: kubectl
         args:
           - apply
-          - --server-side
-          - --namespace=kube-system
           - --field-manager=kustomize-controller
-          - --kustomize
-          - ../../kubernetes/apps/kube-system/cilium/config
+          - --namespace={{ .Release.Namespace }}
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/config
+          - --server-side
         showlogs: true
 
   - name: coredns
@@ -43,12 +43,36 @@ releases:
     values: ['./templates/values.yaml.gotmpl']
     needs: ['system/spegel']
 
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 2.4.1
+    values: ['./templates/values.yaml.gotmpl']
+    needs: ['cert-manager/cert-manager']
+
+  - name: onepassword-connect
+    namespace: external-secrets
+    chart: oci://ghcr.io/1password/connect
+    version: 2.4.1
+    values: ['./templates/values.yaml.gotmpl']
+    needs: ['external-secrets/external-secrets']
+    hooks:
+      - events: ['postsync']
+        command: kubectl
+        args:
+          - apply
+          - --field-manager=kustomize-controller
+          - --namespace={{ .Release.Namespace }}
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/store
+          - --server-side
+        showlogs: true
+
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.49.0
     values: ['./templates/values.yaml.gotmpl']
-    needs: ['cert-manager/cert-manager']
+    needs: ['external-secrets/onepassword-connect']
 
   - name: flux-instance
     namespace: flux-system
