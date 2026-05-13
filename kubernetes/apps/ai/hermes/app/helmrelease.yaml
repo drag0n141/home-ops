@@ -1,0 +1,166 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hermes
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      hermes:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init:
+            image:
+              repository: docker.io/library/alpine
+              tag: "3.23"
+            command:
+              - sh
+              - -c
+              - |
+                set -euo pipefail
+                mkdir -p /opt/data
+                cp /run/config/config.yaml /opt/data/config.yaml
+                cp /run/config/env /opt/data/.env
+                chmod 600 /opt/data/.env
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsGroup: 1000
+              runAsUser: 1000
+          install-tools:
+            image:
+              repository: nousresearch/hermes-agent
+              tag: v2026.5.7@sha256:9462082533e603fc6ba4259c51d7722dcd8cbb0f348488ceedc35d06fa8f9324
+            command:
+              - /bin/sh
+              - -c
+              - |
+                set -e
+                mkdir -p /opt/data/.local/bin /opt/data/.local/go
+
+                rm -f /opt/data/.local/bin/hermes /opt/data/.local/bin/docker
+
+                if [ ! -f /opt/data/.local/bin/gh ]; then
+                  cd /tmp
+                  curl -fsSL https://github.com/cli/cli/releases/download/v2.61.0/gh_2.61.0_linux_amd64.tar.gz -o gh.tar.gz
+                  tar xzf gh.tar.gz
+                  cp gh_2.61.0_linux_amd64/bin/gh /opt/data/.local/bin/
+                  rm -rf gh.tar.gz gh_2.61.0_linux_amd64
+                fi
+
+                if [ ! -f /opt/data/.local/go/bin/go ]; then
+                  cd /tmp
+                  curl -fsSL https://go.dev/dl/go1.23.5.linux-amd64.tar.gz -o go.tar.gz
+                  tar xzf go.tar.gz
+                  mv go /opt/data/.local/
+                  rm -rf go.tar.gz
+                fi
+
+                if [ ! -f /opt/data/.local/homebrew/bin/brew ]; then
+                  export HOMEBREW_PREFIX=/opt/data/.local/homebrew
+                  mkdir -p $HOMEBREW_PREFIX
+                  git clone --depth 1 https://github.com/Homebrew/brew $HOMEBREW_PREFIX
+                fi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              runAsGroup: 1000
+              runAsUser: 1000
+        containers:
+          app:
+            image:
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v2026.4.23@sha256:d4ee57f254aabbe10e41c49533bbf3eb98e6b026463c42843a07588e45ddd338
+            args: ["gateway", "run"]
+            env:
+              TZ: ${TIMEZONE}
+              API_SERVER_ENABLED: true
+              API_SERVER_HOST: 0.0.0.0
+              API_SERVER_PORT: &port 8642
+              GOPATH: /opt/data/go
+              HERMES_DASHBOARD: "1"
+              HERMES_GID: "1000"
+              HERMES_HOME: /opt/data
+              HERMES_UID: "1000"
+              HOME: /opt/data
+              HOMEBREW_CELLAR: /opt/data/.local/homebrew/Cellar
+              HOMEBREW_PREFIX: /opt/data/.local/homebrew
+              HOMEBREW_REPOSITORY: /opt/data/.local/homebrew
+              PATH: /opt/hermes/.venv/bin:/opt/data/.local/bin:/opt/data/.local/go/bin:/opt/data/.local/homebrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+              PIP_BREAK_SYSTEM_PACKAGES: "1"
+              SEARXNG_URL: http://searxng.default.svc.cluster.local:8080
+              TERM: xterm-256color
+            envFrom:
+              - secretRef:
+                  name: hermes-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 9119
+          agent:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /opt/data
+      config:
+        type: configMap
+        name: hermes-configmap
+        defaultMode: 0o755
+        advancedMounts:
+          hermes:
+            init:
+              - path: /run/config/config.yaml
+                subPath: config.yaml
+      nfs:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/openclaw
+        globalMounts:
+          - path: /nfs-data
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
