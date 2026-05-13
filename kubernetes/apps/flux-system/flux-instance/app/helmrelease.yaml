@@ -9,9 +9,9 @@ spec:
     kind: OCIRepository
     name: flux-instance
   values:
+    commonAnnotations:
+      fluxcd.controlplane.io/reconcileArtifactEvery: 1h
     instance:
-      distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.49.0
       cluster:
         networkPolicy: false
       components:
