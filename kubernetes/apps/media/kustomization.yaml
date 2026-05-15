@@ -7,7 +7,7 @@ resources:
   - ./autopulse/ks.yaml
   - ./crosswatch/ks.yaml
   - ./dispatcharr/ks.yaml
-#   - ./ganymede/ks.yaml
+  - ./ganymede/ks.yaml
   - ./grimmory/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
