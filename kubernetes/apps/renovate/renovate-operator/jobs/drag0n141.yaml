@@ -40,7 +40,7 @@ spec:
   discoveryFilters:
     - drag0n141/*
   extraEnv:
-    - name: LOG_LEVEL
+    - name: RENOVATE_LOG_LEVEL
       value: debug
     - name: RENOVATE_ALLOWED_COMMANDS
       value: |-
