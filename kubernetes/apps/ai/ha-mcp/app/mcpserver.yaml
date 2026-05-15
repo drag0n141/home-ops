@@ -11,12 +11,20 @@ spec:
   env:
     - name: HOMEASSISTANT_URL
       value: http://haos.${SECRET_DOMAIN_INT}:8123
+    - name: TMPDIR
+      value: /tmp
   secrets:
     - name: ha-mcp-secret
       key: HOMEASSISTANT_TOKEN
   podTemplateSpec:
     spec:
+      volumes:
+        - name: tmp
+          emptyDir: {}
       containers:
         - name: mcp
           command:
             - ha-mcp-web
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
