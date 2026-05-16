@@ -16,16 +16,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          copy-agent-source:
-            image:
-              repository: nousresearch/hermes-agent
-              tag: v2026.5.16@sha256:b6e41c155d6bfce5ad83c5d0fec670086db8a43250e4511c9474134be5482d33
-            command:
-              - /bin/sh
-              - -c
-              - |
-                set -e
-                cp -r /opt/hermes/. /agent-src/
           init:
             image:
               repository: docker.io/library/alpine
@@ -197,14 +187,6 @@ spec:
         path: /mnt/data/openclaw
         globalMounts:
           - path: /nfs-data
-      agent-source:
-        type: emptyDir
-        advancedMounts:
-          hermes:
-            copy-agent-source:
-              - path: /agent-src
-            webui:
-              - path: /home/hermeswebui/.hermes/hermes-agent
       tmpfs:
         type: emptyDir
         globalMounts:
