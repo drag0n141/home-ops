@@ -74,15 +74,16 @@ spec:
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
               GOPATH: /opt/data/go
-              HERMES_GID: 1000
+              HERMES_DASHBOARD: "1"
+              HERMES_GID: "1000"
               HERMES_HOME: /opt/data
-              HERMES_UID: 1000
+              HERMES_UID: "1000"
               HOME: /opt/data
               HOMEBREW_CELLAR: /opt/data/.local/homebrew/Cellar
               HOMEBREW_PREFIX: /opt/data/.local/homebrew
               HOMEBREW_REPOSITORY: /opt/data/.local/homebrew
               PATH: /opt/hermes/.venv/bin:/opt/data/.local/bin:/opt/data/.local/go/bin:/opt/data/.local/homebrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-              PIP_BREAK_SYSTEM_PACKAGES: 1
+              PIP_BREAK_SYSTEM_PACKAGES: "1"
               SEARXNG_URL: http://searxng.default.svc.cluster.local:8080
               TERM: xterm-256color
               WHATSAPP_ENABLED: true
@@ -100,38 +101,6 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 4Gi
-          webui:
-            image:
-              repository: ghcr.io/nesquena/hermes-webui
-              tag: 0.51.74@sha256:73c5cf802dbd1aa83cfc6d67d40cc22ea9ee3ea1f6d6655db04c6fe95b34b335
-            env:
-              TZ: ${TZ}
-              HERMES_WEBUI_HOST: 0.0.0.0
-              HERMES_WEBUI_PORT: &portweb 8787
-              HERMES_WEBUI_STATE_DIR: /home/hermeswebui/.hermes/webui
-              WANTED_GID: 1000
-              WANTED_UID: 1000
-            resources:
-              requests:
-                cpu: 50m
-                memory: 256Mi
-              limits:
-                memory: 2Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                add:
-                  - CHOWN
-                  - DAC_OVERRIDE
-                  - FOWNER
-                  - FSETID
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
-              runAsGroup: 0
-              runAsNonRoot: false
-              runAsUser: 0
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -143,7 +112,7 @@ spec:
       app:
         ports:
           http:
-            port: *portweb
+            port: 9119
           agent:
             port: *port
     route:
@@ -162,16 +131,8 @@ spec:
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
-        advancedMounts:
-          hermes:
-            init:
-              - path: /opt/data
-            install-tools:
-              - path: /opt/data
-            app:
-              - path: /opt/data
-            webui:
-              - path: /home/hermeswebui/.hermes
+        globalMounts:
+          - path: /opt/data
       config:
         type: configMap
         name: hermes-configmap
