@@ -24,7 +24,6 @@ spec:
               TZ: ${TIMEZONE}
               HOST_UID: 1000
               HOST_GID: 1000
-              ENABLE_CAST: true
               ES_URL: http://tubearchivist-elasticsearch.media.svc.cluster.local:9200
               TA_HOST: https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}
               TA_PORT: &port 8000
