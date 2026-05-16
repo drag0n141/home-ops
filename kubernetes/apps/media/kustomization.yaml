@@ -20,6 +20,7 @@ resources:
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./tracearr/ks.yaml
+  - ./tubearchivist/ks.yaml
   - ./webhook/ks.yaml
   - ./wizarr/ks.yaml
 components:
