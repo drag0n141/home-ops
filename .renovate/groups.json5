@@ -83,16 +83,6 @@
       minimumGroupSize: 2,
     },
     {
-      description: "Talos Group",
-      groupName: "Talos",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["siderolabs/talosctl", "siderolabs/installer"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 1,
-    },
-    {
       description: "Teleport Group",
       groupName: "Teleport",
       matchDatasources: ["docker"],
