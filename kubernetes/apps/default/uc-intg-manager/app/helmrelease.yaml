@@ -17,10 +17,10 @@ spec:
           app:
             image:
               repository: ghcr.io/jackjpowell/uc-intg-manager
-              tag: v1.7.4@sha256:d0f70745d853468512aba397f311e0d6197ca841a17f923faa83db7f39cbe1cc
+              tag: v2.0.0@sha256:4008ae8e80eb74bd84efa069ee837e2adfc57917dde0202c8e06e058aa2609d9
             env:
               TZ: ${TIMEZONE}
-              UC_INTG_MANAGER_HTTP_PORT: &port 8080
+              UC_INTG_MANAGER_HTTP_PORT: &port 9999
               UC_MDNS_LOCAL_HOSTNAME: uc-intg.${SECRET_DOMAIN_INTERNAL}
             securityContext:
               allowPrivilegeEscalation: false
