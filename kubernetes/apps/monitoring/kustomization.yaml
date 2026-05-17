@@ -18,7 +18,7 @@ resources:
   - ./snmp-exporter/ks.yaml
   - ./unpoller/ks.yaml
   - ./uptime-kuma/ks.yaml
-#  - ./victoria-logs/ks.yaml
+  - ./victoria-logs/ks.yaml
   - ./zerobyte-exporter/ks.yaml
 components:
   - ../../components/alerts
