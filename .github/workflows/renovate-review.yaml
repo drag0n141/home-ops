@@ -40,3 +40,4 @@ jobs:
           ai_model: minimax-m2.7
           ai_api_key: ${{ secrets.OPENCODE_API_KEY }}
           publish_review_comment: "true"
+          system_prompt_file: .github/pr-review-prompt.md
