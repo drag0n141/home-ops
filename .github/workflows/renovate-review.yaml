@@ -37,7 +37,7 @@ jobs:
         with:
           github_token: ${{ steps.app-token.outputs.token }}
           ai_base_url: https://opencode.ai/zen/go/v1
-          ai_model: minimax-m2.7
+          ai_model: deepseek-v4-flash
           ai_api_key: ${{ secrets.OPENCODE_API_KEY }}
           publish_review_comment: "true"
           system_prompt_file: .github/pr-review-prompt.md
