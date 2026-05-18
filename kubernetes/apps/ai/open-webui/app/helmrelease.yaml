@@ -37,7 +37,7 @@ spec:
               CORS_ALLOW_ORIGIN: https://chat.${SECRET_DOMAIN}
               DEFAULT_LOCALE: de
               ENABLE_OPENAI_API: true
-              OPENAI_API_BASE_URL: https://api.minimax.io/v1
+              OPENAI_API_BASE_URL: https://opencode.ai/zen/go/v1
               ENABLE_OLLAMA_API: false
               ENABLE_WEB_SEARCH: true
               ENABLE_SIGNUP: false
