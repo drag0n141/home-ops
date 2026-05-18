@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/s1t5/mailarchiver
-              tag: 2604.2@sha256:53800df180b876e3cc02e31f088e0684bf81a4380ad22b5419da99e8559bb5ba
+              tag: 2605.1@sha256:43f9581f2d5f021a02aad42663a68089a65c5a086c184816f38efab5d0aaf8b2
             env:
               TZ: ${TIMEZONE}
               Authentication__Enabled: true
