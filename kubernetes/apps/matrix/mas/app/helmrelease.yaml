@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/element-hq/matrix-authentication-service
-              tag: 1.16.0@sha256:969d33b20ef4449937ee7bce9e05d159c10d9d1504d9374f2b7d43087bbff924
+              tag: 1.17.0@sha256:295aea98d9a6c63fbf70236470bade92ffc2f448c2fefc77459bb8314c27dca3
             env:
               TZ: ${TIMEZONE}
               MAS_CONFIG: /config/config.yaml
