@@ -1,0 +1,45 @@
+model_list:
+  - model_name: qwen
+    litellm_params:
+      model: openai/qwen3.5-4b
+      api_base: https://llama.${SECRET_DOMAIN_INT}/v1
+      api_key: os.environ/LLAMA_API_KEY
+    model_info:
+      max_tokens: 8192
+      max_input_tokens: 8192
+      max_output_tokens: 4096
+
+  - model_name: kimi-k2.6
+    litellm_params:
+      model: opencode-go/kimi-k2.6
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+    model_info:
+      max_tokens: 204800
+      max_input_tokens: 192000
+      max_output_tokens: 16384
+
+general_settings:
+  health_check_endpoint: /v1/health
+
+router_settings:
+  routing_strategy: simple-shuffle
+  redis_url: os.environ/REDIS_URL
+  redis_port: os.environ/REDIS_PORT
+
+litellm_settings:
+  success_callback: ["prometheus"]
+  prometheus_adapter: true
+  cache: true
+  cache_params:
+    type: redis
+    host: os.environ/REDIS_HOST
+    port: os.environ/REDIS_PORT
+  drop_params: true
+  set_verbose: false
+
+environment:
+  - LLAMA_API_KEY
+  - OPENCODE_API_KEY
+  - REDIS_HOST
+  - REDIS_PORT
