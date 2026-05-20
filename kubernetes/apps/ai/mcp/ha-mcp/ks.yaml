@@ -14,7 +14,7 @@ spec:
       namespace: external-secrets
     - name: toolhive-operator-crds
       namespace: *namespace
-  path: ./kubernetes/apps/ai/ha-mcp/app
+  path: ./kubernetes/apps/ai/mcp/ha-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository

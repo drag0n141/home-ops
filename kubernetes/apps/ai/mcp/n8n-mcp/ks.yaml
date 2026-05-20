@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/ai/n8n-mcp/app
+  path: ./kubernetes/apps/ai/mcp/n8n-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: toolhive-operator-crds
       namespace: *namespace
-  path: ./kubernetes/apps/ai/prometheus-mcp/app
+  path: ./kubernetes/apps/ai/mcp/prometheus-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository

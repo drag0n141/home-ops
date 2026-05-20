@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/ai/victoria-logs-mcp/app
+  path: ./kubernetes/apps/ai/mcp/victoria-logs-mcp/app
   prune: true
   sourceRef:
     kind: GitRepository
