@@ -1,6 +1,21 @@
 model:
-  default: "kimi-k2.6"
-  provider: opencode-go
+  default: minimax-m2.7
+  provider: custom:kubernetes
+  base_url: http://litellm.ai.svc.cluster.local:4000/v1
+  api_key: ${LITELLM_API_KEY}
+fallback_providers:
+  - provider: custom:kubernetes
+    model: kimi-k2.6
+  - provider: custom:kubernetes
+    model: glm-5.1
+  - provider: custom:kubernetes
+    model: qwen-local
+providers:
+  kubernetes:
+    base_url: http://litellm.ai.svc.cluster.local:4000/v1
+    api_key: ${LITELLM_API_KEY}
+toolsets:
+  - hermes-cli
 terminal:
   backend: local
   cwd: /opt/data/workspace
