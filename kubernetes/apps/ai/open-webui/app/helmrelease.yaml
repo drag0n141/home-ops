@@ -42,8 +42,10 @@ spec:
               ENABLE_WEB_SEARCH: true
               ENABLE_SIGNUP: false
               ENABLE_SEARCH_QUERY_GENERATION: true
+              ENABLE_PERSISTENT_CONFIG: false
               WEBUI_SESSION_COOKIE_SAME_SITE: lax
               WEBUI_SESSION_COOKIE_SECURE: true
+              TOOL_SERVER_CONNECTIONS: '[{"type":"mcp","url":"http://vmcp-mcp-gateway-internal.ai.svc.cluster.local:4483/mcp","spec_type":"url","spec":"","path":"openapi.json","auth_type":"none","key":"","config":{"enable":true},"info":{"id":"mcp-gateway","name":"MCP Gateway","description":""}}]'
               # Searx
               WEB_SEARCH_ENGINE: searxng
               SEARXNG_QUERY_URL: http://searxng.default.svc.cluster.local:8080/search?q=<query>
