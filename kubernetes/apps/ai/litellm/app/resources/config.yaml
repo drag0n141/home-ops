@@ -1,5 +1,5 @@
 model_list:
-  - model_name: qwen
+  - model_name: qwen-local
     litellm_params:
       model: openai/qwen3.5-4b
       api_base: https://llama.${SECRET_DOMAIN_INT}/v1
@@ -12,6 +12,26 @@ model_list:
   - model_name: kimi-k2.6
     litellm_params:
       model: moonshot/kimi-k2.6
+      api_base: https://opencode.ai/zen/go/v1
+      api_key: os.environ/OPENCODE_API_KEY
+    model_info:
+      max_tokens: 204800
+      max_input_tokens: 192000
+      max_output_tokens: 16384
+
+  - model_name: minimax-m2.7
+    litellm_params:
+      model: minimax/minimax-m2.7
+      api_base: https://opencode.ai/zen/go
+      api_key: os.environ/OPENCODE_API_KEY
+    model_info:
+      max_tokens: 204800
+      max_input_tokens: 192000
+      max_output_tokens: 16384
+
+  - model_name: glm-5.1
+    litellm_params:
+      model: zai/glm-5.1
       api_base: https://opencode.ai/zen/go/v1
       api_key: os.environ/OPENCODE_API_KEY
     model_info:
