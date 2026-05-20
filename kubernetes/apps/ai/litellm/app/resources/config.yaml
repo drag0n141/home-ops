@@ -20,7 +20,7 @@ model_list:
     litellm_params:
       model: moonshot/kimi-k2.6
       api_base: https://opencode.ai/zen/go/v1
-      api_key: os.environ/OPENCODE_API_KEY
+      api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
   - model_name: minimax-m2.7
@@ -32,7 +32,7 @@ model_list:
     litellm_params:
       model: minimax/minimax-m2.7
       api_base: https://opencode.ai/zen/go
-      api_key: os.environ/OPENCODE_API_KEY
+      api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
   - model_name: glm-5.1
@@ -44,7 +44,7 @@ model_list:
     litellm_params:
       model: zai/glm-5.1
       api_base: https://opencode.ai/zen/go/v1
-      api_key: os.environ/OPENCODE_API_KEY
+      api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
   - model_name: qwen3.6-plus
@@ -56,7 +56,7 @@ model_list:
     litellm_params:
       model: dashscope/qwen3.6-plus
       api_base: https://opencode.ai/zen/go/v1
-      api_key: os.environ/OPENCODE_API_KEY
+      api_key: os.environ/OPENCODE_GO_API_KEY
       drop_params: true
 
 general_settings:
@@ -83,6 +83,6 @@ litellm_settings:
 
 environment:
   - LLAMA_API_KEY
-  - OPENCODE_API_KEY
+  - OPENCODE_GO_API_KEY
   - REDIS_HOST
   - REDIS_PORT
