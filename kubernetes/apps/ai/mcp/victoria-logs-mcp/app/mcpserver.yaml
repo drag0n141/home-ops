@@ -2,7 +2,7 @@
 apiVersion: toolhive.stacklok.dev/v1alpha1
 kind: MCPServer
 metadata:
-  name: victoria-logs
+  name: victoria-logs-mcp
 spec:
   image: ghcr.io/victoriametrics/mcp-victorialogs:latest
   transport: streamable-http
