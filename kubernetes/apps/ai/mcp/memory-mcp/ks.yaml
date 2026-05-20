@@ -17,7 +17,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/volsync
+    - ../../../../../components/volsync
   path: ./kubernetes/apps/ai/mcp/memory-mcp/app
   prune: true
   sourceRef:
