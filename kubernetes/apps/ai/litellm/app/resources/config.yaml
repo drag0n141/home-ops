@@ -75,11 +75,11 @@ litellm_settings:
     type: redis
     host: os.environ/REDIS_HOST
     port: os.environ/REDIS_PORT
-    drop_params: false
-    request_timeout: 600
-    num_retries: 2
-    retry_after: 5
-    set_verbose: false
+  drop_params: false
+  request_timeout: 600
+  num_retries: 2
+  retry_after: 5
+  set_verbose: false
 
 environment:
   - LLAMA_API_KEY
