@@ -35,13 +35,14 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/freikin/dawarich
-              tag: 1.7.7@sha256:f7eea22def731ef98f0644b191c477917790bb0e5449b0014bac2f349ce178a7
+              tag: 1.7.8@sha256:dea326d03e728cd3b8d051b72d293cf375d0db6c00e22c55f338daedfdfdb3a4
             command: ["web-entrypoint.sh"]
             args: ["bin/rails", "server", "-p", "3000", "-b", "::"]
             env: &env
               TZ: ${TIMEZONE}
               TIME_ZONE: ${TIMEZONE}
               ALLOW_EMAIL_PASSWORD_REGISTRATION: false
+              ALLOW_EMAIL_PASSWORD_LOGIN: false
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: http
               DISTANCE_UNIT: km
@@ -78,7 +79,7 @@ spec:
           sidekick:
             image:
               repository: mirror.gcr.io/freikin/dawarich
-              tag: 1.7.7@sha256:f7eea22def731ef98f0644b191c477917790bb0e5449b0014bac2f349ce178a7
+              tag: 1.7.8@sha256:dea326d03e728cd3b8d051b72d293cf375d0db6c00e22c55f338daedfdfdb3a4
             command: ["sidekiq-entrypoint.sh"]
             args: ["sidekiq"]
             env: *env

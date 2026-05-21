@@ -22,8 +22,8 @@ spec:
               TZ: ${TIMEZONE}
               ACTIVATE_TAGGING: no
               AI_PROVIDER: custom
-              CUSTOM_BASE_URL: https://llama.${SECRET_DOMAIN_INT}
-              CUSTOM_MODEL: qwen3.5-4b
+              CUSTOM_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
+              CUSTOM_MODEL: qwen-local
               PAPERLESS_API_URL: http://paperless.default.svc.cluster.local:8000/api
               PROCESS_PREDEFINED_DOCUMENTS: yes
               USE_EXISTING_DATA: yes

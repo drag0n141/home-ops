@@ -23,12 +23,12 @@ spec:
               PAPERLESS_BASE_URL: http://paperless.default.svc.cluster.local:8000
               PAPERLESS_PUBLIC_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
               LLM_PROVIDER: openai
-              OPENAI_BASE_URL: https://llama-ocr.${SECRET_DOMAIN_INT}
-              LLM_MODEL: ggml-org/GLM-OCR-GGUF
+              OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
+              LLM_MODEL: qwen-local
               LLM_LANGUAGE: German
               OCR_PROVIDER: llm
               VISION_LLM_PROVIDER: openai
-              VISION_LLM_MODEL: ggml-org/GLM-OCR-GGUF
+              VISION_LLM_MODEL: qwen-local
               OCR_LIMIT_PAGES: 5
               OCR_PROCESS_MODE: image
               PDF_SKIP_EXISTING_OCR: false

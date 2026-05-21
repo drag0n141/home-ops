@@ -23,7 +23,7 @@ services:
       - 'no-new-privileges:true'
 
   dashboard:
-    image: docker.io/netbirdio/dashboard:v2.38.0
+    image: docker.io/netbirdio/dashboard:v2.38.1
     container_name: netbird-dashboard
     restart: unless-stopped
     environment:
@@ -54,7 +54,7 @@ services:
       - 'no-new-privileges:true'
 
   netbird-server:
-    image: ghcr.io/netbirdio/netbird-server:0.71.2
+    image: ghcr.io/netbirdio/netbird-server:0.71.3
     container_name: netbird-server
     restart: unless-stopped
     ports:

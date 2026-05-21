@@ -15,7 +15,7 @@ spec:
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
-        size: 20Gi
+        size: 50Gi
       serviceMonitor:
         enabled: true
       route:
