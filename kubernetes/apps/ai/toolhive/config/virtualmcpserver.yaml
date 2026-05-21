@@ -21,7 +21,7 @@ spec:
         type: oidc
         oidcConfig:
           issuerUrl: https://id.${SECRET_DOMAIN}
-          clientId: b503054f-dc60-4c71-8e60-47d38fdbcdfe
+          clientId: 76635c1d-32e2-4957-9356-c30f0185d8ae
           clientSecretRef:
             name: toolhive-oidc-credentials
             key: client_secret
