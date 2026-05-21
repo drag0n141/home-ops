@@ -33,7 +33,7 @@ spec:
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
