@@ -16,7 +16,7 @@ spec:
         containers:
           app:
             image:
-              repository: mirror.gcr.io/colota-forwarder
+              repository: mirror.gcr.io/mxdcodes/colota-forwarder
               tag: latest@sha256:42b952e781d938b0b4b289cd520c8ad2ea08dada3aeab6d20a3de4f489aed459
             env:
               TZ: ${TIMEZONE}
