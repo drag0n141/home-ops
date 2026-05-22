@@ -1,5 +1,5 @@
 ---
-name: Flux Local
+name: Flate
 
 on:
   pull_request:
@@ -10,9 +10,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   filter:
-    name: Flux Local - Filter
+    name: Flate - Filter
     runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
@@ -26,26 +29,35 @@ jobs:
   test:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Flux Local - Test
+    name: Flate - Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Pull Request Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Run flux-local test
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
         with:
-          args: >-
-            test
-            --all-namespaces
-            --enable-helm
-            --path /github/workspace/kubernetes/flux/cluster
-            --verbose
+          persist-credentials: false
+          path: pull
+
+      - name: Checkout Default Branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.repository.default_branch }}
+          path: default
+
+      - name: Setup Mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        with:
+          tool_versions: |
+            github:home-operations/flate latest
+
+      - name: Run flate test
+        run: flate test --path ./pull --path-orig ./default
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Flux Local - Diff
+    name: Flate - Diff
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -60,27 +72,33 @@ jobs:
       - name: Checkout Pull Request Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           path: pull
 
       - name: Checkout Default Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          ref: "${{ github.event.repository.default_branch }}"
+          persist-credentials: false
+          ref: ${{ github.event.repository.default_branch }}
           path: default
 
-      - name: Run flux-local diff
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
+      - name: Setup Mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         with:
-          args: >-
-            diff ${{ matrix.resource }}
-            --unified 6
-            --path /github/workspace/pull/kubernetes/flux/cluster
-            --path-orig /github/workspace/default/kubernetes/flux/cluster
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
-            --limit-bytes 10000
-            --all-namespaces
-            --sources "flux-system"
-            --output-file diff.patch
+          tool_versions: |
+            github:home-operations/flate latest
+
+      - name: Run flate diff
+        env:
+          RESOURCE: ${{ matrix.resource }}
+        run: >-
+          flate diff "$RESOURCE"
+          --limit-bytes 10000
+          --output-file diff.patch
+          --path ./pull
+          --path-orig ./default
+          --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
+          --unified 6
 
       - name: Generate Diff
         id: diff
@@ -90,12 +108,22 @@ jobs:
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.diff.outputs.diff != '' }}
+        name: Load Secrets
+        id: load-secrets
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0 # zizmor: ignore[unpinned-tools]
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GITHUB_BOT_APP_CLIENT_ID: op://Kubernetes/github/GITHUB_DRAG0N141_BOT_APP_CLIENT_ID
+          GITHUB_BOT_APP_PRIVATE_KEY: op://Kubernetes/github/GITHUB_DRAG0N141_BOT_PRIVATE_KEY
+
+      - if: ${{ steps.diff.outputs.diff != '' }}
         name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
-          app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
+          private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
+          permission-pull-requests: write
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add Comment
@@ -110,8 +138,10 @@ jobs:
 
   success:
     if: ${{ !cancelled() }}
-    needs: [test, diff]
-    name: Flux Local - Success
+    needs:
+      - test
+      - diff
+    name: Flate - Success
     runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
