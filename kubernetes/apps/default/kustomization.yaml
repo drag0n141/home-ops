@@ -10,6 +10,7 @@ resources:
   - ./birthday-sync/ks.yaml
   - ./change-detection/ks.yaml
   - ./christmas-community/ks.yaml
+  - ./colota-forwarder/ks.yaml
   - ./cve-report/ks.yaml
   - ./dawarich/ks.yaml
   - ./donetick/ks.yaml
