@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maziggy/bambuddy
-              tag: 0.2.4.2@sha256:f05ab29a272f14e9880462e867d7f938e7deb0f9559c9b4e714d282897d4a8e8
+              tag: 0.2.4.3@sha256:63a7ba56ce743c43ede46db0828d0f00971146bec9c08f512a9e2a72eebde4d8
             env:
               TZ: ${TIMEZONE}
               LOG_LEVEL: INFO
