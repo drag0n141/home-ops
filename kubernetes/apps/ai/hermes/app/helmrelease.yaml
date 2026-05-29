@@ -74,7 +74,7 @@ spec:
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
               GOPATH: /opt/data/go
-              HERMES_DASHBOARD: "1"
+              # HERMES_DASHBOARD: "1"
               HERMES_HOME: /opt/data
               HOME: /opt/data
               HOMEBREW_CELLAR: /opt/data/.local/homebrew/Cellar
