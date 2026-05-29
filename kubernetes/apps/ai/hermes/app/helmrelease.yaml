@@ -92,7 +92,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities: { add: ["CHOWN"], drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
@@ -101,9 +100,6 @@ spec:
                 memory: 4Gi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 10000
-        runAsGroup: 10000
         fsGroup: 10000
         fsGroupChangePolicy: OnRootMismatch
     service:
