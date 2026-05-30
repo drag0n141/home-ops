@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ellite/scrob
-              tag: 1.32.0@sha256:2d0d23ee2de0fe5f477bdc9e1361d6982ec1c3d2d41082b20554aa10da352cfe
+              tag: 1.32.1@sha256:2805d2df2b5e63b014e6481e46f3ef837f478b15f8bee730cead7a2be016a2a9
             env:
               TZ: ${TIMEZONE}
             envFrom: *envFrom
