@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/louislam/uptime-kuma
-              tag: 2.3.2-slim-rootless@sha256:f864f4b4e45973554f8a2d50358abdfbb1fc8ec03eb9f5b29d869e2b2141c76d
+              tag: 2.4.0-slim-rootless@sha256:bd1906173ff5053d93cc633545728c9a9aef53b03fe4441a4870ac9a034534fc
             env:
               TZ: ${TIMEZONE}
               DATA_DIR: /app/data
