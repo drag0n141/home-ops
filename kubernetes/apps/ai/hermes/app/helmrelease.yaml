@@ -67,14 +67,13 @@ spec:
             image:
               repository: docker.io/nousresearch/hermes-agent
               tag: v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
-            args: ["gateway", "run"]
+            args: ["gateway", "run", "--no-supervise"]
             env:
               TZ: ${TIMEZONE}
               API_SERVER_ENABLED: true
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
               GOPATH: /opt/data/go
-              # HERMES_DASHBOARD: "1"
               HERMES_HOME: /opt/data
               HOME: /opt/data
               HOMEBREW_CELLAR: /opt/data/.local/homebrew/Cellar
@@ -98,6 +97,23 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 4Gi
+          dashboard:
+            image:
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
+            args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
+            env:
+              TZ: ${TIMEZONE}
+              GATEWAY_HEALTH_URL: http://localhost:8642
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
     defaultPodOptions:
       securityContext:
         fsGroup: 10000
