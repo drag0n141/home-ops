@@ -66,9 +66,9 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://checkmk.${SECRET_DOMAIN_INTERNAL}/checkmk/check_mk
+            path: /checkmk/check_mk
         hostnames:
-          - "checkmk.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

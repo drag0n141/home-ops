@@ -77,7 +77,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}/web/index.html
+            path: /identity
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:

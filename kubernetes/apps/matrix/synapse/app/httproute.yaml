@@ -5,7 +5,7 @@ metadata:
   name: synapse
   annotations:
     gatus.home-operations.com/endpoint: |-
-      url: https://matrix.${SECRET_DOMAIN}/.well-known/matrix/client
+      path: /.well-known/matrix/client
 spec:
   hostnames:
     - "matrix.${SECRET_DOMAIN}"

@@ -80,7 +80,7 @@ spec:
         forceRename: "{{ .Release.Name }}"
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}/ping
+            path: /ping
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
