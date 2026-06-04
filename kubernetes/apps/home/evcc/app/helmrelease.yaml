@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/evcc/evcc
-              tag: 0.307.2@sha256:9c56c9cdf04d6c036b220adb37bc71e57697e37219d78a9e3290777a566e737e
+              tag: 0.308.0@sha256:f2d5dbe344b3ff154fba55cfb30ea29ae4bc3c9c2cdf244d223e3a385af7283e
             env:
               TZ: ${TIMEZONE}
             securityContext:
