@@ -27,7 +27,7 @@ services:
           memory: 256m
 
   gerbil:
-    image: ghcr.io/fosrl/gerbil:1.4.0
+    image: ghcr.io/fosrl/gerbil:1.4.1
     container_name: gerbil
     restart: unless-stopped
     depends_on:
