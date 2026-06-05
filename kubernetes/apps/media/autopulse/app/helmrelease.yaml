@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dan-online/autopulse
-              tag: v1.7.0@sha256:72c32140c9c5633d045971fc799d7844e9d0fb5e746abd8f1097e7bd4558bd6f
+              tag: v2.0.0@sha256:a9b37936c849b34d3473caf7d83aeddc2c39ec066e18a14a0f4164846d1e4718
             command: ["/bin/autopulse"]
             env:
               TZ: ${TIMEZONE}
