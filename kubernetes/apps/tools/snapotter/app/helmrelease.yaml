@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/snapotter-hq/snapotter
-              tag: 1.17.2@sha256:f45b0e1f21ec9f2f854ff0ec7a881319a0f1a980c39898311930cf2c8cc94426
+              tag: 1.17.2@sha256:9aab3b8946cc4232e59aa8a293fe7829e17f1e575d933f210693667800187179
             env:
               TZ: ${TIMEZONE}
               AUTH_ENABLED: false
