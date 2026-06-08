@@ -26,7 +26,7 @@ spec:
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd","gateway-httproute"]
-    txtPrefix: k8s.
+    txtPrefix: k8s.main.%{record_type}-
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_SHORT}"]
     serviceMonitor:

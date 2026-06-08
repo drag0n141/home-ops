@@ -42,7 +42,7 @@ spec:
     policy: sync
     sources: ["gateway-httproute", "service"]
     txtOwnerId: main
-    txtPrefix: k8s.main.
+    txtPrefix: k8s.main.%{record_type}-
     excludeDomains: ["ipv4.${SECRET_DOMAIN}"]
     domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_INTERNAL}", "${SECRET_DOMAIN_SHORT}"]
     serviceMonitor:
