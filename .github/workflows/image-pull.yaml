@@ -40,8 +40,8 @@ jobs:
       - name: Install Flate
         uses: home-operations/flate/action@39f44bd8bc9f11ba5321cecbdfc04398a568f4d0 # v0.3.3
 
-      - name: Run Flate
-        id: flate
+      - name: Extract Images
+        id: extract
         env:
           FLATE_OUTPUT: json
           FLATE_PATH: ./kubernetes/flux/cluster
