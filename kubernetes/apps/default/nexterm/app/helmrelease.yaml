@@ -19,7 +19,7 @@ spec:
               repository: docker.io/germannewsmaker/nexterm
               tag: 1.2.0-BETA@sha256:89afcecb66d87aed3ff7df1c958683de062eea2ed969fcd75fef0faff099634a
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               SERVER_PORT: &port 6989
             envFrom:
               - secretRef:

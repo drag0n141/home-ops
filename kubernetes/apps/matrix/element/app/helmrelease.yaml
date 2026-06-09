@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/element-hq/element-web
               tag: v1.12.20@sha256:2cdd374e2cb65c1634fa92786d74eba195aa39ed782b43fba2e6b54f6d36ae7d
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

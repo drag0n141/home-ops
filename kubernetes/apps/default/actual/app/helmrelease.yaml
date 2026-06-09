@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/actualbudget/actual
               tag: 26.6.0@sha256:74385f8067f401e61f0be9e343c471705c42dfaa195295c40c5b2f15f4dcc9d4
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               ACTUAL_PORT: &port 5006
               ACTUAL_OPENID_SERVER_HOSTNAME: "https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
               ACTUAL_OPENID_DISCOVERY_URL: https://id.${SECRET_DOMAIN}

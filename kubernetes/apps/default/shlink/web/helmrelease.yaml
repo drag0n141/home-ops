@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/shlinkio/shlink-web-client
               tag: 4.7.1@sha256:acc95a754a52d2a2aa4e74da6f722180e5b209902f0f0aad7cd9df33d4b4fc6f
             env:
-              TIMEZONE: ${TIMEZONE}
+              TIMEZONE: Europe/Berlin
               SHLINK_SERVER_URL: https://sh.${SECRET_DOMAIN_SHORT}
             envFrom:
               - secretRef:

@@ -21,7 +21,7 @@ spec:
               repository: ghcr.io/yoryan/mailrise
               tag: 1.4.0@sha256:68e36cb35455564179f1a95f541339d4a01c4e662e0d498da6b14a2b911ae279
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

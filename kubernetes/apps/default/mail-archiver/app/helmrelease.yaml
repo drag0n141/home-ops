@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/s1t5/mailarchiver
               tag: 2606.1@sha256:4ea7ecc47ad1dd2c523b85c3967574b61e39def1b6fd26edf874e21733c4018c
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               Authentication__Enabled: true
               MailSync__IntervalMinutes: 120
             envFrom: *envFrom

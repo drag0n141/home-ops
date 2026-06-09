@@ -32,7 +32,7 @@ spec:
               repository: ghcr.io/phalcode/gamevault-backend
               tag: 16.3.0@sha256:6eb5fbb04e533d3a5d3786b2b0aaf8aa279a37a25fde7d9a0bb84ec9b00cf65a
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               SERVER_REGISTRATION_DISABLED: false
               GAMES_INDEX_INTERVAL_IN_MINUTES: 240
               DB_SYSTEM: POSTGRESQL

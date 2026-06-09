@@ -11,7 +11,7 @@ spec:
   values:
     namespace: system
     replicaCount: 1
-    timezone: ${TIMEZONE}
+    timezone: Europe/Berlin
     cronJobTimeZone: true
     webhook:
       certManager:

@@ -21,7 +21,7 @@ spec:
               repository: ghcr.io/home-operations/plex
               tag: 1.43.2.10687@sha256:be00a2ad851ea3193cd870636f908eb6425ad89390f23cdb08daa35ab5cceacc
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               PLEX_ADVERTISE_URL: https://192.168.222.85:32400
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24,192.168.140.0/24
             probes:

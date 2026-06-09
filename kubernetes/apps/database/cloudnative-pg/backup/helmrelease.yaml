@@ -35,7 +35,7 @@ spec:
               tag: 18@sha256:f70742ebe42b2277689b028d1fd15aa80f77cffa01da163cc9f85a6ff1866e7f
             command: ["/bin/bash", "/backup.sh"]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               POSTGRES_DB_FILE: /config/db_list
               POSTGRES_EXTRA_OPTS: "--blobs --clean --create --compress=9"
               BACKUP_DIR: /backups/database/postgresql

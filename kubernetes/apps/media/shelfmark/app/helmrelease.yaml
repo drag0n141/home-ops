@@ -33,7 +33,7 @@ spec:
               - 0.0.0.0:8084
               - shelfmark.main:app
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               INGEST_DIR: /mnt/data/media/nzb/books
             securityContext:
               allowPrivilegeEscalation: false

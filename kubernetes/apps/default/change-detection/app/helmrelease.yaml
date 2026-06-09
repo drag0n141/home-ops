@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/dgtlmoon/changedetection.io
               tag: 0.55.7@sha256:736331d2787f94d3201b64aa641e090f67e28577ba505bd7ba5d7c1841e1e0ca
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               BASE_URL: https://change-detection.${SECRET_DOMAIN_INTERNAL}
               PLAYWRIGHT_DRIVER_URL: "ws://localhost:3000/chrome?stealth=1&--disable-web-security=true"
             securityContext:
@@ -37,7 +37,7 @@ spec:
               repository: ghcr.io/browserless/chrome
               tag: v2.51.2@sha256:ce4fdb98d7775cbf9fb11c710a0443734fdd792855cd20ae21e8538ab9b872be
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               TIMEOUT: 60000
             securityContext:
               runAsUser: 999

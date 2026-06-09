@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/snapotter-hq/snapotter
               tag: 1.17.2@sha256:9aab3b8946cc4232e59aa8a293fe7829e17f1e575d933f210693667800187179
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               AUTH_ENABLED: false
               ANALYTICS_ENABLED: false
               PORT: &port 1349

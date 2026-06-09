@@ -20,7 +20,7 @@ spec:
               repository: quay.io/prometheus/alertmanager
               tag: v0.32.2
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             ports:
               - name: http
                 containerPort: 9093

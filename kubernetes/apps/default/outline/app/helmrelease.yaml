@@ -31,7 +31,7 @@ spec:
               repository: docker.io/outlinewiki/outline
               tag: 1.8.1@sha256:e224dcbe34670bdae8835c32d5abc692d3560dfa262b72fb7232f4d87185aebd
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               URL: "https://outline.${SECRET_DOMAIN_INTERNAL}"
               ENABLE_UPDATES: false
               AWS_REGION: us-east-1

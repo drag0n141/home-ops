@@ -19,7 +19,7 @@ spec:
           - secretRef:
               name: &secret semaphore-secret
     extraEnvVariables:
-      SEMAPHORE_SCHEDULE_TIMEZONE: ${TIMEZONE}
+      SEMAPHORE_SCHEDULE_TIMEZONE: Europe/Berlin
       ANSIBLE_HOST_KEY_CHECKING: false
     general:
       host: https://semaphore.${SECRET_DOMAIN_INTERNAL}

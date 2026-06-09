@@ -20,7 +20,7 @@ spec:
               tag: v1.88.1@sha256:dbed1149e8b2927a123ab1230a5f4a3f45591313e49a089a3a4bf7c90f567648
             args: ["--config=/app/config.yaml"]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               LITELLM_LOG: INFO
               LITELLM_MODE: PRODUCTION
               REDIS_HOST: litellm-redis.ai.svc.cluster.local

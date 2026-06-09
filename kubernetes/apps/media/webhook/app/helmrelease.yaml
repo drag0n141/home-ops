@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/home-operations/webhook
               tag: 2.8.3@sha256:b5a6defe3462a7bba13342bb878b20504f3699644a442039dad21285edca0082
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               WEBHOOK__PORT: &port 80
             envFrom:
               - secretRef:

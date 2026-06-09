@@ -31,7 +31,7 @@ spec:
               repository: ghcr.io/sissbruecker/linkding
               tag: 1.45.0@sha256:61b2eb9eed8e5772a473fb7f1f8923e046cb8cbbeb50e88150afd5ff287d4060
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               LD_DISABLE_BACKGROUND_TASKS: false
               LD_DISABLE_URL_VALIDATION: false
               LD_DISABLE_LOGIN_FORM: true

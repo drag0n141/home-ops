@@ -69,7 +69,7 @@ spec:
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
             args: ["gateway", "run", "--no-supervise"]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               API_SERVER_ENABLED: true
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
@@ -103,7 +103,7 @@ spec:
               tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
             args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               GATEWAY_HEALTH_URL: http://localhost:8642
             securityContext:
               allowPrivilegeEscalation: false

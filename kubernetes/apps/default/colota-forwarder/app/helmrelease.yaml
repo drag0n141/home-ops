@@ -19,7 +19,7 @@ spec:
               repository: mirror.gcr.io/mxdcodes/colota-forwarder
               tag: latest@sha256:0a2213ccd7b77e1c07036626e1aa3d179077acb9dbba30506ae6df4fbc7d3f71
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               PORT: &port 3000
             envFrom:
               - secretRef:

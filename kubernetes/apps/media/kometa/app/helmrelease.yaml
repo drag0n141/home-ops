@@ -19,7 +19,7 @@ spec:
               repository: docker.io/kometateam/kometa
               tag: v2.3.1@sha256:683c04827ef3fecf1cc5cb178f75f91f968aef6c6d89d34bc9c70966fd1d7259
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               PMM_READ_ONLY_CONFIG: true
               PMM_TIME: "00:00,01:00,02:00,03:00,04:00,05:00,06:00,07:00,08:00,09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00,21:00,22:00,23:00"
             securityContext:

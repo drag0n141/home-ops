@@ -25,7 +25,7 @@ spec:
     admins:
       - ["drag0n141", "server.netbox@${SECRET_DOMAIN_SHORT}"]
     loginRequired: true
-    timeZone: ${TIMEZONE}
+    timeZone: Europe/Berlin
     dateFormat: "j. F, Y"
     shortDateFormat: "j.m.Y"
     timeFormat: "G:i"

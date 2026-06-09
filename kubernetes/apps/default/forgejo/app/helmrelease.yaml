@@ -80,7 +80,7 @@ spec:
         other:
           SHOW_FOOTER_TEMPLATE_LOAD_TIME: false
         time:
-          DEFAULT_UI_LOCATION: ${TIMEZONE}
+          DEFAULT_UI_LOCATION: Europe/Berlin
         ui:
           SHOW_USER_EMAIL: false
         webhook:

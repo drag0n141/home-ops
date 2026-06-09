@@ -21,7 +21,7 @@ spec:
               repository: ghcr.io/home-operations/sabnzbd
               tag: 5.0.3@sha256:53064020792b2e21305c892c11aaa1eb32af2141cbd59119b52df226d664cd05
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               SABNZBD__PORT: &port 8080
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 sabnzbd,

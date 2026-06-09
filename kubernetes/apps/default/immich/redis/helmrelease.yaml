@@ -22,7 +22,7 @@ spec:
             command: ["valkey-server"]
             args: ["--save", "", "--appendonly", "no"]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             resources:
               requests:
                 cpu: 10m

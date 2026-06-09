@@ -19,7 +19,7 @@ spec:
               repository: docker.io/11notes/kms
               tag: 1.0.3@sha256:0eb71bab971959c8e609f280c0e7fe68968cafaab1c066274db12161ffc46674
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

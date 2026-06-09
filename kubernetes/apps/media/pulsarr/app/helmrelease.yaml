@@ -29,7 +29,7 @@ spec:
               repository: docker.io/lakker/pulsarr
               tag: 0.16.0@sha256:4432f4cf07809b03e12f238afc2e26d9b13b1d183478716f139f7eb659ef4d11
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               PUID: 1000
               PGID: 1000
               baseUrl: https://pulsarr.${SECRET_DOMAIN_INTERNAL}

@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/ellite/wallos
               tag: 4.9.5@sha256:11ed4975912a014e2ec53d5270acfdde8eb928f59b56ad9ba136a2e69bbec019
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

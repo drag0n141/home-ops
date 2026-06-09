@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/connorgallopo/tracearr
               tag: 1.4.28@sha256:ca93988326c26597e0d9c91d69c0f97e7ed23c517cf327c22bc7f188002af998
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               CORS_ORIGIN: https://tracearr.${SECRET_DOMAIN_INTERNAL}
               PORT: &port 3000
               TRUST_PROXY: true

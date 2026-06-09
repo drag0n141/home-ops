@@ -31,7 +31,7 @@ spec:
             command: ["/usr/bin/mautrix-discord"]
             args: [ "-c", "/data/config.yaml", "--no-update" ]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

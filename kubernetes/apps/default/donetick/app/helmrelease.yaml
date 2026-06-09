@@ -31,7 +31,7 @@ spec:
               repository: docker.io/donetick/donetick
               tag: v0.1.75@sha256:5c207a86e5425052e9ffe5286f96f71babfe57337760d303a5fb56a856790d11
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               DT_ENV: selfhosted
               DT_NAME: Donetick
               DT_DATABASE_TYPE: postgres

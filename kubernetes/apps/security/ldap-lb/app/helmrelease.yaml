@@ -21,7 +21,7 @@ spec:
               repository: public.ecr.aws/docker/library/haproxy
               tag: 3.4.0-alpine@sha256:5614ec450485ce1f9f8c25d231cf7fbab9326302a395f2355e05cbbc2dd7468b
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

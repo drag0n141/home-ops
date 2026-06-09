@@ -33,7 +33,7 @@ spec:
               repository: ghcr.io/dispatcharr/dispatcharr
               tag: 0.26.0@sha256:9275b0c1f5319a84b412af6839a1364ef25b61d8d6ff0d2130a6c2b2504a8b07
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               CELERY_BROKER_URL: redis://localhost:6379/0
               DISPATCHARR_ENV: aio
               DISPATCHARR_LOG_LEVEL: info

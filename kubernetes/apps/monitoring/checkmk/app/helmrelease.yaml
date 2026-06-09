@@ -19,7 +19,7 @@ spec:
               repository: docker.io/checkmk/check-mk-raw
               tag: 2.4.0p31@sha256:49f1fed37d4814382d4cb1041168bdb945d87b2a84102dab2a96b2f4861ca2bd
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               CMK_SITE_ID: checkmk
               MAIL_RELAY_HOST: mailrise.default.svc.cluster.local:8025
             envFrom:

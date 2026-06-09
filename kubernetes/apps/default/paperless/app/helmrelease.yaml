@@ -30,10 +30,10 @@ spec:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.20.15@sha256:6c86cad803970ea782683a8e80e7403444c5bf3cf70de63b4d3c8e87500db92f
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               USERMAP_UID: 1000
               USERMAP_GID: 1000
-              PAPERLESS_TIME_ZONE: ${TIMEZONE}
+              PAPERLESS_TIME_ZONE: Europe/Berlin
               PAPERLESS_DBENGINE: postgresql
               PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: false
@@ -105,10 +105,10 @@ spec:
                 python3 /usr/src/paperless/src/manage.py document_exporter /data/nas/export --compare-checksums --delete --use-filename-format --use-folder-prefix
                 echo "Export completed successfully."
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               USERMAP_UID: 1000
               USERMAP_GID: 1000
-              PAPERLESS_TIME_ZONE: ${TIMEZONE}
+              PAPERLESS_TIME_ZONE: Europe/Berlin
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
               PAPERLESS_EXPORT_DIR: /data/nas/export
               PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media

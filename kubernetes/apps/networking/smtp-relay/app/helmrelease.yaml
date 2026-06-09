@@ -21,7 +21,7 @@ spec:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.9.5@sha256:de42151adff6388edb5e4ee88f60334fa1ab85e309485193ecb1c2db20203315
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               SMTP_RELAY_SMTP_PORT: &port 2525
               SMTP_RELAY_METRICS_PORT: &metricsPort 8080
               SMTP_RELAY_SERVER_PORT: 465

@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/clusterzx/paperless-ai
               tag: 3.0.9@sha256:2b65888163fd59716f1c8285b31c5bd0b30c9c3c192c42b516688e3887d4ba60
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               ACTIVATE_TAGGING: no
               AI_PROVIDER: custom
               CUSTOM_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1

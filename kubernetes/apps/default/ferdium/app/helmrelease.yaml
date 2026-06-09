@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/ferdium/ferdium-server
               tag: 2.0.13@sha256:11cfbc4e22696c3fccbaa9f25f48d3883e10fb090bab6874d4c7168c1e04691a
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               PUID: 1000
               PGID: 1000
               NODE_ENV: production

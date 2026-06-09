@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/louislam/uptime-kuma
               tag: 2.4.0-slim-rootless@sha256:bd1906173ff5053d93cc633545728c9a9aef53b03fe4441a4870ac9a034534fc
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               DATA_DIR: /app/data
               PORT: &port 3001
               UPTIME_KUMA_DB_TYPE: sqlite

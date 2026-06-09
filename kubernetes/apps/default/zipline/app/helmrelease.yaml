@@ -31,7 +31,7 @@ spec:
               repository: ghcr.io/diced/zipline
               tag: 4.6.2@sha256:6140981c5f9e9d0b38eedabc78623cbb360b1bd83c14e0210b229bdb20e3a473
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               # Core config
               CORE_RETURN_HTTPS_URLS: true
               CORE_DEFAULT_DOMAIN: zl.${SECRET_DOMAIN_SHORT}

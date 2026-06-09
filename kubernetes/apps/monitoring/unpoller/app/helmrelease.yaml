@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/unpoller/unpoller
               tag: v3.2.0@sha256:bf7bdcc59fcdaa4699687007aa3ec24ddb3c9d9521f392d8c7aa2bea1bdb781a
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://192.168.1.1
               UP_INFLUXDB_DISABLE: true

@@ -51,7 +51,7 @@ spec:
               repository: docker.io/ollama/ollama
               tag: 0.30.7
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
               OLLAMA_MODELS: /models

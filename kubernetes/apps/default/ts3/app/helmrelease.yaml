@@ -29,7 +29,7 @@ spec:
               repository: docker.io/teamspeak
               tag: 3.13.8@sha256:11fb1dd03c68ae7b3a8a86c5a08827d01d87a833177ad92ee5c19d7b72d08ce0
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               TS3SERVER_DB_PLUGIN: ts3db_postgresql
               TS3SERVER_DB_SQLCREATEPATH: create_postgresql
               TS3SERVER_DB_WAITUNTILREADY: 30

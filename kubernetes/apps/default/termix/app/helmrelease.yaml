@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/lukegus/termix
               tag: release-2.3.2@sha256:06a27a3dc22ae426cf0681fcdbdb58732f2aab56d8ce9e95f4deea18306e5c2f
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               PORT: &port 8080
               ENABLE_GUACAMOLE: true
               GUACD_HOST: termix-guacd.default.svc.cluster.local

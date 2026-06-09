@@ -34,7 +34,7 @@ spec:
               tag: 3.14-slim@sha256:7d8de339aa8619f9b25e7d474d687ae4f6ef9704adad90a136af0f485adeccb7
             command: ["python", "/scripts/gotify-icons.py"]
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               GOTIFY_URL: http://gotify.default.svc.cluster.local
               PYTHONPATH: /pip-packages
             envFrom:

@@ -32,7 +32,7 @@ spec:
               repository: ghcr.io/rommapp/romm
               tag: 4.8.1@sha256:2b7a1714b287f69b081ad2a63bb8c2fa673666a17b2f21322b580b0cd51cb266
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               DISABLE_DOWNLOAD_ENDPOINT_AUTH: true
               ENABLE_SCHEDULED_RESCAN: true
               SCHEDULED_RESCAN_CRON: "0 3 * * *"

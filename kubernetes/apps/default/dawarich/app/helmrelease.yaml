@@ -39,8 +39,8 @@ spec:
             command: ["web-entrypoint.sh"]
             args: ["bin/rails", "server", "-p", "3000", "-b", "::"]
             env: &env
-              TZ: ${TIMEZONE}
-              TIME_ZONE: ${TIMEZONE}
+              TZ: Europe/Berlin
+              TIME_ZONE: Europe/Berlin
               ALLOW_EMAIL_PASSWORD_REGISTRATION: false
               ALLOW_EMAIL_PASSWORD_LOGIN: false
               APPLICATION_HOSTS: "{{ .Release.Name }}.${SECRET_DOMAIN}"

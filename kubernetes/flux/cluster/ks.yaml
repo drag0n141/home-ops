@@ -19,9 +19,6 @@ spec:
       name: sops-age-secret
   postBuild:
     substituteFrom:
-      - kind: ConfigMap
-        name: cluster-settings
-        optional: false
       - kind: Secret
         name: cluster-secrets
         optional: false
@@ -80,9 +77,6 @@ spec:
         spec:
           postBuild:
             substituteFrom:
-              - kind: ConfigMap
-                name: cluster-settings
-                optional: false
               - kind: Secret
                 name: cluster-secrets
                 optional: false

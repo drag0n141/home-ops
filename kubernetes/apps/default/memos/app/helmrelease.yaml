@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/usememos/memos
               tag: 0.29.1@sha256:3e1253477066eb2aefa91145f7f9038bb931ed88c8a3ee05310a933594cdba7d
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               MEMOS_DRIVER: postgres
               MEMOS_PORT: &port 5230
               MEMOS_PUBLIC: false

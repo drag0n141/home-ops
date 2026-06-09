@@ -19,7 +19,7 @@ spec:
               repository: docker.io/wingysam/christmas-community
               tag: 1.42.0@sha256:6aeda4bd07e02af2a956f6e18c36e4ce23d6497d688e4587f18243f539b096a1
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               LANGUAGE: de-de
               PORT: &port 8081
               SITE_TITLE: Wunschlisten

@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/autobrr/netronome
               tag: v0.11.0@sha256:3d7232208d7bd61acd25d25b4b6de5f807b2362515dd403f5adffe74e7c3ff61
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               NETRONOME__DB_TYPE: postgres
               NETRONOME__PORT: &port 7575
             envFrom: *envFrom

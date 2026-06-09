@@ -13,7 +13,7 @@ spec:
             - secretRef:
                 name: &secret pocket-id-secret
   image: ghcr.io/pocket-id/pocket-id:v2.8.0-distroless@sha256:6a3aad6023ea0729e3763c75b77060d6d5d9069ad566af0b0b14a2288da0c9e0
-  timezone: "${TIMEZONE}"
+  timezone: "Europe/Berlin"
   appUrl: "https://id.${SECRET_DOMAIN}"
   databaseUrl:
     valueFrom:

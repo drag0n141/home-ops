@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/alam00000/bentopdf
               tag: 2.8.5@sha256:2d867aacb8ab5b196d00ee86944b1899d09d72df355384c5e15cf974737963a0
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

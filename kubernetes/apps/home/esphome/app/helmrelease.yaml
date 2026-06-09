@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/home-operations/esphome
               tag: 2026.5.3@sha256:81c652e7bd103dd7ba95ed8ca1185d0a5f209ec6eed3e8f44615e5c24b96a328
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -47,7 +47,7 @@ spec:
               - "12321"
               - /config
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             resources:
               requests:
                 cpu: 10m

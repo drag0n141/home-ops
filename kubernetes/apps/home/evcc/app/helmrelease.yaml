@@ -19,7 +19,7 @@ spec:
               repository: docker.io/evcc/evcc
               tag: 0.308.1@sha256:4e3c37d4717aaca8ff081c43227f9eb46e1d2ba1393f3d083a578caa61b99e36
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

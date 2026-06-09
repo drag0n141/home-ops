@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/tandoorrecipes/recipes
               tag: 2.6.9@sha256:969c5b3552ffbf18a6f82b3ad5babbae89bfbd30ab6e3195fd3c158bcf3062ed
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
               ALLOWED_HOSTS: recipes.${SECRET_DOMAIN}
               COMMENT_PREF_DEFAULT: 1
               DB_ENGINE: django.db.backends.postgresql

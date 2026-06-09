@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/etkecc/synapse-admin
               tag: v0.11.1-etke49@sha256:16f895a1eebe9b7f7ddcfe98e999c3d76718feea6f95439a3f2dcd4028b22f5b
             env:
-              TZ: ${TIMEZONE}
+              TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
