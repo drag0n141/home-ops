@@ -9,20 +9,6 @@ spec:
     kind: OCIRepository
     name: rook-ceph-cluster
   values:
-    monitoring:
-      enabled: true
-      createPrometheusRules: true
-    toolbox:
-      enabled: true
-    route:
-      dashboard:
-        host:
-          name: rook.${SECRET_DOMAIN_INTERNAL}
-          path: /
-          pathType: PathPrefix
-        parentRefs:
-          - name: envoy-internal
-            namespace: networking
     cephClusterSpec:
       cephConfig:
         global:
@@ -35,6 +21,11 @@ spec:
         wipeDevicesFromOtherClusters: true
       crashCollector:
         disable: false
+      csi:
+        readAffinity:
+          enabled: true
+          crushLocationLabels:
+            - kubernetes.io/hostname
       dashboard:
         enabled: true
         urlPrefix: /
@@ -70,6 +61,20 @@ spec:
         devicePathFilter: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_.*
         config:
           osdsPerDevice: "1"
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
+    toolbox:
+      enabled: true
+    route:
+      dashboard:
+        host:
+          name: rook.${SECRET_DOMAIN_INTERNAL}
+          path: /
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
     cephBlockPools:
       - name: ceph-blockpool
         spec:
