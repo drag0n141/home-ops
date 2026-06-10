@@ -17,7 +17,7 @@ spec:
           chown-dbdir:
             image:
               repository: docker.io/library/alpine
-              tag: "3.23"
+              tag: "3.24"
             command:
               - /bin/sh
               - -c
