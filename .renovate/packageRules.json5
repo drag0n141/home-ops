@@ -39,5 +39,13 @@
       versioning: "regex:^release\\-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
       matchPackagePatterns: ["termix"]
     },
+    {
+      description: ["Process terraform files"],
+      matchManagers: ["terraform"],
+      matchDatasources: ["terraform-provider"],
+      registryUrls: ["https://registry.opentofu.org", "registry.terraform.io"],
+      versioning: "terraform",
+      matchPackagePatterns: [".*"]
+    },
   ]
 }
