@@ -1,29 +1,16 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>drag0n141/renovate-config",
-    "github>drag0n141/renovate-config:automerge-github-actions",
+    "github>home-operations/renovate-presets#2.0.0",
     "github>drag0n141/home-ops//.renovate/allowedVersions.json5",
     "github>drag0n141/home-ops//.renovate/autoMerge.json5",
-    "github>drag0n141/home-ops//.renovate/customManagers.json5",
-    "github>drag0n141/home-ops//.renovate/grafanaDashboards.json5",
     "github>drag0n141/home-ops//.renovate/groups.json5",
-    "github>drag0n141/home-ops//.renovate/overrides.json5",
     "github>drag0n141/home-ops//.renovate/packageRules.json5",
-    "github>drag0n141/home-ops//.renovate/talosFactory.json5",
+    ":timezone(Europe/Berlin)",
   ],
   ignorePaths: [
     "**/*.sops.*",
     "**/.archive/**",
     "**/resources/**",
   ],
-  flux: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
-  },
-  "helm-values": {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
-  },
-  kubernetes: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
-  },
 }
