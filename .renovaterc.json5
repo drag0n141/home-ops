@@ -6,6 +6,7 @@
     "github>drag0n141/home-ops//.renovate/autoMerge.json5",
     "github>drag0n141/home-ops//.renovate/groups.json5",
     "github>drag0n141/home-ops//.renovate/packageRules.json5",
+    "github>drag0n141/renovate-config:pr-labels",
     ":timezone(Europe/Berlin)",
   ],
   ignorePaths: [
