@@ -24,7 +24,7 @@ spec:
       - name: postgis
         image:
           # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgis-extension
-          reference: ghcr.io/cloudnative-pg/postgis-extension:3.6.1-18-trixie
+          reference: ghcr.io/cloudnative-pg/postgis-extension:3.6.3-18-trixie
         ld_library_path:
           - system
   resources:
