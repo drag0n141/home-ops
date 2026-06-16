@@ -4,7 +4,7 @@ kind: MCPServer
 metadata:
   name: searxng-mcp
 spec:
-  image: docker.io/isokoliuk/mcp-searxng:1.5.0
+  image: docker.io/isokoliuk/mcp-searxng:1.6.0
   transport: stdio
   groupRef:
     name: mcp-tools
