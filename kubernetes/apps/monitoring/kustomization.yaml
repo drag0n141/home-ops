@@ -7,7 +7,7 @@ resources:
   - ./blackbox-exporter/ks.yaml
   - ./checkmk/ks.yaml
   - ./fluent-bit/ks.yaml
-  - ./gatus/ks.yaml
+  - ./gatus-sidecar/ks.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./patchmon/ks.yaml

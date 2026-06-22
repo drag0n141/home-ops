@@ -4,8 +4,9 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
 configMapGenerator:
-  - name: gatus-configmap
+  - name: gatus-sidecar-configmap
     files:
       - config.yaml=./resources/config.yaml
 generatorOptions:
