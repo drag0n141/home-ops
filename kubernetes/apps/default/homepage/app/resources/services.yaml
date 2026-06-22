@@ -34,4 +34,4 @@
         description: Gatus
         widget:
           type: gatus
-          url: http://gatus-sidecar.monitoring.svc.cluster.local
+          url: http://gatus-sidecar.monitoring.svc.cluster.local:8080
