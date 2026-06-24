@@ -31,6 +31,15 @@
       ignoreTests: true,
     },
     {
+      description: "Auto-merge claude-code-action",
+      matchManagers: ["github-actions"],
+      matchPackageNames: ["anthropics/claude-code-action"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    },
+    {
       description: "Auto-merge Grafana dashboards",
       matchDatasources: ["custom.grafana-dashboards"],
       matchUpdateTypes: ["major"],
