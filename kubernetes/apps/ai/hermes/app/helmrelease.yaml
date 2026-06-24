@@ -31,7 +31,7 @@ spec:
           install-tools:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
+              tag: v2026.6.19@sha256:9f367c7756ef087661a361536a89f438d57a122b958dc23d82d456b1433e6e9e
             command:
               - /bin/sh
               - -c
@@ -66,7 +66,7 @@ spec:
           app:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
+              tag: v2026.6.19@sha256:9f367c7756ef087661a361536a89f438d57a122b958dc23d82d456b1433e6e9e
             args: ["gateway", "run", "--no-supervise"]
             env:
               TZ: Europe/Berlin
@@ -100,7 +100,7 @@ spec:
           dashboard:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.6.5@sha256:9ad3b04ec916ea2c2da22358fd43b024c788d74073210695af88bfc2e63869b4
+              tag: v2026.6.19@sha256:9f367c7756ef087661a361536a89f438d57a122b958dc23d82d456b1433e6e9e
             args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
             env:
               TZ: Europe/Berlin
