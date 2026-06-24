@@ -27,10 +27,9 @@ services:
       - 'LLAMA_ARG_GPU_LAYERS=99'
       - 'LLAMA_ARG_JINJA=1'
       - 'LLAMA_ARG_API_KEY=${LLAMA_API_KEY}'
-      - 'LLAMA_ARG_CHAT_TEMPLATE_KWARGS={"enable_thinking":false}'
-      - 'LLAMA_ARG_NO_WEBUI=1'
+      - 'LLAMA_ARG_NO_UI=1'
       - 'LLAMA_ARG_REASONING=off'
-      - 'LLAMA_ARG_REASONING_BUDGET=0'
+      - 'LLAMA_ARG_THINK_BUDGET=0'
       - 'LLAMA_ARG_CTX_SIZE=8192'
     networks:
       - traefik
