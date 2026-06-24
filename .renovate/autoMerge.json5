@@ -5,7 +5,7 @@
       description: "Auto-merge high-cadence OCI packages weekly",
       matchDatasources: ["docker"],
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: ["/helm-charts/renovate-operator", "/kube-prometheus-stack/", "/netbox-chart/"],
+      matchPackageNames: ["ghcr.io/renovatebot/renovate", "/kube-prometheus-stack/", "/netbox-chart/"],
       automerge: true,
       automergeType: "pr",
       ignoreTests: false,
