@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lukegus/termix
-              tag: release-2.4.1@sha256:f987d1423a9d1f0bd870b248ad42ccaa10873d801c187a371791216ae4a82135
+              tag: release-2.5.0@sha256:4d3371311087d6757aa9d1c94117e854d749b1c5e8fd07bd36e7a99e0686d26c
             env:
               TZ: Europe/Berlin
               PORT: &port 8080
