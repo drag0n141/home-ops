@@ -97,23 +97,6 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 4Gi
-          dashboard:
-            image:
-              repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.7.1@sha256:b6c019227889e6675424a2b6223b2cafdd36bf7d1048d1ddd8e043b880d6cc0f
-            args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
-            env:
-              TZ: Europe/Berlin
-              GATEWAY_HEALTH_URL: http://localhost:8642
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 700Mi
     defaultPodOptions:
       securityContext:
         fsGroup: 10000
