@@ -108,9 +108,9 @@ cameras:
   door:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/door_lq?video&audio
+        - path: rtsp://localhost:8554/door_lq
           roles: [detect]
-        - path: rtsp://localhost:8554/door_hq?video&audio
+        - path: rtsp://localhost:8554/door_hq
           roles: [record]
     live:
       streams:
@@ -136,9 +136,9 @@ cameras:
   garden:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/garden_lq?video&audio
+        - path: rtsp://localhost:8554/garden_lq
           roles: [detect]
-        - path: rtsp://localhost:8554/garden_hq?video&audio
+        - path: rtsp://localhost:8554/garden_hq
           roles: [record]
     live:
       streams:
@@ -166,9 +166,9 @@ cameras:
   yard:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/yard_lq?video&audio
+        - path: rtsp://localhost:8554/yard_lq
           roles: [detect]
-        - path: rtsp://localhost:8554/yard_hq?video&audio
+        - path: rtsp://localhost:8554/yard_hq
           roles: [record]
     live:
       streams:
