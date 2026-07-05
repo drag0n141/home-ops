@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/lakker/pulsarr
-              tag: 0.17.1@sha256:ce3358abee7f6185dd732a0ba80056a2ac814641fc6168b8c880b8b064127ef2
+              tag: 0.17.2@sha256:af89dfacf08a608117922e4a51325184dca797abaf7d2ae3cb501da63a26327b
             env:
               TZ: Europe/Berlin
               PUID: 1000
