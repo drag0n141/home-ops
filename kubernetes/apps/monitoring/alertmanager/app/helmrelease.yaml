@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: quay.io/prometheus/alertmanager
-              tag: v0.33.0
+              tag: v0.33.1
             env:
               TZ: Europe/Berlin
             ports:
