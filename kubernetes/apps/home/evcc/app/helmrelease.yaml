@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/evcc/evcc
-              tag: 0.311.0@sha256:c5de37bd12aeadea5e854d76297a0eb31e6ac87301f87c582371ab6fd9a3bfdc
+              tag: 0.311.1@sha256:090815f12c0a5b8d47d0b778835cfa86283929f3a667ae1881628454d0e6b28c
             env:
               TZ: Europe/Berlin
             securityContext:
