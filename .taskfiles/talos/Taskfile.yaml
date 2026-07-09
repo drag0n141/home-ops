@@ -15,10 +15,10 @@ tasks:
   apply-node:
     desc: Apply Talos config to a node [IP=required]
     cmds:
-      - task: down
+#      - task: down
       - minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} --mode={{.MODE}} --config-patch @{{.TALOS_DIR}}/networking.yaml --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml --file /dev/stdin
       - talosctl --nodes {{.IP}} health
-      - task: up
+#      - task: up
     vars:
       MODE: '{{.MODE | default "auto"}}'
       INSECURE:
@@ -48,9 +48,9 @@ tasks:
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required]
     cmds:
-      - task: down
+#      - task: down
       - talosctl --nodes {{.IP}} upgrade --image="factory.talos.dev/installer/$TALOS_SCHEMATIC:$TALOS_VERSION" --timeout=10m
-      - task: up
+#      - task: up
     env:
       TALOS_SCHEMATIC:
         sh: |-
