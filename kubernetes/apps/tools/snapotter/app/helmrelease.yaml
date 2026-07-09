@@ -11,8 +11,18 @@ spec:
   values:
     controllers:
       snapotter:
+        labels:
+          postgres: "true"
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:ebd9d30add17acdf935d73eb004758c7dfd9388aaa605fda70ad74378ab92aec
+            envFrom: &envFrom
+              - secretRef:
+                  name: snapotter-secret
         containers:
           app:
             image:
@@ -24,6 +34,7 @@ spec:
               ANALYTICS_ENABLED: false
               PORT: &port 1349
               DEFAULT_THEME: dark
+            envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
