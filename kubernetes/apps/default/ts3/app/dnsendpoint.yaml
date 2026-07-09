@@ -8,6 +8,6 @@ spec:
     - dnsName: "ts.${SECRET_DOMAIN}"
       recordType: CNAME
       targets: ["external.${SECRET_DOMAIN}"]
-    - dnsName: "_ts3._udp.ts.${SECRET_DOMAIN}"
-      recordType: SRV
-      targets: ["0 5 9987 ts.${SECRET_DOMAIN}"]
+#    - dnsName: "_ts3._udp.ts.${SECRET_DOMAIN}"
+#      recordType: SRV
+#      targets: ["0 5 9987 ts.${SECRET_DOMAIN}"]
