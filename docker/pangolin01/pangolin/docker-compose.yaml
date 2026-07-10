@@ -81,7 +81,7 @@ services:
 
   geoipupdate:
     container_name: geoipupdate
-    image: ghcr.io/maxmind/geoipupdate:v7.1.1
+    image: ghcr.io/maxmind/geoipupdate:v8.0.0
     restart: unless-stopped
     environment:
       - GEOIPUPDATE_ACCOUNT_ID=${MAXMIND_ACCOUNT_ID}
