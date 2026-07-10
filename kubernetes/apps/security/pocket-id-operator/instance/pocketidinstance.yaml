@@ -12,7 +12,7 @@ spec:
           envFrom:
             - secretRef:
                 name: &secret pocket-id-secret
-  image: ghcr.io/pocket-id/pocket-id:v2.9.0-distroless@sha256:e21b13437a542080f8226e4c6281ca26c7909123886606bf967f92e620d73f24
+  image: ghcr.io/pocket-id/pocket-id:v2.10.0-distroless@sha256:244c5d2613b1b89b18a8fee07e47e9a43907a09009c6280236131fccf1ba5f9f
   timezone: "Europe/Berlin"
   appUrl: "https://id.${SECRET_DOMAIN}"
   databaseUrl:
