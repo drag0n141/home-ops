@@ -23,6 +23,8 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: tracearr-secret
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
         containers:
           app:
             image:
@@ -33,6 +35,8 @@ spec:
               CORS_ORIGIN: https://tracearr.${SECRET_DOMAIN_INTERNAL}
               PORT: &port 3000
               TRUST_PROXY: true
+              OIDC_PROVIDER_NAME: Pocket ID
+              OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
