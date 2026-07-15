@@ -23,16 +23,20 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: tracearr-secret
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
         containers:
           app:
             image:
               repository: ghcr.io/connorgallopo/tracearr
-              tag: 1.4.31@sha256:61ee18f815139edb7de682f36c755d8e1517361988756fdf8ccb73865eb7def4
+              tag: 1.5.0@sha256:2b6aca8d86126bb57211f54f1a34e9d8292ad0d783dbc48015452b2af1b9fe3c
             env:
               TZ: Europe/Berlin
               CORS_ORIGIN: https://tracearr.${SECRET_DOMAIN_INTERNAL}
               PORT: &port 3000
               TRUST_PROXY: true
+              OIDC_PROVIDER_NAME: Pocket ID
+              OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
