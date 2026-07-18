@@ -44,7 +44,7 @@ spec:
           wstunnel:
             image:
               repository: ghcr.io/erebe/wstunnel
-              tag: v10.6.1@sha256:a6df167bc8604c8473dfcfa4f44d4949aed7e2a10a4b21568a00190c9bfda1b3
+              tag: v10.6.2@sha256:bfb751827e4222366c6068452d578ea0bcad7d88c93a5c98fb665402a4b349b3
             command: ["/bin/sh", "-c", "exec /home/app/wstunnel server wss://0.0.0.0:8080 --restrict-to=localhost:51820"]
             env:
               TZ: Europe/Berlin
