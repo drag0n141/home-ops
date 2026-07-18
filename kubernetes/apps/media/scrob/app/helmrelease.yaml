@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ellite/scrob
-              tag: 1.37.0@sha256:12d97603cfebed6db71574352ae1dfc6b4ed9ede006f33695ab9ca5bad583225
+              tag: 1.38.0@sha256:66fd263c6b24e78f0a96966ae382d8c3fc5022bd976268cf23a097e292bd403a
             env:
               TZ: Europe/Berlin
             envFrom: *envFrom
