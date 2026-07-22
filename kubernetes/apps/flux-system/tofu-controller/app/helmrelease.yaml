@@ -17,4 +17,4 @@ spec:
     runner:
       image:
         repository: ghcr.io/home-operations/opentofu-runner
-        tag: 1.12.4@sha256:c3717fe9555ded7605792baaf4e920c4db818372741b5cf15aa8dd3f6db1487a
+        tag: 1.12.5@sha256:98fc72390e74c562586438ff5fb525bf4a3de4e01c2b2b3c3c63249e7aec2501
