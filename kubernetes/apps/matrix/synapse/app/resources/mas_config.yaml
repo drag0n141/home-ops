@@ -1,4 +1,4 @@
 matrix_authentication_service:
   enabled: true
-  secret: "{{ .SYNAPSE_MAS_CLIENT_SECRET }}"
+  secret: "{{ .SYNAPSE_ADMIN_TOKEN }}"
   endpoint: "http://mas.matrix.svc.cluster.local:8080"
