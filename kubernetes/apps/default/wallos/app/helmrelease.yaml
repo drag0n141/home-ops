@@ -31,6 +31,7 @@ spec:
               OIDC_LOGOUT_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
               OIDC_USER_IDENTIFIER: email
               OIDC_AUTO_CREATE_USER: true
+              SSRF_ALLOWLIST: id.${SECRET_DOMAIN},smtp-relay.networking.svc.cluster.local
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-oidc-credentials"
