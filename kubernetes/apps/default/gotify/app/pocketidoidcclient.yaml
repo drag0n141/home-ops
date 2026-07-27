@@ -1,0 +1,18 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: gotify
+spec:
+  name: Gotify
+  callbackUrls:
+    - "https://gotify.${SECRET_DOMAIN}/auth/oidc/callback"
+    - "gotify://oidc/callback"
+  pkceEnabled: true
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+  secret:
+    keys:
+      clientID: GOTIFY_OIDC_CLIENTID
+      clientSecret: GOTIFY_OIDC_CLIENTSECRET
