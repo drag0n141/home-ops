@@ -67,7 +67,7 @@ spec:
 
           # SSO
           test -d custom_apps/user_oidc ||  ./occ app:install user_oidc
-          ./occ user_oidc:provider sso \
+          ./occ user_oidc:provider Pocket-ID \
             --clientid="$${OIDC_CLIENT_ID}" \
             --clientsecret="$${OIDC_CLIENT_SECRET}" \
             --discoveryuri="https://id.${SECRET_DOMAIN}/.well-known/openid-configuration" \
@@ -124,6 +124,7 @@ spec:
             'enable_previews' => false,
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
+            'allow_local_remote_servers' => true,
           );
         redis.config.php: |-
           <?php
