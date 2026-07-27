@@ -22,7 +22,9 @@ spec:
               tag: 18@sha256:ebd9d30add17acdf935d73eb004758c7dfd9388aaa605fda70ad74378ab92aec
             envFrom: &envFrom
               - secretRef:
-                  name: gotify-secret
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
         containers:
           app:
             image:
@@ -31,6 +33,11 @@ spec:
             env:
               TZ: Europe/Berlin
               GOTIFY_DATABASE_DIALECT: postgres
+              GOTIFY_OIDC_ENABLED: true
+              GOTIFY_OIDC_ISSUER: https://id.${SECRET_DOMAIN}
+              GOTIFY_OIDC_REDIRECTURL: https://gotify.${SECRET_DOMAIN}/auth/oidc/callback
+              GOTIFY_OIDC_AUTOREGISTER: true
+              GOTIFY_OIDC_LINK_BY_USERNAME: true
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: true
