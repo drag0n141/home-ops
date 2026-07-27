@@ -6,7 +6,8 @@ metadata:
 spec:
   name: Nextcloud
   callbackUrls:
-    - "https://nextcloud.${SECRET_DOMAIN}/apps/oidc_login/oidc"
+    - "https://nextcloud.${SECRET_DOMAIN}/apps/user_oidc/code"
+  pkceEnabled: true
   allowedUserGroups:
     - name: id-nextcloud
       namespace: security

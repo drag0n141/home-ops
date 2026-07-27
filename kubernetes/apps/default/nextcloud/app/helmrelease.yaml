@@ -46,6 +46,42 @@ spec:
             secretKeyRef:
               name: *secret
               key: REDIS_PASSWORD
+      hooks:
+        post-upgrade: |
+          cd /var/www/html
+          ./occ upgrade
+          ./occ db:add-missing-indices
+
+        before-starting: |
+          #!/bin/bash
+          set -exu # Remove the -u if you encounter issues booting
+
+          cd /var/www/html
+
+          # Upgrade
+          ./occ upgrade                                || /bin/true
+          ./occ maintenance:mode --off                 || /bin/true
+          ./occ app:update --all                       || /bin/true
+          ./occ db:add-missing-indices                 || /bin/true
+          ./occ maintenance:repair --include-expensive || /bin/true
+
+          # SSO
+          test -d custom_apps/user_oidc ||  ./occ app:install user_oidc
+          ./occ user_oidc:provider sso \
+            --clientid="$${OIDC_CLIENT_ID}" \
+            --clientsecret="$${OIDC_CLIENT_SECRET}" \
+            --discoveryuri="https://id.${SECRET_DOMAIN}/.well-known/openid-configuration" \
+            --unique-uid=0 \
+            --group-provisioning=1 \
+            --group-whitelist-regex='^ID-Nextcloud$' \
+            --group-restrict-login-to-whitelist=1 \
+            --mapping-uid=preferred_username \
+            --mapping-email=email \
+            --mapping-display-name=name \
+            --mapping-groups=groups \
+            --mapping-quota=quota
+          ./occ config:app:set --value=0 user_oidc allow_multiple_user_backends # Only login with SSO
+
       existingSecret:
         enabled: true
         secretName: *secret
@@ -100,43 +136,6 @@ spec:
               'dbindex' => getenv('REDIS_DATABASE') ?: 10,
               'password' => getenv('REDIS_PASSWORD'),
             ),
-          );
-        sso.config.php: |-
-          <?php
-          $CONFIG = array (
-            'allow_user_to_change_display_name' => false,
-            'lost_password_link' => 'disabled',
-            'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
-            'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
-            'oidc_login_provider_url' => 'https://id.${SECRET_DOMAIN}',
-            'oidc_login_auto_redirect' => true, //login?noredir=1
-            'oidc_login_end_session_redirect' => true,
-            'oidc_login_button_text' => 'Log in with Pocket ID',
-            'oidc_login_hide_password_form' => true,
-            'oidc_login_use_id_token' => false,
-            'oidc_login_attributes' => array (
-                  'id' => 'preferred_username',
-                  'name' => 'name',
-                  'mail' => 'email',
-                  'groups' => 'groups',
-                  'login_filter' => 'groups',
-                  'photoURL' => 'picture',
-                  'is_admin' => 'groups_ID-Admin',
-              ),
-            'oidc_login_filter_allowed_values' => array('ID-Nextcloud'),
-            'oidc_login_use_external_storage' => false,
-            'oidc_login_scope' => 'openid profile email groups',
-            'oidc_login_proxy_ldap' => false,
-            'oidc_login_disable_registration' => false,
-            'oidc_login_redir_fallback' => false,
-            'oidc_login_tls_verify' => true,
-            'oidc_create_groups' => false,
-            'oidc_login_webdav_enabled' => false,
-            'oidc_login_password_authentication' => false,
-            'oidc_login_public_key_caching_time' => 86400,
-            'oidc_login_min_time_between_jwks_requests' => 10,
-            'oidc_login_well_known_caching_time' => 86400,
-            'oidc_login_update_avatar' => false,
           );
       phpConfigs:
         uploadLimit.ini: |
