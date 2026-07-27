@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.20.15@sha256:6c86cad803970ea782683a8e80e7403444c5bf3cf70de63b4d3c8e87500db92f
+              tag: 3.0.3@sha256:17312f00bac06f8dad09d67c6c8c069fc5c076c0c22313241c673102dfaf8ee9
             env:
               TZ: Europe/Berlin
               USERMAP_UID: 1000
@@ -47,12 +47,11 @@ spec:
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
               PAPERLESS_EXPORT_DIR: /data/nas/export
               PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
-              PAPERLESS_CONSUMER_POLLING: 120
+              PAPERLESS_CONSUMER_POLLING_INTERVAL: 120
               PAPERLESS_CONSUMER_RECURSIVE: true
               PAPERLESS_CONSUMER_DELETE_DUPLICATES: true
               PAPERLESS_OCR_LANGUAGES: deu
               PAPERLESS_OCR_LANGUAGE: deu
-              PAPERLESS_OCR_SKIP_ARCHIVE_FILE: with_text
               PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
               PAPERLESS_FILENAME_FORMAT: &filename_format "{{ `{{ correspondent | default('uncategorized') | slugify }}/{{ created_year }}/{{ correspondent | default('uncategorized') | slugify }}_{{ document_type | slugify }}_{{ created }}` }}"
               PAPERLESS_TIKA_ENABLED: 0
@@ -96,7 +95,7 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.20.15@sha256:6c86cad803970ea782683a8e80e7403444c5bf3cf70de63b4d3c8e87500db92f
+              tag: 3.0.3@sha256:17312f00bac06f8dad09d67c6c8c069fc5c076c0c22313241c673102dfaf8ee9
             command:
               - "/bin/sh"
               - "-c"
