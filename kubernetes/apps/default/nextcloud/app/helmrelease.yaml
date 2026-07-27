@@ -71,6 +71,7 @@ spec:
             --clientid="$${OIDC_CLIENT_ID}" \
             --clientsecret="$${OIDC_CLIENT_SECRET}" \
             --discoveryuri="https://id.${SECRET_DOMAIN}/.well-known/openid-configuration" \
+            --scope="openid email profile groups" \
             --unique-uid=0 \
             --group-provisioning=1 \
             --group-whitelist-regex='^ID-Nextcloud$' \
