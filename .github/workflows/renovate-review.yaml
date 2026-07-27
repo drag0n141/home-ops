@@ -158,3 +158,12 @@ jobs:
             - When stuck (private repo, ambiguous package, no changelog anywhere), report what you
               found and what you could not find rather than fabricating information
             - Submit exactly one `gh pr review` at the end of your analysis
+            - NEVER write a bare GitHub PR/issue reference or URL anywhere in the review body
+              (e.g. `https://github.com/owner/repo/pull/123`, `owner/repo#123`, or `#123`). GitHub
+              auto-links these and creates an unwanted "mentioned this pull request" cross-reference
+              on the target PR/issue. If you need to reference one for context, wrap it in inline
+              code backticks (e.g. `` `#123` `` or `` `owner/repo#123` ``) or describe it in prose
+              without the `#`/URL syntax so it does not auto-link. This applies to all sections,
+              including "Sources consulted" — release notes, changelogs, and docs URLs on
+              non-GitHub-issue/PR pages (e.g. a GitHub Releases page, a raw file URL, a docs site)
+              are fine as-is since those don't trigger cross-references.
