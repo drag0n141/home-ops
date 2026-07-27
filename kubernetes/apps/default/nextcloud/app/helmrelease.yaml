@@ -46,6 +46,42 @@ spec:
             secretKeyRef:
               name: *secret
               key: REDIS_PASSWORD
+      hooks:
+        post-upgrade: |
+          cd /var/www/html
+          ./occ upgrade
+          ./occ db:add-missing-indices
+
+        before-starting: |
+          #!/bin/bash
+          set -exu # Remove the -u if you encounter issues booting
+
+          cd /var/www/html
+
+          # Upgrade
+          ./occ upgrade                                || /bin/true
+          ./occ maintenance:mode --off                 || /bin/true
+          ./occ app:update --all                       || /bin/true
+          ./occ db:add-missing-indices                 || /bin/true
+          ./occ maintenance:repair --include-expensive || /bin/true
+
+          # SSO
+          test -d custom_apps/user_oidc ||  ./occ app:install user_oidc
+          ./occ user_oidc:provider sso \
+            --clientid="$${OIDC_CLIENT_ID}" \
+            --clientsecret="$${OIDC_CLIENT_SECRET}" \
+            --discoveryuri="https://id.${SECRET_DOMAIN}/.well-known/openid-configuration" \
+            --unique-uid=0 \
+            --group-provisioning=1 \
+            --group-whitelist-regex='ID-Nextcloud' \
+            --group-restrict-login-to-whitelist=1 \
+            --mapping-uid=preferred_username \
+            --mapping-email=email \
+            --mapping-display-name=name \
+            --mapping-groups=groups \
+            --mapping-quota=quota
+          ./occ config:app:set --value=0 user_oidc allow_multiple_user_backends # Only login with SSO
+
       existingSecret:
         enabled: true
         secretName: *secret
