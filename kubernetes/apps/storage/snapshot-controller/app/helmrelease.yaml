@@ -9,9 +9,7 @@ spec:
     kind: OCIRepository
     name: snapshot-controller
   values:
-    controller:
-      replicaCount: 2
+    replicaCount: 2
+    monitoring:
       serviceMonitor:
-        create: true
-    webhook:
-      enabled: false
+        enabled: true
