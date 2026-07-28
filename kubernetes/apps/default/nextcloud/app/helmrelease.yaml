@@ -197,6 +197,8 @@ spec:
       existingClaim: *app
     httpRoute:
       enabled: true
+      annotations:
+        gatus.home-operations.com/enabled: "false"
       hostnames:
         - *host
       parentRefs:
