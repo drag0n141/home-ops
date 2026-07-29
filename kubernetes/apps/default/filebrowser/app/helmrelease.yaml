@@ -68,6 +68,7 @@ spec:
         path: /mnt/data/home
         globalMounts:
           - path: /media
+            subPath: drag0n141
       tmpfs:
         type: emptyDir
         advancedMounts:
