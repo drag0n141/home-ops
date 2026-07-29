@@ -16,7 +16,11 @@ frontend:
   disableDefaultLinks: true
   disableUsedPercentage: true
   disableNavButtons: true
+http:
+  externalUrl: https://filebrowser.${SECRET_DOMAIN}
+  disableWebDAV: true
 server:
+  disableUpdateCheck: true
   database: /config/database.db
   cacheDir: /tmp/cache
   sources:
@@ -26,3 +30,6 @@ server:
         defaultEnabled: true
         defaultUserScope: "/"
         createUserDir: true
+userDefaults:
+  deleteAfterArchive: false
+  singleClick: true
