@@ -21,6 +21,7 @@ server:
   cacheDir: /tmp/cache
   sources:
     - path: /media
+      name: Home
       config:
         defaultEnabled: true
         defaultUserScope: "/"
