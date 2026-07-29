@@ -10,11 +10,16 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: onepassword-connect
+      namespace: external-secrets
+    - name: pocket-id-instance
+      namespace: security
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/zeroscaler
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/filebrowser/app
   prune: true

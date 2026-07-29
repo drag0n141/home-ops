@@ -1,0 +1,20 @@
+auth:
+  methods:
+    password:
+      enabled: false
+    oidc:
+      enabled: true
+      clientId: "{{ .FILEBROWSER_CLIENT_ID }}"
+      clientSecret: "{{ .FILEBROWSER_CLIENT_SECRET }}"
+      issuerUrl: https://id.${SECRET_DOMAIN}
+      scopes: "email openid profile groups"
+      userIdentifier: preferred_username
+      adminGroup: "ID-Admin"
+      createUser: true
+server:
+  database: /home/filebrowser/data/filebrowser.db
+  cacheDir: /home/filebrowser/tmp/.cache
+  sources:
+    - path: /media
+      config:
+        defaultEnabled: true
