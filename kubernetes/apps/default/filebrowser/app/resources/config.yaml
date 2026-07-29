@@ -11,6 +11,11 @@ auth:
       userIdentifier: preferred_username
       adminGroup: "ID-Admin"
       createUser: true
+frontend:
+  oidcLoginButtonText: "Sign in with Pocket ID"
+  disableDefaultLinks: true
+  disableUsedPercentage: true
+  disableNavButtons: true
 server:
   database: /config/database.db
   cacheDir: /tmp/cache
@@ -19,3 +24,4 @@ server:
       config:
         defaultEnabled: true
         defaultUserScope: "/"
+        createUserDir: true
