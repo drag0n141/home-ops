@@ -16,12 +16,11 @@ frontend:
   disableDefaultLinks: true
   disableUsedPercentage: true
   disableNavButtons: true
-http:
-  externalUrl: https://filebrowser.${SECRET_DOMAIN}
-  disableWebDAV: true
 server:
   disableUpdateCheck: true
   database: /config/database.db
+  externalUrl: https://filebrowser.${SECRET_DOMAIN}
+  disableWebDAV: true
   cacheDir: /tmp/cache
   sources:
     - path: /media
