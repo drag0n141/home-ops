@@ -16,7 +16,7 @@ resources:
   - ./donetick/ks.yaml
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
-  - ./filebrowser/ks.yaml
+#   - ./filebrowser/ks.yaml
   - ./forgejo/ks.yaml
   - ./gotify/ks.yaml
   - ./immich/ks.yaml
