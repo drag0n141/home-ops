@@ -12,7 +12,6 @@ auth:
       adminGroup: "ID-Admin"
       createUser: true
 server:
-  database: /home/filebrowser/data/filebrowser.db
   cacheDir: /tmp/cache
   sources:
     - path: /media

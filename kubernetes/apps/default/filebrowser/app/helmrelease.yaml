@@ -20,7 +20,8 @@ spec:
               tag: 1.5.0-stable@sha256:fc213590ebc090cb8205125cd3ecdfa9066b9ed4a0b53fe2570972d6a3379e73
             env:
               TZ: Europe/Berlin
-              FILEBROWSER_CONFIG: "/config/config.yaml"
+              FILEBROWSER_CONFIG: /config/config.yaml
+              FILEBROWSER_DATABASE: /config/database.db
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -61,7 +62,7 @@ spec:
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /home/filebrowser/data
+          - path: /config
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
