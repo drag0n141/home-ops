@@ -74,5 +74,5 @@ spec:
         advancedMounts:
           filebrowser:
             app:
-              - path: /home/filebrowser/tmp
+              - path: /tmp
                 subPath: tmp

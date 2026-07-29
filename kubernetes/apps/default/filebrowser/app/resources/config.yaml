@@ -13,7 +13,7 @@ auth:
       createUser: true
 server:
   database: /home/filebrowser/data/filebrowser.db
-  cacheDir: /home/filebrowser/tmp/.cache
+  cacheDir: /tmp/cache
   sources:
     - path: /media
       config:
