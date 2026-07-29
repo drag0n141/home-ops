@@ -12,6 +12,7 @@ auth:
       adminGroup: "ID-Admin"
       createUser: true
 server:
+  database: /config/database.db
   cacheDir: /tmp/cache
   sources:
     - path: /media

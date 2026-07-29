@@ -21,7 +21,6 @@ spec:
             env:
               TZ: Europe/Berlin
               FILEBROWSER_CONFIG: /config/config.yaml
-              FILEBROWSER_DATABASE: /config/database.db
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
