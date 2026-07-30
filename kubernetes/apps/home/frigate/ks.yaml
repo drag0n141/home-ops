@@ -19,7 +19,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gpu
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
     - ../../../../components/tinyauth
     - ../../../../components/volsync
   path: ./kubernetes/apps/home/frigate/app

@@ -39,7 +39,7 @@ spec:
     - name: pocket-id-instance
       namespace: security
   components:
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/default/immich/app
   prune: true
   sourceRef:
@@ -71,7 +71,7 @@ spec:
       namespace: system
   components:
     - ../../../../components/gpu
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/default/immich/machine-learning
   prune: true
   sourceRef:
@@ -103,7 +103,7 @@ spec:
       namespace: system
   components:
     - ../../../../components/gpu
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/default/immich/microservices
   prune: true
   sourceRef:

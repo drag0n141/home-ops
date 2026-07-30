@@ -16,7 +16,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
     - ../../../../components/volsync
   path: ./kubernetes/apps/storage/gitsave/app
   prune: true

@@ -20,7 +20,7 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/ganymede/app
   prune: true

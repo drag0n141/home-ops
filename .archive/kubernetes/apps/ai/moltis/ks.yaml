@@ -17,7 +17,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/volsync
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/ai/moltis/app
   prune: true
   sourceRef:

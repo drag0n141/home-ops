@@ -19,7 +19,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gpu
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
     - ../../../../components/volsync
   path: ./kubernetes/apps/media/plex/app
   prune: true

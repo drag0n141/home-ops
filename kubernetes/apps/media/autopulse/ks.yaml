@@ -16,7 +16,7 @@ spec:
     - name: plex
       namespace: media
   components:
-    # - ../../../../components/zeroscaler
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/media/autopulse/app
   prune: true
   sourceRef:
