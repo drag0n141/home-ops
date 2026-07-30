@@ -13,7 +13,7 @@ spec:
   values:
     githubConfigUrl: https://github.com/drag0n141/home-ops
     githubConfigSecret: home-ops-runner-secret
-    minRunners: 1
+    minRunners: 0
     maxRunners: 3
     containerMode:
       type: kubernetes
