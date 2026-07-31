@@ -9,6 +9,7 @@ spec:
     kind: OCIRepository
     name:  prometheus-adapter
   values:
+    logLevel: 1
     prometheus:
       url: http://prometheus-operated.monitoring.svc.cluster.local
       port: 9090
