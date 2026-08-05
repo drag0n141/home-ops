@@ -81,6 +81,8 @@ go2rtc:
     kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
     yard_hq: rtspx://192.168.1.1:7441/GQaihGTnFde5Byyi
     yard_lq: rtspx://192.168.1.1:7441/ZxgpdiYy9KHV0qqv
+    garage_hq: rtspx://192.168.1.1:7441/qBZxrDrvfIVmj9yR
+    garage_lq: rtspx://192.168.1.1:7441/7Pow9iOZQiGupvwS
     printer_hq: rtsps://bblp:{{ .BAMBULAB_ACCESS_CODE }}@192.168.150.167:322/streaming/live/1
   webrtc:
     candidates:
@@ -194,6 +196,24 @@ cameras:
     zones:
       house_side:
         coordinates: 0.75,0.591,0.468,0.712,0,0.84,0,0.908,0.001,1,1,1,0.999,0.366,0.949,0.476
+  garage:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/garage_lq?video&audio
+          roles: [detect]
+        - path: rtsp://localhost:8554/garage_hq?video&audio
+          roles: [record]
+    live:
+      streams:
+        Main Stream: garage_hq
+    detect:
+      width: 1280
+      height: 720
+    objects:
+      track:
+        - person
+    lpr:
+      enabled: false
 
 telemetry:
   stats:
