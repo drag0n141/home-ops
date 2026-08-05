@@ -24,7 +24,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@726029484f4d6a3cc19c735a5fb22595f8655a9a # master
+        uses: Homebrew/actions/setup-homebrew@be1673dc4b6b140387276f95de3b6e1465802099 # master
 
       - name: Setup Workflow Tools
         run: brew install fluxcd/tap/flux
