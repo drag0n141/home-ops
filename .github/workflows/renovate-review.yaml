@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: anthropics/claude-code-action@9db594c7a0e82298c121c18b7f08aa1579ce7341 # v1.0.185
+      - uses: anthropics/claude-code-action@6b082c41935b4c8a3b8b0ef85ba4ba4d9eeb8975 # v1.0.189
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           allowed_bots: "drag0n141-bot[bot]"
