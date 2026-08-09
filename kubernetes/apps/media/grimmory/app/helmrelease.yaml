@@ -57,7 +57,7 @@ spec:
           app:
             image:
               repository: ghcr.io/grimmory-tools/grimmory
-              tag: v3.3.0@sha256:b81f8135195bccf3bd7a2eca43bef924f8740843f653bc2f203445f794edc02b
+              tag: v3.3.1@sha256:746bf67ac42b5c5f359946ccf4fcfee21129b876371965943c3400036fc2f170
             command:
               - java
             args:
