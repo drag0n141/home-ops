@@ -46,6 +46,13 @@ resource "gotify_application" "app" {
 # the cache once, via the terraform-secret Secret + varsFrom - no local
 # tofu run needed. Once the cache holds a real value, ignore_changes keeps
 # it, so the override key can be cleared from the Secret again afterwards.
+#
+# IMPORTANT: ignore_changes blocks *any* update to `input`, including a
+# fresh app_token_overrides seed, once this resource already exists (e.g.
+# it auto-created with an empty value before an override was ever set).
+# To force a re-seed, bump var.cache_generation - triggers_replace then
+# destroys and recreates the resource, which re-evaluates `input` from
+# scratch since it's a new instance, not an update to the old one.
 resource "terraform_data" "app_token_cache" {
   for_each = gotify_application.app
 
@@ -53,6 +60,8 @@ resource "terraform_data" "app_token_cache" {
     lookup(var.app_token_overrides, each.key, null),
     each.value.token,
   )
+
+  triggers_replace = [var.cache_generation]
 
   lifecycle {
     ignore_changes = [input]
