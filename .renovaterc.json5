@@ -2,6 +2,10 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
     "github>home-operations/renovate-presets#7.0.0",
+    "github>home-operations/renovate-presets//apps/cnpg.json5#7.0.0",
+    "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#7.0.0",
+    "github>home-operations/renovate-presets//apps/llamacpp.json5#7.0.0",
+    "github>home-operations/renovate-presets//apps/searxng.json5#7.0.0",
     "github>home-operations/renovate-presets//apps/talosFactory.json5#7.0.0",
     "github>drag0n141/home-ops//.renovate/allowedVersions.json5",
     "github>drag0n141/home-ops//.renovate/autoMerge.json5",
