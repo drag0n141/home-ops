@@ -13,3 +13,9 @@ variable "app_token_overrides" {
   type        = map(string)
   default     = {}
 }
+
+variable "cache_generation" {
+  description = "Bump this (any new distinct string) to force terraform_data.app_token_cache to be destroyed and recreated instead of updated in place. Needed because ignore_changes on the cache's `input` blocks normal updates - including a legitimate app_token_overrides seed - once the cache already holds a (possibly empty) value. A replace re-evaluates `input` fresh, since it's a brand new resource instance. Do not bump this casually: whatever app_token_overrides (or the live Gotify token, which is empty post-3.0) resolves to at the moment of the bump becomes the new permanently-cached value."
+  type        = string
+  default     = "1"
+}
