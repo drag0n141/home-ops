@@ -40,10 +40,19 @@ resource "gotify_application" "app" {
 # ignore all later changes so a refresh can't clobber the cached value.
 # secrets.tofu reads the token from this cache instead of directly from
 # gotify_application.
+#
+# var.app_token_overrides lets a token recovered outside of Terraform (e.g.
+# regenerated in the Gotify UI and re-entered in 1Password) be seeded into
+# the cache once, via the terraform-secret Secret + varsFrom - no local
+# tofu run needed. Once the cache holds a real value, ignore_changes keeps
+# it, so the override key can be cleared from the Secret again afterwards.
 resource "terraform_data" "app_token_cache" {
   for_each = gotify_application.app
 
-  input = each.value.token
+  input = coalesce(
+    lookup(var.app_token_overrides, each.key, null),
+    each.value.token,
+  )
 
   lifecycle {
     ignore_changes = [input]
