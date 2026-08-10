@@ -24,7 +24,7 @@ resource "onepassword_item" "gotify" {
       field {
         label = "GOTIFY_TOKEN_${upper(replace(replace(section.key, "-", "_"), " ", "_"))}"
         type  = "CONCEALED"
-        value = gotify_application.app[section.key].token
+        value = terraform_data.app_token_cache[section.key].output
       }
     }
   }
