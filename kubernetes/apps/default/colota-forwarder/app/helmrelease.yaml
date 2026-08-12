@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/mxdcodes/colota-forwarder
-              tag: latest@sha256:28987b576a48444b65c15e43260305863170322ac82dcd5b22be6148870af34b
+              tag: latest@sha256:e824e88513b706a2e31aab53a0f7ede5265be68dc1558905462f339db0ce8fd0
             env:
               TZ: Europe/Berlin
               PORT: &port 3000
