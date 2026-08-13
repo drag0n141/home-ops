@@ -21,7 +21,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18@sha256:ebd9d30add17acdf935d73eb004758c7dfd9388aaa605fda70ad74378ab92aec
+              tag: 18@sha256:b6d3af974df781c673d37e49bdddfa14a6f5be28b18d2cb7713f0449bea4057b
             command: ["/scripts/list_dbs.sh"]
             env:
               EXCLUDE_DBS: app readarr_cache readarr_log postgres template0 template1
