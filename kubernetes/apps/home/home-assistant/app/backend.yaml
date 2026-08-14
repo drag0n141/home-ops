@@ -10,4 +10,4 @@ spec:
   endpoints:
     - fqdn:
         hostname: haos.${SECRET_DOMAIN_INT}
-        port: 8123
+        port: 80

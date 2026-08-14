@@ -11,5 +11,5 @@ spec:
   ssl: true
   targets:
     - hostname: localhost
-      port: 8123
+      port: 80
       method: http
