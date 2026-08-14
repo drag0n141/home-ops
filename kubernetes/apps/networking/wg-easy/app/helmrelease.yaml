@@ -23,6 +23,7 @@ spec:
               PORT: &port 80
               DISABLE_IPV6: true
               EXPERIMENTAL_AWG: true
+              DISABLE_VERSION_CHECK: true
               INIT_ENABLED: true
               INIT_HOST: vpn.${SECRET_DOMAIN}
               INIT_PORT: 51820
