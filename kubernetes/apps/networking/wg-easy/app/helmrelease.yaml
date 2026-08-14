@@ -35,7 +35,9 @@ spec:
               OAUTH_OIDC_NAME: "Pocket ID"
             envFrom:
               - secretRef:
-                  name: wg-easy-secret
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
