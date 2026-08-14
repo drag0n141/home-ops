@@ -1,0 +1,18 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: wg-easy
+spec:
+  name: WG-Easy
+  callbackUrls:
+    - "https://wireguard.${SECRET_DOMAIN_INTERNAL}/api/auth/oidc/callback"
+    - "https://wireguard.${SECRET_DOMAIN_INTERNAL}/api/auth/oidc/link"
+  pkceEnabled: true
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+  secret:
+    keys:
+      clientID: OAUTH_OIDC_CLIENT_ID
+      clientSecret: OAUTH_OIDC_CLIENT_SECRET

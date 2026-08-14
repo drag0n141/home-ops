@@ -29,6 +29,10 @@ spec:
               INIT_PORT: 51820
               INIT_DNS: 192.168.254.1
               INIT_IPV4_CIDR: 192.168.45.0/24
+              OAUTH_PROVIDERS: oidc
+              OAUTH_AUTO_REGISTER: true
+              OAUTH_OIDC_SERVER: https://id.${SECRET_DOMAIN}
+              OAUTH_OIDC_NAME: "Pocket ID"
             envFrom:
               - secretRef:
                   name: wg-easy-secret
