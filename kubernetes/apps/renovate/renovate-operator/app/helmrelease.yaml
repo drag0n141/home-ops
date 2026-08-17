@@ -10,9 +10,8 @@ spec:
     name: renovate-operator
   values:
     fullnameOverride: renovate-operator
-    auth:
-      authorization:
-        enabled: false
+    authorization:
+      enabled: false
     route:
       enabled: true
       annotations:
