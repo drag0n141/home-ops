@@ -1,0 +1,17 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: homepage
+spec:
+  name: Homepage
+  callbackUrls:
+    - "https://homepage.${SECRET_DOMAIN}/api/auth/callback/homepage-oidc"
+  pkceEnabled: true
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+  secret:
+    keys:
+      clientID: HOMEPAGE_OIDC_CLIENT_ID
+      clientSecret: HOMEPAGE_OIDC_CLIENT_SECRET

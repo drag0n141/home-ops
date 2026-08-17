@@ -20,10 +20,16 @@ spec:
               tag: v2.0.0@sha256:638dacf5c844e908dc06c1fd57a2b5694f8efd91f91f152829ea0c2f547458f2
             env:
               TZ: Europe/Berlin
+              HOMEPAGE_AUTH_ENABLED: true
               HOMEPAGE_ALLOWED_HOSTS: homepage.${SECRET_DOMAIN}
+              HOMEPAGE_EXTERNAL_URL: https://homepage.${SECRET_DOMAIN}
+              HOMEPAGE_OIDC_ISSUER: https://id.${SECRET_DOMAIN}
+              HOMEPAGE_OIDC_NAME: "Pocket ID"
             envFrom:
               - secretRef:
-                  name: homepage-secret
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

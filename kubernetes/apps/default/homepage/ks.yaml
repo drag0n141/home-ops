@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: onepassword-connect
       namespace: external-secrets
-  components:
-    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/homepage/app
   prune: true
   sourceRef:
