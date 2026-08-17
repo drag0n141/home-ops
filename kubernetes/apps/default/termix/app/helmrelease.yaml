@@ -29,6 +29,9 @@ spec:
               OIDC_ISSUER_URL: "https://id.${SECRET_DOMAIN}"
               OIDC_USERINFO_URL: "https://id.${SECRET_DOMAIN}/api/oidc/userinfo"
               OIDC_NAME_PATH: display_name
+              OIDC_FORCE_HTTPS: true
+              OIDC_ADMIN_GROUP: ID-Admin
+              OIDC_SCOPES: "openid profile email groups"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-oidc-credentials"
