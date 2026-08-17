@@ -7,7 +7,6 @@ spec:
   name: Homepage
   callbackUrls:
     - "https://homepage.${SECRET_DOMAIN}/api/auth/callback/homepage-oidc"
-  pkceEnabled: true
   allowedUserGroups:
     - name: id-admin
       namespace: security
