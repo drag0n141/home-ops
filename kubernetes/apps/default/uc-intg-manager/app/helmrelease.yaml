@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jackjpowell/uc-intg-manager
-              tag: v3.0.0@sha256:9891b84f576a988a5f39983fb52547b503815c1163a8d7a30001f469b9d63b39
+              tag: v3.0.2@sha256:b9eb68bb786bf6ca4bdfdc083ddf88aa5020c8db5e8c1237cdc899b0e5bc205e
             env:
               TZ: Europe/Berlin
               UC_INTG_MANAGER_HTTP_PORT: &port 9999
