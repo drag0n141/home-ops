@@ -1,7 +1,7 @@
 ---
 services:
   llama-cpp:
-    image: 'ghcr.io/ggml-org/llama.cpp:server-cuda-b10454'
+    image: 'ghcr.io/ggml-org/llama.cpp:server-cuda-b10481'
     hostname: 'llama-cpp'
     container_name: 'llama-cpp'
     restart: 'always'
