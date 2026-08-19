@@ -10,6 +10,10 @@ services:
     cap_drop:
       - 'ALL'
     ports:
+      - target: 67
+        published: 67
+        protocol: udp
+        mode: host
       - target: 69
         published: 69
         protocol: udp
