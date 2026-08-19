@@ -32,6 +32,7 @@ services:
     read_only: true
     volumes:
       - '/mnt/nvme/appdata/bootimus:/data:rw'
+      - '/mnt/data/iso/template/iso:/data/isos:rw'
     networks:
       server_lan:
         ipv4_address: 192.168.254.88
