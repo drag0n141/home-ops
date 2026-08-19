@@ -1,0 +1,60 @@
+---
+services:
+  bootimus:
+    image: 'docker.io/garybowers/bootimus:0.1.76'
+    hostname: 'bootimus'
+    container_name: 'bootimus'
+    restart: 'always'
+    cap_add:
+      - 'NET_BIND_SERVICE'
+    cap_drop:
+      - 'ALL'
+    ports:
+      - target: 69
+        published: 69
+        protocol: udp
+        mode: host
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+    environment:
+      - 'TZ=${TZ}'
+      - 'BOOTIMUS_DATA_DIR=/data'
+      - 'BOOTIMUS_HTTP_PORT=8080'
+      - 'BOOTIMUS_ADMIN_PORT=8081'
+      - 'BOOTIMUS_PROXY_DHCP_ENABLED=true'
+      - 'BOOTIMUS_SERVER_ADDR=192.168.254.88'
+    read_only: true
+    volumes:
+      - '/mnt/nvme/appdata/bootimus:/data:rw'
+    networks:
+      server_lan:
+        ipv4_address: 192.168.254.88
+    security_opt:
+      - 'apparmor:unconfined'
+      - 'no-new-privileges:true'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.bootimus-rtr.entrypoints=https'
+      - 'traefik.http.routers.bootimus-rtr.rule=Host(`bootimus.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.bootimus-rtr.tls=true'
+      - 'traefik.http.routers.bootimus-rtr.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.bootimus-rtr.middlewares=chain-internal-no-auth@file'
+      - 'traefik.http.routers.bootimus-rtr.service=bootimus-svc'
+      - 'traefik.http.services.bootimus-svc.loadbalancer.server.port=8081'
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+networks:
+  server_lan:
+    driver: ipvlan
+    driver_opts:
+      parent: enp5s0f1np1
+    ipam:
+      config:
+        - subnet: 192.168.254.0/24
+          gateway: 192.168.254.1
