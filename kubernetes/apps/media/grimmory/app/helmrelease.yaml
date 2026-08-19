@@ -48,7 +48,7 @@ spec:
           wait-for-mariadb:
             image:
               repository: docker.io/wait4x/wait4x
-              tag: 3.6.0
+              tag: 3.7.0
             args:
               - "mysql"
               - "grimmory:$(DATABASE_PASSWORD)@tcp(localhost:3306)/grimmory"
