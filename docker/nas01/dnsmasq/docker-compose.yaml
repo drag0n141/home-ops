@@ -51,6 +51,7 @@ services:
 
 networks:
   server_lan:
+    name: server_lan
     driver: ipvlan
     driver_opts:
       parent: enp5s0f1np1
