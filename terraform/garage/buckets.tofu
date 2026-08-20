@@ -1,6 +1,7 @@
 locals {
   buckets = [
     "cnpg",
+    "hass",
     "k8s",
     "lisa",
     "mariadb",
