@@ -65,17 +65,3 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 | [Pushover](https://pushover.net/)                  | Kubernetes Alerts                                                  | 5€ OTP         |
 | [iDrive E2](https://www.idrive.com/s3-storage-e2/) | S3 Offsite Backup                                                  | ~90€/yr        |                                                  
 |                                                    |                                                                    | Total: ~26€/mo |
-
-## Stargazers
-
-<div align="center">
-
-<a href="https://star-history.com/#drag0n141/home-ops&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=drag0n141/home-ops&type=Date" />
-  </picture>
-</a>
-
-</div>
