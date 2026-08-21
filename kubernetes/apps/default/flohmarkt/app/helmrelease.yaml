@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: flohmarkt
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      flohmarkt:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/drag0n141/flohmarkt
+              tag: latest@sha256:fbded50a607a394e085daa7affb0e83c3e56aeb6865e6cae01ae7f1d577d4877
+            env:
+              TZ: Europe/Berlin
+              NUM_TABLES: 40
+              PRICE_STANDARD: 15.00
+              PRICE_INTERNAL: 10.00
+              CURRENCY: EUR
+              PAYPAL_MODE: sandbox
+              DB_PATH: /data/flohmarkt.db
+            envFrom:
+              - secretRef:
+                  name: flohmarkt-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 8000
+    route:
+      app:
+        hostnames:
+          - "flohmarkt.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          flohmarkt:
+            app:
+              - path: /data
+                subPath: data
+              - path: /app/static/uploads
+                subPath: uploads
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          flohmarkt:
+            app:
+              - path: /tmp
+                subPath: tmp
