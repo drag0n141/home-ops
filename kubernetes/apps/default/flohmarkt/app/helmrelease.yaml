@@ -21,10 +21,10 @@ spec:
             env:
               TZ: Europe/Berlin
               NUM_TABLES: 40
+              PAYMENT_METHODS: sepa
               PRICE_STANDARD: 15.00
               PRICE_INTERNAL: 10.00
               CURRENCY: EUR
-              PAYPAL_MODE: sandbox
               DB_PATH: /data/flohmarkt.db
               SMTP_HOST: smtp.strato.de
               SMTP_PORT: 587
