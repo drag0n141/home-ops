@@ -28,6 +28,9 @@ spec:
               CURRENCY: EUR
               PAYPAL_MODE: sandbox
               DB_PATH: /data/flohmarkt.db
+              SMTP_HOST: smtp.strato.de
+              SMTP_PORT: 587
+              SMTP_USE_TLS: true
             envFrom:
               - secretRef:
                   name: flohmarkt-secret
