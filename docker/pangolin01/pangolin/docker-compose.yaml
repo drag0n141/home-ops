@@ -123,6 +123,10 @@ configs:
               base_domain: "${DOMAIN_PANGOLIN}"
               prefer_wildcard_cert: true
               cert_resolver: "letsencrypt"
+          domain4:
+              base_domain: "${DOMAIN_PBFA}"
+              prefer_wildcard_cert: true
+              cert_resolver: "letsencrypt"
       server:
           secret: "${PANGOLIN_SERVER_SECRET}"
           cors:
