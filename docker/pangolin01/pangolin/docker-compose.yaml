@@ -309,6 +309,9 @@ configs:
                 - main: "${DOMAIN_SHORT}"
                   sans:
                     - "*.${DOMAIN_SHORT}"
+                - main: "${DOMAIN_PBFA}"
+                  sans:
+                    - "*.${DOMAIN_PBFA}"
 
           # API router (handles /api/v1 paths)
           api-router:
