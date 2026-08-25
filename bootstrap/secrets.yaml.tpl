@@ -43,3 +43,4 @@ stringData:
   SECRET_DOMAIN_INT: op://Kubernetes/domains/DOMAIN_INT
   SECRET_DOMAIN_INTERNAL: op://Kubernetes/domains/DOMAIN_INTERNAL
   SECRET_DOMAIN_SHORT: op://Kubernetes/domains/DOMAIN_SHORT
+  SECRET_DOMAIN_PBFA: op://Kubernetes/domains/DOMAIN_PBFA
