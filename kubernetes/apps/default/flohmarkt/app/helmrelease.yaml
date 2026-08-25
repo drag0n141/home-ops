@@ -57,7 +57,7 @@ spec:
     route:
       app:
         hostnames:
-          - "flohmarkt.${SECRET_DOMAIN_SHORT}"
+          - "flohmarkt.${SECRET_DOMAIN_PBFA}"
         parentRefs:
           - name: envoy-external
             namespace: networking

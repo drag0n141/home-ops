@@ -44,7 +44,7 @@ spec:
     txtOwnerId: main
     txtPrefix: k8s.main.%{record_type}-
     excludeDomains: ["ipv4.${SECRET_DOMAIN}"]
-    domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_INTERNAL}", "${SECRET_DOMAIN_SHORT}"]
+    domainFilters: ["${SECRET_DOMAIN}", "${SECRET_DOMAIN_INTERNAL}", "${SECRET_DOMAIN_SHORT}", "${SECRET_DOMAIN_PBFA}"]
     serviceMonitor:
       enabled: true
     podAnnotations:

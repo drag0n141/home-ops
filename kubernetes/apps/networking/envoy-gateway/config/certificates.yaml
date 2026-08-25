@@ -40,3 +40,23 @@ spec:
   secretName: "${SECRET_DOMAIN_SHORT/./-}-production-tls"
   usages:
     - digital signature
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "${SECRET_DOMAIN_PBFA/./-}-production"
+spec:
+  dnsNames:
+    - "${SECRET_DOMAIN_PBFA}"
+    - "*.${SECRET_DOMAIN_PBFA}"
+  duration: 160h
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  secretName: "${SECRET_DOMAIN_PBFA/./-}-production-tls"
+  usages:
+    - digital signature
