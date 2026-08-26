@@ -1,7 +1,7 @@
 ---
 services:
   traefik:
-    image: 'docker.io/traefik:v3.7.11'
+    image: 'docker.io/traefik:v3.7.12'
     hostname: 'traefik'
     container_name: 'traefik'
     restart: 'always'
