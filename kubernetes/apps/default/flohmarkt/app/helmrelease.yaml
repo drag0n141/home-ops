@@ -29,6 +29,7 @@ spec:
               SMTP_HOST: smtp.strato.de
               SMTP_PORT: 587
               SMTP_USE_TLS: true
+              SEPA_HOLD_HOURS: 72
             envFrom:
               - secretRef:
                   name: flohmarkt-secret
