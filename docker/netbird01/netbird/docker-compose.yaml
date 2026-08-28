@@ -3,7 +3,7 @@ name: netbird
 
 services:
   traefik:
-    image: docker.io/traefik:v3.7.11
+    image: docker.io/traefik:v3.7.12
     container_name: netbird-traefik
     restart: unless-stopped
     command:
