@@ -10,7 +10,7 @@ spec:
     name: mcp-tools
   env:
     - name: HOMEASSISTANT_URL
-      value: http://haos.${SECRET_DOMAIN_INT}:8123
+      value: http://haos.${SECRET_DOMAIN_INT}
     - name: TMPDIR
       value: /tmp
   secrets:
