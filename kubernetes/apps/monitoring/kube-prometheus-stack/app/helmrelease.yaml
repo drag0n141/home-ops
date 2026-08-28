@@ -37,11 +37,6 @@ spec:
               namespace: networking
       prometheusSpec:
         externalUrl: https://prometheus.${SECRET_DOMAIN_INTERNAL}
-        version: v2.55.1 # override 'unsupported Prometheus version' error
-        image:
-          registry: mirror.gcr.io
-          repository: prompp/prompp
-          tag: 0.8.11
         securityContext:
           runAsNonRoot: true
           runAsUser: 64535
