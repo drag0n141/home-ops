@@ -38,6 +38,10 @@ spec:
               GOTIFY_OIDC_REDIRECTURL: https://gotify.${SECRET_DOMAIN}/auth/oidc/callback
               GOTIFY_OIDC_AUTOREGISTER: true
               GOTIFY_OIDC_LINK_BY_USERNAME: true
+              GOTIFY_LOCALAUTH_ENABLED: false
+              GOTIFY_OIDC_IDP_NAME: Pocket ID
+              GOTIFY_OIDC_GROUPS_ADMIN: ID-Admin
+              GOTIFY_OIDC_SCOPES: openid,profile,email,groups
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: true
