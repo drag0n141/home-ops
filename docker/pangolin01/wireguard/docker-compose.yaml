@@ -1,0 +1,32 @@
+---
+services:
+  wireguard:
+    image: 'ghcr.io/linuxserver/wireguard:latest'
+    hostname: 'wireguard'
+    container_name: 'wireguard'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    cap_add:
+      - 'NET_ADMIN'
+    read_only: true
+    tmpfs:
+      - '/run:exec'
+      - '/tmp'
+    volumes:
+      - '/mnt/nvme/appdata/wireguard:/config:rw'
+    environment:
+      - 'TZ=${TZ}'
+      - 'PUID=1000'
+      - 'PGID=1000'
+    ports:
+      - '51820:51820/udp'
+    network_mode: 'host'
+    sysctls:
+      - 'net.ipv4.conf.all.src_valid_mark=1'
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 128M
