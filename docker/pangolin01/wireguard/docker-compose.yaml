@@ -14,7 +14,7 @@ services:
       - '/run:exec'
       - '/tmp'
     volumes:
-      - '/mnt/nvme/appdata/wireguard:/config:rw'
+      - '/opt/appdata/wireguard:/config:rw'
     environment:
       - 'TZ=${TZ}'
       - 'PUID=1000'
