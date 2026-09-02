@@ -22,8 +22,6 @@ services:
     ports:
       - '51820:51820/udp'
     network_mode: 'host'
-    sysctls:
-      - 'net.ipv4.conf.all.src_valid_mark=1'
     security_opt:
       - 'no-new-privileges:true'
     deploy:
