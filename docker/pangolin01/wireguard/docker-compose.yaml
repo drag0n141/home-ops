@@ -9,7 +9,6 @@ services:
       - 'ALL'
     cap_add:
       - 'NET_ADMIN'
-    read_only: true
     tmpfs:
       - '/run:exec'
       - '/tmp'
