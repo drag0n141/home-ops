@@ -4,11 +4,13 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: home-assistant
+  annotations:
+    pangolin-operator/enabled: "false"
 spec:
   hostnames:
-    - home.${SECRET_DOMAIN_INTERNAL}
+    - home.${SECRET_DOMAIN}
   parentRefs:
-    - name: envoy-internal
+    - name: envoy-external
       namespace: networking
   rules:
     - backendRefs:
