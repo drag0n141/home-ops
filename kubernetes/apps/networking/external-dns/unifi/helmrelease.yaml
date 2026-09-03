@@ -38,9 +38,11 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --annotation-filter=external-dns.alpha.kubernetes.io/exclude-unifi notin (true)
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["gateway-httproute", "service"]
+    sources: ["crd","gateway-httproute", "service"]
     txtOwnerId: main
     txtPrefix: k8s.main.%{record_type}-
     excludeDomains: ["ipv4.${SECRET_DOMAIN}"]

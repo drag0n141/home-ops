@@ -79,6 +79,8 @@ spec:
             protocol: UDP
     route:
       app:
+        annotations:
+          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
         hostnames:
           - "sync.${SECRET_DOMAIN}"
         parentRefs:
