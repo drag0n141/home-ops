@@ -4,6 +4,8 @@ kind: DNSEndpoint
 metadata:
   name: pangolin
   namespace: networking
+  annotations:
+    external-dns.alpha.kubernetes.io/exclude-unifi: "true"
 spec:
   endpoints:
     - dnsName: "pangolin.${SECRET_DOMAIN}"
