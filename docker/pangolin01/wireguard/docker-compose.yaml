@@ -15,6 +15,10 @@ services:
       - '/tmp'
     volumes:
       - '/opt/appdata/wireguard:/config:rw'
+    configs:
+      - source: 'wg0_conf'
+        target: '/config/wg_confs/wg0.conf'
+        mode: 0600
     environment:
       - 'TZ=${TZ}'
       - 'PUID=1000'
@@ -28,3 +32,17 @@ services:
       resources:
         limits:
           memory: 128M
+
+configs:
+  wg0_conf:
+    content: |-
+      [Interface]
+      PrivateKey = ${WG_PANGOLIN01_PRIVATE_KEY}
+      Address = 192.168.251.2/24
+
+      [Peer]
+      PublicKey = ${WG_UNIFI_EXT_PUBLIC_KEY}
+      PresharedKey = ${WG_PRESHARED_KEY}
+      Endpoint = ipv4.${DOMAIN}:51240
+      AllowedIPs = 192.168.0.0/16
+      PersistentKeepalive = 25
