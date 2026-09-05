@@ -36,7 +36,7 @@ tasks:
       - which flux kubectl
 
   unlock:
-    desc: Unlock all restic source repos 
+    desc: Unlock all restic source repos
     cmds:
       - for: { var: SOURCES, split: "\n" }
         cmd: kubectl --namespace {{splitList "," .ITEM | first}} patch --field-manager=flux-client-side-apply replicationsources {{splitList "," .ITEM | last}} --type merge --patch "{\"spec\":{\"restic\":{\"unlock\":\"{{now | unixEpoch}}\"}}}"
@@ -118,6 +118,24 @@ tasks:
       APP: '{{.APP}}'
     requires:
       vars: [APP]
+    preconditions:
+      - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2
+      - which kubectl minijinja-cli stern
+
+  unlock-local-all:
+    desc: Find all failed/hanging volsync-src Jobs (likely locked repos) and unlock them from local machine
+    cmds:
+      - for: { var: STUCK, split: "\n" }
+        task: unlock-local
+        vars:
+          NS: '{{splitList "," .ITEM | first}}'
+          APP: '{{trimPrefix "volsync-src-" (splitList "," .ITEM | last)}}'
+    vars:
+      STUCK:
+        sh: |
+          kubectl get jobs --all-namespaces --no-headers \
+            --output=jsonpath='{range .items[?(@.status.failed>=1)]}{.metadata.namespace},{.metadata.name}{"\n"}{end}' \
+            | grep ',volsync-src-' || true
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2
       - which kubectl minijinja-cli stern
