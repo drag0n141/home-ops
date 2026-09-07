@@ -4,6 +4,3 @@ kind: Kustomization
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
-  - ./grafanadatasource.yaml
-  - ./grafanafolder.yaml
-  - ./grafanadashboard.yaml

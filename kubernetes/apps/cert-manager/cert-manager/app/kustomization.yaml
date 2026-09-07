@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - ./clusterissuer.yaml
   - ./externalsecret.yaml
+  - ./grafanadashboard.yaml
+  - ./grafanafolder.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
   - ./prometheusrule.yaml
-  - ./grafanafolder.yaml
-  - ./grafanadashboard.yaml

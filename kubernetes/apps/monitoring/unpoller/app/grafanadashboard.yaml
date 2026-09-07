@@ -1,15 +1,5 @@
 ---
 apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaFolder
-metadata:
-  name: unifi
-spec:
-  instanceSelector:
-    matchLabels:
-      dashboards: grafana
-  title: Unifi
----
-apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: unifi-insights

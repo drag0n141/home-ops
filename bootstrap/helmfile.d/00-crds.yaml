@@ -1,3 +1,4 @@
+---
 helmDefaults:
   args: ['--include-crds', '--no-hooks'] # Prevent helmfile apply or sync
 

@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: grafana-operator
-  namespace: monitoring
+  name:  &app grafana-operator
+  namespace: &namespace monitoring
 spec:
-  targetNamespace: monitoring
+  targetNamespace: *namespace
   commonMetadata:
     labels:
-      app.kubernetes.io/name: grafana-operator
+      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/monitoring/grafana-operator/app
   prune: true
   sourceRef:
@@ -23,15 +23,16 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: grafana-operator-instance
-  namespace: monitoring
+  name: &app grafana-operator-instance
+  namespace: &namespace  monitoring
 spec:
-  targetNamespace: monitoring
+  targetNamespace: *namespace
   commonMetadata:
     labels:
-      app.kubernetes.io/name: grafana-operator-instance
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: grafana-operator
+      namespace: *namespace
     - name: onepassword-connect
       namespace: external-secrets
     - name: pocket-id-instance
