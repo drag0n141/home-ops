@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/valkey-io/valkey
-              tag: 9.1.2@sha256:475ee65cc75c327407458f5096cdd36954b3de3fc83f4c8ac31a4a8edecbf49e
+              tag: 9.1.2@sha256:c123e3715db63d06d4ad6964884037aa0d5d4d703939b9929954112889708e1d
             command: ["valkey-server"]
             args: ["--save", "", "--appendonly", "no"]
             env:
