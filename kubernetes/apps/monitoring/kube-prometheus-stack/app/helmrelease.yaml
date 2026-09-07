@@ -91,10 +91,8 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          annotations:
-            grafana_folder: Kubernetes
-          multicluster:
-            etcd:
-              enabled: true
+      operator:
+        dashboardsConfigMapRefEnabled: true
+        folder: Kubernetes
+        matchLabels:
+          dashboards: grafana

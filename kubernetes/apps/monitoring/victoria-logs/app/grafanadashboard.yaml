@@ -1,0 +1,16 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: victoria-logs
+spec:
+  # HINWEIS: configMapRef-Name ist der von der victoria-logs-Chart mit dashboards.enabled=true erzeugte
+  # ConfigMap-Name - vor dem Merge bitte pruefen: kubectl get cm -n monitoring | grep victoria-logs
+  allowCrossNamespaceImport: true
+  configMapRef:
+    name: victoria-logs-dashboard
+    key: dashboard.json
+  folderRef: victoria-logs
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana

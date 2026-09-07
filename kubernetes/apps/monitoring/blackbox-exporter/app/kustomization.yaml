@@ -5,3 +5,4 @@ resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
   - ./probes.yaml
+  - ./grafanadashboard.yaml

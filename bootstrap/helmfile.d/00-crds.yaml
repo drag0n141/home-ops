@@ -1,4 +1,3 @@
----
 helmDefaults:
   args: ['--include-crds', '--no-hooks'] # Prevent helmfile apply or sync
 
@@ -7,6 +6,11 @@ releases:
     namespace: networking
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
     version: v1.9.1
+
+  - name: grafana-operator
+    namespace: monitoring
+    chart: oci://ghcr.io/grafana/helm-charts/grafana-operator
+    version: 5.25.0
 
   - name: kube-prometheus-stack
     namespace: monitoring

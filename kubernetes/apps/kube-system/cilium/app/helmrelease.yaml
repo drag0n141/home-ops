@@ -36,8 +36,6 @@ spec:
       exclusive: false
     dashboards:
       enabled: true
-      annotations:
-        grafana_folder: Cilium
     devices: bond+
     endpointRoutes:
       enabled: true
@@ -70,8 +68,6 @@ spec:
           enabled: true
       dashboards:
         enabled: true
-        annotations:
-          grafana_folder: Cilium
     pmtuDiscovery:
       enabled: true
     prometheus:

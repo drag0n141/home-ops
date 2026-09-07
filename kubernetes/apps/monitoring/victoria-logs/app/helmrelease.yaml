@@ -41,7 +41,7 @@ spec:
                   value: /
     dashboards:
       enabled: true
-      annotations:
-        grafana_folder: monitoring
-      labels:
-        grafana_dashboard: "1"
+      grafanaOperator:
+        enabled: true
+        spec:
+          folderRef: victoria-logs
