@@ -6,7 +6,6 @@ resources:
   - ./alertmanager/ks.yaml
   - ./blackbox-exporter/ks.yaml
   - ./checkmk/ks.yaml
-  - ./fluent-bit/ks.yaml
   - ./gatus-sidecar/ks.yaml
   - ./grafana-operator/ks.yaml
   - ./kube-prometheus-stack/ks.yaml

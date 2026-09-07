@@ -1,0 +1,28 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app victoria-logs-collector
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: victoria-logs-collector
+  values:
+    fullnameOverride: *app
+    global:
+      image:
+        registry: quay.io
+    podMonitor:
+      enabled: true
+    remoteWrite:
+      - url: http://victoria-logs.monitoring.svc.cluster.local:9428
+        maxDiskUsagePerURL: 10GB
+    collector:
+      streamFields:
+        - kubernetes.pod_name
+        - kubernetes.pod_namespace
+        - kubernetes.container_name
+        - kubernetes.pod_labels.app.kubernetes.io/name
+    extraArgs:
+      "kubernetesCollector.decolorizeFields": _msg
