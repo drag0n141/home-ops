@@ -1,0 +1,38 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: flux
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  title: Flux
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: flux-cluster
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: flux
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: flux-control-plane
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: flux
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json

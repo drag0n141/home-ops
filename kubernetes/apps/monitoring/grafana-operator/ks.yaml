@@ -1,0 +1,48 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-operator
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: grafana-operator
+  path: ./kubernetes/apps/monitoring/grafana-operator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-operator-instance
+  namespace: monitoring
+spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: grafana-operator-instance
+  dependsOn:
+    - name: grafana-operator
+    - name: onepassword-connect
+      namespace: external-secrets
+    - name: pocket-id-instance
+      namespace: security
+  path: ./kubernetes/apps/monitoring/grafana-operator/instance
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m

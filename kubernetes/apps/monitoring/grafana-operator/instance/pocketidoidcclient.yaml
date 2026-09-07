@@ -1,0 +1,18 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: grafana
+spec:
+  name: Grafana
+  callbackUrls:
+    - "https://grafana.${SECRET_DOMAIN_INTERNAL}/login/generic_oauth"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-home
+      namespace: security
+  secret:
+    keys:
+      clientID: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+      clientSecret: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET

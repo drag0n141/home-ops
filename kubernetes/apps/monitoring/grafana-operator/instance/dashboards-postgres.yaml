@@ -1,0 +1,108 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: postgres
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  title: Postgres
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-pgbackrest
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pgbackrest.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-pod-details
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/pod_details.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-postgresql-details
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/postgresql_details.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-postgresql-overview
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/postgresql_overview.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-postgresql-service-health
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/postgresql_service_health.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-prometheus-alerts
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/prometheus_alerts.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: crunchy-query-statistics
+spec:
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folderRef: postgres
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
+  url: https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/grafana/dashboards/query_statistics.json
