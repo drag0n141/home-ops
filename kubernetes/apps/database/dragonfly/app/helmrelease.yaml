@@ -14,4 +14,7 @@ spec:
         repository: ghcr.io/dragonflydb/operator
     grafanaDashboard:
       enabled: true
-      folder: data
+      folder: Database
+      grafanaOperator:
+        enabled: true
+        allowCrossNamespaceImport: true

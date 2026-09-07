@@ -8,7 +8,7 @@ resources:
   - ./checkmk/ks.yaml
   - ./fluent-bit/ks.yaml
   - ./gatus-sidecar/ks.yaml
-  - ./grafana/ks.yaml
+  - ./grafana-operator/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./patchmon/ks.yaml
   - ./prometheus-adapter/ks.yaml

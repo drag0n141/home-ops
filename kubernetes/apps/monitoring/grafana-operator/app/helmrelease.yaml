@@ -1,0 +1,15 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: grafana-operator
+  values:
+    dashboard:
+      enabled: true
+    serviceMonitor:
+      enabled: true

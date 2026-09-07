@@ -9,15 +9,20 @@ spec:
     kind: OCIRepository
     name: victoria-logs
   values:
-    fullnameOverride: *app
-    retentionPeriod: 14d
+    global:
+      image:
+        registry: quay.io
+    dashboards:
+      enabled: true
+      grafanaOperator:
+        enabled: true
     server:
+      fullnameOverride: *app
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
         size: 50Gi
-      serviceMonitor:
-        enabled: true
+      retentionPeriod: 14d
       route:
         enabled: true
         annotations:
@@ -27,21 +32,5 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        extraRules:
-          - filters:
-              - type: RequestRedirect
-                requestRedirect:
-                  path:
-                    type: ReplaceFullPath
-                    replaceFullPath: /select/vmui/
-                  statusCode: 302
-            matches:
-              - path:
-                  type: Exact
-                  value: /
-    dashboards:
-      enabled: true
-      annotations:
-        grafana_folder: monitoring
-      labels:
-        grafana_dashboard: "1"
+      serviceMonitor:
+        enabled: true
