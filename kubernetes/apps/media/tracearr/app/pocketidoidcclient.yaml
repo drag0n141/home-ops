@@ -4,7 +4,7 @@ kind: PocketIDOIDCClient
 metadata:
   name: tracearr
 spec:
-  name: tracearr
+  name: Tracearr
   callbackUrls:
     - "https://tracearr.${SECRET_DOMAIN_INTERNAL}/api/v1/auth/oauth2/callback/oidc"
   allowedUserGroups:
