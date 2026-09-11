@@ -7,18 +7,34 @@ metadata:
     dashboards: grafana
 spec:
   disableDefaultAdminSecret: true
+  config:
+    analytics:
+      check_for_updates: "false"
+      check_for_plugin_updates: "false"
+      feedback_links_enabled: "false"
+      reporting_enabled: "false"
+    auth:
+      disable_login_form: "false"
+    auth.anonymous:
+      enabled: "false"
+    log:
+      mode: console
+    metrics:
+      enabled: "true"
+    news:
+      news_feed_enabled: "false"
+    plugins:
+      plugin_admin_enabled: "false"
+    security:
+      angular_support_enabled: "true"
+    server:
+      enable_gzip: "true"
   deployment:
     spec:
       strategy:
         type: Recreate
       template:
         spec:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 472
-            runAsGroup: 472
-            fsGroup: 472
-            fsGroupChangePolicy: OnRootMismatch
           initContainers:
             - name: init-db
               image: ghcr.io/home-operations/postgres-init:18
@@ -35,14 +51,6 @@ spec:
                 - secretRef:
                     name: grafana-oidc-credentials
               env:
-                - name: GF_ANALYTICS_CHECK_FOR_UPDATES
-                  value: "false"
-                - name: GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES
-                  value: "false"
-                - name: GF_ANALYTICS_REPORTING_ENABLED
-                  value: "false"
-                - name: GF_AUTH_ANONYMOUS_ENABLED
-                  value: "false"
                 - name: GF_AUTH_BASIC_ENABLED
                   value: "false"
                 - name: GF_AUTH_GENERIC_OAUTH_ENABLED
@@ -61,34 +69,22 @@ spec:
                   value: https://id.${SECRET_DOMAIN}/api/oidc/token
                 - name: GF_AUTH_OAUTH_AUTO_LOGIN
                   value: "true"
-                - name: GF_DATE_FORMATS_USE_BROWSER_LOCALE
-                  value: "true"
                 - name: GF_DATABASE_TYPE
                   value: postgres
                 - name: GF_EXPLORE_ENABLED
                   value: "true"
-                - name: GF_FEATURE_TOGGLES_ENABLE
-                  value: publicDashboards
-                - name: GF_LOG_MODE
-                  value: console
-                - name: GF_NEWS_NEWS_FEED_ENABLED
-                  value: "false"
-                - name: GF_PANELS_DISABLE_SANITIZE_HTML
-                  value: "true"
-                - name: GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS
-                  value: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
-                - name: GF_SECURITY_ANGULAR_SUPPORT_ENABLED
-                  value: "true"
-                - name: GF_SECURITY_COOKIE_SAMESITE
-                  value: grafana
                 - name: GF_SERVER_ROOT_URL
                   value: https://grafana.${SECRET_DOMAIN_INTERNAL}
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
-                capabilities:
-                  drop:
-                    - ALL
+                capabilities: { drop: ["ALL"] }
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
   httpRoute:
     spec:
       hostnames:
