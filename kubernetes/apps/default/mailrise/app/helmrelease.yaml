@@ -39,7 +39,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "mailrise.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "mailrise.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.83
           gatus.home-operations.com/endpoint: |-
             group: infrastructure

@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: postgres-vector-lb
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: postgres-vector.${SECRET_DOMAIN_INTERNAL}
+    external-dns.kubernetes.io/hostname: postgres-vector.${SECRET_DOMAIN_INTERNAL}
     io.cilium/lb-ipam-ips: 192.168.222.107
     gatus.home-operations.com/endpoint: |-
       group: infrastructure

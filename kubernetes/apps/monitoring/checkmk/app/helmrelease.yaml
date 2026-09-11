@@ -57,7 +57,7 @@ spec:
       agent:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "checkmk-agent.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "checkmk-agent.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.115
         ports:
           agent:

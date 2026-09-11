@@ -214,7 +214,7 @@ spec:
     type: LoadBalancer
     metadata:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: cpgo.${SECRET_DOMAIN_INTERNAL}
+        external-dns.kubernetes.io/hostname: cpgo.${SECRET_DOMAIN_INTERNAL}
         lbipam.cilium.io/ips: 192.168.222.104
   monitoring:
     pgmonitor:

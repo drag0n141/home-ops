@@ -111,7 +111,7 @@ spec:
         type: LoadBalancer
         port: 22
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "ssh.forgejo.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "ssh.forgejo.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.125
     httpRoute:
       enabled: true

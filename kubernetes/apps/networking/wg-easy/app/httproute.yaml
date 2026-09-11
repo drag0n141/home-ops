@@ -35,7 +35,7 @@ kind: HTTPRoute
 metadata:
   name: wg-easy-wstunnel
   annotations:
-    external-dns.alpha.kubernetes.io/controller: none
+    external-dns.kubernetes.io/controller: none
     gatus.home-operations.com/endpoint: |-
       conditions: ["[STATUS] == 400"]
 spec:

@@ -56,7 +56,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "ts3.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.80
           pangolin-operator/enabled: "true"
           pangolin-operator/site-ref: k8s

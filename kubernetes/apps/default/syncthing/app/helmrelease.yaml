@@ -62,7 +62,7 @@ spec:
       sync:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.120
           pangolin-operator/enabled: "true"
           pangolin-operator/site-ref: k8s
@@ -80,7 +80,7 @@ spec:
     route:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
+          external-dns.kubernetes.io/exclude-unifi: "true"
         hostnames:
           - "sync.${SECRET_DOMAIN}"
         parentRefs:

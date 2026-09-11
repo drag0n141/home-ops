@@ -83,8 +83,8 @@ spec:
     service:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "minecraft.${SECRET_DOMAIN_INTERNAL}"
-          external-dns.alpha.kubernetes.io/target: "mc-router.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "minecraft.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/target: "mc-router.${SECRET_DOMAIN_INTERNAL}"
           mc-router.itzg.me/externalServerName: minecraft.${SECRET_DOMAIN_INTERNAL}
         ports:
           minecraft:

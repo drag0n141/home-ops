@@ -114,7 +114,7 @@ spec:
         controller: gateway
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "defguard.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "defguard.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.205
         externalTrafficPolicy: Cluster
         ports:
@@ -125,9 +125,9 @@ spec:
       app:
         className: traefik-external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          external-dns.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.kubernetes.io/exclude-unifi: "true"
+          external-dns.kubernetes.io/cloudflare-proxied: "false"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
@@ -144,9 +144,9 @@ spec:
       grpc:
         className: traefik-external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          external-dns.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.kubernetes.io/exclude-unifi: "true"
+          external-dns.kubernetes.io/cloudflare-proxied: "false"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
@@ -163,9 +163,9 @@ spec:
       proxy:
         className: traefik-external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          external-dns.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.kubernetes.io/exclude-unifi: "true"
+          external-dns.kubernetes.io/cloudflare-proxied: "false"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
@@ -182,9 +182,9 @@ spec:
       proxy-grpc:
         className: traefik-external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-          external-dns.alpha.kubernetes.io/exclude-unifi: "true"
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+          external-dns.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.kubernetes.io/exclude-unifi: "true"
+          external-dns.kubernetes.io/cloudflare-proxied: "false"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:

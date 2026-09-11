@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: postgres-timescale-lb
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: postgres-timescale.${SECRET_DOMAIN_INTERNAL}
+    external-dns.kubernetes.io/hostname: postgres-timescale.${SECRET_DOMAIN_INTERNAL}
     io.cilium/lb-ipam-ips: 192.168.222.108
     gatus.home-operations.com/endpoint: |-
       group: infrastructure

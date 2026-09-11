@@ -19,5 +19,5 @@ spec:
       minecraft:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "mc-router.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "mc-router.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.160

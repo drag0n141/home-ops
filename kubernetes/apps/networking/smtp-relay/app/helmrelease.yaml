@@ -51,7 +51,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "smtp.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "smtp.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.82
           gatus.home-operations.com/endpoint: |-
             group: infrastructure

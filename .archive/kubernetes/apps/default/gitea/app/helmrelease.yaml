@@ -116,13 +116,13 @@ spec:
         type: LoadBalancer
         port: 22
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "git.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "git.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.125
     ingress:
       enabled: true
       className: traefik-internal
       annotations:
-        external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
+        external-dns.kubernetes.io/target: "internal.${SECRET_DOMAIN_INTERNAL}"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-traefik-middleware-chain-no-auth@kubernetescrd"
       hosts:

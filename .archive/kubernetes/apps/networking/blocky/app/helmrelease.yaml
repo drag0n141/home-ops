@@ -56,7 +56,7 @@ spec:
       dns:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
+          external-dns.kubernetes.io/hostname: "blocky.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.254
         ports:
           dns-tcp:
