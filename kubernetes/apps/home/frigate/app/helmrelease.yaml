@@ -113,13 +113,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
-      config-file:
-        type: secret
-        name: "{{ .Release.Name }}-secret"
-        globalMounts:
-          - path: /config/config.yml
-            subPath: config.yml
-            readOnly: true
       media:
         type: nfs
         server: nas01.${SECRET_DOMAIN_INT}
