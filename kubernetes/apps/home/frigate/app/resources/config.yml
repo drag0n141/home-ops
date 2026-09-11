@@ -219,3 +219,19 @@ telemetry:
   stats:
     intel_gpu_stats: false
   version_check: false
+version: 0.17-0
+classification:
+  custom:
+    Sandkasten:
+      enabled: true
+      name: Sandkasten
+      threshold: 0.8
+      state_config:
+        cameras:
+          garden:
+            crop:
+              - 0.7653510344152296
+              - 0.4428674994939724
+              - 0.8448278304054474
+              - 0.5841595812543596
+        motion: true
