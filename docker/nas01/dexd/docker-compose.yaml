@@ -1,0 +1,35 @@
+---
+services:
+  dexd:
+    image: 'ghcr.io/ishioni/dexd:0.4.4'
+    hostname: 'dexd'
+    container_name: 'dexd'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      - 'TZ=${TZ}'
+      - 'DEFAULT_TARGET=192.168.254.2'
+      - 'UNIFI_API_KEY=${UNIFI_API_KEY}'
+      - 'UNIFI_HOST=https://192.168.1.1'
+    read_only: true
+    networks:
+      - internal
+    security_opt:
+      - 'no-new-privileges:true'
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+networks:
+  internal:
+    name: internal
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.2.0/24
+         gateway: 172.16.2.1

@@ -36,6 +36,7 @@ services:
     security_opt:
       - 'no-new-privileges:true'
     labels:
+      - 'dexd.enabled=true'
       - 'traefik.enable=true'
       - 'traefik.docker.network=traefik'
       - 'traefik.http.routers.llama-webui-rtr.entrypoints=https'

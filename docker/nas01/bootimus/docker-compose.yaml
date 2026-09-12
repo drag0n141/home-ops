@@ -40,6 +40,7 @@ services:
       - 'apparmor:unconfined'
       - 'no-new-privileges:true'
     labels:
+      - 'dexd.enabled=true'
       - 'traefik.enable=true'
       - 'traefik.docker.network=traefik'
       - 'traefik.http.routers.bootimus-rtr.entrypoints=https'
