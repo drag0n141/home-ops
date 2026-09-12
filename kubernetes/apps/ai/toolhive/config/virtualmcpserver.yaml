@@ -16,6 +16,14 @@ spec:
       accessTokenLifespan: 1h
       refreshTokenLifespan: 168h
       authCodeLifespan: 10m
+    storage:
+      type: redis
+      redis:
+        addr: dragonfly.database.svc.cluster.local:6379
+        aclUserConfig:
+          passwordSecretRef:
+            name: toolhive-secret
+            key: DRAGONFLY_PASSWORD
     upstreamProviders:
       - name: pocket-id
         type: oidc
