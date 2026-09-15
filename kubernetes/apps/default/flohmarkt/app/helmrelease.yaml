@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/flohmarkt
-              tag: latest@sha256:b85a61d48c2cef6e9ee343248f7ba4f254d933f30caa677c9e7e40f865cd9737
+              tag: latest@sha256:d4630c33d19bf681cb410d617384e0d57f46552b5892bea459333d37abeb90f3
             env:
               TZ: Europe/Berlin
               NUM_TABLES: 40
