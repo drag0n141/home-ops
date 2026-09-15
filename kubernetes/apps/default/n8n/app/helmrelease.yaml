@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 2.40.0@sha256:8745a379fdd89efe9ffaf739486aa342bbeb36a6e6f2bfcd7adadc5c8c67f138
+              tag: 2.40.0@sha256:fba7e81fa077ad8b6486804fec33a962ab44a64ce9e3bc8d488465b0f8d65a52
             env:
               TZ: Europe/Berlin
               GENERIC_TIMEZONE: Europe/Berlin
