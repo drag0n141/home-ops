@@ -12,3 +12,8 @@ spec:
       namespace: security
     - name: id-home
       namespace: security
+  secret:
+    keys:
+      clientID: GEOPULSE_OIDC_PROVIDER_GENERIC_CLIENT_ID
+      clientSecret: GEOPULSE_OIDC_PROVIDER_GENERIC_CLIENT_SECRET
+

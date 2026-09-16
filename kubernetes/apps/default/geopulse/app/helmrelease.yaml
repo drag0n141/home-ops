@@ -7,75 +7,168 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: geopulse
+    name: app-template
   values:
-    postgres:
-      enabled: false
-    externalPostgres:
-      host: postgres-rw.database.svc.cluster.local
-      port: 5432
-      database: geopulse_db
-      username: geopulse
-    backend:
-      replicaCount: 1
-      image:
-        repository: ghcr.io/tess1o/geopulse-backend
-    frontend:
-      replicaCount: 2
-      image:
-        repository: ghcr.io/tess1o/geopulse-ui
-    config:
-      publicBaseUrl: "https://geopulse.${SECRET_DOMAIN}"
-      authSecureCookies: true
-      admin:
-        firstUserAdmin: true
-      auth:
-        passwordRegistrationEnabled: false
-        passwordLoginEnabled: false
-      oidc:
-        enabled: true
-        callbackBaseUrl: "https://geopulse.${SECRET_DOMAIN}/oidc/callback"
-        autoLinkAccounts: true
-        generic:
-          enabled: true
-          name: "Pocket ID"
-          clientId: ""
-          clientSecret: ""
-          discoveryUrl: "https://id.${SECRET_DOMAIN}/.well-known/openid-configuration"
-    secrets:
-      useExistingSecret: true
-      existingSecretName: geopulse-secret
+    configMaps:
+      geopulse-initdb:
+        data:
+          geopulse_db.sql: |
+            CREATE EXTENSION IF NOT EXISTS "postgis";
+            CREATE EXTENSION IF NOT EXISTS postgis_topology;
+    controllers:
+      geopulse:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:b6d3af974df781c673d37e49bdddfa14a6f5be28b18d2cb7713f0449bea4057b
+            envFrom: &envFrom
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
+        containers:
+          backend:
+            image:
+              repository: ghcr.io/tess1o/geopulse-backend
+              tag: 1.39.0-native@sha256:c951f7dd235369c3f88fdd5a0a3ee19aa9b1215b7db688244d4444dfcd5fa926
+            env: &env
+              TZ: Europe/Berlin
+              GEOPULSE_AUTH_PASSWORD_LOGIN_ENABLED: false
+              GEOPULSE_AUTH_PASSWORD_REGISTRATION_ENABLED: false
+              GEOPULSE_AUTH_SECURE_COOKIES: true
+              GEOPULSE_CORS_ENABLED: true
+              GEOPULSE_CORS_ORIGINS: https://geopulse.${SECRET_DOMAIN}
+              GEOPULSE_FIRST_USER_ADMIN: true
+              GEOPULSE_OIDC_AUTO_LINK_ACCOUNTS: true
+              GEOPULSE_OIDC_ENABLED: true
+              GEOPULSE_OIDC_PROVIDER_GENERIC_DISCOVERY_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
+              GEOPULSE_OIDC_PROVIDER_GENERIC_ENABLED: true
+              GEOPULSE_OIDC_PROVIDER_GENERIC_NAME: Pocket ID
+              GEOPULSE_PUBLIC_BASE_URL: https://geopulse.${SECRET_DOMAIN}
+            envFrom: *envFrom
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: 8080
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext: &sc
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources: &resources
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 1Gi
+          ui:
+            image:
+              repository: ghcr.io/tess1o/geopulse-ui
+              tag: 1.39.0@sha256:3ef2e04e9cc9d62c9936d275027cb7931e1b9f8fae6c3674dce016c988c36ae9
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                # entrypoint uses 8080 which clashes with backend
+                sed -i "s|NGINX_PORT_PLACEHOLDER|80|g" /etc/nginx/conf.d/default.conf.template
+                exec /docker-entrypoint.sh
+            env:
+              <<: *env
+              GEOPULSE_BACKEND_URL: http://localhost:8080
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &uiPort 80
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              <<: *sc
+              readOnlyRootFilesystem: false
+            resources: *resources
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+            targetPort: *uiPort
     route:
-      enabled: true
-      hostnames:
-        - "geopulse.${SECRET_DOMAIN}"
-      parentRefs:
-        - name: envoy-external
-          namespace: networking
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-              name: geopulse-backend
-            patch: |
-              apiVersion: apps/v1
-              kind: Deployment
-              metadata:
-                name: geopulse-backend
-              spec:
-                template:
-                  spec:
-                    initContainers:
-                      - name: 01-init-db
-                        image: ghcr.io/home-operations/postgres-init:18
-                        envFrom:
-                          - secretRef:
-                              name: geopulse-secret
-                        volumeMounts:
-                          - name: initdb
-                            mountPath: /initdb
-                    volumes:
-                      - name: initdb
-                        configMap:
-                          name: geopulse-initdb
+      app:
+        hostnames:
+          -  "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    persistence:
+      keys:
+        type: secret
+        name: geopulse-secret
+        advancedMounts:
+          geopulse:
+            backend:
+              - subPath: ai-encryption-key.txt
+                path: /app/keys/ai-encryption-key.txt
+                readOnly: true
+              - subPath: jwt-private-key.pem
+                path: /app/keys/jwt-private-key.pem
+                readOnly: true
+              - subPath: jwt-public-key.pem
+                path: /app/keys/jwt-public-key.pem
+                readOnly: true
+      initdb:
+        type: configMap
+        identifier: geopulse-initdb
+        advancedMounts:
+          geopulse:
+            init-db:
+              - path: /initdb
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

@@ -4,7 +4,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./initdb-configmap.yaml
-  - ./ocirepository.yaml
   - ./pocketidoidcclient.yaml
-  - ./pushsecret.yaml
