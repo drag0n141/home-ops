@@ -12,7 +12,7 @@ spec:
     configMaps:
       dawarich-initdb:
         data:
-          dawarich.sql: |
+          dawarich_db.sql: |
             CREATE EXTENSION IF NOT EXISTS "postgis";
             CREATE EXTENSION IF NOT EXISTS postgis_topology;
     controllers:
