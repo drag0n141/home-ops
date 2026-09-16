@@ -17,9 +17,13 @@ spec:
       database: geopulse_db
       username: geopulse
     backend:
-      replicaCount: 2
+      replicaCount: 1
+      image:
+        repository: ghcr.io/tess1o/geopulse-backend
     frontend:
       replicaCount: 2
+      image:
+        repository: ghcr.io/tess1o/geopulse-ui
     config:
       publicBaseUrl: "https://geopulse.${SECRET_DOMAIN}"
       authSecureCookies: true
