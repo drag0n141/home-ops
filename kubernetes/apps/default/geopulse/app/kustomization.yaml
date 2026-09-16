@@ -5,4 +5,4 @@ resources:
   - ./externalsecret.yaml
   - ./helmrepository.yaml
   - ./helmrelease.yaml
-  - ./postgres-init.yaml
+  - ./initdb-configmap.yaml
