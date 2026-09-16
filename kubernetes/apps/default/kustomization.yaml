@@ -19,6 +19,7 @@ resources:
   - ./filebrowser/ks.yaml
   - ./flohmarkt/ks.yaml
   - ./forgejo/ks.yaml
+  - ./geopulse/ks.yaml
   - ./gotify/ks.yaml
   - ./immich/ks.yaml
   - ./homepage/ks.yaml
