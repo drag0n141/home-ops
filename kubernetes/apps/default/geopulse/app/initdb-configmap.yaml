@@ -1,0 +1,12 @@
+---
+# Only the postgis extension needs bootstrapping here - the db/role
+# themselves are created by the init-db initContainer injected into
+# the geopulse-backend Deployment via postRenderers (see helmrelease.yaml).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: geopulse-initdb
+data:
+  geopulse.sql: |
+    CREATE EXTENSION IF NOT EXISTS "postgis";
+    CREATE EXTENSION IF NOT EXISTS postgis_topology;
