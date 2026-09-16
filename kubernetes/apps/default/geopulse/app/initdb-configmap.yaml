@@ -1,7 +1,4 @@
 ---
-# Only the postgis extension needs bootstrapping here - the db/role
-# themselves are created by the init-db initContainer injected into
-# the geopulse-backend Deployment via postRenderers (see helmrelease.yaml).
 apiVersion: v1
 kind: ConfigMap
 metadata:
