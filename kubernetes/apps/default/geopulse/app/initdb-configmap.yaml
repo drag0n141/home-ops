@@ -1,4 +1,6 @@
 ---
+# postgres-init looks for /initdb/${INIT_POSTGRES_DBNAME}.sql - the key
+# here MUST match externalPostgres.database in helmrelease.yaml exactly.
 apiVersion: v1
 kind: ConfigMap
 metadata:
