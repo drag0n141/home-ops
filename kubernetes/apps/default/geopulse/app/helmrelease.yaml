@@ -1,0 +1,81 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: geopulse
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: geopulse
+  values:
+    postgres:
+      enabled: false
+    externalPostgres:
+      host: postgres-rw.database.svc.cluster.local
+      port: 5432
+      database: geopulse_db
+      username: geopulse
+    backend:
+      replicaCount: 1
+      image:
+        repository: ghcr.io/tess1o/geopulse-backend
+    frontend:
+      replicaCount: 2
+      image:
+        repository: ghcr.io/tess1o/geopulse-ui
+    config:
+      publicBaseUrl: "https://geopulse.${SECRET_DOMAIN}"
+      authSecureCookies: true
+      admin:
+        firstUserAdmin: true
+      auth:
+        passwordRegistrationEnabled: false
+        passwordLoginEnabled: false
+      oidc:
+        enabled: true
+        callbackBaseUrl: "https://geopulse.${SECRET_DOMAIN}/oidc/callback"
+        autoLinkAccounts: true
+        generic:
+          enabled: true
+          name: "Pocket ID"
+          clientId: ""
+          clientSecret: ""
+          discoveryUrl: "https://id.${SECRET_DOMAIN}/.well-known/openid-configuration"
+    secrets:
+      useExistingSecret: true
+      existingSecretName: geopulse-secret
+    route:
+      enabled: true
+      hostnames:
+        - "geopulse.${SECRET_DOMAIN}"
+      parentRefs:
+        - name: envoy-external
+          namespace: networking
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: geopulse-backend
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: geopulse-backend
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: 01-init-db
+                        image: ghcr.io/home-operations/postgres-init:18
+                        envFrom:
+                          - secretRef:
+                              name: geopulse-secret
+                        volumeMounts:
+                          - name: initdb
+                            mountPath: /initdb
+                    volumes:
+                      - name: initdb
+                        configMap:
+                          name: geopulse-initdb

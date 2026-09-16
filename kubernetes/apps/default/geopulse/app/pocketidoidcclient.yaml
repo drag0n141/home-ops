@@ -1,0 +1,14 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: geopulse
+spec:
+  name: Geopulse
+  callbackUrls:
+    - "https://geopulse.${SECRET_DOMAIN}/oidc/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+    - name: id-home
+      namespace: security
