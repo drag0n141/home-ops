@@ -38,9 +38,9 @@ spec:
           clientId: ""
           clientSecret: ""
           discoveryUrl: "https://id.${SECRET_DOMAIN}/.well-known/openid-configuration"
-        secrets:
-          useExistingSecret: true
-          existingSecretName: geopulse-secret
+    secrets:
+      useExistingSecret: true
+      existingSecretName: geopulse-secret
     route:
       enabled: true
       hostnames:
