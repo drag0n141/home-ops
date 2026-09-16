@@ -169,6 +169,13 @@ spec:
               - subPath: jwt-public-key.pem
                 path: /app/keys/jwt-public-key.pem
                 readOnly: true
+      initdb:
+        type: configMap
+        identifier: geopulse-initdb
+        advancedMounts:
+          geopulse:
+            init-db:
+              - path: /initdb
       tmp:
         type: emptyDir
         globalMounts:
