@@ -42,14 +42,14 @@ spec:
               GEOPULSE_AUTH_PASSWORD_REGISTRATION_ENABLED: false
               GEOPULSE_AUTH_SECURE_COOKIES: true
               GEOPULSE_CORS_ENABLED: true
-              GEOPULSE_CORS_ORIGINS: https://geopulse.${SECRET_DOMAIN}
+              GEOPULSE_CORS_ORIGINS: https://geopulse.${SECRET_DOMAIN_INTERNAL}
               GEOPULSE_FIRST_USER_ADMIN: true
               GEOPULSE_OIDC_AUTO_LINK_ACCOUNTS: true
               GEOPULSE_OIDC_ENABLED: true
               GEOPULSE_OIDC_PROVIDER_GENERIC_DISCOVERY_URL: https://id.${SECRET_DOMAIN}/.well-known/openid-configuration
               GEOPULSE_OIDC_PROVIDER_GENERIC_ENABLED: true
               GEOPULSE_OIDC_PROVIDER_GENERIC_NAME: Pocket ID
-              GEOPULSE_PUBLIC_BASE_URL: https://geopulse.${SECRET_DOMAIN}
+              GEOPULSE_PUBLIC_BASE_URL: https://geopulse.${SECRET_DOMAIN_INTERNAL}
               QUARKUS_FLYWAY_BASELINE_VERSION: "0"
             envFrom: *envFrom
             probes:
@@ -141,9 +141,9 @@ spec:
     route:
       app:
         hostnames:
-          -  "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          -  "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: networking
     persistence:
       keys:

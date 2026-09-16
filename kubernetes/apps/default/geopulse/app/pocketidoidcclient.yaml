@@ -6,7 +6,7 @@ metadata:
 spec:
   name: Geopulse
   callbackUrls:
-    - "https://geopulse.${SECRET_DOMAIN}/oidc/callback"
+    - "https://geopulse.${SECRET_DOMAIN_INTERNAL}/oidc/callback"
   allowedUserGroups:
     - name: id-admin
       namespace: security
