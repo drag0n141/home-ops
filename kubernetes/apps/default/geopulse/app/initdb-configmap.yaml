@@ -1,11 +1,22 @@
 ---
 # postgres-init looks for /initdb/${INIT_POSTGRES_DBNAME}.sql - the key
 # here MUST match externalPostgres.database in helmrelease.yaml exactly.
+#
+# postgis is intentionally installed into its own "extensions" schema
+# (not "public"): Flyway's baselineOnMigrate treats a public schema
+# containing unmanaged objects (e.g. postgis' own spatial_ref_sys table)
+# as "already provisioned" and silently skips every migration up to and
+# including its baselineVersion (1 by default) - which for GeoPulse
+# means the actual table-creation migrations never run. Keeping public
+# genuinely empty on first connect avoids that; search_path takes care
+# of resolving unqualified types like "geometry" for the app role.
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: geopulse-initdb
 data:
   geopulse_db.sql: |
-    CREATE EXTENSION IF NOT EXISTS "postgis";
-    CREATE EXTENSION IF NOT EXISTS postgis_topology;
+    CREATE SCHEMA IF NOT EXISTS extensions;
+    CREATE EXTENSION IF NOT EXISTS postgis SCHEMA extensions;
+    CREATE EXTENSION IF NOT EXISTS postgis_topology SCHEMA topology;
+    ALTER ROLE geopulse SET search_path TO public, extensions, topology;
