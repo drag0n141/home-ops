@@ -20,16 +20,12 @@ spec:
               tag: latest@sha256:6a7a11aee89c39bb2ae3789f9c42280743d61508931d7a2140264e57ffa2dfef
             env:
               TZ: Europe/Berlin
-              NUM_TABLES: 40
               PAYMENT_METHODS: sepa
-              PRICE_STANDARD: 15.00
-              PRICE_INTERNAL: 10.00
               CURRENCY: EUR
               DB_PATH: /data/flohmarkt.db
               SMTP_HOST: smtp.strato.de
               SMTP_PORT: 587
               SMTP_USE_TLS: true
-              SEPA_HOLD_HOURS: 72
             envFrom:
               - secretRef:
                   name: flohmarkt-secret
