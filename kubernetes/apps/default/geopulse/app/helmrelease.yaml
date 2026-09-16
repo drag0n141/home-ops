@@ -18,10 +18,10 @@ spec:
   values:
     # Use the shared CloudNativePG cluster instead of the chart's bundled
     # postgres/postgis pod. Role, database and postgis extension are
-    # provisioned by postgres-init.yaml; the password is injected via
-    # backend.extraEnv below (documented in the chart's own values.yaml
-    # as the intended way to point GEOPULSE_POSTGRES_PASSWORD at a
-    # secret the chart doesn't own).
+    # provisioned by the init-db initContainer injected via postRenderers
+    # below; the password is injected via backend.extraEnv (documented in
+    # the chart's own values.yaml as the intended way to point
+    # GEOPULSE_POSTGRES_PASSWORD at a secret the chart doesn't own).
     postgres:
       enabled: false
     externalPostgres:
@@ -63,3 +63,36 @@ spec:
           namespace: networking
     ingress:
       enabled: false
+  # GeoPulse's own chart has no initContainers/extraInitContainers hook
+  # (unlike app-template or the netbox/nextcloud charts already in this
+  # repo), so the shared-postgres db/role bootstrap is injected into the
+  # rendered geopulse-backend Deployment here instead - same pattern as
+  # forgejo/app/helmrelease.yaml. postgis itself is created from
+  # initdb-configmap.yaml, mounted below.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: geopulse-backend
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: geopulse-backend
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: init-db
+                        image: ghcr.io/home-operations/postgres-init:18
+                        envFrom:
+                          - secretRef:
+                              name: geopulse-secret
+                        volumeMounts:
+                          - name: initdb
+                            mountPath: /initdb
+                    volumes:
+                      - name: initdb
+                        configMap:
+                          name: geopulse-initdb
