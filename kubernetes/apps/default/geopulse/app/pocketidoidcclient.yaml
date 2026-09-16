@@ -10,5 +10,5 @@ spec:
   allowedUserGroups:
     - name: id-admin
       namespace: security
-    - name: id-netbox
+    - name: id-home
       namespace: security
