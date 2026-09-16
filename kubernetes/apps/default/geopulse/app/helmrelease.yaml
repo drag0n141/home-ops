@@ -50,14 +50,6 @@ spec:
               GEOPULSE_OIDC_PROVIDER_GENERIC_ENABLED: true
               GEOPULSE_OIDC_PROVIDER_GENERIC_NAME: Pocket ID
               GEOPULSE_PUBLIC_BASE_URL: https://geopulse.${SECRET_DOMAIN}
-              # GeoPulse ships with quarkus.flyway.baseline-on-migrate=true and no
-              # explicit baseline-version, so Flyway defaults to baselineVersion=1.
-              # Flyway treats "1", "1.0" and "1.0.0" as equal versions, so on a
-              # first-ever start it baselines at "1" and silently skips
-              # V1.0.0__Initial_schema.sql (the migration that creates
-              # favorite_locations etc.) - every later migration then fails with
-              # "relation ... does not exist". Forcing baseline-version below the
-              # very first real migration avoids that.
               QUARKUS_FLYWAY_BASELINE_VERSION: "0"
             envFrom: *envFrom
             probes:
