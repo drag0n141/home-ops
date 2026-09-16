@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: geopulse
+spec:
+  interval: 1h
+  # TODO: pin/verify against the published index — `helm search repo
+  # geopulse/geopulse` — 1.39.0 matches the current appVersion at the
+  # time this was written, chart version may differ slightly.
+  chart:
+    spec:
+      chart: geopulse
+      version: "1.39.0"
+      sourceRef:
+        kind: HelmRepository
+        name: geopulse
+  values:
+    # Use the shared CloudNativePG cluster instead of the chart's bundled
+    # postgres/postgis pod. Role, database and postgis extension are
+    # provisioned by postgres-init.yaml; the password is injected via
+    # backend.extraEnv below (documented in the chart's own values.yaml
+    # as the intended way to point GEOPULSE_POSTGRES_PASSWORD at a
+    # secret the chart doesn't own).
+    postgres:
+      enabled: false
+    externalPostgres:
+      host: postgres-pgbouncer-rw.database.svc.cluster.local
+      port: 5432
+      database: geopulse
+      username: geopulse
+    backend:
+      replicaCount: 1
+      extraEnv:
+        - name: GEOPULSE_POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: geopulse-secret
+              key: GEOPULSE_POSTGRES_PASSWORD
+      resources:
+        requests:
+          cpu: 10m
+          memory: 512Mi
+        limits:
+          memory: 2Gi
+    frontend:
+      replicaCount: 1
+    config:
+      publicBaseUrl: "https://geopulse.${SECRET_DOMAIN}"
+      cookieDomain: ""
+      authSecureCookies: true
+      admin:
+        firstUserAdmin: true
+      jwt:
+        issuer: "https://geopulse.${SECRET_DOMAIN}"
+    # Gateway API route (this cluster uses Envoy Gateway, not ingress-nginx)
+    route:
+      enabled: true
+      hostnames:
+        - "geopulse.${SECRET_DOMAIN}"
+      parentRefs:
+        - name: envoy-external
+          namespace: networking
+    ingress:
+      enabled: false
