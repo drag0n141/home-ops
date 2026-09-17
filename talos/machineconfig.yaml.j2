@@ -62,10 +62,6 @@ machine:
     nodeIP:
       validSubnets: ["192.168.254.0/24"]
     disableManifestsDirectory: true
-  nodeLabels:
-    node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: main
-    topology.kubernetes.io/zone: m
   sysctls:
     fs.inotify.max_user_watches: "1048576"     # Watchdog
     fs.inotify.max_user_instances: "8192"      # Watchdog

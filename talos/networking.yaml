@@ -12,6 +12,11 @@ searchDomains:
     disableDefault: true
 ---
 apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.130
 vlanID: 130
