@@ -31,6 +31,22 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 1Gi
+          trial-token-updater:
+            image:
+              repository: public.ecr.aws/docker/library/python
+              tag: 3.14-slim@sha256:810da6270e43d30a1f3e0e1eabbeb6fbd9d78ad9dd2e754d5297a3d6cb42df46
+            command: ["python", "/scripts/trial-token-updater.py"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                cpu: 50m
+                memory: 64Mi
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
@@ -68,10 +84,16 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
-      tmpfs:
-        type: emptyDir
+      script:
+        type: configMap
+        name: "{{ .Release.Name }}-scripts"
         advancedMounts:
           evcc:
-            app:
-              - path: /tmp
-                subPath: tmp
+            trial-token-updater:
+              - path: /scripts/trial-token-updater.py
+                subPath: trial-token-updater.py
+                readOnly: true
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
