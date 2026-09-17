@@ -3,6 +3,8 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: home-assistant
+  annotations:
+    external-dns.kubernetes.io/exclude-unifi: "true"
 spec:
   endpoints:
     - dnsName: "home.${SECRET_DOMAIN}"
