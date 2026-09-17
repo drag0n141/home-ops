@@ -20,6 +20,7 @@ spec:
               tag: 0.315.2@sha256:53131e7ccc60620a6dde230f8e1a34d9c7c501669514a8d54830c09b48c9d787
             env:
               TZ: Europe/Berlin
+              HOME: /data
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -66,7 +67,7 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /root/.evcc
+          - path: /data
       tmpfs:
         type: emptyDir
         advancedMounts:
