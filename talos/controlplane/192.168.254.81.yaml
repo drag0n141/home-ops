@@ -6,8 +6,6 @@ hostname: k8s-m01
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
-  node.kubernetes.io/gpu: "true"
-  topology.kubernetes.io/region: main
   topology.kubernetes.io/zone: m
 ---
 apiVersion: v1alpha1

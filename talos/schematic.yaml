@@ -3,7 +3,7 @@ customization:
   extraKernelArgs:
     - intel_iommu=on                      # PCI Passthrough
     - iommu=pt                            # PCI Passthrough
-    - talos.device.settle_time=15s        # Thunderbolt NICs
+    - thunderbolt.host_reset=0            # Thunderbolt NICs
   systemExtensions:
     officialExtensions:
       - siderolabs/i915
