@@ -59,11 +59,15 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 60s
+    interval: 10s
+    probes: 3
   timeout:
     http:
-      connectionIdleTimeout: 15s
+      connectionIdleTimeout: 4s
       requestTimeout: 0s
+      streamIdleTimeout: 1h
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
@@ -106,15 +110,16 @@ spec:
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
-  proxyProtocol:
-    optional: true
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 60s
+    interval: 10s
+    probes: 3
   timeout:
     http:
-      idleTimeout: 60s
+      idleTimeout: 600s
   tls:
     minVersion: "1.2"
     alpnProtocols:
