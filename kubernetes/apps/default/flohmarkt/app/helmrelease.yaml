@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/flohmarkt
-              tag: latest@sha256:b01a77278e6aa52b79545c34f402ee4c086f65df4195315acd4d2118d9d0873e
+              tag: latest@sha256:3a3d35c1b525b52a423bbc9c980c126509c204e0096b24e8a81664449f632f0e
             env:
               TZ: Europe/Berlin
               PAYMENT_METHODS: sepa
