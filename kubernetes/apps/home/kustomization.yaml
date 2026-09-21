@@ -8,6 +8,7 @@ resources:
   - ./frigate/ks.yaml
   - ./home-assistant/ks.yaml
   - ./piper/ks.yaml
+  - ./whisper/ks.yaml
 components:
   - ../../components/alerts
   - ../../components/namespace
