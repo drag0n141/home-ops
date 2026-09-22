@@ -56,7 +56,10 @@ spec:
             port: 10300
     persistence:
       data:
-        existingClaim: "{{ .Release.Name }}"
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        storageClass: openebs-hostpath
         globalMounts:
           - path: /data
       tmpfs:

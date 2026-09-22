@@ -10,12 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
+    - name: openebs
       namespace: storage
-  components:
-    - ../../../../components/volsync
   path: ./kubernetes/apps/home/whisper/app
   prune: true
   sourceRef:
