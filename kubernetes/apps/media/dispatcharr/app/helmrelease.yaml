@@ -55,6 +55,7 @@ spec:
       app:
         ports:
           http:
+            appProtocol: kubernetes.io/wss
             port: *port
     route:
       app:

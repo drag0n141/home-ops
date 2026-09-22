@@ -89,6 +89,7 @@ spec:
           lbipam.cilium.io/ips: 192.168.222.162
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: *port
           metrics:
             port: 8081

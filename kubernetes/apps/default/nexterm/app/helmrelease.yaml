@@ -45,6 +45,7 @@ spec:
       app:
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: *port
     route:
       app:
