@@ -116,13 +116,19 @@ spec:
         globalMounts:
           - path: /config/secrets.yaml
             subPath: secrets.yaml
+      buildcache:
+        suffix: buildcache
+        size: 50Gi
+        accessMode: ReadWriteOnce
+        advancedMounts:
+          esphome:
+            app:
+              - path: /cache
       tmpfs:
         type: emptyDir
         advancedMounts:
           esphome:
             app:
-              - path: /cache
-                subPath: cache
               - path: /tmp
                 subPath: esphome-tmp
             code-server:
