@@ -19,8 +19,7 @@ spec:
               repository: mirror.gcr.io/rhasspy/wyoming-whisper
               tag: 3.8.1@sha256:ba6fcb6056ebe237d15a325381763a80af2fc8fcedaa04f6a714a7375eb20d80
             args:
-              - --stt-library=qwen3-asr
-              - --vad-clip=qwen3-asr
+              - --model=small-int8
               - --language=de
               - --hass-token=$(HASS_LONG_LIVED_TOKEN)
               - --hass-api=http://haos.${SECRET_DOMAIN_INT}/api
