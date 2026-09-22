@@ -26,9 +26,9 @@ spec:
               MPLCONFIGDIR: /cache/matplotlib
             envFrom:
               - configMapRef:
-                  name: "{{ .Release.Name }}-configmap"
+                  name: "immich-configmap"
               - secretRef:
-                  name: "{{ .Release.Name }}-secret"
+                  name: "immich-secret"
             probes:
               liveness: &probes
                 enabled: true
