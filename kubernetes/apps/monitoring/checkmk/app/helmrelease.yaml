@@ -24,7 +24,7 @@ spec:
               MAIL_RELAY_HOST: mailrise.default.svc.cluster.local:8025
             envFrom:
               - secretRef:
-                  name: checkmk-secret
+                  name: "{{ .Release.Name }}-secret"
             resources:
               requests:
                 cpu: 10m

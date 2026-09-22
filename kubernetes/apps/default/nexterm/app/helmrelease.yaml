@@ -23,7 +23,7 @@ spec:
               SERVER_PORT: &port 6989
             envFrom:
               - secretRef:
-                  name: nexterm-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

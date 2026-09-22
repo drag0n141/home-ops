@@ -24,7 +24,7 @@ spec:
               TZ: Europe/Berlin
             envFrom:
               - secretRef:
-                  name: gitsave-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

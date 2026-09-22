@@ -25,9 +25,9 @@ spec:
               IMMICH_WORKERS_EXCLUDE: api
             envFrom:
               - configMapRef:
-                  name: immich-configmap
+                  name: "{{ .Release.Name }}-configmap"
               - secretRef:
-                  name: immich-secret
+                  name: "{{ .Release.Name }}-secret"
             resources:
               claims:
                 - name: gpu

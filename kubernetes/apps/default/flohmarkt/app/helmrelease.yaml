@@ -28,7 +28,7 @@ spec:
               SMTP_USE_TLS: true
             envFrom:
               - secretRef:
-                  name: flohmarkt-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

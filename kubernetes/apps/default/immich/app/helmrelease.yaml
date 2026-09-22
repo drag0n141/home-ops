@@ -24,7 +24,7 @@ spec:
               tag: 18@sha256:b6d3af974df781c673d37e49bdddfa14a6f5be28b18d2cb7713f0449bea4057b
             envFrom:
               - secretRef:
-                  name: immich-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -37,9 +37,9 @@ spec:
               IMMICH_HELMET_FILE: true
             envFrom:
               - configMapRef:
-                  name: immich-configmap
+                  name: "{{ .Release.Name }}-configmap"
               - secretRef:
-                  name: immich-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true

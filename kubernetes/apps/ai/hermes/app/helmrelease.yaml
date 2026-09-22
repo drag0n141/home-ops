@@ -87,7 +87,7 @@ spec:
               WHATSAPP_MODE: bot
             envFrom:
               - secretRef:
-                  name: hermes-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

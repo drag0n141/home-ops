@@ -27,7 +27,7 @@ spec:
               REDIS_PORT: 6379
             envFrom:
               - secretRef:
-                  name: litellm-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

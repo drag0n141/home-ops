@@ -47,7 +47,7 @@ spec:
               WHITELIST: "DrAg0n141"
             envFrom:
               - secretRef:
-                  name: minecraft-secret
+                  name: "{{ .Release.Name }}-secret"
             resources:
               requests:
                 cpu: 100m

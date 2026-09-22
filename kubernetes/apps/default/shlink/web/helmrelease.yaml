@@ -23,7 +23,7 @@ spec:
               SHLINK_SERVER_URL: https://sh.${SECRET_DOMAIN_SHORT}
             envFrom:
               - secretRef:
-                  name: shlink-web-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

@@ -24,7 +24,7 @@ spec:
               IP6_PROVIDER: none
             envFrom:
               - secretRef:
-                  name: cloudflare-ddns-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

@@ -27,7 +27,7 @@ spec:
               PUID: 1000
             envFrom: &envFrom
               - secretRef:
-                  name: grimmory-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true

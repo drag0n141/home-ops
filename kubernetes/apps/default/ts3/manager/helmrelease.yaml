@@ -23,7 +23,7 @@ spec:
               WHITELIST: ts3-server.default.svc.cluster.local,ts3.${SECRET_DOMAIN_INTERNAL},ts.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
-                  name: ts3-manager-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

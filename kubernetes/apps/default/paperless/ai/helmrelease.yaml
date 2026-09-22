@@ -33,7 +33,7 @@ spec:
               TAGS: AI
             envFrom:
               - secretRef:
-                  name: paperless-ai-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

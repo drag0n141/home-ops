@@ -43,7 +43,7 @@ spec:
               MANUAL_TAG: AI-GPT
             envFrom:
               - secretRef:
-                  name: paperless-gpt-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
