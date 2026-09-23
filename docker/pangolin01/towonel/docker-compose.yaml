@@ -21,6 +21,12 @@ services:
       - 'TOWONEL_EDGE_LISTEN_ADDR=0.0.0.0:4443'
       - 'TOWONEL_EDGE_PROXY_PROTOCOL=true'
     ports:
+      - '9987:9987/udp'
+      - '10011:10011/tcp'
+      - '30033:30033/tcp'
+      - '21027:21027/udp'
+      - '22000:22000/tcp'
+      - '22000:22000/udp'
       - '51825:51825/udp'
     expose:
       - '4443'
