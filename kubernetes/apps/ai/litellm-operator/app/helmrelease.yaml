@@ -12,5 +12,9 @@ spec:
     controller:
       leaderElection:
         enabled: true
-    webhook:
-      enabled: true
+    resources:
+      requests:
+        cpu: 25m
+        memory: 128Mi
+      limits:
+        memory: 512Mi
