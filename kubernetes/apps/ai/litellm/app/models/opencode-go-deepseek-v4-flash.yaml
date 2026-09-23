@@ -9,7 +9,7 @@ spec:
     model: openai/deepseek-v4-flash
     apiBase: https://opencode.ai/zen/go/v1
     apiKeyRef:
-      name: litellm
+      name: litellm-secret
       key: OPENCODE_GO_API_KEY
     dropParams: true
   info:

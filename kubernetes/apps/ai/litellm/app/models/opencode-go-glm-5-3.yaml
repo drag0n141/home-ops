@@ -9,7 +9,7 @@ spec:
     model: openai/glm-5.3
     apiBase: https://opencode.ai/zen/go/v1
     apiKeyRef:
-      name: litellm
+      name: litellm-secret
       key: OPENCODE_GO_API_KEY
     dropParams: true
   info:

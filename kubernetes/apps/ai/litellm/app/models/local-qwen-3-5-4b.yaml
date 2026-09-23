@@ -9,7 +9,7 @@ spec:
     model: openai/qwen3.5-4b
     apiBase: https://llama.${SECRET_DOMAIN_INT}/v1
     apiKeyRef:
-      name: litellm
+      name: litellm-secret
       key: LLAMA_API_KEY
     dropParams: true
   info:
