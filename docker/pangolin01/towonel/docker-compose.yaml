@@ -11,7 +11,7 @@ services:
       - '/opt/appdata/towonel:/data:rw'
     environment:
       - 'RUST_LOG=info'
-      # - 'TOWONEL_INVITE_HASH_KEY=${TOWONEL_INVITE_HASH_KEY}'
+      - 'TOWONEL_INVITE_HASH_KEY=${TOWONEL_INVITE_HASH_KEY}'
       - 'TOWONEL_HUB_ENABLED=true'
       - 'TOWONEL_HUB_ALLOW_PRIVILEGED_PORTS=true'
       - 'TOWONEL_HUB_PUBLIC_URL=https://towonel.${DOMAIN}'
