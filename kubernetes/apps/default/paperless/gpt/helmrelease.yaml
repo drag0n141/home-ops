@@ -26,7 +26,7 @@ spec:
               PAPERLESS_PUBLIC_URL: https://paperless.${SECRET_DOMAIN_INTERNAL}
               LLM_PROVIDER: openai
               OPENAI_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
-              LLM_MODEL: qwen-local
+              LLM_MODEL: openai/qwen3.5-4b
               LLM_LANGUAGE: German
               OCR_PROVIDER: llm
               VISION_LLM_PROVIDER: openai

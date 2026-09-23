@@ -1,15 +1,15 @@
 model:
-  default: kimi-k2.6
+  default: openai/glm-5.3
   provider: custom:kubernetes
   base_url: http://litellm.ai.svc.cluster.local:4000/v1
   api_key: ${LITELLM_API_KEY}
 fallback_providers:
   - provider: custom:kubernetes
-    model: qwen3.6-plus
+    model: anthropic/qwen3.6-plus
   - provider: custom:kubernetes
-    model: glm-5.1
+    model: anthropic/minimax-m3
   - provider: custom:kubernetes
-    model: qwen-local
+    model: openai/qwen3.5-4b
 providers:
   kubernetes:
     base_url: http://litellm.ai.svc.cluster.local:4000/v1

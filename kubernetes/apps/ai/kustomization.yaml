@@ -4,6 +4,7 @@ namespace: ai
 resources:
   - ./hermes/ks.yaml
   - ./litellm/ks.yaml
+  - ./litellm-operator/ks.yaml
   - ./mcp
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml

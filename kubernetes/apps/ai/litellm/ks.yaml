@@ -30,6 +30,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: litellm-operator
+      namespace: *namespace
     - name: litellm-redis
       namespace: *namespace
     - name: onepassword-connect

@@ -1,0 +1,21 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: local-qwen-3-5-4b
+spec:
+  modelName: local/qwen-3.5-4b
+  params:
+    model: openai/qwen3.5-4b
+    apiBase: https://llama.${SECRET_DOMAIN_INT}/v1
+    apiKeyRef:
+      name: litellm
+      key: LLAMA_API_KEY
+    dropParams: true
+  info:
+    maxInputTokens: 16384
+    maxOutputTokens: 8192
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    extra:
+      supports_reasoning: true
