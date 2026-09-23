@@ -1,0 +1,16 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: towonel-agent
+  namespace: networking
+  annotations:
+    external-dns.kubernetes.io/exclude-unifi: "true"
+spec:
+  endpoints:
+    - dnsName: "towonel.${SECRET_DOMAIN}"
+      recordType: A
+      targets: ["${SECRET_PANGOLIN_IP}"]
+    - dnsName: "external.${SECRET_DOMAIN}"
+      recordType: A
+      targets: ["${SECRET_PANGOLIN_IP}"]

@@ -79,13 +79,6 @@ spec:
       enabled: false
     livenessProbe:
       enabled: false
-    service:
-      annotations:
-        pangolin-operator/enabled: "true"
-        pangolin-operator/site-ref: k8s
-        pangolin-operator/auth-sso: "true"
-        pangolin-operator/auth-sso-idp: "1"
-        pangolin-operator/full-domain: "netbox.${SECRET_DOMAIN_PANGOLIN}"
     httpRoute:
       enabled: true
       hostnames:

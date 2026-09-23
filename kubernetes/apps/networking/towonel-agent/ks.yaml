@@ -2,17 +2,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app home-assistant
-  namespace: &namespace home
+  name: &app towonel-agent
+  namespace: &namespace networking
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: envoy-gateway
+      namespace: *namespace
     - name: external-dns-cloudflare
-      namespace: networking
-  path: ./kubernetes/apps/home/home-assistant/app
+      namespace: *namespace
+    - name: onepassword-connect
+      namespace: external-secrets
+  path: ./kubernetes/apps/networking/towonel-agent/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -7,7 +7,6 @@ spec:
   name: Termix
   callbackUrls:
     - "https://termix.${SECRET_DOMAIN_INTERNAL}/users/oidc/callback"
-    - "https://termix.${SECRET_DOMAIN_PANGOLIN}/users/oidc/callback"
   pkceEnabled: false
   allowedUserGroups:
     - name: id-admin

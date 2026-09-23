@@ -43,12 +43,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        annotations:
-          pangolin-operator/enabled: "true"
-          pangolin-operator/site-ref: k8s
-          pangolin-operator/auth-sso: "true"
-          pangolin-operator/auth-sso-idp: "1"
-          pangolin-operator/full-domain: "checkmk.${SECRET_DOMAIN_PANGOLIN}"
         forceRename: "{{ .Release.Name }}"
         primary: true
         ports:

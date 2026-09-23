@@ -64,9 +64,6 @@ spec:
         annotations:
           external-dns.kubernetes.io/hostname: "sync.${SECRET_DOMAIN_INTERNAL}"
           lbipam.cilium.io/ips: 192.168.222.120
-          pangolin-operator/enabled: "true"
-          pangolin-operator/site-ref: k8s
-          pangolin-operator/all-ports: "true"
         ports:
           discovery:
             port: 21027

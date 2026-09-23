@@ -1,0 +1,47 @@
+
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: towonel-agent
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: towonel-agent
+  values:
+    controllers:
+      main:
+        replicas: 2
+        annotations:
+          reloader.stakater.com/auto: "true"
+    agent:
+      logLevel: info
+      healthPort: 9090
+      services:
+        - hostname: "*.${SECRET_DOMAIN}"
+          origin: envoy-external.networking.svc.cluster.local:443
+        - hostname: "*.${SECRET_DOMAIN_SHORT}"
+          origin: envoy-external.networking.svc.cluster.local:443
+        - hostname: "*.${SECRET_DOMAIN_PBFA}"
+          origin: envoy-external.networking.svc.cluster.local:443
+      inviteTokenSecret:
+        name: towonel-agent-secret
+        key: TOWONEL_INVITE_TOKEN
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: metrics
+            interval: 1m
+            scrapeTimeout: 10s
+            path: /metrics
+    monitoring:
+      prometheusRule:
+        enabled: true
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          allowCrossNamespaceImport: true
+          matchLabels:
+            dashboards: grafana

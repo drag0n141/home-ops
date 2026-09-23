@@ -1,0 +1,96 @@
+---
+services:
+  caddy:
+    image: ghcr.io/bjw-s-labs/caddy-l4:2.11.4
+    container_name: caddy-l4
+    restart: unless-stopped
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    environment:
+      - 'TZ=${TZ}'
+    ports:
+      - "80:80"
+      - "443:443"
+    configs:
+      - source: caddyfile
+        target: /etc/caddy/Caddyfile
+
+volumes:
+  caddy-data:
+  caddy-config:
+
+networks:
+  default:
+    name: edge
+    external: true
+
+configs:
+  caddyfile:
+    content: |
+      {
+        email ${CLOUDFLARE_EMAIL}
+        http_port 8080
+        https_port 8443
+
+        layer4 {
+          :443 {
+            matching_timeout 15s
+
+            @local tls sni towonel.${DOMAIN}
+            route @local {
+              proxy {
+                proxy_protocol v2
+                upstream 127.0.0.1:8443
+              }
+            }
+
+            @tls tls
+            route @tls {
+              proxy {
+                proxy_protocol v2
+                upstream towonel-hub:4443
+              }
+            }
+          }
+
+          :80 {
+            @local_http http host towonel.${DOMAIN}
+            route @local_http {
+              proxy {
+                proxy_protocol v2
+                upstream 127.0.0.1:8080
+              }
+            }
+          }
+        }
+
+        servers :8443 {
+          listener_wrappers {
+            proxy_protocol {
+              timeout 2s
+              allow 127.0.0.1/32
+            }
+            tls
+          }
+        }
+
+        servers :8080 {
+          listener_wrappers {
+            proxy_protocol {
+              timeout 2s
+              allow 127.0.0.1/32
+            }
+          }
+        }
+
+        log default {
+          output stdout
+          format json
+        }
+      }
+
+      towonel.${DOMAIN} {
+        log
+        reverse_proxy towonel-hub:8443
+      }
