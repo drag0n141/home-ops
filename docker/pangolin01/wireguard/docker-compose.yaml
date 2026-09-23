@@ -4,7 +4,7 @@ services:
     image: 'ghcr.io/linuxserver/wireguard:1.0.20260223'
     hostname: 'wireguard'
     container_name: 'wireguard'
-    restart: 'always'
+    restart: 'unless-stopped'
     cap_drop:
       - 'ALL'
     cap_add:

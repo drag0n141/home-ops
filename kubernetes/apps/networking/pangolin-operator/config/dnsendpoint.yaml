@@ -17,6 +17,9 @@ spec:
     - dnsName: "*.pangolin.${SECRET_DOMAIN}"
       recordType: A
       targets: ["${SECRET_PANGOLIN_IP}"]
+    - dnsName: "towonel.${SECRET_DOMAIN}"
+      recordType: A
+      targets: ["${SECRET_PANGOLIN_IP}"]
     - dnsName: "external.${SECRET_DOMAIN}"
       recordType: A
       targets: ["${SECRET_PANGOLIN_IP}"]
