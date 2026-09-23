@@ -16,6 +16,27 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
+          copy-agent-source:
+            image:
+              repository: nousresearch/hermes-agent
+              tag: v2026.8.16.2@sha256:a39fc11620213e3669a327aff5c6cb1eb2b8a238c6044e33e7ef8885833d89a7
+            command:
+              - /bin/sh
+              - -c
+              - |
+                set -e
+                # hermes-agent >= v2026.7.x ships root-only playwright .deps files;
+                # tolerate those but still fail on any other copy error.
+                cp -r /opt/hermes/. /agent-src/ 2>/tmp/cp.err || true
+                if grep -v 'Permission denied' /tmp/cp.err; then exit 1; fi
+                test -e /agent-src/.venv
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsGroup: 1000
+              runAsUser: 1000
           init:
             image:
               repository: docker.io/library/alpine
@@ -27,11 +48,17 @@ spec:
                 set -euo pipefail
                 mkdir -p /opt/data
                 cp /run/config/config.yaml /opt/data/config.yaml
-                chown 10000:10000 /opt/data/config.yaml
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsGroup: 1000
+              runAsUser: 1000
           install-tools:
             image:
-              repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.9.21@sha256:6bece0644e29a347e5ae17db43c36938c86f171c6f5e0cef18aa2075d331f3a3
+              repository: nousresearch/hermes-agent
+              tag: v2026.8.16.2@sha256:a39fc11620213e3669a327aff5c6cb1eb2b8a238c6044e33e7ef8885833d89a7
             command:
               - /bin/sh
               - -c
@@ -62,6 +89,13 @@ spec:
                   mkdir -p $HOMEBREW_PREFIX
                   git clone --depth 1 https://github.com/Homebrew/brew $HOMEBREW_PREFIX
                 fi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsGroup: 1000
+              runAsUser: 1000
         containers:
           app:
             image:
@@ -74,7 +108,9 @@ spec:
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_PORT: &port 8642
               GOPATH: /opt/data/go
+              HERMES_GID: "1000"
               HERMES_HOME: /opt/data
+              HERMES_UID: "1000"
               HOME: /opt/data
               HOMEBREW_CELLAR: /opt/data/.local/homebrew/Cellar
               HOMEBREW_PREFIX: /opt/data/.local/homebrew
@@ -83,6 +119,7 @@ spec:
               PIP_BREAK_SYSTEM_PACKAGES: "1"
               SEARXNG_URL: http://searxng.default.svc.cluster.local:8080
               TERM: xterm-256color
+              TERMINAL_MAX_FOREGROUND_TIMEOUT: "1800"
               WHATSAPP_ENABLED: true
               WHATSAPP_MODE: bot
             envFrom:
@@ -91,6 +128,19 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
+              capabilities:
+                add:
+                  - CHOWN
+                  - DAC_OVERRIDE
+                  - FOWNER
+                  - FSETID
+                  - SETGID
+                  - SETUID
+                drop:
+                  - ALL
+              runAsGroup: 0
+              runAsNonRoot: false
+              runAsUser: 0
             resources:
               requests:
                 cpu: 50m
@@ -99,8 +149,10 @@ spec:
                 memory: 4Gi
     defaultPodOptions:
       securityContext:
-        fsGroup: 10000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 1000
+        runAsUser: 1000
     service:
       app:
         ports:
@@ -126,6 +178,16 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/data
+      agent-source:
+        type: emptyDir
+        advancedMounts:
+          hermes:
+            copy-agent-source:
+              - path: /agent-src
+            install-tools:
+              - path: /opt/hermes
+            app:
+              - path: /opt/hermes
       config:
         type: configMap
         name: hermes-configmap
@@ -141,6 +203,12 @@ spec:
         path: /mnt/data/openclaw
         globalMounts:
           - path: /nfs-data
+      run:
+        type: emptyDir
+        advancedMounts:
+          hermes:
+            app:
+              - path: /run
       tmpfs:
         type: emptyDir
         globalMounts:
