@@ -24,6 +24,26 @@ spec:
           origin: envoy-external.networking.svc.cluster.local:443
         - hostname: "*.${SECRET_DOMAIN_PBFA}"
           origin: envoy-external.networking.svc.cluster.local:443
+      tcpServices:
+        - name: syncthing-listen-tcp
+          origin: syncthing-sync.default.svc.cluster.local:22000
+          listen_port: 22000
+        - name: ts3-server-tcp
+          origin: ts3-server.default.svc.cluster.local:10011
+          listen_port: 10011
+        - name: ts3-server-file-tcp
+          origin: ts3-server.default.svc.cluster.local:30033
+          listen_port: 30033
+      udpServices:
+        - name: syncthing-udp
+          origin: syncthing-sync.default.svc.cluster.local:21027
+          listen_port: 21027
+        - name: syncthing-listen-udp
+          origin: syncthing-sync.default.svc.cluster.local:22000
+          listen_port: 22000
+        - name: ts3-server-udp
+          origin: ts3-server.default.svc.cluster.local:9987
+          listen_port: 9987
       inviteTokenSecret:
         name: towonel-agent-secret
         key: TOWONEL_INVITE_TOKEN
