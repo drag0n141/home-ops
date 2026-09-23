@@ -12,6 +12,9 @@ spec:
       name: litellm-secret
       key: OPENCODE_GO_API_KEY
     dropParams: true
+    additional:
+      extra_headers:
+        x-opencode-session: "litellm-proxy"
   info:
     maxInputTokens: 1000000
     maxOutputTokens: 131072
