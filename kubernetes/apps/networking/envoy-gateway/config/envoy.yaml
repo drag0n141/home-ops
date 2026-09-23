@@ -74,6 +74,8 @@ kind: ClientTrafficPolicy
 metadata:
   name: envoy
 spec:
+  proxyProtocol:
+    optional: true
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
@@ -90,6 +92,8 @@ spec:
           value: "%REQ(:PATH)%"
         - name: X-Forwarded-Method
           value: "%REQ(:METHOD)%"
+        - name: X-Real-Ip
+          value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
     lateResponseHeaders:
       set:
         - name: Permissions-Policy
