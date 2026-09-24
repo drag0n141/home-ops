@@ -162,6 +162,7 @@ spec:
       type: cronjob
       cronjob:
         successfulJobsHistoryLimit: 1
+        failedJobsHistoryLimit: 1
         securityContext:
           runAsGroup: 33
           runAsNonRoot: true
