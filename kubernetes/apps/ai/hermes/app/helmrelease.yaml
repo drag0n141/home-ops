@@ -18,8 +18,8 @@ spec:
         initContainers:
           copy-agent-source:
             image:
-              repository: nousresearch/hermes-agent
-              tag: v2026.8.16.2@sha256:a39fc11620213e3669a327aff5c6cb1eb2b8a238c6044e33e7ef8885833d89a7
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v2026.9.24@sha256:fca358f12efd65bfaaca05884166f15c0e2788375ca30d77061ac1ebc96452b7
             command:
               - /bin/sh
               - -c
@@ -57,8 +57,8 @@ spec:
               runAsUser: 1000
           install-tools:
             image:
-              repository: nousresearch/hermes-agent
-              tag: v2026.8.16.2@sha256:a39fc11620213e3669a327aff5c6cb1eb2b8a238c6044e33e7ef8885833d89a7
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v2026.9.24@sha256:fca358f12efd65bfaaca05884166f15c0e2788375ca30d77061ac1ebc96452b7
             command:
               - /bin/sh
               - -c
