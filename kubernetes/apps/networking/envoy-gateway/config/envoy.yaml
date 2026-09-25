@@ -65,7 +65,7 @@ spec:
     probes: 3
   timeout:
     http:
-      connectionIdleTimeout: 4s
+      connectionIdleTimeout: 15s
       requestTimeout: 0s
       streamIdleTimeout: 1h
 ---
