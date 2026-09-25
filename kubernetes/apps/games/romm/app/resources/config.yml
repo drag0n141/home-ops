@@ -12,4 +12,7 @@ exclude:
 system:
   platforms: {}
   versions: {}
-filesystem: {}
+filesystem:
+  structure:
+    default: "roms/{platform}/{game}"
+    firmware: "bios/{platform}"
