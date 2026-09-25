@@ -23,5 +23,5 @@ spec:
       interval: 30s
       scrapeTimeout: 10s
       bearerTokenSecret:
-        name: litellm
+        name: litellm-secret
         key: LITELLM_MASTER_KEY
