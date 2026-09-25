@@ -59,10 +59,6 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive:
-    idleTime: 60s
-    interval: 10s
-    probes: 3
   timeout:
     http:
       connectionIdleTimeout: 15s
@@ -116,10 +112,6 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive:
-    idleTime: 60s
-    interval: 10s
-    probes: 3
   timeout:
     http:
       idleTimeout: 60s
