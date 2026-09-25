@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: teddycloud
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      teddycloud:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/toniebox-reverse-engineering/teddycloud
+              tag: 0.7.0@sha256:c31ef85b54df8d6f722adf400d36523c124febd3a61c901e5141324a66a5259d
+            env:
+              TZ: Europe/Berlin
+              PUID: 1000
+              PGID: 1000
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { add: ["NET_BIND_SERVICE"], drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 1024Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        forceRename: "{{ .Release.Name }}"
+        primary: true
+        ports:
+          http:
+            port: 80
+      box:
+        type: LoadBalancer
+        annotations:
+          external-dns.kubernetes.io/hostname: "tonie.${SECRET_DOMAIN_INTERNAL}"
+          lbipam.cilium.io/ips: 192.168.222.130
+        ports:
+          https:
+            port: 443
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          teddycloud:
+            app:
+              - path: /teddycloud/certs
+                subPath: certs
+              - path: /teddycloud/config
+                subPath: config
+              - path: /teddycloud/data/www/custom_img
+                subPath: custom_img
+              - path: /teddycloud/data/firmware
+                subPath: firmware
+              - path: /teddycloud/data/www/plugins
+                subPath: plugins
+      library:
+        type: nfs
+        server: nas01.${SECRET_DOMAIN_INT}
+        path: /mnt/data/media
+        advancedMounts:
+          teddycloud:
+            app:
+              - path: /teddycloud/data/content
+                subPath: teddycloud/content
+              - path: /teddycloud/data/library
+                subPath: teddycloud/library
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /teddycloud/data/cache
+            subPath: cache
+          - path: /tmp
+            subPath: tmp

@@ -19,6 +19,7 @@ resources:
   - ./shelfmark/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./teddycloud/ks.yaml
   - ./tracearr/ks.yaml
   - ./webhook/ks.yaml
   - ./wizarr/ks.yaml
