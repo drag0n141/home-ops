@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: docker.io/timwitzdam/gitsave
-              tag: 1.3.6@sha256:4c8a795463cafae705732499c78182e43e91f1e79bf72f2bbe10c3881ec6991c
+              tag: 1.4.0@sha256:914bd2c9ef15fb11151b75612278b570abf4e08e8085872e0b0aec9fcde3422b
             env:
               TZ: Europe/Berlin
             envFrom:
