@@ -21,9 +21,9 @@ detectors:
 
 genai:
   litellm:
-    provider: openai/qwen3.5-4b
+    provider: openai
     api_key: "{{ .LLAMA_API_KEY }}"
-    model: qwen3.5-4b
+    model: openai/qwen3.5-4b
     provider_options:
       context_size: 8192
       roles:
