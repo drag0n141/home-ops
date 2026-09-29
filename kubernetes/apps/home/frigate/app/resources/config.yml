@@ -72,6 +72,7 @@ record:
 go2rtc:
   streams:
     bedroom_hq: rtspx://192.168.1.1:7441/5dsAECSYs9aMB01q
+    bedroom_lq: rtspx://192.168.1.1:7441/9mFG5asAIa3jh7BE
     # bedroom_lq: http://192.168.160.10/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={{ .REOLINK_USERNAME }}&password={{ .REOLINK_PASSWORD }}
     door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
     door_lq: rtspx://192.168.1.1:7441/z5YROdihtqmdE1IF
@@ -79,6 +80,7 @@ go2rtc:
     garden_hq: rtspx://192.168.1.1:7441/tB8FzwOHNoGu2790
     garden_lq: rtspx://192.168.1.1:7441/eZ9I0xQeGhPw7kpm
     kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
+    kids_lq: rtspx://192.168.1.1:7441/EUCNhwPiGDTEaNp6
     yard_hq: rtspx://192.168.1.1:7441/GQaihGTnFde5Byyi
     yard_lq: rtspx://192.168.1.1:7441/ZxgpdiYy9KHV0qqv
     garage_hq: rtspx://192.168.1.1:7441/qBZxrDrvfIVmj9yR
