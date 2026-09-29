@@ -47,6 +47,16 @@ volumes:
       o: 'bind'
       type: 'none'
 
+networks:
+  traefik:
+    name: traefik
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
+
 configs:
   zot_config:
     content: |
