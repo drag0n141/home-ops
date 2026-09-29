@@ -23,11 +23,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@1e34f2e2acaa766b7efacb8c26352e6abbb023f9 # master
-
-      - name: Setup Workflow Tools
-        run: brew install fluxcd/tap/flux
+      - name: Setup Flux
+        uses: fluxcd/flux2/action@dd233c4fadef306a62b7893204f8e3817fecc2b2 # v2.9.5
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
