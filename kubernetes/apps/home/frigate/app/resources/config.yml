@@ -141,7 +141,11 @@ cameras:
     lpr:
       enabled: false
     motion:
-      mask: 0.267,0.475,0.367,0.473,0.349,0.554,0.272,0.557
+      mask:
+        door_mask_1:
+          friendly_name: gate
+          enabled: true
+          coordinates: 0.267,0.475,0.367,0.473,0.349,0.554,0.272,0.557
   garden:
     ffmpeg:
       inputs:
@@ -154,8 +158,14 @@ cameras:
         Main Stream: garden_hq
     motion:
       mask:
-        - 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
-        - 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
+        garden_mask_1:
+          friendly_name: path
+          enabled: true
+          coordinates: 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
+        garden_mask_2:
+          friendly_name: gate
+          enabled: true
+          coordinates: 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
     zones:
       garden_right:
         coordinates: 0.512,0.25,0.609,0.388,0.749,0.584,0.935,0.859,0.987,0.706,0.697,0.287
@@ -168,8 +178,12 @@ cameras:
       filters:
         person:
           mask:
-            - 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
-            - 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
+            garden_person_mask_1:
+              enabled: true
+              coordinates: 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
+            garden_person_mask_2:
+              enabled: true
+              coordinates: 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
     lpr:
       enabled: false
   yard:
@@ -182,6 +196,19 @@ cameras:
     live:
       streams:
         Main Stream: yard_hq
+    motion:
+      mask:
+        yard_mask_1:
+          friendly_name: neighbor
+          enabled: true
+          coordinates: 0.942,0,0.869,0.297,0,0.544,0,0
+        yard_mask_2:
+          friendly_name: street
+          enabled: true
+          coordinates: 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
+    zones:
+      house_side:
+        coordinates: 0.75,0.591,0.468,0.712,0,0.84,0,0.908,0.001,1,1,1,0.999,0.366,0.949,0.476
     detect:
       width: 1280
       height: 720
@@ -191,17 +218,15 @@ cameras:
       filters:
         person:
           mask:
-            - 0.942,0,0.869,0.297,0,0.544,0,0
-            - 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
+            yard_person_mask_1:
+              enabled: true
+              coordinates: 0.942,0,0.869,0.297,0,0.544,0,0
+            yard_person_mask_2:
+              enabled: true
+              coordinates: 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
     lpr:
       enabled: true
-    motion:
-      mask:
-        - 0.942,0,0.869,0.297,0,0.544,0,0
-        - 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
-    zones:
-      house_side:
-        coordinates: 0.75,0.591,0.468,0.712,0,0.84,0,0.908,0.001,1,1,1,0.999,0.366,0.949,0.476
+
   garage:
     ffmpeg:
       inputs:
