@@ -20,11 +20,13 @@ detectors:
     device: GPU
 
 genai:
-  provider: openai
+  provider: openai/qwen3.5-4b
   api_key: "{{ .LLAMA_API_KEY }}"
   model: qwen3.5-4b
   provider_options:
     context_size: 8192
+    roles:
+      - descriptions
 
 model:
   model_type: yolo-generic
@@ -221,7 +223,7 @@ telemetry:
   stats:
     intel_gpu_stats: false
   version_check: false
-version: 0.17-0
+version: 0.18-0
 classification:
   custom:
     Sandkasten:
