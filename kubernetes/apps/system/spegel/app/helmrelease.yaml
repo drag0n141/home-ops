@@ -23,3 +23,6 @@ spec:
     spegel:
       containerdSock: /run/containerd/containerd.sock
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+      mirroredRegistries:
+        - _default
+        - https://registry.${SECRET_DOMAIN_INT}
