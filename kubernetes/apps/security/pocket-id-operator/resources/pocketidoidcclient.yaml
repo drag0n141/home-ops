@@ -16,3 +16,15 @@ spec:
       namespace: security
   logo:
     nameOverride: sshwifty
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: zot
+spec:
+  name: Zot
+  callbackUrls:
+    - "https://registry.${SECRET_DOMAIN_INT}/zot/auth/callback/oidc"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
