@@ -7,7 +7,6 @@ services:
     restart: 'unless-stopped'
     cap_drop:
       - 'ALL'
-    read_only: true
     volumes:
       - 'data:/var/lib/registry'
     configs:
