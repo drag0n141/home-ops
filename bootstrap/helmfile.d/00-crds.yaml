@@ -6,7 +6,7 @@ releases:
   - name: envoy-gateway
     namespace: networking
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
-    version: v1.9.1
+    version: v1.9.2
 
   - name: grafana-operator
     namespace: monitoring
@@ -16,4 +16,4 @@ releases:
   - name: kube-prometheus-stack
     namespace: monitoring
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
-    version: 91.4.1
+    version: 91.8.0

@@ -1,0 +1,187 @@
+---
+services:
+  zot:
+    image: 'ghcr.io/project-zot/zot-linux-amd64:v2.1.21'
+    hostname: 'zot'
+    container_name: 'zot'
+    restart: 'unless-stopped'
+    cap_drop:
+      - 'ALL'
+    volumes:
+      - 'data:/var/lib/registry'
+    configs:
+      - source: 'zot_config'
+        target: '/etc/zot/config.json'
+      - source: 'zot_htpasswd'
+        target: '/etc/zot/htpasswd'
+      - source: 'zot_oidc_credentials'
+        target: '/etc/zot/openid-credentials.json'
+      - source: 'zot_session_keys'
+        target: '/etc/zot/sessionKeys.json'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'dexd.enabled=true'
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.zot-rtr.entrypoints=https'
+      - 'traefik.http.routers.zot-rtr.rule=Host(`registry.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.zot-rtr.tls=true'
+      - 'traefik.http.routers.zot-rtr.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.zot-rtr.middlewares=chain-no-auth@file'
+      - 'traefik.http.routers.zot-rtr.service=zot-svc'
+      - 'traefik.http.services.zot-svc.loadbalancer.server.port=5000'
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+
+volumes:
+  data:
+    driver: 'local'
+    driver_opts:
+      device: '/mnt/nvme/appdata/zot/data'
+      o: 'bind'
+      type: 'none'
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
+
+configs:
+  zot_config:
+    content: |
+      {
+        "distSpecVersion": "1.1.0",
+        "storage": {
+          "gc": true,
+          "gcDelay": "1h",
+          "gcInterval": "24h",
+          "retention": {
+            "dryRun": false,
+            "delay": "24h",
+            "policies": [
+              {
+                "repositories": ["docker-hub/**", "ghcr/**"],
+                "deleteReferrers": true,
+                "deleteUntagged": true,
+                "keepUntagged": {"pulledWithin": "2920h"},
+                "keepTags": [{"patterns": [".*"], "pulledWithin": "4380h"}]
+              },
+              {
+                "repositories": ["**"],
+                "deleteReferrers": true,
+                "deleteUntagged": true,
+                "keepTags": [{"patterns": [".*"]}]
+              }
+            ]
+          },
+          "rootDirectory": "/var/lib/registry"
+        },
+        "http": {
+          "accessControl": {
+            "repositories": {
+              "**": {
+                "anonymousPolicy": ["read"],
+                "defaultPolicy": ["read"]
+              },
+              "bjw-s/**": {
+                "policies": [
+                  {
+                    "users": ["registry-push"],
+                    "actions": ["read", "create", "update"]
+                  },
+                  {
+                    "groups": ["registry-ui-users"],
+                    "actions": ["read", "delete"]
+                  }
+                ],
+                "defaultPolicy": ["read"]
+              },
+              "docker-hub/**": {
+                "anonymousPolicy": ["read"],
+                "defaultPolicy": ["read"],
+                "policies": [
+                  {
+                    "groups": ["registry-ui-users"],
+                    "actions": ["read", "delete"]
+                  }
+                ]
+              },
+              "ghcr/**": {
+                "anonymousPolicy": ["read"],
+                "defaultPolicy": ["read"],
+                "policies": [
+                  {
+                    "groups": ["registry-ui-users"],
+                    "actions": ["read", "delete"]
+                  }
+                ]
+              }
+            }
+          },
+          "address": "0.0.0.0",
+          "auth": {
+            "apikey": true,
+            "htpasswd": {"path": "/etc/zot/htpasswd"},
+            "openid": {
+              "callbackAllowOrigins": ["https://registry.${DOMAIN_INT}"],
+              "providers": {
+                "oidc": {
+                  "name": "Pocket ID",
+                  "issuer": "https://id.${DOMAIN}",
+                  "credentialsFile": "/etc/zot/openid-credentials.json",
+                  "scopes": ["openid", "profile", "email", "groups"],
+                  "claimMapping": {
+                    "username": "preferred_username"
+                  }
+                }
+              }
+            },
+            "sessionKeysFile": "/etc/zot/sessionKeys.json"
+          },
+          "externalUrl": "https://registry.${DOMAIN_INT}",
+          "port": "5000"
+        },
+        "log": {"level": "info"},
+        "extensions": {
+          "search": {"enable": true},
+          "sync": {
+            "enable": true,
+            "registries": [
+              {
+                "urls": ["https://index.docker.io"],
+                "onDemand": true,
+                "tlsVerify": true,
+                "maxRetries": 3,
+                "retryDelay": "5m",
+                "content": [{"prefix": "**", "destination": "/docker-hub"}]
+              },
+              {
+                "urls": ["https://ghcr.io"],
+                "onDemand": true,
+                "tlsVerify": true,
+                "maxRetries": 3,
+                "retryDelay": "5m",
+                "content": [{"prefix": "**", "destination": "/ghcr"}]
+              }
+            ]
+          },
+          "ui": {"enable": true}
+        }
+      }
+  zot_htpasswd:
+    environment: 'ZOT_HTPASSWD'
+  zot_oidc_credentials:
+    content: |
+      {"clientid": "${ZOT_OIDC_CLIENT_ID}", "clientsecret": "${ZOT_OIDC_CLIENT_SECRET}"}
+  zot_session_keys:
+    environment: 'ZOT_SESSION_KEYS'

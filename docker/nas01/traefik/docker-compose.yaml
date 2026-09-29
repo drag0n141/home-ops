@@ -266,14 +266,12 @@ configs:
           chain-no-auth:
             chain:
               middlewares:
-                - middlewares-rate-limit
                 - middlewares-secure-headers
                 - middlewares-compress
 
           chain-tinyauth:
             chain:
               middlewares:
-                - middlewares-rate-limit
                 - middlewares-secure-headers
                 - middlewares-compress
                 - middlewares-tinyauth

@@ -20,11 +20,15 @@ detectors:
     device: GPU
 
 genai:
-  provider: openai
-  api_key: "{{ .LLAMA_API_KEY }}"
-  model: qwen3.5-4b
-  provider_options:
-    context_size: 8192
+  litellm:
+    provider: openai
+    base_url: http://litellm.ai.svc.cluster.local:4000/v1
+    api_key: "{{ .LLAMA_API_KEY }}"
+    model: openai/qwen3.5-4b
+    provider_options:
+      context_size: 8192
+      roles:
+        - descriptions
 
 model:
   model_type: yolo-generic
@@ -72,6 +76,7 @@ record:
 go2rtc:
   streams:
     bedroom_hq: rtspx://192.168.1.1:7441/5dsAECSYs9aMB01q
+    bedroom_lq: rtspx://192.168.1.1:7441/9mFG5asAIa3jh7BE
     # bedroom_lq: http://192.168.160.10/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={{ .REOLINK_USERNAME }}&password={{ .REOLINK_PASSWORD }}
     door_hq: rtspx://192.168.1.1:7441/Zr32xZCa0Y01m6ZW
     door_lq: rtspx://192.168.1.1:7441/z5YROdihtqmdE1IF
@@ -79,6 +84,7 @@ go2rtc:
     garden_hq: rtspx://192.168.1.1:7441/tB8FzwOHNoGu2790
     garden_lq: rtspx://192.168.1.1:7441/eZ9I0xQeGhPw7kpm
     kids_hq: rtspx://192.168.1.1:7441/CAWz7CN9pbXivviu
+    kids_lq: rtspx://192.168.1.1:7441/EUCNhwPiGDTEaNp6
     yard_hq: rtspx://192.168.1.1:7441/GQaihGTnFde5Byyi
     yard_lq: rtspx://192.168.1.1:7441/ZxgpdiYy9KHV0qqv
     garage_hq: rtspx://192.168.1.1:7441/qBZxrDrvfIVmj9yR
@@ -135,7 +141,11 @@ cameras:
     lpr:
       enabled: false
     motion:
-      mask: 0.267,0.475,0.367,0.473,0.349,0.554,0.272,0.557
+      mask:
+        door_mask_1:
+          friendly_name: gate
+          enabled: true
+          coordinates: 0.267,0.475,0.367,0.473,0.349,0.554,0.272,0.557
   garden:
     ffmpeg:
       inputs:
@@ -148,8 +158,14 @@ cameras:
         Main Stream: garden_hq
     motion:
       mask:
-        - 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
-        - 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
+        garden_mask_1:
+          friendly_name: path
+          enabled: true
+          coordinates: 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
+        garden_mask_2:
+          friendly_name: gate
+          enabled: true
+          coordinates: 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
     zones:
       garden_right:
         coordinates: 0.512,0.25,0.609,0.388,0.749,0.584,0.935,0.859,0.987,0.706,0.697,0.287
@@ -162,8 +178,12 @@ cameras:
       filters:
         person:
           mask:
-            - 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
-            - 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
+            garden_person_mask_1:
+              enabled: true
+              coordinates: 0,0,0.222,0,0.221,0.103,0.194,0.23,0.031,0.781,0,0.575
+            garden_person_mask_2:
+              enabled: true
+              coordinates: 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
     lpr:
       enabled: false
   yard:
@@ -176,6 +196,19 @@ cameras:
     live:
       streams:
         Main Stream: yard_hq
+    motion:
+      mask:
+        yard_mask_1:
+          friendly_name: neighbor
+          enabled: true
+          coordinates: 0.942,0,0.869,0.297,0,0.544,0,0
+        yard_mask_2:
+          friendly_name: street
+          enabled: true
+          coordinates: 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
+    zones:
+      house_side:
+        coordinates: 0.75,0.591,0.468,0.712,0,0.84,0,0.908,0.001,1,1,1,0.999,0.366,0.949,0.476
     detect:
       width: 1280
       height: 720
@@ -185,17 +218,15 @@ cameras:
       filters:
         person:
           mask:
-            - 0.942,0,0.869,0.297,0,0.544,0,0
-            - 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
+            yard_person_mask_1:
+              enabled: true
+              coordinates: 0.942,0,0.869,0.297,0,0.544,0,0
+            yard_person_mask_2:
+              enabled: true
+              coordinates: 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
     lpr:
       enabled: true
-    motion:
-      mask:
-        - 0.942,0,0.869,0.297,0,0.544,0,0
-        - 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
-    zones:
-      house_side:
-        coordinates: 0.75,0.591,0.468,0.712,0,0.84,0,0.908,0.001,1,1,1,0.999,0.366,0.949,0.476
+
   garage:
     ffmpeg:
       inputs:
@@ -219,19 +250,3 @@ telemetry:
   stats:
     intel_gpu_stats: false
   version_check: false
-version: 0.17-0
-classification:
-  custom:
-    Sandkasten:
-      enabled: true
-      name: Sandkasten
-      threshold: 0.8
-      state_config:
-        cameras:
-          garden:
-            crop:
-              - 0.7653510344152296
-              - 0.4428674994939724
-              - 0.8448278304054474
-              - 0.5841595812543596
-        motion: true

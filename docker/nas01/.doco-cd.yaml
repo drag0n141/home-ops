@@ -15,6 +15,10 @@ external_secrets:
   TZ: "op://Kubernetes/basic/TZ"
   UNIFI_API_KEY: op://Kubernetes/unifi/UNIFI_API_KEY
   ZEROBYTE_APP_SECRET: "op://Kubernetes/zerobyte/ZEROBYTE_APP_SECRET"
+  ZOT_HTPASSWD: op://Kubernetes/zot/ZOT_HTPASSWD
+  ZOT_OIDC_CLIENT_ID: op://Kubernetes/pocket-id/ZOT_CLIENT_ID
+  ZOT_OIDC_CLIENT_SECRET: op://Kubernetes/pocket-id/ZOT_CLIENT_SECRET
+  ZOT_SESSION_KEYS: op://Kubernetes/zot/ZOT_SESSION_KEYS
 force_recreate: false
 reconciliation:
   enabled: true
