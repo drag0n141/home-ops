@@ -20,13 +20,14 @@ detectors:
     device: GPU
 
 genai:
-  provider: openai/qwen3.5-4b
-  api_key: "{{ .LLAMA_API_KEY }}"
-  model: qwen3.5-4b
-  provider_options:
-    context_size: 8192
-    roles:
-      - descriptions
+  litellm:
+    provider: openai/qwen3.5-4b
+    api_key: "{{ .LLAMA_API_KEY }}"
+    model: qwen3.5-4b
+    provider_options:
+      context_size: 8192
+      roles:
+        - descriptions
 
 model:
   model_type: yolo-generic
