@@ -33,7 +33,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: anthropics/claude-code-action@fd1c128679612beff4ca259c78021c506e8aa7a7 # v1.0.237
+      - uses: anthropics/claude-code-action@12dd8d74c712f5f3669365b2369b558c495b1104 # v1.0.238
         with:
           claude_code_oauth_token: ${{ steps.load-secrets.outputs.CLAUDE_CODE_OAUTH_TOKEN }}
           allowed_bots: "drag0n141-bot[bot]"
