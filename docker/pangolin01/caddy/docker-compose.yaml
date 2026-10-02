@@ -37,7 +37,7 @@ configs:
           :443 {
             matching_timeout 15s
 
-            @local tls sni towonel.${DOMAIN} home.${DOMAIN}
+            @local tls sni towonel.${DOMAIN}
             route @local {
               proxy {
                 proxy_protocol v2
@@ -55,7 +55,7 @@ configs:
           }
 
           :80 {
-            @local_http http host towonel.${DOMAIN} home.${DOMAIN}
+            @local_http http host towonel.${DOMAIN}
             route @local_http {
               proxy {
                 proxy_protocol v2
@@ -93,8 +93,4 @@ configs:
       towonel.${DOMAIN} {
         log
         reverse_proxy towonel-hub:8443
-      }
-      home.${DOMAIN} {
-        log
-        reverse_proxy 192.168.150.5:80
       }
