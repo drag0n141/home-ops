@@ -13,6 +13,8 @@ spec:
     kind: Deployment
     deschedulerPolicyAPIVersion: descheduler/v1alpha2
     deschedulerPolicy:
+      metricsProviders:
+        - source: KubernetesMetrics
       profiles:
         - name: Default
           pluginConfig:
@@ -23,6 +25,18 @@ spec:
                     - FailedBarePods
                     - PodsWithLocalStorage
                     - SystemCriticalPods
+            - name: LowNodeUtilization
+              args:
+                metricsUtilization:
+                  source: KubernetesMetrics
+                thresholds:
+                  cpu: 20
+                  memory: 20
+                  pods: 20
+                targetThresholds:
+                  cpu: 50
+                  memory: 50
+                  pods: 50
             - name: RemoveFailedPods
               args:
                 reasons:
@@ -45,6 +59,7 @@ spec:
           plugins:
             balance:
               enabled:
+                - LowNodeUtilization
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
