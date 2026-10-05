@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/icereed/paperless-gpt
-              tag: v0.28.0@sha256:413af73ff5415e1f61327ccb1c63cb14e84e86b761969be6eaaee61b4f39bef4
+              tag: v0.29.0@sha256:4127ea223e0f496c1075a3a05661df4847140974c3c3ce89a4ba991be50320cb
             command:
               - "/app/paperless-gpt"
             env:
