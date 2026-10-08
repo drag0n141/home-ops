@@ -16,7 +16,6 @@ resources:
   - ./epicgames/ks.yaml
   - ./ferdium/ks.yaml
   - ./filebrowser/ks.yaml
-  - ./flohmarkt/ks.yaml
   - ./forgejo/ks.yaml
   - ./geopulse/ks.yaml
   - ./gotify/ks.yaml
