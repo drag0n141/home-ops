@@ -57,15 +57,16 @@ spec:
         secretKeyRef:
           name: renovator-operator-secret
           key: DOCKERHUB_TOKEN
+    - name: GITHUB_RENOVATE_PAT
+      valueFrom:
+        secretKeyRef:
+          name: renovator-operator-secret
+          key: GITHUB_RENOVATE_PAT
     - name: RENOVATE_HOST_RULES
-      value: >-
+      value: |-
         [
-          {
-            "hostType": "docker",
-            "matchHost": "docker.io",
-            "username": "$(DOCKERHUB_USERNAME)",
-            "password": "$(DOCKERHUB_TOKEN)"
-          }
+          { "hostType": "docker", "matchHost": "docker.io", "username": "$(DOCKERHUB_USERNAME)", "password": "$(DOCKERHUB_TOKEN)" },
+          { "hostType": "docker", "matchHost": "ghcr.io", "username": "drag0n141", "password": "$(GITHUB_RENOVATE_PAT)" }
         ]
   image: ghcr.io/renovatebot/renovate:44.133.0
   parallelism: 5
