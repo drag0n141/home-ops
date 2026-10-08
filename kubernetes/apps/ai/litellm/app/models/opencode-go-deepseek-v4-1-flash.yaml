@@ -1,0 +1,27 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: opencode-go-deepseek-v4-1-flash
+spec:
+  modelName: opencode-go/deepseek-v4.1-flash
+  params:
+    model: openai/deepseek-v4.1-flash
+    apiBase: https://opencode.ai/zen/go/v1
+    apiKeyRef:
+      name: litellm-secret
+      key: OPENCODE_GO_API_KEY
+    dropParams: true
+    additional:
+      extra_headers:
+        x-opencode-session: "litellm-proxy"
+      extra_body:
+        chat_template_kwargs:
+          enable_thinking: false
+  info:
+    maxInputTokens: 1000000
+    maxOutputTokens: 131072
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    extra:
+      supports_reasoning: false
