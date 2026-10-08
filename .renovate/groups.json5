@@ -12,16 +12,6 @@
       minimumGroupSize: 2,
     },
     {
-      description: "Agentgateway Group",
-      groupName: "Agentgateway",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["agentgateway"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
-    },
-    {
       description: "Barman Cloud Group",
       groupName: "Barman Cloud",
       matchDatasources: ["docker", "github-releases"],
@@ -42,6 +32,16 @@
       minimumGroupSize: 2,
     },
     {
+      description: "Geopulse Group",
+      groupName: "Geopulse",
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["geopulse"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Immich Group",
       groupName: "Immich",
       matchDatasources: ["docker"],
@@ -50,16 +50,6 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       sourceUrl: "https://github.com/immich-app/immich",
-      minimumGroupSize: 2,
-    },
-    {
-      description: "Pangolin Operator Group",
-      groupName: "Pangolin Operator",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["pangolin-operator"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
       minimumGroupSize: 2,
     },
     {
@@ -77,16 +67,6 @@
       groupName: "Rook-Ceph",
       matchDatasources: ["docker"],
       matchPackagePatterns: ["rook.ceph"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
-    },
-    {
-      description: "Teleport Group",
-      groupName: "Teleport",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["teleport-cluster", "teleport-kube-agent"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
