@@ -50,7 +50,7 @@
         commitMessageTopic: "{{{groupName}}} group",
       },
       sourceUrl: "https://github.com/immich-app/immich",
-      minimumGroupSize: 2,
+      minimumGroupSize: 3,
     },
     {
       description: "Patchmon Group",
