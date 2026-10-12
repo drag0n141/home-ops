@@ -10,7 +10,7 @@ spec:
   groupRef:
     name: mcp-tools
   secrets:
-    - name: plex-mcp-secret
+    - name: plex-mcp-url-secret
       key: PLEX_URL
       targetEnvName: PLEX_URL
     - name: plex-mcp-secret
