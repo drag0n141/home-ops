@@ -55,3 +55,12 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data/database
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          wizarr:
+            app:
+              - path: /.cache
+                subPath: cache
+              - path: /tmp
+                subPath: tmp
