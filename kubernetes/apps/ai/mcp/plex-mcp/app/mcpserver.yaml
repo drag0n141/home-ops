@@ -9,8 +9,14 @@ spec:
   mcpPort: 3001
   groupRef:
     name: mcp-tools
-  secrets:
-    - name: plex-mcp-secret
-      key: PLEX_URL
-    - name: plex-mcp-secret
-      key: PLEX_TOKEN
+  env:
+    - name: PLEX_URL
+      valueFrom:
+        secretKeyRef:
+          name: plex-mcp-secret
+          key: PLEX_URL
+    - name: PLEX_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: plex-mcp-secret
+          key: PLEX_TOKEN
