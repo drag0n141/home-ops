@@ -2,7 +2,6 @@ server:
   disableUpdateCheck: true
   database:
     path: "/config/filebrowser.sqlite"
-    migrateFrom: "/config/database.db.old"
   cacheDir: "/tmp/cache"
   sources:
     - path: "/media"
@@ -14,6 +13,7 @@ server:
 http:
   externalUrl: "https://filebrowser.${SECRET_DOMAIN}"
   disableWebDAV: true
+  trustProxyHeaders: true
 auth:
   methods:
     password:
