@@ -4,7 +4,7 @@ kind: MCPServer
 metadata:
   name: plex-mcp
 spec:
-  image: ghcr.io/vladimir-tutin/plex-mcp-server:1.4.1
+  image: ghcr.io/vladimir-tutin/plex-mcp-server:1.5.0
   transport: streamable-http
   mcpPort: 3001
   groupRef:
