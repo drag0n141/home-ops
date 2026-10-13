@@ -26,7 +26,6 @@ auth:
       scopes: "email openid profile groups"
       userIdentifier: "preferred_username"
       adminGroup: "ID-Admin"
-      createUser: true
 frontend:
   oidcLoginButtonText: "Sign in with Pocket ID"
   disableDefaultLinks: true
