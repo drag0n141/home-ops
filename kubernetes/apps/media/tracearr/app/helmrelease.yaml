@@ -76,12 +76,14 @@ spec:
           - name: envoy-internal
             namespace: networking
     persistence:
+      cache:
+        existingClaim: "{{ .Release.Name }}-cache"
+        globalMounts:
+          - path: /app/data/image-cache
       tmpfs:
         type: emptyDir
         advancedMounts:
           tracearr:
             app:
-              - path: /app/data/image-cache
-                subPath: cache
               - path: /tmp
                 subPath: tmp
