@@ -21,7 +21,7 @@ spec:
           pip-install:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.14-slim@sha256:cfe2e24a75302a15934d37c2d86412893c0aa934dc3a97cbb439d04c01890ca9
+              tag: 3.15-slim@sha256:6ea0540b2837a9a285e64f59a2e8eb7e85defc4bb7c8cea52742821f50217deb
             command:
               - pip
               - install
@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.14-slim@sha256:cfe2e24a75302a15934d37c2d86412893c0aa934dc3a97cbb439d04c01890ca9
+              tag: 3.15-slim@sha256:6ea0540b2837a9a285e64f59a2e8eb7e85defc4bb7c8cea52742821f50217deb
             command: ["python", "/scripts/gotify-icons.py"]
             env:
               TZ: Europe/Berlin
