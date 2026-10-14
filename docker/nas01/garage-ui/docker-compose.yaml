@@ -1,0 +1,46 @@
+---
+services:
+  garage-ui:
+    image: 'docker.io/noooste/garage-ui:v0.13.0'
+    hostname: 'garage-ui'
+    container_name: 'garage-ui'
+    restart: 'always'
+    cap_drop:
+      - 'ALL'
+    read_only: true
+    environment:
+      - 'TZ=${TZ}'
+      - 'GARAGE_UI_GARAGE_ADMIN_ENDPOINT=http://garage:3903'
+      - 'GARAGE_UI_GARAGE_ENDPOINT=http://garage:3900'
+      - 'GARAGE_UI_GARAGE_ADMIN_TOKEN=${GARAGE_ADMIN_TOKEN}'
+      - 'GARAGE_UI_SERVER_ROOT_URL=https://garage.${DOMAIN_INT}'
+      - 'GARAGE_UI_SERVER_PORT=8080'
+    networks:
+      - traefik
+    security_opt:
+      - 'no-new-privileges:true'
+    labels:
+      - 'dexd.enabled=true'
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=traefik'
+      - 'traefik.http.routers.garage-ui-rtr.entrypoints=https'
+      - 'traefik.http.routers.garage-ui-rtr.rule=Host(`garage.${DOMAIN_INT}`)'
+      - 'traefik.http.routers.garage-ui-rtr.tls=true'
+      - 'traefik.http.routers.garage-ui-rtr.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.garage-ui-rtr.middlewares=chain-internal-tinyauth@file'
+      - 'traefik.http.routers.garage-ui-rtr.service=garage-ui-svc'
+      - 'traefik.http.services.garage-ui-svc.loadbalancer.server.port=8080'
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.16.1.0/24
+         gateway: 172.16.1.1
