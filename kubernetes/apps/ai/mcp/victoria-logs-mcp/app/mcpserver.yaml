@@ -9,9 +9,6 @@ spec:
   mcpPort: 8081
   groupRef:
     name: mcp-tools
-  permissionProfile:
-    type: builtin
-    name: network
   env:
     - name: MCP_SERVER_MODE
       value: http
