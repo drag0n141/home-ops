@@ -19,7 +19,7 @@ spec:
           copy-agent-source:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909
+              tag: v0.22.0@sha256:c69536a39e885b8943329bda68cdf44492458b96aa74a212239bde9d2aeb406a
             command:
               - /bin/sh
               - -c
@@ -58,7 +58,7 @@ spec:
           install-tools:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909
+              tag: v0.22.0@sha256:c69536a39e885b8943329bda68cdf44492458b96aa74a212239bde9d2aeb406a
             command:
               - /bin/sh
               - -c
@@ -100,7 +100,7 @@ spec:
           app:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909
+              tag: v0.22.0@sha256:c69536a39e885b8943329bda68cdf44492458b96aa74a212239bde9d2aeb406a
             args: ["gateway", "run"]
             env:
               TZ: Europe/Berlin
