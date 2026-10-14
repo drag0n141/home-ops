@@ -1,7 +1,7 @@
 ---
 services:
   garage-ui:
-    image: 'docker.io/noooste/garage-ui:v0.13.0'
+    image: 'docker.io/noooste/garage-ui:v0.14.0'
     hostname: 'garage-ui'
     container_name: 'garage-ui'
     restart: 'always'
