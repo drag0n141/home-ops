@@ -2,9 +2,9 @@
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDOIDCClient
 metadata:
-  name: garage
+  name: garage-ui
 spec:
-  name: Garage
+  name: Garage-UI
   callbackUrls:
     - "https://garage.${SECRET_DOMAIN_INTERNAL}/auth/oidc/callback"
   allowedUserGroups:
