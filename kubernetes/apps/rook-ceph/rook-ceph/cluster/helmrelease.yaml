@@ -51,8 +51,6 @@ spec:
         addressRanges:
           public: ["169.254.255.0/24"]
           cluster: ["169.254.255.0/24"]
-        connections:
-          requireMsgr2: true
       resources:
         mgr:
           limits:
