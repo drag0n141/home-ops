@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ellite/wallos
-              tag: 5.9.0@sha256:0955003d99d6fc0f20ae5edcad6aee6ce818b5fbe9283920daa2c8945723f5d9
+              tag: 5.10.0@sha256:6d67b6e21dbb978dff113d01860311221adccc53151c033120f113e11a63d1e7
             env:
               TZ: Europe/Berlin
               OIDC_ENABLED: true
