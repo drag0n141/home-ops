@@ -15,9 +15,6 @@ spec:
       grafanaOperator:
         matchLabels:
           dashboards: grafana
-    service:
-      registry:
-        hostPort: 29999
     serviceMonitor:
       enabled: true
     spegel:
