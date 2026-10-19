@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/11notes/kms
-              tag: 1.0.3@sha256:0eb71bab971959c8e609f280c0e7fe68968cafaab1c066274db12161ffc46674
+              tag: 1.0.3@sha256:03912724824ddb53b633d3c52637a9bb3084071dce2cfbe4a74c3275c7c2be52
             env:
               TZ: Europe/Berlin
             securityContext:
