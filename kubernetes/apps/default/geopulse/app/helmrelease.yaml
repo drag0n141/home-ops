@@ -155,12 +155,6 @@ spec:
               - subPath: ai-encryption-key.txt
                 path: /app/keys/ai-encryption-key.txt
                 readOnly: true
-              - subPath: jwt-private-key.pem
-                path: /app/keys/jwt-private-key.pem
-                readOnly: true
-              - subPath: jwt-public-key.pem
-                path: /app/keys/jwt-public-key.pem
-                readOnly: true
       initdb:
         type: configMap
         identifier: geopulse-initdb
