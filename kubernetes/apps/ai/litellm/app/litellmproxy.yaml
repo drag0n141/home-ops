@@ -41,6 +41,8 @@ spec:
         secretKeyRef:
           name: litellm-secret
           key: LITELLM_MASTER_KEY
+  podAnnotations:
+    reloader.stakater.com/auto: "true"
   resources:
     requests:
       cpu: 100m
