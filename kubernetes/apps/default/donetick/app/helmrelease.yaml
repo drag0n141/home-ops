@@ -54,7 +54,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/v1/ping
+                    path: /health
                     port: *port
               readiness: *probes
             securityContext:
