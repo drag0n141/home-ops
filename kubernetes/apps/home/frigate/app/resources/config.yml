@@ -19,17 +19,6 @@ detectors:
     type: openvino
     device: GPU
 
-genai:
-  litellm:
-    provider: openai
-    base_url: http://litellm.ai.svc.cluster.local:4000/v1
-    api_key: "{{ .LLAMA_API_KEY }}"
-    model: openai/qwen3.5-4b
-    provider_options:
-      context_size: 8192
-      roles:
-        - descriptions
-
 model:
   model_type: yolo-generic
   width: 320
@@ -130,14 +119,6 @@ cameras:
     objects:
       track:
         - person
-      genai:
-        enabled: True
-        use_snapshot: True
-        prompt: "Describe what the {label} is doing at the front door. Be brief and in German."
-        object_prompts:
-          person: "Describe the person briefly in German: appearance, actions, and purpose of visit. Mention any packages."
-        objects:
-          - person
     lpr:
       enabled: false
     motion:
