@@ -41,8 +41,6 @@ detect:
 face_recognition:
   enabled: true
   model_size: small
-lpr:
-  enabled: true
 
 snapshots:
   enabled: true
@@ -119,8 +117,6 @@ cameras:
     objects:
       track:
         - person
-    lpr:
-      enabled: false
     motion:
       mask:
         door_mask_1:
@@ -165,8 +161,6 @@ cameras:
             garden_person_mask_2:
               enabled: true
               coordinates: 0.461,0.268,0.495,0.272,0.551,0.119,0.507,0.107
-    lpr:
-      enabled: false
   yard:
     ffmpeg:
       inputs:
@@ -196,6 +190,7 @@ cameras:
     objects:
       track:
         - person
+        - car
       filters:
         person:
           mask:
@@ -205,8 +200,6 @@ cameras:
             yard_person_mask_2:
               enabled: true
               coordinates: 0.869,0.295,0.963,0.447,0.998,0.36,1,0.005,1,0.005,1,0,0.943,0
-    lpr:
-      enabled: true
 
   garage:
     ffmpeg:
@@ -224,8 +217,6 @@ cameras:
     objects:
       track:
         - person
-    lpr:
-      enabled: false
 
 telemetry:
   stats:
