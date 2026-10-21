@@ -84,17 +84,14 @@ go2rtc:
 objects:
   track:
     - person
-    - car
 
 review:
   alerts:
     labels:
       - person
-      - car
   detections:
     labels:
       - person
-      - car
 
 cameras:
   door:
@@ -186,7 +183,6 @@ cameras:
     objects:
       track:
         - person
-        - car
       filters:
         person:
           mask:
