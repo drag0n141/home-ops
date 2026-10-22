@@ -34,7 +34,7 @@ spec:
           trial-token-updater:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.15-slim@sha256:7bd9bc5a5ebfe5f5cae5419bbb7fceee8b74d6049893fc39549ebfdcb0a5151d
+              tag: 3.15-slim@sha256:b23bb42e5298783f81e7e6f09e1175f68eb46000a789b3ee272ac231c212c4cf
             command: ["python", "/scripts/trial-token-updater.py"]
             securityContext:
               allowPrivilegeEscalation: false
