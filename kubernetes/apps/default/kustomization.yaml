@@ -31,7 +31,7 @@ resources:
   - ./n8n/ks.yaml
   - ./netbox/ks.yaml
   - ./netronome/ks.yaml
-  - ./nextcloud/ks.yaml
+  #- ./nextcloud/ks.yaml
   - ./nexterm/ks.yaml
   - ./outline/ks.yaml
   - ./paperless/ks.yaml
