@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/haproxy
-              tag: 3.4.7-alpine@sha256:251da69821897ec8c4819f12b1babbc4b71f562943addc9b9eb14bb6ece40dc6
+              tag: 3.4.7-alpine@sha256:d0bec71898678c9feec850424314979452feb5e76e34537bf590ab22c50085b9
             env:
               TZ: Europe/Berlin
             securityContext:
