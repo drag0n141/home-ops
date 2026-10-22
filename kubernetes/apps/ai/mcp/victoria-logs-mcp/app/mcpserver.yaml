@@ -19,4 +19,4 @@ spec:
     - name: MCP_LOG_LEVEL
       value: info
     - name: VL_INSTANCE_ENTRYPOINT
-      value: http://victoria-logs-server.monitoring.svc.cluster.local:9428
+      value: http://victoria-logs.monitoring.svc.cluster.local:9428
