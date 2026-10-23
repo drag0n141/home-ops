@@ -8,3 +8,8 @@ spec:
   transport: stdio
   groupRef:
     name: mcp-tools
+  podTemplateSpec:
+    spec:
+      volumes:
+        - name: tmp
+          emptyDir: {}
