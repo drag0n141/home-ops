@@ -13,3 +13,8 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+      containers:
+        - name: mcp
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
