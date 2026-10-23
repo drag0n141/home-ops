@@ -11,3 +11,5 @@ spec:
   env:
     - name: SEARXNG_URL
       value: http://searxng.default.svc.cluster.local:8080
+    - name: MCP_HTTP_TRUST_PROXY
+      value: "True"
