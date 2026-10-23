@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/louislam/uptime-kuma
-              tag: 2.5.6-slim-rootless@sha256:6eb4e96a7cbdb8a5d6779aa26dce2cb97dcea65b486856b9b2280f73a1d0adf4
+              tag: 2.5.7-slim-rootless@sha256:a2b9fc59ac8f43daf5c728d233dd7bf23fae25c819b20067ee2b5143606bc061
             env:
               TZ: Europe/Berlin
               DATA_DIR: /app/data
