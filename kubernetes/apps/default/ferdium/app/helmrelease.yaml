@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ferdium/ferdium-server
-              tag: 2.0.13@sha256:11cfbc4e22696c3fccbaa9f25f48d3883e10fb090bab6874d4c7168c1e04691a
+              tag: 2.0.14@sha256:06dcf64cb84c1720e03d18e63fcdf60dd9d80069777b2047d129c53cb726d87c
             env:
               TZ: Europe/Berlin
               PUID: 1000
