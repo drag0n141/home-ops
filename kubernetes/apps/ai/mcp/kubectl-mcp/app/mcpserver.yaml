@@ -5,16 +5,17 @@ metadata:
   name: kubectl-mcp
 spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:2.0.0
-  transport: stdio
+  args: [--transport, streamable-http, --port, "8080"]
+  transport: streamable-http
   groupRef:
     name: mcp-tools
+  env:
+    - name: MCP_ALLOW_UNAUTHENTICATED
+      value: "true"
   podTemplateSpec:
     spec:
-      volumes:
-        - name: tmp
-          emptyDir: {}
       containers:
         - name: mcp
-          volumeMounts:
-            - name: tmp
-              mountPath: /tmp
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
