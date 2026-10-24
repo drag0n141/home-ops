@@ -86,6 +86,14 @@ spec:
         existingClaim: tautulli-cache
         globalMounts:
           - path: /config/cache
+      scripts:
+        type: emptyDir
+        advancedMounts:
+          tautulli:
+            app:
+              - path: /scripts
+            jbops:
+              - path: /scripts
       tmpfs:
         type: emptyDir
         advancedMounts:
@@ -93,12 +101,8 @@ spec:
             app:
               - path: /config/logs
                 subPath: logs
-              - path: /scripts
-                subPath: scripts
               - path: /tmp
                 subPath: tmp
             jbops:
-              - path: /scripts
-                subPath: scripts
               - path: /tmp
                 subPath: tmp
