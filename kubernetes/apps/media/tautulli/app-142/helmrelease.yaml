@@ -52,6 +52,7 @@ spec:
               GITSYNC_REF: master
               GITSYNC_PERIOD: 24h
               GITSYNC_ROOT: /scripts
+              GITSYNC_GIT_CONFIG: safe.directory:/scripts
             securityContext: *securityContext
             resources:
               requests:
