@@ -6,6 +6,9 @@ metadata:
 spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:2.0.0
   transport: streamable-http
+  proxyMode: streamable-http
+  proxyPort: 8080
+  mcpPort: 8000
   groupRef:
     name: mcp-tools
   env:
