@@ -5,13 +5,27 @@ metadata:
   name: kubectl-mcp
 spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:2.0.0
-  args: [--transport, streamable-http, --port, "8080"]
   transport: streamable-http
   groupRef:
     name: mcp-tools
   env:
     - name: MCP_ALLOW_UNAUTHENTICATED
       value: "true"
+    - name: MCP_ALLOWED_HOSTS
+      value: "*"
+    - name: MCP_ALLOWED_ORIGINS
+      value: "*"
+    - name: MCP_MASK_SECRETS
+      value: "true"
+    - name: MCP_SERVER_HOST
+      value: 0.0.0.0
+    - name: MCP_SERVER_PORT
+      value: "8000"
+    - name: MCP_SERVER_TRANSPORT
+      value: http
+    - name: MCP_TOOL_SEARCH
+      value: "true"
+  serviceAccount: kubectl-mcp-sa
   podTemplateSpec:
     spec:
       containers:
