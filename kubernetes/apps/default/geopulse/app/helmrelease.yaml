@@ -35,7 +35,7 @@ spec:
           backend:
             image:
               repository: ghcr.io/tess1o/geopulse-backend
-              tag: 2.1.0-native@sha256:5f964242477a04b24c8a2d9d1dd084ec0631dc0492981d2eda4bfc3a6f32c660
+              tag: 2.1.1-native@sha256:6b261a93932333aa49975cf26ca5c7b7ced1a207d286b732f0fd12b750cae2f7
             env: &env
               TZ: Europe/Berlin
               GEOPULSE_AUTH_PASSWORD_LOGIN_ENABLED: false
@@ -87,7 +87,7 @@ spec:
           ui:
             image:
               repository: ghcr.io/tess1o/geopulse-ui
-              tag: 2.1.0@sha256:eb6b0f94fd058d2d8dd06f620d108130489499ceaf309200828fbf4331631476
+              tag: 2.1.1@sha256:07817820ae39557428a48e39526842252d4abae88b3547dbf93281b628ccf364
             command:
               - /bin/sh
               - -c
