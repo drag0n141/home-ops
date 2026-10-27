@@ -6,6 +6,7 @@ resources:
   - ./actual/ks.yaml
   - ./apprise/ks.yaml
   - ./atuin/ks.yaml
+  - ./automorph/ks.yaml
   - ./bambuddy/ks.yaml
   - ./birthday-sync/ks.yaml
   - ./change-detection/ks.yaml
