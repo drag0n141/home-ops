@@ -20,6 +20,7 @@ spec:
               tag: latest@sha256:2ba470ef2d7da5af854a30671e2bc7e735c481fe910bfe3f046a773ce73d6a57
             env:
               TZ: Europe/Berlin
+              HOME: /tmp
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
