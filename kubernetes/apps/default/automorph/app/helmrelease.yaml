@@ -47,6 +47,8 @@ spec:
             port: 8080
     route:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
@@ -64,3 +66,12 @@ spec:
                 subPath: morphe-data
               - path: /automorph/tools/automorph-data
                 subPath: automorph-data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          automorph:
+            app:
+              - path: /automorph/tmp
+                subPath: automorph-tmp
+              - path: /tmp
+                subPath: tmp
