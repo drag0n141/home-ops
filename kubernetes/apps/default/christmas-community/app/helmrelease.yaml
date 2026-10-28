@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/wingysam/christmas-community
-              tag: 1.42.1@sha256:2f643bc6bf13b49a6880a7bb8b25abc6e1d978911d38953b53ca7e265820aaa7
+              tag: 1.42.1@sha256:7a2a5225e69d21eccfcc07e297d6a3e5d333d86d639c35b897bd1a221ff45153
             env:
               TZ: Europe/Berlin
               LANGUAGE: de-de
