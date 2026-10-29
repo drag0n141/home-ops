@@ -1,7 +1,7 @@
 ---
 services:
   tailscale:
-    image: 'ghcr.io/tailscale/tailscale:v1.104.2'
+    image: 'ghcr.io/tailscale/tailscale:v1.104.4'
     hostname: 'tailscale'
     container_name: 'tailscale'
     restart: 'always'
