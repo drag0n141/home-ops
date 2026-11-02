@@ -14,7 +14,7 @@ spec:
     dropParams: true
     additional:
       extra_headers:
-        x-opencode-session: litellm-janpuc-com
+        x-opencode-session: "litellm-proxy"
       extra_body:
         chat_template_kwargs:
           enable_thinking: false
