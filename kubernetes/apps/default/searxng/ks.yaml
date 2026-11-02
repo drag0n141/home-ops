@@ -14,8 +14,6 @@ spec:
       namespace: database
     - name: onepassword-connect
       namespace: external-secrets
-  components:
-    - ../../../../components/tinyauth
   path: ./kubernetes/apps/default/searxng/app
   prune: true
   sourceRef:
