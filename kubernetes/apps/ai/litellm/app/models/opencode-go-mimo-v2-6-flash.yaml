@@ -1,0 +1,28 @@
+---
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: opencode-go-mimo-v2-6-flash
+spec:
+  modelName: opencode-go/mimo-v2.6-flash
+  params:
+    model: openai/mimo-v2.6-flash
+    apiBase: https://opencode.ai/zen/go/v1
+    apiKeyRef:
+      name: litellm
+      key: OPENCODE_GO_API_KEY
+    dropParams: true
+    additional:
+      extra_headers:
+        x-opencode-session: litellm-janpuc-com
+      extra_body:
+        chat_template_kwargs:
+          enable_thinking: false
+  info:
+    maxInputTokens: 1048576
+    maxOutputTokens: 131072
+    supportsFunctionCalling: true
+    supportsPromptCaching: true
+    supportsVision: true
+    extra:
+      supports_reasoning: true

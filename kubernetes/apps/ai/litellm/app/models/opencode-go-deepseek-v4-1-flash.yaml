@@ -24,4 +24,4 @@ spec:
     supportsFunctionCalling: true
     supportsPromptCaching: true
     extra:
-      supports_reasoning: false
+      supports_reasoning: true
