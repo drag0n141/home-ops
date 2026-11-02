@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./local-qwen-3-5-4b.yaml
   - ./opencode-go-deepseek-v4-1-flash.yaml
-  - ./opencode-go-deepseek-v4-flash.yaml
   - ./opencode-go-glm-5-3-flash.yaml
   - ./opencode-go-glm-5-3.yaml
   - ./opencode-go-minimax-m3.yaml
