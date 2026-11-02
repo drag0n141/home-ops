@@ -1,7 +1,7 @@
 ---
 services:
   zot:
-    image: 'ghcr.io/project-zot/zot-linux-amd64:v2.1.22'
+    image: 'ghcr.io/project-zot/zot-linux-amd64:v2.1.23'
     hostname: 'zot'
     container_name: 'zot'
     restart: 'unless-stopped'
