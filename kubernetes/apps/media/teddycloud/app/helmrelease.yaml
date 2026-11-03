@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/toniebox-reverse-engineering/teddycloud
-              tag: 0.7.0@sha256:c31ef85b54df8d6f722adf400d36523c124febd3a61c901e5141324a66a5259d
+              tag: 0.7.1@sha256:d91f2285a28b3bed92947d8d2a5284999e7bbd9f267e57d99f1c6dbe4788107f
             env:
               TZ: Europe/Berlin
             securityContext:
