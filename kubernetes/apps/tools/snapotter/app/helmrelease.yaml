@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/snapotter-hq/snapotter
-              tag: 2.2.0@sha256:2e11b4fa9138fa93e0fdfde5da3a2d042eebcfa81dd51286488872a3eb8086c8
+              tag: 2.3.0@sha256:8fa3520ac018e717e2009ee461f84835562e0f18b09c759ffd7cc4d46e792c20
             env:
               TZ: Europe/Berlin
               AUTH_ENABLED: false
