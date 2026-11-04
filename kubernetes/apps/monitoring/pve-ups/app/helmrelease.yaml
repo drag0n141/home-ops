@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ffind-dev/pve-ups
-              tag: 4.3.0@sha256:a920bc56c09b8f48fb2766eedb4271885cc7ba1e3cef672f8a5a6607b2c61a30
+              tag: v4.4.0@sha256:a3f308b3a79b8bc6495f64a68edcdfac0ef7dbf22bd44cf5033774bdc48f2739
             env:
               TZ: Europe/Berlin
             securityContext:
