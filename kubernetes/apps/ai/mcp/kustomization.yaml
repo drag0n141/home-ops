@@ -12,4 +12,5 @@ resources:
   - prometheus-mcp/ks.yaml
   - searxng-mcp/ks.yaml
   - sidero-mcp/ks.yaml
+  - unifi-mcp/ks.yaml
   - victoria-logs-mcp/ks.yaml

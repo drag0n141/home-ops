@@ -1,0 +1,26 @@
+---
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServer
+metadata:
+  name: unifi-mcp
+spec:
+  image: ghcr.io/sirkirby/unifi-network-mcp:0.44.0
+  transport: streamable-http
+  mcpPort: 3000
+  proxyPort: 8080
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: UNIFI_HOST
+      value: udm-se.${SECRET_DOMAIN_INT}
+    - name: UNIFI_MCP_HOST
+      value: 0.0.0.0
+    - name: UNIFI_MCP_PORT
+      value: "3000"
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          envFrom:
+            - secretRef:
+                name: unifi-mcp-credentials
