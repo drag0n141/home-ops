@@ -6,6 +6,7 @@ hostname: k8s-m02
 apiVersion: v1alpha1
 kind: KubeNodeConfig
 labels:
+  node-role.kubernetes.io/control-plane: ""
   topology.kubernetes.io/zone: m
 ---
 apiVersion: v1alpha1
