@@ -8,7 +8,6 @@ resources:
   - kubectl-mcp/ks.yaml
   - memory-mcp/ks.yaml
   - n8n-mcp/ks.yaml
-  - plex-mcp/ks.yaml
   - prometheus-mcp/ks.yaml
   - searxng-mcp/ks.yaml
   - sidero-mcp/ks.yaml
