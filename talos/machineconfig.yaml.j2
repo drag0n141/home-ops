@@ -59,8 +59,6 @@ machine:
       maxPods: 150
       serializeImagePulls: false
     defaultRuntimeSeccompProfileEnabled: true
-    nodeIP:
-      validSubnets: ["192.168.254.0/24"]
     disableManifestsDirectory: true
   sysctls:
     fs.inotify.max_user_watches: "1048576"     # Watchdog
@@ -147,6 +145,15 @@ cluster:
   serviceAccount:
     key: op://Kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets: ["192.168.254.0/24"]
+{% if ENV.MACHINE_TYPE == 'controlplane' %}
+labels:
+  node-role.kubernetes.io/control-plane: ""
+{% endif %}
 ---
 apiVersion: v1alpha1
 kind: TimeSyncConfig
