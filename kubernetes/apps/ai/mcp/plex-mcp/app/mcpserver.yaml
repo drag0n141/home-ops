@@ -9,10 +9,10 @@ spec:
   mcpPort: 3001
   groupRef:
     name: mcp-tools
-  secrets:
-    - name: plex-mcp-url-secret
-      key: PLEX_URL
-      targetEnvName: PLEX_URL
-    - name: plex-mcp-secret
-      key: PLEX_TOKEN
-      targetEnvName: PLEX_TOKEN
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          envFrom:
+            - secretRef:
+                name: plex-mcp-secret
