@@ -17,7 +17,7 @@ spec:
           pip-install:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.15-slim@sha256:3053ea19f29305df68292b41291d621e0cbc9c1c826822c631713891ea0b64e9
+              tag: 3.15-slim@sha256:fd2aef5e0d8438208de9fe154ab5b331a2428fc0c9838d41611e611fd7a80d85
             command:
               - pip
               - install
@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/python
-              tag: 3.15-slim@sha256:3053ea19f29305df68292b41291d621e0cbc9c1c826822c631713891ea0b64e9
+              tag: 3.15-slim@sha256:fd2aef5e0d8438208de9fe154ab5b331a2428fc0c9838d41611e611fd7a80d85
             command: ["python", "/scripts/zerobyte-exporter.py"]
             env:
               PYTHONPATH: /pip-packages
