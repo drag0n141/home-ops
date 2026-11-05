@@ -19,6 +19,8 @@ spec:
       value: 0.0.0.0
     - name: UNIFI_MCP_PORT
       value: "3000"
+    - name: UNIFI_MCP_ENABLE_DNS_REBINDING_PROTECTION
+      value: "false"
   podTemplateSpec:
     spec:
       containers:
