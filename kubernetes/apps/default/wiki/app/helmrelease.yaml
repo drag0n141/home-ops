@@ -67,6 +67,8 @@ spec:
         advancedMounts:
           wiki:
             app:
+              - path: /wiki/data/backup
+                subPath: backup
               - path: /wiki/data/cache
                 subPath: cache
               - path: /wiki/data/uploads
