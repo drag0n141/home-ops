@@ -23,4 +23,4 @@ spec:
         - name: mcp
           envFrom:
             - secretRef:
-                name: unifi-mcp-credentials
+                name: unifi-mcp-secret
