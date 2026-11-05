@@ -11,10 +11,6 @@ machine:
   certSANs: ["127.0.0.1", "192.168.254.250"]
   features:
     rbac: true
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles: ["os:admin"]
-      allowedKubernetesNamespaces: ["actions-runner-system", "system"]
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
@@ -24,25 +20,6 @@ machine:
       enabled: true
       resolveMemberNames: true
       forwardKubeDNSToHost: false
-  files:
-    - op: create
-      path: /etc/cri/conf.d/20-customization.part
-      content: |
-        [plugins."io.containerd.cri.v1.images"]
-          discard_unpacked_layers = false
-        [plugins."io.containerd.cri.v1.runtime"]
-          device_ownership_from_security_context = true
-    - op: overwrite
-      path: /etc/nfsmount.conf
-      permissions: 0o644
-      content: |
-        [ NFSMount_Global_Options ]
-        nfsvers=4.2
-        hard=True
-        nconnect=8
-        noatime=True
-        rsize=1048576
-        wsize=1048576
   install:
     diskSelector:
       model: TS512GMTS430S
@@ -181,6 +158,36 @@ provisioning:
   diskSelector:
     match: disk.model == "SAMSUNG MZ7LH1T9" && !system_disk
   minSize: 1TB
+---
+apiVersion: v1alpha1
+kind: EtcFileConfig
+name: nfsmount.conf
+mode: 0o644
+contents: |
+  [ NFSMount_Global_Options ]
+  nfsvers=4.2
+  hard=True
+  nconnect=16
+  noatime=True
+  rsize=1048576
+  wsize=1048576
+---
+apiVersion: v1alpha1
+kind: CRICustomizationConfig
+name: containerd
+content: |
+  [plugins."io.containerd.cri.v1.images"]
+    discard_unpacked_layers = false
+  [plugins."io.containerd.cri.v1.runtime"]
+    device_ownership_from_security_context = true
+---
+apiVersion: v1alpha1
+kind: KubeTalosAPIAccessConfig
+allowedKubernetesNamespaces:
+  - actions-runner-system
+  - system
+allowedRoles:
+  - os:admin
 ---
 apiVersion: v1alpha1
 kind: OOMConfig
