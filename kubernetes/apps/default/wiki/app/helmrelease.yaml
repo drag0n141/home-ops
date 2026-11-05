@@ -27,10 +27,10 @@ spec:
           app:
             image:
               repository: ghcr.io/requarks/wiki
-              tag: 2.5.317@sha256:e4708eed80c014449c0c8426c8d466c7a52a62131555bb44372fa48378b448b8
+              tag: 3.1.0@sha256:b168fca02f90513f3bf04de21c54baabe68ac3fe6cf052d971799bc4f6df81c6
             env:
               TZ: Europe/Berlin
-              DB_TYPE: postgres
+              WIKI_PORT: &port 3000
             envFrom: *envFrom
             securityContext:
               allowPrivilegeEscalation: false
@@ -53,7 +53,7 @@ spec:
       app:
         ports:
           http:
-            port: 3000
+            port: *port
     route:
       app:
         hostnames:
