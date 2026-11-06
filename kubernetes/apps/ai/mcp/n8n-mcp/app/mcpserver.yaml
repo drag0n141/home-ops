@@ -13,6 +13,8 @@ spec:
       value: stdio
     - name: N8N_API_URL
       value: https://n8n.${SECRET_DOMAIN_INTERNAL}
+    - name: WEBHOOK_SECURITY_MODE
+      value: permissive
   secrets:
     - name: n8n-mcp-secret
       key: N8N_API_KEY
