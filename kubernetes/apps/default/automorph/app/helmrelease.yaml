@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/holjab/automorph
-              tag: latest@sha256:1150a36a0abbb2266f8d1323a18aaa646375fd13a270738eb13506606a313c4c
+              tag: latest@sha256:a214c1cc44b43a7f97df759e4dafb0984fc77b3ac63303f5c255a025048bbaef
             env:
               TZ: Europe/Berlin
               HOME: /tmp
