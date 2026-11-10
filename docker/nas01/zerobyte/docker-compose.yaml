@@ -22,7 +22,7 @@ services:
       - 'BASE_URL=https://zerobyte.${DOMAIN_INT}'
       - 'RESTIC_HOSTNAME=NAS01'
       - 'TRUST_PROXY=true'
-      - 'WEBHOOK_ALLOWED_ORIGINS=https://gotify.drag0n141.de'
+      - 'WEBHOOK_ALLOWED_ORIGINS=https://gotify.${DOMAIN}'
     networks:
       - traefik
     security_opt:
