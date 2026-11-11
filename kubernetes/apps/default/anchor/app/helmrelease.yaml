@@ -1,0 +1,150 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: anchor
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      anchor:
+        labels:
+          postgres: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18@sha256:87627baaddb0cabed4ebe033e75038e5c7b6b081c18e86514c99067179a90719
+            envFrom: &envFrom
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-oidc-credentials"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zhfahim/anchor
+              tag: 0.18.0@sha256:434f8b2bc72e32d7027fa0259e565d7f3930cc2eca49f0c5b0b90befb5a45a77
+            env:
+              TZ: Europe/Berlin
+              APP_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
+              USER_SIGNUP: enabled
+              DISABLE_INTERNAL_AUTH: true
+              OIDC_ENABLED: true
+              OIDC_PROVIDER_NAME: "Pocket ID"
+              OIDC_ISSUER_URL: https://id.${SECRET_DOMAIN}
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 3000
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    configMaps:
+      supervisord:
+        data:
+          supervisord.conf: |-
+            [supervisord]
+            nodaemon=true
+            logfile=/dev/stdout
+            logfile_maxbytes=0
+            pidfile=/tmp/supervisord.pid
+            loglevel=warn
+
+            [unix_http_server]
+            file=/tmp/supervisor.sock
+            chmod=0700
+
+            [supervisorctl]
+            serverurl=unix:///tmp/supervisor.sock
+
+            [rpcinterface:supervisor]
+            supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+            [program:api]
+            command=/usr/local/bin/node /app/server/dist/src/main
+            directory=/app/server
+            priority=20
+            autostart=true
+            autorestart=true
+            stopasgroup=true
+            killasgroup=true
+            stopwaitsecs=1
+            startsecs=5
+            startretries=3
+            stdout_logfile=/dev/stdout
+            stdout_logfile_maxbytes=0
+            stderr_logfile=/dev/stderr
+            stderr_logfile_maxbytes=0
+            environment=PORT="3001",DATABASE_URL="%(ENV_DATABASE_URL)s",JWT_SECRET="%(ENV_JWT_SECRET)s",NODE_ENV="production",OIDC_ENABLED="%(ENV_OIDC_ENABLED)s",OIDC_PROVIDER_NAME="%(ENV_OIDC_PROVIDER_NAME)s",OIDC_ISSUER_URL="%(ENV_OIDC_ISSUER_URL)s",OIDC_CLIENT_ID="%(ENV_OIDC_CLIENT_ID)s",OIDC_CLIENT_SECRET="%(ENV_OIDC_CLIENT_SECRET)s",DISABLE_INTERNAL_AUTH="%(ENV_DISABLE_INTERNAL_AUTH)s",APP_URL="%(ENV_APP_URL)s"
+
+            [program:web]
+            command=/bin/sh -c "until curl -fsS http://127.0.0.1:3001/api/health >/dev/null 2>&1; do sleep 1; done; exec /usr/local/bin/node /app/web/server.js"
+            directory=/app/web
+            priority=10
+            autostart=true
+            autorestart=true
+            stopasgroup=true
+            killasgroup=true
+            stopwaitsecs=1
+            startsecs=10
+            startretries=3
+            stdout_logfile=/dev/stdout
+            stdout_logfile_maxbytes=0
+            stderr_logfile=/dev/stderr
+            stderr_logfile_maxbytes=0
+            environment=PORT="3000",HOSTNAME="0.0.0.0",SERVER_URL="http://127.0.0.1:3001",NODE_ENV="production"
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /data
+      supervisord:
+        type: configMap
+        identifier: supervisord
+        globalMounts:
+          - path: /etc/supervisord.conf
+            subPath: supervisord.conf
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
