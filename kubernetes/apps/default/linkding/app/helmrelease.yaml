@@ -46,6 +46,15 @@ spec:
               OIDC_USERNAME_CLAIM: preferred_username
               LD_CSRF_TRUSTED_ORIGINS: "https://bookmarks.${SECRET_DOMAIN}"
             envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 9090
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -67,9 +76,12 @@ spec:
       app:
         ports:
           http:
-            port: 9090
+            port: *port
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            path: /health
         hostnames:
           - "bookmarks.${SECRET_DOMAIN}"
         parentRefs:
