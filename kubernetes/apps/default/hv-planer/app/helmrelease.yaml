@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/hv-planer
-              tag: latest@sha256:1c5f340722fa7426e248588a7c112975a46242276bdcbd651f7636417f5d8da4
+              tag: latest@sha256:bfb3152a716e3ebda92e4b1ab2e4bfae12c78933ece4789829ca6def052dbac2
             env:
               TZ: Europe/Berlin
               PORT: &port 8080
