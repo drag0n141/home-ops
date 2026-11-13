@@ -1,0 +1,16 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDOIDCClient
+metadata:
+  name: hv-planer
+spec:
+  name: HV-Planer
+  callbackUrls:
+    - "https://hv-planer.${SECRET_DOMAIN_INTERNAL}/api/auth/oidc/callback"
+  allowedUserGroups:
+    - name: id-admin
+      namespace: security
+  secret:
+    keys:
+      clientID: OIDC_CLIENT_ID
+      clientSecret: OIDC_CLIENT_SECRET

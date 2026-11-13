@@ -22,6 +22,7 @@ resources:
   - ./gotify/ks.yaml
   - ./immich/ks.yaml
   - ./homepage/ks.yaml
+  - ./hv-planer/ks.yaml
   - ./kms/ks.yaml
   - ./linkding/ks.yaml
   - ./mail-archiver/ks.yaml
