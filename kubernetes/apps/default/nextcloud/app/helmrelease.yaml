@@ -14,6 +14,10 @@ spec:
       postgres: "true"
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
+    image:
+      registry: docker.io
+      repository: library/nextcloud
+      tag: 35.0.2-apache@sha256:301e07b7f661c122752cc2c01b76f15036a156f2b6d794c76621b7d0a6bb8a50
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
       extraInitContainers:
