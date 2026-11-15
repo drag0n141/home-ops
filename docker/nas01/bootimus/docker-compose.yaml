@@ -1,7 +1,7 @@
 ---
 services:
   bootimus:
-    image: 'docker.io/garybowers/bootimus:0.1.80'
+    image: 'docker.io/garybowers/bootimus:0.1.81'
     hostname: 'bootimus'
     container_name: 'bootimus'
     restart: 'always'
