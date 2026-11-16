@@ -7,6 +7,9 @@ metadata:
     app.kubernetes.io/name: evcc
   name: evcc
 spec:
+  appProtocols:
+    - gateway.envoyproxy.io/ws
+    - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
         hostname: evcc.${SECRET_DOMAIN_INT}
