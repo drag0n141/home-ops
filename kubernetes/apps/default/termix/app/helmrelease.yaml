@@ -67,7 +67,7 @@ spec:
         type: secret
         name: "{{ .Release.Name }}-secret"
         globalMounts:
-          - path: /app/data/.opk/config.yml
+          - path: /app/data/plugin-data/opkssh/config.yml
             subPath: config.yml
             readOnly: true
       data:

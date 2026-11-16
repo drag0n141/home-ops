@@ -8,5 +8,3 @@ providers:
     scopes: openid email profile groups
     access_type: offline
     prompt: consent
-    redirect_uris:
-      - https://termix.${SECRET_DOMAIN}/ssh/opkssh-callback
