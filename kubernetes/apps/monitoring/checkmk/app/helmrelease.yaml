@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/checkmk/check-mk-raw
-              tag: 2.4.0p40@sha256:326d1f8e04e4e120a9c8163396f885b182e23f3d7c65c4658ac5d773fdc2e122
+              tag: 2.4.0p41@sha256:f6df5b5391c1f498faaf095423ec4635393ecb38cf5cd132896f6fd4351652d3
             env:
               TZ: Europe/Berlin
               CMK_SITE_ID: checkmk
