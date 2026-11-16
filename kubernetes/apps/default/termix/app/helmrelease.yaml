@@ -16,14 +16,11 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/lukegus/termix
-              tag: release-2.9.2@sha256:d64c841a560c54aa7c27b0e6bbd2fbf8b51073565040d2a6bfbc127f0a72cf1e
+              repository: ghcr.io/termix-ssh/termix
+              tag: 26.11.1@sha256:cac04fdc9cd38c98566e6e903ad77a3a85b62869e6b78ada35e1570cbc32c6cb
             env:
               TZ: Europe/Berlin
               PORT: &port 8080
-              ENABLE_GUACAMOLE: true
-              GUACD_HOST: termix-guacd.default.svc.cluster.local
-              GUACD_PORT: "4822"
               OIDC_AUTHORIZATION_URL: "https://id.${SECRET_DOMAIN}/authorize"
               OIDC_TOKEN_URL: "https://id.${SECRET_DOMAIN}/api/oidc/token"
               OIDC_ISSUER_URL: "https://id.${SECRET_DOMAIN}"
@@ -38,7 +35,8 @@ spec:
                   name: "{{ .Release.Name }}-oidc-credentials"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -47,10 +45,10 @@ spec:
                 memory: 512Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
@@ -60,9 +58,9 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN_INTERNAL}"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: networking
     persistence:
       config:
@@ -76,3 +74,10 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          termix:
+            app:
+              - path: /tmp
+                subPath: tmp

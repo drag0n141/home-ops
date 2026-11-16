@@ -9,4 +9,4 @@ providers:
     access_type: offline
     prompt: consent
     redirect_uris:
-      - https://termix.${SECRET_DOMAIN_INTERNAL}/ssh/opkssh-callback
+      - https://termix.${SECRET_DOMAIN}/ssh/opkssh-callback
