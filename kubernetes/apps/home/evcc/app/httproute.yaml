@@ -1,0 +1,21 @@
+
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: evcc
+spec:
+  hostnames:
+    - evcc.${SECRET_DOMAIN_INTERNAL}
+  parentRefs:
+    - name: envoy-internal
+      namespace: networking
+  rules:
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: evcc
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
