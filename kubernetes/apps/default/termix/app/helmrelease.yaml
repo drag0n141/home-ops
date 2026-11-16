@@ -30,6 +30,7 @@ spec:
               OIDC_ENV_OVERRIDE: true
               OIDC_ADMIN_GROUP: ID-Admin
               OIDC_SCOPES: "openid profile email groups"
+              TRUSTED_PROXIES: 10.42.0.0/16
               ENABLE_TELEMETRY: false
             envFrom:
               - secretRef:
