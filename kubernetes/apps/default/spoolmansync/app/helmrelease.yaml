@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gibz104/spoolmansync
-              tag: 1.7.0@sha256:bc805a126705996f67b4e41f10016a0d130b576654f9039448b687dc667e9198
+              tag: 2.1.1@sha256:6d45fbadb7004845d47b4ebf4567b97d71d017b8a5e43a483ded05de6b37e029
             env:
               TZ: Europe/Berlin
               HA_MODE: external
