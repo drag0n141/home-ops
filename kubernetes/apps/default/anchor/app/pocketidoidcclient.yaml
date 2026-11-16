@@ -8,10 +8,11 @@ spec:
   callbackUrls:
     - "https://anchor.${SECRET_DOMAIN}/api/auth/oidc/callback"
     - "anchor://oidc/callback"
+  isPublic: true
+  pkceEnabled: true
   allowedUserGroups:
     - name: id-home
       namespace: security
   secret:
     keys:
       clientID: OIDC_CLIENT_ID
-      clientSecret: OIDC_CLIENT_SECRET
