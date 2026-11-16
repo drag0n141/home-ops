@@ -9,6 +9,7 @@ spec:
     - "http://localhost:3000/login-callback"
     - "http://localhost:10001/login-callback"
     - "http://localhost:11110/login-callback"
+    - "https://termix.${SECRET_DOMAIN}/plugin-api/opkssh/callback"
   isPublic: true
   pkceEnabled: true
   allowedUserGroups:
