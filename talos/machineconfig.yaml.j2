@@ -33,7 +33,7 @@ machine:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
       imageMaximumGCAge: 60m
-      maxPods: 150
+      maxPods: 250
       serializeImagePulls: false
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
