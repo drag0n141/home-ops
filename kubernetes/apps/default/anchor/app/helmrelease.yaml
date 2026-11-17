@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/zhfahim/anchor
-              tag: 0.18.0@sha256:434f8b2bc72e32d7027fa0259e565d7f3930cc2eca49f0c5b0b90befb5a45a77
+              tag: 0.18.1@sha256:83121433fcbc60f1491f1d5c761d2bac59519884ad31d0c464b7fce931d75d8e
             env:
               TZ: Europe/Berlin
               APP_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN}
