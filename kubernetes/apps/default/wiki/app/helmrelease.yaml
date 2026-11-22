@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/requarks/wiki
-              tag: 3.5.0@sha256:3de0495234db06fc3ad78b8a6dc71ff297b55ed0d3b37d61eb0fbfe767f6e5b6
+              tag: 3.6.0@sha256:85be143b4f550bc616c25137e5ceaf4070a2ce64cb4bb3c575e2c9eddeeb0d1d
             env:
               TZ: Europe/Berlin
               WIKI_PORT: &port 3000
