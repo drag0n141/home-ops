@@ -17,7 +17,7 @@ spec:
     image:
       registry: docker.io
       repository: library/nextcloud
-      tag: 35.0.3-apache@sha256:2567f3c36f59f21ba8e7f6f788cbfc96324a8306b0f19f71be8878ddbf31c38f
+      tag: 35.0.3-apache@sha256:f44180601f18e7664557232b4c5edb0eb4a82d649c05b93313f4e15909553d42
     nextcloud:
       host: &host nextcloud.${SECRET_DOMAIN}
       extraInitContainers:
