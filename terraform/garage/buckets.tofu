@@ -3,7 +3,7 @@ locals {
     "cnpg",
     "hass",
     "k8s",
-    "k8s-kopiur",
+    "kopiur",
     "lisa",
     "mariadb",
     "opnsense",
