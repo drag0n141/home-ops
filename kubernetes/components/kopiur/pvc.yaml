@@ -7,7 +7,7 @@ spec:
   accessModes:
     - "${KOPIUR_ACCESSMODES:-ReadWriteOnce}"
   dataSourceRef:
-    api: kopiur.home-operations.com
+    apiGroup: kopiur.home-operations.com
     kind: Restore
     name: ${APP}
   resources:
