@@ -79,12 +79,12 @@ cluster:
     certSANs: ["127.0.0.1", "192.168.254.250"]
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: HPAScaleToZero=true
+      feature-gates: CrossNamespaceVolumeDataSource=true
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
-      feature-gates: HPAScaleToZero=true
+      feature-gates: CrossNamespaceVolumeDataSource=true
     image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
   coreDNS:
     disabled: true
