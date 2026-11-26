@@ -38,3 +38,5 @@ spec:
     substitute:
       APP: *app
       KOPIUR_CAPACITY: 5Gi
+      KOPIUR_PGID: "33"
+      KOPIUR_PUID: "33"

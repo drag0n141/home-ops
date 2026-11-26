@@ -36,6 +36,8 @@ spec:
     substitute:
       APP: *app
       KOPIUR_CAPACITY: 256Mi
+      KOPIUR_PGID: "0"
+      KOPIUR_PUID: "0"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
