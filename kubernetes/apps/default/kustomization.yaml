@@ -54,3 +54,10 @@ components:
   - ../../components/namespace
   - ../../components/repos
   - ../../components/substitutions
+patches:
+  - target:
+      kind: Namespace
+    patch: |
+      - op: add
+        path: /metadata/annotations/kopiur.home-operations.com~1privileged-movers
+        value: "true"
