@@ -16,7 +16,7 @@ spec:
       namespace: system
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   components:
     - ../../../../components/gpu
