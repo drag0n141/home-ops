@@ -14,16 +14,16 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
+    - name: kopiur-repository
+      namespace: storage
     - name: onepassword-connect
       namespace: external-secrets
     - name: pocket-id-instance
       namespace: security
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/ai/open-webui/app
   prune: true
   sourceRef:
@@ -37,4 +37,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
+      KOPIUR_PGID: "0"
+      KOPIUR_PUID: "0"
