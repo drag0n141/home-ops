@@ -18,7 +18,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/tinyauth
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
     - ../../../../components/zeroscaler
   path: ./kubernetes/apps/media/teddycloud/app
   prune: true
@@ -33,4 +33,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
