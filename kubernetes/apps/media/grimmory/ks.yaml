@@ -14,8 +14,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/kopiur
     - ../../../../components/zeroscaler
-    - ../../../../components/volsync
   path: ./kubernetes/apps/media/grimmory/app
   prune: true
   sourceRef:
@@ -29,4 +29,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi

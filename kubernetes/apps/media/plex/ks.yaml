@@ -19,8 +19,8 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gpu
+    - ../../../../components/kopiur
     - ../../../../components/zeroscaler
-    - ../../../../components/volsync
   path: ./kubernetes/apps/media/plex/app
   prune: true
   sourceRef:
@@ -34,4 +34,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 20Gi
+      KOPIUR_CAPACITY: 20Gi

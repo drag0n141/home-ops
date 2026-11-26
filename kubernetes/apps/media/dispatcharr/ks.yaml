@@ -20,7 +20,7 @@ spec:
       namespace: storage
   components:
     - ../../../../components/gpu
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/media/dispatcharr/app
   prune: true
   sourceRef:
@@ -34,4 +34,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi

@@ -20,8 +20,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
+    - ../../../../components/kopiur
     - ../../../../components/zeroscaler
-    - ../../../../components/volsync
   path: ./kubernetes/apps/media/ganymede/app
   prune: true
   sourceRef:
@@ -35,4 +35,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi

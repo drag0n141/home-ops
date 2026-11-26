@@ -18,9 +18,9 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/zeroscaler
+    - ../../../../components/kopiur
     - ../../../../components/tinyauth
-    - ../../../../components/volsync
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/media/lidarr/app
   prune: true
   sourceRef:
@@ -34,4 +34,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi

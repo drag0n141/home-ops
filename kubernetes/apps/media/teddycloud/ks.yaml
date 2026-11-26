@@ -17,8 +17,8 @@ spec:
     - name: volsync
       namespace: storage
   components:
-    - ../../../../components/tinyauth
     - ../../../../components/kopiur
+    - ../../../../components/tinyauth
     - ../../../../components/zeroscaler
   path: ./kubernetes/apps/media/teddycloud/app
   prune: true
