@@ -12,7 +12,7 @@ spec:
         secretRef:
           name: kopiur-secret
           namespace: storage
-      bucket: k8s-kopiur
+      bucket: kopiur
       endpoint: s3.${SECRET_DOMAIN_INT}
       region: us-east-1
   encryption:
