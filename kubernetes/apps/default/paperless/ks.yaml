@@ -13,17 +13,17 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
+    - name: kopiur-repository
+      namespace: storage
     - name: onepassword-connect
       namespace: external-secrets
     - name: pocket-id-instance
       namespace: security
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   components:
+    - ../../../../components/kopiur
     - ../../../../components/zeroscaler
-    - ../../../../components/volsync
   path: ./kubernetes/apps/default/paperless/app
   prune: true
   sourceRef:
@@ -37,7 +37,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -50,16 +50,16 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: kopiur-repository
+      namespace: storage
     - name: onepassword-connect
       namespace: external-secrets
     - name: paperless
       namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/default/paperless/ai
   prune: true
   sourceRef:
@@ -73,7 +73,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -86,16 +86,16 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: kopiur-repository
+      namespace: storage
     - name: onepassword-connect
       namespace: external-secrets
     - name: paperless
       namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/default/paperless/gpt
   prune: true
   sourceRef:
@@ -109,7 +109,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
