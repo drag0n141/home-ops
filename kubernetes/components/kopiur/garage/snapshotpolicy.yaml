@@ -8,7 +8,7 @@ spec:
     compressor: zstd
   mover:
     cache:
-      capacity: ${KOPIUR_CAPACITY:=5Gi}
+      capacity: ${KOPIUR_CAPACITY:-1Gi}
       mode: Persistent
       storageClassName: openebs-hostpath
     securityContext:
