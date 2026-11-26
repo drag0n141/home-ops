@@ -9,6 +9,12 @@ spec:
     kind: OCIRepository
     name: app-template
   values:
+    defaultPodOptions:
+      securityContext:
+        # The container runs as root without DAC_OVERRIDE, so it needs group
+        # access to files restored by the non-root Kopiur mover
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       wg-easy:
         annotations:
