@@ -1,0 +1,41 @@
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: ClusterRepository
+metadata:
+  name: garage
+spec:
+  allowedNamespaces:
+    all: true
+  backend:
+    s3:
+      auth:
+        secretRef:
+          name: kopiur-secret
+          namespace: storage
+      bucket: k8s-kopiur
+      endpoint: s3.${SECRET_DOMAIN_INT}
+      region: us-east-1
+  encryption:
+    passwordSecretRef:
+      name: kopiur-secret
+      namespace: storage
+      key: KOPIA_PASSWORD
+  execution:
+    mode: Central
+  maintenance:
+    schedule:
+      quick:
+        cron: 0 * * * *
+        jitter: 10m
+      full:
+        cron: 0 3 * * *
+        jitter: 1h
+  moverDefaults:
+    cache:
+      contentCacheSizeMb: 512
+      metadataCacheSizeMb: 1024
+  parameters:
+    epoch:
+      minDuration: 1h
+  scheduleDefaults:
+    timezone: Europe/Berlin
