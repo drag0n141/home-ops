@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/clusterzx/paperless-ai
-              tag: 4.5.2@sha256:551d333026568b86983087ca99e0ced3b401b532563cc33642ede765d3bfcfbb
+              tag: 4.6.0@sha256:faa47a47ee31881b27ddeed50261dea0c4462da50bf1554ba142d0edae56e30b
             env:
               TZ: Europe/Berlin
               ACTIVATE_TAGGING: no
