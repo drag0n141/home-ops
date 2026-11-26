@@ -85,4 +85,4 @@ spec:
         type: emptyDir
         medium: Memory
         globalMounts:
-          - path: /opt/omd/sites/cmk/tmp
+          - path: /opt/omd/sites/checkmk/tmp
