@@ -18,8 +18,6 @@ spec:
       namespace: rook-ceph
     - name: synapse
       namespace: matrix
-    - name: volsync
-      namespace: storage
   path: ./kubernetes/apps/matrix/mas/app
   prune: true
   sourceRef:

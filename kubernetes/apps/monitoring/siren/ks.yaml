@@ -12,8 +12,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   components:
     - ../../../../components/tinyauth
   path: ./kubernetes/apps/monitoring/siren/app

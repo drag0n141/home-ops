@@ -37,10 +37,10 @@ spec:
       namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/games/minecraft/app
   prune: true
   sourceRef:
@@ -54,4 +54,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 15Gi
+      KOPIUR_CAPACITY: 15Gi
