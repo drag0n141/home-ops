@@ -9,7 +9,7 @@ spec:
   mover:
     cache:
       capacity: ${KOPIUR_CAPACITY:-1Gi}
-      mode: Persistent
+      mode: Ephemeral
       storageClassName: openebs-hostpath
     securityContext:
       runAsUser: ${KOPIUR_PUID:=1000}
@@ -25,4 +25,4 @@ spec:
   sources:
     - pvc:
         name: "${KOPIUR_CLAIM:-${APP}}"
-  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
+  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-blockpool}
