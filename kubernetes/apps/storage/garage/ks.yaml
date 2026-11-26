@@ -10,19 +10,19 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: kopiur-repository
+      namespace: storage
     - name: onepassword-connect
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: *namespace
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/storage/garage/app
   prune: true
   sourceRef:
@@ -36,7 +36,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

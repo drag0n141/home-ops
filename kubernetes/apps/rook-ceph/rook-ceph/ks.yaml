@@ -40,10 +40,10 @@ spec:
   dependsOn:
     - name: ceph-csi-drivers
       namespace: *namespace
+    - name: kopiur
+      namespace: storage
     - name: rook-ceph
       namespace: *namespace
-    - name: volsync
-      namespace: storage
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

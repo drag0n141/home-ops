@@ -15,12 +15,12 @@ spec:
       namespace: system
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
+    - name: kopiur-repository
       namespace: storage
   components:
     - ../../../../components/gpu
+    - ../../../../components/kopiur
     - ../../../../components/tinyauth
-    - ../../../../components/volsync
     - ../../../../components/zeroscaler
   path: ./kubernetes/apps/home/frigate/app
   prune: true
@@ -35,4 +35,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi

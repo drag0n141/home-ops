@@ -10,13 +10,13 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: kopiur-repository
+      namespace: storage
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: storage
   components:
+    - ../../../../components/kopiur
     - ../../../../components/tinyauth
-    - ../../../../components/volsync
   path: ./kubernetes/apps/tools/snapotter/app
   prune: true
   sourceRef:
@@ -30,4 +30,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+      KOPIUR_CAPACITY: 1Gi
