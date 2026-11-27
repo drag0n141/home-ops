@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./clusterrepository.yaml
   - ./externalsecret.yaml
+  - ./repositoryreplication.yaml
