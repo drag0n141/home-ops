@@ -9,11 +9,20 @@ spec:
   policy:
     rebootMode: powercycle
   healthChecks:
-    - apiVersion: volsync.backube/v1alpha1
-      kind: ReplicationSource
+    - apiVersion: kopiur.home-operations.com/v1alpha1
+      kind: Snapshot
       expr: |-
-        status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+        status.phase != 'Running'
+    - apiVersion: kopiur.home-operations.com/v1alpha1
+      kind: Restore
+      expr: |-
+        !(status.phase in ['Resolving', 'Restoring'])
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster
       expr: |-
         status.ceph.health in ['HEALTH_OK']
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      expr: |-
+        has(status.readyInstances) && status.readyInstances == object.spec.instances &&
+        has(status.conditions) && status.conditions.exists(e, e.type == 'Ready' && e.status == 'True')
