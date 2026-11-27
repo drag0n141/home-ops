@@ -23,9 +23,9 @@ spec:
               PAYMENT_METHODS: sepa
               CURRENCY: EUR
               DB_PATH: /data/flohmarkt.db
-              SMTP_HOST: smtp.strato.de
-              SMTP_PORT: 587
-              SMTP_USE_TLS: true
+              # SMTP_HOST: smtp.strato.de
+              # SMTP_PORT: 587
+              # SMTP_USE_TLS: true
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -54,9 +54,9 @@ spec:
     route:
       app:
         hostnames:
-          - "flohmarkt.${SECRET_DOMAIN_PBFA}"
+          - "flohmarkt.${SECRET_DOMAIN_INTERNAL}"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: networking
     persistence:
       data:
